@@ -1,3 +1,24 @@
+## Installation
+
+Configure the environment variables (see below) in an `.env.local` file.
+```
+npm install
+npm run dev
+```
+
+## Environment Variables
+
+Variable | Example | Explanation
+---|---|---
+`NEXT_PUBLIC_CMS_BASE_URL` | https://example.com | The full URL of the Headless CMS
+`NEXT_PUBLIC_URL` | https://example.com | The full URLto the frontend
+`NEXT_PUBLIC_DEFAULT_API_CACHE_TIME` | 60 | How many minutes for a page to expire
+`NEXT_PUBLIC_PREVIEW_LOCKED` | 0 | If *1* the login screen will be shown 
+`NEXT_PUBLIC_PREVIEW_PWD` | SuperSecure | The password needed get past the login screen
+`NEXT_PUBLIC_GA4TAG_PROPERTY` | GA-324329432 | The usage tracking property ID
+`DEPLOY_HOOK_URL` | https://example.com | Set to the secret webhook URL to trigger a build by running `npm run deploy:live` or `npm run deploy:staging`
+
+
 ## CSS
 The frontend is using [styled components](https://styled-components.com/docs/basics#getting-started) and if you really need to `.scss` which you could import wherever it suits you. 
 
@@ -92,3 +113,7 @@ If you've got `cwebp` installed (via `brew install webp`) you can use the follow
 ```
 
 To convert images to the webp format. 
+
+
+
+
