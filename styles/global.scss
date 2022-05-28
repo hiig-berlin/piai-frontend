@@ -1,0 +1,179 @@
+:root {
+  --color-bg: rgba(255, 255, 255, 1);
+  --color-text: #000;
+  --color-focus-outline: #00f;
+  --color-text-gray: #666;
+  --color-link-hover: #666;
+  --color-menu-bg: #900;
+  --color-hl: #ff0;
+}
+
+@font-face {
+  font-family: "TODO:-CUSTOM-FONT";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200;
+  src: url("/fonts/TODO:/CUSTOM-FONT-Light.woff2") format("woff2"),
+    url("/fonts/TODO:/CUSTOM-FONT-Light.woff") format("woff");
+}
+
+@font-face {
+  font-family: "TODO:-CUSTOM-FONT";
+  font-style: italic;
+  font-display: swap;
+  font-weight: 400;
+  src: url("/fonts/TODO:/CUSTOM-FONT-RegularItalic.woff2") format("woff2"),
+    url("/fonts/TODO:/CUSTOM-FONT-RegularItalic.woff") format("woff");
+}
+@font-face {
+  font-family: "TODO:-CUSTOM-FONT";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url("/fonts/TODO:/CUSTOM-FONT-Bold.woff2") format("woff2"),
+    url("/fonts/TODO:/CUSTOM-FONT-Bold.woff") format("woff");
+}
+
+html, body {
+  height: 100%;
+  box-sizing: border-box;
+  padding:0;
+  margin: 0;
+  color: --color-text;
+  -webkit-overflow-scrolling: touch; 
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  font-family: "TODO:-CUSTOM-FONT", Helvetica, Arial, sans-serif;
+}
+
+body {
+  background-color: var(--color-bg);
+  overflow-x: hidden;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+::selection {
+  background: var(--color-hl, #ff0);
+}
+
+
+#__next {
+  height: 100%;
+}
+
+sup {
+  transform: translateY(2px);
+}
+
+a {
+  color: inherit;
+  text-decoration-color: rgba(0, 0, 0, 1);
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-thickness: 0.5px;
+}
+
+@media (any-pointer: fine) {
+  a {
+    transition: color 0.3s;
+    &:hover {
+      color: var(--color-link-hover);
+    }
+  }
+}
+
+ul,ol {
+  padding: 0 0 0 1.5em;
+  margin: 0 0 1em 0;
+  li {
+    margin: 0 0 0.3em 0;
+    padding: 0;
+  }
+}
+
+ul li {
+  list-style-type: '● ';
+  &::marker {
+    font-size:  0.8em;
+  }
+}
+
+::placeholder,
+input::placeholder  {
+  font-family: "TODO:-CUSTOM-FONT", Arial, Helvetica, sans-serif;
+  line-height: inherit !important;
+  font-size: inherit !important;
+  font-style: inherit !important;
+  letter-spacing: inherit !important;
+  color: var(--color-link-hover) !important;
+}
+
+a,
+button,
+input,
+select,
+video {
+  &:focus-within {
+    outline-width: 3px;
+    outline-color: transparent ;
+    outline-offset: 3px;
+    outline-style: solid;
+  }
+}
+
+.tabbed a,
+.tabbed button,
+.tabbed input,
+.tabbed select {
+  &:focus-within {
+    outline-width: 3px;
+    outline-color: var(--color-focus-outline, #00f);
+    outline-offset: 3px;
+    outline-style: solid;
+  }
+}
+
+.flex-content {
+  p {
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &.html {
+    img {
+      width: 100% !important;
+      height: auto !important;
+    }
+
+    iframe {
+      width: 100%;
+    }
+
+    a {
+      text-decoration-line: underline;
+      text-decoration-style: solid;
+      text-decoration-color: #000;
+      text-underline-offset: 2px;
+      text-decoration-thickness: 0.5px;
+      transition: color 0.3s, text-decoration-color 0.3s;
+    }
+  }
+
+  @media (any-pointer: fine) {
+    &.html {
+      a {
+        &:hover {
+          color: #555;
+          text-decoration-color: #555;
+        }
+      }
+    }
+  }
+}
