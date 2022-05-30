@@ -28,13 +28,10 @@ const CloseButton = styled(Button)`
     props.theme.apply("default", (breakpoint: string) => {
       return `
         ${props.theme.textStyle(breakpoint, `h3`)};
-        padding: ${props.theme.spacePx(
-          breakpoint,
-          1
-        )} ${props.theme.spacePx(
-          breakpoint,
-          2
-        )};
+        padding: ${props.theme.spacePx(breakpoint, 1)} ${props.theme.spacePx(
+        breakpoint,
+        2
+      )};
       `;
     })}
 `;
@@ -90,9 +87,13 @@ export const UserTracking = () => {
         }
       }
 
-      const trackUser = Cookies.get(COOKIE_NAME);
+      try {
+        const trackUser = Cookies.get(COOKIE_NAME);
 
-      if (trackUser !== "yes" && trackUser !== "no") {
+        if (trackUser !== "yes" && trackUser !== "no") {
+          setShowPopup(true);
+        }
+      } catch (e) {
         setShowPopup(true);
       }
     },
@@ -130,9 +131,13 @@ export const UserTracking = () => {
   }, []);
 
   useEffect(() => {
-    const popupShown = Cookies.get(COOKIE_NAME);
+    try {
+      const trackUser = Cookies.get(COOKIE_NAME);
 
-    if (popupShown !== "no" && popupShown !== "yes") {
+      if (trackUser !== "yes" && trackUser !== "no") {
+        setShowPopup(true);
+      }
+    } catch (e) {
       setShowPopup(true);
     }
   }, [setShowPopup]);
@@ -176,7 +181,9 @@ export const UserTracking = () => {
             </div>
             <CloseButton
               onClick={() => {
-                Cookies.set(COOKIE_NAME, "yes", { expires: 365 });
+                try {
+                  Cookies.set(COOKIE_NAME, "yes", { expires: 365 });
+                } catch (e) {}
                 fadeOut();
               }}
             >
