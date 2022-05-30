@@ -5,7 +5,6 @@ import dynamic from "next/dynamic";
 
 const Login = dynamic(() => import("./Login"));
 
-
 export const withPasswordProtect = (App: any) => {
   const ProtectedApp = ({ Component, pageProps, ...props }: AppProps) => {
     const [isAuthenticated, setAuthenticated] = useState<undefined | boolean>(
@@ -13,7 +12,11 @@ export const withPasswordProtect = (App: any) => {
     );
 
     useEffect(() => {
-      setAuthenticated(Cookies.get("preview") === "yes");
+      try {
+        setAuthenticated(Cookies.get("preview") === "yes");
+      } catch (e) {
+        setAuthenticated(false);
+      }
     }, []);
 
     if (isAuthenticated === undefined) {

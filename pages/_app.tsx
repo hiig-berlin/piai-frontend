@@ -1,7 +1,6 @@
 import "../styles/global.scss";
 
 import { ReactElement, ReactNode } from "react";
-import { ErrorBoundary } from "react-error-boundary";
 import type { AppProps } from "next/app";
 import type { NextPage } from "next";
 import dynamic from "next/dynamic";
@@ -23,6 +22,7 @@ import { withPasswordProtect } from "~/components/app/PasswordProtect";
 import { AppDefaultHead } from "~/components/app/AppDefaultHead";
 import { CssVarsContextProvider } from "~/providers/CssVarsContextProvider";
 import { appConfig } from "~/config";
+import { ErrorLock } from "~/components/app/ErrorLock";
 
 const SmoothScroll = dynamic(() => import("~/components/ui/SmoothScroll"));
 
@@ -59,23 +59,6 @@ const CustomErrorHandler = (error: Error, info: { componentStack: string }) => {
   }
 };
 
-const ErrorFallback = ({ error }: { error: Error }) => {
-  return (
-    <div role="alert" style={{ padding: "20px" }}>
-      <p style={{ marginBottom: "0px" }}>
-        Something went unfortunately wrong. Please try again later!
-      </p>
-      <pre
-        style={{
-          fontSize: "8px",
-        }}
-      >
-        {error.message}
-      </pre>
-    </div>
-  );
-};
-
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page: ReactElement) => page);
 
@@ -98,12 +81,11 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
                     <AccessibiliyHelpers />
 
                     <AppDefaultHead />
-                    <ErrorBoundary
-                      FallbackComponent={ErrorFallback}
+                    <ErrorLock
                       onError={CustomErrorHandler}
                     >
                       {getLayout(<Component {...pageProps} />, pageProps)}
-                    </ErrorBoundary>
+                    </ErrorLock>
                   </HeaderContextProvider>
                 </PageStateContextProvider>
               </MenuContextProvider>
