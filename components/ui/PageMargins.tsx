@@ -13,29 +13,23 @@ export const Container = styled.div<{
 
   background-color: ${({ bgColor }) => bgColor ?? "transparent"};
 
-  ${(props) =>
-    props.theme.apply("default", (breakpoint: string) => {
-      return `
-        min-height: ${props.minHeight ?? "auto"};
-        
-        padding: ${
-          props.spaceTop ? props.theme.spacePx(breakpoint, props.spaceTop) : 0
-        } ${props.theme.pageMarginPx(breakpoint)} ${
-        props.spaceBottom
-          ? props.theme.spacePx(breakpoint, props.spaceBottom)
-          : 0
-      } ${props.theme.pageMarginPx(breakpoint)};
-        `;
-    })}
+  min-height: ${({ minHeight }) => minHeight ?? "auto"};
+
+  padding: ${({ spaceTop }) => (spaceTop ? `var(--size-${spaceTop})` : "0")}
+    var(--size-page-margin)
+    ${({ spaceBottom }) => (spaceBottom ? `var(--size-${spaceBottom})` : "0")}
+    var(--size-page-margin);
 `;
 
 const Wrapper = styled.div<{
   keepMaxWidth?: boolean;
 }>`
   width: 100%;
-  max-width: ${(props) =>
-    props.keepMaxWidth ? `${props.theme.pageMaxWidth}px` : "100%"};
-  margin: 0 auto;
+  max-width: ${({ keepMaxWidth }) =>
+    keepMaxWidth ? "var(--size-page-max-width)" : "100%"};
+    
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 export const PageMargins = ({

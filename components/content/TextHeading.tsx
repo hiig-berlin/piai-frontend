@@ -5,12 +5,11 @@ import { PageMargins } from "../ui/PageMargins";
 
 const StyledHeading = styled.div`
   text-align: center;
-  ${(props) =>
-    props.theme.apply("default", (breakpoint: string) => {
-      return `
-        ${props.theme.textStyle(breakpoint, "h1")};
-        `;
-    })}
+  font-family: var(--text-h1-font-family);
+  font-weight: var(--text-h1-font-weight);
+  font-style: var(--text-h1-font-style);
+  font-size: var(--text-h1-font-size);
+  line-height: var(--text-h1-line-height);
 `;
 
 

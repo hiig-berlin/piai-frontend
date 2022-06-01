@@ -28,13 +28,9 @@ const Icon = styled.span<{
   animation-iteration-count: infinite;
   pointer-events: none;
   touch-action: none;
-  ${(props) =>
-    props.theme.apply("default", (breakpoint: string) => {
-      return `
-        width: ${props.theme.spacePx(breakpoint, props.size)};          
-        height: ${props.theme.spacePx(breakpoint, props.size)};          
-    `;
-    })}
+
+  width: var(--size-${({ size }) => size});
+  height: var(--size-${({ size }) => size});
 `;
 
 export const LoadingIcon = ({
@@ -48,5 +44,7 @@ export const LoadingIcon = ({
   color?: string;
   size?: number;
 }) => {
-  return <Icon isLoading={loading || !!isLoading} size={size} color={color}></Icon>;
+  return (
+    <Icon isLoading={loading || !!isLoading} size={size} color={color}></Icon>
+  );
 };

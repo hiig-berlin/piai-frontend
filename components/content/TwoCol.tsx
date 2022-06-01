@@ -4,14 +4,8 @@ import styled from "styled-components";
 const Grid = styled.div`
   display: flex;
   flex-direction: column;
-
-  ${(props) =>
-    props.theme.apply("default", (breakpoint: string) => {
-      return `
-        margin-bottom:${props.theme.spacePx(breakpoint, 6)};
-        `;
-    })}
-
+  margin-bottom: var(--size-6);
+  
   ${({ theme }) => theme.breakpoints.tabletLandscape} {
     flex-direction: row;
     align-items: stretch;
@@ -21,21 +15,12 @@ const Grid = styled.div`
 const Column = styled.div`
   display: grid;
 
-  ${(props) =>
-    props.theme.apply(["base", "mobile"], (breakpoint: string) => {
-      return `
-        &:first-child {
-          margin-bottom:${props.theme.spacePx(breakpoint, 4)};
-        }
-        `;
-    })}
+  margin-top: var(--size-4);
 
   ${({ theme }) => theme.breakpoints.tabletLandscape} {
     flex-direction: row;
     align-items: stretch;
-    &:first-child {
-      margin-bottom: 0;
-    }
+   
   }
 `;
 
@@ -44,30 +29,22 @@ const Title = styled.div`
   align-items: center;
   justify-content: center;
   text-align: center;
-  ${(props) =>
-    props.theme.apply("default", (breakpoint: string) => {
-      return `
-        height: ${props.theme.spacePx(breakpoint, ["base", "mobile"].includes(breakpoint) ? 7 : 6 )};
-        margin:0 ${props.theme.pageMarginPx(breakpoint)};
-        `;
-    })}
+
+  height: var(--size-7);
+  margin:0 var(--size-page-margin);
+
+  ${({ theme }) => theme.breakpoints.tablet} {
+    height: var(--size-5);
+  }
+
 `;
 const Box = styled.div<{ backgroundColor: string }>`
   display: flex;
 
   background-color: ${(props) => props.backgroundColor};
-  ${(props) =>
-    props.theme.apply("default", (breakpoint: string) => {
-      return `
-        padding: ${props.theme.spacePx(breakpoint, 7)} ${props.theme.spacePx(
-        breakpoint,
-        4
-      )} ${props.theme.spacePx(breakpoint, 4)} ${props.theme.spacePx(
-        breakpoint,
-        4
-      )};
-        `;
-    })}
+
+  padding: var(--size-7) var(--size-4) var(--size-4) var(--size-4);
+
 `;
 export const TwoCol = () => {
   return (

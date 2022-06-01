@@ -40,13 +40,8 @@ const LoginWrapper = styled.div`
   width: 100%;
 
   position: relative;
-
-  ${(props) =>
-    props.theme.apply("default", (breakpoint: string) => {
-      return `
-        height: ${props.theme.spacePx(breakpoint, 5)};
-        `;
-    })}
+  height: var(--size-5);
+  
 `;
 
 const LoginInput = styled(InputText)<{ isError: boolean }>`
@@ -63,13 +58,12 @@ const LoginInput = styled(InputText)<{ isError: boolean }>`
   border-bottom: 1px solid #000;
   border-color: ${({ isError }) => (isError ? "#f00" : "#000")};
 
-  ${(props) =>
-    props.theme.apply("default", (breakpoint: string) => {
-      return `
-        ${props.theme.textStyle(breakpoint, `h2`)};
-        font-weight: bold;
-        `;
-    })}
+  font-family: var(--text-h2-font-family);
+  font-style: var(--text-h2-font-style);
+  font-size: var(--text-h2-font-size);
+  line-height: var(--text-h2-line-height);
+  font-weight: bold;
+  
 `;
 
 const LoginButton = styled(Button)`
@@ -80,20 +74,21 @@ const LoginButton = styled(Button)`
   opacity: 1;
   transition: opacity 0.3s;
 
+  width: var(--size-5);
+  height: var(--size-5);
+
+  font-family: var(--text-h2-font-family);
+  font-weight: var(--text-h2-font-weight);
+  font-style: var(--text-h2-font-style);
+  font-size: var(--text-h2-font-size);
+  line-height: var(--text-h2-line-height);
+  
   @media (any-pointer: fine) {
     &:hover {
       opacity: 0.75;
     }
   }
 
-  ${(props) =>
-    props.theme.apply("default", (breakpoint: string) => {
-      return `
-        ${props.theme.textStyle(breakpoint, `h2`)};
-        width: ${props.theme.spacePx(breakpoint, 4)};
-        height: ${props.theme.spacePx(breakpoint, 4)};
-        `;
-    })}
 `;
 
 export const Login = () => {

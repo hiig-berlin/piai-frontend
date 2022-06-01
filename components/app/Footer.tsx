@@ -14,10 +14,11 @@ const Grid = styled.div`
   grid-template-areas:
     "copyright"
     "navigation";
+  grid-gap: var(--size-gutter-width);
+  padding-top: var(--size-3);
   
   & a {
     text-decoration: none;
-
     color: var(--color-text-gray);
   }
 
@@ -29,18 +30,6 @@ const Grid = styled.div`
       }
     }
   }
-
-
-  ${(props) =>
-    props.theme.apply("default", (breakpoint: string) => {
-      return `
-          padding-top: ${
-              props.theme.spacePx(breakpoint, 3)
-          };
-          grid-gap: ${props.theme.gutterPx(breakpoint)};
-        `;
-    })}
-
 
   ${({ theme }) => theme.breakpoints.tabletLandscape} {
     grid-template-columns: 2fr 1fr;
@@ -54,6 +43,12 @@ const Grid = styled.div`
 const Copyright = styled.div`
   grid-area: copyright;
 
+  font-family: var(--text-caption-font-family);
+  font-weight: var(--text-caption-font-weight);
+  font-style: var(--text-caption-font-style);
+  font-size: var(--text-caption-font-size);
+  line-height: var(--text-caption-line-height);
+  
   & p {
     max-width: 100%;
 
@@ -61,13 +56,6 @@ const Copyright = styled.div`
       margin-bottom: 0;
     }
   }
-
-  ${(props) =>
-    props.theme.apply("default", (breakpoint: string) => {
-      return `
-        ${props.theme.textStyle(breakpoint, "caption")};
-        `;
-    })}
 
   ${({ theme }) => theme.breakpoints.tabletLandscape} {
     align-self: end;
@@ -79,13 +67,12 @@ const Div = styled.div`
   display: flex;
   align-self: end;
 
-  ${(props) =>
-    props.theme.apply("default", (breakpoint: string) => {
-      return `
-        ${props.theme.textStyle(breakpoint, "caption")};
-        `;
-    })}
-
+  font-family: var(--text-caption-font-family);
+  font-weight: var(--text-caption-font-weight);
+  font-style: var(--text-caption-font-style);
+  font-size: var(--text-caption-font-size);
+  line-height: var(--text-caption-line-height);
+  
   ${({ theme }) => theme.breakpoints.tabletLandscape} {
     justify-content: flex-end;
   }

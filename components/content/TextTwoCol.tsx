@@ -7,13 +7,7 @@ import SafeHtmlDiv from "../ui/SafeHtmlDiv";
 const Flex = styled.div`
   display: flex;
   flex-direction: column;
-
-  ${(props) =>
-    props.theme.apply("default", (breakpoint: string) => {
-      return `
-        grid-gap: ${props.theme.gutterPx(breakpoint)};
-        `;
-    })}
+  grid-gap: var(--size-gutter-width);
 
   ${({ theme }) => theme.breakpoints.tablet} {
     flex-direction: row;
@@ -21,6 +15,7 @@ const Flex = styled.div`
 `;
 
 const Column = styled.div`
+  
 `;
 
 export const TextTwoCol = ({
@@ -32,7 +27,7 @@ export const TextTwoCol = ({
   
 }) => {
   return (
-    <PageMargins spaceBottom={5} keepMaxWidth bgColor="salmon">
+    <PageMargins spaceTop={5} spaceBottom={5} keepMaxWidth bgColor="salmon">
       <Flex>
         <Column>
           <SafeHtmlDiv html={left} />

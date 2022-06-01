@@ -4,8 +4,6 @@ import safeHtml from "~/utils/sanitize";
 import omit from "lodash/omit";
 
 const StyledHeading = styled.div<{
-  spaceTop?: number;
-  spaceBottom?: number;
   heading: string;
   fontWeight?: string;
   maxWidth?: string;
@@ -46,73 +44,28 @@ const StyledHeading = styled.div<{
         white-space: nowrap;
       `
       : ""}
+  
+  font-family: var(--text-${({ heading }) => heading}-font-family);
+  font-style: var(--text-${({ heading }) => heading}-font-style);
+  font-size: var(--text-${({ heading }) => heading}-font-size);
 
-  ${(props) =>
-    props.theme.apply("default", (breakpoint: string) => {
-      return `
-      ${props.theme.textStyle(breakpoint, props.heading)};
-      ${props.textTransform ? `text-transform: ${props.textTransform};` : ""}
-      ${props.fontWeight ? `font-weight: ${props.fontWeight};` : ""}
-      ${props.lineHeight ? `line-height: ${props.lineHeight};` : ""}
-      
-      ${
-        !props.inline
-          ? `
-              margin: ${props.theme.marginFontTop(
-                breakpoint,
-                props.heading
-              )} 0 ${props.theme.marginFontBottom(
-              breakpoint,
-              props.heading
-            )} ${
-              props.heading === "h0" ||
-              props.heading === "h1" ||
-              props.heading === "h2"
-                ? "-0.04em"
-                : ""
-            };
+  text-transform: ${({ textTransform, heading }) =>
+    textTransform ? textTransform : `var(--text-${heading}-text-transform)`};
 
-            `
-          : `
-                margin-top: ${
-                  props.spaceTop
-                    ? `
-                    calc(${props.theme.spacePx(
-                      breakpoint,
-                      props.spaceTop
-                    )} + (${props.theme.marginFontTop(
-                        breakpoint,
-                        props.heading
-                      )} * 1))`
-                    : `
-                    calc(${props.theme.marginFontTop(
-                      breakpoint,
-                      props.heading
-                    )} * -0.5)
-                  `
-                };
-                
-                margin-bottom: ${
-                  props.spaceBottom
-                    ? props.theme.marginFontBottom(
-                        breakpoint,
-                        props.heading
-                      )
-                    : "0"
-                };
+  line-height: ${({ lineHeight, heading }) =>
+    lineHeight ? lineHeight : `var(--text-${heading}-line-height)`};
 
-                margin-right: 0;
-                
-                margin-left: ${
-                  props.heading === "h0" ||
-                  props.heading === "h1" ||
-                  props.heading === "h2"
-                    ? "-0.04em"
-                    : ""
-                };
-            `
-      }`;
-    })}
+  font-weight: ${({ fontWeight, heading }) =>
+    fontWeight ? fontWeight : `var(--text-${heading}-font-weight)`};
+
+  ${({ inline, heading }) =>
+    !inline
+      ? `
+        margin: var(--text-${heading}-margin-top) 0
+        var(--text-${heading}-margin-bottom)
+        var(--text-${heading}-margin-left);
+      `
+      : ``};
 `;
 
 export const Heading = (props: {
@@ -125,9 +78,7 @@ export const Heading = (props: {
   className?: string;
   fontWeight?: string;
   textTransform?: string;
-  spaceTop?: number;
   maxLines?: number;
-  spaceBottom?: number;
   html?: string;
   children?: React.ReactNode;
   lineHeight?: string;

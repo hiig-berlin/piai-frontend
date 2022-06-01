@@ -20,12 +20,8 @@ const Grid = styled.div`
       "cta text";
   }
 
-  ${(props) =>
-    props.theme.apply("default", (breakpoint: string) => {
-      return `
-        grid-gap: ${props.theme.gutterPx(breakpoint)};
-        `;
-    })}
+  grid-gap: var(--size-gutter-width);
+  
 `;
 
 const Title = styled.div`
@@ -38,12 +34,11 @@ const Cta = styled.div`
 
   width: 80%;
   text-align: center;
-  ${(props) =>
-    props.theme.apply("default", (breakpoint: string) => {
-      return `
-        ${props.theme.textStyle(breakpoint, "caption")};
-        `;
-    })}
+  font-family: var(--text-caption-font-family);
+  font-weight: var(--text-caption-font-weight);
+  font-style: var(--text-caption-font-style);
+  font-size: var(--text-caption-font-size);
+  line-height: var(--text-caption-line-height);
 
   ${({ theme }) => theme.breakpoints.tablet} {
     transform: translateY(-50%);
