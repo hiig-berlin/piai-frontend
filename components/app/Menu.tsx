@@ -63,6 +63,8 @@ const MenuContentGrid = styled.div`
   min-height: 100%;
   display: flex;
   flex-direction: column;
+  grid-gap: var(--size-gutter-width);
+  padding: var(--size-page-margin);
 
   ${({ theme }) => theme.breakpoints.tabletLandscape} {
     display: grid;
@@ -71,31 +73,19 @@ const MenuContentGrid = styled.div`
     align-items: stretch;
   }
 
-  ${(props) =>
-    props.theme.apply("default", (breakpoint: string) => {
-      return `
-        padding: ${props.theme.pageMarginPx(breakpoint)};
-        grid-gap: ${props.theme.gutterPx(breakpoint)};
-        `;
-    })}
 `;
 
 const Column = styled.div<{ stretch?: boolean }>`
   color: #fff;
   display: flex;
   flex-direction: column;
+  grid-gap: var(--size-4);
 
   ${({ theme }) => theme.breakpoints.tabletLandscape} {
     justify-content: ${(props) =>
       props.stretch ? "space-between" : "flex-start"};
   }
 
-  ${(props) =>
-    props.theme.apply("default", (breakpoint: string) => {
-      return `
-        grid-gap: ${props.theme.spacePx(breakpoint, 4)};
-        `;
-    })}
 `;
 export const Menu = () => {
   const menuContext = useMenuContext();

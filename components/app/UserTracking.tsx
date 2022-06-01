@@ -24,16 +24,12 @@ const CloseButton = styled(Button)`
     }
   }
 
-  ${(props) =>
-    props.theme.apply("default", (breakpoint: string) => {
-      return `
-        ${props.theme.textStyle(breakpoint, `h3`)};
-        padding: ${props.theme.spacePx(breakpoint, 1)} ${props.theme.spacePx(
-        breakpoint,
-        2
-      )};
-      `;
-    })}
+  font-family: var(--text-h3-font-family);
+  font-weight: var(--text-h3-font-weight);
+  font-style: var(--text-h3-font-style);
+  font-size: var(--text-h3-font-size);
+  line-height: var(--text-h3-line-height);
+  padding: var(--size-1) var(--size-2);
 `;
 
 const Aside = styled.aside<{ opacity: number }>`
@@ -47,19 +43,19 @@ const Aside = styled.aside<{ opacity: number }>`
   align-items: center;
   flex-direction: row;
   justify-content: space-between;
-  ${(props) =>
-    props.theme.apply("default", (breakpoint: string) => {
-      return `
-      ${props.theme.textStyle(breakpoint, `h4`)};
-        height: ${props.theme.spacePx(breakpoint, 6)};
-        width: ${props.theme.spacePx(breakpoint, 9)};
-        left: ${props.theme.spacePx(breakpoint, 2)};            
-        bottom: ${props.theme.spacePx(breakpoint, 2)};   
-        padding: ${props.theme.spacePx(breakpoint, 2)};   
 
-        column-gap: ${props.theme.spacePx(breakpoint, 2)};
-      `;
-    })}
+  font-family: var(--text-body-font-family);
+  font-weight: var(--text-body-font-weight);
+  font-style: var(--text-body-font-style);
+  font-size: var(--text-body-font-size);
+  line-height: var(--text-body-line-height);
+
+  height: var(--size-6);
+  width: var(--size-9);
+  left: var(--size-2);          
+  bottom: var(--size-2);
+  padding: var(--size-2);
+  column-gap: var(--size-2);
 `;
 
 export const UserTracking = () => {

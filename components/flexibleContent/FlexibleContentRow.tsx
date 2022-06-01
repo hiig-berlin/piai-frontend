@@ -9,14 +9,7 @@ import { StyledFlexibleContentRow } from "./StyledFlexibleContentRow";
 
 StyledFlexibleContentRow;
 const StyledFlexibleContentRowContainer = styled.div`
-  ${(props) =>
-    props.theme.apply("default", (breakpoint: string) => {
-      return `
-        margin-bottom: ${(
-          props.theme.space(breakpoint, 4) - props.theme.space(breakpoint, 5)
-        ).toFixed(2)}px;
-      `;
-    })}
+  margin-bottom: calc(var(--size-6) - var(--size-4));  
 `;
 
 export const FlexibleContentRow = ({

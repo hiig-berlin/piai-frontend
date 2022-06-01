@@ -3,22 +3,16 @@ import styled from "styled-components";
 
 const Container = styled.div`
   text-align: center;
-  ${(props) =>
-    props.theme.apply("default", (breakpoint: string) => {
-      return `
-        margin-top:${props.theme.spacePx(breakpoint, 6)};
-        `;
-    })}
+  margin-top: var(--size-6);  
 `;
 
 const StyledHeading = styled.div`
   text-align: center;
-  ${(props) =>
-    props.theme.apply("default", (breakpoint: string) => {
-      return `
-        ${props.theme.textStyle(breakpoint, "h0")};
-        `;
-    })}
+  font-family: var(--text-h0-font-family);
+  font-weight: var(--text-h0-font-weight);
+  font-style: var(--text-h0-font-style);
+  font-size: var(--text-h0-font-size);
+  line-height: var(--text-h0-line-height);
 `;
 
 const PossibleAnswers = styled.div`
@@ -30,14 +24,14 @@ const PossibleAnswers = styled.div`
   align-items: center;
   justify-content: center;
 
-  ${(props) =>
-    props.theme.apply("default", (breakpoint: string) => {
-      return `
-        height:${props.theme.spacePx(breakpoint, 6)};
-        ${props.theme.textStyle(breakpoint, "h1")};
-        margin-bottom:${props.theme.spacePx(breakpoint, 6)};
-        `;
-    })}
+  font-family: var(--text-h1-font-family);
+  font-weight: var(--text-h1-font-weight);
+  font-style: var(--text-h1-font-style);
+  font-size: var(--text-h1-font-size);
+  line-height: var(--text-h1-line-height);
+
+  height: var(--size-6);
+  margin-bottom: var(--size-4);
 `;
 
 export const Intro = () => {

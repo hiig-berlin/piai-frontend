@@ -7,13 +7,13 @@ const Nav = styled.nav<{ direction: string }>`
   display: flex;
   flex-direction: ${({ direction }) => direction};
   
-  ${(props) =>
-    props.theme.apply("default", (breakpoint: string) => {
-      return `
-          ${props.theme.textStyle(breakpoint, "caption")};          
-          gap: ${props.direction === "row" ? props.theme.spacePx(breakpoint, 2) : 0};
-        `;
-    })}
+  gap: var(--size-gutter-width);
+  font-family: var(--text-caption-font-family);
+  font-weight: var(--text-caption-font-weight);
+  font-style: var(--text-caption-font-style);
+  font-size: var(--text-caption-font-size);
+  line-height: var(--text-caption-line-height);
+
 `;
 
 export const MenuFooter = ({

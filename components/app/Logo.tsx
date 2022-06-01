@@ -8,6 +8,7 @@ const LogoContainer = styled.div`
   position: fixed;
   z-index: ${({ theme }) => theme.zIndex.logo};
   background-color: salmon;
+  
   & a {
     display: block;
     height: 100%;
@@ -26,21 +27,15 @@ const LogoContainer = styled.div`
     }
   }
 
-  ${(props) =>
-    props.theme.apply("default", (breakpoint: string) => {
-      return `
-          height: ${props.theme.spacePx(
-            breakpoint,
-            ["base", "mobile"].includes(breakpoint) ? 5 : 4
-          )};
-          width: ${props.theme.spacePx(
-            breakpoint,
-            ["base", "mobile"].includes(breakpoint) ? 5 : 4
-          )};
-          top: ${props.theme.spacePx(breakpoint, 3)};
-          left: ${props.theme.pageMarginPx(breakpoint)};          
-        `;
-    })}
+  height: var(--size-5);
+  width: var(--size-5);
+  top: var(--size-3);
+  left: var(--size-page-margin);
+ 
+  ${({ theme }) => theme.breakpoints.tablet} {
+    height: var(--size-4);
+    width: var(--size-4);
+  }
 `;
 
 export const Logo = () => {

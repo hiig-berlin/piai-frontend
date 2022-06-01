@@ -46,11 +46,17 @@ const StyledHeader = styled.header<{
 `;
 
 /*  
-  TODO: You can also do math in the styling, just use the sizings without th Px, thus
+  TODO:
+  You can also do math in the styling
+  Either by using calc(...) and var(..)
+
+  Like  padding: 0 calc(var(--size-page-margin) + var(--size-5));
+  
+  Or by using the variables of the theme, just use the sizings without th Px, thus
   space(...) not spacePx(...)
   it is best to to round the resulting number to only a few digits after the . (by using toFixed(2))
 
-  ${(
+  height: ${(
     props.theme.space(breakpoint, 3) +
     props.theme.space(
       breakpoint,
@@ -66,19 +72,12 @@ const MainNav = styled.nav`
   justify-content: flex-end;
   align-items: center;
   transform: translateZ(0);
-  ${(props) =>
-    props.theme.apply("default", (breakpoint: string) => {
-      return `
-          padding: 0 ${(
-            props.theme.pageMargin(breakpoint) +
-            props.theme.space(
-              breakpoint,
-              ["base", "mobile"].includes(breakpoint) ? 5 : 4
-            )
-          ).toFixed(2)}px;
-          height: ${props.theme.spacePx(breakpoint, 6)};
-        `;
-    })}
+  height: var(--size-6);
+  padding: 0 calc(var(--size-page-margin) + var(--size-5));
+
+  ${({ theme }) => theme.breakpoints.tablet} {
+    padding: 0 calc(var(--size-page-margin) + var(--size-4));
+  }
 `;
 
 const HeaderNav = styled.div`
@@ -265,8 +264,6 @@ export const Header = ({
     false,
     300
   );
-
-  
 
   return (
     <>

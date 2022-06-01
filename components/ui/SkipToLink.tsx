@@ -13,17 +13,17 @@ const A = styled.a`
   text-decoration: none;
   text-transform: uppercase;
 
-  ${(props) =>
-    props.theme.apply("default", (breakpoint: string) => {
-      return `
-          height: ${props.theme.spacePx(breakpoint, 5)};
-          width: ${props.theme.spacePx(breakpoint, 9)};
-          top: ${props.theme.spacePx(breakpoint, 2)};
-          left: ${props.theme.spacePx(breakpoint, 2)};
-          ${props.theme.textStyle(breakpoint, `h3`)};
-          line-height: ${props.theme.spacePx(breakpoint, 9)};
-        `;
-    })}
+  height: var(--size-5);
+  width: var(--size-9);
+  top: var(--size-2);
+  left: var(--size-2);
+  line-height: var(--size-9);
+  
+  font-family: var(--text-h3-font-family);
+  font-weight: var(--text-h3-font-weight);
+  font-style: var(--text-h3-font-style);
+  font-size: var(--text-h3-font-size);
+  line-height: var(--text-h3-line-height);
 
   .tabbed &:focus {
     transform: translateY(0);

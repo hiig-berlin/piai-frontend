@@ -9,6 +9,8 @@ const goldenRatioBase = {
   screen: 1287,
 };
 
+const SPACE_LEVELS = 10;
+
 export const themeImgSizes = (
   breakpoints: Record<
     string,
@@ -52,7 +54,7 @@ export const themeSpace = (
 ) => {
   let b = breakpoint.replace("Landscape", "");
 
-  if (["base", "mobile"].includes(b) && level >= 9) return 9;
+  if (["base", "mobile"].includes(b) && level >= 9) return 6;
 
   let space = (goldenRatioBase as any)?.[b] ?? 700;
   const gC = 1.61803398875;
@@ -74,12 +76,12 @@ export const themeSpacePx = (
 };
 
 export const themeGetSpaceValues = (breakpoint: string) => {
-  return Array.from(Array(10).keys())
+  return Array.from(Array(SPACE_LEVELS).keys())
     .reverse()
     .reduce((carry: any, n: number) => {
       return {
         ...carry,
-        [`level${n + 1}`]: themeSpace(breakpoint, 10 - n),
+        [`level${n + 1}`]: themeSpace(breakpoint, SPACE_LEVELS - n),
       };
     }, {});
 };
@@ -120,7 +122,7 @@ export const theme = {
     overlay: 50,
   },
   spaceValues: {
-    // TODO: overwrite the breakpoint values individually, like page Margin values below. 
+    // TODO: overwrite the breakpoint values individually, like page Margin values below.
     base: themeGetSpaceValues("base"),
     mobile: themeGetSpaceValues("mobile"),
     mobileLandscape: themeGetSpaceValues("mobile"),
@@ -129,7 +131,7 @@ export const theme = {
     desktop: themeGetSpaceValues("desktop"),
     screen: themeGetSpaceValues("screen"),
   },
-  // TODO: you could also configure  
+  // TODO: you could also configure
   pageMarginValues: {
     base: 10,
     mobile: 20,
@@ -230,6 +232,9 @@ export const theme = {
       .join("\n");
   },
   typography: {
+    default: {
+      fontFamily: "Helvetica, Arial, sans-serif",
+    },
     base: {
       h0: {
         fontFamily: "Times New Roman, serif",
@@ -238,6 +243,7 @@ export const theme = {
         lineHeight: "40px",
         marginTop: "-2px",
         marginBottom: "0.6em",
+        marginLeft: "-4px",
         // letterSpacing: "1px",
         // textTransform: "uppercase",
       },
@@ -247,6 +253,7 @@ export const theme = {
         lineHeight: "35px",
         marginTop: "-2px",
         marginBottom: "0.6em",
+        marginLeft: "-4px",
         // letterSpacing: "1px",
         // textTransform: "uppercase",
       },
@@ -293,6 +300,7 @@ export const theme = {
         lineHeight: "40px",
         marginTop: "-2px",
         marginBottom: "0.6em",
+        marginLeft: "-4px",
         // letterSpacing: "1px",
         // textTransform: "uppercase",
       },
@@ -303,6 +311,7 @@ export const theme = {
         lineHeight: "35px",
         marginTop: "-2px",
         marginBottom: "0.6em",
+        marginLeft: "-4px",
         // letterSpacing: "1px",
         // textTransform: "uppercase",
       },
@@ -349,6 +358,7 @@ export const theme = {
         lineHeight: "45px",
         marginTop: "-2px",
         marginBottom: "0.6em",
+        marginLeft: "-4px",
         // letterSpacing: "1px",
         // textTransform: "uppercase",
       },
@@ -359,6 +369,7 @@ export const theme = {
         lineHeight: "40px",
         marginTop: "-2px",
         marginBottom: "0.6em",
+        marginLeft: "-4px",
         // letterSpacing: "1px",
         // textTransform: "uppercase",
       },
@@ -405,6 +416,7 @@ export const theme = {
         lineHeight: "55px",
         marginTop: "-2px",
         marginBottom: "0.6em",
+        marginLeft: "-4px",
         // letterSpacing: "1px",
         // textTransform: "uppercase",
       },
@@ -415,6 +427,7 @@ export const theme = {
         lineHeight: "45px",
         marginTop: "-2px",
         marginBottom: "0.6em",
+        marginLeft: "-4px",
         // letterSpacing: "1px",
         // textTransform: "uppercase",
       },
@@ -502,38 +515,94 @@ export const theme = {
       },
     },
   },
-
   textStyle: function (breakpoint: string, style: string, weight: number) {
+    const t = this as any;
     let b = breakpoint.replace("Landscape", "");
     return `
-      font-weight: ${
-        weight ?? (this as any)?.typography?.[b]?.[style]?.fontWeight ?? 400
-      };
-      font-size: ${(this as any)?.typography?.[b]?.[style]?.fontSize ?? "14px"};
-      line-height: ${
-        (this as any)?.typography?.[b]?.[style]?.lineHeight ?? "18px"
-      };
+      font-weight: ${weight ?? t?.typography?.[b]?.[style]?.fontWeight ?? 400};
+      font-size: ${t?.typography?.[b]?.[style]?.fontSize ?? "14px"};
+      font-style: ${t?.typography?.[b]?.[style]?.fontStyle ?? "normal"};
+      line-height: ${t?.typography?.[b]?.[style]?.lineHeight ?? "18px"};
       ${
-        (this as any)?.typography?.[b]?.[style]?.fontFamily
-          ? `font-family: ${
-              (this as any)?.typography?.[b]?.[style]?.fontFamily
-            };`
+        t?.typography?.[b]?.[style]?.fontFamily
+          ? `font-family: ${t?.typography?.[b]?.[style]?.fontFamily};`
           : ""
       }
       ${
-        (this as any)?.typography?.[b]?.[style]?.letterSpacing
-          ? `letter-spacing: ${
-              (this as any)?.typography?.[b]?.[style]?.letterSpacing
-            };`
+        t?.typography?.[b]?.[style]?.letterSpacing
+          ? `letter-spacing: ${t?.typography?.[b]?.[style]?.letterSpacing};`
           : ""
       }
       ${
-        (this as any)?.typography?.[b]?.[style]?.textTransform
-          ? `text-transform: ${
-              (this as any)?.typography?.[b]?.[style]?.textTransform
-            };`
+        t?.typography?.[b]?.[style]?.textTransform
+          ? `text-transform: ${t?.typography?.[b]?.[style]?.textTransform};`
           : ""
       }
+    `;
+  },
+  textStyleVars: function (breakpoint: string) {
+    const t = this as any;
+    let b = breakpoint.replace("Landscape", "");
+    return `${Object.keys(t.typography?.[b])
+      .map((style: any) => {
+        return `
+      --text-${style}-font-weight: ${
+          t?.typography?.[b]?.[style]?.fontWeight ?? "400"
+        };
+      --text-${style}-font-style: ${
+          t?.typography?.[b]?.[style]?.fontStyle ?? "normal"
+        }; 
+      --text-${style}-font-size: ${
+          t?.typography?.[b]?.[style]?.fontSize ?? "14px"
+        };
+      --text-${style}-line-height: ${
+          t?.typography?.[b]?.[style]?.lineHeight ?? "18px"
+        };
+
+      --text-${style}-font-family: ${
+          t?.typography?.[b]?.[style]?.fontFamily
+            ? t?.typography?.[b]?.[style]?.fontFamily
+            : t?.typography?.default?.fontFamily
+        };
+      --text-${style}-letter-spacing: ${
+          t?.typography?.[b]?.[style]?.letterSpacing
+            ? t?.typography?.[b]?.[style]?.letterSpacing
+            : "normal"
+        };
+      --text-${style}-text-transform: ${
+          t?.typography?.[b]?.[style]?.textTransform
+            ? t?.typography?.[b]?.[style]?.textTransform
+            : "none"
+        };
+      --text-${style}-margin-top: ${t.marginFontTop(b, style)};
+      --text-${style}-margin-bottom: ${t.marginFontBottom(b, style)};
+      --text-${style}-margin-left: ${
+          t?.typography?.[b]?.[style]?.marginLeft
+            ? t?.typography?.[b]?.[style]?.marginLeft
+            : "0"
+        };
+    `;
+      })
+      .join("")}`;
+  },
+  getRootVars: function (breakpoint: string) {
+    const t = this as any;
+    let b = breakpoint.replace("Landscape", "");
+
+    return `
+      --size-page-max-width: ${t.pageMaxWidth}px;
+      --size-page-margin: ${t.pageMarginPx(b)};
+      --size-gutter-width: ${t.gutterPx(b)};
+      --size-content-max-width: ${t.bodyCopyMaxWidth?.[b]}px;
+      ${t.textStyleVars(b)}
+      ${Array.from(Array(SPACE_LEVELS).keys())
+        .reverse()
+        .reduce((carry: any, n: number) => {
+          return `
+            ${carry}
+            --size-${n + 1}: ${themeSpacePx(breakpoint, SPACE_LEVELS - n)};
+          `;
+        }, "")}
     `;
   },
 };

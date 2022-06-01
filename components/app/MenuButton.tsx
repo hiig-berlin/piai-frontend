@@ -7,13 +7,10 @@ import { SvgBackground } from "../ui/SvgBackground";
 const MenuButtonContainer = styled.div`
   position: fixed;
   z-index: ${({ theme }) => theme.zIndex.menu + 1};
-  ${(props) =>
-    props.theme.apply("default", (breakpoint: string) => {
-      return `
-          top: ${props.theme.spacePx(breakpoint, 3)};
-          right: ${props.theme.pageMarginPx(breakpoint)};          
-        `;
-    })}
+
+  top: var(--size-3);
+  right: var(--size-page-margin);
+
 `;
 
 const StyledMenuButton = styled.button`
@@ -30,6 +27,14 @@ const StyledMenuButton = styled.button`
     left: 0;
   }
 
+  height: var(--size-5);
+  width: var(--size-5);
+  
+  ${({ theme }) => theme.breakpoints.tablet} {
+    height: var(--size-4);
+    width: var(--size-4);
+  }
+
   &:active,
   &:focus-within {
     & > span {
@@ -44,22 +49,6 @@ const StyledMenuButton = styled.button`
       }
     }
   }
-
-  ${(props) =>
-    props.theme.apply("default", (breakpoint: string) => {
-      return `
-     
-      height: ${props.theme.spacePx(
-        breakpoint,
-        ["base", "mobile"].includes(breakpoint) ? 5 : 4
-      )};
-      width: ${props.theme.spacePx(
-        breakpoint,
-        ["base", "mobile"].includes(breakpoint) ? 5 : 4
-      )};
-      
-    `;
-    })}
 `;
 
 export const MenuButton = () => {

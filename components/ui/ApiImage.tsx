@@ -58,16 +58,18 @@ const CaptionIndex = styled.div`
   padding-top: 0.08em;
 
   text-shadow: 0px 0px 1px #000;
-  ${(props) =>
-    props.theme.apply("default", (breakpoint: string) => {
-      return `
-        left: ${props.theme.spacePx(breakpoint, 10)};
-        bottom: ${props.theme.spacePx(breakpoint, 10)};
-        width: ${props.theme.spacePx(breakpoint, 9)};
-        height: ${props.theme.spacePx(breakpoint, 9)};
-        ${props.theme.textStyle(breakpoint, `caption`)};        
-      `;
-    })}
+
+  font-family: var(--text-caption-font-family);
+  font-weight: var(--text-caption-font-weight);
+  font-style: var(--text-caption-font-style);
+  font-size: var(--text-caption-font-size);
+  line-height: var(--text-caption-line-height);
+  
+  left: calc(var(--size-1) * 0.5);
+  bottom: calc(var(--size-1) * 0.5);
+  width: var(--size-1);
+  height: var(--size-1);
+  
 `;
 
 export const ApiImage = ({

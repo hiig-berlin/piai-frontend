@@ -5,6 +5,16 @@ import { MenuItem } from "./MenuItem";
 
 const Nav = styled.nav`
   display: flex;
+  
+  font-family: var(--text-h3-font-family);
+  font-weight: var(--text-h3-font-weight);
+  font-style: var(--text-h3-font-style);
+  font-size: var(--text-h3-font-size);
+  line-height: var(--text-h3-line-height);
+  
+  & > span {
+    margin-right: var(--size-4);
+  }
 
   & > span > a {
     transition: text-decoration-color 0.3s;
@@ -12,7 +22,7 @@ const Nav = styled.nav`
     text-decoration-line: underline;
     text-decoration-style: solid;
     text-decoration-thickness: 1px;
-
+    text-underline-offset: 5px; 
     @media (any-pointer: fine) {
       &:hover {
         text-decoration-color: #000;
@@ -20,22 +30,6 @@ const Nav = styled.nav`
       }
     }
   }
-
-  ${(props) =>
-    props.theme.apply("default", (breakpoint: string) => {
-      return `
-          ${props.theme.textStyle(breakpoint, "h3")};
-          & > span {
-
-            margin-right: ${props.theme.spacePx(breakpoint, 4)};
-            
-            & > a {
-              text-underline-offset: ${props.theme.spacePx(breakpoint, 1)};   
-              
-            }
-          }
-        `;
-    })}
 `;
 
 export const MenuHeader = ({ id }: { id: string }) => {

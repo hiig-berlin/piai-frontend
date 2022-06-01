@@ -36,76 +36,36 @@ const imgSizesPortrait: any = {
 };
 
 const StyledFlexibleContentContainer = styled.div<{ isEmpty: boolean }>`
-  ${(props) =>
-    !props.isEmpty
-      ? props.theme.apply(["base", "mobile"], (breakpoint: string) => {
-          return `
-          margin-bottom: ${props.theme.spacePx(breakpoint, 6)};
-      `;
-        })
-      : ""}
+  margin-bottom: var(--size-6);
 
-  ${(props) =>
-    !props.isEmpty
-      ? props.theme.apply(
-          ["tablet", "desktop", "screen"],
-          (breakpoint: string) => {
-            return `
-              width: 100%;
-              max-width: ${props.theme.pageMaxWidth}px;
-              margin-left: auto;
-              margin-right: auto;
-              margin-bottom: ${(
-                props.theme.space(breakpoint, 4) - props.theme.space(breakpoint, 6)
-              ).toFixed(2)}px;
-            `;
-          }
-        )
-      : ""}
+  ${({ theme }) => theme.breakpoints.tablet} {
+    width: 100%;
+    max-width: var(--size-page-max-width);
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: ${({ isEmpty }) =>
+      isEmpty ? "calc(var(--size-6) - var(--size-2))" : ""};
+  }
 `;
 
 const StyledFlexibleContent = styled.div<{ spaceBottom?: number }>`
-  ${(props) =>
-    props.theme.apply("default", (breakpoint: string) => {
-      return `
-        margin-bottom: ${props.theme.spacePx(
-          breakpoint,
-          props.spaceBottom ?? 2
-        )};
-      `;
-    })}
+  margin-bottom: var(--size-2);
 `;
 
 const StyledFlexibleHtmlContent = styled.div<{ shortBottomMargin?: boolean }>`
-  ${(props) =>
-    props.theme.apply("default", (breakpoint: string) => {
-      return `
-        margin-bottom: ${props.theme.spacePx(
-          breakpoint,
-          props.shortBottomMargin ? 7 : 6
-        )};
+  margin-bottom: var(
+    --size-${({ shortBottomMargin }) => (shortBottomMargin ? 3 : 5)}
+  );
 
-        /* TODO: Here you could add further overwrites if wanted (remove if not)
-        & h1, & h2 {
-          ${props.theme.textStyle(breakpoint, `h2Heading`)};
-          margin-top: ${props.theme.marginFontTop(breakpoint, `h2Heading`)};
-          margin-bottom: ${props.theme.marginFontBottom(
-            breakpoint,
-            `h2Heading`
-          )};
-        }
+  /* TODO: Here you could add further overwrites if wanted (remove if not)
+    & h1, & h2 {
+      ...
+    }
 
-        & h3, & h4, & h5 {
-          ${props.theme.textStyle(breakpoint, `h3Heading`)};
-          margin-top: ${props.theme.marginFontTop(breakpoint, `h3Heading`)};
-          margin-bottom: ${props.theme.marginFontBottom(
-            breakpoint,
-            `h3Heading`
-          )};
-        }
-        */
-      `;
-    })}
+    & h3, & h4, & h5 {
+      ...
+    }
+    */
 
   & p {
     &:last-child {
@@ -115,21 +75,16 @@ const StyledFlexibleHtmlContent = styled.div<{ shortBottomMargin?: boolean }>`
 `;
 
 const StyledFlexibleQuote = styled.div`
-  ${(props) =>
-    props.theme.apply("default", (breakpoint: string) => {
-      return `
-      ${props.theme.textStyle(breakpoint, `h2Heading`)};
-        margin-top: calc(${props.theme
-          .space(breakpoint, 5)
-          .toFixed(0)}px + ${props.theme.marginFontTop(
-        breakpoint,
-        `h2Heading`
-      )});
-        margin-bottom: ${props.theme.marginFontBottom(breakpoint, `h2Heading`)};
-      `;
-    })}
+  font-family: var(--text-h2-font-family);
+  font-weight: var(--text-h2-font-weight);
+  font-style: var(--text-h2-font-style);
+  font-size: var(--text-h2-font-size);
+  line-height: var(--text-h2-line-height);
+  margin: calc(var(--size-4) - var(--text-h2-margin-top)) 0
+    var(--text-h2-margin-bottom)
+    calc(var(--size-4) - var(--text-h2-margin-left));
 
-  &  p {
+  & p {
     margin: 0;
     &:last-child {
       max-width: 100%;
@@ -139,12 +94,7 @@ const StyledFlexibleQuote = styled.div`
 `;
 
 const StyleImageTextHeading = styled.div`
-  ${(props) =>
-    props.theme.apply("default", (breakpoint: string) => {
-      return `
-        padding-top: ${props.theme.spacePx(breakpoint, 8)};
-      `;
-    })}
+  padding-top: var(--size-2);
 `;
 
 const StyleImageTextText = styled.div<{ withHeading: boolean }>`
@@ -156,21 +106,15 @@ const StyleImageTextText = styled.div<{ withHeading: boolean }>`
         };
       
         & h1, & h2 {
-          ${props.theme.textStyle(breakpoint, `h2Heading`)};
-          margin-top: ${props.theme.marginFontTop(breakpoint, `h2Heading`)};
-          margin-bottom: ${props.theme.marginFontBottom(
-            breakpoint,
-            `h2Heading`
-          )};
+          ${props.theme.textStyle(breakpoint, `h2`)};
+          margin-top: ${props.theme.marginFontTop(breakpoint, `h2`)};
+          margin-bottom: ${props.theme.marginFontBottom(breakpoint, `h2`)};
         }
 
         & h3, & h4, & h5 {
-          ${props.theme.textStyle(breakpoint, `h3Heading`)};
-          margin-top: ${props.theme.marginFontTop(breakpoint, `h3Heading`)};
-          margin-bottom: ${props.theme.marginFontBottom(
-            breakpoint,
-            `h3Heading`
-          )};
+          ${props.theme.textStyle(breakpoint, `h3`)};
+          margin-top: ${props.theme.marginFontTop(breakpoint, `h3`)};
+          margin-bottom: ${props.theme.marginFontBottom(breakpoint, `h3`)};
         }
       `;
     })}
@@ -192,6 +136,8 @@ export const StyledImageGrid = styled.div<{ numCols: number }>`
   display: grid;
   width: 100%;
 
+  grid-gap: var(--size-gutter-width);
+
   ${(props) =>
     props.theme.apply("default", (breakpoint: string) => {
       return `
@@ -200,7 +146,7 @@ export const StyledImageGrid = styled.div<{ numCols: number }>`
             ? 2
             : props.numCols
         }, 1fr);
-        grid-gap: ${props.theme.spacePx(breakpoint, 8)};
+        
       `;
     })}
 `;
@@ -232,9 +178,9 @@ export const StyledImageCaption = styled.div`
     props.theme.apply("default", (breakpoint: string) => {
       return `
         padding-top: ${props.theme.spacePx(breakpoint, 10)};
-        ${props.theme.textStyle(breakpoint, `captionTitle`)};
+        ${props.theme.textStyle(breakpoint, `caption`)};
         > span {
-          margin-top: ${props.theme.marginFontTop(breakpoint, `captionTitle`)};
+          margin-top: ${props.theme.marginFontTop(breakpoint, `caption`)};
         } 
       `;
     })}
