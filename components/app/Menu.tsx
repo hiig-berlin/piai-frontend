@@ -28,7 +28,7 @@ const MenuContainer = styled.div.attrs((props: MenuContainerStyledProps) => ({
   top: 0px;
   width: 100vw;
 
-  background-color: var(--color-menu-bg);
+  background-color: var(--color-PIAI-AILAB-red);
 
   transform: translateX(-105%);
   opacity: 0;
