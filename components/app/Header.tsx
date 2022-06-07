@@ -130,7 +130,7 @@ export const Header = ({
   const headerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
 
   const mainRef = useRef() as React.MutableRefObject<HTMLDivElement>;
-  const subNavRef = useRef() as React.MutableRefObject<HTMLDivElement>;
+
   const browserData = useRef<any>({
     wW: 0,
     wH: 0,
@@ -152,7 +152,6 @@ export const Header = ({
         wH: window.innerHeight,
         heightHeader: headerRef?.current?.offsetHeight ?? 0,
         heightMain: mainRef?.current?.offsetHeight + 1 ?? 0,
-        heightSubNav: subNavRef?.current?.offsetHeight + 1 ?? 0,
         lastScrollY: 0,
       };
     }
@@ -209,11 +208,7 @@ export const Header = ({
           headerTuckUpTransform === "translateY(-110%) translateZ(0)"
         ) {
           setHeaderTuckUpTransform(
-            `translateY(-${
-              headerRef?.current?.offsetHeight +
-              1 -
-              subNavRef?.current?.offsetHeight
-            }px) translateZ(0)`
+            `translateY(-${headerRef?.current?.offsetHeight}px) translateZ(0)`
           );
         }
       } else {
@@ -248,11 +243,7 @@ export const Header = ({
             !menuContext.getIsOpen()
           ) {
             setHeaderTuckUpTransform(
-              `translateY(-${
-                headerRef?.current?.offsetHeight +
-                1 -
-                subNavRef?.current?.offsetHeight
-              }px) translateZ(0)`
+              `translateY(-${headerRef?.current?.offsetHeight}px) translateZ(0)`
             );
           }
         }, 1500);
