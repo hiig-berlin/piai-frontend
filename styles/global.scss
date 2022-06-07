@@ -3,6 +3,7 @@
   --color-text: #000;
   --color-focus-outline: #00f;
   --color-text-gray: #666;
+  --color-link: #666;
   --color-link-hover: #666;
   --color-menu-bg: #900;
   --color-hl: #ff0;
@@ -72,11 +73,18 @@ sup {
 }
 
 a {
-  color: inherit;
-  text-decoration-color: rgba(0, 0, 0, 1);
+  color: var(--color-link);
+  text-decoration-color: var(--color-link);
   text-decoration-line: underline;
   text-decoration-style: solid;
   text-decoration-thickness: 0.5px;
+
+  &:link,
+  &:visited,
+  &:active {
+    color: var(--color-link);
+    text-decoration-color: var(--color-link);
+  }
 }
 
 @media (any-pointer: fine) {
