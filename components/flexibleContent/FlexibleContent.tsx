@@ -3,7 +3,7 @@ import styled, { StyledComponent } from "styled-components";
 import safeHtml from "~/utils/sanitize";
 import { ApiImage } from "../ui/ApiImage";
 import { AspectRatio } from "../ui/AspectRatio";
-import { themeImgSizes } from "~/theme";
+import { themeImgSizes } from "~/theme/theme";
 import { safeAnchorId } from "~/utils/safeAnchorId";
 import { Heading } from "../ui/Heading";
 import { useCssVarsContext } from "~/providers/CssVarsContextProvider";

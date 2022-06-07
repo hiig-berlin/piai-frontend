@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import styled, { createGlobalStyle } from "styled-components";
 import InputText from "~/components/styled/InputText";
-import { theme } from "~/theme";
+import { theme } from "~/theme/theme";
 import { ThemeProvider } from "styled-components";
 import Cookies from "js-cookie";
 

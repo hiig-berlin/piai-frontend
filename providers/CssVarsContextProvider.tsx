@@ -7,7 +7,7 @@ import React, {
   useRef
 } from "react";
 import useIsMounted from "~/hooks/useIsMounted";
-import { breakpointEMs } from "~/theme";
+import { breakpointEMs } from "~/theme/theme";
 import debounce from "lodash/debounce";
 
 type CssVarContextVars = {
