@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Button = styled.button`
-  font-family: TODO:-CUSTOM-FONT,Arial,Helvetica,sans-serif;
+  font-family: "TODO:-CUSTOM-FONT",Arial,Helvetica,sans-serif;
   border: none;
   background: none;
   cursor: pointer;

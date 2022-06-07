@@ -6,6 +6,12 @@ const uA =
 const isChrome = uA.indexOf("chrome") !== -1;
 const isSafari = (uA.indexOf("safari") !== -1 || uA.indexOf("applewebkit") !== -1 || uA.indexOf("ipad") !== -1 || uA.indexOf("iphone") !== -1) && !isChrome;
 
+/*
+  One coutl also use  potentially use 
+  @supports not (aspect-ratio: 16 / 9) {
+    ...
+  }
+*/
 const Aspect = styled.div<{
   aRatio: string;
   aRwidth: string;
