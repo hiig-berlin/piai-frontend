@@ -6,7 +6,7 @@ import type { NextPage } from "next";
 import dynamic from "next/dynamic";
 import { primaryInput, deviceType } from "detect-it";
 
-import { theme } from "~/theme";
+import { theme } from "~/theme/theme";
 import { ThemeProvider } from "styled-components";
 
 import { ConfigContextProvider } from "~/providers/ConfigContextProvider";

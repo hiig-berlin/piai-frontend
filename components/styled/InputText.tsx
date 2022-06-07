@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const InputText = styled.input`
-  font-family: "TODO:-CUSTOM-FONT", Arial, Helvetica, sans-serif;
+  font-family: var(--text-family-sans-serif);
   border: 1px solid #000;
   background: #fff;
   position: relative;
@@ -13,7 +13,7 @@ export const InputText = styled.input`
   margin: 0;
 
   &::placeholder {
-    font-family: "TODO:-CUSTOM-FONT", Arial, Helvetica, sans-serif;
+    font-family: var(--text-family-sans-serif);
   }
 `;
 
