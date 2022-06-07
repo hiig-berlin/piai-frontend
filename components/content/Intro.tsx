@@ -13,6 +13,8 @@ const StyledHeading = styled.div`
   font-style: var(--text-h0-font-style);
   font-size: var(--text-h0-font-size);
   line-height: var(--text-h0-line-height);
+  // TODO: this is the way you can use mixins. I know not as pretty as @import uppercase()
+  ${(props: any) => props.theme.applyMixin("uppercase")}
 `;
 
 const PossibleAnswers = styled.div`

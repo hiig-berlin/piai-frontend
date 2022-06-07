@@ -2,11 +2,14 @@ import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
   
+  --size-page-max-width: ${({theme}) => (theme as any).pageMaxWidth}px;
+
+
   ${(props: any) =>
     props.theme.apply("default", (breakpoint: string) => {
       return `
         :root {
-          ${props.theme.getRootVars(breakpoint)};
+          ${props.theme.getBreakpointRootVars(breakpoint)};
         }
     `;
     })}

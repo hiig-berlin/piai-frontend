@@ -11,6 +11,9 @@ const goldenRatioBase = {
 
 const SPACE_LEVELS = 10;
 
+const camelToDashCase = (camel: string) =>
+  camel.replace(/[A-Z]/g, (m) => "-" + m.toLowerCase());
+
 export const themeImgSizes = (
   breakpoints: Record<
     string,
@@ -231,14 +234,21 @@ export const theme = {
       }, [])
       .join("\n");
   },
-  typography: {
-    default: {
-      fontFamily: "Helvetica, Arial, sans-serif",
+  mixins: {
+    uppercase: {
+      textTransform: "uppercase",
+      letterSpacing: "2px",
     },
+    flip: {
+      transform: "rotate(180deg)",
+    },
+  },
+  typography: {
     base: {
       h0: {
-        fontFamily: "Times New Roman, serif",
+        fontFamily: "var(--text-family-serif)",
         fontWeight: 400,
+        fontStyle: "italic",
         fontSize: "35px",
         lineHeight: "40px",
         marginTop: "-2px",
@@ -248,8 +258,10 @@ export const theme = {
         // textTransform: "uppercase",
       },
       h1: {
+        fontFamily: "var(--text-family-serif)",
         fontWeight: 400,
         fontSize: "30px",
+        fontStyle: "italic",
         lineHeight: "35px",
         marginTop: "-2px",
         marginBottom: "0.6em",
@@ -258,8 +270,10 @@ export const theme = {
         // textTransform: "uppercase",
       },
       h2: {
+        fontFamily: "var(--text-family-serif)",
         fontWeight: 400,
         fontSize: "25px",
+        fontStyle: "normal",
         lineHeight: "27px",
         marginTop: "-2px",
         marginBottom: "0.6em",
@@ -267,8 +281,10 @@ export const theme = {
         // textTransform: "uppercase",
       },
       h3: {
+        fontFamily: "var(--text-family-serif)",
         fontWeight: 400,
         fontSize: "22px",
+        fontStyle: "normal",
         lineHeight: "25px",
         marginTop: "-2px",
         marginBottom: "0.6em",
@@ -277,7 +293,9 @@ export const theme = {
       },
 
       body: {
+        fontFamily: "var(--text-family-sans-serif)",
         fontWeight: 400,
+        fontStyle: "normal",
         fontSize: "20px",
         lineHeight: "24px",
         // letterSpacing: "1px",
@@ -285,233 +303,155 @@ export const theme = {
       },
 
       caption: {
+        fontFamily: "var(--text-family-monospace)",
         fontWeight: 400,
-        fontSize: "17px",
-        lineHeight: "21px",
+        fontStyle: "normal",
+        fontSize: "12px",
+        lineHeight: "14px",
         // letterSpacing: "1px",
         // textTransform: "uppercase",
       },
     },
     mobile: {
       h0: {
-        fontFamily: "Times New Roman, serif",
-        fontWeight: 400,
         fontSize: "35px",
         lineHeight: "40px",
         marginTop: "-2px",
         marginBottom: "0.6em",
         marginLeft: "-4px",
-        // letterSpacing: "1px",
-        // textTransform: "uppercase",
       },
       h1: {
-        fontFamily: "Times New Roman, serif",
-        fontWeight: 400,
         fontSize: "30px",
         lineHeight: "35px",
         marginTop: "-2px",
         marginBottom: "0.6em",
         marginLeft: "-4px",
-        // letterSpacing: "1px",
-        // textTransform: "uppercase",
       },
       h2: {
-        fontWeight: 400,
         fontSize: "25px",
         lineHeight: "27px",
         marginTop: "-2px",
         marginBottom: "0.6em",
-        // letterSpacing: "1px",
-        // textTransform: "uppercase",
       },
       h3: {
-        fontWeight: 400,
         fontSize: "22px",
         lineHeight: "25px",
         marginTop: "-2px",
         marginBottom: "0.6em",
-        // letterSpacing: "1px",
-        // textTransform: "uppercase",
       },
 
       body: {
-        fontWeight: 400,
         fontSize: "20px",
         lineHeight: "24px",
-        // letterSpacing: "1px",
-        // textTransform: "uppercase",
       },
 
       caption: {
-        fontWeight: 400,
         fontSize: "17px",
         lineHeight: "21px",
-        // letterSpacing: "1px",
-        // textTransform: "uppercase",
       },
     },
     tablet: {
       h0: {
-        fontFamily: "Times New Roman, serif",
-        fontWeight: 400,
         fontSize: "40px",
         lineHeight: "45px",
         marginTop: "-2px",
         marginBottom: "0.6em",
         marginLeft: "-4px",
-        // letterSpacing: "1px",
-        // textTransform: "uppercase",
       },
       h1: {
-        fontFamily: "Times New Roman, serif",
-        fontWeight: 400,
         fontSize: "35px",
         lineHeight: "40px",
         marginTop: "-2px",
         marginBottom: "0.6em",
         marginLeft: "-4px",
-        // letterSpacing: "1px",
-        // textTransform: "uppercase",
       },
       h2: {
-        fontWeight: 400,
         fontSize: "28px",
         lineHeight: "32px",
         marginTop: "-2px",
         marginBottom: "0.6em",
-        // letterSpacing: "1px",
-        // textTransform: "uppercase",
       },
       h3: {
-        fontWeight: 400,
         fontSize: "22px",
         lineHeight: "25px",
         marginTop: "-2px",
         marginBottom: "0.6em",
-        // letterSpacing: "1px",
-        // textTransform: "uppercase",
       },
 
       body: {
-        fontWeight: 400,
         fontSize: "20px",
         lineHeight: "24px",
-        // letterSpacing: "1px",
-        // textTransform: "uppercase",
       },
 
       caption: {
-        fontWeight: 400,
         fontSize: "17px",
         lineHeight: "21px",
-        // letterSpacing: "1px",
-        // textTransform: "uppercase",
       },
     },
     desktop: {
       h0: {
-        fontFamily: "Times New Roman, serif",
-        fontWeight: 400,
         fontSize: "50px",
         lineHeight: "55px",
         marginTop: "-2px",
         marginBottom: "0.6em",
         marginLeft: "-4px",
-        // letterSpacing: "1px",
-        // textTransform: "uppercase",
       },
       h1: {
-        fontFamily: "Times New Roman, serif",
-        fontWeight: 400,
         fontSize: "40px",
         lineHeight: "45px",
         marginTop: "-2px",
         marginBottom: "0.6em",
         marginLeft: "-4px",
-        // letterSpacing: "1px",
-        // textTransform: "uppercase",
       },
       h2: {
-        fontWeight: 400,
         fontSize: "30px",
         lineHeight: "35px",
         marginTop: "-2px",
         marginBottom: "0.6em",
-        // letterSpacing: "1px",
-        // textTransform: "uppercase",
       },
       h3: {
-        fontWeight: 400,
         fontSize: "25px",
         lineHeight: "30px",
         marginTop: "-2px",
         marginBottom: "0.6em",
-        // letterSpacing: "1px",
-        // textTransform: "uppercase",
       },
 
       body: {
-        fontWeight: 400,
         fontSize: "22px",
         lineHeight: "27px",
-        // letterSpacing: "1px",
-        // textTransform: "uppercase",
       },
 
       caption: {
-        fontWeight: 400,
         fontSize: "17px",
         lineHeight: "21px",
-        // letterSpacing: "1px",
-        // textTransform: "uppercase",
       },
     },
     screen: {
       h0: {
-        fontFamily: "Times New Roman, serif",
-        fontWeight: 400,
         fontSize: "60px",
         lineHeight: "65px",
-        // letterSpacing: "1px",
-        // textTransform: "uppercase",
       },
       h1: {
-        fontFamily: "Times New Roman, serif",
-        fontWeight: 400,
         fontSize: "50px",
         lineHeight: "55px",
-        // letterSpacing: "1px",
-        // textTransform: "uppercase",
       },
       h2: {
-        fontWeight: 400,
         fontSize: "35px",
         lineHeight: "40px",
-        // letterSpacing: "1px",
-        // textTransform: "uppercase",
       },
       h3: {
-        fontWeight: 400,
         fontSize: "25px",
         lineHeight: "30px",
-        // letterSpacing: "1px",
-        // textTransform: "uppercase",
       },
 
       body: {
-        fontWeight: 400,
         fontSize: "22px",
         lineHeight: "27px",
-        // letterSpacing: "1px",
-        // textTransform: "uppercase",
       },
 
       caption: {
-        fontWeight: 400,
         fontSize: "17px",
         lineHeight: "21px",
-        // letterSpacing: "1px",
-        // textTransform: "uppercase",
       },
     },
   },
@@ -546,51 +486,42 @@ export const theme = {
     return `${Object.keys(t.typography?.[b])
       .map((style: any) => {
         return `
-      --text-${style}-font-weight: ${
-          t?.typography?.[b]?.[style]?.fontWeight ?? "400"
-        };
-      --text-${style}-font-style: ${
-          t?.typography?.[b]?.[style]?.fontStyle ?? "normal"
-        }; 
-      --text-${style}-font-size: ${
-          t?.typography?.[b]?.[style]?.fontSize ?? "14px"
-        };
-      --text-${style}-line-height: ${
-          t?.typography?.[b]?.[style]?.lineHeight ?? "18px"
-        };
-
-      --text-${style}-font-family: ${
-          t?.typography?.[b]?.[style]?.fontFamily
-            ? t?.typography?.[b]?.[style]?.fontFamily
-            : t?.typography?.default?.fontFamily
-        };
-      --text-${style}-letter-spacing: ${
-          t?.typography?.[b]?.[style]?.letterSpacing
-            ? t?.typography?.[b]?.[style]?.letterSpacing
-            : "normal"
-        };
-      --text-${style}-text-transform: ${
-          t?.typography?.[b]?.[style]?.textTransform
-            ? t?.typography?.[b]?.[style]?.textTransform
-            : "none"
-        };
-      --text-${style}-margin-top: ${t.marginFontTop(b, style)};
-      --text-${style}-margin-bottom: ${t.marginFontBottom(b, style)};
-      --text-${style}-margin-left: ${
-          t?.typography?.[b]?.[style]?.marginLeft
-            ? t?.typography?.[b]?.[style]?.marginLeft
-            : "0"
-        };
+          ${Object.keys(t.typography?.[b]?.[style])
+            .map((cssStyle: any) =>
+              t?.typography?.[b]?.[style]?.[cssStyle]
+                ? `--text-${style}-${camelToDashCase(cssStyle)}: ${
+                    t?.typography?.[b]?.[style]?.[cssStyle]
+                  };`
+                : ""
+            )
+            .join("")}
     `;
       })
       .join("")}`;
   },
-  getRootVars: function (breakpoint: string) {
+
+  applyMixin: function (name: string) {
+    const t = this as any;
+    if (name in t.mixins) {
+      return `
+          ${Object.keys(t.mixins?.[name])
+            .map((cssStyle: any) =>
+              t.mixins?.[name]?.[cssStyle]
+                ? `${camelToDashCase(cssStyle)}: ${
+                    t.mixins?.[name]?.[cssStyle]
+                  };`
+                : ""
+            )
+            .join("")}
+      `;
+    }
+    return "";
+  },
+  getBreakpointRootVars: function (breakpoint: string) {
     const t = this as any;
     let b = breakpoint.replace("Landscape", "");
 
     return `
-      --size-page-max-width: ${t.pageMaxWidth}px;
       --size-page-margin: ${t.pageMarginPx(b)};
       --size-gutter-width: ${t.gutterPx(b)};
       --size-content-max-width: ${t.bodyCopyMaxWidth?.[b]}px;
