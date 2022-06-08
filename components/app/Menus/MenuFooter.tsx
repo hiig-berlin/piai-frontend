@@ -8,11 +8,7 @@ const Nav = styled.nav<{ direction: string }>`
   flex-direction: ${({ direction }) => direction};
   
   gap: var(--size-gutter-width);
-  font-family: var(--text-caption-font-family);
-  font-weight: var(--text-caption-font-weight);
-  font-style: var(--text-caption-font-style);
-  font-size: var(--text-caption-font-size);
-  line-height: var(--text-caption-line-height);
+  ${(props: any) => props.theme.textStyle("caption")};
 
 `;
 

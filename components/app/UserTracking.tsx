@@ -40,11 +40,7 @@ const Aside = styled.aside<{ opacity: number }>`
   flex-direction: row;
   justify-content: space-between;
 
-  font-family: var(--text-body-font-family);
-  font-weight: var(--text-body-font-weight);
-  font-style: var(--text-body-font-style);
-  font-size: var(--text-body-font-size);
-  line-height: var(--text-body-line-height);
+  ${(props: any) => props.theme.textStyle("body")};
 
   height: var(--size-6);
   width: var(--size-9);
