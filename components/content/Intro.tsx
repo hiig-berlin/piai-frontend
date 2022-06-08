@@ -6,7 +6,7 @@ const Container = styled.div`
   margin-top: var(--size-6);  
 `;
 
-const StyledHeading = styled.div`
+const StyledHeading = styled.h1`
   text-align: center;
   ${(props: any) => props.theme.textStyle("h0")};
   // TODO: this is the way you can use mixins. I know not as pretty as @import uppercase()

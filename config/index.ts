@@ -6,7 +6,7 @@ const ONE_MONTH = ONE_DAY * 30;
 const ONE_YEAR = ONE_MONTH * 365;
 
 export const appConfig: AppConfig = {
-  appTitle: "PIAI",
+  appTitle: "Public Interest AI",
   preview: `${process.env.NEXT_PUBLIC_PREVIEW_LOCKED}` === "1",
   postsPerPage: 24,
   defaultApiCacheTimeMinutes: parseInt(
