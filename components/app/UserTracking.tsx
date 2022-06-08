@@ -24,11 +24,7 @@ const CloseButton = styled(Button)`
     }
   }
 
-  font-family: var(--text-h3-font-family);
-  font-weight: var(--text-h3-font-weight);
-  font-style: var(--text-h3-font-style);
-  font-size: var(--text-h3-font-size);
-  line-height: var(--text-h3-line-height);
+  ${(props: any) => props.theme.textStyle("h3")};
   padding: var(--size-1) var(--size-2);
 `;
 

@@ -75,11 +75,7 @@ const StyledFlexibleHtmlContent = styled.div<{ shortBottomMargin?: boolean }>`
 `;
 
 const StyledFlexibleQuote = styled.div`
-  font-family: var(--text-h2-font-family);
-  font-weight: var(--text-h2-font-weight);
-  font-style: var(--text-h2-font-style);
-  font-size: var(--text-h2-font-size);
-  line-height: var(--text-h2-line-height);
+  ${(props: any) => props.theme.textStyle("h2")};
   margin: calc(var(--size-4) - var(--text-h2-margin-top)) 0
     var(--text-h2-margin-bottom)
     calc(var(--size-4) - var(--text-h2-margin-left));
@@ -106,13 +102,13 @@ const StyleImageTextText = styled.div<{ withHeading: boolean }>`
         };
       
         & h1, & h2 {
-          ${props.theme.textStyle(breakpoint, `h2`)};
+          ${props.theme.textStyleBreakpoint(breakpoint, `h2`)};
           margin-top: ${props.theme.marginFontTop(breakpoint, `h2`)};
           margin-bottom: ${props.theme.marginFontBottom(breakpoint, `h2`)};
         }
 
         & h3, & h4, & h5 {
-          ${props.theme.textStyle(breakpoint, `h3`)};
+          ${props.theme.textStyleBreakpoint(breakpoint, `h3`)};
           margin-top: ${props.theme.marginFontTop(breakpoint, `h3`)};
           margin-bottom: ${props.theme.marginFontBottom(breakpoint, `h3`)};
         }
@@ -174,11 +170,11 @@ export const StyledEmbedCodeContainer = styled.div<{ minHeight: string }>`
 
 export const StyledImageCaption = styled.div`
   width: 100%;
+  ${({ theme }) => theme.textStyleBreakpoint(`caption`)}
   ${(props) =>
     props.theme.apply("default", (breakpoint: string) => {
       return `
         padding-top: ${props.theme.spacePx(breakpoint, 10)};
-        ${props.theme.textStyle(breakpoint, `caption`)};
         > span {
           margin-top: ${props.theme.marginFontTop(breakpoint, `caption`)};
         } 

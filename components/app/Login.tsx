@@ -58,12 +58,7 @@ const LoginInput = styled(InputText)<{ isError: boolean }>`
   border-bottom: 1px solid #000;
   border-color: ${({ isError }) => (isError ? "#f00" : "#000")};
 
-  font-family: var(--text-h2-font-family);
-  font-style: var(--text-h2-font-style);
-  font-size: var(--text-h2-font-size);
-  line-height: var(--text-h2-line-height);
-  font-weight: bold;
-  
+  ${(props: any) => props.theme.textStyle("h2")};
 `;
 
 const LoginButton = styled(Button)`
@@ -77,11 +72,7 @@ const LoginButton = styled(Button)`
   width: var(--size-5);
   height: var(--size-5);
 
-  font-family: var(--text-h2-font-family);
-  font-weight: var(--text-h2-font-weight);
-  font-style: var(--text-h2-font-style);
-  font-size: var(--text-h2-font-size);
-  line-height: var(--text-h2-line-height);
+  ${(props: any) => props.theme.textStyle("h2")};
   
   @media (any-pointer: fine) {
     &:hover {

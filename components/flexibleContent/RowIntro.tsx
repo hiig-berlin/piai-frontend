@@ -9,12 +9,12 @@ const IntroLarge = styled.div<{ heading: string }>`
 
   ${(props) =>
     props.theme.apply("default", (breakpoint: string) => {
-      const headingSize = ["base", "mobile"].includes(breakpoint) ? `h2Heading` : `${props.heading}Heading`;
+      const headingSize = ["base", "mobile"].includes(breakpoint) ? `h2` : props.heading;
       return `
-        ${props.theme.textStyle(breakpoint, headingSize)};
+        ${props.theme.textStyleBreakpoint(breakpoint, headingSize)};
 
         h1, h2 {
-          ${props.theme.textStyle(breakpoint, headingSize)};
+          ${props.theme.textStyleBreakpoint(breakpoint, headingSize)};
         }
 
         width: ${

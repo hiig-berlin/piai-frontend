@@ -235,13 +235,22 @@ export const theme = {
       .join("\n");
   },
   mixins: {
+    // mixins can be objects
+    // ${(props: any) => props.theme.applyMixin("uppercase")} <-- use in styled components
     uppercase: {
       textTransform: "uppercase",
       letterSpacing: "2px",
     },
-    flip: {
-      transform: "rotate(180deg)",
-    },
+    // ... or function callback so you can access the theme or do calculations
+    // and even pass arguments to the function ${(props: any) => props.theme.applyMixin("maxWidth", 1000)}
+    // maxWidth: {
+    //   transform: function (...args) {
+    //     return `max-width: ${(this as any).pageMaxWidth < args[0] ? 1000: (this as any).pageMaxWidth }`;
+    //   },
+    // },
+    // ... of simple strings or string templates
+    // ${(props: any) => props.theme.applyMixin("maxWidth", 1000)}
+    // style : "color:#ff0;",
   },
   typography: {
     base: {
@@ -455,31 +464,39 @@ export const theme = {
       },
     },
   },
-  textStyle: function (breakpoint: string, style: string, weight: number) {
+
+  textStyleBreakpoint: function (
+    breakpoint: string,
+    style: string,
+    withMargins?: boolean
+  ) {
     const t = this as any;
     let b = breakpoint.replace("Landscape", "");
-    return `
-      font-weight: ${weight ?? t?.typography?.[b]?.[style]?.fontWeight ?? 400};
-      font-size: ${t?.typography?.[b]?.[style]?.fontSize ?? "14px"};
-      font-style: ${t?.typography?.[b]?.[style]?.fontStyle ?? "normal"};
-      line-height: ${t?.typography?.[b]?.[style]?.lineHeight ?? "18px"};
-      ${
-        t?.typography?.[b]?.[style]?.fontFamily
-          ? `font-family: ${t?.typography?.[b]?.[style]?.fontFamily};`
-          : ""
-      }
-      ${
-        t?.typography?.[b]?.[style]?.letterSpacing
-          ? `letter-spacing: ${t?.typography?.[b]?.[style]?.letterSpacing};`
-          : ""
-      }
-      ${
-        t?.typography?.[b]?.[style]?.textTransform
-          ? `text-transform: ${t?.typography?.[b]?.[style]?.textTransform};`
-          : ""
-      }
-    `;
+    if (b in t.typography && style in t.typography[b]) {
+      return Object.keys(t.typography[b][style])
+        .reduce((carry: string[], cssStyle: any) => {
+          if (
+            t.typography[b][style][cssStyle] &&
+            (cssStyle.toLowerCase().indexOf("margin") === -1 || withMargins)
+          ) {
+            carry.push(
+              `${camelToDashCase(
+                cssStyle
+              )}:var(--text-${style}-${camelToDashCase(cssStyle)});`
+            );
+          }
+          return carry;
+        }, [])
+        .join("");
+    }
+    return "";
   },
+
+  textStyle: function (style: string, withMargins: boolean) {
+    const t = this as any;
+    return t.textStyleBreakpoint("base", style, withMargins);
+  },
+
   textStyleVars: function (breakpoint: string) {
     const t = this as any;
     let b = breakpoint.replace("Landscape", "");
@@ -487,33 +504,45 @@ export const theme = {
       .map((style: any) => {
         return `
           ${Object.keys(t.typography?.[b]?.[style])
-            .map((cssStyle: any) =>
-              t?.typography?.[b]?.[style]?.[cssStyle]
-                ? `--text-${style}-${camelToDashCase(cssStyle)}: ${
+            .reduce((carry: string[], cssStyle: any) => {
+              if (t?.typography?.[b]?.[style]?.[cssStyle]) {
+                carry.push(
+                  `--text-${style}-${camelToDashCase(cssStyle)}: ${
                     t?.typography?.[b]?.[style]?.[cssStyle]
                   };`
-                : ""
-            )
+                );
+              }
+              return carry;
+            }, [])
             .join("")}
-    `;
+        `;
       })
       .join("")}`;
   },
 
-  applyMixin: function (name: string) {
+  applyMixin: function (name: string, ...args: any[]) {
     const t = this as any;
     if (name in t.mixins) {
-      return `
+      if (typeof t.mixins?.[name] === "function") {
+        return t.mixins?.[name].call(null, ...args);
+      } else if (typeof t.mixins?.[name] === "object") {
+        return `
           ${Object.keys(t.mixins?.[name])
-            .map((cssStyle: any) =>
-              t.mixins?.[name]?.[cssStyle]
-                ? `${camelToDashCase(cssStyle)}: ${
+            .reduce((carry: string[], cssStyle: any) => {
+              if (t.mixins?.[name]?.[cssStyle]) {
+                carry.push(
+                  `${camelToDashCase(cssStyle)}: ${
                     t.mixins?.[name]?.[cssStyle]
                   };`
-                : ""
-            )
+                );
+              }
+              return carry;
+            }, [])
             .join("")}
-      `;
+        `;
+      } else if (typeof t.mixins?.[name] === "string") {
+        return t.mixins?.[name];
+      }
     }
     return "";
   },

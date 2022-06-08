@@ -5,11 +5,7 @@ import { PageMargins } from "../ui/PageMargins";
 
 const StyledHeading = styled.div`
   text-align: center;
-  font-family: var(--text-h1-font-family);
-  font-weight: var(--text-h1-font-weight);
-  font-style: var(--text-h1-font-style);
-  font-size: var(--text-h1-font-size);
-  line-height: var(--text-h1-line-height);
+  ${(props: any) => props.theme.textStyle("h1")};
 `;
 
 

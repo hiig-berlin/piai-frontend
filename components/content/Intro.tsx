@@ -8,11 +8,7 @@ const Container = styled.div`
 
 const StyledHeading = styled.div`
   text-align: center;
-  font-family: var(--text-h0-font-family);
-  font-weight: var(--text-h0-font-weight);
-  font-style: var(--text-h0-font-style);
-  font-size: var(--text-h0-font-size);
-  line-height: var(--text-h0-line-height);
+  ${(props: any) => props.theme.textStyle("h0")};
   // TODO: this is the way you can use mixins. I know not as pretty as @import uppercase()
   ${(props: any) => props.theme.applyMixin("uppercase")}
 `;
@@ -26,11 +22,7 @@ const PossibleAnswers = styled.div`
   align-items: center;
   justify-content: center;
 
-  font-family: var(--text-h1-font-family);
-  font-weight: var(--text-h1-font-weight);
-  font-style: var(--text-h1-font-style);
-  font-size: var(--text-h1-font-size);
-  line-height: var(--text-h1-line-height);
+  ${(props: any) => props.theme.textStyle("h1")};
 
   height: var(--size-6);
   margin-bottom: var(--size-4);

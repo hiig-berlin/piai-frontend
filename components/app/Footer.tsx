@@ -42,12 +42,7 @@ const Grid = styled.div`
 
 const Copyright = styled.div`
   grid-area: copyright;
-
-  font-family: var(--text-caption-font-family);
-  font-weight: var(--text-caption-font-weight);
-  font-style: var(--text-caption-font-style);
-  font-size: var(--text-caption-font-size);
-  line-height: var(--text-caption-line-height);
+  ${(props: any) => props.theme.textStyle("caption")}
   
   & p {
     max-width: 100%;
@@ -67,11 +62,7 @@ const Div = styled.div`
   display: flex;
   align-self: end;
 
-  font-family: var(--text-caption-font-family);
-  font-weight: var(--text-caption-font-weight);
-  font-style: var(--text-caption-font-style);
-  font-size: var(--text-caption-font-size);
-  line-height: var(--text-caption-line-height);
+  ${(props: any) => props.theme.textStyle("caption")}
   
   ${({ theme }) => theme.breakpoints.tabletLandscape} {
     justify-content: flex-end;
