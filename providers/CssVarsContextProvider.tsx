@@ -4,7 +4,7 @@ import React, {
   useContext,
   useEffect,
   useState,
-  useRef
+  useRef,
 } from "react";
 import useIsMounted from "~/hooks/useIsMounted";
 import { breakpointEMs } from "~/theme/theme";
@@ -31,7 +31,7 @@ type CssVarContextVars = {
 };
 
 export type CssVarContextType = {
-  vars: CssVarContextVars,
+  vars: CssVarContextVars;
   getVars: () => CssVarContextVars;
 };
 
@@ -72,7 +72,9 @@ export const CssVarsContextProvider = ({
   children: React.ReactNode;
 }) => {
   const cssVarsRef = useRef<CssVarContextVars>(cssVarContextVarsDefault);
-  const [cssVars, setCssVars] = useState<CssVarContextVars>(cssVarContextVarsDefault);
+  const [cssVars, setCssVars] = useState<CssVarContextVars>(
+    cssVarContextVarsDefault
+  );
 
   const currentOrientationRef = useRef("");
   const isMounted = useIsMounted();
@@ -151,8 +153,7 @@ export const CssVarsContextProvider = ({
     }
 
     if (isTabletLandscape !== cssVarsRef.current.isTabletLandscape) {
-      cssVarsRef.current.isTabletLandscape =
-        isTabletLandscape && !isDesktop;
+      cssVarsRef.current.isTabletLandscape = isTabletLandscape && !isDesktop;
       update = true;
     }
 
@@ -173,9 +174,7 @@ export const CssVarsContextProvider = ({
     }
 
     const isTabletLandscapeAndUp = isTabletLandscape || isDesktopAndUp;
-    if (
-      isTabletLandscapeAndUp !== cssVarsRef.current.isTabletLandscapeAndUp
-    ) {
+    if (isTabletLandscapeAndUp !== cssVarsRef.current.isTabletLandscapeAndUp) {
       cssVarsRef.current.isTabletLandscapeAndUp = isTabletLandscapeAndUp;
       update = true;
     }
@@ -199,52 +198,69 @@ export const CssVarsContextProvider = ({
       update = true;
     }
 
-    const orientation = window.innerWidth > window.innerHeight ? "landscape" : "portrait";
+    const orientation =
+      window.innerWidth > window.innerHeight ? "landscape" : "portrait";
 
     if (orientation !== currentOrientationRef.current) {
       update = true;
       currentOrientationRef.current = orientation;
       const outer = document.createElement("div");
-      document.body.appendChild(outer);
+      try {
+        document.body.appendChild(outer);
 
-      outer.style.visibility = "hidden";
-      outer.style.width = "100px";
-      outer.style.height = "100vh";
-      outer.style.overflow = "scroll";
-      const widthNoScroll = outer.offsetWidth;
+        outer.style.visibility = "hidden";
+        outer.style.width = "100px";
+        outer.style.height = "100vh";
+        outer.style.overflow = "scroll";
+        const widthNoScroll = outer.offsetWidth;
 
-      const inner = document.createElement("div");
-      inner.style.width = "100%";
-      outer.appendChild(inner);
-      const widthScroll = inner.offsetWidth;
+        const inner = document.createElement("div");
+        inner.style.width = "100%";
+        outer.appendChild(inner);
+        const widthScroll = inner.offsetWidth;
 
-      const h100vh = Math.max(window.innerHeight, outer.offsetHeight);
+        const h100vh = Math.max(window.innerHeight, outer.offsetHeight);
 
-      const sbw = widthNoScroll - widthScroll;
+        const sbw = widthNoScroll - widthScroll;
 
-      outer.style.height = "100%";
+        outer.style.height = "100%";
 
-      const h100percent = Math.min(window.innerHeight, outer.offsetHeight)
-      const lbh = h100vh - h100percent;
+        const h100percent = Math.min(window.innerHeight, outer.offsetHeight);
+        const lbh = h100vh - h100percent;
 
-      document.documentElement.style.setProperty("--sbw", `${sbw.toFixed(0)}px`);
-      document.documentElement.style.setProperty("--lbh", `${lbh.toFixed(0)}px`);
+        document.documentElement.style.setProperty(
+          "--sbw",
+          `${sbw.toFixed(0)}px`
+        );
+        document.documentElement.style.setProperty(
+          "--lbh",
+          `${lbh.toFixed(0)}px`
+        );
+        document.body.removeChild(outer);
 
-      cssVarsRef.current.sbw = sbw;
-      cssVarsRef.current.lbh = lbh;
-      cssVarsRef.current.h100vh = h100vh;
-      cssVarsRef.current.h100percent = h100percent;
-
-      document.body.removeChild(outer);
-    }   
-    
-    if (update && isMounted) {
-      setCssVars(({...cssVarsRef.current}));
+        cssVarsRef.current = {
+          ...cssVarsRef.current,
+          sbw: 0,
+          lbh: 0,
+          h100vh: window.innerHeight,
+          h100percent: window.innerHeight,
+        };
+      } catch (err) {
+        cssVarsRef.current = {
+          ...cssVarsRef.current,
+          sbw: 0,
+          lbh: 0,
+          h100vh: window.innerHeight,
+          h100percent: window.innerHeight,
+        };
+      }
     }
-    
+
+    if (update && isMounted) {
+      setCssVars({ ...cssVarsRef.current });
+    }
   }, [isMounted]);
   const onResizeDebounced = debounce(onResize, 120);
-
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -262,7 +278,7 @@ export const CssVarsContextProvider = ({
   return (
     <CssVarsContext.Provider
       value={{
-        vars: {...cssVarsRef.current},
+        vars: { ...cssVarsRef.current },
         getVars,
       }}
     >
