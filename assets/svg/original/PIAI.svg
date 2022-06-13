@@ -1,0 +1,15 @@
+<svg id="PIAI_element_icon" data-name="PIAI element icon" xmlns="http://www.w3.org/2000/svg" width="272.028" height="130" viewBox="0 0 272.028 130">
+  <g id="PI" transform="translate(0 0)">
+    <path id="Path_13" data-name="Path 13" d="M0,0H112.258V116.828H0Z" transform="translate(7.125 6.819)" fill="none" style="mix-blend-mode: hard-light;isolation: isolate"/>
+    <text id="Public_Interest" data-name="Public
+Interest" transform="translate(19.846 83)" fill="#fff" font-size="20" font-family="PTSans-Regular, PT Sans"><tspan x="0" y="0">Public</tspan><tspan x="0" y="20">Interest</tspan></text>
+    <text id="PI-2" data-name="PI" transform="translate(19.846 52.97)" fill="#fff" font-size="41" font-family="PTSans-Bold, PT Sans" font-weight="700"><tspan x="0" y="0">PI</tspan></text>
+    <path id="Path_3" data-name="Path 3" d="M180.738,189.486H53.572v-130H180.738ZM61.351,181.534H172.959V67.438H61.351Z" transform="translate(-53.572 -59.486)" fill="#fff"/>
+  </g>
+  <g id="AI" transform="translate(144.862)">
+    <path id="Path_14" data-name="Path 14" d="M0,0H112.258V116.828H0Z" transform="translate(7.623 6.819)" fill="none" style="mix-blend-mode: hard-light;isolation: isolate"/>
+    <text id="AI-2" data-name="AI" transform="translate(22.989 103.087)" fill="#fff" font-size="19" font-family="PTSans-Regular, PT Sans"><tspan x="0" y="0">AI</tspan></text>
+    <text id="AI-3" data-name="AI" transform="translate(19.602 52.971)" fill="#fff" font-size="41" font-family="PTSans-Bold, PT Sans" font-weight="700"><tspan x="0" y="0">AI</tspan></text>
+    <path id="Path_4" data-name="Path 4" d="M180.738,189.486H53.572v-130H180.738ZM61.351,181.534H172.959V67.438H61.351Z" transform="translate(-53.572 -59.486)" fill="#fff"/>
+  </g>
+</svg>

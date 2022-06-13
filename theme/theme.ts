@@ -241,6 +241,10 @@ export const theme = {
       textTransform: "uppercase",
       letterSpacing: "2px",
     },
+    monospcae: {
+      fontFamily: "var(--font-family-monospace)",
+      color: "var(--color-text-gray)"
+    },
     // ... or function callback so you can access the theme or do calculations
     // and even pass arguments to the function ${(props: any) => props.theme.applyMixin("maxWidth", 1000)}
     // maxWidth: {
@@ -255,9 +259,8 @@ export const theme = {
   typography: {
     base: {
       h0: {
-        fontFamily: "var(--text-family-serif)",
+        fontFamily: "var(--font-family-sans-serif)",
         fontWeight: 400,
-        fontStyle: "italic",
         fontSize: "35px",
         lineHeight: "40px",
         marginTop: "-2px",
@@ -267,10 +270,9 @@ export const theme = {
         // textTransform: "uppercase",
       },
       h1: {
-        fontFamily: "var(--text-family-serif)",
+        fontFamily: "var(--font-family-sans-serif)",
         fontWeight: 400,
         fontSize: "30px",
-        fontStyle: "italic",
         lineHeight: "35px",
         marginTop: "-2px",
         marginBottom: "0.6em",
@@ -279,7 +281,7 @@ export const theme = {
         // textTransform: "uppercase",
       },
       h2: {
-        fontFamily: "var(--text-family-serif)",
+        fontFamily: "var(--font-family-sans-serif)",
         fontWeight: 400,
         fontSize: "25px",
         fontStyle: "normal",
@@ -290,7 +292,7 @@ export const theme = {
         // textTransform: "uppercase",
       },
       h3: {
-        fontFamily: "var(--text-family-serif)",
+        fontFamily: "var(--font-family-sans-serif)",
         fontWeight: 400,
         fontSize: "22px",
         fontStyle: "normal",
@@ -302,7 +304,7 @@ export const theme = {
       },
 
       body: {
-        fontFamily: "var(--text-family-sans-serif)",
+        fontFamily: "var(--font-family-sans-serif)",
         fontWeight: 400,
         fontStyle: "normal",
         fontSize: "20px",
@@ -312,7 +314,7 @@ export const theme = {
       },
 
       caption: {
-        fontFamily: "var(--text-family-monospace)",
+        fontFamily: "var(--font-family-monospace)",
         fontWeight: 400,
         fontStyle: "normal",
         fontSize: "12px",

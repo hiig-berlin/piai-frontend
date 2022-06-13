@@ -7,12 +7,12 @@ import { useConfigContext } from "~/providers/ConfigContextProvider";
 const LogoContainer = styled.div`
   position: fixed;
   z-index: ${({ theme }) => theme.zIndex.logo};
-  background-color: salmon;
   
   & a {
     display: block;
     height: 100%;
     width: 100%;
+    filter: invert(70%);
 
     transition: filter 0.3s;
     &:hover,
@@ -27,14 +27,14 @@ const LogoContainer = styled.div`
     }
   }
 
-  height: var(--size-5);
-  width: var(--size-5);
+  height: var(--size-6);
+  width: var(--size-6);
   top: var(--size-3);
   left: var(--size-page-margin);
  
   ${({ theme }) => theme.breakpoints.tablet} {
-    height: var(--size-4);
-    width: var(--size-4);
+    height: var(--size-5);
+    width: var(--size-5);
   }
 `;
 
@@ -48,7 +48,7 @@ export const Logo = () => {
           <SvgBackground
             type="logo"
             position="left center"
-            width="100%"
+            width="300%"
             height="100%"
           />
         </a>

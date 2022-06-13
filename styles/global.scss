@@ -1,28 +1,38 @@
-@font-face {
-  font-family: "TODO:-CUSTOM-FONT";
-  font-style: normal;
-  font-display: swap;
-  font-weight: 200;
-  src: url("/fonts/TODO:/CUSTOM-FONT-Light.woff2") format("woff2"),
-    url("/fonts/TODO:/CUSTOM-FONT-Light.woff") format("woff");
-}
 
-@font-face {
-  font-family: "TODO:-CUSTOM-FONT";
-  font-style: italic;
-  font-display: swap;
-  font-weight: 400;
-  src: url("/fonts/TODO:/CUSTOM-FONT-RegularItalic.woff2") format("woff2"),
-    url("/fonts/TODO:/CUSTOM-FONT-RegularItalic.woff") format("woff");
-}
-@font-face {
-  font-family: "TODO:-CUSTOM-FONT";
-  font-style: normal;
-  font-display: swap;
-  font-weight: 700;
-  src: url("/fonts/TODO:/CUSTOM-FONT-Bold.woff2") format("woff2"),
-    url("/fonts/TODO:/CUSTOM-FONT-Bold.woff") format("woff");
-}
+// IMPORT FONTS from TypeKit 
+// (Account Larissa)
+
+@import url("https://use.typekit.net/vuw2lfg.css");
+
+// ... Currently loaded (or see css above)
+
+// Droid Sans Mono 
+// ==============
+// font-family: droid-sans-mono, monospace;
+// font-weight: 400;
+// font-style: normal;
+
+// PT Sans Pro
+// ===========
+// font-family: pt-sans-pro, sans-serif;
+// font-weight: 300;
+// font-style: normal;
+
+// font-weight: 300;
+// font-style: italic;
+
+// font-weight: 400;
+// font-style: normal;
+
+// font-weight: 700;
+// font-style: normal;
+
+
+// PT Sans Pro Narrow
+// ==================
+// font-family: pt-sans-pro-narrow, sans-serif;
+// font-weight: 400;
+// font-style: normal;
 
 :root {
   --color-PIAI-AILAB-red: #BE0042;
@@ -34,15 +44,15 @@
   --color-bg: rgba(255, 255, 255, 1);
   --color-text: #000;
   --color-focus-outline: #00f;
-  --color-text-gray: #666;
+  --color-text-gray: #666666;
   --color-link: #666;
   --color-link-hover: #666;
   --color-hl: #ff0;
 
-  /* TODO: change add properly loaded fonts */
-  --text-family-serif: serif;
-  --text-family-monospace: monospace;
-  --text-family-sans-serif: sans-serif;
+  /* Font variables */
+  --font-family-narrow: pt-sans-pro-narrow, 'Arial Narrow', sans-serif;
+  --font-family-monospace: droid-sans-mono, monospace; 
+  --font-family-sans-serif: pt-sans-pro, 'Helvetica', sans-serif; ;
 
 }
 
@@ -56,7 +66,7 @@ html, body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  font-family: var(--text-family-sans-serif);
+  font-family: var(--font-family-sans-serif);
 }
 
 body {
@@ -125,7 +135,7 @@ ul li {
 
 ::placeholder,
 input::placeholder  {
-  font-family: "TODO:-CUSTOM-FONT", Arial, Helvetica, sans-serif;
+  font-family: var(--font-family-monospace);
   line-height: inherit !important;
   font-size: inherit !important;
   font-style: inherit !important;

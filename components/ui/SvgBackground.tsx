@@ -2,6 +2,7 @@ import React from "react";
 import SvgMenu from "../svgs/SvgMenu";
 import SvgClose from "../svgs/SvgClose";
 import SvgRightArrow from "../svgs/SvgRightArrow";
+import SvgPIAI from "../svgs/SvgPIAI";
 
 // use https://jakearchibald.github.io/svgomg/
 // use https://yoksel.github.io/url-encoder/
@@ -31,7 +32,6 @@ export const SvgBackground = ({
     case "menu":
       activeSvg = SvgMenu;
       break;
-
    
     case "close":
       activeSvg = SvgClose;
@@ -40,6 +40,11 @@ export const SvgBackground = ({
     case "arrow":
       activeSvg = SvgRightArrow;
       break;
+
+    case "logo":
+      activeSvg = SvgPIAI;
+      break;
+     
  /*
     TODO: more Svgs
     case "play":
