@@ -14,7 +14,6 @@ import { Intro } from "~/components/content/Intro";
 import { TwoCol } from "~/components/content/TwoCol";
 import { TextSection } from "~/components/content/TextSection";
 
-
 // TODO: remove if not needed anymore
 import { TextHeading } from "~/components/content/TextHeading";
 import { TextListing } from "~/components/content/TextListing";
