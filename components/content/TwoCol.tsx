@@ -9,7 +9,7 @@ import { LabElement } from "../ui/LabElement";
 
 import background from "~/assets/img/globe.jpg";
 
-const Grid = styled.div<{bg: string;}>`
+const Grid = styled.div<{ bg: string }>`
   display: grid;
   // position: relative;
   // overflow: hidden;
@@ -18,7 +18,7 @@ const Grid = styled.div<{bg: string;}>`
     grid-template-columns: 50% 50%;
   }
 
-  background: url(${(props: any) => props.bg.src});
+  background: url(${(props: any) => props.bg});
   background-blend-mode: multiply;
   background-size: cover;
   background-color: white;
