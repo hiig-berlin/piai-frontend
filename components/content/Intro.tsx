@@ -4,14 +4,14 @@ import ReactTypingEffect from "react-typing-effect";
 
 const Container = styled.div`
   text-align: center;
-  margin-top: var(--size-7);  
+  margin-top: var(--size-7);
 `;
 
 const StyledHeading = styled.h1`
   text-align: center;
-  ${(props: any) => props.theme.textStyle("h0")};
+  ${({ theme }) => theme.textStyle("h0")};
   // TODO: this is the way you can use mixins. I know not as pretty as @import uppercase()
-  /* ${(props: any) => props.theme.applyMixin("uppercase")} */
+  /* ${({ theme }) => theme.applyMixin("uppercase")} */
 `;
 
 const Typing = styled.div`
@@ -22,8 +22,8 @@ const Typing = styled.div`
   align-items: center;
   justify-content: center;
 
-  ${(props: any) => props.theme.textStyle("h3")}; 
-  ${(props: any) => props.theme.applyMixin("monospace")};
+  ${({ theme }) => theme.textStyle("h3")};
+  ${({ theme }) => theme.applyMixin("monospace")};
 
   height: var(--size-6);
   margin-bottom: var(--size-7);
@@ -36,7 +36,7 @@ const possibleAnswers = [
   "A new digital commons.",
   "AI in the power of people.",
   "AI systems, which are open for validation. ",
-]
+];
 
 export const Intro = () => {
   return (

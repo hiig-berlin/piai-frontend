@@ -75,7 +75,7 @@ const StyledFlexibleHtmlContent = styled.div<{ shortBottomMargin?: boolean }>`
 `;
 
 const StyledFlexibleQuote = styled.div`
-  ${(props: any) => props.theme.textStyle("h2")};
+  ${({ theme }) => theme.textStyle("h2")};
   margin: calc(var(--size-4) - var(--text-h2-margin-top)) 0
     var(--text-h2-margin-bottom)
     calc(var(--size-4) - var(--text-h2-margin-left));

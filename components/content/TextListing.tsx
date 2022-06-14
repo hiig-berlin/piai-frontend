@@ -21,7 +21,6 @@ const Grid = styled.div`
   }
 
   grid-gap: var(--size-gutter-width);
-  
 `;
 
 const Title = styled.div`
@@ -34,7 +33,7 @@ const Cta = styled.div`
 
   width: 80%;
   text-align: center;
-  ${(props: any) => props.theme.textStyle("caption")};
+  ${({ theme }) => theme.textStyle("caption")};
 
   ${({ theme }) => theme.breakpoints.tablet} {
     transform: translateY(-50%);

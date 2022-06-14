@@ -24,7 +24,7 @@ const CloseButton = styled(Button)`
     }
   }
 
-  ${(props: any) => props.theme.textStyle("h3")};
+  ${({ theme }) => theme.textStyle("h3")};
   padding: var(--size-1) var(--size-2);
 `;
 
@@ -40,11 +40,11 @@ const Aside = styled.aside<{ opacity: number }>`
   flex-direction: row;
   justify-content: space-between;
 
-  ${(props: any) => props.theme.textStyle("body")};
+  ${({ theme }) => theme.textStyle("body")};
 
   height: var(--size-6);
   width: var(--size-9);
-  left: var(--size-2);          
+  left: var(--size-2);
   bottom: var(--size-2);
   padding: var(--size-2);
   column-gap: var(--size-2);

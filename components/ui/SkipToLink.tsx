@@ -18,9 +18,9 @@ const A = styled.a`
   top: var(--size-2);
   left: var(--size-2);
   line-height: var(--size-9);
-  
-  ${(props: any) => props.theme.textStyle("h3")};
-  
+
+  ${({ theme }) => theme.textStyle("h3")};
+
   .tabbed &:focus {
     transform: translateY(0);
     opacity: 1;

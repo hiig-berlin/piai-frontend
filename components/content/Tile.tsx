@@ -8,12 +8,10 @@ const TileContainer = styled.div`
   flex-direction: column;
 
   color: white;
-  // background-color: ${(props: any) => Color(props.bg).alpha(0.6).rgb().string()};
-  // mix-blend-mode: multiply;
   position: relative;
 `;
 
-const TileOverlay = styled.div<{ bgColor?: string;}>`
+const TileOverlay = styled.div<{ bgColor?: string }>`
   background-color: ${({ theme, bgColor }) => theme.color(bgColor, 0.6)};
   mix-blend-mode: multiply;
 
@@ -48,8 +46,8 @@ const TileContent = styled.div`
 `;
 
 const TileHeadline = styled.h3`
-  ${(props: any) => props.theme.textStyle("h3")};
-  ${(props: any) => props.theme.applyMixin("uppercase")};
+  ${({ theme }) => theme.textStyle("h3")};
+  ${({ theme }) => theme.applyMixin("uppercase")};
 
   font-weight: bold;
 `;

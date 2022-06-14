@@ -41,7 +41,6 @@ const LoginWrapper = styled.div`
 
   position: relative;
   height: var(--size-5);
-  
 `;
 
 const LoginInput = styled(InputText)<{ isError: boolean }>`
@@ -58,7 +57,7 @@ const LoginInput = styled(InputText)<{ isError: boolean }>`
   border-bottom: 1px solid #000;
   border-color: ${({ isError }) => (isError ? "#f00" : "#000")};
 
-  ${(props: any) => props.theme.textStyle("h2")};
+  ${({ theme }) => theme.textStyle("h2")};
 `;
 
 const LoginButton = styled(Button)`
@@ -72,14 +71,13 @@ const LoginButton = styled(Button)`
   width: var(--size-5);
   height: var(--size-5);
 
-  ${(props: any) => props.theme.textStyle("h2")};
-  
+  ${({ theme }) => theme.textStyle("h2")};
+
   @media (any-pointer: fine) {
     &:hover {
       opacity: 0.75;
     }
   }
-
 `;
 
 export const Login = () => {
