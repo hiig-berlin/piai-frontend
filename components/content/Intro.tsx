@@ -4,7 +4,7 @@ import ReactTypingEffect from "react-typing-effect";
 
 const Container = styled.div`
   text-align: center;
-  margin-top: var(--size-7);  
+  margin-top: var(--size-7);
 `;
 
 const StyledHeading = styled.h1`
@@ -22,9 +22,10 @@ const Typing = styled.div`
   align-items: center;
   justify-content: center;
 
-  ${(props: any) => props.theme.textStyle("h3")}; 
+  ${(props: any) => props.theme.textStyle("h3")};
   ${(props: any) => props.theme.applyMixin("monospace")};
 
+  text-transform: none;
   height: var(--size-6);
   margin-bottom: var(--size-7);
 `;
@@ -36,7 +37,7 @@ const possibleAnswers = [
   "A new digital commons.",
   "AI in the power of people.",
   "AI systems, which are open for validation. ",
-]
+];
 
 export const Intro = () => {
   return (
