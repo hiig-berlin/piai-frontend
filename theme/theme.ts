@@ -1,3 +1,4 @@
+import Color from "color";
 import { breakpointEMs } from "./breakpoints";
 export * from "./breakpoints";
 
@@ -109,6 +110,20 @@ export const themeGetBreakpointValue = (level: number) => {
 
 export const theme = {
   pageMaxWidth: 1680,
+  colors: {
+    piaiAilabRed: "#BE0042",
+    piaiInterface: "#416F83",
+    piaiMap: "#AA936E",
+    piaiMapHightlight: "#FDD491",
+    piaiEnergy: "#416F83",
+    bg: "#fff",
+    text: "#000",
+    focusOutline: "#00f",
+    textGray: "#707070",
+    link: "#666",
+    linkHover: "#666",
+    hl: "#ff0",
+  },
   breakpoints: {
     base: `@media screen and (min-width: 1em)`,
     mobile: `@media screen and (min-width: ${breakpointEMs.mobile}em)`, // ~360px
@@ -236,24 +251,24 @@ export const theme = {
   },
   mixins: {
     // mixins can be objects
-    // ${(props: any) => props.theme.applyMixin("uppercase")} <-- use in styled components
+    // ${({ theme }) => theme.applyMixin("uppercase")} <-- use in styled components
     uppercase: {
       textTransform: "uppercase",
       letterSpacing: "0.02em",
     },
     monospace: {
       fontFamily: "var(--font-family-monospace)",
-      color: "var(--color-text-gray)"
+      color: "var(--color-text-gray)",
     },
     // ... or function callback so you can access the theme or do calculations
-    // and even pass arguments to the function ${(props: any) => props.theme.applyMixin("maxWidth", 1000)}
+    // and even pass arguments to the function ${({ theme }) => theme.applyMixin("maxWidth", 1000)}
     // maxWidth: {
     //   transform: function (...args) {
     //     return `max-width: ${(this as any).pageMaxWidth < args[0] ? 1000: (this as any).pageMaxWidth }`;
     //   },
     // },
     // ... of simple strings or string templates
-    // ${(props: any) => props.theme.applyMixin("maxWidth", 1000)}
+    // ${({ theme }) => theme.applyMixin("maxWidth", 1000)}
     // style : "color:#ff0;",
   },
   typography: {
@@ -266,7 +281,7 @@ export const theme = {
         // lineHeight: "24px",
         marginBottom: "0.6em",
         lineHeight: "1.3em",
-        color: "var(--color-text-gray)"
+        color: "var(--color-text-gray)",
       },
       h0: {
         fontFamily: "var(--font-family-sans-serif)",
@@ -276,7 +291,7 @@ export const theme = {
         marginTop: "-2px",
         marginBottom: "0.6em",
         marginLeft: "-4px",
-        color: "var(--color-text)"
+        color: "var(--color-text)",
         // letterSpacing: "1px",
         // textTransform: "uppercase",
       },
@@ -288,7 +303,7 @@ export const theme = {
         marginTop: "-2px",
         marginBottom: "0.6em",
         marginLeft: "-4px",
-        color: "var(--color-text)"
+        color: "var(--color-text)",
         // letterSpacing: "1px",
         // textTransform: "uppercase",
       },
@@ -300,7 +315,7 @@ export const theme = {
         // lineHeight: "27px",
         marginTop: "-2px",
         marginBottom: "0.6em",
-        color: "var(--color-text)"
+        color: "var(--color-text)",
       },
       h3: {
         fontFamily: "var(--font-family-sans-serif)",
@@ -544,6 +559,29 @@ export const theme = {
       }
     }
     return "";
+  },
+
+  color: function (color: string, alpha?: number) {
+    const t = this as any;
+    const key = color.replace(/(\-[a-z])/g, val => val.toUpperCase().replace('-',''))
+    if (!(key in t.colors)) {
+      if (typeof window !== "undefined" && process.env.NODE_ENV === "development")
+        console.error(`${color} is not a defined theme color`);
+
+      return "#f00";
+    }
+    if (alpha) {
+      return Color(t.colors[key]).alpha(alpha);
+    } 
+    return t.colors[key];
+  },
+  getColorRootVars: function () {
+    const t = this as any;
+    return Object.keys(t.colors)
+      .map((key: any) => {
+        return `--color-${camelToDashCase(key)}: ${t?.colors[key]};`;
+      })
+      .join("");
   },
   getBreakpointRootVars: function (breakpoint: string) {
     const t = this as any;

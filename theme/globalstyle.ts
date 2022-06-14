@@ -3,7 +3,8 @@ import { createGlobalStyle } from "styled-components";
 export const GlobalStyle = createGlobalStyle`
   
   :root {
-    --size-page-max-width: ${({theme}) => (theme as any).pageMaxWidth}px;
+    --size-page-max-width: ${({ theme }) => (theme as any).pageMaxWidth}px;
+    ${({ theme }) => theme.getColorRootVars()};
   }
 
 
@@ -17,7 +18,7 @@ export const GlobalStyle = createGlobalStyle`
     })}
 
   body {
-    ${(props: any) => props.theme.textStyle("body")}
+    ${({ theme }) => theme.textStyle("body")}
   }
 
   p {
@@ -30,24 +31,24 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   h1, .h1 {
-    ${(props: any) => props.theme.textStyle("h1", true)}
+    ${({ theme }) => theme.textStyle("h1", true)}
   }
 
   h2, .h2 {
-    ${(props: any) => props.theme.textStyle("h2", true)}
+    ${({ theme }) => theme.textStyle("h2", true)}
   }
 
   h3, .h3 {
-    ${(props: any) => props.theme.textStyle("h3", true)}
+    ${({ theme }) => theme.textStyle("h3", true)}
   }
 
   h4, .h4 {
-    ${(props: any) => props.theme.textStyle("h4", true)}
+    ${({ theme }) => theme.textStyle("h4", true)}
   }
 
   small {
     display: inline-block;
     padding-left: 0.2em;
-    ${(props: any) => props.theme.textStyle("caption")}
+    ${({ theme }) => theme.textStyle("caption")}
   }
 `;
