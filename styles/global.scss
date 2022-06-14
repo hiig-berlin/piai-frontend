@@ -44,7 +44,7 @@
   --color-bg: rgba(255, 255, 255, 1);
   --color-text: #000;
   --color-focus-outline: #00f;
-  --color-text-gray: #666666;
+  --color-text-gray: #707070;
   --color-link: #666;
   --color-link-hover: #666;
   --color-hl: #ff0;
@@ -65,7 +65,7 @@ html, body {
   -webkit-overflow-scrolling: touch; 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
+  font-weight: var(--text-body-font-weight);
   font-family: var(--font-family-sans-serif);
 }
 
@@ -131,6 +131,10 @@ ul li {
   &::marker {
     font-size:  0.8em;
   }
+}
+
+strong {
+  font-weight: calc(var(--text-body-font-weight) + 300)
 }
 
 ::placeholder,
