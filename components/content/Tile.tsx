@@ -10,13 +10,13 @@ const TileContainer = styled.div`
     flex-direction: column;
 
     color: white;
-    // background-color: ${(props: any) => Color(props.bg as string).alpha(0.6)};
+    // background-color: ${(props: any) => Color(props.bg).alpha(0.6)};
     // mix-blend-mode: multiply;
     position: relative;
     `
-
+    
 const TileOverlay = styled.div`
-    background-color: ${(props: any) => Color(props.bg as string).alpha(0.6)};
+    background-color: ${(props: any) => Color(props.bg).alpha(0.6)};
     mix-blend-mode: multiply;
 
     position: absolute;
@@ -78,10 +78,10 @@ export const Tile = ({
         children
     }:{
         bgOverlay: any; 
-        element: React.ReactComponentElement;
+        element: React.ReactNode;
         headline: string;
         buttons: any;
-        children: React.ReactComponentElement
+        children: React.ReactNode
     }) => {
     return (
       <TileContainer bg={bgOverlay}>

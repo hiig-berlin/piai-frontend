@@ -141,8 +141,8 @@ export const theme = {
     mobileLandscape: 30,
     tablet: 30,
     tabletLandscape: 40,
-    desktop: 50,
-    screen: 90,
+    desktop: 100,
+    screen: 0,
   },
   gutterWidth: themeGetBreakpointValue(3),
 
@@ -260,12 +260,13 @@ export const theme = {
     base: {
       body: {
         fontFamily: "var(--font-family-sans-serif)",
-        fontWeight: 400,
+        fontWeight: 300,
         fontStyle: "normal",
         fontSize: "20px",
         // lineHeight: "24px",
         marginBottom: "0.6em",
         lineHeight: "1.3em",
+        color: "var(--color-text-gray)"
       },
       h0: {
         fontFamily: "var(--font-family-sans-serif)",
@@ -275,6 +276,7 @@ export const theme = {
         marginTop: "-2px",
         marginBottom: "0.6em",
         marginLeft: "-4px",
+        color: "var(--color-text)"
         // letterSpacing: "1px",
         // textTransform: "uppercase",
       },
@@ -286,6 +288,7 @@ export const theme = {
         marginTop: "-2px",
         marginBottom: "0.6em",
         marginLeft: "-4px",
+        color: "var(--color-text)"
         // letterSpacing: "1px",
         // textTransform: "uppercase",
       },
@@ -297,8 +300,7 @@ export const theme = {
         // lineHeight: "27px",
         marginTop: "-2px",
         marginBottom: "0.6em",
-        // letterSpacing: "1px",
-        // textTransform: "uppercase",
+        color: "var(--color-text)"
       },
       h3: {
         fontFamily: "var(--font-family-sans-serif)",
@@ -308,8 +310,8 @@ export const theme = {
         // lineHeight: "25px",
         marginTop: "-2px",
         marginBottom: "0.6em",
-        // letterSpacing: "1px",
-        // textTransform: "uppercase",
+        letterSpacing: "0.02em",
+        textTransform: "uppercase",
       },
       caption: {
         fontFamily: "var(--font-family-monospace)",
@@ -416,7 +418,7 @@ export const theme = {
         marginBottom: "0.6em",
       },
       h3: {
-        fontSize: "25px",
+        fontSize: "22px",
         // lineHeight: "30px",
         marginTop: "-2px",
         marginBottom: "0.6em",
@@ -446,7 +448,7 @@ export const theme = {
         // lineHeight: "40px",
       },
       h3: {
-        fontSize: "25px",
+        fontSize: "22px",
         // lineHeight: "30px",
       },
 

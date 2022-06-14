@@ -11,12 +11,14 @@ import {
   restApiESQuery,
 } from "~/utils/restApi";
 import { Intro } from "~/components/content/Intro";
-import { TextHeading } from "~/components/content/TextHeading";
 import { TwoCol } from "~/components/content/TwoCol";
-import { TextListing } from "~/components/content/TextListing";
-import { TextTwoCol } from "~/components/content/TextTwoCol";
+import { TextSection } from "~/components/content/TextSection";
+
 
 // TODO: remove if not needed anymore
+import { TextHeading } from "~/components/content/TextHeading";
+import { TextListing } from "~/components/content/TextListing";
+import { TextTwoCol } from "~/components/content/TextTwoCol";
 import { loremIpsum } from "react-lorem-ipsum";
 
 const Home = ({ currentPage }: { currentPage: any }) => {
@@ -41,8 +43,10 @@ const Home = ({ currentPage }: { currentPage: any }) => {
       <main id="content">
         <Intro />
         <TwoCol />
+        {/* <Video></Video> */}
+        <TextSection />
 
-        <TextHeading>
+        {/* <TextHeading>
           For Public Interest AI we need to design new processes and design
           patterns.
         </TextHeading>
@@ -60,7 +64,7 @@ const Home = ({ currentPage }: { currentPage: any }) => {
           right={loremIpsum({ p: 2 })
             .map((text: string) => `<p>${text}</p>`)
             .join("")}
-        />
+        /> */}
       </main>
     </>
   );
