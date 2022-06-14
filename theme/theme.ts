@@ -563,18 +563,24 @@ export const theme = {
 
   color: function (color: string, alpha?: number) {
     const t = this as any;
-    const key = color.replace(/(\-[a-z])/g, val => val.toUpperCase().replace('-',''))
+    const key = color.replace(/(\-[a-z])/g, (val) =>
+      val.toUpperCase().replace("-", "")
+    );
     if (!(key in t.colors)) {
-      if (typeof window !== "undefined" && process.env.NODE_ENV === "development")
+      if (
+        typeof window !== "undefined" &&
+        process.env.NODE_ENV === "development"
+      )
         console.error(`${color} is not a defined theme color`);
 
       return "#f00";
     }
     if (alpha) {
       return Color(t.colors[key]).alpha(alpha);
-    } 
+    }
     return t.colors[key];
   },
+
   getColorRootVars: function () {
     const t = this as any;
     return Object.keys(t.colors)
@@ -583,6 +589,7 @@ export const theme = {
       })
       .join("");
   },
+
   getBreakpointRootVars: function (breakpoint: string) {
     const t = this as any;
     let b = breakpoint.replace("Landscape", "");

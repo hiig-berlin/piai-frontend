@@ -1,9 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { getStaticProps } from "~/pages";
 import Color from "color";
 
-const TileContainer = styled.div<{ bg?: string;}>`
+const TileContainer = styled.div`
   padding: var(--size-4);
   height: 100%;
   display: flex;
@@ -15,8 +14,8 @@ const TileContainer = styled.div<{ bg?: string;}>`
   position: relative;
 `;
 
-const TileOverlay = styled.div<{ bg?: string;}>`
-  background-color: ${({ bg }) => Color(bg).alpha(0.6).rgb().string()};
+const TileOverlay = styled.div<{ bgColor?: string;}>`
+  background-color: ${({ theme, bgColor }) => theme.color(bgColor, 0.6)};
   mix-blend-mode: multiply;
 
   position: absolute;
@@ -73,15 +72,15 @@ export const Tile = ({
   buttons,
   children,
 }: {
-  bgOverlay: any;
+  bgOverlay: string;
   element: React.ReactNode;
   headline: string;
   buttons: any;
   children: React.ReactNode;
 }) => {
   return (
-    <TileContainer bg={bgOverlay}>
-      <TileOverlay bg={bgOverlay} />
+    <TileContainer>
+      <TileOverlay bgColor={bgOverlay} />
       <TileElement>{element}</TileElement>
       <TileContent>
         <TileHeadline>{headline}</TileHeadline>
