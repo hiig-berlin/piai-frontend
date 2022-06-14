@@ -39,7 +39,7 @@ export const PageMargins = ({
   minHeight,
   position,
   bgColor,
-  keepMaxWidth,
+  keepMaxWidth = true,
 }: {
   children: React.ReactNode;
   spaceTop?: number;

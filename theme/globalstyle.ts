@@ -2,7 +2,9 @@ import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
   
-  --size-page-max-width: ${({theme}) => (theme as any).pageMaxWidth}px;
+  :root {
+    --size-page-max-width: ${({theme}) => (theme as any).pageMaxWidth}px;
+  }
 
 
   ${(props: any) =>
