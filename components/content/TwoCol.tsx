@@ -46,7 +46,7 @@ export const TwoCol = () => {
     <Grid bg={background.src}>
       {/* TODO: Replace this with CMS Content */}
       <Tile
-        bgOverlay="#AA936E"
+        bgOverlay="piaiMap"
         element={
           <LabElement shortHandle="Ma" longText="Project Map" color="white" />
         }
@@ -69,7 +69,7 @@ export const TwoCol = () => {
         </>
       </Tile>
       <Tile
-        bgOverlay="#416F83"
+        bgOverlay="piaiInterface"
         element={<Logo color="white" />}
         headline="A global discourse"
         // TODO: Buttons here only on mobile

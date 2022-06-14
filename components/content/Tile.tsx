@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import Color from "color";
 
 const TileContainer = styled.div`
   padding: var(--size-4);
