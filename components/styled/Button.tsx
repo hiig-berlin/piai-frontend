@@ -1,16 +1,30 @@
 import styled from "styled-components";
 
 export const Button = styled.button`
-  font-family: var(--font-family-sans-serif);
-  border: none;
+  border: 2px solid;
+  border-color: inherit;
   background: none;
+  
   cursor: pointer;
-  padding: 0;
-  margin: 0;
+  padding: 0.5em 1em;
+  margin: var(--size-2);
   position: relative;
   appearance: none;
   user-select: none;
-  color: #000;
+  
+  color: inherit;
+  font-family: var(--font-family-sans-serif);
+  font-weight: bold;
+  font-size: 0.8em;
+  ${(props: any) => props.theme.applyMixin("uppercase")};
+
+  transition: all ease 0.5s;
+
+  &:hover, &:active{
+    background: rgba(0,0,0,0.2);
+    padding-left: 1.3em;
+    padding-right: 1.3em;
+  }
 `;
 
 export default Button;

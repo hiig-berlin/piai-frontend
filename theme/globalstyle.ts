@@ -23,6 +23,10 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0 0 var(--text-body-margin-bottom) 0;
   }
 
+  a{
+    text-decoration: none;
+  }
+
   h1, .h1 {
     ${(props: any) => props.theme.textStyle("h1", true)}
   }

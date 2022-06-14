@@ -239,9 +239,9 @@ export const theme = {
     // ${(props: any) => props.theme.applyMixin("uppercase")} <-- use in styled components
     uppercase: {
       textTransform: "uppercase",
-      letterSpacing: "2px",
+      letterSpacing: "0.02em",
     },
-    monospcae: {
+    monospace: {
       fontFamily: "var(--font-family-monospace)",
       color: "var(--color-text-gray)"
     },
@@ -258,11 +258,20 @@ export const theme = {
   },
   typography: {
     base: {
+      body: {
+        fontFamily: "var(--font-family-sans-serif)",
+        fontWeight: 400,
+        fontStyle: "normal",
+        fontSize: "20px",
+        // lineHeight: "24px",
+        marginBottom: "0.6em",
+        lineHeight: "1.3em",
+      },
       h0: {
         fontFamily: "var(--font-family-sans-serif)",
         fontWeight: 400,
         fontSize: "35px",
-        lineHeight: "40px",
+        // lineHeight: "40px",
         marginTop: "-2px",
         marginBottom: "0.6em",
         marginLeft: "-4px",
@@ -273,7 +282,7 @@ export const theme = {
         fontFamily: "var(--font-family-sans-serif)",
         fontWeight: 400,
         fontSize: "30px",
-        lineHeight: "35px",
+        // lineHeight: "35px",
         marginTop: "-2px",
         marginBottom: "0.6em",
         marginLeft: "-4px",
@@ -285,7 +294,7 @@ export const theme = {
         fontWeight: 400,
         fontSize: "25px",
         fontStyle: "normal",
-        lineHeight: "27px",
+        // lineHeight: "27px",
         marginTop: "-2px",
         marginBottom: "0.6em",
         // letterSpacing: "1px",
@@ -296,173 +305,159 @@ export const theme = {
         fontWeight: 400,
         fontSize: "22px",
         fontStyle: "normal",
-        lineHeight: "25px",
+        // lineHeight: "25px",
         marginTop: "-2px",
         marginBottom: "0.6em",
         // letterSpacing: "1px",
         // textTransform: "uppercase",
       },
-
-      body: {
-        fontFamily: "var(--font-family-sans-serif)",
-        fontWeight: 400,
-        fontStyle: "normal",
-        fontSize: "20px",
-        lineHeight: "24px",
-        // letterSpacing: "1px",
-        // textTransform: "uppercase",
-      },
-
       caption: {
         fontFamily: "var(--font-family-monospace)",
         fontWeight: 400,
         fontStyle: "normal",
         fontSize: "12px",
-        lineHeight: "14px",
-        // letterSpacing: "1px",
-        // textTransform: "uppercase",
       },
     },
     mobile: {
       h0: {
         fontSize: "35px",
-        lineHeight: "40px",
+        // lineHeight: "40px",
         marginTop: "-2px",
         marginBottom: "0.6em",
         marginLeft: "-4px",
       },
       h1: {
         fontSize: "30px",
-        lineHeight: "35px",
+        // lineHeight: "35px",
         marginTop: "-2px",
         marginBottom: "0.6em",
         marginLeft: "-4px",
       },
       h2: {
         fontSize: "25px",
-        lineHeight: "27px",
+        // lineHeight: "27px",
         marginTop: "-2px",
         marginBottom: "0.6em",
       },
       h3: {
         fontSize: "22px",
-        lineHeight: "25px",
+        // lineHeight: "25px",
         marginTop: "-2px",
         marginBottom: "0.6em",
       },
 
       body: {
         fontSize: "20px",
-        lineHeight: "24px",
+        // lineHeight: "24px",
       },
 
       caption: {
         fontSize: "17px",
-        lineHeight: "21px",
+        // lineHeight: "21px",
       },
     },
     tablet: {
       h0: {
         fontSize: "40px",
-        lineHeight: "45px",
+        // lineHeight: "45px",
         marginTop: "-2px",
         marginBottom: "0.6em",
         marginLeft: "-4px",
       },
       h1: {
         fontSize: "35px",
-        lineHeight: "40px",
+        // lineHeight: "40px",
         marginTop: "-2px",
         marginBottom: "0.6em",
         marginLeft: "-4px",
       },
       h2: {
         fontSize: "28px",
-        lineHeight: "32px",
+        // lineHeight: "32px",
         marginTop: "-2px",
         marginBottom: "0.6em",
       },
       h3: {
         fontSize: "22px",
-        lineHeight: "25px",
+        // lineHeight: "25px",
         marginTop: "-2px",
         marginBottom: "0.6em",
       },
 
       body: {
         fontSize: "20px",
-        lineHeight: "24px",
+        // lineHeight: "24px",
       },
 
       caption: {
         fontSize: "17px",
-        lineHeight: "21px",
+        // lineHeight: "21px",
       },
     },
     desktop: {
       h0: {
         fontSize: "50px",
-        lineHeight: "55px",
+        // lineHeight: "55px",
         marginTop: "-2px",
         marginBottom: "0.6em",
         marginLeft: "-4px",
       },
       h1: {
         fontSize: "40px",
-        lineHeight: "45px",
+        // lineHeight: "45px",
         marginTop: "-2px",
         marginBottom: "0.6em",
         marginLeft: "-4px",
       },
       h2: {
         fontSize: "30px",
-        lineHeight: "35px",
+        // lineHeight: "35px",
         marginTop: "-2px",
         marginBottom: "0.6em",
       },
       h3: {
         fontSize: "25px",
-        lineHeight: "30px",
+        // lineHeight: "30px",
         marginTop: "-2px",
         marginBottom: "0.6em",
       },
 
       body: {
-        fontSize: "22px",
-        lineHeight: "27px",
+        fontSize: "20px",
+        // lineHeight: "27px",
       },
 
       caption: {
         fontSize: "17px",
-        lineHeight: "21px",
+        // lineHeight: "21px",
       },
     },
     screen: {
       h0: {
         fontSize: "60px",
-        lineHeight: "65px",
+        // lineHeight: "65px",
       },
       h1: {
         fontSize: "50px",
-        lineHeight: "55px",
+        // lineHeight: "55px",
       },
       h2: {
         fontSize: "35px",
-        lineHeight: "40px",
+        // lineHeight: "40px",
       },
       h3: {
         fontSize: "25px",
-        lineHeight: "30px",
+        // lineHeight: "30px",
       },
 
       body: {
         fontSize: "22px",
-        lineHeight: "27px",
+        // lineHeight: "27px",
       },
 
       caption: {
         fontSize: "17px",
-        lineHeight: "21px",
+        // lineHeight: "21px",
       },
     },
   },

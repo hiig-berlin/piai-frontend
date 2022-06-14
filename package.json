@@ -11,6 +11,9 @@
     "deploy:live": "git checkout main && git push && curl $(grep DEPLOY_HOOK_URL .env.local | cut -d '=' -f2)"
   },
   "dependencies": {
+    "@types/color": "^3.0.3",
+    "@types/react-typing-effect": "^2.0.3",
+    "color": "^4.2.3",
     "detect-it": "^4.0.1",
     "js-cookie": "^3.0.1",
     "lodash": "^4.17.21",
@@ -22,6 +25,7 @@
     "react-focus-lock": "^2.9.1",
     "react-lorem-ipsum": "^1.4.10",
     "react-player": "^2.10.1",
+    "react-typing-effect": "^2.0.5",
     "sass": "^1.52.1",
     "scroll-behavior-polyfill": "^2.0.13",
     "styled-components": "^5.3.5",

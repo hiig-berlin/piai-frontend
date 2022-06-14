@@ -3,16 +3,17 @@ import styled from "styled-components";
 import { SvgBackground } from "../ui/SvgBackground";
 import Link from "next/link";
 import { useConfigContext } from "~/providers/ConfigContextProvider";
+import { LabElement } from "../ui/LabElement";
+import { getStaticProps } from "~/pages";
 
 const LogoContainer = styled.div`
-  position: fixed;
-  z-index: ${({ theme }) => theme.zIndex.logo};
+  
   
   & a {
-    display: block;
-    height: 100%;
-    width: 100%;
-    filter: invert(70%);
+    display: flex;
+    height: 2.4em;
+    width: 5em;
+    justify-content: space-between;
 
     transition: filter 0.3s;
     &:hover,
@@ -27,29 +28,35 @@ const LogoContainer = styled.div`
     }
   }
 
-  height: var(--size-6);
-  width: var(--size-6);
-  top: var(--size-3);
-  left: var(--size-page-margin);
+  // height: var(--size-6);
+  // width: var(--size-6);
+  // top: var(--size-3);
+  // left: var(--size-page-margin);
  
-  ${({ theme }) => theme.breakpoints.tablet} {
-    height: var(--size-5);
-    width: var(--size-5);
-  }
-`;
+  // ${({ theme }) => theme.breakpoints.tablet} {
+  //   height: var(--size-5);
+  //   width: var(--size-5);
+  // }
+`;  
 
-export const Logo = () => {
+export const Logo = (
+  {color}:{color: string}
+) => {
   const config = useConfigContext();
 
   return (
     <LogoContainer>
       <Link href={`${config?.baseUrl}/`} passHref>
         <a title="Go to homepage">
-          <SvgBackground
-            type="logo"
-            position="left center"
-            width="300%"
-            height="100%"
+          <LabElement
+            shortHandle="PI"
+            longText="Public Interest"
+            color={color || "#000)"}
+          />
+          <LabElement
+            shortHandle="AI"
+            longText="AI"
+            color={color || "#000"}
           />
         </a>
       </Link>

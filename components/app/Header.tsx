@@ -45,6 +45,8 @@ const StyledHeader = styled.header<{
       : undefined}
 `;
 
+
+
 /*  
   TODO:
   You can also do math in the styling
@@ -258,9 +260,7 @@ export const Header = ({
 
   return (
     <>
-      <SkipToLink id="content">skip to content</SkipToLink>
-      {showLogo && <Logo />}
-      <MenuButton />
+      
       <StyledHeader
         ref={headerRef}
         headerTransform={headerTuckUpTransform ?? "translateZ(0)"}
@@ -272,6 +272,9 @@ export const Header = ({
         isHidden={headerContext.fadeOut || isHidden}
         className="header"
       >
+        <SkipToLink id="content">skip to content</SkipToLink>
+        {showLogo && <Logo color="var(--color-text-gray)" />}
+      <MenuButton />
         <MainNav ref={mainRef}>
           <HeaderNav>
             <HeaderNavLinks
