@@ -3,19 +3,19 @@ import styled from "styled-components";
 import { getStaticProps } from "~/pages";
 import Color from "color";
 
-const TileContainer = styled.div`
+const TileContainer = styled.div<{ bg?: string;}>`
   padding: var(--size-4);
   height: 100%;
   display: flex;
   flex-direction: column;
 
   color: white;
-  // background-color: ${(props: any) => Color(props.bg).alpha(0.6)};
+  // background-color: ${(props: any) => Color(props.bg).alpha(0.6).rgb().string()};
   // mix-blend-mode: multiply;
   position: relative;
 `;
 
-const TileOverlay = styled.div<{ bg: string;}>`
+const TileOverlay = styled.div<{ bg?: string;}>`
   background-color: ${({ bg }) => Color(bg).alpha(0.6).rgb().string()};
   mix-blend-mode: multiply;
 
