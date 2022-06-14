@@ -9,7 +9,7 @@ import { LabElement } from "../ui/LabElement";
 
 import background from "~/assets/img/globe.jpg";
 
-const Grid = styled.div`
+const Grid = styled.div<{ bg: string }>`
   display: grid;
   // position: relative;
   // overflow: hidden;
@@ -18,7 +18,7 @@ const Grid = styled.div`
     grid-template-columns: 50% 50%;
   }
 
-  background: url(${(props: any) => props.bg.src});
+  background: url(${(props: any) => props.bg});
   background-blend-mode: multiply;
   background-size: cover;
   background-color: white;
@@ -43,10 +43,10 @@ const ImageWrapper = styled.div`
 
 export const TwoCol = () => {
   return (
-    <Grid bg={background}>
+    <Grid bg={background.src}>
       {/* TODO: Replace this with CMS Content */}
       <Tile
-        bgOverlay="#AA936E"
+        bgOverlay="piaiMap"
         element={
           <LabElement shortHandle="Ma" longText="Project Map" color="white" />
         }
@@ -69,7 +69,7 @@ export const TwoCol = () => {
         </>
       </Tile>
       <Tile
-        bgOverlay="#416F83"
+        bgOverlay="piaiInterface"
         element={<Logo color="white" />}
         headline="A global discourse"
         // TODO: Buttons here only on mobile

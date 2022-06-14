@@ -59,13 +59,12 @@ const CaptionIndex = styled.div`
 
   text-shadow: 0px 0px 1px #000;
 
-  ${(props: any) => props.theme.textStyle("caption")};
-  
+  ${({ theme }) => theme.textStyle("caption")};
+
   left: calc(var(--size-1) * 0.5);
   bottom: calc(var(--size-1) * 0.5);
   width: var(--size-1);
   height: var(--size-1);
-  
 `;
 
 export const ApiImage = ({

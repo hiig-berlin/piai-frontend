@@ -6,10 +6,9 @@ import { MenuItem } from "./MenuItem";
 const Nav = styled.nav<{ direction: string }>`
   display: flex;
   flex-direction: ${({ direction }) => direction};
-  
-  gap: var(--size-gutter-width);
-  ${(props: any) => props.theme.textStyle("caption")};
 
+  gap: var(--size-gutter-width);
+  ${({ theme }) => theme.textStyle("caption")};
 `;
 
 export const MenuFooter = ({

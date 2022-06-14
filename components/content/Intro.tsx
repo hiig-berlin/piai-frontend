@@ -9,9 +9,9 @@ const Container = styled.div`
 
 const StyledHeading = styled.h1`
   text-align: center;
-  ${(props: any) => props.theme.textStyle("h0")};
+  ${({ theme }) => theme.textStyle("h0")};
   // TODO: this is the way you can use mixins. I know not as pretty as @import uppercase()
-  /* ${(props: any) => props.theme.applyMixin("uppercase")} */
+  /* ${({ theme }) => theme.applyMixin("uppercase")} */
 `;
 
 const Typing = styled.div`
@@ -22,8 +22,8 @@ const Typing = styled.div`
   align-items: center;
   justify-content: center;
 
-  ${(props: any) => props.theme.textStyle("h3")};
-  ${(props: any) => props.theme.applyMixin("monospace")};
+  ${({ theme }) => theme.textStyle("h3")};
+  ${({ theme }) => theme.applyMixin("monospace")};
 
   text-transform: none;
   height: var(--size-6);

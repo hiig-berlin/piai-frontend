@@ -7,7 +7,6 @@ import safeHtml from "~/utils/sanitize";
 import { MenuFooter } from "./Menus/MenuFooter";
 
 const Grid = styled.div`
-  
   display: grid;
   grid-template-columns: 100%;
   grid-template-rows: auto;
@@ -16,7 +15,7 @@ const Grid = styled.div`
     "navigation";
   grid-gap: var(--size-gutter-width);
   padding-top: var(--size-3);
-  
+
   & a {
     text-decoration: none;
     color: var(--color-text-gray);
@@ -34,16 +33,14 @@ const Grid = styled.div`
   ${({ theme }) => theme.breakpoints.tabletLandscape} {
     grid-template-columns: 2fr 1fr;
     grid-template-rows: auto;
-    grid-template-areas:
-      "copyright navigation";
+    grid-template-areas: "copyright navigation";
   }
 `;
 
-
 const Copyright = styled.div`
   grid-area: copyright;
-  ${(props: any) => props.theme.textStyle("caption")}
-  
+  ${({ theme }) => theme.textStyle("caption")}
+
   & p {
     max-width: 100%;
 
@@ -62,20 +59,18 @@ const Div = styled.div`
   display: flex;
   align-self: end;
 
-  ${(props: any) => props.theme.textStyle("caption")}
-  
+  ${({ theme }) => theme.textStyle("caption")}
+
   ${({ theme }) => theme.breakpoints.tabletLandscape} {
     justify-content: flex-end;
   }
 `;
 
-
 export const Footer = () => {
   const settings = useSettingsContext();
-  
+
   return (
     <PageMargins spaceBottom={4} spaceTop={4}>
-      
       <Grid>
         <Copyright
           dangerouslySetInnerHTML={{

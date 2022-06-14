@@ -5,9 +5,9 @@ import { MenuItem } from "./MenuItem";
 
 const Nav = styled.nav`
   display: flex;
-  
-  ${(props: any) => props.theme.textStyle("h3")};
-  
+
+  ${({ theme }) => theme.textStyle("h3")};
+
   & > span {
     margin-right: var(--size-4);
   }
@@ -18,7 +18,7 @@ const Nav = styled.nav`
     text-decoration-line: underline;
     text-decoration-style: solid;
     text-decoration-thickness: 1px;
-    text-underline-offset: 5px; 
+    text-underline-offset: 5px;
     @media (any-pointer: fine) {
       &:hover {
         text-decoration-color: #000;
