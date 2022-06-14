@@ -9,7 +9,7 @@ import { LabElement } from "../ui/LabElement";
 
 import background from "~/assets/img/globe.jpg";
 
-const Grid = styled.div`
+const Grid = styled.div<{bg: string;}>`
   display: grid;
   // position: relative;
   // overflow: hidden;
@@ -43,7 +43,7 @@ const ImageWrapper = styled.div`
 
 export const TwoCol = () => {
   return (
-    <Grid bg={background}>
+    <Grid bg={background.src}>
       {/* TODO: Replace this with CMS Content */}
       <Tile
         bgOverlay="#AA936E"
