@@ -36,14 +36,23 @@ const Container = styled.div<{
     `
     : ""}
 
-    // down to right
-    ${({ bend }) =>
-      (bend === "up right") ? 
+    // up to right away
+    ${({ towards, bend }) =>
+      (towards === undefined && bend === "up right") ? 
       `
       transform: rotate(35deg) translate(28px,-11px) scaleY(-1);
       `
       : ""}
 
+    // down to right away
+    ${({ towards, bend }) =>
+      (towards === undefined && bend === "down right") ? 
+      `
+      transform-origin: bottom right;
+      transform: rotate(-82deg) translate(-72%,100%) scaleX(-1);
+      `
+      : ""}
+    
     
   // the & is important as it makes sure that anything is only applied to this instance
   & svg {
@@ -80,7 +89,7 @@ const Container = styled.div<{
 export const AnimatedArrow2 = ({
   width = "100%",
   height = "100%",
-  towards = true,
+  towards,
   bend = "bottom left",
   animate,
 }: {

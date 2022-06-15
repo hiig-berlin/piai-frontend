@@ -35,7 +35,7 @@ const textrows = [
           never universal but needs to be defined for each societal issue by a
           deliberative and participatory process. To act in the public interests
           citizens think about more than their private interests - they think
-          and act for a common good.{" "}
+          and act for a common good.
         </p>
         <p>
           In our research, we explore and discuss what this understanding of the
@@ -66,7 +66,7 @@ const textrows = [
           We believe that besides legal requirements informed by ethical
           considerations certain conditions are important for the process of
           development and implementation of AI systems to serve the public
-          interest.{" "}
+          interest.
         </p>
       </>
     ),
@@ -76,7 +76,7 @@ const textrows = [
           Public interest is closely entangled with the idea of democracy and
           the rule of law. Developing a collective idea of the public interest
           regarding a certain issue is an established process in many societies
-          and has a long tradition in legal discourse.{" "}
+          and has a long tradition in legal discourse.
         </p>
       </>
     ),
@@ -85,7 +85,7 @@ const textrows = [
 
 const Row = styled.div`
   display: flex;
-  margin: 0 0 var(--size-4);
+  margin: 0 0 var(--size-6);
 `;
 const Left = styled.div`
   flex: 30% 0 0;
@@ -95,34 +95,39 @@ const Right = styled.div`
 `;
 
 const SectionHeading = styled(Heading)`
-  margin: var(--size-6) var(--size-4);
+  margin: var(--size-6) var(--size-6);
   text-align: center;
   font-weight: bold;
-`
+`;
 
 export const TextSection = () => {
   return (
-    <PageMargins spaceBottom={4} spaceTop={4}>
-      <>
+    <>
+      <PageMargins spaceBottom={8} spaceTop={4}>
         <SectionHeading asTag="h2" heading="h2">
           {headline}
         </SectionHeading>
-        <Wizard bend="up right" left="0%" bottom="-250px" width="20%"> 
-        You would like to add something here? Go ahead and contact us!
+        <Wizard bend="up right" left="0%" bottom="-250px" width="20%">
+          You would like to add something here? Go ahead and contact us!
         </Wizard>
-        {textrows.map((row:any, i:number) => {
-          return(
+        {textrows.map((row: any, i: number) => {
+          return (
             <Row key={i}>
-              <Left><h3>{row.headline}</h3></Left>
+              <Left>
+                <h3>{row.headline}</h3>
+              </Left>
               <Right>{row.textStandard}</Right>
             </Row>
           );
         })}
-        <Wizard bend="down right" left="0%" bottom="-50px" width="30%">
+        <Wizard bend="down right" left="0%" bottom="-50px" width="20%">
           Select one of the 5 conditions to find out more.
         </Wizard>
-        {/* <Pillars></Pillars> */}
-      </>
-    </PageMargins>
+      </PageMargins>
+
+      <PageMargins spaceBottom={8} spaceTop={4}>
+        PILLARS
+      </PageMargins>
+    </>
   );
 };
