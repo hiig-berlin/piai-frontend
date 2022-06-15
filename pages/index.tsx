@@ -19,8 +19,11 @@ import { TextHeading } from "~/components/content/TextHeading";
 import { TextListing } from "~/components/content/TextListing";
 import { TextTwoCol } from "~/components/content/TextTwoCol";
 import { loremIpsum } from "react-lorem-ipsum";
+import { AnimatedArrow } from "~/components/ui/AnimatedArrow";
+import { AnimatedArrow2 } from "~/components/ui/AnimatedArrow2";
 
 const Home = ({ currentPage }: { currentPage: any }) => {
+  
   return (
     <>
       <NextHeadSeo
@@ -40,8 +43,29 @@ const Home = ({ currentPage }: { currentPage: any }) => {
       <Header isHome />
 
       <main id="content">
+        <div style={{
+
+          width: "100px",
+          height: "100px",
+
+        }}>
+          <AnimatedArrow animate/>
+        </div>
+
+        <div style={{
+
+          width: "100px",
+          height: "100px",
+
+        }}>
+          <AnimatedArrow2 animate/>
+        </div>
+        
+
         <Intro />
         <TwoCol />
+
+        
         {/* <Video></Video> */}
         <TextSection />
 
