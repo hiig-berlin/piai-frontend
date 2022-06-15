@@ -21,11 +21,30 @@ const Container = styled.div<{
   transform-origin: center center;
 
   // down to left
-  // transform: rotate(70deg) translate(22px,-31px);
+  ${({ towards, bend }) =>
+    (towards &&  bend === "down left") ? 
+    `
+    transform: rotate(65deg) translate(-4px,20px);
+    `
+    : ""}
 
   // down to right
-  transform: rotate(-70deg) translate(-26px,-31px) scaleX(-1);
+  ${({ towards, bend }) =>
+    (towards &&  bend === "down right") ? 
+    `
+    transform: rotate(-59deg) translate(16px,30px) scaleX(-1);
+    `
+    : ""}
 
+    // down to right
+    ${({ bend }) =>
+      (bend === "up right") ? 
+      `
+      transform: rotate(35deg) translate(28px,-11px) scaleY(-1);
+      `
+      : ""}
+
+    
   // the & is important as it makes sure that anything is only applied to this instance
   & svg {
     opacity: ${({ animate }) => (animate ? 1 : 0)};

@@ -21,7 +21,9 @@ const WizContainer = styled.div<{width?: string; left?: string; bottom?: string}
   width: ${({width}) => width || "100%"};
 `;
 const WizText = styled.p<{ right?: boolean}>`
-  text-align: ${({right}) => right ? "right" : "left"};;
+  text-align: ${({right}) => right ? "right" : "left"};
+
+  ${({ theme }) => theme.applyMixin("monospace")}
 `;
 
 export const Wizard = ({

@@ -25,12 +25,11 @@ const Typing = styled.div`
   align-items: center;
   justify-content: center;
 
-  ${({ theme }) => theme.textStyle("h3")};
   ${({ theme }) => theme.applyMixin("monospace")};
 
-  text-transform: none;
+  font-size: 1.3em; 
   height: var(--size-6);
-  margin-bottom: var(--size-7);
+  margin-bottom: var(--size-8);
 `;
 
 // TODO: Fetch from CMS
@@ -55,10 +54,10 @@ export const Intro = () => {
           typingDelay={500}
         />
       </Typing>
-      <Wizard towards bend="down left" left="10%" bottom="100px" width="30%"> 
+      <Wizard towards bend="down left" left="5%" bottom="100px" width="30%"> 
        Explore existing projects of public interest and their answers.
       </Wizard>
-      <Wizard towards right bend="down right" left="60%" bottom="100px" width="30%"> 
+      <Wizard towards right bend="down right" left="60%" bottom="100px" width="35%"> 
         We’ve done some research. Read here our proposed definition for a public interest AI.
       </Wizard>
     </Container>

@@ -259,6 +259,8 @@ export const theme = {
     monospace: {
       fontFamily: "var(--font-family-monospace)",
       color: "var(--color-text-gray)",
+      fontSize: "0.8em",
+      lineHight: "1.1em"
     },
     // ... or function callback so you can access the theme or do calculations
     // and even pass arguments to the function ${({ theme }) => theme.applyMixin("maxWidth", 1000)}

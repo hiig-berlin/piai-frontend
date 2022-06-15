@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { StyledHeading } from "../styled/StyledHeading";
 import { Heading } from "../ui/Heading";
 import PageMargins from "../ui/PageMargins";
+import { Wizard } from "./Wizard";
 
 // Content
 const headline =
@@ -16,9 +17,8 @@ const textrows = [
           We understand public interest AI systems to be those AI systems that{" "}
           <strong>
             support those outcomes best serving the long-run survival and
-            well-being of a social collective construed as a “public”
+            well-being of a social collective construed as a “public”.
           </strong>
-          .
         </p>
         <p>
           Our understanding is inspired by theorists like Barry Bozeman and John
@@ -107,6 +107,9 @@ export const TextSection = () => {
         <SectionHeading asTag="h2" heading="h2">
           {headline}
         </SectionHeading>
+        <Wizard bend="up right" left="0%" bottom="-250px" width="20%"> 
+        You would like to add something here? Go ahead and contact us!
+        </Wizard>
         {textrows.map((row:any, i:number) => {
           return(
             <Row key={i}>
@@ -115,6 +118,11 @@ export const TextSection = () => {
             </Row>
           );
         })}
+        <Wizard bend="down right" left="0%" bottom="-50px" width="30%" style={{
+          marginBottom: "var(--size-8)"}}>
+          Select one of the 5 conditions to find out more.
+        </Wizard>
+        {/* <Pillars></Pillars> */}
       </>
     </PageMargins>
   );
