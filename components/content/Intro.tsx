@@ -1,10 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import ReactTypingEffect from "react-typing-effect";
+import { Wizard } from "./Wizard";
 
 const Container = styled.div`
   text-align: center;
   margin-top: var(--size-7);
+  display: flex;
+  flex-direction: column;
 `;
 
 const StyledHeading = styled.h1`
@@ -52,6 +55,12 @@ export const Intro = () => {
           typingDelay={500}
         />
       </Typing>
+      <Wizard towards bend="down left" left="10%" bottom="100px" width="30%"> 
+       Explore existing projects of public interest and their answers.
+      </Wizard>
+      <Wizard towards right bend="down right" left="60%" bottom="100px" width="30%"> 
+        We’ve done some research. Read here our proposed definition for a public interest AI.
+      </Wizard>
     </Container>
   );
 };
