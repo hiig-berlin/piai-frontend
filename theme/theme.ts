@@ -589,7 +589,7 @@ export const theme = {
       })
       .join("");
   },
-
+  
   getBreakpointRootVars: function (breakpoint: string) {
     const t = this as any;
     let b = breakpoint.replace("Landscape", "");

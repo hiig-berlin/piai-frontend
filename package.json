@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "analyze": "ANALYZE=true next build",
     "start": "next start",
     "lint": "next lint",
     "deploy:staging": "git checkout staging && git push && curl $(grep DEPLOY_HOOK_URL .env | cut -d '=' -f2)",
@@ -31,6 +32,8 @@
     "xss": "^1.0.11"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^12.1.6",
+    "@svgr/webpack": "^6.2.1",
     "@types/color": "^3.0.3",
     "@types/js-cookie": "^3.0.2",
     "@types/lodash": "^4.14.182",
@@ -41,6 +44,8 @@
     "@types/styled-components": "*",
     "eslint": "^8.16.0",
     "eslint-config-next": "^12.1.6",
-    "typescript": "4.7.2"
+    "typescript": "4.7.2",
+    "webpack-bundle-analyzer": "^4.5.0",
+    "webpack-cli": "^4.10.0"
   }
 }
