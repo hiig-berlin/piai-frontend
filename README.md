@@ -49,18 +49,68 @@ const PinkButton = styled(Button)`
 ```
 
 ## Using SVGs
-Next.js can't inline SVGs directly into css background `background-image: url('data:image/svg+xml,<svg ...')`. One has to create component to do that. 
+To help you with preparing the SVG we've written a little script that takes all svgs in the folder `/assets/svg/original`, 
+optimizes them (saving a copy in `/assets/svg/optimized`) and then also converts them into BASE64 encoded strings that are saved as components into the `/components/svgs/` folder. These can later be used as source for background images. 
 
-To help you creating the component we've written a little helper script that takes all svgs in the folder `/assets/svg/original`, 
-optimizes them (saving a copy in `/assets/svg/optimized`) and then also writes importable components into the `/components/svgs/` folder.
-
-To execute the script just run 
+Please put all your svgs into `/assets/svg/original` and run the following script
 
 ```bash
 ./scripts/convertsvgs.sh
 ```
 
-You can then make use of the generated SVGs in other component. `/components/uk/SVGBackround.tsx` does give you an example. 
+*Use as Components*
+You can import any svg as a component and 
+
+```JSX
+import Logo from "~/assets/svg/optimized/logo.svg";
+
+export const Icon = () => {
+  return (
+    <div>
+      <Logo fill="#ff0" width="100%" height="100%">
+    </div>
+  )
+}
+```
+
+*As backgrounds*
+As Next.js can't inline SVGs directly into css background `background-image: url('data:image/svg+xml,<svg ...')` from a file. One has to create component to do that. 
+
+```JSX
+import SvgMenu from "~/components/svgs/SvgMenu";
+
+export const SvgBackground = () => {
+  return (
+    <span
+      className={className}
+      style={{
+        display: "block",
+        ...
+        backgroundPosition: "center center",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "contain",
+        backgroundImage: `url('data:image/svg+xml,${SvgMenu}')`,
+      }}
+    ></span>
+  );
+};
+```
+
+*Use directly*
+As last resort option you can place the `<svg/>` code straight into your components
+
+```JSX
+export const Icon = () => {
+  return (
+    <div>
+      <svg> ... </svg>
+    </div>
+  )
+}
+```
+
+
+You can then make use of the generated SVGs in other component. `/components/svgs/SVGBackround.tsx` does give you an example. 
 
 ## Data Sanitazation
 Never trust any html coming from the CMS or any other sources. Never directly make use of 
