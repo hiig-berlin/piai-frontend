@@ -3,6 +3,7 @@ import SvgMenu from "../svgs/SvgMenu";
 import SvgClose from "../svgs/SvgClose";
 import SvgRightArrow from "../svgs/SvgRightArrow";
 import SvgPIAI from "../svgs/SvgPIAI";
+import SvgArrow from "../svgs/SvgArrow";
 
 // use https://jakearchibald.github.io/svgomg/
 // use https://yoksel.github.io/url-encoder/
@@ -37,14 +38,17 @@ export const SvgBackground = ({
       activeSvg = SvgClose;
       break;
 
-    case "arrow":
+    case "rightArrow":
       activeSvg = SvgRightArrow;
       break;
 
     case "logo":
       activeSvg = SvgPIAI;
       break;
-     
+    
+    case "arrow":
+        activeSvg = SvgArrow;
+        break;
  /*
     TODO: more Svgs
     case "play":
