@@ -22,6 +22,7 @@
     "react-dom": "18.1.0",
     "react-error-boundary": "^3.1.4",
     "react-focus-lock": "^2.9.1",
+    "react-intersection-observer": "^9.3.3",
     "react-lorem-ipsum": "^1.4.10",
     "react-player": "^2.10.1",
     "react-typing-effect": "^2.0.5",
