@@ -7,6 +7,7 @@ import { Heading } from "../ui/Heading";
 import PageMargins from "../ui/PageMargins";
 import { SvgBackground } from "../ui/SvgBackground";
 import { Wizard } from "./Wizard";
+import { Accessible } from "./Accessible";
 
 // Content
 const headline =
@@ -134,9 +135,9 @@ const Icon = styled(ButtonNormalized)`
 export const TextSection = () => {
   // we build an array that stores for each text row if it is simple or not
   // initially all are not
-  const [isSimpleIndexes, setisSimpleIndexes] = useState(
-    textrows.map(() => false)
-  );
+  // const [isSimpleIndexes, setisSimpleIndexes] = useState(
+  //   textrows.map(() => false)
+  // );
 
   // TODO: you could use useIsBreakpoint
   // whenever you can it would be better to hide components using css and breakpoints
@@ -171,12 +172,12 @@ export const TextSection = () => {
         )}
         {textrows.map((row: any, index: number) => {
           return (
-            <Grid key={`textrowo${index}`}>
+            <Grid key={`textrow-${index}`}>
               <div>
                 <h3>{row.headline}</h3>
               </div>
               <div>
-                {isSimpleIndexes[index] ? row.textSimple : row.textStandard}
+                {/* {isSimpleIndexes[index] ? row.textSimple : row.textStandard}
                 <Icon
                   aria-label="change to simple text version"
                   onClick={() => {
@@ -191,7 +192,12 @@ export const TextSection = () => {
                   }}
                 >
                   <SvgBackground type="language" />
-                </Icon>
+                </Icon> */}
+                <Accessible
+                  simple={row.textSimple}
+                >
+                  {row.textStandard}
+                </Accessible>
               </div>
             </Grid>
             // TODO: ich würde ja hier ein css grid verwenden weil das erlaubt dir breakpoint änderungen
