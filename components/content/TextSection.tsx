@@ -107,7 +107,7 @@ export const TextSection = () => {
         <SectionHeading asTag="h2" heading="h2">
           {headline}
         </SectionHeading>
-        <Wizard bend="up right" left="0%" bottom="-250px" width="20%">
+        <Wizard bend="up right" left="0%" bottom="-250px" width="20%" inView inViewDelay={1}>
           You would like to add something here? Go ahead and contact us!
         </Wizard>
         {textrows.map((row: any, i: number) => {
@@ -120,7 +120,7 @@ export const TextSection = () => {
             </Row>
           );
         })}
-        <Wizard bend="down right" left="0%" bottom="-50px" width="20%">
+        <Wizard bend="down right" left="0%" bottom="-50px" width="20%" inView inViewDelay={1}>
           Select one of the 5 conditions to find out more.
         </Wizard>
       </PageMargins>
