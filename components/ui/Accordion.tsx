@@ -96,7 +96,7 @@ export const Accordion = () => {
             aria-expanded={activeIndex == 2 ? "true" : false}
             aria-controls="accordion-panel-3"
             onClick={() => {
-              setActiveIndex(3);
+              setActiveIndex(2);
             }}
           >
             Item 3
