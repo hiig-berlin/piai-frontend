@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { ButtonNormalized } from "../styled/Button";
 import { StyledHeading } from "../styled/StyledHeading";
 import { Heading } from "../ui/Heading";
 import PageMargins from "../ui/PageMargins";
+import { SvgBackground } from "../ui/SvgBackground";
 import { Wizard } from "./Wizard";
 
 // Content
@@ -83,16 +85,36 @@ const textrows = [
   },
 ];
 
-const Row = styled.div`
-  display: flex;
+const Grid = styled.div`
+  display: grid;
+
+  // auf mobiles stacken wir dir columns
+  grid-template-rows: 1fr 1fr;
+  gap: var(
+    --size-gutter-width
+  ); // <-- immer gut etwas luft zischen den spalten/reihen zu haben
+
   margin: 0 0 var(--size-6);
+  position: relative;
+
+  // ab tablets gibt es dann genug platz um die spalten
+  ${({ theme }) => theme.breakpoints.tablet} {
+    // <!-- so kann man breakpoints innerhalb einer styled component verwenden. Alles in den klammern wird nur ab dieser größe dargestellt.
+    grid-template-rows: auto;
+    grid-template-columns: 1fr 2fr;
+  }
 `;
-const Left = styled.div`
-  flex: 30% 0 0;
-`;
-const Right = styled.div`
-  flex: 70% 0 0;
-`;
+
+// const Row = styled.div`
+//   display: flex;
+//   margin: 0 0 var(--size-6);
+// `;
+// const Left = styled.div`
+//   flex: 30% 0 0;
+// `;
+// const Right = styled.div`
+//   flex: 70% 0 0;
+// `;
 
 const SectionHeading = styled(Heading)`
   margin: var(--size-6) var(--size-6);
@@ -100,27 +122,76 @@ const SectionHeading = styled(Heading)`
   font-weight: bold;
 `;
 
+const Icon = styled(ButtonNormalized)`
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #f0f;
+  width: 20px;
+  height: 20px;
+`;
+
 export const TextSection = () => {
+  // we build an array that stores for each text row if it is simple or not
+  // initially all are not 
+  const [isSimpleIndexes, setisSimpleIndexes] = useState(textrows.map(() => false));
+
+  
   return (
     <>
       <PageMargins spaceBottom={8} spaceTop={4}>
         <SectionHeading asTag="h2" heading="h2">
           {headline}
         </SectionHeading>
-        <Wizard bend="up right" left="0%" bottom="-250px" width="20%" inView inViewDelay={1}>
+        <Wizard
+          bend="up right"
+          left="0%"
+          bottom="-250px"
+          width="20%"
+          inView
+          inViewDelay={1}
+        >
           You would like to add something here? Go ahead and contact us!
         </Wizard>
-        {textrows.map((row: any, i: number) => {
+        {textrows.map((row: any, index: number) => {
           return (
-            <Row key={i}>
-              <Left>
+            <Grid key={`textrowo${index}`}>
+              <div>
                 <h3>{row.headline}</h3>
-              </Left>
-              <Right>{row.textStandard}</Right>
-            </Row>
+              </div>
+              <div>
+                {isSimpleIndexes[index] ? row.textSimple : row.textStandard }
+                <Icon aria-label="change to simple text version" onClick={() => {
+                  // in this on click we toggle the current rows value
+                  isSimpleIndexes[index] = !isSimpleIndexes[index];
+
+                  // and safe it again in the the state
+                  // as the state only triggers an update if the "reference" of the variable changes
+                  // arrays (and object) nedd to be new
+                  // hence we "spread" the current array in a new one
+                  setisSimpleIndexes([...isSimpleIndexes]);
+                }}>
+                  <SvgBackground type="logo" />
+                </Icon>
+              </div>
+            </Grid>
+            // TODO: ich würde ja hier ein css grid verwenden weil das erlaubt dir breakpoint änderungen
+            // <Row key={i}>
+            // <Left>
+            //    <h3>{row.headline}</h3>
+            //  </Left>
+            //  <Right>{row.textStandard}</Right>
+            //</Row>
           );
         })}
-        <Wizard bend="down right" left="0%" bottom="-50px" width="20%" inView inViewDelay={1}>
+        <Wizard
+          bend="down right"
+          left="0%"
+          bottom="-50px"
+          width="20%"
+          inView
+          inViewDelay={1}
+        >
           Select one of the 5 conditions to find out more.
         </Wizard>
       </PageMargins>
