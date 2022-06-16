@@ -252,7 +252,7 @@ export const Header = ({
         className="header"
       >
         <SkipToLink id="content">skip to content</SkipToLink>
-        {showLogo && <Logo color="var(--color-text)" size={1.3} />}
+        {showLogo && <Logo color="var(--color-text)" hoverColor="var(--color-ailab-red)" size={1.3} />}
         <MainNav ref={mainRef}>
           <HeaderNav>
             <HeaderNavLinks

@@ -57,7 +57,7 @@ export const Intro = () => {
       <Wizard towards bend="down left" left="5%" bottom="100px" width="30%" inView inViewDelay={1.0} inViewRevert> 
        Explore existing projects of public interest and their answers.
       </Wizard>
-      <Wizard towards right bend="down right" left="60%" bottom="100px" width="35%" inView inViewDelay={2.5}> 
+      <Wizard towards right bend="down right" left="60%" bottom="100px" width="35%" inView inViewDelay={2.5} inViewRevert> 
         We’ve done some research. Read here our proposed definition for a public interest AI.
       </Wizard>
     </Container>

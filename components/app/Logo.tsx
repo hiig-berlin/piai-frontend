@@ -39,7 +39,6 @@ const LogoContainer = styled.div<{size?: number, hoverColor?: string;}>`
   // }
 `;  
 
-// const [currentColor, setCurrentColor] = useState("--var());
 
 export const Logo = ({
   color,
@@ -52,25 +51,29 @@ export const Logo = ({
   }
 ) => {
   const config = useConfigContext();
+  const [hover, isHover] = useState(false);
 
   return (
     <LogoContainer 
       size={size} 
       hoverColor={hoverColor}
-      // onMouseOver={hoverAll}
+      onMouseEnter={()=> isHover(true)} 
+      onMouseLeave={()=> isHover(false)}
     >
       <Link href={`${config?.baseUrl}/`} passHref>
         <a title="Go to homepage">
           <LabElement
             shortHandle="PI"
             longText="Public Interest"
-            color={color || "#000)"}
+            color={hover? hoverColor : color}
+            hoverColor={hoverColor}
             size={size}
           />
           <LabElement
             shortHandle="AI"
             longText="AI"
-            color={color || "#000"}
+            color={hover? hoverColor : color}
+            hoverColor={hoverColor}
             size={size}
           />
         </a>

@@ -127,7 +127,6 @@ const Icon = styled(ButtonNormalized)`
   position: absolute;
   top: 0;
   right: 0;
-  background-color: #f0f;
   width: 20px;
   height: 20px;
 `;
@@ -191,7 +190,7 @@ export const TextSection = () => {
                     setisSimpleIndexes([...isSimpleIndexes]);
                   }}
                 >
-                  <SvgBackground type="logo" />
+                  <SvgBackground type="language" />
                 </Icon>
               </div>
             </Grid>

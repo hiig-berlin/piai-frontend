@@ -48,7 +48,7 @@ export const TwoCol = () => {
       <Tile
         bgOverlay="piaiMap"
         element={
-          <LabElement shortHandle="Ma" longText="Project Map" color="white" />
+          <LabElement shortHandle="Ma" longText="Project Map" color="white" hoverColor="#ffffff"/>
         }
         headline="Public Interest AI Project Map"
         buttons={[
@@ -70,7 +70,7 @@ export const TwoCol = () => {
       </Tile>
       <Tile
         bgOverlay="piaiInterface"
-        element={<Logo color="white" />}
+        element={<Logo color="white" hoverColor="white"/>}
         headline="A global discourse"
         // TODO: Buttons here only on mobile
         buttons={[
