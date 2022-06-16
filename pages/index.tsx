@@ -53,25 +53,6 @@ const Home = ({ currentPage }: { currentPage: any }) => {
         <TextSection />
 
         <Accordion/>
-        {/* <TextHeading>
-          For Public Interest AI we need to design new processes and design
-          patterns.
-        </TextHeading>
-        <TextListing
-          title="What is public interest AI"
-          cta="Nullam blandit ac nisi ac bibendum. Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor."
-          text={loremIpsum({ p: 2 })
-            .map((text: string) => `<p>${text}</p>`)
-            .join("")}
-        />
-        <TextTwoCol
-          left={loremIpsum({ p: 2 })
-            .map((text: string) => `<p>${text}</p>`)
-            .join("")}
-          right={loremIpsum({ p: 2 })
-            .map((text: string) => `<p>${text}</p>`)
-            .join("")}
-        /> */}
       </main>
     </>
   );

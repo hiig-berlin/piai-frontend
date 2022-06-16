@@ -56,16 +56,16 @@ const Icon = styled(ButtonNormalized)`
 export const Accessible = ({
   simple,
   position = "top right",
-  status = "standard",
+  defaultToSimple = false,
   children,
 }: {
   simple: any;
   position?: string;
-  status?: string;
+  defaultToSimple?: boolean;
   children: React.ReactNode;
 }) => {
   // TODO: Write toggle function depending on toggle or global state/envirnoment variable
-  const [isSimple, setIsSimple] = useState(false);
+  const [isSimple, setIsSimple] = useState(defaultToSimple);
 
   return (
     <>
