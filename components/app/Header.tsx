@@ -12,6 +12,7 @@ import { SkipToLink } from "../ui/SkipToLink";
 import useIsMounted from "~/hooks/useIsMounted";
 import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
 import { MenuButton } from "./MenuButton";
+import { LabElement } from "../ui/LabElement";
 
 const StyledHeader = styled.header<{
   headerTransform?: string;
@@ -35,6 +36,8 @@ const StyledHeader = styled.header<{
     text-decoration: none;
   }
 
+  padding: var(--size-4);
+
   ${({ isHidden }) =>
     isHidden
       ? `
@@ -45,40 +48,16 @@ const StyledHeader = styled.header<{
       : undefined}
 `;
 
-
-
-/*  
-  TODO:
-  You can also do math in the styling
-  Either by using calc(...) and var(..)
-
-  Like  padding: 0 calc(var(--size-page-margin) + var(--size-5));
-  
-  Or by using the variables of the theme, just use the sizings without th Px, thus
-  space(...) not spacePx(...)
-  it is best to to round the resulting number to only a few digits after the . (by using toFixed(2))
-
-  height: ${(
-    props.theme.space(breakpoint, 3) +
-    props.theme.space(
-      breakpoint,
-      ["base", "mobile"].includes(breakpoint) ? 5 : 4
-    )
-  ).toFixed(2)}px;
-
-  and don't forget to add the "px" yourself. 
-*/
 const MainNav = styled.nav`
   width: 100%;
   display: flex;
   justify-content: flex-end;
   align-items: center;
   transform: translateZ(0);
-  height: var(--size-6);
-  padding: 0 calc(var(--size-page-margin) + var(--size-5));
+  padding: 0 var(--size-6);
 
   ${({ theme }) => theme.breakpoints.tablet} {
-    padding: 0 calc(var(--size-page-margin) + var(--size-4));
+    padding: 0 var(--size-6);
   }
 `;
 
@@ -93,7 +72,7 @@ const HeaderNavLinks = styled.div`
   height: 100%;
 `;
 
-const scrollUpPixel = 200;
+const scrollUpPixel = 150;
 
 export const Header = ({
   isHome,
@@ -260,12 +239,12 @@ export const Header = ({
 
   return (
     <>
-      
+      <MenuButton />
       <StyledHeader
         ref={headerRef}
         headerTransform={headerTuckUpTransform ?? "translateZ(0)"}
         headerPosition="sticky"
-        headerColor="transparent"
+        headerColor="#ffffffcc"
         style={{
           width: menuContext.isOpen ? `calc(100vw - var(--sbw, 0))` : undefined,
         }}
@@ -273,8 +252,7 @@ export const Header = ({
         className="header"
       >
         <SkipToLink id="content">skip to content</SkipToLink>
-        {showLogo && <Logo color="var(--color-text-gray)" />}
-      <MenuButton />
+        {showLogo && <Logo color="var(--color-text)" size={1.3} />}
         <MainNav ref={mainRef}>
           <HeaderNav>
             <HeaderNavLinks
@@ -283,12 +261,15 @@ export const Header = ({
                 display: isTabletLandscapeAndUp ? "flex" : "none",
               }}
             >
-              <MenuHeader id="menu-header" />
+              {/* <MenuHeader id="menu-header" /> */}
+              <LabElement shortHandle="Ma" longText="Project Map" size={1.3} color="var(--color-grey)" hoverColor="var(--color-piai-map)"/>
+              <LabElement shortHandle="En" longText="Energy Usage" size={1.3} color="var(--color-grey)" hoverColor="var(--color-piai-energy)"/>
             </HeaderNavLinks>
           </HeaderNav>
         </MainNav>
         {children}
       </StyledHeader>
+      
     </>
   );
 };

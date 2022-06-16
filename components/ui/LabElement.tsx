@@ -4,9 +4,14 @@ import { getStaticProps } from "~/pages";
 // import safeHtml from "~/utils/sanitize";
 // import omit from "lodash/omit";
 
-const ElementContainer = styled.div`
-    border-color: ${(props: any) => props.color || "#000"};
-    color: ${(props: any) => props.color|| "#000"};
+const ElementContainer = styled.div<{
+  color?: string; 
+  hoverColor?: string; 
+  size?: number;
+}>`
+    border-color: ${({color}) => color || "#000"};
+    color: ${({color}) => color|| "#000"};
+    font-size: ${({size}) => size || 1}em;
     border-style: solid;
     border-width: 0.16em;
     padding: 0.2em;
@@ -18,6 +23,15 @@ const ElementContainer = styled.div`
 
     display: flex;  
     flex-direction: column;
+
+    & + &{
+      margin-left: 0.3em;
+    }
+
+    &:hover{
+      border-color: ${({hoverColor}) => hoverColor || "#666"};
+      color: ${({hoverColor}) => hoverColor|| "#666"};
+    }
 `
 
 const ElementShort = styled.span`
@@ -35,18 +49,26 @@ const ElementLong= styled.span`
     margin-top: auto;
 `
 
-export const LabElement = (props: {
+export const LabElement = ({
+  color,
+  hoverColor,
+  shortHandle,
+  longText,
+  size,
+}: {
   color?: string;
+  hoverColor?: string;
   shortHandle?: string;
   longText?: string;
+  size?: number;
 }) => {
   return (
-    <ElementContainer color={props.color}>
+    <ElementContainer color={color} hoverColor={hoverColor} size={size}>
         <ElementShort>
-            {props.shortHandle}
+            {shortHandle}
         </ElementShort>
         <ElementLong>
-            {props.longText}
+            {longText}
         </ElementLong>
     </ElementContainer>
   );

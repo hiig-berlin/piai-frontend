@@ -18,7 +18,7 @@ const Grid = styled.div`
 
   & a {
     text-decoration: none;
-    color: var(--color-text-gray);
+    color: var(--color-text-grey);
   }
 
   @media (any-pointer: fine) {

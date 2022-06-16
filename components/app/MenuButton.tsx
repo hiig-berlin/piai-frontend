@@ -8,8 +8,8 @@ const MenuButtonContainer = styled.div`
   position: fixed;
   z-index: ${({ theme }) => theme.zIndex.menu + 1};
 
-  top: var(--size-3);
-  right: var(--size-page-margin);
+  top: calc(var(--size-4) + 10px);
+  right: var(--size-4);
 
 `;
 

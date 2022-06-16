@@ -29,7 +29,7 @@ const Title = styled.div`
 
 const Cta = styled.div`
   grid-area: cta;
-  color: var(--color-text-gray);
+  color: var(--color-text-grey);
 
   width: 80%;
   text-align: center;

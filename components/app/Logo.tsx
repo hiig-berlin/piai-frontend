@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from 'react';
 import styled from "styled-components";
 import { SvgBackground } from "../ui/SvgBackground";
 import Link from "next/link";
@@ -6,24 +6,24 @@ import { useConfigContext } from "~/providers/ConfigContextProvider";
 import { LabElement } from "../ui/LabElement";
 import { getStaticProps } from "~/pages";
 
-const LogoContainer = styled.div`
+const LogoContainer = styled.div<{size?: number, hoverColor?: string;}>`
   
   
   & a {
     display: flex;
-    height: 2.4em;
-    width: 5em;
+    height: calc(2.4em *  ${({size}) => size || 1});
+    width: calc(5em *  ${({size}) => size || 1});
     justify-content: space-between;
 
     transition: filter 0.3s;
     &:hover,
     &:active {
-      filter: invert(33.33%);
+      color: ${({hoverColor}) => hoverColor || "var(--color-ailab-red)"}
     }
 
     @media (any-pointer: fine) {
       &:hover {
-        filter: invert(33.33%);
+        color: ${({hoverColor}) => hoverColor || "var(--color-ailab-red)"}
       }
     }
   }
@@ -39,24 +39,39 @@ const LogoContainer = styled.div`
   // }
 `;  
 
-export const Logo = (
-  {color}:{color: string}
+// const [currentColor, setCurrentColor] = useState("--var());
+
+export const Logo = ({
+  color,
+  hoverColor,
+  size,
+} :{
+    color: string;
+    hoverColor?: string;
+    size?: number;
+  }
 ) => {
   const config = useConfigContext();
 
   return (
-    <LogoContainer>
+    <LogoContainer 
+      size={size} 
+      hoverColor={hoverColor}
+      // onMouseOver={hoverAll}
+    >
       <Link href={`${config?.baseUrl}/`} passHref>
         <a title="Go to homepage">
           <LabElement
             shortHandle="PI"
             longText="Public Interest"
             color={color || "#000)"}
+            size={size}
           />
           <LabElement
             shortHandle="AI"
             longText="AI"
             color={color || "#000"}
+            size={size}
           />
         </a>
       </Link>

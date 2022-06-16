@@ -111,7 +111,7 @@ export const themeGetBreakpointValue = (level: number) => {
 export const theme = {
   pageMaxWidth: 1680,
   colors: {
-    piaiAilabRed: "#BE0042",
+    ailabRed: "#BE0042",
     piaiInterface: "#416F83",
     piaiMap: "#AA936E",
     piaiMapHightlight: "#FDD491",
@@ -119,7 +119,8 @@ export const theme = {
     bg: "#fff",
     text: "#000",
     focusOutline: "#00f",
-    textGray: "#707070",
+    grey: "#aaa",
+    textGrey: "#707070",
     link: "#666",
     linkHover: "#666",
     hl: "#ff0",
@@ -258,7 +259,7 @@ export const theme = {
     },
     monospace: {
       fontFamily: "var(--font-family-monospace)",
-      color: "var(--color-text-gray)",
+      color: "var(--color-text-grey)",
       fontSize: "0.8em",
       lineHight: "1.1em"
     },
@@ -283,7 +284,7 @@ export const theme = {
         // lineHeight: "24px",
         marginBottom: "0.6em",
         lineHeight: "1.3em",
-        color: "var(--color-text-gray)",
+        color: "var(--color-text-grey)",
       },
       h0: {
         fontFamily: "var(--font-family-sans-serif)",
