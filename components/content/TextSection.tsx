@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import useIsBreakpoint from "~/hooks/useIsBreakpoint";
 import { ButtonNormalized } from "../styled/Button";
-import { StyledHeading } from "../styled/StyledHeading";
+import DisplayAbove from "../styled/DisplayAbove";
 import { Heading } from "../ui/Heading";
 import PageMargins from "../ui/PageMargins";
 import { SvgBackground } from "../ui/SvgBackground";
@@ -89,7 +90,7 @@ const Grid = styled.div`
   display: grid;
 
   // auf mobiles stacken wir dir columns
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: auto auto;
   gap: var(
     --size-gutter-width
   ); // <-- immer gut etwas luft zischen den spalten/reihen zu haben
@@ -133,26 +134,42 @@ const Icon = styled(ButtonNormalized)`
 
 export const TextSection = () => {
   // we build an array that stores for each text row if it is simple or not
-  // initially all are not 
-  const [isSimpleIndexes, setisSimpleIndexes] = useState(textrows.map(() => false));
+  // initially all are not
+  const [isSimpleIndexes, setisSimpleIndexes] = useState(
+    textrows.map(() => false)
+  );
 
+  // TODO: you could use useIsBreakpoint
+  // whenever you can it would be better to hide components using css and breakpoints
+  // useIsBreakpoint takes sompe CPU time. So it is only worth using if the hidden component would potentially use
+  // more CPU time than the useIsBreakpoint
+
+  const isTablet = useIsBreakpoint("tablet");
+
+  // TODO: the alternavite is to use <DisplayAbove breakpoint="table" display="flex"/> or <DisplayBelow breakpoint="tablet" />
+  // this is just a helper div setting display to none or block or any value you pass. I used it in the code below
+  // downside it adds another element to the DOM tree. 
   
+  // TODO: third alternative is to have a styled component that shows only after a certain break point
+
   return (
     <>
       <PageMargins spaceBottom={8} spaceTop={4}>
         <SectionHeading asTag="h2" heading="h2">
           {headline}
         </SectionHeading>
-        <Wizard
-          bend="up right"
-          left="0%"
-          bottom="-250px"
-          width="20%"
-          inView
-          inViewDelay={1}
-        >
-          You would like to add something here? Go ahead and contact us!
-        </Wizard>
+        {isTablet && (
+          <Wizard
+            bend="up right"
+            left="0%"
+            bottom="-250px"
+            width="20%"
+            inView
+            inViewDelay={1}
+          >
+            You would like to add something here? Go ahead and contact us!
+          </Wizard>
+        )}
         {textrows.map((row: any, index: number) => {
           return (
             <Grid key={`textrowo${index}`}>
@@ -160,17 +177,20 @@ export const TextSection = () => {
                 <h3>{row.headline}</h3>
               </div>
               <div>
-                {isSimpleIndexes[index] ? row.textSimple : row.textStandard }
-                <Icon aria-label="change to simple text version" onClick={() => {
-                  // in this on click we toggle the current rows value
-                  isSimpleIndexes[index] = !isSimpleIndexes[index];
+                {isSimpleIndexes[index] ? row.textSimple : row.textStandard}
+                <Icon
+                  aria-label="change to simple text version"
+                  onClick={() => {
+                    // in this on click we toggle the current rows value
+                    isSimpleIndexes[index] = !isSimpleIndexes[index];
 
-                  // and safe it again in the the state
-                  // as the state only triggers an update if the "reference" of the variable changes
-                  // arrays (and object) nedd to be new
-                  // hence we "spread" the current array in a new one
-                  setisSimpleIndexes([...isSimpleIndexes]);
-                }}>
+                    // and safe it again in the the state
+                    // as the state only triggers an update if the "reference" of the variable changes
+                    // arrays (and object) nedd to be new
+                    // hence we "spread" the current array in a new one
+                    setisSimpleIndexes([...isSimpleIndexes]);
+                  }}
+                >
                   <SvgBackground type="logo" />
                 </Icon>
               </div>
@@ -184,16 +204,18 @@ export const TextSection = () => {
             //</Row>
           );
         })}
-        <Wizard
-          bend="down right"
-          left="0%"
-          bottom="-50px"
-          width="20%"
-          inView
-          inViewDelay={1}
-        >
-          Select one of the 5 conditions to find out more.
-        </Wizard>
+        <DisplayAbove breakpoint="tablet">
+          <Wizard
+            bend="down right"
+            left="0%"
+            bottom="-50px"
+            width="20%"
+            inView
+            inViewDelay={1}
+          >
+            Select one of the 5 conditions to find out more.
+          </Wizard>
+        </DisplayAbove>
       </PageMargins>
 
       <PageMargins spaceBottom={8} spaceTop={4}>

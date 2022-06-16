@@ -1,7 +1,10 @@
 import styled from "styled-components";
 
-export const DisplayBelow = styled.span<{breakpoint: string; inline?: boolean;}>`
-  display: ${({inline}) => inline ? "inline-block":"block"};
+export const DisplayBelow = styled.span<{
+  breakpoint: string;
+  display?: string;
+}>`
+  display: ${({ display }) => display ?? "block"};
   ${({ theme, breakpoint }) => theme.breakpoints?.[breakpoint]} {
     display: none;
   }
