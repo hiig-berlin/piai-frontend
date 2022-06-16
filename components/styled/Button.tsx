@@ -1,17 +1,25 @@
 import styled from "styled-components";
 
-export const Button = styled.button`
-  border: 2px solid;
-  border-color: inherit;
+export const ButtonNormalized = styled.button`
+  font-family: var(--text-family-sans-serif);
+  border: none;
   background: none;
-
   cursor: pointer;
-  padding: 0.5em 1em;
-  margin: var(--size-2);
+  padding: 0;
+  margin: 0;
   position: relative;
   appearance: none;
   user-select: none;
+  color: #000;
+`
 
+export const Button = styled(ButtonNormalized)`
+  border: 2px solid;
+  border-color: inherit;
+  
+  padding: 0.5em 1em;
+  margin: var(--size-2);
+  
   color: inherit;
   font-family: var(--font-family-sans-serif);
   font-weight: bold;

@@ -10,8 +10,8 @@ import SvgArrow from "../svgs/SvgArrow";
 
 export const SvgBackground = ({
   type,
-  width,
-  height,
+  width = "100%",
+  height = "100%",
   className = "svg",
   size = "contain",
   position = "center center",
@@ -19,8 +19,8 @@ export const SvgBackground = ({
   svg,
 }: {
   type?: string;
-  width: string;
-  height: string;
+  width?: string;
+  height?: string;
   size?: string;
   className?: string;
   position?: string;

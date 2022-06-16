@@ -1,6 +1,5 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
-import Arrow from "~/assets/svg/optimized/AnimatedArrow.svg";
 
 const drawAnimation = keyframes`
   to {
@@ -11,6 +10,7 @@ const drawAnimation = keyframes`
 const Container = styled.div<{
   width: string;
   height: string;
+  animationDelay?: number;
   animate?: boolean;
   towards?: boolean;
   bend?: string;
@@ -22,32 +22,32 @@ const Container = styled.div<{
 
   // down to left
   ${({ towards, bend }) =>
-    (towards &&  bend === "down left") ? 
-    `
+    towards && bend === "down left"
+      ? `
     transform: rotate(65deg) translate(-4px,20px);
     `
-    : ""}
+      : ""}
 
   // down to right
   ${({ towards, bend }) =>
-    (towards &&  bend === "down right") ? 
-    `
+    towards && bend === "down right"
+      ? `
     transform: rotate(-59deg) translate(16px,30px) scaleX(-1);
     `
-    : ""}
+      : ""}
 
     // up to right away
     ${({ towards, bend }) =>
-      (towards === undefined && bend === "up right") ? 
-      `
+    towards === undefined && bend === "up right"
+      ? `
       transform: rotate(35deg) translate(28px,-11px) scaleY(-1);
       `
       : ""}
 
     // down to right away
     ${({ towards, bend }) =>
-      (towards === undefined && bend === "down right") ? 
-      `
+    towards === undefined && bend === "down right"
+      ? `
       transform-origin: bottom right;
       transform: rotate(-82deg) translate(-72%,100%) scaleX(-1);
       `
@@ -66,20 +66,24 @@ const Container = styled.div<{
       stroke-linecap: round;
       stroke-linejoin: round;
       animation-duration: 1s;
+      animation-delay: ${({ animationDelay }) =>
+        animationDelay ? `${animationDelay?.toFixed(1)}s` : "0s"};
       animation-fill-mode: forwards;
       animation-name: ${({ animate }) => (animate ? drawAnimation : "none")};
 
-      &.st0{
+      &.st0 {
         stroke-width: 1;
         stroke: #aaa;
       }
 
       &.tail-1 {
-        animation-delay: 0.5s;
+        animation-delay: ${({ animationDelay }) =>
+          animationDelay ? `${(animationDelay + 0.5)?.toFixed(1)}s` : "0.5s"};
         animation-fill-mode: forwards;
       }
       &.tail-2 {
-        animation-delay: 0.7s;
+        animation-delay: ${({ animationDelay }) =>
+          animationDelay ? `${(animationDelay + 0.7)?.toFixed(1)}s` : "0.7s"};
         animation-fill-mode: forwards;
       }
     }
@@ -92,15 +96,17 @@ export const AnimatedArrow2 = ({
   towards,
   bend = "bottom left",
   animate,
+  animationDelay,
 }: {
   width?: string;
   height?: string;
   towards?: boolean;
   bend?: string;
   animate?: boolean;
+  animationDelay?: number;
 }) => {
   return (
-    <Container {...{ width, height, animate, bend, towards }}>
+    <Container {...{ width, height, animate, bend, towards, animationDelay }}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 43.1 85.9"

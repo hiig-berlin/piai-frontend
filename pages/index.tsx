@@ -19,6 +19,7 @@ import { TextHeading } from "~/components/content/TextHeading";
 import { TextListing } from "~/components/content/TextListing";
 import { TextTwoCol } from "~/components/content/TextTwoCol";
 import { loremIpsum } from "react-lorem-ipsum";
+import { Accordion } from "~/components/ui/Accordion";
 
 
 const Home = ({ currentPage }: { currentPage: any }) => {
@@ -51,6 +52,7 @@ const Home = ({ currentPage }: { currentPage: any }) => {
         {/* <Video></Video> */}
         <TextSection />
 
+        <Accordion/>
         {/* <TextHeading>
           For Public Interest AI we need to design new processes and design
           patterns.
