@@ -120,7 +120,7 @@ export const theme = {
     text: "#000",
     focusOutline: "#00f",
     grey: "#aaa",
-    textGrey: "#707070",
+    textGrey: "#666",
     link: "#666",
     linkHover: "#666",
     hl: "#ff0",

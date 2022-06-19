@@ -7,6 +7,7 @@ import { ButtonNormalized } from "../styled/Button";
 const AccessibleText = styled.div<{simple?: boolean}>`
   font-weight: ${({simple}) => simple ? "400" : "inherit"};
   color: ${({simple}) => simple ? "#000" : "inherit"};
+  padding-right: 3em;
 `;
 
 const Icon = styled(ButtonNormalized)`
@@ -28,7 +29,7 @@ const Icon = styled(ButtonNormalized)`
     white-space: nowrap;
     overflow: hidden;
     max-width: 0;
-    margin: 0 1em;
+    margin: 0;
     transition: max-width 0.5s ease;
     // opacity: 0;
     
@@ -39,6 +40,7 @@ const Icon = styled(ButtonNormalized)`
   &:hover > span:first-child {
     // opacity: 1;
     max-width: 200px;
+    margin: 0 1em;
   }
 
   & > span:last-child {
@@ -68,7 +70,7 @@ export const Accessible = ({
   const [isSimple, setIsSimple] = useState(defaultToSimple);
 
   return (
-    <>
+    <div  style={{position: "relative"}}>
       <AccessibleText simple={isSimple}>{isSimple ? simple : children}</AccessibleText>
       <Icon
         onClick={() => setIsSimple(!isSimple)}
@@ -77,6 +79,6 @@ export const Accessible = ({
         <span>{isSimple ? "Show standard text" : "Show simplified text"}</span>
         <span><SvgBackground type="language"/></span>
       </Icon>
-    </>
+    </div>
   );
 };

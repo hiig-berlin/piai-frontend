@@ -63,7 +63,7 @@ export const LabElement = ({
   size?: number;
 }) => {
   return (
-    <ElementContainer color={color} hoverColor={hoverColor} size={size}>
+    <ElementContainer color={color} hoverColor={hoverColor} size={size} className="labElement">
         <ElementShort>
             {shortHandle}
         </ElementShort>

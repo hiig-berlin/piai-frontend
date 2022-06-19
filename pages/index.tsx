@@ -19,7 +19,7 @@ import { TextHeading } from "~/components/content/TextHeading";
 import { TextListing } from "~/components/content/TextListing";
 import { TextTwoCol } from "~/components/content/TextTwoCol";
 import { loremIpsum } from "react-lorem-ipsum";
-import { Accordion } from "~/components/ui/Accordion";
+import { About } from "~/components/content/About";
 
 
 const Home = ({ currentPage }: { currentPage: any }) => {
@@ -52,7 +52,8 @@ const Home = ({ currentPage }: { currentPage: any }) => {
         {/* <Video></Video> */}
         <TextSection />
 
-        <Accordion/>
+        <About />
+
       </main>
     </>
   );
