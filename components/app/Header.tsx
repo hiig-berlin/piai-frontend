@@ -244,7 +244,7 @@ export const Header = ({
         ref={headerRef}
         headerTransform={headerTuckUpTransform ?? "translateZ(0)"}
         headerPosition="sticky"
-        headerColor="#ffffffcc"
+        headerColor="#ffffff"
         style={{
           width: menuContext.isOpen ? `calc(100vw - var(--sbw, 0))` : undefined,
         }}

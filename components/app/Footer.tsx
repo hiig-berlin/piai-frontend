@@ -39,7 +39,7 @@ const Grid = styled.div`
 
 const Copyright = styled.div`
   grid-area: copyright;
-  ${({ theme }) => theme.textStyle("caption")}
+  ${({ theme }) => theme.textStyle("small")}
 
   & p {
     max-width: 100%;
@@ -59,7 +59,7 @@ const Div = styled.div`
   display: flex;
   align-self: end;
 
-  ${({ theme }) => theme.textStyle("caption")}
+  ${({ theme }) => theme.textStyle("small")}
 
   ${({ theme }) => theme.breakpoints.tabletLandscape} {
     justify-content: flex-end;
@@ -70,7 +70,7 @@ export const Footer = () => {
   const settings = useSettingsContext();
 
   return (
-    <PageMargins spaceBottom={4} spaceTop={4}>
+    <PageMargins spaceBottom={4} spaceTop={8} bgColor="#f0f0f0">
       <Grid>
         <Copyright
           dangerouslySetInnerHTML={{

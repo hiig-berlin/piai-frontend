@@ -160,7 +160,7 @@ export const theme = {
     desktop: 100,
     screen: 0,
   },
-  gutterWidth: themeGetBreakpointValue(3),
+  gutterWidth: themeGetBreakpointValue(2),
 
   bodyCopyMaxWidth: {
     base: 450,
@@ -337,6 +337,12 @@ export const theme = {
         fontStyle: "normal",
         fontSize: "12px",
       },
+      small: {
+        fontWeight: 300,
+        fontStyle: "normal",
+        fontSize: "0.8em",
+        color: "var(--color-text-grey)",
+      }
     },
     mobile: {
       h0: {
