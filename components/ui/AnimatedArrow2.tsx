@@ -36,21 +36,30 @@ const Container = styled.div<{
     `
       : ""}
 
-    // up to right away
-    ${({ towards, bend }) =>
+  // up to right away
+  ${({ towards, bend }) =>
     towards === undefined && bend === "up right"
       ? `
-      transform: rotate(35deg) translate(28px,-11px) scaleY(-1);
-      `
+    transform: rotate(35deg) translate(28px,-11px) scaleY(-1);
+    `
       : ""}
 
-    // down to right away
-    ${({ towards, bend }) =>
+  // down to right away
+  ${({ towards, bend }) =>
     towards === undefined && bend === "down right"
       ? `
-      transform-origin: bottom right;
-      transform: rotate(-82deg) translate(-72%,100%) scaleX(-1);
-      `
+    transform-origin: bottom right;
+    transform: rotate(-82deg) translate(-72%,100%) scaleX(-1);
+    `
+      : ""}
+
+  // down to bottom middle (mobile)
+  ${({ towards, bend }) =>
+    towards === undefined && bend === "down below"
+      ? `
+    transform-origin: bottom right;
+    transform: rotate(-12deg) translate(-51%,114%) scale(0.7) scaleX(-1);
+    `
       : ""}
     
     

@@ -11,15 +11,16 @@ import {
   restApiESQuery,
 } from "~/utils/restApi";
 import { Intro } from "~/components/content/Intro";
-import { TwoCol } from "~/components/content/TwoCol";
+import { Tiles } from "~/components/content/Tiles";
 import { TextSection } from "~/components/content/TextSection";
+import { About } from "~/components/content/About";
 
 // TODO: remove if not needed anymore
-import { TextHeading } from "~/components/content/TextHeading";
-import { TextListing } from "~/components/content/TextListing";
-import { TextTwoCol } from "~/components/content/TextTwoCol";
-import { loremIpsum } from "react-lorem-ipsum";
-import { About } from "~/components/content/About";
+// import { TextHeading } from "~/components/content/TextHeading";
+// import { TextListing } from "~/components/content/TextListing";
+// import { TextTwoCol } from "~/components/content/TextTwoCol";
+// import { loremIpsum } from "react-lorem-ipsum";
+
 
 
 const Home = ({ currentPage }: { currentPage: any }) => {
@@ -46,10 +47,10 @@ const Home = ({ currentPage }: { currentPage: any }) => {
              
 
         <Intro />
-        <TwoCol />
+        <Tiles />
 
-        
         {/* <Video></Video> */}
+
         <TextSection />
 
         <About />

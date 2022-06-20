@@ -14,15 +14,16 @@ const Grid = styled.div<{ bg: string }>`
   // position: relative;
   // overflow: hidden;
 
-  ${({ theme }) => theme.breakpoints.tabletLandscape} {
-    grid-template-columns: 50% 50%;
-  }
-
   background: url(${(props: any) => props.bg});
   background-blend-mode: multiply;
   background-size: cover;
   background-color: white;
-  background-position: top center;
+  background-position: top left;
+
+  ${({ theme }) => theme.breakpoints.tabletLandscape} {
+    background-position: top center;
+    grid-template-columns: 50% 50%;
+  }
 `;
 
 const ImageWrapper = styled.div`
@@ -41,7 +42,7 @@ const ImageWrapper = styled.div`
 //   }
 // `;
 
-export const TwoCol = () => {
+export const Tiles = () => {
   return (
     <Grid bg={background.src}>
       {/* TODO: Replace this with CMS Content */}

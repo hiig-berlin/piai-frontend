@@ -3,6 +3,7 @@ import styled from "styled-components";
 import useIsBreakpoint from "~/hooks/useIsBreakpoint";
 import { ButtonNormalized } from "../styled/Button";
 import DisplayAbove from "../styled/DisplayAbove";
+import DisplayBelow from "../styled/DisplayBelow";
 import { Heading } from "../ui/Heading";
 import PageMargins from "../ui/PageMargins";
 import { SvgBackground } from "../ui/SvgBackground";
@@ -43,9 +44,13 @@ const Grid = styled.div`
 // `;
 
 const SectionHeading = styled(Heading)`
-  margin: var(--size-6);
+  margin: var(--size-7) var(--size-2);
   text-align: center;
   font-weight: bold;
+
+  ${({ theme }) => theme.breakpoints.tablet} {
+    margin: var(--size-6);
+  }
 `;
 
 const Icon = styled(ButtonNormalized)`
@@ -57,11 +62,12 @@ const Icon = styled(ButtonNormalized)`
 `;
 
 export const TextSection = () => {
-  // we build an array that stores for each text row if it is simple or not
-  // initially all are not
-  // const [isSimpleIndexes, setisSimpleIndexes] = useState(
-  //   textrows.map(() => false)
-  // );
+  // Larissa: Moved to Accessibility (to be used in several content components)
+  // // we build an array that stores for each text row if it is simple or not
+  // // initially all are not
+  // // const [isSimpleIndexes, setisSimpleIndexes] = useState(
+  // //   textrows.map(() => false)
+  // // );
 
   // TODO: you could use useIsBreakpoint
   // whenever you can it would be better to hide components using css and breakpoints
@@ -145,6 +151,21 @@ export const TextSection = () => {
             Select one of the 5 conditions to find out more.
           </Wizard>
         </DisplayAbove>
+        <DisplayBelow breakpoint="tablet" style={{
+              marginBottom: "var(--size-8)"
+            }}>
+          <Wizard
+            bend="down below"
+            left="0%"
+            bottom="0px"
+            width="80%"
+            inView
+            inViewDelay={1}
+            
+          >
+            Select one of the 5 conditions to find out more.
+          </Wizard>
+        </DisplayBelow>
       </PageMargins>
 
       <PageMargins spaceBottom={4} spaceTop={0}>

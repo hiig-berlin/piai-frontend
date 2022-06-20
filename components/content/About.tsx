@@ -17,8 +17,12 @@ const AboutContainer = styled.div`
   }
 
   p {
-    max-width: 80%;
+    max-width: 100%;
     margin: var(--size-3) 0;
+
+    ${({ theme }) => theme.breakpoints.tablet} {
+      max-width: 80%;
+    }
   }
 
   button {
@@ -115,8 +119,11 @@ const Infobox = styled.article`
 
 const Grid = styled.div<{ col: number }>`
   display: grid;
-  grid-template-columns: repeat(${({ col }) => col}, 1fr);
   gap: var(--size-gutter-width);
+
+  ${({ theme }) => theme.breakpoints.tablet} {
+    grid-template-columns: repeat(${({ col }) => col}, 1fr);
+  }
 `;
 
 export const About = () => {

@@ -10,31 +10,33 @@ import { SvgBackground } from "./SvgBackground";
 
 const Pillars = styled.div<{ marginBottom?: number }>`
   display: grid;
-  grid-auto-rows: 1fr;
-  grid-template-columns: repeat(5, 1fr);
   gap: var(--size-gutter-width);
   position: relative;
-  ${({ marginBottom }) => marginBottom && marginBottom > 0 ? `
-    margin-bottom: calc(${marginBottom}px + var(--size-7) + var(--size-6));
-    ` : "margin-bottom: var(--size-5)" 
-  }
-`;
+  margin-bottom: var(--size-5);
+  
+  ${({ theme }) => theme.breakpoints.tablet} {
+    grid-template-columns: repeat(5, 1fr);
+    grid-auto-rows: 1fr;
 
-const Title = styled.h3`
-  ${({ theme }) => theme.applyMixin("uppercase")}
-  font-weight: 700;
-  font-size: calc(var(--text-body-font-size) * 0.8);
-  margin: 0;
-
-  section & {
-    margin: var(--size-5) var(--size-4) 0;
+    ${({ marginBottom }) => marginBottom && marginBottom > 0 ? `
+      margin-bottom: calc(${marginBottom}px + var(--size-7) + var(--size-6));
+      ` : "margin-bottom: var(--size-5)" 
+    }
   }
 `;
 
 const ToggleButton = styled(ButtonNormalized)`
   text-align: left;
   display: block;
-  height: 100%;
+  height: calc(100vw - 4 * var(--size-page-margin));
+  width: calc(100vw - 4 * var(--size-page-margin));
+  margin: 0 auto;
+
+  ${({ theme }) => theme.breakpoints.tablet} {
+    height: 100%;
+    width: unset;
+    margin: unset;
+  }
 
   & h3 {
     padding: 30px 20px 0;
@@ -48,47 +50,87 @@ const ToggleButton = styled(ButtonNormalized)`
   }
 
   & p {
-    padding: 10px 20px 0;
-    font-size: calc(var(--text-body-font-size) * 0.85);
+    padding: 10px 20px 20px;
+    font-size: calc(var(--text-body-font-size));
     color: var(--color-text-grey);
+
+    ${({ theme }) => theme.breakpoints.tablet} {
+      font-size: calc(var(--text-body-font-size) * 0.85);
+    }
   }
 
   & svg.arrow {
     position: absolute;
-    height: 100px;
-    bottom: calc(((100px - var(--size-7)) / 2) - 100px);
+    height: 50px;
+    bottom: calc(((60px - var(--size-7)) / 2) - 50px);
     left: 42%;
+
+    ${({ theme }) => theme.breakpoints.tablet} {
+      height: 100px;
+      bottom: calc(((100px - var(--size-7)) / 2) - 100px);
+    }
+  }
+`;
+
+
+const Title = styled.h3`
+  ${({ theme }) => theme.applyMixin("uppercase")}
+  font-weight: 700;
+  font-size: calc(var(--text-body-font-size) * 0.8);
+  margin: 0;
+
+  section & {
+    padding: var(--size-5) var(--size-4) 0;
   }
 `;
 
 const Details = styled.section`
-  position: absolute;
+  position: relative;
   left: 0;
   margin-top: var(--size-7);
 
+  ${({ theme }) => theme.breakpoints.tablet} {
+    position: absolute;
+    left: 0;
+  }
+
   & svg.frame {
     position: absolute;
-    width: 100%;
+    width: 800%;
     height: 100%;
     top: 0;
+    left: -400%;
     z-index: -1;
 
+    ${({ theme }) => theme.breakpoints.tablet} {
+      width: 100%;
+      left: 0;
+    }
+  
+
     g{
-      fill: none;
+      fill: #F5F8F9;
       stroke: #707070;
       strokeWidth: 1;
+
+      ${({ theme }) => theme.breakpoints.tablet} {
+        fill: none;
+      }
     }
   }
 `;
 
 const Columns = styled.div`
   display: grid;
-  grid-template-columns: 2fr 1fr;
   gap: var(--size-gutter-width);
   padding: var(--size-4);
 
   & > div:last-child{
     ${({ theme }) => theme.applyMixin("monospace")}
+  }
+
+  ${({ theme }) => theme.breakpoints.tablet} {
+    grid-template-columns: 2fr 1fr;
   }
 `;
 

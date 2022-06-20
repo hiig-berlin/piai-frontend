@@ -281,7 +281,6 @@ export const theme = {
         fontWeight: 300,
         fontStyle: "normal",
         fontSize: "20px",
-        // lineHeight: "24px",
         marginBottom: "0.6em",
         lineHeight: "1.3em",
         color: "var(--color-text-grey)",
@@ -290,7 +289,7 @@ export const theme = {
         fontFamily: "var(--font-family-sans-serif)",
         fontWeight: 400,
         fontSize: "35px",
-        // lineHeight: "40px",
+        lineHeight: "1.2em",
         marginTop: "-2px",
         marginBottom: "0.6em",
         marginLeft: "-4px",
@@ -373,7 +372,7 @@ export const theme = {
       },
 
       body: {
-        fontSize: "20px",
+        fontSize: "18px",
         // lineHeight: "24px",
       },
 

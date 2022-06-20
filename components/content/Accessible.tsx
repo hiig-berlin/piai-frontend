@@ -7,18 +7,29 @@ import { ButtonNormalized } from "../styled/Button";
 const AccessibleText = styled.div<{simple?: boolean}>`
   font-weight: ${({simple}) => simple ? "400" : "inherit"};
   color: ${({simple}) => simple ? "#000" : "inherit"};
-  padding-right: 3em;
+  padding-right: 0em;
+
+  ${({ theme }) => theme.breakpoints.tablet} {
+    padding-right: 4em;
+  }
 `;
 
 const Icon = styled(ButtonNormalized)`
-  position: absolute;
+  position: relative;
   top: 0;
   right: 0;
   display: block;
-  background: #ffffffee;
+  backgound: "ffffffee";
   padding: 10px 20px 10px 5px;
   margin-top: -6px;
   border-radius: 20px;
+  text-align: right;
+  opacity: 0.3;
+
+  ${({ theme }) => theme.breakpoints.tablet} {
+    position: absolute;
+    opacity: 1;
+  }
 
   &:hover{
     background: yellow;
@@ -28,13 +39,16 @@ const Icon = styled(ButtonNormalized)`
     display: inline-block;
     white-space: nowrap;
     overflow: hidden;
-    max-width: 0;
-    margin: 0;
+    max-width: auto;
+    margin: 0 1em;
     transition: max-width 0.5s ease;
-    // opacity: 0;
-    
 
     ${({ theme }) => theme.applyMixin("uppercase")};
+
+    ${({ theme }) => theme.breakpoints.tablet} {
+      max-width: 0;
+      margin: 0;
+    }
   }
 
   &:hover > span:first-child {
@@ -55,6 +69,17 @@ const Icon = styled(ButtonNormalized)`
   }
 `;
 
+const AccessibleContainer = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column-reverse;
+
+
+  ${({ theme }) => theme.breakpoints.tablet} {
+    display: block;
+  }
+`;
+
 export const Accessible = ({
   simple,
   position = "top right",
@@ -70,7 +95,7 @@ export const Accessible = ({
   const [isSimple, setIsSimple] = useState(defaultToSimple);
 
   return (
-    <div  style={{position: "relative"}}>
+    <AccessibleContainer>
       <AccessibleText simple={isSimple}>{isSimple ? simple : children}</AccessibleText>
       <Icon
         onClick={() => setIsSimple(!isSimple)}
@@ -79,6 +104,6 @@ export const Accessible = ({
         <span>{isSimple ? "Show standard text" : "Show simplified text"}</span>
         <span><SvgBackground type="language"/></span>
       </Icon>
-    </div>
+    </AccessibleContainer>
   );
 };
