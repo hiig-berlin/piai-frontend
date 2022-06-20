@@ -8,7 +8,7 @@ const Nav = styled.nav<{ direction: string }>`
   flex-direction: ${({ direction }) => direction};
 
   gap: var(--size-gutter-width);
-  ${({ theme }) => theme.textStyle("caption")};
+  ${({ theme }) => theme.textStyle("small")};
 `;
 
 export const MenuFooter = ({

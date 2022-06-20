@@ -14,7 +14,10 @@ const Pillars = styled.div<{ marginBottom?: number }>`
   grid-template-columns: repeat(5, 1fr);
   gap: var(--size-gutter-width);
   position: relative;
-  margin-bottom: calc(${({ marginBottom }) => marginBottom}px + var(--size-7));
+  ${({ marginBottom }) => marginBottom && marginBottom > 0 ? `
+    margin-bottom: calc(${marginBottom}px + var(--size-7) + var(--size-6));
+    ` : "margin-bottom: var(--size-5)" 
+  }
 `;
 
 const Title = styled.h3`
@@ -102,7 +105,7 @@ export const Accordion = () => {
   useEffect(() => {
     if (activeIndex < 5)
       setHeight(boxesRefs.current[activeIndex].clientHeight);
-  });
+  }, [activeIndex]);
 
   console.log(boxesRefs, boxesRefs.current, boxesRefs.current[0]);
 

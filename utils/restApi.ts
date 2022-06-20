@@ -458,7 +458,7 @@ export const restApiESGetSettings = async (taxonomies: string[] = []) => {
     test: "test",
     taxonomies: null,
     options: {
-      copyrightNotice: "Demo copyright notice",
+      copyrightNotice: "publicinterest.ai is a project by the Alexander von Humboldt Institute for Internet and Society (HIIG).",
     },
     menus: {
       header: {
