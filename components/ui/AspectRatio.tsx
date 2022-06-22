@@ -78,7 +78,7 @@ export const AspectRatio = ({
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const aRSupported = CSS.supports("aspect-ratio", "1/1");
+    const aRSupported = typeof CSS !== "undefined" && CSS.supports("aspect-ratio", "1/1");
 
     // Check on mount (callback is not called until a change occurs)
     if (
