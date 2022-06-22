@@ -119,6 +119,7 @@ export const theme = {
     bg: "#fff",
     text: "#000",
     focusOutline: "#00f",
+    lightGrey: "#f0f0f0",
     grey: "#aaa",
     textGrey: "#666",
     link: "#666",

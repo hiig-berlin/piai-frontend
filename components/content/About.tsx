@@ -1,26 +1,49 @@
 import React from "react";
 import styled from "styled-components";
 import { LabElement } from "../ui/LabElement";
-import PageMargins from "../ui/PageMargins";
+import { PageMargins } from "../ui/PageMargins";
 import Button from "../styled/Button";
 import { SvgBackground } from "../ui/SvgBackground";
+import useIsBreakpoint from "~/hooks/useIsBreakpoint";
 
-const AboutContainer = styled.div`
+const pageContainerWidth = "calc(100vw - 2 * var(--size-page-margin))";
+const mobileBoxSize = `calc(${pageContainerWidth} * 0.8)`;
+const boxPadding = "30px";
+const boxPaddingMobile = "50px";
+
+const AboutContainer = styled(PageMargins)`
   color: white;
   font-size: 0.85em;
+
+  & > div > div > div:first-child {
+    margin-bottom: var(--size-6);
+  }
+
+  ${({ theme }) => theme.breakpoints.tabletLandscape} {
+    padding-bottom: var(--size-7);
+
+    & > div > div > div:first-child {
+      margin-bottom: var(--size-2);
+    }
+  }
 
   h2 {
     ${({ theme }) => theme.textStyle("h3")}
     ${({ theme }) => theme.applyMixin("uppercase")}
     font-weight: bold;
     color: white;
+    font-size: calc(var(--text-h3-font-size) * 0.8);
+
+    ${({ theme }) => theme.breakpoints.tabletLandscape} {
+      font-size: var(--text-h3-font-size);
+    }
   }
 
   p {
     max-width: 100%;
     margin: var(--size-3) 0;
 
-    ${({ theme }) => theme.breakpoints.tablet} {
+    ${({ theme }) => theme.breakpoints.tabletLandscape} {
       max-width: 80%;
     }
   }
@@ -29,28 +52,62 @@ const AboutContainer = styled.div`
     margin-left: 0;
   }
 
-  .labElement {
-    float: left;
-    margin: 0 10px 0 0;
-  }
+  & .tools {
+    margin: var(--size-4) 0;
 
-  .labElement + p {
-    margin: 0;
-  }
+    & a {
+      color: white;
+      display: flex;
+    }
 
-  .infoboxes {
-    margin-top: var(--size-5);
+    .labElement {
+      float: left;
+      margin: 0 10px 0 0;
+    }
+
+    .labElement + p {
+      margin: auto 0;
+      padding-bottom: 5px;
+    }
+  }
+`;
+
+const InfoboxesContainer = styled(PageMargins)`
+  
+${({ theme }) => theme.breakpoints.tablet} {
     height: auto;
+    margin-bottom: calc(0px - var(--size-6));
+
+    .infoboxes {
+      height: auto;
+  }
+
+  ${({ theme }) => theme.breakpoints.desktop} {
+    height: calc(${pageContainerWidth} / 4);
+    margin-bottom: calc(0px - ${pageContainerWidth} / 12);
+
+    .infoboxes {
+      height: calc(${pageContainerWidth} / 4);
+
+      // overlap a third of the box to the top
+      margin-top: calc(0px - var(--size-6) - (${pageContainerWidth} / 12));
+    }
   }
 `;
 
 const Infobox = styled.article`
   position: relative;
-  height: 0%;
   width: 100%;
-  padding-bottom: 100%;
-  margin-bottom: -150%;
+  height: 0%;
+  padding-bottom: ${mobileBoxSize};
   font-size: 0.85em;
+  width: ${mobileBoxSize};
+  margin: 0 auto;
+
+  ${({ theme }) => theme.breakpoints.tablet} {
+    width: auto;
+    padding-bottom: 100%;
+  }
 
   & svg {
     position: absolute;
@@ -71,6 +128,11 @@ const Infobox = styled.article`
   & a {
     z-index: 1;
     position: relative;
+    padding: calc(${boxPaddingMobile} + 10px) ${boxPaddingMobile};
+
+    ${({ theme }) => theme.breakpoints.desktop} {
+      padding: calc(${boxPadding} + 10px) ${boxPadding};
+    }
   }
 
   h3 {
@@ -78,12 +140,13 @@ const Infobox = styled.article`
     color: var(--color-text);
     font-weight: 700;
     font-size: calc(var(--text-body-font-size) * 0.8);
-    padding: 40px 30px 0;
+    padding-bottom: 0;
     margin: 0;
   }
 
   & p {
-    padding: 20px 30px 0px;
+    padding-top: 20px;
+    padding-bottom: 0;
     font-size: calc(var(--text-body-font-size) * 0.85);
     color: var(--color-text-grey);
     margin: 0;
@@ -91,12 +154,14 @@ const Infobox = styled.article`
   }
 
   & a {
-    padding: 20px 35px 0;
+    padding-top: 20px;
+    padding-bottom: 0;
     text-align: right;
     display: block;
     ${({ theme }) => theme.applyMixin("uppercase")}
     color: var(--color-text-grey);
     font-weight: 700;
+    font-size: 0.9em;
 
     opacity: 0.7;
 
@@ -120,20 +185,39 @@ const Infobox = styled.article`
 const Grid = styled.div<{ col: number }>`
   display: grid;
   gap: var(--size-gutter-width);
+  grid-template-rows: auto;
 
-  ${({ theme }) => theme.breakpoints.tablet} {
+  ${({ theme }) => theme.breakpoints.tabletLandscape} {
     grid-template-columns: repeat(${({ col }) => col}, 1fr);
+  }
+
+  &.infoboxes {
+    grid-template-rows: repeat(
+      ${({ col }) => col},
+      calc(${mobileBoxSize} + var(--size-3))
+    );
+
+    // Two by two
+    ${({ theme }) => theme.breakpoints.tablet} {
+      grid-template-columns: repeat(calc(${({ col }) => col} / 2), 1fr);
+      grid-template-rows: calc(${pageContainerWidth} / 2) calc(${pageContainerWidth} / 2);
+    }
+
+    // Four in a row
+    ${({ theme }) => theme.breakpoints.desktop} {
+      grid-template-columns: repeat(${({ col }) => col}, 1fr);
+    }
   }
 `;
 
 export const About = () => {
   return (
-    <PageMargins
-      bgColor="var(--color-piai-interface)"
-      spaceTop={6}
-      spaceBottom={2}
-    >
-      <AboutContainer>
+    <>
+      <AboutContainer
+        bgColor="var(--color-piai-interface)"
+        spaceTop={6}
+        spaceBottom={6}
+      >
         <Grid col={2}>
           <div>
             <h2>{aboutContent.about.headline}</h2>
@@ -145,10 +229,10 @@ export const About = () => {
           <div>
             <h2>{aboutContent.toolbox.headline}</h2>
             <p>{aboutContent.toolbox.text}</p>
-            <Grid col={2}>
+            <Grid col={2} className="tools">
               {aboutContent.toolbox.tools.map((tool: any, index: number) => {
                 return (
-                  <div key={`tool-${index}`}>
+                  <a href={tool.linkUrl} key={`tool-${index}`}>
                     <LabElement
                       shortHandle={tool.shortHandle}
                       longText={tool.longText}
@@ -157,12 +241,18 @@ export const About = () => {
                       size={1.6}
                     />
                     <p>{tool.description}</p>
-                  </div>
+                  </a>
                 );
               })}
             </Grid>
           </div>
         </Grid>
+      </AboutContainer>
+      <InfoboxesContainer
+        bgColor="var(--color-light-grey)"
+        spaceTop={6}
+        spaceBottom={6}
+      >
         <Grid col={aboutContent.boxes.length} className="infoboxes">
           {aboutContent.boxes.map((box: any, index: number) => {
             return (
@@ -178,8 +268,8 @@ export const About = () => {
             );
           })}
         </Grid>
-      </AboutContainer>
-    </PageMargins>
+      </InfoboxesContainer>
+    </>
   );
 };
 
@@ -198,11 +288,13 @@ const aboutContent = {
         shortHandle: "Ma",
         longText: "Project Map",
         description: "Map and directory of PIAI projects",
+        linkUrl: "/map",
       },
       {
         shortHandle: "En",
         longText: "Energy Usage",
         description: "Measure you AI’s energy consumption",
+        linkUrl: "/consumption",
       },
     ],
   },
@@ -246,7 +338,7 @@ const BoxSvgs = ({ i }: { i: number }) => {
           xmlns="http://www.w3.org/2000/svg"
           width="100%"
           height="100%"
-          viewBox="0 0 283.921 277.991"
+          viewBox="-3 0 286.921 277.991"
           // preserveAspectRatio="none"
           vectorEffect="non-scaling-stroke"
         >
@@ -285,7 +377,7 @@ const BoxSvgs = ({ i }: { i: number }) => {
           xmlns="http://www.w3.org/2000/svg"
           width="282.921"
           height="285.218"
-          viewBox="0 0 282.921 285.218"
+          viewBox="0 -3 286.921 289.218"
         >
           <g
             id="Square3"

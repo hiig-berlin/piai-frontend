@@ -39,6 +39,7 @@ export const PageMargins = ({
   minHeight,
   position,
   bgColor,
+  className,
   keepMaxWidth = true,
 }: {
   children: React.ReactNode;
@@ -47,10 +48,11 @@ export const PageMargins = ({
   minHeight?: number;
   position?: string;
   bgColor?: string;
+  className?: string;
   keepMaxWidth?: boolean;
 }) => {
   return (
-    <Container {...{ spaceTop, spaceBottom, minHeight, position, bgColor }}>
+    <Container {...{ spaceTop, spaceBottom, minHeight, position, bgColor }} className={className}>
       <Wrapper {...{ keepMaxWidth }}>{children}</Wrapper>
     </Container>
   );

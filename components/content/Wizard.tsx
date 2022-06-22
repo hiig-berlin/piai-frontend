@@ -1,11 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 // import { AnimatedArrow } from "~/components/ui/AnimatedArrow";
-import { AnimatedArrow2 } from "~/components/ui/AnimatedArrow2";
+import { AnimatedArrow } from "~/components/ui/AnimatedArrow";
 // import { SvgBackground } from "../ui/SvgBackground";
 // import Arrow from "~/assets/svg/original/Arrow.svg"
+
+const blendIn = keyframes`
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+`;
 
 const WizAnchor = styled.div`
   position: relative;
@@ -25,10 +35,24 @@ const WizContainer = styled.div<{
   height: 120px;
   width: ${({ width }) => width || "100%"};
 `;
-const WizText = styled.p<{ right?: boolean }>`
+const WizText = styled.p<{
+  right?: boolean;
+  animationDelay?: number;
+  animate?: boolean;
+}>`
   text-align: ${({ right }) => (right ? "right" : "left")};
-
   ${({ theme }) => theme.applyMixin("monospace")}
+  opacity: 0;
+
+  // opacity: ${({ animate }) => (animate ? 1 : 0)};
+  
+  // transition: all 1sec ease;
+  animation-duration: 1s;
+  animation-delay: ${({ animationDelay }) =>
+    animationDelay ? `${animationDelay?.toFixed(1)}s` : "0s"};
+  animation-fill-mode: forwards;
+  animation-name: ${({ animate }) => (animate ? blendIn : "none")};
+
 `;
 
 export const Wizard = ({
@@ -72,9 +96,25 @@ export const Wizard = ({
 
   return (
     <WizAnchor>
-      <WizContainer width={width} left={left} bottom={bottom} ref={inViewObserver.ref}>
-        <AnimatedArrow2 animate={isInView} animationDelay={inViewDelay ?? 0} bend={bend} towards={towards} />
-        <WizText right={right}>{children}</WizText>
+      <WizContainer
+        width={width}
+        left={left}
+        bottom={bottom}
+        ref={inViewObserver.ref}
+      >
+        <AnimatedArrow
+          animate={isInView}
+          animationDelay={inViewDelay ?? 0}
+          bend={bend}
+          towards={towards}
+        />
+        <WizText
+          animate={isInView}
+          animationDelay={inViewDelay ?? 0}
+          right={right}
+        >
+          {children}
+        </WizText>
       </WizContainer>
     </WizAnchor>
   );

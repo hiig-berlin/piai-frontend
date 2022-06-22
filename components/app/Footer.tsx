@@ -70,7 +70,7 @@ export const Footer = () => {
   const settings = useSettingsContext();
 
   return (
-    <PageMargins spaceBottom={4} spaceTop={8} bgColor="#f0f0f0">
+    <PageMargins spaceBottom={4} spaceTop={6} bgColor="var(--color-light-grey)">
       <Grid>
         <Copyright
           dangerouslySetInnerHTML={{

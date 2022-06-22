@@ -11,7 +11,6 @@ import { Wizard } from "./Wizard";
 import { Accessible } from "./Accessible";
 import { Accordion } from "../ui/Accordion";
 
-
 const Grid = styled.div`
   display: grid;
 
@@ -78,8 +77,8 @@ export const TextSection = () => {
 
   // TODO: the alternavite is to use <DisplayAbove breakpoint="table" display="flex"/> or <DisplayBelow breakpoint="tablet" />
   // this is just a helper div setting display to none or block or any value you pass. I used it in the code below
-  // downside it adds another element to the DOM tree. 
-  
+  // downside it adds another element to the DOM tree.
+
   // TODO: third alternative is to have a styled component that shows only after a certain break point
 
   return (
@@ -123,9 +122,7 @@ export const TextSection = () => {
                 >
                   <SvgBackground type="language" />
                 </Icon> */}
-                <Accessible
-                  simple={row.textSimple}
-                >
+                <Accessible simple={row.textSimple}>
                   {row.textStandard}
                 </Accessible>
               </div>
@@ -151,9 +148,12 @@ export const TextSection = () => {
             Select one of the 5 conditions to find out more.
           </Wizard>
         </DisplayAbove>
-        <DisplayBelow breakpoint="tablet" style={{
-              marginBottom: "var(--size-8)"
-            }}>
+        <DisplayBelow
+          breakpoint="tablet"
+          style={{
+            marginBottom: "var(--size-8)",
+          }}
+        >
           <Wizard
             bend="down below"
             left="0%"
@@ -161,7 +161,6 @@ export const TextSection = () => {
             width="80%"
             inView
             inViewDelay={1}
-            
           >
             Select one of the 5 conditions to find out more.
           </Wizard>
@@ -174,7 +173,6 @@ export const TextSection = () => {
     </>
   );
 };
-
 
 // Content
 const headline =
