@@ -16,6 +16,10 @@ const ElementContainer = styled.div<{
     border-width: 0.16em;
     padding: 0.2em;
 
+    // Resetting inherited styles from parent
+    text-transform: none;
+    font-weight: 300;
+
     width: 2.4em;
     min-width: 2.4em;
     max-width: 2.4em;

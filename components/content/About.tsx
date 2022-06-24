@@ -11,6 +11,7 @@ const pageContainerWidth = "calc(100vw - 2 * var(--size-page-margin))";
 const mobileBoxSize = `calc(${pageContainerWidth} * 0.9)`;
 const boxPadding = "30px";
 const boxPaddingMobile = "10vw";
+const boxPaddingTablet = "5vw";
 
 const AboutContainer = styled(PageMargins)`
   color: white;
@@ -130,6 +131,10 @@ const Infobox = styled.article`
     z-index: 1;
     position: relative;
     padding: calc(${boxPaddingMobile} + 10px) ${boxPaddingMobile};
+
+    ${({ theme }) => theme.breakpoints.tablet} {
+      padding: calc(${boxPaddingTablet} + 10px) ${boxPaddingTablet};
+    }
 
     ${({ theme }) => theme.breakpoints.desktop} {
       padding: calc(${boxPadding} + 10px) ${boxPadding};
@@ -263,7 +268,7 @@ export const About = () => {
                 <h3>{box.title}</h3>
                 <p>{box.description}</p>
                 <a href={box.linkUrl} rel="noreferrer nofollow" target="_blank">
-                  {box.linkText} <Chevron />
+                  {box.linkText} 
                 </a>
               </Infobox>
             );

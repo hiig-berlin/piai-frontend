@@ -6,6 +6,9 @@ import FocusLock from "react-focus-lock";
 import { useMenuContext } from "~/providers/MenuContextProvider";
 import { SvgBackground } from "../ui/SvgBackground";
 import { MenuFooter } from "./Menus/MenuFooter";
+import { Logo } from "./Logo";
+import { LabElement } from "../ui/LabElement";
+import { Chevron } from "../ui/StaticSvgs";
 
 const ANIMATION_LENGTH = 500;
 
@@ -28,7 +31,8 @@ const MenuContainer = styled.div.attrs((props: MenuContainerStyledProps) => ({
   top: 0px;
   width: 100vw;
 
-  background-color: var(--color-piai-ailab-red);
+  background-color: var(--color-ailab-red);
+  color: white;
 
   transform: translateX(-105%);
   opacity: 0;
@@ -64,7 +68,7 @@ const MenuContentGrid = styled.div`
   display: flex;
   flex-direction: column;
   grid-gap: var(--size-gutter-width);
-  padding: var(--size-page-margin);
+  padding: var(--size-5);
 
   ${({ theme }) => theme.breakpoints.tabletLandscape} {
     display: grid;
@@ -72,7 +76,6 @@ const MenuContentGrid = styled.div`
     grid-template-rows: auto;
     align-items: stretch;
   }
-
 `;
 
 const Column = styled.div<{ stretch?: boolean }>`
@@ -86,13 +89,111 @@ const Column = styled.div<{ stretch?: boolean }>`
       props.stretch ? "space-between" : "flex-start"};
   }
 
+  & header {
+    ${({ theme }) => theme.applyMixin("uppercase")};
+    font-size: 1.5em;
+    color: white;
+    font-weight: 700;
+    height: 2.4em;
+
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--size-4);
+
+    .logo {
+      margin-right: 20px;
+    }
+  }
+
+  &.piai {
+    section {
+      margin-bottom: auto;
+
+      h1 {
+        color: white;
+        font-size: 1.5em;
+        font-weight: 700;
+      }
+
+      p {
+        ${({ theme }) => theme.breakpoints.tabletLandscape} {
+          max-width: 80%;
+        }
+      }
+
+      & a {
+        padding-top: 20px;
+        padding-bottom: 0;
+        display: block;
+        ${({ theme }) => theme.applyMixin("uppercase")}
+        color: white;
+        font-weight: 700;
+        font-size: 0.9em;
+
+        opacity: 1;
+
+        &:hover {
+          opacity: 0.7;
+        }
+
+        svg {
+          height: 0.8em;
+          position: relative;
+          width: auto;
+          top: 0.02em;
+
+          path {
+            fill: white;
+          }
+        }
+      }
+    }
+
+    nav a {
+      color: white;
+      font-size: 1em;
+      padding: 5px 0;
+      text-transform: none;
+    }
+  }
+
+  &.toolbox {
+    color: white;
+
+    section.tool > a {
+      display: flex;
+      color: white;
+
+      .labElement {
+        float: left;
+        margin: 0 10px 0 0;
+      }
+
+      .labElement + p {
+        margin: auto 0;
+        padding-bottom: 5px;
+      }
+    }
+
+    section.tool nav {
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+
+      a {
+        color: white;
+        font-size: 0.8em;
+        padding: 5px 0;
+      }
+    }
+  }
 `;
 export const Menu = () => {
   const menuContext = useMenuContext();
 
   const menuContainerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   const menuContentRef = useRef() as React.MutableRefObject<HTMLDivElement>;
-  
+
   const isAnimatingRef = useRef(false);
   const isAnimatingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
     null
@@ -155,41 +256,50 @@ export const Menu = () => {
         <MenuWrapper>
           <MenuContent ref={menuContentRef}>
             <MenuContentGrid>
-              <Column stretch>
-                <div>
-                  <h1>Here we would have the logos and title</h1>
-                  <p>
-                    Quisque molestie dapibus libero non pellentesque. Vivamus
-                    quam arcu, dictum quis hendrerit eget, lobortis eu felis.
-                    Nulla felis velit, ornare ac porttitor ut, rhoncus eu ipsum.
-                    Donec auctor efficitur est vel congue. Nunc at nunc quis
-                    massa facilisis fermentum. Vivamus fringilla nunc vitae
-                    justo consectetur, aliquam gravida nisl mollis. Nulla
-                    facilisi. Pellentesque tristique nisl ut lectus maximus,
-                    eget euismod sapien blandit. Pellentesque eget molestie
-                    neque. Nulla hendrerit congue sapien, quis maximus magna
-                    cursus nec. Praesent viverra tellus massa, vitae mollis
-                    massa blandit in. Donec mattis ut arcu et ultrices. Maecenas
-                    posuere sem odio, eu molestie justo luctus sed. Quisque
-                    pulvinar, arcu ac posuere sodales, augue risus accumsan
-                    odio, eleifend tincidunt purus enim et lectus.
-                  </p>
-                </div>
+              <Column className="piai">
+                <header>
+                  <Logo color="white" hoverColor="white" size={1} />
+                  Public interest AI
+                </header>
+                <section>
+                  <h1>{menuContent.piai.headline}</h1>
+                  <p>{menuContent.piai.description}</p>
+                  <a href={menuContent.piai.linkURL}>
+                    <Chevron /> {menuContent.piai.linkText}
+                  </a>
+                </section>
+
                 <MenuFooter id="menu-footer" direction="column" />
               </Column>
-              <Column>
-                <div>
-                  <h1>Plugin 1</h1>
-                  <p>About line and links</p>
-                </div>
-                <div>
-                  <h1>Plugin 2</h1>
-                  <p>About line and links</p>
-                </div>
-                <div>
-                  <h1>Plugin 3</h1>
-                  <p>About line and links</p>
-                </div>
+              <Column className="toolbox">
+                <header>Tools</header>
+
+                {menuContent.tools.map((tool: any, index: number) => {
+                  return (
+                    <section key={`tool-${index}`} className="tool">
+                      <a href={tool.linkUrl} key={`tool-${index}`}>
+                        <LabElement
+                          shortHandle={tool.shortHandle}
+                          longText={tool.longText}
+                          color="white"
+                          hoverColor="#ffffffaa"
+                          size={1.6}
+                        />
+
+                        <p>{tool.description}</p>
+                      </a>
+                      <nav>
+                        {tool.subMenu.map((menuItem: any, i: number) => {
+                          return (
+                            <a key={`submenuItem-${i}`} href={menuItem.linkURL}>
+                              {menuItem.linkText}
+                            </a>
+                          );
+                        })}
+                      </nav>
+                    </section>
+                  );
+                })}
               </Column>
             </MenuContentGrid>
           </MenuContent>
@@ -197,4 +307,52 @@ export const Menu = () => {
       </MenuContainer>
     </FocusLock>
   );
+};
+
+const menuContent = {
+  piai: {
+    headline: "What is Public Interest AI?",
+    description:
+      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata.",
+    linkText: "Explore the definition",
+    linkURL: "/",
+  },
+  tools: [
+    {
+      shortHandle: "Ma",
+      longText: "Project Map",
+      description: "Map and directory of PIAI projects",
+      linkUrl: "/map",
+      subMenu: [
+        {
+          linkText: "Project directory",
+          linkURL: "/map/list",
+        },
+        {
+          linkText: "Submit project",
+          linkURL: "/map/submit",
+        },
+        {
+          linkText: "Project directory",
+          linkURL: "/map/about",
+        },
+      ],
+    },
+    {
+      shortHandle: "En",
+      longText: "Energy Usage",
+      description: "Measure you AI’s energy consumption",
+      linkUrl: "/consumption",
+      subMenu: [
+        {
+          linkText: "Plugin",
+          linkURL: "/energy",
+        },
+        {
+          linkText: "About",
+          linkURL: "/energy/about",
+        },
+      ],
+    },
+  ],
 };

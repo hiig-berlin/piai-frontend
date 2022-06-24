@@ -59,6 +59,7 @@ export const Logo = ({
       hoverColor={hoverColor}
       onMouseEnter={()=> isHover(true)} 
       onMouseLeave={()=> isHover(false)}
+      className="logo"
     >
       <Link href={`${config?.baseUrl}/`} passHref>
         <a title="Go to homepage">
