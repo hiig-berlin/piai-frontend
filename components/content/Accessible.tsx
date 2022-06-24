@@ -72,7 +72,8 @@ const Icon = styled(ButtonNormalized)`
 const AccessibleContainer = styled.div`
   position: relative;
   display: flex;
-  flex-direction: column-reverse;
+  // flex-direction: column-reverse;
+  flex-direction: column;
 
 
   ${({ theme }) => theme.breakpoints.tablet} {
