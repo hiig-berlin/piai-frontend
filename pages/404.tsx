@@ -15,7 +15,7 @@ export function Page404() {
   return (
     <>
       <NextHeadSeo title={`Page not found - ${config.appTitle}`} />
-      <Header />
+      <Header slideUpOnScroll={false} />
       <main id="content">
         <PageMargins spaceTop={3}>
           <Heading heading="h1">

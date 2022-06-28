@@ -1,14 +1,11 @@
 /* eslint-disable react/jsx-key */
-import { indexOf, map } from "lodash";
 import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import useIsBreakpoint from "~/hooks/useIsBreakpoint";
 import { Accessible } from "../content/Accessible";
 import { ButtonNormalized } from "../styled/Button";
-import { StyledHeading } from "../styled/StyledHeading";
-import PageMargins from "./PageMargins";
-import { SvgBackground } from "./SvgBackground";
 import { Arrow, Frame, Borders, BoxSvgs } from "./StaticSvgs";
+import SafeHtmlSpan from "./SafeHtmlSpan";
 
 const boxPadding = "20px";
 const boxPaddingMobile = "10vw";
@@ -173,7 +170,7 @@ const Details = styled.section`
     g {
       fill: #f5f8f9;
       stroke: #707070;
-      strokewidth: 1;
+      stroke-width: 1;
 
       ${({ theme }) => theme.breakpoints.tablet} {
         fill: none;
@@ -253,7 +250,9 @@ export const Accordion = () => {
             >
               <BoxSvgs i={index + 1} />
               <Title>{pillar.title}</Title>
-              <p>{pillar.shortDescription}</p>
+              <p>
+                <SafeHtmlSpan html={pillar.shortDescription} />
+              </p>
               {activeIndex === index && <Arrow />}
             </ToggleBox>
             <Details
@@ -271,9 +270,13 @@ export const Accordion = () => {
                     <Accessible simple={pillar.textSimple}>
                       {pillar.textStandard}
                     </Accessible>
-                    {/* {pillar.textStandard} */}
                   </div>
-                  <div>{pillar.sideNotes}</div>
+                  <div>
+                    {pillar?.sideNotes?.length > 0 &&
+                      pillar.sideNotes.map((note: any, nIndex: number) => (
+                        <div key={`pillar-${index}-sn-${nIndex}`}>{note}</div>
+                      ))}
+                  </div>
                 </Columns>
               </div>
             </Details>

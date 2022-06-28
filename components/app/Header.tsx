@@ -3,7 +3,6 @@ import styled from "styled-components";
 import debounce from "lodash/debounce";
 
 import { useHeaderContext } from "~/providers/HeaderContextProvider";
-import { MenuHeader } from "./Menus/MenuHeader";
 import { useMenuContext } from "~/providers/MenuContextProvider";
 import { Logo } from "./Logo";
 import { usePageStateContext } from "~/providers/PageStateContextProvider";
@@ -13,6 +12,10 @@ import useIsMounted from "~/hooks/useIsMounted";
 import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
 import { MenuButton } from "./MenuButton";
 import { LabElement } from "../ui/LabElement";
+
+const SCROLL_UP_THRESHOLD_PX = 150;
+const SCROLL_DOWN_THRESHOLD_PX = 250;
+const SCROLL_UP_REVEAL_TIMEOUT = 2500;
 
 const StyledHeader = styled.header<{
   headerTransform?: string;
@@ -72,18 +75,20 @@ const HeaderNavLinks = styled.div`
   height: 100%;
 `;
 
-const scrollUpPixel = 150;
-
 export const Header = ({
   isHome,
   children,
   isHidden,
   showLogo = true,
+  slideUpOnScroll = true,
+  slideUpOnScrollMaxWidthPx = 740,
 }: {
   children?: React.ReactNode;
   isHome?: boolean;
   showLogo?: boolean;
   isHidden?: boolean;
+  slideUpOnScroll?: boolean;
+  slideUpOnScrollMaxWidthPx?: number;
 }) => {
   const menuContext = useMenuContext();
 
@@ -93,23 +98,22 @@ export const Header = ({
     vars: { isTabletLandscapeAndUp },
   } = useCssVarsContext();
 
-  const scrollUpCounterTimeoutRef = useRef<ReturnType<
-    typeof setTimeout
-  > | null>(null);
-
   const headerContext = useHeaderContext();
   const { isLoading } = usePageStateContext();
 
+  const scrollUpCounterTimeoutRef = useRef<ReturnType<
+    typeof setTimeout
+  > | null>(null);
   const scrollUpHideTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
     null
   );
-  const animatingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
-    null
-  );
+  const scrollDownCounterTimeoutRef = useRef<ReturnType<
+    typeof setTimeout
+  > | null>(null);
 
   const scrollUpCounterRef = useRef(0);
+  const scrollDownCounterRef = useRef(0);
   const headerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
-
   const mainRef = useRef() as React.MutableRefObject<HTMLDivElement>;
 
   const browserData = useRef<any>({
@@ -121,22 +125,33 @@ export const Header = ({
     heightSubNav: 0,
   });
 
+  const [observeScroll, setObserveScroll] = useState(false);
   const [headerTuckUpTransform, setHeaderTuckUpTransform] = useState("none");
-
-  const [animating, setAnimating] = useState(false);
 
   const onResize = useCallback(() => {
     if (isMounted && browserData.current) {
+      console.log(
+        slideUpOnScroll,
+        slideUpOnScrollMaxWidthPx,
+        !slideUpOnScrollMaxWidthPx ||
+          window.innerWidth < slideUpOnScrollMaxWidthPx,
+        window.innerWidth
+      );
       browserData.current = {
         ...browserData.current,
         wW: window.innerWidth,
         wH: window.innerHeight,
         heightHeader: headerRef?.current?.offsetHeight ?? 0,
         heightMain: mainRef?.current?.offsetHeight + 1 ?? 0,
-        lastScrollY: 0,
       };
+      const observe =
+        slideUpOnScroll &&
+        (!slideUpOnScrollMaxWidthPx ||
+          window.innerWidth < slideUpOnScrollMaxWidthPx);
+      setObserveScroll(observe);
+      setHeaderTuckUpTransform(`translateZ(0)`);
     }
-  }, [isMounted]);
+  }, [isMounted, slideUpOnScroll, slideUpOnScrollMaxWidthPx]);
   const onResizeDebounced = debounce(onResize, 280);
 
   useEffect(() => {
@@ -184,9 +199,18 @@ export const Header = ({
           scrollUpHideTimeoutRef.current = null;
         }
 
+        if (scrollDownCounterTimeoutRef.current)
+          clearTimeout(scrollDownCounterTimeoutRef.current);
+
+        scrollDownCounterTimeoutRef.current = setTimeout(() => {
+          scrollDownCounterRef.current = 0;
+        }, 750);
+
+        scrollDownCounterRef.current += Math.abs(currPos.y - prevPos.y);
+
         if (
-          headerTuckUpTransform === "translateZ(0)" ||
-          headerTuckUpTransform === "translateY(-110%) translateZ(0)"
+          scrollDownCounterRef.current > SCROLL_DOWN_THRESHOLD_PX &&
+          headerTuckUpTransform === "translateZ(0)"
         ) {
           setHeaderTuckUpTransform(
             `translateY(-${headerRef?.current?.offsetHeight}px) translateZ(0)`
@@ -194,11 +218,21 @@ export const Header = ({
         }
       } else {
         // scrolling up
+        if (scrollDownCounterTimeoutRef.current) {
+          clearTimeout(scrollDownCounterTimeoutRef.current);
+          scrollDownCounterTimeoutRef.current = null;
+          scrollDownCounterRef.current = 0;
+        }
 
-        if (animatingTimeoutRef.current) {
-          clearTimeout(animatingTimeoutRef.current);
-          animatingTimeoutRef.current = null;
-          setAnimating(false);
+        if (scrollUpCounterTimeoutRef.current) {
+          clearTimeout(scrollUpCounterTimeoutRef.current);
+          scrollUpCounterTimeoutRef.current = null;
+          scrollUpCounterRef.current = 0;
+        }
+
+        if (scrollUpHideTimeoutRef.current) {
+          clearTimeout(scrollUpHideTimeoutRef.current);
+          scrollUpHideTimeoutRef.current = null;
         }
 
         if (scrollUpCounterTimeoutRef.current)
@@ -209,7 +243,8 @@ export const Header = ({
         }, 750);
 
         scrollUpCounterRef.current += Math.abs(prevPos.y - currPos.y);
-        if (scrollUpCounterRef.current > scrollUpPixel) {
+
+        if (scrollUpCounterRef.current > SCROLL_UP_THRESHOLD_PX) {
           if (headerTuckUpTransform !== "translateZ(0)") {
             setHeaderTuckUpTransform(`translateZ(0)`);
           }
@@ -227,11 +262,11 @@ export const Header = ({
               `translateY(-${headerRef?.current?.offsetHeight}px) translateZ(0)`
             );
           }
-        }, 1500);
+        }, SCROLL_UP_REVEAL_TIMEOUT);
       }
     },
-    [headerTuckUpTransform, animating, headerContext.observeScroll, isMounted],
-    true,
+    [headerTuckUpTransform, headerContext.observeScroll, isMounted],
+    observeScroll,
     undefined,
     false,
     300
@@ -252,7 +287,13 @@ export const Header = ({
         className="header"
       >
         <SkipToLink id="content">skip to content</SkipToLink>
-        {showLogo && <Logo color="var(--color-text)" hoverColor="var(--color-ailab-red)" size={1.3} />}
+        {showLogo && (
+          <Logo
+            color="var(--color-text)"
+            hoverColor="var(--color-ailab-red)"
+            size={1.3}
+          />
+        )}
         <MainNav ref={mainRef}>
           <HeaderNav>
             <HeaderNavLinks
@@ -262,14 +303,25 @@ export const Header = ({
               }}
             >
               {/* <MenuHeader id="menu-header" /> */}
-              <LabElement shortHandle="Ma" longText="Project Map" size={1.3} color="var(--color-grey)" hoverColor="var(--color-piai-map)"/>
-              <LabElement shortHandle="En" longText="Energy Usage" size={1.3} color="var(--color-grey)" hoverColor="var(--color-piai-energy)"/>
+              <LabElement
+                shortHandle="Ma"
+                longText="Project Map"
+                size={1.3}
+                color="var(--color-grey)"
+                hoverColor="var(--color-piai-map)"
+              />
+              <LabElement
+                shortHandle="En"
+                longText="Energy Usage"
+                size={1.3}
+                color="var(--color-grey)"
+                hoverColor="var(--color-piai-energy)"
+              />
             </HeaderNavLinks>
           </HeaderNav>
         </MainNav>
         {children}
       </StyledHeader>
-      
     </>
   );
 };
