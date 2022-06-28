@@ -76,12 +76,13 @@ const AboutContainer = styled(PageMargins)`
 
 const InfoboxesContainer = styled(PageMargins)`
   
-${({ theme }) => theme.breakpoints.tablet} {
+  ${({ theme }) => theme.breakpoints.tablet} {
     height: auto;
     margin-bottom: calc(0px - var(--size-6));
 
     .infoboxes {
       height: auto;
+    }
   }
 
   ${({ theme }) => theme.breakpoints.desktop} {
