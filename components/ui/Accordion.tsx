@@ -6,6 +6,7 @@ import { ButtonNormalized } from "../styled/Button";
 import { Arrow, Frame, Borders, BoxSvgs } from "./StaticSvgs";
 import SafeHtmlSpan from "./SafeHtmlSpan";
 import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
+import { AspectRatio } from "./AspectRatio";
 
 const boxPadding = "20px";
 const boxPaddingMobile = "10vw";
@@ -250,11 +251,14 @@ export const Accordion = () => {
                   : setActiveIndex(index);
               }}
             >
-              <BoxSvgs i={index + 1} />
-              <Title>{pillar.title}</Title>
-              <p>
-                <SafeHtmlSpan html={pillar.shortDescription} />
-              </p>
+              <AspectRatio ratio="1">
+                <BoxSvgs i={index + 1} />
+                <Title>{pillar.title}</Title>
+                <p>
+                  <SafeHtmlSpan html={pillar.shortDescription} />
+                </p>
+              </AspectRatio>
+
               {activeIndex === index && <Arrow />}
             </ToggleBox>
             <Details
