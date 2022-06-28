@@ -125,39 +125,36 @@ export const CssVarsContextProvider = ({
       update = true;
     }
 
-    if (isMobile !== cssVarsRef.current.isMobilePortrait) {
+    if ((isMobile && !isMobileLandscape) !== cssVarsRef.current.isMobilePortrait) {
       cssVarsRef.current.isMobilePortrait = isMobile && !isMobileLandscape;
       update = true;
     }
 
-    if (
-      isMobileLandscape &&
-      !isTablet !== cssVarsRef.current.isMobileLandscape
-    ) {
+    if ((isMobileLandscape && !isTablet) !== cssVarsRef.current.isMobileLandscape) {
       cssVarsRef.current.isMobileLandscape = isMobileLandscape && !isTablet;
       update = true;
     }
 
     if (
-      (isTablet || isTabletLandscape) &&
-      !isDesktop !== cssVarsRef.current.isTablet
+      ((isTablet || isTabletLandscape) && !isDesktop) !==
+      cssVarsRef.current.isTablet
     ) {
       cssVarsRef.current.isTablet =
         (isTablet || isTabletLandscape) && !isDesktop;
       update = true;
     }
 
-    if (isTablet !== cssVarsRef.current.isTabletPortrait) {
+    if ((isTablet && !isTabletLandscape) !== cssVarsRef.current.isTabletPortrait) {
       cssVarsRef.current.isTabletPortrait = isTablet && !isTabletLandscape;
       update = true;
     }
 
-    if (isTabletLandscape !== cssVarsRef.current.isTabletLandscape) {
+    if ((isTabletLandscape && !isDesktop) !== cssVarsRef.current.isTabletLandscape) {
       cssVarsRef.current.isTabletLandscape = isTabletLandscape && !isDesktop;
       update = true;
     }
 
-    if (isDesktop !== cssVarsRef.current.isDesktop) {
+    if ((isDesktop && !isScreen) !== cssVarsRef.current.isDesktop) {
       cssVarsRef.current.isDesktop = isDesktop && !isScreen;
       update = true;
     }
