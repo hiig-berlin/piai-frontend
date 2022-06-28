@@ -16,8 +16,7 @@ export const DevInfo = () => {
   const cssContext = useCssVarsContext();
 
   let breakpoint = "unknown";
-
-  console.log(cssContext.vars);
+  
   if (cssContext.vars.isScreen) {
     breakpoint = "screen";
   } else if (cssContext.vars.isDesktop) {

@@ -130,13 +130,6 @@ export const Header = ({
 
   const onResize = useCallback(() => {
     if (isMounted && browserData.current) {
-      console.log(
-        slideUpOnScroll,
-        slideUpOnScrollMaxWidthPx,
-        !slideUpOnScrollMaxWidthPx ||
-          window.innerWidth < slideUpOnScrollMaxWidthPx,
-        window.innerWidth
-      );
       browserData.current = {
         ...browserData.current,
         wW: window.innerWidth,
