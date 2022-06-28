@@ -1,11 +1,11 @@
 /* eslint-disable react/jsx-key */
 import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
-import useIsBreakpoint from "~/hooks/useIsBreakpoint";
 import { Accessible } from "../content/Accessible";
 import { ButtonNormalized } from "../styled/Button";
 import { Arrow, Frame, Borders, BoxSvgs } from "./StaticSvgs";
 import SafeHtmlSpan from "./SafeHtmlSpan";
+import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
 
 const boxPadding = "20px";
 const boxPaddingMobile = "10vw";
@@ -219,7 +219,9 @@ export const Accordion = () => {
   const [height, setHeight] = useState(0);
   const boxesRefs = useRef(new Array());
 
-  const isTablet = useIsBreakpoint("tablet");
+  const {
+    vars: { isTablet },
+  } = useCssVarsContext();
 
   // Update hight and scroll to details
   // when pillars get (de)selected (i.e. activeIndex changes)
