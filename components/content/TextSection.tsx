@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import useIsBreakpoint from "~/hooks/useIsBreakpoint";
+import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
 import { ButtonNormalized } from "../styled/Button";
 import DisplayAbove from "../styled/DisplayAbove";
 import DisplayBelow from "../styled/DisplayBelow";
 import { Heading } from "../ui/Heading";
 import PageMargins from "../ui/PageMargins";
-import { SvgBackground } from "../ui/SvgBackground";
 import { Wizard } from "./Wizard";
 import { Accessible } from "./Accessible";
 import { Accordion } from "../ui/Accordion";
@@ -73,7 +72,9 @@ export const TextSection = () => {
   // useIsBreakpoint takes sompe CPU time. So it is only worth using if the hidden component would potentially use
   // more CPU time than the useIsBreakpoint
 
-  const isTablet = useIsBreakpoint("tablet");
+   const {
+    vars: { isTabletAndUp },
+  } = useCssVarsContext();
 
   // TODO: the alternavite is to use <DisplayAbove breakpoint="table" display="flex"/> or <DisplayBelow breakpoint="tablet" />
   // this is just a helper div setting display to none or block or any value you pass. I used it in the code below
@@ -87,7 +88,7 @@ export const TextSection = () => {
         <SectionHeading asTag="h2" heading="h2">
           {headline}
         </SectionHeading>
-        {isTablet && (
+        {isTabletAndUp && (
           <Wizard
             bend="up right"
             left="0%"
