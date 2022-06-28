@@ -268,7 +268,7 @@ export const About = () => {
                 <h3>{box.title}</h3>
                 <p>{box.description}</p>
                 <a href={box.linkUrl} rel="noreferrer nofollow" target="_blank">
-                  {box.linkText} 
+                <Chevron /> {box.linkText}
                 </a>
               </Infobox>
             );

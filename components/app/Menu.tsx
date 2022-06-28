@@ -149,11 +149,16 @@ const Column = styled.div<{ stretch?: boolean }>`
       }
     }
 
-    nav a {
-      color: white;
-      font-size: 1em;
-      padding: 5px 0;
-      text-transform: none;
+    nav {
+    
+      gap: 0;
+      
+      a {
+        color: white;
+        font-size: 1em;
+        padding: 5px 0;
+        text-transform: none;
+      }
     }
   }
 
@@ -163,6 +168,7 @@ const Column = styled.div<{ stretch?: boolean }>`
     section.tool > a {
       display: flex;
       color: white;
+      margin-bottom: var(--size-2);
 
       .labElement {
         float: left;
