@@ -3,10 +3,11 @@ import styled from "styled-components";
 import Button from "../styled/Button";
 import { SvgBackground } from "../ui/SvgBackground";
 import { ButtonNormalized } from "../styled/Button";
+import SafeHtmlSpan from "../ui/SafeHtmlSpan";
 
-const AccessibleText = styled.div<{simple?: boolean}>`
-  font-weight: ${({simple}) => simple ? "400" : "inherit"};
-  color: ${({simple}) => simple ? "#000" : "inherit"};
+const AccessibleText = styled.div<{ simple?: boolean }>`
+  font-weight: ${({ simple }) => (simple ? "400" : "inherit")};
+  color: ${({ simple }) => (simple ? "#000" : "inherit")};
   padding-right: 0em;
 
   ${({ theme }) => theme.breakpoints.tablet} {
@@ -19,7 +20,7 @@ const Icon = styled(ButtonNormalized)`
   top: 0;
   right: 0;
   display: block;
-  backgound: "ffffffee";
+  background: rgba(255, 255, 255, 0.85);
   padding: 10px 20px 10px 5px;
   margin-top: -6px;
   border-radius: 20px;
@@ -31,7 +32,7 @@ const Icon = styled(ButtonNormalized)`
     opacity: 1;
   }
 
-  &:hover{
+  &:hover {
     background: yellow;
   }
 
@@ -62,7 +63,7 @@ const Icon = styled(ButtonNormalized)`
     height: 1.5em;
     width: 1.5em;
 
-    & .svg{
+    & .svg {
       position: relative;
       top: 2px;
     }
@@ -74,7 +75,6 @@ const AccessibleContainer = styled.div`
   display: flex;
   // flex-direction: column-reverse;
   flex-direction: column;
-
 
   ${({ theme }) => theme.breakpoints.tablet} {
     display: block;
@@ -97,13 +97,17 @@ export const Accessible = ({
 
   return (
     <AccessibleContainer>
-      <AccessibleText simple={isSimple}>{isSimple ? simple : children}</AccessibleText>
+      <AccessibleText simple={isSimple}>
+        <SafeHtmlSpan html={isSimple ? simple : children} />
+      </AccessibleText>
       <Icon
         onClick={() => setIsSimple(!isSimple)}
         aria-label="change to simple text version"
       >
         <span>{isSimple ? "Show standard text" : "Show simplified text"}</span>
-        <span><SvgBackground type="language"/></span>
+        <span>
+          <SvgBackground type="language" />
+        </span>
       </Icon>
     </AccessibleContainer>
   );

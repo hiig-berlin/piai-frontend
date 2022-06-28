@@ -33,7 +33,7 @@ const Home = ({
           card: "summary_large_image",
         }}
       />
-      <Header isHome />
+      <Header isHome slideUpOnScroll={false} />
 
       <main id="content">
       {/* {currentPage?.acf?.content?.length > 0 ? (

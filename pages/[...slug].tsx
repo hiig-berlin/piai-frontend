@@ -47,7 +47,7 @@ const Page = ({ data }: { data: any }) => {
           card: "summary_large_image",
         }}
       />
-      <Header />
+      <Header slideUpOnScroll={false} />
 
       <main id="content">
         {data?.acf?.content?.length > 0 ? (
