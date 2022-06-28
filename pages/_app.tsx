@@ -23,6 +23,7 @@ import { AppDefaultHead } from "~/components/app/AppDefaultHead";
 import { CssVarsContextProvider } from "~/providers/CssVarsContextProvider";
 import { appConfig } from "~/config";
 import { ErrorLock } from "~/components/app/ErrorLock";
+import { DevInfo } from "~/components/ui/DevInfo";
 
 const SmoothScroll = dynamic(() => import("~/components/ui/SmoothScroll"));
 
@@ -88,6 +89,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
                     >
                       {getLayout(<Component {...pageProps} />, pageProps)}
                     </ErrorLock>
+                    {process.env.NODE_ENV === "development" && <DevInfo />}
                   </HeaderContextProvider>
                 </PageStateContextProvider>
               </MenuContextProvider>
