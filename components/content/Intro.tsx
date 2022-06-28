@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import ReactTypingEffect from "react-typing-effect";
 import { Wizard } from "./Wizard";
-import useIsBreakpoint from "~/hooks/useIsBreakpoint";
+import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
 
 const Container = styled.div`
   text-align: center;
@@ -64,8 +64,9 @@ const possibleAnswers = [
 ];
 
 export const Intro = () => {
-
-  const isTablet = useIsBreakpoint("tabletLandscape");
+  const {
+    vars: { isTabletAndUp },
+  } = useCssVarsContext();
 
   return (
     <Container>
@@ -79,7 +80,7 @@ export const Intro = () => {
           typingDelay={500}
         />
       </Typing>
-      {isTablet && (
+      {isTabletAndUp && (
         <>
           <Wizard towards bend="down left" left="5%" bottom="100px" width="30%" inView inViewDelay={1.0} inViewRevert> 
           Explore existing projects of public interest and their answers.
