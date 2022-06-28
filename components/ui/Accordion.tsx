@@ -220,7 +220,7 @@ export const Accordion = () => {
   const boxesRefs = useRef(new Array());
 
   const {
-    vars: { isTablet },
+    vars: { isTabletAndUp },
   } = useCssVarsContext();
 
   // Update hight and scroll to details
@@ -230,10 +230,10 @@ export const Accordion = () => {
       setHeight(boxesRefs.current[activeIndex].clientHeight);
       boxesRefs.current[activeIndex].scrollIntoView({
         behavior: "smooth",
-        block: isTablet ? "nearest" : "start",
+        block: isTabletAndUp ? "nearest" : "start",
       });
     } else setHeight(0);
-  }, [activeIndex, isTablet]);
+  }, [activeIndex, isTabletAndUp]);
 
   return (
     <Pillars marginBottom={height}>
@@ -264,7 +264,7 @@ export const Accordion = () => {
             >
               {/* This div is needed for height calculation */}
               <div ref={(element) => (boxesRefs.current[index] = element)}>
-                {isTablet ? <Frame /> : <Borders />}
+                {isTabletAndUp ? <Frame /> : <Borders />}
                 <Title>{pillar.title}</Title>
                 <Headline>{pillar.headline}</Headline>
                 <Columns>
