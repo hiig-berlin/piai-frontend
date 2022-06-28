@@ -3,11 +3,10 @@ import styled from "styled-components";
 import { LabElement } from "../ui/LabElement";
 import { PageMargins } from "../ui/PageMargins";
 import Button from "../styled/Button";
-import { SvgBackground } from "../ui/SvgBackground";
-import useIsBreakpoint from "~/hooks/useIsBreakpoint";
+
 import { BoxSvgs, Chevron } from "../ui/StaticSvgs";
 
-const pageContainerWidth = "calc(100vw - 2 * var(--size-page-margin))";
+const pageContainerWidth = "(100vw - 2 * var(--size-page-margin))";
 const mobileBoxSize = `calc(${pageContainerWidth} * 0.9)`;
 const boxPadding = "30px";
 const boxPaddingMobile = "10vw";
@@ -75,7 +74,6 @@ const AboutContainer = styled(PageMargins)`
 `;
 
 const InfoboxesContainer = styled(PageMargins)`
-  
   ${({ theme }) => theme.breakpoints.tablet} {
     height: auto;
     margin-bottom: calc(0px - var(--size-6));
@@ -207,7 +205,7 @@ const Grid = styled.div<{ col: number }>`
     // Two by two
     ${({ theme }) => theme.breakpoints.tablet} {
       grid-template-columns: repeat(calc(${({ col }) => col} / 2), 1fr);
-      grid-template-rows: calc(${pageContainerWidth} / 2) calc(${pageContainerWidth} / 2);
+      grid-template-rows: auto;
     }
 
     // Four in a row
@@ -336,4 +334,3 @@ const aboutContent = {
     },
   ],
 };
-
