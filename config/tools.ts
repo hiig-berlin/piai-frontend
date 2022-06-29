@@ -11,10 +11,13 @@ export const tools: PiApiTool[] = [
     colorHighlight: "#ff0",
     menu: [
       {
-        // entries with no slug and url link to the base
+        // menu slugs are always prefixed by "/tool/tool-slug/"
+        // entries with no slug and url link to the base 
+
         name: "Map",
       },
       {
+        // this will create an internal link to "/tool/map/list"
         slug: "list",
         name: "Project Directory",
       },
