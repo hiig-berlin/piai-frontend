@@ -292,21 +292,7 @@ const aboutContent = {
   },
   toolbox: {
     headline: "The publicinterest.ai toolbox",
-    text: "Besides this knowledge resource, we’re showcaseing a handful of projects on public interest AI. This toolbox is a work in progress and open for ideas and collaborators. So some back, once in a while to see what’s new and contact us, if you want to contribute with a tool.",
-    tools: [
-      {
-        shortHandle: "Ma",
-        longText: "Project Map",
-        description: "Map and directory of PIAI projects",
-        linkUrl: "/map",
-      },
-      {
-        shortHandle: "En",
-        longText: "Energy Usage",
-        description: "Measure you AI’s energy consumption",
-        linkUrl: "/consumption",
-      },
-    ],
+    text: "Besides this knowledge resource, we’re showcaseing a handful of projects on public interest AI. This toolbox is a work in progress and open for ideas and collaborators. So some back, once in a while to see what’s new and contact us, if you want to contribute with a tool.",   
   },
   boxes: [
     {
