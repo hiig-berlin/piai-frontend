@@ -5,6 +5,7 @@ import { PageMargins } from "../ui/PageMargins";
 import Button from "../styled/Button";
 
 import { BoxSvgs, Chevron } from "../ui/StaticSvgs";
+import { useConfigContext } from "~/providers/ConfigContextProvider";
 
 const pageContainerWidth = "(100vw - 2 * var(--size-page-margin))";
 const mobileBoxSize = `calc(${pageContainerWidth} * 0.9)`;
@@ -216,6 +217,8 @@ const Grid = styled.div<{ col: number }>`
 `;
 
 export const About = () => {
+  const config = useConfigContext();
+
   return (
     <>
       <AboutContainer
@@ -234,22 +237,24 @@ export const About = () => {
           <div>
             <h2>{aboutContent.toolbox.headline}</h2>
             <p>{aboutContent.toolbox.text}</p>
-            <Grid col={2} className="tools">
-              {aboutContent.toolbox.tools.map((tool: any, index: number) => {
-                return (
-                  <a href={tool.linkUrl} key={`tool-${index}`}>
-                    <LabElement
-                      shortHandle={tool.shortHandle}
-                      longText={tool.longText}
-                      color="white"
-                      hoverColor="#ffffffaa"
-                      size={1.6}
-                    />
-                    <p>{tool.description}</p>
-                  </a>
-                );
-              })}
-            </Grid>
+            {config?.tools?.length > 0 && (
+              <Grid col={2} className="tools">
+                {config?.tools.map((tool: any, index: number) => {
+                  return (
+                    <a href={`/tool/${tool.slug}`} key={`tool-${index}`}>
+                      <LabElement
+                        shortHandle={tool.iconShort}
+                        longText={tool.iconLong}
+                        color="white"
+                        hoverColor="#ffffffaa"
+                        size={1.6}
+                      />
+                      <p>{tool.description}</p>
+                    </a>
+                  );
+                })}
+              </Grid>
+            )}
           </div>
         </Grid>
       </AboutContainer>
@@ -267,7 +272,7 @@ export const About = () => {
                 <h3>{box.title}</h3>
                 <p>{box.description}</p>
                 <a href={box.linkUrl} rel="noreferrer nofollow" target="_blank">
-                <Chevron /> {box.linkText}
+                  <Chevron /> {box.linkText}
                 </a>
               </Infobox>
             );
