@@ -1,5 +1,5 @@
 import { AppConfig, AppConfigRevalidateDates } from "~/types";
-import { plugins } from "./plugins";
+import { tools } from "./tools";
 
 const ONE_MINUTE = 1000 * 60 * 60;
 const ONE_HOUR = 1000 * 60 * 60;
@@ -24,7 +24,7 @@ export const appConfig: AppConfig = {
   apiUrl: `${process.env.NEXT_PUBLIC_CMS_BASE_URL ?? ""}/wp-json`,
   searchUrl: `${process.env.NEXT_PUBLIC_API_URL ?? ""}`,
   ga4TagProperty: `${process.env.NEXT_PUBLIC_GA4TAG_PROPERTY ?? ""}`,
-  plugins,
+  tools,
   // TODO: set dynamic interval ...
   revalidateInterval: (scope: string, dates?: AppConfigRevalidateDates) => {
     const defaultInterval =

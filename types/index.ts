@@ -7,14 +7,14 @@ export type AppConfigRevalidateDates = {
 }
 
 
-export type PluginMenuItem = {
+export type PiApiToolMenuItem = {
   name: string;
   slug?: string;
   url?: string;
   target?: string;
 };
 
-export type Plugin = {
+export type PiApiTool = {
   slug: string;
   name: string;
   description: string;
@@ -22,7 +22,7 @@ export type Plugin = {
   colorHighlight: string;
   iconShort: string;
   iconLong: string;
-  menu: PluginMenuItem[];
+  menu: PiApiToolMenuItem[];
 };
 
 export interface AppConfig {
@@ -37,7 +37,7 @@ export interface AppConfig {
   ga4TagProperty: string;
   apiUrl: string;
   searchUrl: string;
-  plugins: Plugin[],
+  tools: PiApiTool[],
   revalidateInterval: (
     scope: string,
     dates?: AppConfigRevalidateDates

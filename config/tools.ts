@@ -1,6 +1,6 @@
-import { Plugin } from "~/types";
+import { PiApiTool } from "~/types";
 
-export const plugins: Plugin[] = [
+export const tools: PiApiTool[] = [
   {
     slug: "map",
     name: "Public Interest AI Project Map",
@@ -31,7 +31,8 @@ export const plugins: Plugin[] = [
   {
     slug: "energy",
     name: "Energy usage plugin",
-    description: "A smart browser extension monitoring your internet enegergy usage",
+    description:
+      "A smart browser extension monitoring your internet enegergy usage",
     colorBase: "#0f0",
     colorHighlight: "#0f0",
     iconShort: "En",
