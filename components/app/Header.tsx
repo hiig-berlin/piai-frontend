@@ -310,7 +310,7 @@ export const Header = ({
                           shortHandle={tool.iconShort}
                           longText={tool.iconLong}
                           color="var(--color-grey)"
-                          hoverColor={tool.colorHighligh}
+                          hoverColor={tool.colorHighlight}
                           size={1.3}
                         />
                       </a>

@@ -1,6 +1,6 @@
-import { PiApiTool } from "~/types";
+import { PiAiTool } from "~/types";
 
-export const tools: PiApiTool[] = [
+export const tools: PiAiTool[] = [
   {
     slug: "map",
     name: "Public Interest AI Project Map",
@@ -17,7 +17,7 @@ export const tools: PiApiTool[] = [
       },
       {
         // this will create an internal link to "/tool/map/list"
-        slug: "list",
+        slug: "directory",
         name: "Project Directory",
       },
       {

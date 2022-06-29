@@ -6,3 +6,10 @@ TODO:
   
 
 - Add poster.jpg as share fallback image to /public/img/... 
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++
++++++++ TODO +++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++
+- Ensure all pages und /pages/... add the needed and correct meta tags.
+- Tools need skip to content link

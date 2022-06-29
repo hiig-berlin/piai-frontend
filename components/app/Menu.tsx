@@ -315,7 +315,7 @@ export const Menu = () => {
                           return (
                             <Link
                               key={`tool-${index}-menu-${i}`}
-                              href={`/tool/${tool.slug}/${menuItem.slug}`}
+                              href={`/tool/${tool.slug}/${menuItem.slug ?? ""}`}
                             >
                               {menuItem.name}
                             </Link>
