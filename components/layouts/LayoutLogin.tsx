@@ -19,7 +19,7 @@ export const LayoutLogin = ({ children }: AppProps) => {
       <NextHeadSeo
         title={`${config.appTitle}`}
         og={{
-          image: `${config.baseUrl}/img/ikon-poster.jpg`,
+          image: `${config.baseUrl}/img/poster.jpg`,
           type: "article",
           siteName: `${config.appTitle}`,
         }}
