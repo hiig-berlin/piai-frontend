@@ -4,6 +4,7 @@ export const plugins: Plugin[] = [
   {
     slug: "map",
     name: "Public Interest AI Project Map",
+    description: "Map and directory of PIAI projects",
     iconShort: "Ma",
     iconLong: "Project Map",
     colorBase: "#ccc",
@@ -28,8 +29,9 @@ export const plugins: Plugin[] = [
     ],
   },
   {
-    slug: "",
-    name: "",
+    slug: "energy",
+    name: "Energy usage plugin",
+    description: "A smart browser extension monitoring your internet enegergy usage",
     colorBase: "#0f0",
     colorHighlight: "#0f0",
     iconShort: "En",

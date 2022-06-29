@@ -17,6 +17,7 @@ export type PluginMenuItem = {
 export type Plugin = {
   slug: string;
   name: string;
+  description: string;
   colorBase: string;
   colorHighlight: string;
   iconShort: string;
