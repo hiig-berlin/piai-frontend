@@ -6,6 +6,7 @@ import Button from "../styled/Button";
 
 import { BoxSvgs, Chevron } from "../ui/StaticSvgs";
 import { useConfigContext } from "~/providers/ConfigContextProvider";
+import Link from "next/link";
 
 const pageContainerWidth = "(100vw - 2 * var(--size-page-margin))";
 const mobileBoxSize = `calc(${pageContainerWidth} * 0.9)`;
@@ -67,7 +68,7 @@ const AboutContainer = styled(PageMargins)`
       margin: 0 10px 0 0;
     }
 
-    .labElement + p {
+    .labElement + span {
       margin: auto 0;
       padding-bottom: 5px;
     }
@@ -241,16 +242,18 @@ export const About = () => {
               <Grid col={2} className="tools">
                 {config?.tools.map((tool: any, index: number) => {
                   return (
-                    <a href={`/tool/${tool.slug}`} key={`tool-${index}`}>
-                      <LabElement
-                        shortHandle={tool.iconShort}
-                        longText={tool.iconLong}
-                        color="white"
-                        hoverColor="#ffffffaa"
-                        size={1.6}
-                      />
-                      <p>{tool.description}</p>
-                    </a>
+                    <Link passHref href={`/tool/${tool.slug}`} key={`tool-${index}`}>
+                      <a>
+                        <LabElement
+                          shortHandle={tool.iconShort}
+                          longText={tool.iconLong}
+                          color="white"
+                          hoverColor="#ffffffaa"
+                          size={1.6}
+                        />
+                        <span>{tool.description}</span>
+                      </a>
+                    </Link>
                   );
                 })}
               </Grid>
@@ -292,7 +295,7 @@ const aboutContent = {
   },
   toolbox: {
     headline: "The publicinterest.ai toolbox",
-    text: "Besides this knowledge resource, we’re showcaseing a handful of projects on public interest AI. This toolbox is a work in progress and open for ideas and collaborators. So some back, once in a while to see what’s new and contact us, if you want to contribute with a tool.",   
+    text: "Besides this knowledge resource, we’re showcaseing a handful of projects on public interest AI. This toolbox is a work in progress and open for ideas and collaborators. So some back, once in a while to see what’s new and contact us, if you want to contribute with a tool.",
   },
   boxes: [
     {

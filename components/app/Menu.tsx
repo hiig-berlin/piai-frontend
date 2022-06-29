@@ -9,6 +9,8 @@ import { MenuFooter } from "./Menus/MenuFooter";
 import { Logo } from "./Logo";
 import { LabElement } from "../ui/LabElement";
 import { Chevron } from "../ui/StaticSvgs";
+import { useConfigContext } from "~/providers/ConfigContextProvider";
+import Link from "next/link";
 
 const ANIMATION_LENGTH = 500;
 
@@ -150,9 +152,8 @@ const Column = styled.div<{ stretch?: boolean }>`
     }
 
     nav {
-    
       gap: 0;
-      
+
       a {
         color: white;
         font-size: 1em;
@@ -175,7 +176,7 @@ const Column = styled.div<{ stretch?: boolean }>`
         margin: 0 10px 0 0;
       }
 
-      .labElement + p {
+      .labElement + span {
         margin: auto 0;
         padding-bottom: 5px;
       }
@@ -195,6 +196,8 @@ const Column = styled.div<{ stretch?: boolean }>`
   }
 `;
 export const Menu = () => {
+  const config = useConfigContext();
+
   const menuContext = useMenuContext();
 
   const menuContainerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
@@ -280,26 +283,42 @@ export const Menu = () => {
               <Column className="toolbox">
                 <header>Tools</header>
 
-                {menuContent.tools.map((tool: any, index: number) => {
+                {config.tools.map((tool: any, index: number) => {
                   return (
                     <section key={`tool-${index}`} className="tool">
-                      <a href={tool.linkUrl} key={`tool-${index}`}>
-                        <LabElement
-                          shortHandle={tool.shortHandle}
-                          longText={tool.longText}
-                          color="white"
-                          hoverColor="#ffffffaa"
-                          size={1.6}
-                        />
-
-                        <p>{tool.description}</p>
-                      </a>
+                      <Link href={`/tool/${tool.slug}`} key={`tool-${index}`}>
+                        <a>
+                          <LabElement
+                            shortHandle={tool.iconShort}
+                            longText={tool.iconLong}
+                            color="#fff"
+                            hoverColor={tool.colorHighlight}
+                            size={1.6}
+                          />
+                          <span>{tool.name}</span>
+                        </a>
+                      </Link>
                       <nav>
-                        {tool.subMenu.map((menuItem: any, i: number) => {
+                        {tool.menu.map((menuItem: any, i: number) => {
+                          if (menuItem?.url)
+                            return (
+                              <a
+                                key={`tool-${index}-menu-${i}`}
+                                href={menuItem.url}
+                                target={menuItem.target}
+                                rel="noreferrer"
+                              >
+                                {menuItem.name}
+                              </a>
+                            );
+
                           return (
-                            <a key={`submenuItem-${i}`} href={menuItem.linkURL}>
-                              {menuItem.linkText}
-                            </a>
+                            <Link
+                              key={`tool-${index}-menu-${i}`}
+                              href={`/tool/${tool.slug}/${menuItem.slug}`}
+                            >
+                              {menuItem.name}
+                            </Link>
                           );
                         })}
                       </nav>
@@ -323,42 +342,4 @@ const menuContent = {
     linkText: "Explore the definition",
     linkURL: "/",
   },
-  tools: [
-    {
-      shortHandle: "Ma",
-      longText: "Project Map",
-      description: "Map and directory of PIAI projects",
-      linkUrl: "/map",
-      subMenu: [
-        {
-          linkText: "Project directory",
-          linkURL: "/map/list",
-        },
-        {
-          linkText: "Submit project",
-          linkURL: "/map/submit",
-        },
-        {
-          linkText: "Project directory",
-          linkURL: "/map/about",
-        },
-      ],
-    },
-    {
-      shortHandle: "En",
-      longText: "Energy Usage",
-      description: "Measure you AI’s energy consumption",
-      linkUrl: "/consumption",
-      subMenu: [
-        {
-          linkText: "Plugin",
-          linkURL: "/energy",
-        },
-        {
-          linkText: "About",
-          linkURL: "/energy/about",
-        },
-      ],
-    },
-  ],
 };

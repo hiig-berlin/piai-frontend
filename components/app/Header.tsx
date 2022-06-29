@@ -12,6 +12,8 @@ import useIsMounted from "~/hooks/useIsMounted";
 import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
 import { MenuButton } from "./MenuButton";
 import { LabElement } from "../ui/LabElement";
+import { useConfigContext } from "~/providers/ConfigContextProvider";
+import Link from "next/link";
 
 const SCROLL_UP_THRESHOLD_PX = 150;
 const SCROLL_DOWN_THRESHOLD_PX = 250;
@@ -73,6 +75,7 @@ const HeaderNavLinks = styled.div`
   display: flex;
   align-items: center;
   height: 100%;
+  gap: 0.3em;
 `;
 
 export const Header = ({
@@ -90,6 +93,8 @@ export const Header = ({
   slideUpOnScroll?: boolean;
   slideUpOnScrollMaxWidthPx?: number;
 }) => {
+  const config = useConfigContext();
+
   const menuContext = useMenuContext();
 
   const isMounted = useIsMounted();
@@ -287,6 +292,7 @@ export const Header = ({
             size={1.3}
           />
         )}
+
         <MainNav ref={mainRef}>
           <HeaderNav>
             <HeaderNavLinks
@@ -295,21 +301,22 @@ export const Header = ({
                 display: isTabletLandscapeAndUp ? "flex" : "none",
               }}
             >
-              {/* <MenuHeader id="menu-header" /> */}
-              <LabElement
-                shortHandle="Ma"
-                longText="Project Map"
-                size={1.3}
-                color="var(--color-grey)"
-                hoverColor="var(--color-piai-map)"
-              />
-              <LabElement
-                shortHandle="En"
-                longText="Energy Usage"
-                size={1.3}
-                color="var(--color-grey)"
-                hoverColor="var(--color-piai-energy)"
-              />
+              {config?.tools?.length > 0 &&
+                config?.tools.map((tool: any, index: number) => {
+                  return (
+                    <Link href={`/tool/${tool.slug}`} key={`tool-${index}`}>
+                      <a>
+                        <LabElement
+                          shortHandle={tool.iconShort}
+                          longText={tool.iconLong}
+                          color="var(--color-grey)"
+                          hoverColor={tool.colorHighligh}
+                          size={1.3}
+                        />
+                      </a>
+                    </Link>
+                  );
+                })}
             </HeaderNavLinks>
           </HeaderNav>
         </MainNav>

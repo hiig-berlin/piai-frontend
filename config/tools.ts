@@ -7,13 +7,12 @@ export const tools: PiApiTool[] = [
     description: "Map and directory of PIAI projects",
     iconShort: "Ma",
     iconLong: "Project Map",
-    colorBase: "#ccc",
-    colorHighlight: "#ff0",
+    colorBase: "#fff",
+    colorHighlight: "var(--color-piai-map)",
     menu: [
       {
         // menu slugs are always prefixed by "/tool/tool-slug/"
-        // entries with no slug and url link to the base 
-
+        // entries with no slug and url link to the base
         name: "Map",
       },
       {
@@ -23,6 +22,7 @@ export const tools: PiApiTool[] = [
       },
       {
         url: "https://abc.com", // TODO: fix URL
+        target: "_blank",
         name: "Submit Project",
       },
       {
@@ -36,8 +36,8 @@ export const tools: PiApiTool[] = [
     name: "Energy usage plugin",
     description:
       "A smart browser extension monitoring your internet enegergy usage",
-    colorBase: "#0f0",
-    colorHighlight: "#0f0",
+    colorBase: "#fff",
+    colorHighlight: "var(--color-piai-energy)",
     iconShort: "En",
     iconLong: "Energy Usage",
     menu: [
