@@ -1,4 +1,6 @@
 import { AppConfig, AppConfigRevalidateDates } from "~/types";
+import { plugins } from "./plugins";
+
 const ONE_MINUTE = 1000 * 60 * 60;
 const ONE_HOUR = 1000 * 60 * 60;
 const ONE_DAY = ONE_HOUR * 24;
@@ -22,21 +24,18 @@ export const appConfig: AppConfig = {
   apiUrl: `${process.env.NEXT_PUBLIC_CMS_BASE_URL ?? ""}/wp-json`,
   searchUrl: `${process.env.NEXT_PUBLIC_API_URL ?? ""}`,
   ga4TagProperty: `${process.env.NEXT_PUBLIC_GA4TAG_PROPERTY ?? ""}`,
+  plugins,
   // TODO: set dynamic interval ...
-  revalidateInterval: (
-    scope: string,
-    dates?: AppConfigRevalidateDates
-  ) => {
+  revalidateInterval: (scope: string, dates?: AppConfigRevalidateDates) => {
+    const defaultInterval =
+      process.env.NODE_ENV === "development"
+        ? 0.5
+        : parseInt(`${process.env.NEXT_PUBLIC_DEFAULT_API_CACHE_TIME ?? 5}`);
 
-    const defaultInterval = process.env.NODE_ENV === "development" ? 0.5 : parseInt(
-      `${process.env.NEXT_PUBLIC_DEFAULT_API_CACHE_TIME ?? 5}`
-    );
-    
     if (dates) {
       try {
-
         // const date = new Date(dates.date.replace(/ /g,"T")).getTime();
-        const modified = new Date(dates.date.replace(/ /g,"T")).getTime();
+        const modified = new Date(dates.date.replace(/ /g, "T")).getTime();
         const today = new Date().getTime();
 
         if (today - modified < ONE_MINUTE) {
@@ -57,7 +56,7 @@ export const appConfig: AppConfig = {
           return 3600 * 24; // 1 day
         }
       } catch (e) {}
-    } 
-    return defaultInterval * 60;    
+    }
+    return defaultInterval * 60;
   },
 };

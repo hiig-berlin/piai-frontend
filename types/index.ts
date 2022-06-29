@@ -6,6 +6,24 @@ export type AppConfigRevalidateDates = {
   modified: string;
 }
 
+
+export type PluginMenuItem = {
+  name: string;
+  slug?: string;
+  url?: string;
+  target?: string;
+};
+
+export type Plugin = {
+  slug: string;
+  name: string;
+  colorBase: string;
+  colorHighlight: string;
+  iconShort: string;
+  iconLong: string;
+  menu: PluginMenuItem[];
+};
+
 export interface AppConfig {
   errorLogUrl: string;
   preview: boolean;
@@ -18,6 +36,7 @@ export interface AppConfig {
   ga4TagProperty: string;
   apiUrl: string;
   searchUrl: string;
+  plugins: Plugin[],
   revalidateInterval: (
     scope: string,
     dates?: AppConfigRevalidateDates
