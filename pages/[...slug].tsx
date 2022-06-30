@@ -7,7 +7,6 @@ import { Header } from "~/components/app/Header";
 import {
   restApiGetPostBySlugOrFallbackId,
   restApiGetSettings,
-  restApiESQuery,
 } from "~/utils/restApi";
 import { FlexibleContentRow } from "~/components/flexibleContent/FlexibleContentRow";
 import { appConfig } from "~/config";

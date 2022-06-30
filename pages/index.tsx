@@ -8,7 +8,6 @@ import { Header } from "~/components/app/Header";
 import {
   restApiGetPostBySlugOrFallbackId,
   restApiGetSettings,
-  restApiESQuery,
 } from "~/utils/restApi";
 import { Intro } from "~/components/content/Intro";
 import { Tiles } from "~/components/content/Tiles";
@@ -63,12 +62,8 @@ const Home = ({ currentPage }: { currentPage: any }) => {
 export const getStaticProps: GetStaticProps = async (context) => {
   const token = (context?.previewData as any)?.token;
 
-  // TODO: Enable const currentPage = await restApiGetPostBySlugOrFallbackId("page", "home", token);
-  const currentPage: any = {
-    date: new Date().toISOString(),
-    modified: new Date().toISOString(),
-  };
-
+  const currentPage = await restApiGetPostBySlugOrFallbackId("page", "homepage", token);
+  
   if (!currentPage)
     return {
       props: {

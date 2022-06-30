@@ -8,15 +8,10 @@ import { Header } from "~/components/app/Header";
 import {
   restApiGetPostBySlugOrFallbackId,
   restApiGetSettings,
-  restApiESQuery,
 } from "~/utils/restApi";
 import { FlexibleContentRow } from "~/components/flexibleContent/FlexibleContentRow";
 
-const Home = ({
-  currentPage,
-}: {
-  currentPage: any;
-}) => {
+const Home = ({ currentPage }: { currentPage: any }) => {
   return (
     <>
       <NextHeadSeo
@@ -36,7 +31,7 @@ const Home = ({
       <Header isHome slideUpOnScroll={false} />
 
       <main id="content">
-      {/* {currentPage?.acf?.content?.length > 0 ? (
+        {/* {currentPage?.acf?.content?.length > 0 ? (
         <FlexibleContentRow field="content" content={currentPage.acf.content} />
       ) : (
         <div />
@@ -45,7 +40,6 @@ const Home = ({
     </>
   );
 };
-
 
 export const getStaticPaths: GetStaticPaths = async () => {
   // TODO: fill in paths that should be prerendered
@@ -62,7 +56,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const currentPage: any = {
     date: new Date().toISOString(),
     modified: new Date().toISOString(),
-  }
+  };
 
   if (!currentPage)
     return {
