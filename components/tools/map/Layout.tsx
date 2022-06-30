@@ -13,13 +13,17 @@ import { Map } from "./Map";
 import styled, { createGlobalStyle } from "styled-components";
 import { useEffect } from "react";
 import { Sidebar } from "../shared/Sidebar";
-import { ToolSidebar } from "~/components/app/ToolSidebar"; 
+import { ToolSidebar } from "~/components/app/ToolSidebar";
+import { PiAiTool } from "~/types";
+import { Submenu } from "./Submenu";
 
 const GlobalStyle = createGlobalStyle`
-  body {
-    background: #000;
-  }
+  // body {
+  //   background: #000;
+  // }
 `;
+
+
 
 const ContentContainer = styled.div<{ isTransparent: boolean }>`
   position: absolute;
@@ -56,6 +60,8 @@ export const Layout = ({
   const { isLoading } = usePageStateContext();
   const { setView } = useToolStateContext();
 
+  const tool = config.tools.find((tool: PiAiTool) => tool.slug === "map");
+
   useEffect(() => {
     setView(props?.view ?? "page");
   }, [setView, props?.view]);
@@ -79,27 +85,14 @@ export const Layout = ({
       <MenuButton />
 
       <ToolStateContextProvider>
-      <ToolSidebar />
+        <ToolSidebar />
         <Map />
         <ContentContainer isTransparent={props?.view === "map"}>
           {children}
         </ContentContainer>
         <Sidebar tool="map" view={props?.view}>
-          <div
-            // style={{
-            //   color: "#ff0",
-            //   fontSize: "12px",
-            //   lineHeight: "14px",
-            // }}
-          >
-            Some
-            <br />
-            Sidebar
-            <br />
-            content
-          </div>
+          <Submenu tool="map" />
         </Sidebar>
-
       </ToolStateContextProvider>
       <Menu />
     </>

@@ -28,10 +28,12 @@ const Container = styled.div.attrs<{
   top: 0;
   left: 300px;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
+  background: #0002;
   z-index: 3;
   transition: transform 0.35s;
   transform: translateX(-105%);
+  font-size: 1.1em;
+  width: fit-content;
 
   ${({ theme }) => theme.breakpoints.tablet} {
     transform: translateX(0) !important;
@@ -65,7 +67,7 @@ const LogoContainer = styled.div`
 const Tools = styled.div`
   display: flex;
   flex-direction: column;
-  gap: var(--size-1);
+  gap: 1em;
 `;
 
 const Tool = styled.div<{ isActive: boolean }>`
@@ -133,7 +135,7 @@ export const Sidebar = ({
         isVisible={view !== "page"}
       >
         <LogoContainer>
-          <Logo color="white" direction="column" size={1.3} />
+          <Logo color="white" direction="vertical" size={1} />
         </LogoContainer>
         <Tools>
           {config?.tools?.length > 0 &&
@@ -147,7 +149,7 @@ export const Sidebar = ({
                         longText={t.iconLong}
                         color={t.colorHighlight}
                         hoverColor="white"
-                        size={1.3}
+                        size={1}
                       />
                     </a>
                   </Link>

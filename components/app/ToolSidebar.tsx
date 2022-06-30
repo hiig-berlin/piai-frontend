@@ -13,14 +13,14 @@ const SidebarWrapper = styled.nav`
   top: 0;
   // TODO: Vincent, you know this 100% stuff better
   height: 100%;
-  width: fit-content;
+
   font-size: 1.1em;
 
   display: flex;
   flex-direction: column;
   gap: 1em;
   padding: var(--size-2);
-  background: #0002;
+  
   z-index: 100;
 `;
 
