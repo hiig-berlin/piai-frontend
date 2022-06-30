@@ -13,6 +13,7 @@ import { Map } from "./Map";
 import styled, { createGlobalStyle } from "styled-components";
 import { useEffect } from "react";
 import { Sidebar } from "../shared/Sidebar";
+import { ToolSidebar } from "~/components/app/ToolSidebar"; 
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -76,12 +77,14 @@ export const Layout = ({
       <UserTracking />
       <LoadingBar isLoading={isLoading} />
       <MenuButton />
+
       <ToolStateContextProvider>
+      <ToolSidebar />
         <Map />
         <ContentContainer isTransparent={props?.view === "map"}>
           {children}
         </ContentContainer>
-        <Sidebar tool="map" view={props?.view}>
+        {/* <Sidebar tool="map" view={props?.view}>
           <div
             style={{
               color: "#ff0",
@@ -95,7 +98,8 @@ export const Layout = ({
             <br />
             content
           </div>
-        </Sidebar>
+        </Sidebar> */}
+
       </ToolStateContextProvider>
       <Menu />
     </>

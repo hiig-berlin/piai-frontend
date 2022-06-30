@@ -20,6 +20,7 @@ const SidebarWrapper = styled.nav`
   gap: 1em;
   padding: var(--size-2);
   background: #0002;
+  z-index: 100;
 `;
 
 const ToolSubmenu = styled.div`

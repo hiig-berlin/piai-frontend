@@ -1,11 +1,14 @@
+<<<<<<< HEAD
 import React, { useState } from "react";
+=======
+import React from "react";
+>>>>>>> refs/remotes/origin/dev-frontend
 import styled from "styled-components";
-import { SvgBackground } from "../ui/SvgBackground";
 import Link from "next/link";
 import { useConfigContext } from "~/providers/ConfigContextProvider";
 import { LabElement } from "../ui/LabElement";
-import { getStaticProps } from "~/pages";
 
+<<<<<<< HEAD
 const LogoContainer = styled.div<{ 
   size?: number; 
   hoverColor?: string; 
@@ -26,12 +29,33 @@ const LogoContainer = styled.div<{
     @media (any-pointer: fine) {
       &:hover {
         color: ${({ hoverColor }) => hoverColor || "var(--color-ailab-red)"};
+=======
+const LogoLink = styled.a<{ direction?: string }>`
+  display: flex;
+  gap: 0.3em;
+  flex-direction: ${({ direction }) => direction ?? "row"};
+
+  transition: filter 0.3s, color var(--transition-speed-link);
+
+  &:active {
+    color: var(--hc);
+  }
+
+  @media (any-pointer: fine) {
+    &:hover {
+      color: var(--hc);
+
+      div {
+        color: var(--hc) !important;
+        border-color: var(--hc) !important;
+>>>>>>> refs/remotes/origin/dev-frontend
       }
     }
 
     flex-direction: ${({ direction }) => direction === "vertical" ? "column": "row"};
     gap: 0.3em;
   }
+<<<<<<< HEAD
 
   // height: var(--size-6);
   // width: var(--size-6);
@@ -42,13 +66,19 @@ const LogoContainer = styled.div<{
   //   height: var(--size-5);
   //   width: var(--size-5);
   // }
+=======
+>>>>>>> refs/remotes/origin/dev-frontend
 `;
 
 export const Logo = ({
   color,
   hoverColor,
   size,
+<<<<<<< HEAD
   direction = "horizontal",
+=======
+  direction,
+>>>>>>> refs/remotes/origin/dev-frontend
 }: {
   color: string;
   hoverColor?: string;
@@ -56,9 +86,9 @@ export const Logo = ({
   direction?: string;
 }) => {
   const config = useConfigContext();
-  const [hover, isHover] = useState(false);
 
   return (
+<<<<<<< HEAD
     <LogoContainer
       size={size}
       hoverColor={hoverColor}
@@ -74,17 +104,38 @@ export const Logo = ({
             longText="Public Interest"
             color={hover ? hoverColor : color}
             hoverColor={hoverColor}
+=======
+    <div className="logo">
+      <Link href={`${config?.baseUrl}`} passHref>
+        <LogoLink
+          direction={direction}
+          title="Go to homepage"
+          style={
+            {
+              "--hc": hoverColor ?? "var(--color-ailab-red)",
+            } as React.CSSProperties
+          }
+        >
+          <LabElement
+            shortHandle="PI"
+            longText="Public Interest"
+            color={color}
+>>>>>>> refs/remotes/origin/dev-frontend
             size={size}
           />
           <LabElement
             shortHandle="AI"
             longText="AI"
+<<<<<<< HEAD
             color={hover ? hoverColor : color}
             hoverColor={hoverColor}
+=======
+            color={color}
+>>>>>>> refs/remotes/origin/dev-frontend
             size={size}
           />
-        </a>
+        </LogoLink>
       </Link>
-    </LogoContainer>
+    </div>
   );
 };
