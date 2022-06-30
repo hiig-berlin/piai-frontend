@@ -67,7 +67,7 @@ export const Intro = ({ data }: { data: any }) => {
   const {
     vars: { isTabletAndUp },
   } = useCssVarsContext();
-
+  
   return (
     <Container>
       <StyledHeading>{data?.acf?.introQuestion}</StyledHeading>
