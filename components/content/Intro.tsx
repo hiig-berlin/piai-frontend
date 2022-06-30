@@ -22,7 +22,7 @@ const StyledHeading = styled.h1`
   margin: auto auto var(--size-4);
   width: 80%;
   ${({ theme }) => theme.textStyle("h0")};
-  
+
   font-weight: 700;
 
   ${({ theme }) => theme.breakpoints.tablet} {
@@ -41,7 +41,7 @@ const Typing = styled.div`
 
   ${({ theme }) => theme.applyMixin("monospace")};
 
-  font-size: 1.1em; 
+  font-size: 1.1em;
   line-height: 1.3em;
   height: fit-content;
   min-height: 4em;
@@ -49,7 +49,7 @@ const Typing = styled.div`
   ${({ theme }) => theme.breakpoints.tablet} {
     height: var(--size-6);
     min-height: none;
-    font-size: 1.3em; 
+    font-size: 1.3em;
   }
 `;
 
@@ -63,30 +63,54 @@ const possibleAnswers = [
   "Lorem ipsum dolor sit AI systems, which are open for validation and some more content, which is really long. ",
 ];
 
-export const Intro = () => {
+export const Intro = ({ data }: { data: any }) => {
   const {
     vars: { isTabletAndUp },
   } = useCssVarsContext();
 
+  console.log(data);
+
   return (
     <Container>
-      <StyledHeading>What is public interest AI?</StyledHeading>
+      <StyledHeading>{data?.acf?.introQuestion}</StyledHeading>
       <Typing>
-        <ReactTypingEffect
-          text={possibleAnswers}
-          speed={80}
-          eraseSpeed={20}
-          eraseDelay={3000}
-          typingDelay={500}
-        />
+        {data?.acf?.introAnswers?.length > 0 && (
+          <ReactTypingEffect
+            text={data.acf.introAnswers.map((answer: any) => answer.answer)}
+            speed={80}
+            eraseSpeed={20}
+            eraseDelay={3000}
+            typingDelay={500}
+          />
+        )}
       </Typing>
       {isTabletAndUp && (
         <>
-          <Wizard towards bend="down left" left="5%" bottom="100px" width="30%" inView inViewDelay={1.0} inViewRevert> 
-          Explore existing projects of public interest and their answers.
+          <Wizard
+            towards
+            bend="down left"
+            left="5%"
+            bottom="100px"
+            width="30%"
+            inView
+            inViewDelay={1.0}
+            inViewRevert
+          >
+            Explore existing projects of public interest and their answers.
           </Wizard>
-          <Wizard towards right bend="down right" left="60%" bottom="100px" width="35%" inView inViewDelay={2.5} inViewRevert> 
-            We’ve done some research. Read here our proposed definition for a public interest AI.
+          <Wizard
+            towards
+            right
+            bend="down right"
+            left="60%"
+            bottom="100px"
+            width="35%"
+            inView
+            inViewDelay={2.5}
+            inViewRevert
+          >
+            We’ve done some research. Read here our proposed definition for a
+            public interest AI.
           </Wizard>
         </>
       )}
