@@ -7,6 +7,7 @@ TODO:
 
 - Add poster.jpg as share fallback image to /public/img/... 
 
+- Style 404 and 500 pages ... 
 
 ++++++++++++++++++++++++++++++++++++++++++++++++
 +++++++ TODO +++++++++++++++++++++++++++++++++++

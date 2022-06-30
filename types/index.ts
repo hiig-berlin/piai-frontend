@@ -26,6 +26,7 @@ export type PiAiTool = {
 };
 
 export interface AppConfig {
+  siteMapFileName: string;
   errorLogUrl: string;
   preview: boolean;
   postsPerPage: number;

@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import NextHeadSeo from "next-head-seo";
 import { useConfigContext } from "~/providers/ConfigContextProvider";
 import { AppProps } from "~/types";
