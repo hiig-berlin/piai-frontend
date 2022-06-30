@@ -38,7 +38,7 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
 
-const CustomErrorHandler = (error: Error, info: { componentStack: string }) => {
+const CustomErrorHandler = (error: Error /* , info: { componentStack: string } */ ) => {
   if (typeof window === "undefined" || process.env.NODE_ENV === "development") return;
   
   if (appConfig.errorLogUrl.trim()) {

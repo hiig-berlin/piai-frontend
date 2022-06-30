@@ -12,7 +12,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     let status = 200;
     let contentType = "application/xml; charset=UTF-8";
 
-    let body = await fetch(`${appConfig.cmsUrl}/${appConfig.siteMapFileName}`)
+    const body = await fetch(`${appConfig.cmsUrl}/${appConfig.siteMapFileName}`)
       .then((response: Response) => {
         if (response) {
           status = response.status;
@@ -25,7 +25,7 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
         return null;
       })
       .then((body) => body)
-      .catch((err) => {
+      .catch(() => {
         status = 500;
         return "Internal server error";
       });

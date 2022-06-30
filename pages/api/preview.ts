@@ -45,7 +45,8 @@ export default async function handler(
 
     case "audio_file":
       location = `/media/audio/${post.slug ? post.slug : `id--${post.id}`}`;
-
+      break;
+      
     case "video":
       location = `/media/video/${post.slug ? post.slug : `id--${post.id}`}`;
       break;

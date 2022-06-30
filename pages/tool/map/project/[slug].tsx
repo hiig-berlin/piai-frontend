@@ -6,7 +6,6 @@ import Layout from "~/components/tools/map/Layout";
 import {
   restApiGetPostBySlugOrFallbackId,
   restApiGetSettings,
-  restApiESQuery,
 } from "~/utils/restApi";
 import { appConfig } from "~/config";
 import { PiAiTool } from "~/types";

@@ -171,7 +171,9 @@ export const UserTracking = () => {
               onClick={() => {
                 try {
                   Cookies.set(COOKIE_NAME, "yes", { expires: 365 });
-                } catch (e) {}
+                } catch (e) {
+                  // don't do anything ... 
+                }
                 fadeOut();
               }}
             >

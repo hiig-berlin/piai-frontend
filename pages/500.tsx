@@ -30,7 +30,7 @@ export function Page500() {
   );
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
       frontendSettings: await restApiGetSettings(),

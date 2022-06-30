@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { getStaticProps } from "~/pages";
 import { AspectRatio } from "./AspectRatio";
 // import safeHtml from "~/utils/sanitize";
 // import omit from "lodash/omit";
