@@ -11,6 +11,7 @@ export const appConfig: AppConfig = {
   appTitle: "Public Interest AI",
   preview: `${process.env.NEXT_PUBLIC_PREVIEW_LOCKED}` === "1",
   postsPerPage: 24,
+  siteMapFileName: "sitemap_index.xml",
   defaultApiCacheTimeMinutes: parseInt(
     `${process.env.NEXT_PUBLIC_DEFAULT_API_CACHE_TIME ?? 5}`
   ),

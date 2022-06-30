@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { SvgBackground } from "../ui/SvgBackground";
 import Link from "next/link";
 import { useConfigContext } from "~/providers/ConfigContextProvider";
 import { LabElement } from "../ui/LabElement";
-import { getStaticProps } from "~/pages";
 
 const LogoContainer = styled.div<{ 
   size?: number; 
@@ -56,7 +54,6 @@ export const Logo = ({
   direction?: string;
 }) => {
   const config = useConfigContext();
-  const [hover, isHover] = useState(false);
 
   return (
     <LogoContainer
@@ -83,8 +80,8 @@ export const Logo = ({
             hoverColor={hoverColor}
             size={size}
           />
-        </a>
+        </LogoLink>
       </Link>
-    </LogoContainer>
+    </div>
   );
 };

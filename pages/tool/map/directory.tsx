@@ -2,7 +2,7 @@ import { ReactElement } from "react";
 import type { GetStaticProps, GetStaticPaths } from "next";
 import NextHeadSeo from "next-head-seo";
 
-import LayoutTool from "~/components/layouts/LayoutTool";
+import Layout from "~/components/tools/map/Layout";
 import {
   restApiGetPostBySlugOrFallbackId,
   restApiESGetSettings,
@@ -12,7 +12,7 @@ import { appConfig } from "~/config";
 import { PiAiTool } from "~/types";
 import { LabElement } from "~/components/ui/LabElement";
 
-const Project = ({ tool }: {tool: PiAiTool }) => {
+const Directory = ({ tool }: { tool: PiAiTool }) => {
   return (
     <>
       {/* TODO: ensure correct meta data is set <NextHeadSeo
@@ -47,9 +47,7 @@ const Project = ({ tool }: {tool: PiAiTool }) => {
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const tool = appConfig.tools
-    .filter((tool: PiAiTool) => tool.slug === "map")
-    ?.pop();
+  const tool = appConfig.tools.find((tool: PiAiTool) => tool.slug === "map");
 
   if (!tool)
     return {
@@ -64,12 +62,14 @@ export const getStaticProps: GetStaticProps = async (context) => {
     props: {
       frontendSettings: await restApiESGetSettings(),
       tool,
+      view: "page",
+      slug: "directory",
     },
     revalidate: appConfig.revalidateInterval("tool"),
   };
 };
 
-Project.getLayout = function getLayout(page: ReactElement) {
-  return <LayoutTool>{page}</LayoutTool>;
+Directory.getLayout = function getLayout(page: ReactElement, props: any) {
+  return <Layout props={props}>{page}</Layout>;
 };
-export default Project;
+export default Directory;

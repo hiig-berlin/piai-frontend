@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import styled from "styled-components";
 import { PiAiTool } from "~/types";
 import { LabElement } from "../../ui/LabElement";
 import SafeHtmlDiv from "../../ui/SafeHtmlDiv";
@@ -11,6 +12,8 @@ export type ToolAboutPageCTA = {
   linkTitle: string;
   text: string;
 };
+
+const Container = styled.div``
 
 export const AboutPage = ({
   tool,
@@ -28,8 +31,8 @@ export const AboutPage = ({
 
   // VVU: sorry for the #f0f
   return (
-    <div>
-      <div style={{ margin: "20px" }}>
+    <Container>
+      <div style={{ padding: "20px" }}>
         <div style={{ margin: "20px" }}>
           <LabElement
             shortHandle={tool.iconShort}
@@ -59,6 +62,6 @@ export const AboutPage = ({
           )}
         </div>
       )}
-    </div>
+    </Container>
   );
 };
