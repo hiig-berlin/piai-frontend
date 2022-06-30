@@ -5,7 +5,7 @@ import NextHeadSeo from "next-head-seo";
 import Layout from "~/components/tools/map/Layout";
 import {
   restApiGetPostBySlugOrFallbackId,
-  restApiESGetSettings,
+  restApiGetSettings,
   restApiESQuery,
 } from "~/utils/restApi";
 import { appConfig } from "~/config";
@@ -85,7 +85,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   if (!data || !tool)
     return {
       props: {
-        frontendSettings: await restApiESGetSettings(),
+        frontendSettings: await restApiGetSettings(),
       },
       notFound: true,
       revalidate: 240,
@@ -93,7 +93,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   return {
     props: {
-      frontendSettings: await restApiESGetSettings(),
+      frontendSettings: await restApiGetSettings(),
       tool,
       data,
       view: "page",

@@ -6,7 +6,7 @@ import LayoutMain from "~/components/layouts/LayoutMain";
 import { Header } from "~/components/app/Header";
 import {
   restApiGetPostBySlugOrFallbackId,
-  restApiESGetSettings,
+  restApiGetSettings,
   restApiESQuery,
 } from "~/utils/restApi";
 import { FlexibleContentRow } from "~/components/flexibleContent/FlexibleContentRow";
@@ -121,7 +121,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   if (!data || slug === "404")
     return {
       props: {
-        frontendSettings: await restApiESGetSettings(),
+        frontendSettings: await restApiGetSettings(),
       },
 
       notFound: true,
@@ -131,7 +131,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   
   return {
     props: {
-      frontendSettings: await restApiESGetSettings(),
+      frontendSettings: await restApiGetSettings(),
       data: data ?? null,
     },
     revalidate: appConfig.revalidateInterval("page", {

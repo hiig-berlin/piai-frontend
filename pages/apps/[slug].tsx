@@ -7,7 +7,7 @@ import LayoutMain from "~/components/layouts/LayoutMain";
 import { Header } from "~/components/app/Header";
 import {
   restApiGetPostBySlugOrFallbackId,
-  restApiESGetSettings,
+  restApiGetSettings,
   restApiESQuery,
 } from "~/utils/restApi";
 import { FlexibleContentRow } from "~/components/flexibleContent/FlexibleContentRow";
@@ -67,7 +67,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   if (!currentPage)
     return {
       props: {
-        frontendSettings: await restApiESGetSettings(),
+        frontendSettings: await restApiGetSettings(),
       },
       notFound: true,
       revalidate: 240,
@@ -75,7 +75,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   return {
     props: {
-      frontendSettings: await restApiESGetSettings(),
+      frontendSettings: await restApiGetSettings(),
       currentPage: currentPage ?? null,
     },
     revalidate: appConfig.revalidateInterval("homepage", {

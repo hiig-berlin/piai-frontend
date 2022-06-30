@@ -4,7 +4,7 @@ import NextHeadSeo from "next-head-seo";
 import { PiAiTool } from "~/types";
 import { appConfig } from "~/config";
 import LayoutTool from "~/components/layouts/LayoutTool";
-import { restApiESGetSettings } from "~/utils/restApi";
+import { restApiGetSettings } from "~/utils/restApi";
 import { AboutPage } from "~/components/tools/shared/AboutPage";
 
 const About = ({
@@ -61,7 +61,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   if (!tool)
     return {
       props: {
-        frontendSettings: await restApiESGetSettings(),
+        frontendSettings: await restApiGetSettings(),
       },
       notFound: true,
       revalidate: 240,
@@ -69,7 +69,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   return {
     props: {
-      frontendSettings: await restApiESGetSettings(),
+      frontendSettings: await restApiGetSettings(),
       tool,
       view: "page",
       slug: "about",

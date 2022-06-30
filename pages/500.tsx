@@ -6,7 +6,7 @@ import LayoutMain from "~/components/layouts/LayoutMain";
 import { PageMargins } from "~/components/ui/PageMargins";
 import { Heading } from "~/components/ui/Heading";
 import { Header } from "~/components/app/Header";
-import { restApiESGetSettings } from "~/utils/restApi";
+import { restApiGetSettings } from "~/utils/restApi";
 import { useConfigContext } from "~/providers/ConfigContextProvider";
 
 export function Page500() {
@@ -33,7 +33,7 @@ export function Page500() {
 export const getStaticProps: GetStaticProps = async (context) => {
   return {
     props: {
-      frontendSettings: await restApiESGetSettings(),
+      frontendSettings: await restApiGetSettings(),
     },
     revalidate: 60,
   };

@@ -4,7 +4,7 @@ import NextHeadSeo from "next-head-seo";
 
 import { appConfig } from "~/config";
 import Layout from "~/components/tools/map/Layout";
-import { restApiESGetSettings } from "~/utils/restApi";
+import { restApiGetSettings } from "~/utils/restApi";
 import { PiAiTool } from "~/types";
 import { LabElement } from "~/components/ui/LabElement";
 
@@ -93,7 +93,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   if (!tool)
     return {
       props: {
-        frontendSettings: await restApiESGetSettings(),
+        frontendSettings: await restApiGetSettings(),
       },
       notFound: true,
       revalidate: 240,
@@ -101,10 +101,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   return {
     props: {
-      frontendSettings: await restApiESGetSettings(),
-      layoutSettings: {
-        darkmode: true
-      },
+      frontendSettings: await restApiGetSettings(),
       tool,
       view: "map",
       slug: "index",
