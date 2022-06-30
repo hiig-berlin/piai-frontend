@@ -13,7 +13,6 @@ import { Map } from "./Map";
 import styled, { createGlobalStyle } from "styled-components";
 import { useEffect } from "react";
 import { Sidebar } from "../shared/Sidebar";
-import { ToolSidebar } from "~/components/app/ToolSidebar";
 import { PiAiTool } from "~/types";
 import { Submenu } from "./Submenu";
 
@@ -85,13 +84,12 @@ export const Layout = ({
       <MenuButton />
 
       <ToolStateContextProvider>
-        <ToolSidebar />
         <Map />
         <ContentContainer isTransparent={props?.view === "map"}>
           {children}
         </ContentContainer>
         <Sidebar tool="map" view={props?.view}>
-          <Submenu tool="map" />
+          <Submenu />
         </Sidebar>
       </ToolStateContextProvider>
       <Menu />

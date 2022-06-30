@@ -26,7 +26,7 @@ const Container = styled.div.attrs<{
     calc(var(--size-2));
   position: fixed;
   top: 0;
-  left: 300px;
+  left: 0;
   height: 100vh;
   background: #0002;
   z-index: 3;
@@ -41,7 +41,7 @@ const Container = styled.div.attrs<{
   }
 `;
 
-const CurrentToolContainer = styled.div<{
+const MobileLogoContainer = styled.div<{
   isVisible: boolean;
 }>`
   position: fixed;
@@ -82,7 +82,9 @@ const Children = styled.div`
   margin-bottom: var(--size-2);
 `;
 
-const ToolMenuButton = styled(ButtonNormalized)``;
+const ToolMenuButton = styled(ButtonNormalized)`
+  font-size: 1.1em;
+`;
 
 export const Sidebar = ({
   children,
@@ -109,7 +111,7 @@ export const Sidebar = ({
   // As the dependend on the parent's container font size messed with things arould.
   return (
     <>
-      <CurrentToolContainer isVisible={view !== "page"}>
+      <MobileLogoContainer isVisible={view !== "page"}>
         <ToolMenuButton
           aria-label={isOpen ? "Close tool's menu" : "open tool's menu"}
           aria-expanded={isOpen}
@@ -125,10 +127,10 @@ export const Sidebar = ({
             longText={currentTool.iconLong}
             color={currentTool.colorHighlight}
             hoverColor="white"
-            size={1.8}
+            size={1}
           />
         </ToolMenuButton>
-      </CurrentToolContainer>
+      </MobileLogoContainer>
       <Container
         {...{ isOpen, isOpening, isClosing }}
         id={`sidebar-${tool}`}
