@@ -58,10 +58,8 @@ const Index = ({
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const tool = appConfig.tools
-    .filter((tool: PiAiTool) => tool.slug === "energy")
-    ?.pop();
-
+  const tool = appConfig.tools.find((tool: PiAiTool) => tool.slug === "energy");
+  
   if (!tool)
     return {
       props: {
@@ -75,6 +73,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
     props: {
       frontendSettings: await restApiESGetSettings(),
       tool,
+      view: "page",
+      slug: "index",
     },
     revalidate: appConfig.revalidateInterval("tool"),
   };

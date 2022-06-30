@@ -2,7 +2,7 @@ import { ReactElement } from "react";
 import type { GetStaticProps, GetStaticPaths } from "next";
 import NextHeadSeo from "next-head-seo";
 
-import LayoutTool from "~/components/layouts/LayoutTool";
+import Layout from "~/components/tools/map/Layout";
 import {
   restApiGetPostBySlugOrFallbackId,
   restApiESGetSettings,
@@ -80,9 +80,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     // assume that more data will be loaded from
   };
 
-  const tool = appConfig.tools
-    .filter((tool: PiAiTool) => tool.slug === "map")
-    ?.pop();
+  const tool = appConfig.tools.find((tool: PiAiTool) => tool.slug === "map");
 
   if (!data || !tool)
     return {
@@ -98,12 +96,14 @@ export const getStaticProps: GetStaticProps = async (context) => {
       frontendSettings: await restApiESGetSettings(),
       tool,
       data,
+      view: "page",
+      slug,
     },
     revalidate: appConfig.revalidateInterval("tool"),
   };
 };
 
-Project.getLayout = function getLayout(page: ReactElement) {
-  return <LayoutTool>{page}</LayoutTool>;
+Project.getLayout = function getLayout(page: ReactElement, props: any) {
+  return <Layout props={props}>{page}</Layout>;
 };
 export default Project;
