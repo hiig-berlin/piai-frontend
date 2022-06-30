@@ -22,19 +22,19 @@ import { About } from "~/components/content/About";
 
 
 
-const Home = ({ currentPage }: { currentPage: any }) => {
+const Home = ({ data }: { data: any }) => {
   
   return (
     <>
       <NextHeadSeo
-        canonical={currentPage?.yoast_head_json?.canonical}
-        title={currentPage?.yoast_head_json?.title ?? currentPage?.title}
-        description={currentPage?.yoast_head_json?.description}
+        canonical={data?.yoast_head_json?.canonical}
+        title={data?.yoast_head_json?.title ?? data?.title}
+        description={data?.yoast_head_json?.description}
         og={{
-          title: currentPage?.yoast_head_json?.og_title,
-          type: currentPage?.yoast_head_json?.og_type,
-          siteName: currentPage?.yoast_head_json?.og_site_name,
-          image: currentPage?.yoast_head_json?.twitter_image,
+          title: data?.yoast_head_json?.og_title,
+          type: data?.yoast_head_json?.og_type,
+          siteName: data?.yoast_head_json?.og_site_name,
+          image: data?.yoast_head_json?.twitter_image,
         }}
         twitter={{
           card: "summary_large_image",
@@ -45,7 +45,7 @@ const Home = ({ currentPage }: { currentPage: any }) => {
       <main id="content">
              
 
-        <Intro />
+        <Intro data={data} />
         <Tiles />
 
         {/* <Video></Video> */}
@@ -62,9 +62,9 @@ const Home = ({ currentPage }: { currentPage: any }) => {
 export const getStaticProps: GetStaticProps = async (context) => {
   const token = (context?.previewData as any)?.token;
 
-  const currentPage = await restApiGetPostBySlugOrFallbackId("page", "homepage", token);
+  const data = await restApiGetPostBySlugOrFallbackId("page", "homepage", token);
   
-  if (!currentPage)
+  if (!data)
     return {
       props: {
         frontendSettings: await restApiGetSettings(),
@@ -76,11 +76,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
   return {
     props: {
       frontendSettings: await restApiGetSettings(),
-      currentPage: currentPage ?? null,
+      data: data ?? null,
     },
     revalidate: appConfig.revalidateInterval("homepage", {
-      date: currentPage?.date,
-      modified: currentPage?.modified,
+      date: data?.date,
+      modified: data?.modified,
     }),
   };
 };
