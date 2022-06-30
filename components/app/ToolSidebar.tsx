@@ -65,7 +65,6 @@ export const ToolSidebar = () => {
       {config?.tools?.length > 0 &&
         config?.tools.map((tool: any, index: number) => {
           tool.menu = tool.menu.filter((menuItem: any) => menuItem.includeInSidebar);
-          console.log("item", tool.slug, ", menu: ", tool.menu)
           return (
             <>
               <Link passHref href={`/tool/${tool.slug}`} key={`tool-${index}`}>

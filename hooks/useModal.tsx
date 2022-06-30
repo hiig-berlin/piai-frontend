@@ -55,7 +55,6 @@ export const useModal = ({
   }, [closeAnimationLength]);
 
   const toggle = useCallback(() => {
-    console.log(isOpen, isOpening);
     if (isOpen || isOpening) {
       close();
     } else {
