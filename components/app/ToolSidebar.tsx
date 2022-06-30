@@ -14,6 +14,7 @@ const SidebarWrapper = styled.nav`
   // TODO: Vincent, you know this 100% stuff better
   height: 100%;
   width: fit-content;
+  font-size: 1.1em;
 
   display: flex;
   flex-direction: column;
@@ -34,7 +35,7 @@ const ToolSubmenu = styled.div`
 
   & .subMenuItem{
     ${({ theme }) => theme.applyMixin("uppercase")};
-    font-size: 0.6em;
+    font-size: 0.5em;
     white-space: break-spaces;
     width: min-content;
     min-width: 100%;

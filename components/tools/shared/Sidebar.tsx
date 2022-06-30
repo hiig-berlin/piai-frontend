@@ -26,7 +26,7 @@ const Container = styled.div.attrs<{
     calc(var(--size-2));
   position: fixed;
   top: 0;
-  left: 0;
+  left: 300px;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 3;

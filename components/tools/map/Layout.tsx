@@ -84,13 +84,13 @@ export const Layout = ({
         <ContentContainer isTransparent={props?.view === "map"}>
           {children}
         </ContentContainer>
-        {/* <Sidebar tool="map" view={props?.view}>
+        <Sidebar tool="map" view={props?.view}>
           <div
-            style={{
-              color: "#ff0",
-              fontSize: "12px",
-              lineHeight: "14px",
-            }}
+            // style={{
+            //   color: "#ff0",
+            //   fontSize: "12px",
+            //   lineHeight: "14px",
+            // }}
           >
             Some
             <br />
@@ -98,7 +98,7 @@ export const Layout = ({
             <br />
             content
           </div>
-        </Sidebar> */}
+        </Sidebar>
 
       </ToolStateContextProvider>
       <Menu />
