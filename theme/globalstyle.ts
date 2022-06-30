@@ -4,6 +4,8 @@ export const GlobalStyle = createGlobalStyle`
   
   :root {
     --size-page-max-width: ${({ theme }) => (theme as any).pageMaxWidth}px;
+    --transition-speed-link: 0.3s;
+
     ${({ theme }) => theme.getColorRootVars()};
   }
 
