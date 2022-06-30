@@ -159,48 +159,6 @@ export const restApiGetPostsPromise: any = (
   };
 };
 
-export const restApiGetESESPromise: any = (
-  query: string | Record<string, string>,
-  endpoint: string
-) => {
-  let params: any = "";
-  if (typeof query === "number" || typeof query === "string") {
-    params = `${query.indexOf("?") === -1 ? "?" : ""}${query}`;
-  } else if (typeof query === "object") {
-    params = `?${restApiQueryObjectToQueryString(query)}`;
-  }
-
-  const controller =
-    typeof AbortController !== "undefined" ? new AbortController() : undefined;
-
-  if (process.env.NODE_ENV === "development")
-    console.log(
-      `${appConfig.cmsUrl}/wp-content/plugins/ikon-custom/rest-api-${endpoint}.php${params}`
-    );
-
-  return {
-    abortController: controller,
-    fetchPromise: fetch(
-      `${appConfig.cmsUrl}/wp-content/plugins/ikon-custom/rest-api-${endpoint}.php${params}`,
-      {
-        signal: controller?.signal,
-      }
-    ),
-  };
-};
-
-export const restApiGetESQueryPromise: any = (
-  query: string | Record<string, string>
-) => {
-  return restApiGetESESPromise(query, "query");
-};
-
-export const restApiGetESTaxonomyQueryPromise: any = (
-  query: string | Record<string, string>
-) => {
-  return restApiGetESESPromise(query, "taxonomy");
-};
-
 export const restApiGetTermsPromise: any = (
   taxonomy: string,
   query: Record<string, string>
@@ -332,32 +290,6 @@ export const restApiGetPosts: any | null = async (
 };
 
 // TODO: this should be cachable
-export const restApiESQuery: any | null = async (
-  query: string | number | Record<string, string>
-): Promise<RestApiResult> => {
-  const { fetchPromise } = restApiGetESQueryPromise(query);
-
-  const data: any = await fetchPromise
-    .then(restApiFetchESQueryPromiseThen)
-    .catch(restApiFetchPromiseCatch);
-
-  return data;
-};
-
-// TODO: this should be cachable
-export const restApiESTaxonomyQuery: any | null = async (
-  query: string | number | Record<string, string>
-): Promise<RestApiResult> => {
-  const { fetchPromise } = restApiGetESTaxonomyQueryPromise(query);
-
-  const data: any = await fetchPromise
-    .then(restApiFetchESQueryPromiseThen)
-    .catch(restApiFetchPromiseCatch);
-
-  return data;
-};
-
-// TODO: this should be cachable
 export const restApiGetTerms: any | null = async (
   taxonomy: string,
   query: Record<string, string>
@@ -416,7 +348,7 @@ export const restApiGetPostBySlugOrFallbackId: any | null = async (
 };
 
 export const restApiGetSettings = async () => {
-  const url = `${appConfig.apiUrl}/ikon/v1/settings`;
+  const url = `${appConfig.apiUrl}/fluxed/v1/settings`;
 
   const cachedResult = inMemoryCache.get(url);
   if (cachedResult) {
@@ -427,66 +359,6 @@ export const restApiGetSettings = async () => {
     async (response) => await response.json()
   );
 
-  inMemoryCache.set(url, settings, DEFAULT_CACHE_TTL_MS);
-
-  return settings;
-};
-
-export const restApiESGetSettings = async (taxonomies: string[] = []) => {
-  // TODO: Enable
-  const url = `${
-    appConfig.cmsUrl
-  }/wp-content/plugins/ikon-custom/rest-api-settings.php${
-    taxonomies?.length > 0 ? `?taxonomy=${taxonomies.join(",")}` : ""
-  }`;
-
-  // const cachedSettings = inMemoryCache.get(url);
-  // if (cachedSettings) {
-  //   if (process.env.NODE_ENV === "development")
-  //     console.log(`Cached: ${url}`);
-  //   return cachedSettings;
-  // } else {
-  //   if (process.env.NODE_ENV === "development")
-  //     console.log(`Retrieve: ${url}`);
-  // }
-
-  // const settings = await fetch(url).then(
-  //   async (response) => await response.json()
-  // );
-  // TODO: Make dynamic
-  const settings = {
-    test: "test",
-    taxonomies: null,
-    options: {
-      copyrightNotice: "publicinterest.ai is a project by the Alexander von Humboldt Institute for Internet and Society (HIIG).",
-    },
-    menus: {
-      header: {
-        items: [
-          {
-            url: "/item-1",
-            title: "Item 1",
-          },
-          {
-            url: "/item-2",
-            title: "Item 2",
-          },
-        ]
-      },
-      footer: {
-        items: [
-          {
-            url: "/imprint",
-            title: "Imprint",
-          },
-          {
-            url: "/privacy-policy",
-            title: "Privacy Policy",
-          },
-        ],
-      },
-    },
-  };
   inMemoryCache.set(url, settings, DEFAULT_CACHE_TTL_MS);
 
   return settings;
