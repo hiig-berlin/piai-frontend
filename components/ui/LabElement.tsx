@@ -5,53 +5,53 @@ import { getStaticProps } from "~/pages";
 // import omit from "lodash/omit";
 
 const ElementContainer = styled.div<{
-  color?: string; 
-  hoverColor?: string; 
+  color?: string;
+  hoverColor?: string;
   size?: number;
 }>`
-    border-color: ${({color}) => color || "#000"};
-    color: ${({color}) => color|| "#000"};
-    font-size: ${({size}) => size || 1}em;
-    border-style: solid;
-    border-width: 0.16em;
-    padding: 0.2em;
+  border-color: ${({ color }) => color || "#000"};
+  color: ${({ color }) => color || "#000"};
+  font-size: ${({ size }) => size || 1}em;
+  border-style: solid;
+  border-width: 0.16em;
+  padding: 0.2em;
 
-    // Resetting inherited styles from parent
-    text-transform: none;
-    font-weight: 300;
+  // Resetting inherited styles from parent
+  text-transform: none;
+  font-weight: 300;
 
-    width: 2.4em;
-    min-width: 2.4em;
-    max-width: 2.4em;
-    height: 2.4em;
+  width: 2.4em;
+  min-width: 2.4em;
+  max-width: 2.4em;
+  height: 2.4em;
 
-    display: flex;  
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    & + &{
-      margin-left: 0.3em;
+  transition: color var(--transition-speed-link), border-color var(--transition-speed-link);
+  
+  @media (any-pointer: fine) {
+    &:hover {
+      border-color: ${({ hoverColor }) => hoverColor || "#666"};
+      color: ${({ hoverColor }) => hoverColor || "#666"};
     }
-
-    &:hover{
-      border-color: ${({hoverColor}) => hoverColor || "#666"};
-      color: ${({hoverColor}) => hoverColor|| "#666"};
-    }
-`
+  }
+`;
 
 const ElementShort = styled.span`
-    font-size: 0.8em;
-    text-decoration: none;
-    font-weight: 800;
-    line-height: 1em;
-`
+  font-size: 0.8em;
+  text-decoration: none;
+  font-weight: 800;
+  line-height: 1em;
+`;
 
-const ElementLong= styled.span`
-    font-size: 0.35em;
-    line-height: 1em;
-    text-decoration: none;
-    
-    margin-top: auto;
-`
+const ElementLong = styled.span`
+  font-size: 0.35em;
+  line-height: 1em;
+  text-decoration: none;
+
+  margin-top: auto;
+`;
 
 export const LabElement = ({
   color,
@@ -67,14 +67,14 @@ export const LabElement = ({
   size?: number;
 }) => {
   return (
-    <ElementContainer color={color} hoverColor={hoverColor} size={size} className="labElement">
-        <ElementShort>
-            {shortHandle}
-        </ElementShort>
-        <ElementLong>
-            {longText}
-        </ElementLong>
+    <ElementContainer
+      color={color}
+      hoverColor={hoverColor}
+      size={size}
+      className="labElement"
+    >
+      <ElementShort>{shortHandle}</ElementShort>
+      <ElementLong>{longText}</ElementLong>
     </ElementContainer>
   );
 };
-
