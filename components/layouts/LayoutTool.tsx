@@ -7,8 +7,9 @@ import { UserTracking } from "../app/UserTracking";
 import { LoadingBar } from "../styled/LoadingBar";
 import { usePageStateContext } from "~/providers/PageStateContextProvider";
 import { MenuButton } from "../app/MenuButton";
+import { ToolSidebar } from "../app/ToolSidebar";
 
-export const LayoutMain = ({ children }: AppProps) => {
+export const LayoutTool = ({ children }: AppProps) => {
   const config = useConfigContext();
   const { isLoading } = usePageStateContext();
 
@@ -27,10 +28,11 @@ export const LayoutMain = ({ children }: AppProps) => {
       />
       <UserTracking />
       <LoadingBar isLoading={isLoading} />
+      <ToolSidebar />
       <MenuButton />
       {children}
       <Menu/>
     </>
   );
 };
-export default LayoutMain;
+export default LayoutTool;

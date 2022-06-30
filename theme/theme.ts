@@ -115,7 +115,7 @@ export const theme = {
     piaiInterface: "#416F83",
     piaiMap: "#AA936E",
     piaiMapHightlight: "#FDD491",
-    piaiEnergy: "#416F83",
+    piaiEnergy: "#1CADAD",
     bg: "#fff",
     text: "#000",
     focusOutline: "#00f",

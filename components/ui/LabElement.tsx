@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import { getStaticProps } from "~/pages";
+import { AspectRatio } from "./AspectRatio";
 // import safeHtml from "~/utils/sanitize";
 // import omit from "lodash/omit";
 
-const ElementContainer = styled.div<{
+const ElementContainer = styled(AspectRatio)<{
   color?: string; 
   hoverColor?: string; 
   size?: number;
@@ -28,9 +29,9 @@ const ElementContainer = styled.div<{
     display: flex;  
     flex-direction: column;
 
-    & + &{
-      margin-left: 0.3em;
-    }
+    // & + &{
+    //   margin-left: 0.3em;
+    // }
 
     &:hover{
       border-color: ${({hoverColor}) => hoverColor || "#666"};
@@ -67,14 +68,14 @@ export const LabElement = ({
   size?: number;
 }) => {
   return (
-    <ElementContainer color={color} hoverColor={hoverColor} size={size} className="labElement">
-        <ElementShort>
-            {shortHandle}
-        </ElementShort>
-        <ElementLong>
-            {longText}
-        </ElementLong>
-    </ElementContainer>
+      <ElementContainer ratio="1" color={color} hoverColor={hoverColor} size={size} className="labElement">
+          <ElementShort>
+              {shortHandle}
+          </ElementShort>
+          <ElementLong>
+              {longText}
+          </ElementLong>
+      </ElementContainer>
   );
 };
 

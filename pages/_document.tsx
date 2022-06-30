@@ -36,10 +36,14 @@ export default class MyDocument extends Document {
   }
 
   render() {
+
+    let urlClassName = this.props.__NEXT_DATA__.page.substring(1).split("/").join(" ");
+    // console.log("bits: ", urlBits);
+
     return (
       <Html lang="en">
         <Head />
-        <body>
+        <body className={`page ${urlClassName}`}>
           <Main />
           <NextScript />
         </body>

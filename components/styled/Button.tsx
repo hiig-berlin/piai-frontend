@@ -33,6 +33,8 @@ export const Button = styled(ButtonNormalized)`
     background: rgba(0, 0, 0, 0.2);
     padding-left: 1.3em;
     padding-right: 1.3em;
+    margin-left: calc(var(--size-2) - 0.3em);
+    margin-right: calc(var(--size-2) - 0.3em);
   }
 `;
 

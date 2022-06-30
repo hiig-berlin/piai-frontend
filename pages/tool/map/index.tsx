@@ -38,13 +38,13 @@ const Index = ({
           <LabElement
             shortHandle={tool.iconShort}
             longText={tool.iconLong}
-            color="#f0f"
+            color={tool.colorBase}
             hoverColor={tool.colorHighlight}
             size={3}
           />
         </div>
 
-        <h1>This is the map landing page</h1>
+        <h1>Or This is the map landing page</h1>
         <p>
           Vivamus condimentum vel nunc et congue. Ut laoreet imperdiet nisi ac
           finibus. Suspendisse molestie risus a justo sagittis efficitur.
@@ -74,6 +74,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
   return {
     props: {
       frontendSettings: await restApiESGetSettings(),
+      layoutSettings: {
+        darkmode: true
+      },
       tool,
     },
     revalidate: appConfig.revalidateInterval("tool"),

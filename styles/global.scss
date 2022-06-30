@@ -59,6 +59,11 @@ html, body {
 body {
   background-color: var(--color-bg);
   overflow-x: hidden;
+
+  &.tool{
+    background-color: #2B2B2B;
+    color: #fff;
+  }
 }
 
 *,

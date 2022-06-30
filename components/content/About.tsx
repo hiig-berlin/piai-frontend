@@ -53,6 +53,10 @@ const AboutContainer = styled(PageMargins)`
 
   button {
     margin-left: 0;
+
+    &:hover{
+      margin-left: 0;
+    }
   }
 
   & .tools {

@@ -49,6 +49,7 @@ export const AspectRatio = ({
   children,
   direction = "width",
   bgColor,
+  className,
 }: {
   ratio: string;
   mode?: "constrain" | "fill";
@@ -57,6 +58,7 @@ export const AspectRatio = ({
   bgColor?: string;
   objectPosition?: string;
   direction?: "width" | "height";
+  className?: string;
 }) => {
   const aspectContainerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
 
@@ -117,7 +119,7 @@ export const AspectRatio = ({
       useAspectRatio={
         !isSafari || (isSafari && ratio.replace(/ /ig, "") !== "16/9")
       }
-      className="aspect-ratio"
+      className={`aspect-ratio ${className}`}
     >
       {children}
     </Aspect>

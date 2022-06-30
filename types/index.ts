@@ -6,12 +6,20 @@ export type AppConfigRevalidateDates = {
   modified: string;
 }
 
+export type PiAiToolMenuItemActionItem = {
+  action?: string;
+  icon?: string;
+};
 
 export type PiAiToolMenuItem = {
   name: string;
   slug?: string;
   url?: string;
   target?: string;
+  icon?: string;
+  includeInSidebar?: boolean;
+  sidebarName?: string;
+  actionItems?: PiAiToolMenuItemActionItem[];
 };
 
 export type PiAiTool = {

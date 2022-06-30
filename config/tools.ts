@@ -7,18 +7,45 @@ export const tools: PiAiTool[] = [
     description: "Map and directory of PIAI projects",
     iconShort: "Ma",
     iconLong: "Project Map",
-    colorBase: "#fff",
-    colorHighlight: "var(--color-piai-map)",
+    colorBase: "var(--color-piai-map)",
+    colorHighlight: "var(--color-piai-map-hightlight)",
     menu: [
       {
         // menu slugs are always prefixed by "/tool/tool-slug/"
         // entries with no slug and url link to the base
-        name: "Map",
+        name: "Project map",
+        icon: "map",
+        includeInSidebar: true,
+        sidebarName: "Map view",
+        actionItems: [
+          {
+            action: "search",
+            icon: "search"
+          },
+          {
+            action: "filter",
+            icon: "filter"
+          }
+        ]
       },
       {
         // this will create an internal link to "/tool/map/list"
         slug: "directory",
         name: "Project Directory",
+        icon: "list",
+        includeInSidebar: true,
+        sidebarName: "Directory",
+        actionItems: 
+        [
+          {
+            action: "search",
+            icon: "search"
+          },
+          {
+            action: "filter",
+            icon: "filter"
+          }
+        ]
       },
       {
         url: "https://abc.com", // TODO: fix URL
@@ -35,8 +62,8 @@ export const tools: PiAiTool[] = [
     slug: "energy",
     name: "Energy usage plugin",
     description:
-      "A smart browser extension monitoring your internet enegergy usage",
-    colorBase: "#fff",
+      "Measure your AI’s energy consumption",
+    colorBase: "var(--color-piai-energy)",
     colorHighlight: "var(--color-piai-energy)",
     iconShort: "En",
     iconLong: "Energy Usage",
