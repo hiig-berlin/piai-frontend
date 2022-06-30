@@ -86,14 +86,20 @@ const InfoboxesContainer = styled(PageMargins)`
   }
 
   ${({ theme }) => theme.breakpoints.desktop} {
-    height: calc(${pageContainerWidth} / 4);
-    margin-bottom: calc(0px - ${pageContainerWidth} / 12);
+    margin-bottom: calc(${pageContainerWidth} * 0.25 * -0.5);
 
     .infoboxes {
       height: calc(${pageContainerWidth} / 4);
-
       // overlap a third of the box to the top
-      margin-top: calc(0px - var(--size-6) - (${pageContainerWidth} / 12));
+      margin-top: calc(${pageContainerWidth} * 0.25 * -0.5);
+    }
+  }
+
+  ${({ theme }) => theme.breakpoints.screen} {
+    margin-bottom: calc(var(--size-page-max-width) * 0.25 * -0.5);
+    .infoboxes {
+      height: calc(var(--size-page-max-width) * 0.25);
+      margin-top: calc(var(--size-page-max-width) * 0.25 * -0.5);
     }
   }
 `;
@@ -242,7 +248,11 @@ export const About = () => {
               <Grid col={2} className="tools">
                 {config?.tools.map((tool: any, index: number) => {
                   return (
-                    <Link passHref href={`/tool/${tool.slug}`} key={`tool-${index}`}>
+                    <Link
+                      passHref
+                      href={`/tool/${tool.slug}`}
+                      key={`tool-${index}`}
+                    >
                       <a>
                         <LabElement
                           shortHandle={tool.iconShort}
