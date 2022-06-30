@@ -1,54 +1,37 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { SvgBackground } from "../ui/SvgBackground";
 import Link from "next/link";
 import { useConfigContext } from "~/providers/ConfigContextProvider";
 import { LabElement } from "../ui/LabElement";
-import { getStaticProps } from "~/pages";
 
-const LogoContainer = styled.div<{ 
-  size?: number; 
-  hoverColor?: string; 
-  direction?: string; 
-}>`
-  & a {
-    display: inline-flex;
-    // height: calc(2.4em * ${({ size }) => size || 1});
-    // width: calc(5em * ${({ size }) => size || 1});
-    justify-content: space-between;
+const LogoLink = styled.a<{ direction?: string }>`
+  display: flex;
+  gap: 0.3em;
+  flex-direction: ${({ direction }) => direction === "vertical" ? "column" : "row"};
 
-    transition: filter 0.3s;
-    &:hover,
-    &:active {
-      color: ${({ hoverColor }) => hoverColor || "var(--color-ailab-red)"};
-    }
+  transition: filter 0.3s, color var(--transition-speed-link);
 
-    @media (any-pointer: fine) {
-      &:hover {
-        color: ${({ hoverColor }) => hoverColor || "var(--color-ailab-red)"};
-      }
-    }
-
-    flex-direction: ${({ direction }) => direction === "vertical" ? "column": "row"};
-    gap: 0.3em;
+  &:active {
+    color: var(--hc);
   }
 
-  // height: var(--size-6);
-  // width: var(--size-6);
-  // top: var(--size-3);
-  // left: var(--size-page-margin);
+  @media (any-pointer: fine) {
+    &:hover {
+      color: var(--hc);
 
-  // ${({ theme }) => theme.breakpoints.tablet} {
-  //   height: var(--size-5);
-  //   width: var(--size-5);
-  // }
+      div {
+        color: var(--hc) !important;
+        border-color: var(--hc) !important;
+      }
+    }
+  }
 `;
 
 export const Logo = ({
   color,
   hoverColor,
   size,
-  direction = "horizontal",
+  direction,
 }: {
   color: string;
   hoverColor?: string;
@@ -56,35 +39,33 @@ export const Logo = ({
   direction?: string;
 }) => {
   const config = useConfigContext();
-  const [hover, isHover] = useState(false);
 
   return (
-    <LogoContainer
-      size={size}
-      hoverColor={hoverColor}
-      onMouseEnter={() => isHover(true)}
-      onMouseLeave={() => isHover(false)}
-      className="logo"
-      direction={direction}
-    >
-      <Link href={`${config?.baseUrl}/`} passHref>
-        <a title="Go to homepage">
+    <div className="logo">
+      <Link href={`${config?.baseUrl}`} passHref>
+        <LogoLink
+          direction={direction}
+          title="Go to homepage"
+          style={
+            {
+              "--hc": hoverColor ?? "var(--color-ailab-red)",
+            } as React.CSSProperties
+          }
+        >
           <LabElement
             shortHandle="PI"
             longText="Public Interest"
-            color={hover ? hoverColor : color}
-            hoverColor={hoverColor}
+            color={color}
             size={size}
           />
           <LabElement
             shortHandle="AI"
             longText="AI"
-            color={hover ? hoverColor : color}
-            hoverColor={hoverColor}
+            color={color}
             size={size}
           />
-        </a>
+        </LogoLink>
       </Link>
-    </LogoContainer>
+    </div>
   );
 };
