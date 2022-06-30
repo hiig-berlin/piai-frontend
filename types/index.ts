@@ -13,10 +13,10 @@ export type PiAiToolMenuItemActionItem = {
 
 export type PiAiToolMenuItem = {
   name: string;
+  icon?: string;
   slug?: string;
   url?: string;
   target?: string;
-  icon?: string;
   includeInSidebar?: boolean;
   sidebarName?: string;
   actionItems?: PiAiToolMenuItemActionItem[];

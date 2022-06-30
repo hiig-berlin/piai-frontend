@@ -15,37 +15,12 @@ export const tools: PiAiTool[] = [
         // entries with no slug and url link to the base
         name: "Project map",
         icon: "map",
-        includeInSidebar: true,
-        sidebarName: "Map view",
-        actionItems: [
-          {
-            action: "search",
-            icon: "search"
-          },
-          {
-            action: "filter",
-            icon: "filter"
-          }
-        ]
       },
       {
         // this will create an internal link to "/tool/map/list"
         slug: "directory",
         name: "Project Directory",
         icon: "list",
-        includeInSidebar: true,
-        sidebarName: "Directory",
-        actionItems: 
-        [
-          {
-            action: "search",
-            icon: "search"
-          },
-          {
-            action: "filter",
-            icon: "filter"
-          }
-        ]
       },
       {
         url: "https://abc.com", // TODO: fix URL
@@ -61,8 +36,7 @@ export const tools: PiAiTool[] = [
   {
     slug: "energy",
     name: "Energy usage plugin",
-    description:
-      "Measure your AI’s energy consumption",
+    description: "Measure your AI’s energy consumption",
     colorBase: "var(--color-piai-energy)",
     colorHighlight: "var(--color-piai-energy)",
     iconShort: "En",
