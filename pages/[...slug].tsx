@@ -12,9 +12,6 @@ import { FlexibleContentRow } from "~/components/flexibleContent/FlexibleContent
 import { appConfig } from "~/config";
 import { safeAnchorId } from "~/utils/safeAnchorId";
 
-// TODO: remove if not needed anymore
-import { loremIpsum } from "react-lorem-ipsum";
-
 const Page = ({ data }: { data: any }) => {
   const menuItems = data?.acf?.is_microsite
     ? data?.acf?.content?.length > 0
@@ -106,9 +103,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
             },
             {
               acf_fc_layout: "text",
-              text: loremIpsum({ p: 10 })
-                .map((text: string) => `<p>${text}</p>`)
-                .join(""),
+              text: "this is a bit of dummy text",
             },
           ],
         },

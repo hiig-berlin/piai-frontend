@@ -15,14 +15,6 @@ import { TextSection } from "~/components/content/TextSection";
 import { About } from "~/components/content/About";
 import { Accordion } from "~/components/content/Accordion";
 
-// TODO: remove if not needed anymore
-// import { TextHeading } from "~/components/content/TextHeading";
-// import { TextListing } from "~/components/content/TextListing";
-// import { TextTwoCol } from "~/components/content/TextTwoCol";
-// import { loremIpsum } from "react-lorem-ipsum";
-
-
-
 const Home = ({ data }: { data: any }) => {
   
   return (
