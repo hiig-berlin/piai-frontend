@@ -6,11 +6,12 @@ import { useRouter } from "next/router";
 
 import { useConfigContext } from "~/providers/ConfigContextProvider";
 
-const COOKIE_NAME = "site-cookie-shown";
 import FocusLock from "react-focus-lock";
 import styled from "styled-components";
 import Link from "next/link";
-import Button from "../styled/Button";
+import { Button } from "../styled/Button";
+
+const COOKIE_NAME = "site-cookie-shown";
 
 const CloseButton = styled(Button)`
   display: flex;
@@ -172,7 +173,7 @@ export const UserTracking = () => {
                 try {
                   Cookies.set(COOKIE_NAME, "yes", { expires: 365 });
                 } catch (e) {
-                  // don't do anything ... 
+                  // don't do anything ...
                 }
                 fadeOut();
               }}

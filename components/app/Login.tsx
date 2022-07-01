@@ -15,7 +15,7 @@ import { GlobalStyle } from "~/theme/globalstyle";
 import { appConfig } from "~/config";
 import { AccessibiliyHelpers } from "~/components/app/AccessibiliyHelpers";
 import { AppDefaultHead } from "./AppDefaultHead";
-import Button from "../styled/Button";
+import { Button } from "~/components/styled/Button";
 import { SvgBackground } from "../ui/SvgBackground";
 
 const GlobalStyleLogin = createGlobalStyle`

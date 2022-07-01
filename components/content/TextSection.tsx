@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
-import { ButtonNormalized } from "../styled/Button";
 import DisplayAbove from "../styled/DisplayAbove";
 import DisplayBelow from "../styled/DisplayBelow";
 import { Heading } from "../ui/Heading";
@@ -9,7 +8,6 @@ import PageMargins from "../ui/PageMargins";
 import { Wizard } from "./Wizard";
 import { Accessible } from "./Accessible";
 import SafeHtmlSpan from "../ui/SafeHtmlSpan";
-import SafeHtmlDiv from "../ui/SafeHtmlDiv";
 
 const Grid = styled.div`
   display: grid;

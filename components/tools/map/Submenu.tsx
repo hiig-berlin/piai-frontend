@@ -1,8 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Link from "next/link";
-import Button, { ButtonNormalized } from "~/components/styled/Button";
-import { SvgBackground } from "~/components/ui/SvgBackground";
+import { ButtonNormalized } from "~/components/styled/Button";
 import { MapSvgBackground } from "./MapSvgBackground";
 
 const sidebarPadding = "var(--size-3)";

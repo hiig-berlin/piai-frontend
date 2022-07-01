@@ -4,7 +4,7 @@ import Image from "next/image";
 
 import { Tile } from "./Tile";
 import { PiAiTool } from "~/types";
-import Button from "../styled/Button";
+import { LinkButtonAnimated } from "../styled/Button";
 import { Logo } from "../app/Logo";
 import { LabElement } from "../ui/LabElement";
 
@@ -29,15 +29,6 @@ const Grid = styled.div<{ bg: string }>`
   }
 `;
 
-const TileButton = styled(Button)`
-  color: #fff;
-  border-color: #fff;
-
-  &:visited,
-  &:link {
-    color: #fff;
-  }
-`;
 
 const createButtons = (links: any, scope: string) => {
   if (links?.length) {
@@ -54,9 +45,9 @@ const createButtons = (links: any, scope: string) => {
 
       return (
         <Link href={link.url} passHref key={`tile-button-${scope}-${index}`}>
-          <TileButton as="a" {...{ rel, target }}>
+          <LinkButtonAnimated {...{ rel, target }}>
             {link.label}
-          </TileButton>
+          </LinkButtonAnimated>
         </Link>
       );
     });
