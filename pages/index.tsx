@@ -55,7 +55,7 @@ const Home = ({ data }: { data: any }) => {
 
         <Accordion data={data} />
 
-        <About />
+        <About data={data} />
 
       </main>
     </>

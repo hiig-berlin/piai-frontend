@@ -2,11 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import { LabElement } from "../ui/LabElement";
 import { PageMargins } from "../ui/PageMargins";
-import Button from "../styled/Button";
+import { LinkButton } from "../styled/Button";
 
 import { BoxSvgs, Chevron } from "../ui/StaticSvgs";
 import { useConfigContext } from "~/providers/ConfigContextProvider";
 import Link from "next/link";
+import SafeHtmlSpan from "../ui/SafeHtmlSpan";
+import SafeHtmlDiv from "../ui/SafeHtmlDiv";
 
 const pageContainerWidth = "(100vw - 2 * var(--size-page-margin))";
 const mobileBoxSize = `calc(${pageContainerWidth} * 0.9)`;
@@ -54,7 +56,7 @@ const AboutContainer = styled(PageMargins)`
   button {
     margin-left: 0;
 
-    &:hover{
+    &:hover {
       margin-left: 0;
     }
   }
@@ -227,7 +229,7 @@ const Grid = styled.div<{ col: number }>`
   }
 `;
 
-export const About = () => {
+export const About = ({ data }: { data: any }) => {
   const config = useConfigContext();
 
   return (
@@ -239,15 +241,27 @@ export const About = () => {
       >
         <Grid col={2}>
           <div>
-            <h2>{aboutContent.about.headline}</h2>
-            <p>{aboutContent.about.text}</p>
-            {/* TODO: Button with href as link */}
-            {/* <Button href={aboutContent.about.ctaUrl}> */}
-            <Button>{aboutContent.about.ctaText}</Button>
+            <h2>
+              <SafeHtmlSpan html={data?.acf?.footerAbout.title} />
+            </h2>
+            <SafeHtmlDiv html={data?.acf?.footerAbout.text} />
+            {data?.acf?.footerAbout.linkLabel &&
+              data?.acf?.footerAbout.linkLabel.trim() &&
+              data?.acf?.footerAbout.linkUrl && (
+                <LinkButton
+                  href={data?.acf?.footerAbout.linkUrl}
+                  target="_blank"
+                  rel="norefferer"
+                >
+                  {data?.acf?.footerAbout.linkLabel}
+                </LinkButton>
+              )}
           </div>
           <div>
-            <h2>{aboutContent.toolbox.headline}</h2>
-            <p>{aboutContent.toolbox.text}</p>
+            <h2>
+              <SafeHtmlSpan html={data?.acf?.footerTools.title} />
+            </h2>
+            <SafeHtmlDiv html={data?.acf?.footerTools.text} />
             {config?.tools?.length > 0 && (
               <Grid col={2} className="tools">
                 {config?.tools.map((tool: any, index: number) => {
@@ -280,65 +294,22 @@ export const About = () => {
         spaceTop={6}
         spaceBottom={6}
       >
-        <Grid col={aboutContent.boxes.length} className="infoboxes">
-          {aboutContent.boxes.map((box: any, index: number) => {
+        {data?.acf?.boxes?.length > 0 && <Grid col={data.acf.boxes.length} className="infoboxes">
+          {data.acf.boxes.map((box: any, index: number) => {
             return (
               <Infobox key={`box-${index}`}>
                 {/* <SvgBackground type={`square1`} /> */}
                 <BoxSvgs i={index + 1} />
                 <h3>{box.title}</h3>
-                <p>{box.description}</p>
+                <p>{box.text}</p>
                 <a href={box.linkUrl} rel="noreferrer nofollow" target="_blank">
-                  <Chevron /> {box.linkText}
+                  <Chevron /> {box.linkLabel}
                 </a>
               </Infobox>
             );
           })}
-        </Grid>
+        </Grid>}
       </InfoboxesContainer>
     </>
   );
-};
-
-const aboutContent = {
-  about: {
-    headline: "Who's behind publicinterest.ai?",
-    text: "This website is a space to share knowledge and foster collaboration on AI in the public interest. The research that backs the content of this website is undertaken at the Alexander von Humboldt Institute for Internet and Society (HIIG) in Berlin in cooperation with a wide group of experts. be launched soon. Visit our project website to find out more about our research and other related content.",
-    ctaText: "Visit research project website",
-    ctaUrl: "https://www.hiig.de/en/project/public-interest-ai/",
-  },
-  toolbox: {
-    headline: "The publicinterest.ai toolbox",
-    text: "Besides this knowledge resource, we’re showcaseing a handful of projects on public interest AI. This toolbox is a work in progress and open for ideas and collaborators. So some back, once in a while to see what’s new and contact us, if you want to contribute with a tool.",
-  },
-  boxes: [
-    {
-      title: "Open talks",
-      description:
-        "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore.",
-      linkText: "Watch on youtube",
-      linkUrl: "https://youtube.com",
-    },
-    {
-      title: "Instagram",
-      description:
-        "Lorem ipsum dolor sit amet, consetetur eirmod tempor et doloresadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore.",
-      linkText: "Go to channel",
-      linkUrl: "https://instagram.com",
-    },
-    {
-      title: "Blogposts",
-      description:
-        "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore.",
-      linkText: "Read the posts",
-      linkUrl: "https://hiig.de",
-    },
-    {
-      title: "Further resources",
-      description:
-        "Lorem ipsum dolor sit amet, consetetur sadipscing e  idunt ut labore et dolore.",
-      linkText: "Read the posts",
-      linkUrl: "https://github.com",
-    },
-  ],
 };

@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Button from "../styled/Button";
 import { SvgBackground } from "../ui/SvgBackground";
-import { ButtonNormalized } from "../styled/Button";
+import { ButtonNormalized } from "~/components/styled/Button";
 import SafeHtmlSpan from "../ui/SafeHtmlSpan";
 
 const AccessibleText = styled.div<{ simple?: boolean }>`
