@@ -117,6 +117,7 @@ export const theme = {
     piaiMapHightlight: "#FDD491",
     piaiEnergy: "#1CADAD",
     bg: "#fff",
+    bgTool: "#2B2B2B",
     text: "#000",
     focusOutline: "#00f",
     lightGrey: "#f0f0f0",

@@ -7,6 +7,8 @@ import { LabElement } from "~/components/ui/LabElement";
 import { useModal } from "~/hooks/useModal";
 import { useConfigContext } from "~/providers/ConfigContextProvider";
 
+const sidebarPadding = "var(--size-3)";
+
 const Container = styled.div.attrs<{
   isOpen: boolean;
   isOpening: boolean;
@@ -22,13 +24,12 @@ const Container = styled.div.attrs<{
   isVisible: boolean;
 }>`
   display: ${({ isVisible }) => (isVisible ? "block" : "none")};
-  padding: calc(var(--size-7)) calc(var(--size-2)) calc(var(--size-2))
-    calc(var(--size-2));
+  padding: ${sidebarPadding};
   position: fixed;
   top: 0;
   left: 0;
   height: 100vh;
-  background: #0002;
+  background: #0003;
   z-index: 3;
   transition: transform 0.35s;
   transform: translateX(-105%);
@@ -37,7 +38,7 @@ const Container = styled.div.attrs<{
 
   ${({ theme }) => theme.breakpoints.tablet} {
     transform: translateX(0) !important;
-    padding: calc(var(--size-2));
+    padding: ${sidebarPadding};
   }
 `;
 
@@ -48,7 +49,7 @@ const MobileLogoContainer = styled.div<{
   top: 0;
   left: 0;
   z-index: 4;
-  padding: calc(var(--size-2));
+  padding: var(--size-2);
 
   display: ${({ isVisible }) => (isVisible ? "block" : "none")};
 
@@ -58,7 +59,7 @@ const MobileLogoContainer = styled.div<{
 `;
 
 const LogoContainer = styled.div`
-  margin-bottom: calc(var(--size-3));
+  margin-bottom: ${sidebarPadding};
   display: none;
   ${({ theme }) => theme.breakpoints.tablet} {
     display: block;
@@ -67,7 +68,7 @@ const LogoContainer = styled.div`
 const Tools = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  gap: ${sidebarPadding};
 `;
 
 const Tool = styled.div<{ isActive: boolean }>`
@@ -78,8 +79,9 @@ const Tool = styled.div<{ isActive: boolean }>`
 `;
 
 const Children = styled.div`
-  margin-top: var(--size-1);
-  margin-bottom: var(--size-2);
+  margin-left: calc(0px - ${sidebarPadding});
+  margin-right: calc(0px - ${sidebarPadding});
+  margin-top: ${sidebarPadding};
 `;
 
 const ToolMenuButton = styled(ButtonNormalized)`
@@ -137,7 +139,7 @@ export const Sidebar = ({
         isVisible={view !== "page"}
       >
         <LogoContainer>
-          <Logo color="white" direction="vertical" size={1} />
+          <Logo color="white" hoverColor="#fff7" direction="vertical" size={1} />
         </LogoContainer>
         <Tools>
           {config?.tools?.length > 0 &&

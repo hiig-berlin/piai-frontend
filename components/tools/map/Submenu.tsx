@@ -5,12 +5,13 @@ import Button, { ButtonNormalized } from "~/components/styled/Button";
 import { SvgBackground } from "~/components/ui/SvgBackground";
 import { MapSvgBackground } from "./MapSvgBackground";
 
+const sidebarPadding = "var(--size-3)";
 
 const ToolSubmenu = styled.div`
-  background: #000c;
-  margin-left: calc(0px - var(--size-2));
-  margin-right: calc(0px - var(--size-2));
-  padding: var(--size-2) var(--size-1);
+  background: #0008;
+  // margin-left: calc(0px - var(--size-2));
+  // margin-right: calc(0px - var(--size-2));
+  padding: ${sidebarPadding} 0;
   display: flex;
   flex-direction: column;
   gap: var(--size-3);
@@ -21,9 +22,10 @@ const ToolSubmenu = styled.div`
     white-space: break-spaces;
     width: min-content;
     min-width: 100%;
-    line-height: 1em;
+    line-height: 1.3em;
     text-align: center;
     color: white;
+    display: block;
 
     .svg {
       margin: 0 auto var(--size-1);
@@ -31,13 +33,21 @@ const ToolSubmenu = styled.div`
   }
 `;
 
+const ActionItems = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: ${sidebarPadding};
+  padding: ${sidebarPadding} 0 var(--size-1);
+`
+
 export const Submenu = () => {
   return (
     <ToolSubmenu>
       <div>
         <Link passHref href="/tool/map">
           <a className="subMenuItem">
-            <SvgBackground
+            <MapSvgBackground
               className="svg icon"
               type="map"
               position="left center"
@@ -47,52 +57,52 @@ export const Submenu = () => {
             Map view
           </a>
         </Link>
-        <div>
-          <ButtonNormalized><SvgBackground
+        <ActionItems>
+          <ButtonNormalized><MapSvgBackground
               className="svg icon"
               type="search"
               position="left center"
-              height="2em"
-              width="2em"
+              height="1.3em"
+              width="1.3em"
             /></ButtonNormalized>
-          <ButtonNormalized><SvgBackground
+          <ButtonNormalized><MapSvgBackground
               className="svg icon"
               type="filter"
               position="left center"
-              height="2em"
-              width="2em"
+              height="1.3em"
+              width="1.3em"
             /></ButtonNormalized>
-        </div>
+        </ActionItems>
       </div>
-      <div>
+      <div className="actionItems">
         <Link passHref href="/tool/map">
           <a className="subMenuItem">
-            <SvgBackground
+            <MapSvgBackground
               className="svg icon"
-              type="map"
+              type="list"
               position="left center"
               height="2em"
               width="2em"
             />
-            Map view
+            Directory
           </a>
         </Link>
-        <div>
-          <ButtonNormalized><SvgBackground
+        <ActionItems>
+          <ButtonNormalized><MapSvgBackground
               className="svg icon"
               type="search"
               position="left center"
-              height="2em"
-              width="2em"
+              height="1.3em"
+              width="1.3em"
             /></ButtonNormalized>
-          <ButtonNormalized><SvgBackground
+          <ButtonNormalized><MapSvgBackground
               className="svg icon"
               type="filter"
               position="left center"
-              height="2em"
-              width="2em"
+              height="1.3em"
+              width="1.3em"
             /></ButtonNormalized>
-        </div>
+        </ActionItems>
       </div>
     </ToolSubmenu>
   );

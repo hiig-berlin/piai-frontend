@@ -7,6 +7,14 @@ import { LoadingBar } from "../styled/LoadingBar";
 import { usePageStateContext } from "~/providers/PageStateContextProvider";
 import { MenuButton } from "../app/MenuButton";
 import { ToolSidebar } from "../app/ToolSidebar";
+import { Sidebar } from "../tools/shared/Sidebar";
+import styled, { createGlobalStyle } from "styled-components";
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    background: var(--color-bg-tool);
+  }
+`;
 
 export const LayoutTool = ({ children }: AppProps) => {
   const config = useConfigContext();
@@ -14,6 +22,7 @@ export const LayoutTool = ({ children }: AppProps) => {
 
   return (
     <>
+      <GlobalStyle />
       <NextHeadSeo
         title={`${config.appTitle}`}
         og={{
@@ -27,7 +36,7 @@ export const LayoutTool = ({ children }: AppProps) => {
       />
       <UserTracking />
       <LoadingBar isLoading={isLoading} />
-      <ToolSidebar />
+      <Sidebar tool={""} />
       <MenuButton />
       {children}
       <Menu/>

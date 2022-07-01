@@ -17,12 +17,10 @@ import { PiAiTool } from "~/types";
 import { Submenu } from "./Submenu";
 
 const GlobalStyle = createGlobalStyle`
-  // body {
-  //   background: #000;
-  // }
+  body {
+    background: var(--color-bg-tool);
+  }
 `;
-
-
 
 const ContentContainer = styled.div<{ isTransparent: boolean }>`
   position: absolute;

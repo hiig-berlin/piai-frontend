@@ -11,8 +11,8 @@ const MapContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items:center;
-  background: linear-gradient(#333, #000) ;
-  color: #005;
+  // background: linear-gradient(#333, #000) ;
+  // color: #005;
 `
 export const Map = () => {
   return (
