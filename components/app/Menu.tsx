@@ -4,7 +4,6 @@ import debounce from "lodash/debounce";
 import FocusLock from "react-focus-lock";
 
 import { useMenuContext } from "~/providers/MenuContextProvider";
-import { SvgBackground } from "../ui/SvgBackground";
 import { MenuFooter } from "./Menus/MenuFooter";
 import { Logo } from "./Logo";
 import { LabElement } from "../ui/LabElement";
@@ -278,7 +277,7 @@ export const Menu = () => {
                   </a>
                 </section>
 
-                <MenuFooter id="menu-footer" direction="column" />
+                <MenuFooter id="footer" direction="column" />
               </Column>
               <Column className="toolbox">
                 <header>Tools</header>
