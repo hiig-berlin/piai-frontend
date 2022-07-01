@@ -80,7 +80,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
   };
 };
 
-Index.getLayout = function getLayout(page: ReactElement) {
-  return <LayoutTool>{page}</LayoutTool>;
+Index.getLayout = function getLayout(page: ReactElement, props: any) {
+  return <LayoutTool props={props}>{page}</LayoutTool>;
 };
+
 export default Index;

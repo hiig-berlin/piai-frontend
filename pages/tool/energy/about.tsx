@@ -78,7 +78,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   };
 };
 
-About.getLayout = function getLayout(page: ReactElement) {
-  return <LayoutTool>{page}</LayoutTool>;
+About.getLayout = function getLayout(page: ReactElement, props: any) {
+  return <LayoutTool props={props}>{page}</LayoutTool>;
 };
 export default About;

@@ -16,7 +16,13 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-export const LayoutTool = ({ children }: AppProps) => {
+export const LayoutTool = ({
+  children,
+  props,
+}: {
+  children: React.ReactNode;
+  props: any;
+}) => {
   const config = useConfigContext();
   const { isLoading } = usePageStateContext();
 
@@ -36,10 +42,10 @@ export const LayoutTool = ({ children }: AppProps) => {
       />
       <UserTracking />
       <LoadingBar isLoading={isLoading} />
-      <Sidebar tool={""} />
+      <Sidebar tool={props.tool.slug} />
       <MenuButton />
       {children}
-      <Menu/>
+      <Menu />
     </>
   );
 };
