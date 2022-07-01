@@ -46,7 +46,7 @@ const Home = ({ data }: { data: any }) => {
              
 
         <Intro data={data} />
-        <Tiles />
+        <Tiles data={data} />
 
         {/* <Video></Video> */}
 

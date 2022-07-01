@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import SafeHtmlSpan from "../ui/SafeHtmlSpan";
 
 const TileContainer = styled.div`
   padding: var(--size-4);
@@ -70,7 +71,7 @@ export const Tile = ({
   children,
 }: {
   bgOverlay: string;
-  element: React.ReactNode;
+  element: React.ReactNode | null;
   headline: string;
   buttons: any;
   children: React.ReactNode;
@@ -80,7 +81,9 @@ export const Tile = ({
       <TileOverlay bgColor={bgOverlay} />
       <TileElement>{element}</TileElement>
       <TileContent>
-        <TileHeadline>{headline}</TileHeadline>
+        <TileHeadline>
+          <SafeHtmlSpan html={headline} />
+        </TileHeadline>
         <TileText>{children}</TileText>
         <TileButtons>{buttons}</TileButtons>
       </TileContent>

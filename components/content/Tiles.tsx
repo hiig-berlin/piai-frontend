@@ -3,16 +3,19 @@ import styled from "styled-components";
 import Image from "next/image";
 
 import { Tile } from "./Tile";
+import { PiAiTool } from "~/types";
 import Button from "../styled/Button";
 import { Logo } from "../app/Logo";
 import { LabElement } from "../ui/LabElement";
 
 import background from "~/assets/img/globe.jpg";
+import SafeHtmlDiv from "../ui/SafeHtmlDiv";
+import { useConfigContext } from "~/providers/ConfigContextProvider";
+
+import Link from "next/link";
 
 const Grid = styled.div<{ bg: string }>`
   display: grid;
-  // position: relative;
-  // overflow: hidden;
 
   background: url(${(props: any) => props.bg});
   background-blend-mode: multiply;
@@ -26,72 +29,79 @@ const Grid = styled.div<{ bg: string }>`
   }
 `;
 
-const ImageWrapper = styled.div`
-  position: absolute;
-  top: 0;
-  z-index: -100;
+const TileButton = styled(Button)`
+  color: #fff;
+  border-color: #fff;
+
+  &:visited,
+  &:link {
+    color: #fff;
+  }
 `;
 
-// const Column = styled.div`
-//    display: grid;
+const createButtons = (links: any, scope: string) => {
+  if (links?.length) {
+    return links.map((link: any, index: number) => {
+      if (!link?.url || link.url.trim() === "") return <></>;
 
-//   ${({ theme }) => theme.breakpoints.tabletLandscape} {
-//     flex-direction: row;
-//     align-items: stretch;
+      let target = undefined;
+      let rel = undefined;
 
-//   }
-// `;
+      if (link?.newTab === true) {
+        target = "_blank";
+        rel = "norefferer";
+      }
 
-export const Tiles = () => {
+      return (
+        <Link href={link.url} passHref key={`tile-button-${scope}-${index}`}>
+          <TileButton as="a" {...{ rel, target }}>
+            {link.label}
+          </TileButton>
+        </Link>
+      );
+    });
+  }
+
+  return [];
+};
+
+export const Tiles = ({ data }: { data: any }) => {
+  const config = useConfigContext();
+
+  const tool = config.tools.find(
+    (tool: PiAiTool) => tool.slug === data?.acf?.tileLeft?.logoSlug
+  );
+
   return (
     <Grid bg={background.src}>
       {/* TODO: Replace this with CMS Content */}
       <Tile
         bgOverlay="piaiMap"
         element={
-          <LabElement shortHandle="Ma" longText="Project Map" color="white" hoverColor="#ffffff"/>
+          tool ? (
+            <LabElement
+              shortHandle={tool.iconShort}
+              longText={tool.iconLong}
+              color="white"
+              hoverColor="#ffffff"
+            />
+          ) : (
+            <></>
+          )
         }
-        headline="Public Interest AI Project Map"
-        buttons={[
-          <Button key="1">View project map</Button>,
-          <Button key="2">Submit a project</Button>,
-        ]}
+        headline={data?.acf?.tileLeft?.title}
+        buttons={createButtons(data?.acf?.tileLeft?.links, "left")}
       >
-        <>
-          <p>
-            There is a lack of accumulated and detailed data on public interest
-            AI projects, including their specific objectives, methods, and
-            frameworks. This is why we created a survey.
-          </p>
-          <p>
-            View all submitted projects, read their take on public interest AI
-            or submit your own project.
-          </p>
-        </>
+        <SafeHtmlDiv html={data?.acf?.tileLeft?.teaser} />
       </Tile>
       <Tile
         bgOverlay="piaiInterface"
-        element={<Logo color="white" hoverColor="white"/>}
-        headline="A global discourse"
+        element={<Logo color="white" hoverColor="white" />}
+        headline={data?.acf?.tileRight?.title}
         // TODO: Buttons here only on mobile
-        buttons={[
-          <Button key="1">Watch the video</Button>,
-          <Button key="2">Read on</Button>,
-        ]}
+        buttons={createButtons(data?.acf?.tileRight?.links, "right")}
       >
-        <>
-          <p>
-            Defining public interest AI is as difficult as it is crucial for our
-            society. Academia and various societal stakeholder have entered a
-            discourse to sharpen the edges of this explanation.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-            nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
-            erat, sed diam voluptua. At vero eos et accusam et justo duo dolores
-            et ea rebum.
-          </p>
-        </>
+        <SafeHtmlDiv html={data?.acf?.tileRight?.teaser} />
       </Tile>
     </Grid>
   );
