@@ -6,6 +6,7 @@ export const breakpointEMs = {
   mobileLandscape: 28, // ~448px
   tablet: 45, // ~720px
   tabletLandscape: 62, // ~992px
-  desktop: 75, // 1200px
+  desktop: 82, // 1312px
   screen: 115, // ~1840px
 };
+1
