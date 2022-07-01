@@ -8,6 +8,7 @@ import SafeHtmlSpan from "~/components/ui/SafeHtmlSpan";
 import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
 import { AspectRatio } from "~/components/ui/AspectRatio";
 import PageMargins from "~/components/ui/PageMargins";
+import SafeHtmlDiv from "../ui/SafeHtmlDiv";
 
 const boxPadding = "20px";
 const boxPaddingMobile = "10vw";
@@ -237,10 +238,12 @@ export const Accordion = ({ data }: { data: any }) => {
     } else setHeight(0);
   }, [activeIndex, isTabletAndUp]);
 
+  if (!data?.acf?.conditions?.length) return <></>;
+
   return (
     <PageMargins spaceBottom={4} spaceTop={0}>
       <Pillars marginBottom={height}>
-        {pillarContent.map((pillar: any, index: number) => {
+        {data.acf.conditions.map((pillar: any, index: number) => {
           return (
             <article key={`pillar-${index}`}>
               <ToggleBox
@@ -257,7 +260,7 @@ export const Accordion = ({ data }: { data: any }) => {
                   <BoxSvgs i={index + 1} />
                   <Title>{pillar.title}</Title>
                   <p>
-                    <SafeHtmlSpan html={pillar.shortDescription} />
+                    <SafeHtmlSpan html={pillar.teaser} />
                   </p>
                 </AspectRatio>
 
@@ -276,14 +279,13 @@ export const Accordion = ({ data }: { data: any }) => {
                   <Columns>
                     <div>
                       <Accessible simple={pillar.textSimple}>
-                        {pillar.textStandard}
+                        {pillar.text}
                       </Accessible>
                     </div>
                     <div>
-                      {pillar?.sideNotes?.length > 0 &&
-                        pillar.sideNotes.map((note: any, nIndex: number) => (
-                          <div key={`pillar-${index}-sn-${nIndex}`}>{note}</div>
-                        ))}
+                      {pillar.sidebar && pillar.sidebar.trim() !== "" && (
+                        <SafeHtmlDiv html={pillar.sidebar} />
+                      )}
                     </div>
                   </Columns>
                 </div>
@@ -295,331 +297,3 @@ export const Accordion = ({ data }: { data: any }) => {
     </PageMargins>
   );
 };
-
-const pillarContent = [
-  {
-    title: "Justification",
-    shortDescription:
-      "What is the societal reason for this system? Is this AI solution the best way and most sustainable to solve an existing problem?",
-    headline: "How does this system help our society?",
-    textStandard: (
-      <>
-        <p>
-          We unasdasdasdderstand public interest AI systems to be those AI
-          systems that{" "}
-          <strong>
-            support those outcomes best serving the long-run survival and
-            well-being of a social collective construed as a “public”.
-          </strong>
-        </p>
-        <p>
-          Our understanding is inspired by theorists like Barry Bozeman and John
-          Dewey and many other sources in the tradition of public interest
-          theory. In our research we aim to make these ideas useful for the
-          discussion on AI and how it could serve people and equality in
-          societies instead of private goals and profit maximisation.{" "}
-        </p>
-        <p>
-          Public interest is closely entangled with the idea of democracy and
-          the rule of law. Developing a collective idea of the public interest
-          regarding a certain issue is an established process in many societies
-          and has a long tradition in legal discourse. The public interest is
-          never universal but needs to be defined for each societal issue by a
-          deliberative and participatory process. To act in the public interests
-          citizens think about more than their private interests - they think
-          and act for a common good.
-        </p>
-        <p>
-          In our research, we explore and discuss what this understanding of the
-          public interest means for the development and implementation of AI.{" "}
-        </p>
-      </>
-    ),
-    textSimple: (
-      <>
-        <p>
-          Public interest is closely entangled with the idea of democracy and
-          the rule of law. Developing a collective idea of the public interest
-          regarding a certain issue is an established process in many societies
-          and has a long tradition in legal discourse. The public interest is
-          never universal but needs to be defined for each societal issue by a
-          deliberative and participatory process. To act in the public interests
-          citizens think about more than their private interests - they think
-          and act for a common good.
-        </p>
-      </>
-    ),
-    // sideNotes: [
-    //   (
-    //     <p>
-    //     This is a sidenote with a <a href="#">Link</a>
-    //   </p>
-    //   ),
-    //   (
-    //   <p>
-    //     It would be nice to add an example or anecdote here to lighten it a
-    //     little up. Or maybe even two?!
-    //   </p>
-    //   ),
-    // ],
-  },
-  {
-    title: "Equality",
-    shortDescription:
-      "What is the societal reason for this system? Is this AI solution the best way and most sustainable to solve an existing problem?",
-    headline: "How does this system help our society?",
-    textStandard: (
-      <>
-        <p>
-          We understand public isdgdsghbsfdhsdbhnterest AI systems to be those
-          AI systems that{" "}
-          <strong>
-            support those outcomes best serving the long-run survival and
-            well-being of a social collective construed as a “public”.
-          </strong>
-        </p>
-        <p>
-          Our understanding is inspired by theorists like Barry Bozeman and John
-          Dewey and many other sources in the tradition of public interest
-          theory. In our research we aim to make these ideas useful for the
-          discussion on AI and how it could serve people and equality in
-          societies instead of private goals and profit maximisation.{" "}
-        </p>
-        <p>
-          In our research, we explore and discuss what this understanding of the
-          public interest means for the development and implementation of AI.{" "}
-        </p>
-      </>
-    ),
-    textSimple: (
-      <>
-        <p>
-          Public interest is closely entangled with the idea of democracy and
-          the rule of law. Developing a collective idea of the public interest
-          regarding a certain issue is an established process in many societies
-          and has a long tradition in legal discourse. The public interest is
-          never universal but needs to be defined for each societal issue by a
-          deliberative and participatory process. To act in the public interests
-          citizens think about more than their private interests - they think
-          and act for a common good.
-        </p>
-      </>
-    ),
-    // sideNotes: [
-    //   (
-    //     <p>
-    //     This is a sidenote with a <a href="#">Link</a>
-    //   </p>
-    //   ),
-    //   (
-    //   <p>
-    //     It would be nice to add an example or anecdote here to lighten it a
-    //     little up. Or maybe even two?!
-    //   </p>
-    //   ),
-    // ],
-  },
-  {
-    title: "Participatory design / Deliberation",
-    shortDescription:
-      "How can citizens get informed, participate, co-design or have a stake in the design and the use of the system?",
-    headline: "How does this system help our society?",
-    textStandard: (
-      <>
-        <p>
-          We understand public interest AI systems to be those AI systems that{" "}
-          <strong>
-            support those outcomes best serving the long-run survival and
-            well-being of a social collective construed as a “public”.
-          </strong>
-        </p>
-        <p>
-          Our understanding is inspired by theorists like Barry Bozeman and John
-          Dewey and many other sources in the tradition of public interest
-          theory. In our research we aim to make these ideas useful for the
-          discussion on AI and how it could serve people and equality in
-          societies instead of private goals and profit maximisation.{" "}
-        </p>
-        <p>
-          Public interest is closely entangled with the idea of democracy and
-          the rule of law. Developing a collective idea of the public interest
-          regarding a certain issue is an established process in many societies
-          and has a long tradition in legal discourse. The public interest is
-          never universal but needs to be defined for each societal issue by a
-          deliberative and participatory process. To act in the public interests
-          citizens think about more than their private interests - they think
-          and act for a common good.
-        </p>
-        <p>
-          Public interest is closely entangled with the idea of democracy and
-          the rule of law. Developing a collective idea of the public interest
-          regarding a certain issue is an established process in many societies
-          and has a long tradition in legal discourse. The public interest is
-          never universal but needs to be defined for each societal issue by a
-          deliberative and participatory process. To act in the public interests
-          citizens think about more than their private interests - they think
-          and act for a common good.
-        </p>
-        <p>
-          In our research, we explore and discuss what this understanding of the
-          public interest means for the development and implementation of AI.{" "}
-        </p>
-      </>
-    ),
-    textSimple: (
-      <>
-        <p>
-          Public interest is closely entangled with the idea of democracy and
-          the rule of law. Developing a collective idea of the public interest
-          regarding a certain issue is an established process in many societies
-          and has a long tradition in legal discourse. The public interest is
-          never universal but needs to be defined for each societal issue by a
-          deliberative and participatory process. To act in the public interests
-          citizens think about more than their private interests - they think
-          and act for a common good.
-        </p>
-      </>
-    ),
-    // sideNotes: [
-    //   (
-    //     <p>
-    //     This is a sidenote with a <a href="#">Link</a>
-    //   </p>
-    //   ),
-    //   (
-    //   <p>
-    //     It would be nice to add an example or anecdote here to lighten it a
-    //     little up. Or maybe even two?!
-    //   </p>
-    //   ),
-    // ],
-  },
-  {
-    title: "Technical standards / Safeguards",
-    shortDescription:
-      "Is the system secure, accurate and robust the way is is built? Was there an audit to make sure?",
-    headline: "How does this system help our society?",
-    textStandard: (
-      <>
-        <p>
-          We underssdafgdsdfgadstand public interest AI systems to be those AI
-          systems that{" "}
-          <strong>
-            support those outcomes best serving the long-run survival and
-            well-being of a social collective construed as a “public”.
-          </strong>
-        </p>
-        <p>
-          Our understanding is inspired by theorists like Barry Bozeman and John
-          Dewey and many other sources in the tradition of public interest
-          theory. In our research we aim to make these ideas useful for the
-          discussion on AI and how it could serve people and equality in
-          societies instead of private goals and profit maximisation.{" "}
-        </p>
-        <p>
-          Public interest is closely entangled with the idea of democracy and
-          the rule of law. Developing a collective idea of the public interest
-          regarding a certain issue is an established process in many societies
-          and has a long tradition in legal discourse. The public interest is
-          never universal but needs to be defined for each societal issue by a
-          deliberative and participatory process. To act in the public interests
-          citizens think about more than their private interests - they think
-          and act for a common good.
-        </p>
-        <p>
-          In our research, we explore and discuss what this understanding of the
-          public interest means for the development and implementation of AI.{" "}
-        </p>
-      </>
-    ),
-    textSimple: (
-      <>
-        <p>
-          Public interest is closely entangled with the idea of democracy and
-          the rule of law. Developing a collective idea of the public interest
-          regarding a certain issue is an established process in many societies
-          and has a long tradition in legal discourse. The public interest is
-          never universal but needs to be defined for each societal issue by a
-          deliberative and participatory process. To act in the public interests
-          citizens think about more than their private interests - they think
-          and act for a common good.
-        </p>
-      </>
-    ),
-    // sideNotes: [
-    //   (
-    //     <p>
-    //     This is a sidenote with a <a href="#">Link</a>
-    //   </p>
-    //   ),
-    //   (
-    //   <p>
-    //     It would be nice to add an example or anecdote here to lighten it a
-    //     little up. Or maybe even two?!
-    //   </p>
-    //   ),
-    // ],
-  },
-  {
-    title: "Open for validation",
-    shortDescription:
-      "Is the system secure, accurate and robust the way is is built? Was there an audit to make sure?",
-    headline: "How does this system help our society?",
-    textStandard: (
-      <>
-        <p>
-          asdasdasdadWe understand public interest AI systems to be those AI
-          systems that{" "}
-          <strong>
-            support those outcomes best serving the long-run survival and
-            well-being of a social collective construed as a “public”.
-          </strong>
-        </p>
-        <p>
-          Our understanding is inspired by theorists like Barry Bozeman and John
-          Dewey and many other sources in the tradition of public interest
-          theory. In our research we aim to make these ideas useful for the
-          discussion on AI and how it could serve people and equality in
-          societies instead of private goals and profit maximisation.{" "}
-        </p>
-        <p>
-          Public interest is closely entangled with the idea of democracy and
-          the rule of law. Developing a collective idea of the public interest
-          regarding a certain issue is an established process in many societies
-          and has a long tradition in legal discourse. The public interest is
-          never universal but needs to be defined for each societal issue by a
-          deliberative and participatory process. To act in the public interests
-          citizens think about more than their private interests - they think
-          and act for a common good.
-        </p>
-        <p>
-          In our research, we explore and discuss what this understanding of the
-          public interest means for the development and implementation of AI.{" "}
-        </p>
-      </>
-    ),
-    textSimple: (
-      <>
-        <p>
-          Public interest is closely entangled with the idea of democracy and
-          the rule of law. Developing a collective idea of the public interest
-          regarding a certain issue is an established process in many societies
-          and has a long tradition in legal discourse. The public interest is
-          never universal but needs to be defined for each societal issue by a
-          deliberative and participatory process. To act in the public interests
-          citizens think about more than their private interests - they think
-          and act for a common good.
-        </p>
-      </>
-    ),
-    sideNotes: [
-      <p>
-        This is a sidenote with a <a href="#">Link</a>
-      </p>,
-      <p>
-        It would be nice to add an example or anecdote here to lighten it a
-        little up. Or maybe even two?!
-      </p>,
-    ],
-  },
-];
