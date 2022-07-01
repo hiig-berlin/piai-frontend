@@ -14,6 +14,7 @@ TODO:
 - Video
 - Make Tiles background image CMS configurable? 
 - Finish Tiles Buttons
+- TextSection's Wizzards to be clickable? Wysiwyg?
 
 ++++++++++++++++++++++++++++++++++++++++++++++++
 +++++++ TODO +++++++++++++++++++++++++++++++++++

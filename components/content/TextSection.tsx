@@ -9,6 +9,7 @@ import PageMargins from "../ui/PageMargins";
 import { Wizard } from "./Wizard";
 import { Accessible } from "./Accessible";
 import SafeHtmlSpan from "../ui/SafeHtmlSpan";
+import SafeHtmlDiv from "../ui/SafeHtmlDiv";
 
 const Grid = styled.div`
   display: grid;
@@ -68,22 +69,19 @@ export const TextSection = ({ data }: { data: any }) => {
                   <h3>
                     <SafeHtmlSpan html={row.title} />
                   </h3>
-                  {row?.wizzard && row.wizzard.trim() !== "" && (
-                    <DisplayAbove breakpoint="tablet">
-                      <Wizard
-                        bend="up right"
-                        left="0%"
-                        top="100px"
-                        bottom="auto"
-                        width="80%"
-                        position="relative"
-                        inView
-                        inViewDelay={1}
-                      >
-                        You would like to add something here? Go ahead and
-                        contact us!
-                      </Wizard>
-                    </DisplayAbove>
+                  {isTabletAndUp && row?.wizzard && row.wizzard.trim() !== "" && (
+                    <Wizard
+                      bend="up right"
+                      left="0%"
+                      top="100px"
+                      bottom="auto"
+                      width="80%"
+                      position="relative"
+                      inView
+                      inViewDelay={1}
+                    >
+                      <SafeHtmlSpan html={row.wizzard} />
+                    </Wizard>
                   )}
                 </GridLeftColumn>
                 <div>
