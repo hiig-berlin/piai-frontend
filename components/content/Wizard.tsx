@@ -20,21 +20,26 @@ const blendIn = keyframes`
 const WizAnchor = styled.div`
   position: relative;
   width: 100%;
-  height: 0px;
+  height: auto;
 `;
 
 const WizContainer = styled.div<{
   width?: string;
   left?: string;
   bottom?: string;
+  top?: string;
+  position?: string;
 }>`
-  position: absolute;
-  bottom: ${({ bottom }) => bottom || "0"};
-  left: ${({ left }) => left || "0"};
+  position: ${({ position }) => position};
+  bottom: ${({ bottom }) => bottom ?? "0"};
+  top: ${({ top }) => top ?? "auto"};
+
+  left: ${({ left }) => left ?? "0"};
   display: inline-block;
   height: 120px;
-  width: ${({ width }) => width || "100%"};
+  width: ${({ width }) => width ?? "100%"};
 `;
+
 const WizText = styled.p<{
   right?: boolean;
   animationDelay?: number;
@@ -45,14 +50,13 @@ const WizText = styled.p<{
   opacity: 0;
 
   // opacity: ${({ animate }) => (animate ? 1 : 0)};
-  
+
   // transition: all 1sec ease;
   animation-duration: 1s;
   animation-delay: ${({ animationDelay }) =>
     animationDelay ? `${animationDelay?.toFixed(1)}s` : "0s"};
   animation-fill-mode: forwards;
   animation-name: ${({ animate }) => (animate ? blendIn : "none")};
-
 `;
 
 export const Wizard = ({
@@ -62,6 +66,8 @@ export const Wizard = ({
   width,
   left,
   bottom,
+  top,
+  position = "absolute",
   children,
   inView,
   inViewDelay,
@@ -71,8 +77,10 @@ export const Wizard = ({
   right?: boolean;
   bend?: string;
   width?: string;
+  position?: string;
   left?: string;
   bottom?: string;
+  top?: string;
   children: React.ReactNode;
   inViewDelay?: number;
   inView?: boolean;
@@ -99,7 +107,9 @@ export const Wizard = ({
       <WizContainer
         width={width}
         left={left}
+        position={position}
         bottom={bottom}
+        top={top}
         ref={inViewObserver.ref}
       >
         <AnimatedArrow

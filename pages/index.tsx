@@ -13,6 +13,7 @@ import { Intro } from "~/components/content/Intro";
 import { Tiles } from "~/components/content/Tiles";
 import { TextSection } from "~/components/content/TextSection";
 import { About } from "~/components/content/About";
+import { Accordion } from "~/components/content/Accordion";
 
 // TODO: remove if not needed anymore
 // import { TextHeading } from "~/components/content/TextHeading";
@@ -48,9 +49,11 @@ const Home = ({ data }: { data: any }) => {
         <Intro data={data} />
         <Tiles data={data} />
 
-        {/* <Video></Video> */}
+        {/* <Video></Video> */} 
 
-        <TextSection />
+        <TextSection data={data} />
+
+        <Accordion data={data} />
 
         <About />
 
