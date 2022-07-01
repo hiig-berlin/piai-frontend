@@ -22,10 +22,11 @@ const Container = styled.div.attrs<{
   },
 }))<{
   isVisible: boolean;
+  isFixed: boolean;
 }>`
   display: ${({ isVisible }) => (isVisible ? "block" : "none")};
   padding: ${sidebarPadding};
-  position: fixed;
+  position: ${({ isFixed }) => (isFixed ? "fixed" : "static")};
   top: 0;
   left: 0;
   height: 100vh;
@@ -127,7 +128,7 @@ export const Sidebar = ({
           <LabElement
             shortHandle={currentTool.iconShort}
             longText={currentTool.iconLong}
-            color={currentTool.colorHighlight}
+            color={currentTool.colorBase}
             hoverColor="white"
             size={1}
           />
@@ -136,7 +137,8 @@ export const Sidebar = ({
       <Container
         {...{ isOpen, isOpening, isClosing }}
         id={`sidebar-${tool}`}
-        isVisible={view !== "page"}
+        isFixed={view !== "page"}
+        isVisible
       >
         <LogoContainer>
           <Logo color="white" hoverColor="#fff7" direction="vertical" size={1} />
@@ -151,7 +153,7 @@ export const Sidebar = ({
                       <LabElement
                         shortHandle={t.iconShort}
                         longText={t.iconLong}
-                        color={t.colorHighlight}
+                        color={t.colorBase}
                         hoverColor="white"
                         size={1}
                       />

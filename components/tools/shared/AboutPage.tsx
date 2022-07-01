@@ -5,6 +5,7 @@ import { PiAiTool } from "~/types";
 import { LabElement } from "../../ui/LabElement";
 import SafeHtmlDiv from "../../ui/SafeHtmlDiv";
 import SafeHtmlSpan from "../../ui/SafeHtmlSpan";
+import { Box } from "./ui/box";
 
 export type ToolAboutPageCTA = {
   title: string;
@@ -13,7 +14,23 @@ export type ToolAboutPageCTA = {
   text: string;
 };
 
-const Container = styled.div``
+const Grid = styled.div<{ col: number }>`
+  display: grid;
+  gap: var(--size-3);
+  grid-template-rows: auto;
+
+  ${({ theme }) => theme.breakpoints.tabletLandscape} {
+    grid-template-columns: repeat(${({ col }) => col}, 1fr);
+  }
+`;
+
+const Container = styled(Grid)`
+
+  padding: var(--size-3);
+  ${({ theme }) => theme.breakpoints.tablet} {
+    padding-right: 100px;
+  }
+`;
 
 export const AboutPage = ({
   tool,
@@ -31,37 +48,41 @@ export const AboutPage = ({
 
   // VVU: sorry for the #f0f
   return (
-    <Container>
-      <div style={{ padding: "20px" }}>
-        <div style={{ margin: "20px" }}>
+    <Container col={2}>
+      <div className="column about">
+        <Box>
           <LabElement
             shortHandle={tool.iconShort}
             longText={tool.iconLong}
-            color="#f0f"
+            color="white"
             hoverColor={tool.colorHighlight}
             size={3}
           />
-        </div>
+          <SafeHtmlDiv html={intro} />
+        </Box>
+        {cta?.title && (
+          <Box>
+            <h3>
+              <SafeHtmlSpan html={cta.title} />
+            </h3>
+            <SafeHtmlDiv html={cta.text} />
 
-        <SafeHtmlDiv html={intro} />
+            {cta?.url && cta?.linkTitle && (
+              <Link href={cta?.url} passHref>
+                <a>{cta?.linkTitle}</a>
+              </Link>
+            )}
+          </Box>
+        )}
       </div>
-      <div style={{ margin: "20px" }}>
-        <SafeHtmlDiv html={content} />
+      <div className="column details">
+        <Box>
+          PRINT, LANGUAGE, SHARE
+        </Box>
+        <Box>
+          <SafeHtmlDiv html={content} />
+        </Box>
       </div>
-      {cta?.title && (
-        <div style={{ margin: "20px" }}>
-          <h3>
-            <SafeHtmlSpan html={cta.title} />
-          </h3>
-          <SafeHtmlDiv html={cta.text} />
-
-          {cta?.url && cta?.linkTitle && (
-            <Link href={cta?.url} passHref>
-              <a>{cta?.linkTitle}</a>
-            </Link>
-          )}
-        </div>
-      )}
     </Container>
   );
 };

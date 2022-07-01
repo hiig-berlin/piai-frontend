@@ -22,12 +22,21 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
+const ToolContainer = styled.div<{ isStacked: boolean }>`
+  display: ${({ isStacked }) => (isStacked ? "block" : "flex")};
+  flex-direction: row-reverse;
+  height: 100vh;
+  overflow: hidden;
+`
+
+
+
 const ContentContainer = styled.div<{ isTransparent: boolean }>`
-  position: absolute;
+  position: ${({ isTransparent }) => (isTransparent ? "absolute" : "static")}
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 2;
+  z-index: 0;
 
   ${({ isTransparent }) =>
     isTransparent
@@ -41,7 +50,7 @@ const ContentContainer = styled.div<{ isTransparent: boolean }>`
     
     `
       : `
-      background-color: #ccc;
+      background: var(--color-bg-tool);;
       min-height: calc(100vh - var(--lbh, 0));
   `}
 `;
@@ -80,15 +89,16 @@ export const Layout = ({
       <UserTracking />
       <LoadingBar isLoading={isLoading} />
       <MenuButton />
-
       <ToolStateContextProvider>
-        <Map />
-        <ContentContainer isTransparent={props?.view === "map"}>
-          {children}
-        </ContentContainer>
-        <Sidebar tool="map" view={props?.view}>
-          <Submenu tool="map" slug={props?.slug} />
-        </Sidebar>
+        <ToolContainer isStacked={props?.view === "map"}>
+          <Map isVisible={props?.view === "map"} />
+          <ContentContainer isTransparent={props?.view === "map"}>
+            {children}
+          </ContentContainer>
+          <Sidebar tool="map" view={props?.view}>
+            <Submenu tool="map" slug={props?.slug} />
+          </Sidebar>
+        </ToolContainer>
       </ToolStateContextProvider>
       <Menu />
     </>
