@@ -3,6 +3,7 @@ import styled from "styled-components";
 import ReactTypingEffect from "react-typing-effect";
 import { Wizard } from "./Wizard";
 import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
+import SafeHtmlSpan from "../ui/SafeHtmlSpan";
 
 const Container = styled.div`
   text-align: center;
@@ -67,10 +68,12 @@ export const Intro = ({ data }: { data: any }) => {
   const {
     vars: { isTabletAndUp },
   } = useCssVarsContext();
-  
+
   return (
     <Container>
-      <StyledHeading>{data?.acf?.introQuestion}</StyledHeading>
+      <StyledHeading>
+        <SafeHtmlSpan html={data?.acf?.introQuestion} />
+      </StyledHeading>
       <Typing>
         {data?.acf?.introAnswers?.length > 0 && (
           <ReactTypingEffect
@@ -94,7 +97,7 @@ export const Intro = ({ data }: { data: any }) => {
             inViewDelay={1.0}
             inViewRevert
           >
-            Explore existing projects of public interest and their answers.
+            <SafeHtmlSpan html={data?.acf?.widgetLeft} />
           </Wizard>
           <Wizard
             towards
@@ -107,8 +110,7 @@ export const Intro = ({ data }: { data: any }) => {
             inViewDelay={2.5}
             inViewRevert
           >
-            We’ve done some research. Read here our proposed definition for a
-            public interest AI.
+            <SafeHtmlSpan html={data?.acf?.widgetRight} />
           </Wizard>
         </>
       )}
