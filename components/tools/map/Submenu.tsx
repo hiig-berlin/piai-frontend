@@ -39,9 +39,9 @@ const ActionItems = styled.div`
   align-items: center;
   gap: ${sidebarPadding};
   padding: ${sidebarPadding} 0 var(--size-1);
-`
+`;
 
-export const Submenu = () => {
+export const Submenu = ({ tool, slug }: { tool?: string; slug?: string }) => {
   return (
     <ToolSubmenu>
       <div>
@@ -57,25 +57,31 @@ export const Submenu = () => {
             Map view
           </a>
         </Link>
-        <ActionItems>
-          <ButtonNormalized><MapSvgBackground
-              className="svg icon"
-              type="search"
-              position="left center"
-              height="1.3em"
-              width="1.3em"
-            /></ButtonNormalized>
-          <ButtonNormalized><MapSvgBackground
-              className="svg icon"
-              type="filter"
-              position="left center"
-              height="1.3em"
-              width="1.3em"
-            /></ButtonNormalized>
-        </ActionItems>
+        {slug === "index" && (
+          <ActionItems>
+            <ButtonNormalized>
+              <MapSvgBackground
+                className="svg icon"
+                type="search"
+                position="left center"
+                height="1.3em"
+                width="1.3em"
+              />
+            </ButtonNormalized>
+            <ButtonNormalized>
+              <MapSvgBackground
+                className="svg icon"
+                type="filter"
+                position="left center"
+                height="1.3em"
+                width="1.3em"
+              />
+            </ButtonNormalized>
+          </ActionItems>
+        )}
       </div>
       <div className="actionItems">
-        <Link passHref href="/tool/map">
+        <Link passHref href="/tool/map/directory">
           <a className="subMenuItem">
             <MapSvgBackground
               className="svg icon"
@@ -87,22 +93,28 @@ export const Submenu = () => {
             Directory
           </a>
         </Link>
-        <ActionItems>
-          <ButtonNormalized><MapSvgBackground
-              className="svg icon"
-              type="search"
-              position="left center"
-              height="1.3em"
-              width="1.3em"
-            /></ButtonNormalized>
-          <ButtonNormalized><MapSvgBackground
-              className="svg icon"
-              type="filter"
-              position="left center"
-              height="1.3em"
-              width="1.3em"
-            /></ButtonNormalized>
-        </ActionItems>
+        {slug === "directory" && (
+          <ActionItems>
+            <ButtonNormalized>
+              <MapSvgBackground
+                className="svg icon"
+                type="search"
+                position="left center"
+                height="1.3em"
+                width="1.3em"
+              />
+            </ButtonNormalized>
+            <ButtonNormalized>
+              <MapSvgBackground
+                className="svg icon"
+                type="filter"
+                position="left center"
+                height="1.3em"
+                width="1.3em"
+              />
+            </ButtonNormalized>
+          </ActionItems>
+        )}
       </div>
     </ToolSubmenu>
   );

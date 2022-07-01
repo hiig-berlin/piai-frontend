@@ -87,7 +87,7 @@ export const Layout = ({
           {children}
         </ContentContainer>
         <Sidebar tool="map" view={props?.view}>
-          <Submenu />
+          <Submenu tool="map" slug={props?.slug} />
         </Sidebar>
       </ToolStateContextProvider>
       <Menu />
