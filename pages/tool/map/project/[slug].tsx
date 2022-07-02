@@ -71,13 +71,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       : (context?.params?.slug as string)
     : 1;
 
-  // TODO: enable
-  // const data = await restApiGetPostBySlugOrFallbackId("page", slug, token);
-
-  const data = {
-    title: slug,
-    // assume that more data will be loaded from
-  };
+  const data = await restApiGetPostBySlugOrFallbackId("project", slug, token);
 
   const tool = appConfig.tools.find((tool: PiAiTool) => tool.slug === "map");
 
