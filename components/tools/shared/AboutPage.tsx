@@ -5,7 +5,7 @@ import { PiAiTool } from "~/types";
 import { LabElement } from "../../ui/LabElement";
 import SafeHtmlDiv from "../../ui/SafeHtmlDiv";
 import SafeHtmlSpan from "../../ui/SafeHtmlSpan";
-import { Box } from "./ui/box";
+import { Box } from "./ui/Box";
 
 export type ToolAboutPageCTA = {
   title: string;
