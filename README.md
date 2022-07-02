@@ -16,6 +16,7 @@ Variable | Example | Explanation
 `NEXT_PUBLIC_PREVIEW_LOCKED` | 0 | If *1* the login screen will be shown 
 `NEXT_PUBLIC_PREVIEW_PWD` | SuperSecure | The password needed get past the login screen
 `NEXT_PUBLIC_GA4TAG_PROPERTY` | GA-324329432 | The usage tracking property ID
+`REVALIDATE_TOKEN` | mrUrX8LP9Ec3tQDYnoGH | Shared secret between CMS and frontend permitting content revalidation
 `DEPLOY_HOOK_URL` | https://example.com | Set to the secret webhook URL to trigger a build by running `npm run deploy:live` or `npm run deploy:staging`
 
 
