@@ -1,15 +1,24 @@
-TODO:
++++++++++++++++++++++++++++++++++++++++++++++
++++++ TODO: Frontend ++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++++++++++++++
 
 - User Tracking (Matomo)
   - cookie popup... 
     - cookies or local storage ... 
   
-
 - Add poster.jpg as share fallback image to /public/img/... 
 
 - Style 404 and 500 pages ... 
 
 - custom fonts preload in header?
+
+- Implement Native Share, 
+  https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share
+
+- Configure further preview routes in /pages/api/preview ... 
+
+- Tools need skip to content link
+
 ++++++++++++++++++++++++++++++++++++++++++++++++
 +++++++ TODO INTRO +++++++++++++++++++++++++++++
 ++++++++++++++++++++++++++++++++++++++++++++++++
@@ -19,11 +28,10 @@ TODO:
 - TextSection's Wizzards to be clickable? Wysiwyg?
 - About LinkButton not perfect
 
-
 ++++++++++++++++++++++++++++++++++++++++++++++++
 +++++++ TODO +++++++++++++++++++++++++++++++++++
 ++++++++++++++++++++++++++++++++++++++++++++++++
 - Ensure all pages und /pages/... add the needed and correct meta tags.
-- Tools need skip to content link
+
 
 
