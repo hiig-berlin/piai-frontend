@@ -27,28 +27,13 @@ export default async function handler(
   
   let location = "/";
   switch (postType) {
-    case "post":
-      location = `/news/view/${post.slug ? post.slug : `id--${post.id}`}`;
+    case "project":
+      location = `/tool/map/project/${post.slug ? post.slug : `id--${post.id}`}`;
       break;
 
     case "page":
-      location = `/page/${post.slug ? post.slug : `id--${post.id}`}`;
-      break;
-
-    case "exhibition":
-      location = `/exhibition/${post.slug ? post.slug : `id--${post.id}`}`;
-      break;
-
-    case "event":
-      location = `/event/${post.slug ? post.slug : `id--${post.id}`}`;
-      break;
-
-    case "audio_file":
-      location = `/media/audio/${post.slug ? post.slug : `id--${post.id}`}`;
-      break;
-      
-    case "video":
-      location = `/media/video/${post.slug ? post.slug : `id--${post.id}`}`;
+      if (post.slug !== "homepage")
+        location = `/page/${post.slug ? post.slug : `id--${post.id}`}`;
       break;
 
   }
