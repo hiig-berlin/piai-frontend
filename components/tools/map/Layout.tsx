@@ -19,6 +19,8 @@ import { Submenu } from "./Submenu";
 const GlobalStyle = createGlobalStyle`
   body {
     background: var(--color-bg-tool);
+    font-size: 1em;
+    color: #fff;
   }
 `;
 
@@ -32,7 +34,7 @@ const ToolContainer = styled.div<{ isStacked: boolean }>`
 
 
 const ContentContainer = styled.div<{ isTransparent: boolean }>`
-  position: ${({ isTransparent }) => (isTransparent ? "absolute" : "static")}
+  position: ${({ isTransparent }) => (isTransparent ? "absolute" : "static")};
   top: 0;
   left: 0;
   width: 100%;

@@ -27,6 +27,8 @@ const MenuContainer = styled.div.attrs((props: MenuContainerStyledProps) => ({
     pointerEvents: !props.isOpen ? "none" : undefined,
   },
 }))<MenuContainerStyledProps>`
+  font-size: var(--text-body-font-size);
+  line-height: var(--text-body-line-height);
   position: fixed;
   z-index: ${({ theme }) => theme.zIndex.menu};
   top: 0px;
