@@ -72,12 +72,12 @@ export const Intro = ({ data }: { data: any }) => {
   return (
     <Container>
       <StyledHeading>
-        <SafeHtmlSpan html={data?.acf?.introQuestion} />
+        <SafeHtmlSpan html={data?.acf?.pageHero.introQuestion} />
       </StyledHeading>
       <Typing>
-        {data?.acf?.introAnswers?.length > 0 && (
+        {data?.acf?.pageHero.introAnswers?.length > 0 && (
           <ReactTypingEffect
-            text={data.acf.introAnswers.map((answer: any) => answer.answer)}
+            text={data.acf.pageHero.introAnswers.map((answer: any) => answer.answer)}
             speed={80}
             eraseSpeed={20}
             eraseDelay={3000}
@@ -97,7 +97,7 @@ export const Intro = ({ data }: { data: any }) => {
             inViewDelay={1.0}
             inViewRevert
           >
-            <SafeHtmlSpan html={data?.acf?.widgetLeft} />
+            <SafeHtmlSpan html={data?.acf?.wizardLeft} />
           </Wizard>
           <Wizard
             towards
@@ -110,7 +110,7 @@ export const Intro = ({ data }: { data: any }) => {
             inViewDelay={2.5}
             inViewRevert
           >
-            <SafeHtmlSpan html={data?.acf?.widgetRight} />
+            <SafeHtmlSpan html={data?.acf?.wizardRight} />
           </Wizard>
         </>
       )}
