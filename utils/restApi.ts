@@ -121,28 +121,7 @@ export const restApiGetPostsPromise: any = (
       Authorization: `Bearer ${token}`,
     });
 
-  let endpoint = "posts";
-
-  switch (type) {
-    case "post":
-      endpoint = "posts";
-      break;
-    case "page":
-      endpoint = "pages";
-      break;
-    case "exhibition":
-      endpoint = "exhibitions";
-      break;
-    case "video":
-      endpoint = "videos";
-      break;
-    case "audio":
-      endpoint = "audio_files";
-      break;
-    case "event":
-      endpoint = "events";
-      break;
-  }
+  const endpoint = `${type}s`;
 
   const controller =
     typeof AbortController !== "undefined" ? new AbortController() : undefined;

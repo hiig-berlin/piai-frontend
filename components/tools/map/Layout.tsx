@@ -13,7 +13,6 @@ import { Map } from "./Map";
 import styled, { createGlobalStyle } from "styled-components";
 import { useEffect } from "react";
 import { Sidebar } from "../shared/Sidebar";
-import { PiAiTool } from "~/types";
 import { Submenu } from "./Submenu";
 
 const GlobalStyle = createGlobalStyle`
@@ -29,9 +28,7 @@ const ToolContainer = styled.div<{ isStacked: boolean }>`
   flex-direction: row-reverse;
   height: 100vh;
   overflow: hidden;
-`
-
-
+`;
 
 const ContentContainer = styled.div<{ isTransparent: boolean }>`
   position: ${({ isTransparent }) => (isTransparent ? "absolute" : "static")};
@@ -68,7 +65,7 @@ export const Layout = ({
   const { isLoading } = usePageStateContext();
   const { setView } = useToolStateContext();
 
-  const tool = config.tools.find((tool: PiAiTool) => tool.slug === "map");
+  // const tool = config.tools.find((tool: PiAiTool) => tool.slug === "map");
 
   useEffect(() => {
     setView(props?.view ?? "page");
@@ -92,6 +89,7 @@ export const Layout = ({
       <LoadingBar isLoading={isLoading} />
       <MenuButton />
       <ToolStateContextProvider>
+        
         <ToolContainer isStacked={props?.view === "map"}>
           <Map isVisible={props?.view === "map"} />
           <ContentContainer isTransparent={props?.view === "map"}>
