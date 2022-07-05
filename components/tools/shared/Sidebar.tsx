@@ -16,7 +16,7 @@ const Container = styled.div.attrs<{
 }>((props) => ({
   style: {
     transition:
-      props.isOpen || props.isClosing ? "tranform 0.175s" : "transform 0.35s",
+      props.isOpen || props.isClosing ? "transform 0.175s" : "transform 0.35s",
     transform:
       props.isOpening || props.isOpen ? "translateX(0)" : "translateX(-105%)",
   },
@@ -24,7 +24,7 @@ const Container = styled.div.attrs<{
   isVisible: boolean;
   isFixed: boolean;
 }>`
-  display: ${({ isVisible }) => (isVisible ? "block" : "none")};
+  display: none;
   padding: ${sidebarPadding};
   position: ${({ isFixed }) => (isFixed ? "fixed" : "static")};
   top: 0;
@@ -38,6 +38,7 @@ const Container = styled.div.attrs<{
   width: fit-content;
 
   ${({ theme }) => theme.breakpoints.tablet} {
+    display: ${({ isVisible }) => (isVisible ? "block" : "none")};
     transform: translateX(0) !important;
     padding: ${sidebarPadding};
   }
