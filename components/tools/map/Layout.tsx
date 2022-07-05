@@ -23,6 +23,8 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
+// Contains:
+// Map + ContentContainer +Sidebar
 const ToolContainer = styled.div<{ isStacked: boolean }>`
   display: ${({ isStacked }) => (isStacked ? "block" : "flex")};
   flex-direction: row-reverse;
@@ -30,12 +32,17 @@ const ToolContainer = styled.div<{ isStacked: boolean }>`
   overflow: hidden;
 `;
 
+// Contains:
+// transparent when overlaying map
+// contains {children}
 const ContentContainer = styled.div<{ isTransparent: boolean }>`
   position: ${({ isTransparent }) => (isTransparent ? "absolute" : "static")};
   top: 0;
   left: 0;
   width: 100%;
   z-index: 0;
+  height: 100%;
+  overflow-y: auto;
 
   ${({ isTransparent }) =>
     isTransparent

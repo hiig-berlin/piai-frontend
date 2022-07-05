@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { LinkButtonAnimated } from "~/components/styled/Button";
 import { PiAiTool } from "~/types";
@@ -27,6 +27,7 @@ const Grid = styled.div<{ col?: number }>`
 
 const Container = styled(Grid)<{ toolColor?: string }>`
   padding: var(--size-3);
+  
 
   ${({ theme }) => theme.breakpoints.tablet} {
     padding-right: 100px;
@@ -38,30 +39,43 @@ const Container = styled(Grid)<{ toolColor?: string }>`
     flex-direction: column;
   }
 
-  & .labElement {
-    margin-bottom: var(--size-3);
-  }
+  & .column.about {
 
-  & .cta {
-    color: ${({ toolColor }) => toolColor || "#fff"};
+    position: sticky;
+    // align-self: end;
+    // bottom: var(--size-3);
+    align-self: start;
+    top: var(--size-3);
 
-    h3{
-      font-size: 1.1em;
+    .labElement {
+      margin-bottom: var(--size-3);
     }
 
-    a {
+    .cta {
       color: ${({ toolColor }) => toolColor || "#fff"};
-      border-color: color: ${({ toolColor }) => toolColor || "#fff"};
-      float: right;
-      display: inline-block;
+  
+      h3{
+        font-size: 1.1em;
+      }
+  
+      a {
+        color: ${({ toolColor }) => toolColor || "#fff"};
+        border-color: color: ${({ toolColor }) => toolColor || "#fff"};
+        float: right;
+        display: inline-block;
+      }
     }
+
   }
 
-  p + h2, p + h3, p + h4{
-    margin-top: var(--size-4);
-  }
+  
 
-  & .details{
+  & .column.details{
+
+    // .toolbar{
+    //   position: sticky;
+    //   top: 0;
+    // }
 
     h2{
       ${({ theme }) => theme.applyMixin("uppercase")};
@@ -76,6 +90,10 @@ const Container = styled(Grid)<{ toolColor?: string }>`
       font-weight: 700;
     }
     
+  }
+
+  p + h2, p + h3, p + h4{
+    margin-top: var(--size-4);
   }
 `;
 
@@ -93,7 +111,24 @@ export const AboutPage = ({
   // TODO: cta urls should be able to distinguish between internal and extrenal links
   // also add the ability to add a target
 
-  // VVU: sorry for the #f0f
+  const [y, setY] = useState(0);
+
+  const handleNavigation = (e) => {
+    const window = e.currentTarget;
+    if (y > window.scrollY) {
+      console.log("scrolling up");
+    } else if (y < window.scrollY) {
+      console.log("scrolling down");
+    }
+    setY(window.scrollY);
+  };
+
+  useEffect(() => {
+    setY(window.scrollY);
+
+    window.addEventListener("scroll", (e) => handleNavigation(e));
+  }, []);
+
   return (
     <Container toolColor={tool.colorHighlight}>
       <div className="column about">
@@ -117,18 +152,15 @@ export const AboutPage = ({
             <SafeHtmlDiv html={cta.text} />
 
             {cta?.url && cta?.linkTitle && (
-              
               <Link href={cta?.url} passHref>
-                <LinkButtonAnimated >
-                  {cta?.linkTitle}
-                </LinkButtonAnimated> 
+                <LinkButtonAnimated>{cta?.linkTitle}</LinkButtonAnimated>
               </Link>
             )}
           </Box>
         )}
       </div>
       <div className="column details">
-        <Box>PRINT, LANGUAGE, SHARE</Box>
+        <Box className="toolbar">PRINT, LANGUAGE, SHARE</Box>
         <Box>
           <SafeHtmlDiv html={content} />
         </Box>
