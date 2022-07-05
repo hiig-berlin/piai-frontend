@@ -60,7 +60,7 @@ export const Tiles = ({ data }: { data: any }) => {
   const config = useConfigContext();
 
   const tool = config.tools.find(
-    (tool: PiAiTool) => tool.slug === data?.acf?.tileLeft?.logoSlug
+    (tool: PiAiTool) => tool.slug === data?.acf?.tileLeft?.toolSlug
   );
 
   return (
