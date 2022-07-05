@@ -54,16 +54,6 @@ const Typing = styled.div`
   }
 `;
 
-// TODO: Fetch from CMS
-const possibleAnswers = [
-  "AI serving equality.",
-  "Making knowledge equally accessible.",
-  "A new digital commons.",
-  "AI in the power of people.",
-  "AI systems, which are open for validation. ",
-  "Lorem ipsum dolor sit AI systems, which are open for validation and some more content, which is really long. ",
-];
-
 export const Intro = ({ data }: { data: any }) => {
   const {
     vars: { isTabletAndUp },
@@ -72,10 +62,10 @@ export const Intro = ({ data }: { data: any }) => {
   return (
     <Container>
       <StyledHeading>
-        <SafeHtmlSpan html={data?.acf?.pageHero.introQuestion} />
+        <SafeHtmlSpan html={data?.acf?.pageHero?.introQuestion ?? ""} />
       </StyledHeading>
       <Typing>
-        {data?.acf?.pageHero.introAnswers?.length > 0 && (
+        {data?.acf?.pageHero?.introAnswers?.length > 0 && (
           <ReactTypingEffect
             text={data.acf.pageHero.introAnswers.map((answer: any) => answer.answer)}
             speed={80}
