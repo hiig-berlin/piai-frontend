@@ -287,7 +287,7 @@ export const Accordion = ({ data }: { data: any }) => {
                         <SafeHtmlDiv html={pillar.sidebar} />
                       )} */}
                       {pillar?.sidebar?.length > 0 &&
-                        pillar.sidebar.map((note: any, nIndex: number) => (
+                        pillar?.sidebar.map((note: any, nIndex: number) => (
                           <SafeHtmlDiv key={`pillar-${index}-sn-${nIndex}`} html={note.sidebarElement} />
                         ))}
                     </div>
