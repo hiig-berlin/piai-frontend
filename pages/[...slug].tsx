@@ -116,6 +116,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     return {
       props: {
         frontendSettings: await restApiGetSettings(),
+        themeColorMode: "light"
       },
 
       notFound: true,
@@ -127,6 +128,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     props: {
       frontendSettings: await restApiGetSettings(),
       data: data ?? null,
+        themeMode: "light",
     },
     revalidate: appConfig.revalidateInterval("page", {
       date: data?.date,
