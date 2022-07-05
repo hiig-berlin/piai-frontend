@@ -21,6 +21,9 @@ export const GlobalStyle = createGlobalStyle`
 
   body {
     ${({ theme }) => theme.textStyle("body")}
+
+    background-color: ${({ theme }) =>
+      theme.colorMode === "dark" ? "var(--color-bg-tool)" : "var(--color-bg)"};
   }
 
   p {

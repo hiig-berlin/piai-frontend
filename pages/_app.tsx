@@ -72,7 +72,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
           <SmoothScroll />
         )}
       <ConfigContextProvider>
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={{...theme, colorMode: pageProps?.themeColorMode ?? "dark"}}>
           <SettingsContextProvider
             frontendSettings={pageProps.frontendSettings}
           >

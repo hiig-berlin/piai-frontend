@@ -110,6 +110,7 @@ export const themeGetBreakpointValue = (level: number) => {
 
 export const theme = {
   pageMaxWidth: 1680,
+  colorMode: "dark",
   colors: {
     ailabRed: "#BE0042",
     piaiInterface: "#416F83",

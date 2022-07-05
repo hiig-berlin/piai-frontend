@@ -336,9 +336,11 @@ export const restApiGetSettings = async () => {
 
   const settings = await fetch(url).then(
     async (response) => await response.json()
-  );
+  ).catch(() => {
+    return {};
+  });
 
-  inMemoryCache.set(url, settings, DEFAULT_CACHE_TTL_MS);
+  inMemoryCache.set(url, settings ?? {}, DEFAULT_CACHE_TTL_MS);
 
   return settings;
 };

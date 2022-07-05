@@ -17,7 +17,6 @@ import { Submenu } from "./Submenu";
 
 const GlobalStyle = createGlobalStyle`
   body {
-    background: var(--color-bg-tool);
     font-size: 1em;
     color: #fff;
   }
@@ -56,7 +55,7 @@ const ContentContainer = styled.div<{ isTransparent: boolean }>`
     
     `
       : `
-      background: var(--color-bg-tool);;
+      background: var(--color-bg-tool);
       min-height: calc(100vh - var(--lbh, 0));
   `}
 `;
@@ -96,7 +95,6 @@ export const Layout = ({
       <LoadingBar isLoading={isLoading} />
       <MenuButton />
       <ToolStateContextProvider>
-        
         <ToolContainer isStacked={props?.view === "map"}>
           <Map isVisible={props?.view === "map"} />
           <ContentContainer isTransparent={props?.view === "map"}>

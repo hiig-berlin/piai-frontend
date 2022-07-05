@@ -34,6 +34,7 @@ export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
       frontendSettings: await restApiGetSettings(),
+      themeColorMode: "light",
     },
     revalidate: 60,
   };
