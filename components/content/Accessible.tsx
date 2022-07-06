@@ -101,9 +101,9 @@ export const Accessible = ({
       </AccessibleText>
       <Icon
         onClick={() => setIsSimple(!isSimple)}
-        aria-label="change to simple text version"
+        aria-label="change to simple language"
       >
-        <span>{isSimple ? "Show standard text" : "Show simplified text"}</span>
+        <span>{isSimple ? "Show standard language" : "Show simplified language"}</span>
         <span>
           <SvgBackground type="language" />
         </span>

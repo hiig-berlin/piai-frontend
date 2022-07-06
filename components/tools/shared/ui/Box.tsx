@@ -3,8 +3,15 @@ import styled from "styled-components";
 
 const BoxWrapper = styled.div`
   border-radius: 10px;
-  padding: var(--size-3);
   background: #000;
+
+  padding: var(--size-4);
+
+  ${({ theme }) => theme.breakpoints.tablet} {
+    padding: var(--size-3);
+  }
+
+  
 
   & p:first-child,
   & h2:first-child,

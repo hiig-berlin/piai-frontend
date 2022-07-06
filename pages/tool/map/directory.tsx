@@ -6,7 +6,6 @@ import Layout from "~/components/tools/map/Layout";
 import {
   restApiGetPostBySlugOrFallbackId,
   restApiGetSettings,
-  
 } from "~/utils/restApi";
 import { appConfig } from "~/config";
 import { PiAiTool } from "~/types";
@@ -30,18 +29,18 @@ const Directory = ({ tool }: { tool: PiAiTool }) => {
         }}
       /> */}
 
-      <main id="content">
-        <div style={{ margin: "20px" }}>
-          <LabElement
-            shortHandle={tool.iconShort}
-            longText={tool.iconLong}
-            color="#f0f"
-            hoverColor={tool.colorHighlight}
-            size={3}
-          />
-        </div>
-        <p>This is the directory page</p>
-      </main>
+      {/* Dont' wrap this in further divs, 
+      <main> is set via Layout component "*/}
+      <div style={{ margin: "20px" }}>
+        <LabElement
+          shortHandle={tool.iconShort}
+          longText={tool.iconLong}
+          color="#f0f"
+          hoverColor={tool.colorHighlight}
+          size={3}
+        />
+      </div>
+      <p>This is the directory page</p>
     </>
   );
 };

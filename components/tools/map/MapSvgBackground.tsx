@@ -9,6 +9,8 @@ import Svglist from "../../svgs/Svglist";
 import Svgprint from "../../svgs/Svgprint";
 import Svgsearch from "../../svgs/Svgsearch";
 import Svgfilter from "../../svgs/Svgfilter";
+import Svgshare from "~/components/svgs/Svgshare";
+import SvglanguageNeg from "~/components/svgs/SvglanguageNeg";
 
 // use https://jakearchibald.github.io/svgomg/
 // use https://yoksel.github.io/url-encoder/
@@ -35,17 +37,15 @@ export const MapSvgBackground = ({
   let activeSvg = svg ?? SvgMap;
 
   switch (type) {
-    
-
     case "map":
       activeSvg = SvgMap;
       break;
 
-    case  "globe": 
+    case "globe":
       activeSvg = Svgglobe;
       break;
 
-    case  "money": 
+    case "money":
       activeSvg = Svgmoney;
       break;
 
@@ -57,47 +57,34 @@ export const MapSvgBackground = ({
       activeSvg = Svgfilter;
       break;
 
-    case  "people": 
+    case "people":
       activeSvg = Svgpeople;
       break;
 
-    case  "repo": 
+    case "repo":
       activeSvg = Svgrepo;
       break;
 
-    case  "link": 
+    case "link":
       activeSvg = Svglink;
       break;
 
-    case  "list": 
+    case "list":
       activeSvg = Svglist;
       break;
 
-    case  "print": 
+    case "print":
       activeSvg = Svgprint;
       break;
 
-    // case "square1":
-    //   activeSvg = SvgSquare1;
-    //   break;
+    case "share":
+      activeSvg = Svgshare;
+      break;
 
-    // case "square2":
-    //   activeSvg = SvgSquare2;
-    //   break;
-
-    // case "square3":
-    //   activeSvg = SvgSquare3;
-    //   break;
-
-    // case "square4":
-    //   activeSvg = SvgSquare4;
-    //   break;
-
-    // case "square5":
-    //   activeSvg = SvgSquare5;
-    //   break;
+    case "language":
+      activeSvg = SvglanguageNeg;
+      break;
   }
-
   return (
     <span
       className={className}

@@ -1,7 +1,17 @@
 import Link from "next/link";
-import React, { useState, useEffect } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+  WheelEvent,
+} from "react";
 import styled from "styled-components";
-import { LinkButtonAnimated } from "~/components/styled/Button";
+import {
+  ButtonNormalized,
+  LinkButtonAnimated,
+} from "~/components/styled/Button";
+import { MapSvgBackground } from "../map/MapSvgBackground";
 import { PiAiTool } from "~/types";
 import { LabElement } from "../../ui/LabElement";
 import SafeHtmlDiv from "../../ui/SafeHtmlDiv";
@@ -25,7 +35,11 @@ const Grid = styled.div<{ col?: number }>`
   }
 `;
 
-const Container = styled(Grid)<{ toolColor?: string }>`
+const Container = styled(Grid)<{
+  toolColor?: string;
+  onWheel: Function;
+  direction: string;
+}>`
   padding: var(--size-3);
   
 
@@ -41,11 +55,28 @@ const Container = styled(Grid)<{ toolColor?: string }>`
 
   & .column.about {
 
-    position: sticky;
-    // align-self: end;
-    // bottom: var(--size-3);
-    align-self: start;
-    top: var(--size-3);
+    ${({ theme }) => theme.breakpoints.tabletLandscape} {
+      position: sticky;
+    // Prevent jumping on scroll change  
+    // if column shorter than 100vh
+    min-height: calc(100vh - 2 * var(--size-3));
+
+    // Move left column in the beginning
+    // of the scroll vs. the end 
+    ${({ direction }) =>
+      direction === "up"
+        ? `
+    
+        align-self: start;
+        top: var(--size-3);
+    `
+        : `
+        align-self: end;
+        bottom: var(--size-3);
+      
+    `}
+    }
+ 
 
     .labElement {
       margin-bottom: var(--size-3);
@@ -72,10 +103,22 @@ const Container = styled(Grid)<{ toolColor?: string }>`
 
   & .column.details{
 
-    // .toolbar{
-    //   position: sticky;
-    //   top: 0;
-    // }
+    .toolbar{
+      display: flex;
+      justify-content: space-between;
+      gap: var(--size-2);
+
+      padding: var(--size-3) var(--size-4);
+
+      ${({ theme }) => theme.breakpoints.tablet} {
+        padding: var(--size-3) var(--size-3);
+      }
+
+      ${({ theme }) => theme.breakpoints.tablet} {
+        padding: var(--size-2) var(--size-3);
+      }
+      
+    }
 
     h2{
       ${({ theme }) => theme.applyMixin("uppercase")};
@@ -97,40 +140,76 @@ const Container = styled(Grid)<{ toolColor?: string }>`
   }
 `;
 
+const Icon = styled(ButtonNormalized)<{
+  spaceBefore: boolean;
+  onClick: Function;
+  className: String;
+}>`
+
+  display: flex;
+  color: #fff;
+
+  opacity: 0.6;
+  transition: opacity 0.5s ease;
+
+  &:hover{
+    opacity: 1;
+  }
+
+  .svg {
+    min-height: 1.2em;
+    min-width: 1.2em;
+  }
+
+  &.languageSwitch{
+    .svg{
+      width: 1em !important;
+    }
+
+    span:last-child {
+      display: inline-block;
+      margin: 0 1em;
+  
+      ${({ theme }) => theme.applyMixin("uppercase")};
+  
+    }
+  }
+
+  
+
+  margin-left: ${({ spaceBefore }) => spaceBefore === true ? "auto" : "unset"}
+
+`;
+
 export const AboutPage = ({
   tool,
   intro,
   content,
+  contentSimple,
   cta,
 }: {
   tool: PiAiTool;
   intro: string;
   content: string;
+  contentSimple: string;
   cta?: ToolAboutPageCTA;
 }) => {
   // TODO: cta urls should be able to distinguish between internal and extrenal links
   // also add the ability to add a target
 
-  const [y, setY] = useState(0);
-
-  const handleNavigation = (e) => {
-    const window = e.currentTarget;
-    if (y > window.scrollY) {
-      console.log("scrolling up");
-    } else if (y < window.scrollY) {
-      console.log("scrolling down");
-    }
-    setY(window.scrollY);
-  };
-
-  useEffect(() => {
-    setY(window.scrollY);
-
-    window.addEventListener("scroll", (e) => handleNavigation(e));
-  }, []);
+  const [scrollDir, setScrollDir] = useState("down");
+  const [isSimple, setIsSimple] = useState(false);
 
   return (
-    <Container toolColor={tool.colorHighlight}>
+    <Container
+      toolColor={tool.colorHighlight}
+      onWheel={(e: WheelEvent) => {
+        if (Math.abs(e.deltaY) > 5) {
+          e.deltaY > 0 ? setScrollDir("down") : setScrollDir("up");
+        }
+      }}
+      direction={scrollDir}
+    >
       <div className="column about">
         <Box>
           <h1>
@@ -160,9 +239,31 @@ export const AboutPage = ({
         )}
       </div>
       <div className="column details">
-        <Box className="toolbar">PRINT, LANGUAGE, SHARE</Box>
+        <Box className="toolbar">
+          <Icon
+            onClick={() => setIsSimple(!isSimple)}
+            aria-label="Change to simple language"
+            className="languageSwitch"
+          >
+            <MapSvgBackground type="language"  />
+            <span>
+              {isSimple ? "Show standard language" : "Show simplified language"}
+            </span>
+          </Icon>
+          <Icon
+            spaceBefore
+            aria-label="Share this page"
+          >
+            <MapSvgBackground type="share" />
+          </Icon>
+          <Icon
+            aria-label="Print this page"
+          >
+            <MapSvgBackground type="print"/>
+          </Icon>
+        </Box>
         <Box>
-          <SafeHtmlDiv html={content} />
+          <SafeHtmlDiv html={isSimple ? contentSimple : content} />
         </Box>
       </div>
     </Container>

@@ -18,7 +18,7 @@ import { Submenu } from "./Submenu";
 const GlobalStyle = createGlobalStyle`
   body {
     font-size: 1em;
-    color: #fff;
+    color: #eee;
   }
 `;
 
