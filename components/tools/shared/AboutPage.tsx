@@ -37,8 +37,8 @@ const Grid = styled.div<{ col?: number }>`
 
 const Container = styled(Grid)<{
   toolColor?: string;
-  onWheel: Function;
-  direction: string;
+  onWheel?: Function;
+  direction?: string;
 }>`
   padding: var(--size-3);
   
@@ -141,9 +141,7 @@ const Container = styled(Grid)<{
 `;
 
 const Icon = styled(ButtonNormalized)<{
-  spaceBefore: boolean;
-  onClick: Function;
-  className: String;
+  spaceBefore?: boolean;
 }>`
 
   display: flex;
