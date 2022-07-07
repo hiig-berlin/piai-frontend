@@ -1,11 +1,5 @@
 import Link from "next/link";
-import React, {
-  useState,
-  useEffect,
-  useCallback,
-  useRef,
-  WheelEvent,
-} from "react";
+import React, { useState, WheelEvent } from "react";
 import styled from "styled-components";
 import {
   ButtonNormalized,
@@ -18,6 +12,7 @@ import SafeHtmlDiv from "../../ui/SafeHtmlDiv";
 import SafeHtmlSpan from "../../ui/SafeHtmlSpan";
 import { Box } from "./ui/Box";
 import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
+import { Icon } from "../map/Icon";
 
 export type ToolAboutPageCTA = {
   title: string;
@@ -145,48 +140,6 @@ const Container = styled(Grid)<{
   }
 `;
 
-const Icon = styled(ButtonNormalized)<{
-  spaceBefore?: boolean;
-}>`
-  display: flex;
-  gap: 1em;
-  color: #fff;
-
-  opacity: 0.6;
-  transition: opacity 0.5s ease;
-
-  &:hover {
-    opacity: 1;
-  }
-
-  .svg {
-    min-height: 1.2em;
-    min-width: 1.2em;
-  }
-
-  &.languageSwitch {
-    .svg {
-      width: 1em !important;
-    }
-
-    span:last-child {
-      display: inline-block;
-
-      ${({ theme }) => theme.applyMixin("uppercase")};
-    }
-
-    &.inBox{
-      align-self: end;
-      padding: 0 0 var(--size-5);
-    }
-  }
-
-
-
-  margin-left: ${({ spaceBefore }) =>
-    spaceBefore === true ? "auto" : "unset"};
-`;
-
 export const AboutPage = ({
   tool,
   intro,
@@ -207,7 +160,7 @@ export const AboutPage = ({
   const [isSimple, setIsSimple] = useState(false);
 
   const {
-    vars: { isTabletLandscapeAndUp, },
+    vars: { isTabletLandscapeAndUp },
   } = useCssVarsContext();
 
   return (
@@ -255,36 +208,32 @@ export const AboutPage = ({
               onClick={() => setIsSimple(!isSimple)}
               aria-label="Change to simple language"
               className="languageSwitch"
+              type="language"
             >
-              <MapSvgBackground type="language" />
               <span>
                 {isSimple
                   ? "Show standard language"
                   : "Show simplified language"}
               </span>
             </Icon>
-            <Icon spaceBefore aria-label="Share this page">
-              <MapSvgBackground type="share" />
-            </Icon>
-            <Icon aria-label="Print this page">
-              <MapSvgBackground type="print" />
-            </Icon>
+            <Icon type="share" spaceBefore aria-label="Share this page"></Icon>
+            <Icon aria-label="Print this page" type="print"></Icon>
           </Box>
         )}
         <Box>
           {!isTabletLandscapeAndUp && (
             <Icon
-            onClick={() => setIsSimple(!isSimple)}
-            aria-label="Change to simple language"
-            className="languageSwitch inBox"
-          >
-            <MapSvgBackground type="language" />
-            <span>
-              {isSimple
-                ? "Show standard language"
-                : "Show simplified language"}
-            </span>
-          </Icon>
+              onClick={() => setIsSimple(!isSimple)}
+              aria-label="Change to simple language"
+              className="languageSwitch inBox"
+              type="language"
+            >
+              <span>
+                {isSimple
+                  ? "Show standard language"
+                  : "Show simplified language"}
+              </span>
+            </Icon>
           )}
           <SafeHtmlDiv html={isSimple ? contentSimple : content} />
         </Box>
