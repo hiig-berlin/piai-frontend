@@ -17,6 +17,7 @@ import { LabElement } from "../../ui/LabElement";
 import SafeHtmlDiv from "../../ui/SafeHtmlDiv";
 import SafeHtmlSpan from "../../ui/SafeHtmlSpan";
 import { Box } from "./ui/Box";
+import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
 
 export type ToolAboutPageCTA = {
   title: string;
@@ -92,8 +93,12 @@ const Container = styled(Grid)<{
       a {
         color: ${({ toolColor }) => toolColor || "#fff"};
         border-color: color: ${({ toolColor }) => toolColor || "#fff"};
-        float: right;
-        display: inline-block;
+        align-self: end;
+        margin-right: 0;
+        &:hover{
+          margin-right: -0.3em
+        }
+          
       }
     }
 
@@ -104,7 +109,7 @@ const Container = styled(Grid)<{
   & .column.details{
 
     .toolbar{
-      display: flex;
+      flex-direction: row;
       justify-content: space-between;
       gap: var(--size-2);
 
@@ -143,14 +148,14 @@ const Container = styled(Grid)<{
 const Icon = styled(ButtonNormalized)<{
   spaceBefore?: boolean;
 }>`
-
   display: flex;
+  gap: 1em;
   color: #fff;
 
   opacity: 0.6;
   transition: opacity 0.5s ease;
 
-  &:hover{
+  &:hover {
     opacity: 1;
   }
 
@@ -159,24 +164,27 @@ const Icon = styled(ButtonNormalized)<{
     min-width: 1.2em;
   }
 
-  &.languageSwitch{
-    .svg{
+  &.languageSwitch {
+    .svg {
       width: 1em !important;
     }
 
     span:last-child {
       display: inline-block;
-      margin: 0 1em;
-  
+
       ${({ theme }) => theme.applyMixin("uppercase")};
-  
+    }
+
+    &.inBox{
+      align-self: end;
+      padding: 0 0 var(--size-5);
     }
   }
 
-  
 
-  margin-left: ${({ spaceBefore }) => spaceBefore === true ? "auto" : "unset"}
 
+  margin-left: ${({ spaceBefore }) =>
+    spaceBefore === true ? "auto" : "unset"};
 `;
 
 export const AboutPage = ({
@@ -197,6 +205,10 @@ export const AboutPage = ({
 
   const [scrollDir, setScrollDir] = useState("down");
   const [isSimple, setIsSimple] = useState(false);
+
+  const {
+    vars: { isTabletLandscapeAndUp, },
+  } = useCssVarsContext();
 
   return (
     <Container
@@ -237,30 +249,43 @@ export const AboutPage = ({
         )}
       </div>
       <div className="column details">
-        <Box className="toolbar">
-          <Icon
+        {isTabletLandscapeAndUp && (
+          <Box className="toolbar">
+            <Icon
+              onClick={() => setIsSimple(!isSimple)}
+              aria-label="Change to simple language"
+              className="languageSwitch"
+            >
+              <MapSvgBackground type="language" />
+              <span>
+                {isSimple
+                  ? "Show standard language"
+                  : "Show simplified language"}
+              </span>
+            </Icon>
+            <Icon spaceBefore aria-label="Share this page">
+              <MapSvgBackground type="share" />
+            </Icon>
+            <Icon aria-label="Print this page">
+              <MapSvgBackground type="print" />
+            </Icon>
+          </Box>
+        )}
+        <Box>
+          {!isTabletLandscapeAndUp && (
+            <Icon
             onClick={() => setIsSimple(!isSimple)}
             aria-label="Change to simple language"
-            className="languageSwitch"
+            className="languageSwitch inBox"
           >
-            <MapSvgBackground type="language"  />
+            <MapSvgBackground type="language" />
             <span>
-              {isSimple ? "Show standard language" : "Show simplified language"}
+              {isSimple
+                ? "Show standard language"
+                : "Show simplified language"}
             </span>
           </Icon>
-          <Icon
-            spaceBefore
-            aria-label="Share this page"
-          >
-            <MapSvgBackground type="share" />
-          </Icon>
-          <Icon
-            aria-label="Print this page"
-          >
-            <MapSvgBackground type="print"/>
-          </Icon>
-        </Box>
-        <Box>
+          )}
           <SafeHtmlDiv html={isSimple ? contentSimple : content} />
         </Box>
       </div>

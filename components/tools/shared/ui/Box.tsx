@@ -6,6 +6,8 @@ const BoxWrapper = styled.div`
   background: #000;
 
   padding: var(--size-4);
+  display: inline-flex;
+  flex-direction: column;
 
   ${({ theme }) => theme.breakpoints.tablet} {
     padding: var(--size-3);
