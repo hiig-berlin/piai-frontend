@@ -108,7 +108,7 @@ const ToggleBox = styled(ButtonNormalized)`
   & p {
     padding-top: 20px;
     font-size: calc(var(--text-body-font-size));
-    color: var(--color-text-grey);
+    color: var(--color-text-muted);
 
     ${({ theme }) => theme.breakpoints.desktop} {
       font-size: calc(var(--text-body-font-size) * 0.85);

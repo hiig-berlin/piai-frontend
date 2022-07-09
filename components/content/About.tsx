@@ -167,7 +167,7 @@ const Infobox = styled.article`
     padding-top: 20px;
     padding-bottom: 0;
     font-size: calc(var(--text-body-font-size) * 0.85);
-    color: var(--color-text-grey);
+    color: var(--color-text-muted);
     margin: 0;
     max-width: 100%;
   }
@@ -178,7 +178,7 @@ const Infobox = styled.article`
     text-align: right;
     display: block;
     ${({ theme }) => theme.applyMixin("uppercase")}
-    color: var(--color-text-grey);
+    color: var(--color-text-muted);
     font-weight: 700;
     font-size: 0.9em;
 
@@ -195,7 +195,7 @@ const Infobox = styled.article`
       top: 0.02em;
 
       path {
-        fill: var(--color-text-grey);
+        fill: var(--color-text-muted);
       }
     }
   }

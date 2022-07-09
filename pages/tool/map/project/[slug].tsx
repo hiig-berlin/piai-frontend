@@ -21,6 +21,7 @@ import { Box } from "~/components/tools/shared/ui/Box";
 import SafeHtmlDiv from "~/components/ui/SafeHtmlDiv";
 import { defaultMaxListeners } from "events";
 import { Icon } from "~/components/tools/map/Icon";
+import { ProjectCard } from "~/components/tools/map/ProjectCard";
 
 const Container = styled.main<{
   toolColor?: string;
@@ -178,10 +179,7 @@ const Project = ({ data, tool }: { data: any; tool: PiAiTool }) => {
         direction={scrollDir}
       >
         <div className="column about">
-          <Box>
-            <h1>{data.title}</h1>
-            <SafeHtmlDiv html={data.shortDescription} />
-          </Box>
+          <ProjectCard view="detail" data={data} />
           {/* {cta?.title && (
             <Box className="cta">
               <h3>

@@ -2,23 +2,37 @@ import styled, { css } from "styled-components";
 import { ButtonNormalized } from "~/components/styled/Button";
 import { MapSvgBackground } from "./MapSvgBackground";
 
-const IconContainer = styled(ButtonNormalized)<{
-  spaceBefore?: boolean;
-}>`
+const baseStyling = css<{  spaceBefore?: boolean;}>`
   display: flex;
   gap: 1em;
   color: #fff;
+
+  .svg {
+    min-height: 1.2em;
+    min-width: 1.2em;
+    flex: 1em 0 0;
+  }
+
+  margin-left: ${({ spaceBefore }) =>
+    spaceBefore === true ? "auto" : "unset"};
+
+`
+
+const IconStatic = styled.li`
+  ${baseStyling}
+`
+
+
+const IconButton = styled(ButtonNormalized)<{
+  spaceBefore?: boolean;
+}>`
+  ${baseStyling}
 
   opacity: 0.6;
   transition: opacity 0.5s ease;
 
   &:hover {
     opacity: 1;
-  }
-
-  .svg {
-    min-height: 1.2em;
-    min-width: 1.2em;
   }
 
   &.languageSwitch {
@@ -37,9 +51,7 @@ const IconContainer = styled(ButtonNormalized)<{
       padding: 0 0 var(--size-5);
     }
   }
-
-  margin-left: ${({ spaceBefore }) =>
-    spaceBefore === true ? "auto" : "unset"};
+  
 `;
 
 // export const ButtonNormalized = styled.button`
@@ -117,21 +129,35 @@ export const Icon = ({
   children,
   onClick,
   className,
+  stc,
 }: {
   type: string;
   spaceBefore?: boolean;
   children?: any;
   onClick?: any;
   className?: string;
+  stc?: boolean;
 }) => {
-  return (
-    <IconContainer
-      spaceBefore={spaceBefore}
-      onClick={onClick}
-      className={className}
-    >
-      <MapSvgBackground type={type} />
-      {children && children}
-    </IconContainer>
-  );
+  if (stc) {
+    return (
+      <IconStatic
+        spaceBefore={spaceBefore}
+        className={className}
+      >
+         <MapSvgBackground type={type} />
+        {children && children}
+      </IconStatic>
+    );
+    }else{
+    return (
+      <IconButton
+        spaceBefore={spaceBefore}
+        onClick={onClick}
+        className={className}
+      >
+        <MapSvgBackground type={type} />
+        {children && children}
+      </IconButton>
+    );
+    }
 };

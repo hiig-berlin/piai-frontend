@@ -24,6 +24,8 @@ export const GlobalStyle = createGlobalStyle`
 
     background-color: ${({ theme }) =>
       theme.colorMode === "dark" ? "var(--color-bg-tool)" : "var(--color-bg)"};
+    color: ${({ theme }) =>
+    theme.colorMode === "dark" ? "var(--color-text-muted-dark)" : "var(--color-text-muted)"};
   }
 
   p {
@@ -49,6 +51,11 @@ export const GlobalStyle = createGlobalStyle`
 
   h4, .h4 {
     ${({ theme }) => theme.textStyle("h4", true)}
+  }
+
+  h1, .h1, h2, .h2, h3, .h3, h4, .h4{
+    color: ${({ theme }) =>
+    theme.colorMode === "dark" ? "var(--color-text-dark)" : "var(--color-text)"};
   }
 
   small {

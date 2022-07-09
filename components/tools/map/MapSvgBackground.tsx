@@ -10,6 +10,8 @@ import Svgprint from "../../svgs/Svgprint";
 import Svgsearch from "../../svgs/Svgsearch";
 import Svgfilter from "../../svgs/Svgfilter";
 import Svgshare from "~/components/svgs/Svgshare";
+import Svgmarker from "~/components/svgs/Svgmarker";
+import Svgcompany from "~/components/svgs/Svgcompany";
 import SvglanguageNeg from "~/components/svgs/SvglanguageNeg";
 
 // use https://jakearchibald.github.io/svgomg/
@@ -83,6 +85,14 @@ export const MapSvgBackground = ({
 
     case "language":
       activeSvg = SvglanguageNeg;
+      break;
+
+    case "marker":
+      activeSvg = Svgmarker;
+      break;
+
+    case "company":
+      activeSvg = Svgcompany;
       break;
   }
   return (
