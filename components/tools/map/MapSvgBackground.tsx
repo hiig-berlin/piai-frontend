@@ -18,6 +18,8 @@ import Svgback from "~/components/svgs/Svgback";
 import Svgcalendar from "~/components/svgs/Svgcalendar";
 import Svgcode from "~/components/svgs/Svgcode";
 import Svgtransgender from "~/components/svgs/Svgtransgender";
+import SvgarrowsExpand from "~/components/svgs/SvgarrowsExpand";
+import SvgarrowsCollapse from "~/components/svgs/SvgarrowsCollapse";
 
 // use https://jakearchibald.github.io/svgomg/
 // use https://yoksel.github.io/url-encoder/
@@ -114,10 +116,19 @@ export const MapSvgBackground = ({
     case "code":
       activeSvg = Svgcode;
       break;
-      
+
     case "genders":
       activeSvg = Svgtransgender;
       break;
+
+    case "expand":
+      activeSvg = SvgarrowsExpand;
+      break;
+
+    case "collapse":
+      activeSvg = SvgarrowsCollapse;
+      break;
+
   }
   return (
     <span

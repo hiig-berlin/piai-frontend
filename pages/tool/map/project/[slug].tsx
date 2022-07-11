@@ -231,7 +231,7 @@ const Project = ({ data, tool }: { data: any; tool: PiAiTool }) => {
                 type={isCollapsed ? "expand" : "collapse"}
               >
                 <span>
-                  {isCollapsed ? "Expand all alswers" : "Collapse all answers"}
+                  {isCollapsed ? "Expand all answers" : "Collapse all answers"}
                 </span>
               </Icon>
               <Icon type="share" spaceBefore aria-label="Share this page" />

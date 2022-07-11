@@ -19,6 +19,13 @@ const baseStyling = css<{ spaceBefore?: boolean }>`
 
 const IconStatic = styled.li`
   ${baseStyling}
+
+  & a {
+    // max-height: 1.3em;
+    // overflow: hidden;
+    // white-space: nowrap;
+    // text-overflow: ellipsis;
+  }
 `;
 
 const IconButton = styled(ButtonNormalized)<{
