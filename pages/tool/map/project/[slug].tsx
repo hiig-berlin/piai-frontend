@@ -250,7 +250,7 @@ const Project = ({ data, tool }: { data: any; tool: PiAiTool }) => {
                           <Question
                             question={q.question}
                             key={`question-${index}-${i}`}
-                            expanded={index === 0 && i === 0 && true}
+                            expanded={index === 0 && i === 0}
                           >
                             {q.answer}
                           </Question>
