@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import SafeHtmlDiv from "~/components/ui/SafeHtmlDiv";
 import SvgarrowsExpand from "~/components/svgs/SvgarrowsExpand";
@@ -31,6 +31,10 @@ export const Question = ({
   children: any;
 }) => {
   const [isExpanded, setIsExpanded] = useState(expanded);
+
+  useEffect(() => {
+    setIsExpanded(expanded);
+  }, [expanded]);
 
   return (
     <QuestionWrapper>
