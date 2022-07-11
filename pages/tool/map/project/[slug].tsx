@@ -36,10 +36,9 @@ const Container = styled.main<{
 
   ${({ theme }) => theme.breakpoints.tabletLandscape} {
     grid-template-columns: 2fr 3fr;
-  } 
+  }
 
   padding: var(--size-3);
-  
 
   ${({ theme }) => theme.breakpoints.tablet} {
     padding-right: 100px;
@@ -52,29 +51,27 @@ const Container = styled.main<{
   }
 
   & .column.about {
-
     ${({ theme }) => theme.breakpoints.tabletLandscape} {
       position: sticky;
-    // Prevent jumping on scroll change  
-    // if column shorter than 100vh
-    min-height: calc(100vh - 2 * var(--size-3));
+      // Prevent jumping on scroll change
+      // if column shorter than 100vh
+      min-height: calc(100vh - 2 * var(--size-3));
 
-    // Move left column in the beginning
-    // of the scroll vs. the end 
-    ${({ direction }) =>
-      direction === "up"
-        ? `
+      // Move left column in the beginning
+      // of the scroll vs. the end
+      ${({ direction }) =>
+        direction === "up"
+          ? `
     
         align-self: start;
         top: var(--size-3);
     `
-        : `
+          : `
         align-self: end;
         bottom: var(--size-3);
       
     `}
     }
- 
 
     .labElement {
       margin-bottom: var(--size-3);
@@ -82,30 +79,25 @@ const Container = styled.main<{
 
     .cta {
       color: ${({ toolColor }) => toolColor || "#fff"};
-  
-      h3{
+
+      h3 {
         font-size: 1.1em;
       }
-  
+
       a {
         color: ${({ toolColor }) => toolColor || "#fff"};
-        border-color: color: ${({ toolColor }) => toolColor || "#fff"};
+        border-color: ${({ toolColor }) => toolColor || "#fff"};
         align-self: end;
         margin-right: 0;
-        &:hover{
-          margin-right: -0.3em
+        &:hover {
+          margin-right: -0.3em;
         }
-          
       }
     }
-
   }
 
-  
-
-  & .column.details{
-
-    .toolbar{
+  & .column.details {
+    .toolbar {
       flex-direction: row;
       justify-content: space-between;
       gap: var(--size-2);
@@ -119,29 +111,28 @@ const Container = styled.main<{
       ${({ theme }) => theme.breakpoints.tablet} {
         padding: var(--size-2) var(--size-3);
       }
-      
     }
 
-    h2{
+    h2 {
       ${({ theme }) => theme.applyMixin("uppercase")};
       color: #fff;
       font-size: 1.3em;
     }
 
-    h3{
+    h3 {
       text-transform: none;
       color: #fff;
       font-size: 1em;
       font-weight: 700;
     }
-    
   }
 
-  p + h2, p + h3, p + h4{
+  p + h2,
+  p + h3,
+  p + h4 {
     margin-top: var(--size-4);
   }
-
-  `;
+`;
 
 const Project = ({ data, tool }: { data: any; tool: PiAiTool }) => {
   const [scrollDir, setScrollDir] = useState("down");
@@ -250,7 +241,7 @@ const Project = ({ data, tool }: { data: any; tool: PiAiTool }) => {
                           <Question
                             question={q.question}
                             key={`question-${index}-${i}`}
-                            expanded={index === 0 && i === 0 && true}
+                            expanded={(index === 0 && i === 0) || !isCollapsed}
                           >
                             {q.answer}
                           </Question>
