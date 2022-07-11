@@ -4,24 +4,29 @@ import SafeHtmlDiv from "~/components/ui/SafeHtmlDiv";
 import SvgarrowsExpand from "~/components/svgs/SvgarrowsExpand";
 import SvgarrowsCollapse from "~/components/svgs/SvgarrowsCollapse";
 
-
-const QuestionWrapper = styled.div<{expanded: Boolean;}>`
+const QuestionWrapper = styled.div<{ expanded: Boolean }>`
   h3 {
     text-transform: none;
     margin-bottom: 5px;
     font-size: inherit;
     font-weight: 700;
+    cursor: pointer;
+    display: inline-block;
+    padding-right: 1.5em;
 
     &:hover{
-      background-position: top right;
-      background-reapeat: no-repeat;
-      background-image: `url('data:image/svg+xml,${}')`;
-    }
+      opacity: 0.8;
+      background-position: right 0.2em;
+      background-repeat: no-repeat;
+      background-size: 0.8em;
+      background-image: url('data:image/svg+xml,${({ expanded }) =>
+        expanded ? SvgarrowsCollapse : SvgarrowsExpand}');
+    }s
   }
 `;
 export const Question = ({
   question,
-  expanded = false,
+  expanded = true,
   showAlways = false,
   children,
 }: {
@@ -37,8 +42,10 @@ export const Question = ({
   }, [expanded]);
 
   return (
-    <QuestionWrapper>
-      <h3 onClick={() => setIsExpanded(!isExpanded)} expanded={expanded}>{question}</h3>
+    <QuestionWrapper expanded={isExpanded}>
+      <h3 role="button" onClick={() => setIsExpanded(!isExpanded)}>
+        {question}
+      </h3>
       {(isExpanded || showAlways) && <SafeHtmlDiv html={children} />}
     </QuestionWrapper>
   );

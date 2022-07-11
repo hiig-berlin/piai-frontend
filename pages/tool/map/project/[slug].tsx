@@ -24,6 +24,7 @@ import { ProjectCard } from "~/components/tools/map/ProjectCard";
 import { useRouter } from "next/router";
 import { Meta } from "~/components/tools/map/Styled";
 import { Question } from "~/components/tools/map/Question";
+import { FALSE } from "sass";
 
 const Container = styled.main<{
   toolColor?: string;
@@ -241,7 +242,7 @@ const Project = ({ data, tool }: { data: any; tool: PiAiTool }) => {
                           <Question
                             question={q.question}
                             key={`question-${index}-${i}`}
-                            expanded={(index === 0 && i === 0) || !isCollapsed}
+                            expanded={!isCollapsed}
                           >
                             {q.answer}
                           </Question>
