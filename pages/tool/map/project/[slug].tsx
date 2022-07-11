@@ -1,7 +1,6 @@
 import React, { ReactElement, useState, WheelEvent } from "react";
 import type { GetStaticProps, GetStaticPaths } from "next";
 import NextHeadSeo from "next-head-seo";
-
 import Layout from "~/components/tools/map/Layout";
 import {
   restApiGetPostBySlugOrFallbackId,
@@ -22,6 +21,9 @@ import SafeHtmlDiv from "~/components/ui/SafeHtmlDiv";
 import { defaultMaxListeners } from "events";
 import { Icon } from "~/components/tools/map/Icon";
 import { ProjectCard } from "~/components/tools/map/ProjectCard";
+import { useRouter } from "next/router";
+import { Meta } from "~/components/tools/map/Styled";
+import { Question } from "~/components/tools/map/Question";
 
 const Container = styled.main<{
   toolColor?: string;
@@ -143,11 +145,13 @@ const Container = styled.main<{
 
 const Project = ({ data, tool }: { data: any; tool: PiAiTool }) => {
   const [scrollDir, setScrollDir] = useState("down");
-  const [isSimple, setIsSimple] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   const {
     vars: { isTabletLandscapeAndUp },
   } = useCssVarsContext();
+
+  const router = useRouter();
 
   // TODO: Remove this when dynamic content
   data = staticData;
@@ -178,58 +182,83 @@ const Project = ({ data, tool }: { data: any; tool: PiAiTool }) => {
         }}
         direction={scrollDir}
       >
-        <div className="column about">
-          <ProjectCard view="detail" data={data} />
-          {/* {cta?.title && (
-            <Box className="cta">
-              <h3>
-                <SafeHtmlSpan html={cta.title} />
-              </h3>
-              <SafeHtmlDiv html={cta.text} />
+        {/*   LEFT COLUMN
+        ========================================= */}
 
-              {cta?.url && cta?.linkTitle && (
-                <Link href={cta?.url} passHref>
-                  <LinkButtonAnimated>{cta?.linkTitle}</LinkButtonAnimated>
-                </Link>
+        <div className="column about">
+          <Icon
+            onClick={() => router.back()}
+            aria-label="Back to previous view"
+            className="textLink back"
+            type="back"
+            nonMuted
+          >
+            <span>back</span>
+          </Icon>
+          <ProjectCard view="detail" data={data} />
+          <Box>
+            <h3>Contact</h3>
+            <Meta col={1}>
+              {data.contact.website && (
+                <Icon type="globe" link>
+                  {data.contact.website}
+                </Icon>
               )}
-            </Box>
-          )} */}
+              {data.contact.repository && (
+                <Icon type="repository" link>
+                  {data.contact.repository}
+                </Icon>
+              )}
+              {data.contact.furtherLink && (
+                <Icon type="link" link>
+                  {data.contact.furtherLink}
+                </Icon>
+              )}
+            </Meta>
+          </Box>
         </div>
+
+        {/*   RIGHT COLUMN
+        ========================================= */}
+
         <div className="column details">
           {isTabletLandscapeAndUp && (
             <Box className="toolbar">
               <Icon
-                onClick={() => setIsSimple(!isSimple)}
+                onClick={() => setIsCollapsed(!isCollapsed)}
                 aria-label="Change to simple language"
                 className="languageSwitch"
-                type="language"
+                type={isCollapsed ? "expand" : "collapse"}
               >
                 <span>
-                  {isSimple
-                    ? "Show standard language"
-                    : "Show simplified language"}
+                  {isCollapsed ? "Expand all alswers" : "Collapse all answers"}
                 </span>
               </Icon>
-              <Icon type="share" spaceBefore aria-label="Share this page"  />
-              <Icon type="print" aria-label="Print this page" ></Icon>
+              <Icon type="share" spaceBefore aria-label="Share this page" />
+              <Icon type="print" aria-label="Print this page"></Icon>
             </Box>
           )}
           <Box>
-            {!isTabletLandscapeAndUp && (
-              <Icon
-                onClick={() => setIsSimple(!isSimple)}
-                aria-label="Change to simple language"
-                className="languageSwitch inBox"
-                type="language"
-              >
-                <span>
-                  {isSimple
-                    ? "Show standard language"
-                    : "Show simplified language"}
-                </span>
-              </Icon>
-            )}
-            <SafeHtmlDiv html={isSimple ? "" : "content"} />
+            {data?.details?.length > 0 &&
+              data?.details?.map((s: any, index: Number) => {
+                return (
+                  <>
+                    <h2>{s.section}</h2>
+                    {s.questions?.length > 0 &&
+                      s.questions.map((q: any, i: Number) => {
+                        return (
+                          <Question
+                            question={q.question}
+                            key={`question-${index}-${i}`}
+                            expanded={index === 0 && i === 0 && true}
+                          >
+                            {q.answer}
+                          </Question>
+                        );
+                      })}
+                  </>
+                );
+              })}
           </Box>
         </div>
       </Container>
@@ -310,6 +339,14 @@ const staticData = {
       female: 30,
       diverse: 0,
     },
+    funding: "other",
+    fundingOther: "",
+    sector:
+      "Information and communication, Financial and insurance activities, Administrative and support service activities",
+    usageAI:
+      "Natural Language Processing, Data Management and Analysis, Information Retrieval",
+    generationAI: "Deep Learning (CNN, Transformers, etc.)",
+    modelTraining: "Semi-supervised Learning",
   },
   contact: {
     responsiblePerson: "Eric Cartman, South Park Archives",
@@ -320,9 +357,58 @@ const staticData = {
   },
   details: [
     {
-      question: "This is a question",
-      answer:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      section: "Motivation and values",
+      questions: [
+        {
+          question:
+            "What in your view defines the public interest and how does your project meet this purpose?",
+          answer:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        },
+        {
+          question: "How did the idea of your project come about?",
+          answer:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        },
+        {
+          question:
+            "Did you follow one or more guidelines for ethical AI, and if yes, which one?",
+          answer:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        },
+        {
+          question: "What are your top 5 guiding-values for the project?",
+          answer:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        },
+      ],
+    },
+    {
+      section: "Design and safeguards",
+      questions: [
+        {
+          question:
+            "Define the type of primary users that interact with the system.",
+          answer:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        },
+        {
+          question: "How did the idea of your project come about?",
+          answer:
+            "Which stakeholders were involved in the process of development and implementation of the project?",
+        },
+        {
+          question: "How did you engage relevant stakeholders?",
+          answer:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        },
+        {
+          question:
+            "Did you apply specific methods of participatory design, and if yes, which ones?",
+          answer:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        },
+      ],
     },
   ],
 };

@@ -8,12 +8,22 @@ const BoxWrapper = styled.div`
   padding: var(--size-4);
   display: inline-flex;
   flex-direction: column;
+  gap: var(--size-3);
 
   ${({ theme }) => theme.breakpoints.tablet} {
     padding: var(--size-3);
   }
 
-  
+  & > h1, 
+  & > h2, 
+  &> h3, 
+  &> h4, 
+  &> h5, 
+  &> h6, 
+  &> p, 
+  &> ul{
+    margin: 0;
+  }
 
   & p:first-child,
   & h2:first-child,

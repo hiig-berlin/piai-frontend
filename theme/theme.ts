@@ -285,6 +285,7 @@ export const theme = {
         fontWeight: 300,
         fontStyle: "normal",
         fontSize: "20px",
+        fontSizeTool: "16px",
         marginBottom: "0.6em",
         lineHeight: "1.3em",
         color: "var(--color-text-muted)",

@@ -75,11 +75,13 @@ const Container = styled(Grid)<{
  
 
     .labElement {
-      margin-bottom: var(--size-3);
+      // margin-bottom: var(--size-1);
     }
 
     .cta {
-      color: ${({ toolColor }) => toolColor || "#fff"};
+      & * {
+        color: ${({ toolColor }) => toolColor || "#fff"}
+      }
   
       h3{
         font-size: 1.1em;
@@ -181,7 +183,7 @@ export const AboutPage = ({
               longText={tool.iconLong}
               color="white"
               hoverColor={tool.colorHighlight}
-              size={1.5}
+              size={2}
             />
           </h1>
           <SafeHtmlDiv html={intro} />

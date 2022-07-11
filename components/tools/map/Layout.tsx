@@ -17,8 +17,8 @@ import { Submenu } from "./Submenu";
 
 const GlobalStyle = createGlobalStyle`
   body {
-    font-size: 1em;
-    color: #eee;
+    // font-size: 1em;
+    // color: #eee;
   }
 `;
 
@@ -42,6 +42,7 @@ const ContentContainer = styled.div<{ isTransparent: boolean }>`
   z-index: 0;
   height: 100%;
   overflow-y: auto;
+  overscroll-behavior: none;
 
   ${({ isTransparent }) =>
     isTransparent

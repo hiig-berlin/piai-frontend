@@ -2,9 +2,9 @@ import styled, { css } from "styled-components";
 import { ButtonNormalized } from "~/components/styled/Button";
 import { MapSvgBackground } from "./MapSvgBackground";
 
-const baseStyling = css<{  spaceBefore?: boolean;}>`
+const baseStyling = css<{ spaceBefore?: boolean }>`
   display: flex;
-  gap: 1em;
+  gap: var(--size-1);
   color: #fff;
 
   .svg {
@@ -15,34 +15,34 @@ const baseStyling = css<{  spaceBefore?: boolean;}>`
 
   margin-left: ${({ spaceBefore }) =>
     spaceBefore === true ? "auto" : "unset"};
-
-`
+`;
 
 const IconStatic = styled.li`
   ${baseStyling}
-`
-
+`;
 
 const IconButton = styled(ButtonNormalized)<{
   spaceBefore?: boolean;
+  nonMuted?: boolean;
 }>`
   ${baseStyling}
 
-  opacity: 0.6;
+  opacity: ${({ nonMuted }) => (nonMuted === true ? "1" : "0.6")};
   transition: opacity 0.5s ease;
 
   &:hover {
-    opacity: 1;
+    opacity: ${({ nonMuted }) => (nonMuted === true ? "0.6" : "1")};
   }
 
-  &.languageSwitch {
+  &.languageSwitch,
+  &.textLink {
     .svg {
       width: 1em !important;
+      align-self: center;
     }
 
     span:last-child {
       display: inline-block;
-
       ${({ theme }) => theme.applyMixin("uppercase")};
     }
 
@@ -51,77 +51,21 @@ const IconButton = styled(ButtonNormalized)<{
       padding: 0 0 var(--size-5);
     }
   }
-  
+
+  &.textLink.back {
+    margin: var(--size-2) var(--size-1);
+
+    .svg {
+      background-size: 54% !important;
+      background-position: center !important;
+      align-self: center;
+    }
+
+    span:last-child {
+      font-weight: 700;
+    }
+  }
 `;
-
-// export const ButtonNormalized = styled.button`
-//   font-family: var(--text-family-sans-serif);
-//   border: none;
-//   background: none;
-//   cursor: pointer;
-//   padding: 0;
-//   margin: 0;
-//   position: relative;
-//   appearance: none;
-//   user-select: none;
-//   color: #000;
-// `;
-
-// const baseStyling = css`
-//   border: 2px solid;
-//   border-color: inherit;
-
-//   padding: 0.5em 1em;
-//   margin: var(--size-2);
-
-//   color: inherit;
-//   font-family: var(--font-family-sans-serif);
-//   font-weight: bold;
-//   font-size: 0.8em;
-//   ${({ theme }) => theme.applyMixin("uppercase")};
-
-//   transition: all ease 0.5s;
-// `
-
-// const animated = css`
-//   &:active {
-//     background: rgba(0, 0, 0, 0.2);
-//     padding-left: 1.3em;
-//     padding-right: 1.3em;
-//     margin-left: calc(var(--size-2) - 0.3em);
-//     margin-right: calc(var(--size-2) - 0.3em);
-//   }
-
-//   @media (any-pointer: fine) {
-//     &:hover {
-//       background: rgba(0, 0, 0, 0.2);
-//       padding-left: 1.3em;
-//       padding-right: 1.3em;
-//       margin-left: calc(var(--size-2) - 0.3em);
-//       margin-right: calc(var(--size-2) - 0.3em);
-//     }
-//   }
-// `
-
-// export const Button = styled(ButtonNormalized)`
-//   ${baseStyling}
-//   ${animated}
-// `;
-
-// export const LinkButton = styled.a`
-//   ${baseStyling}
-//   color: #fff;
-//   border-color: #fff;
-
-//   &:visited,
-//   &:link {
-//     color: #fff;
-//   }
-// `;
-
-// export const LinkButtonAnimated = styled(LinkButton)`
-//   ${animated}
-// `;
 
 export const Icon = ({
   type,
@@ -130,6 +74,8 @@ export const Icon = ({
   onClick,
   className,
   stc,
+  nonMuted,
+  link,
 }: {
   type: string;
   spaceBefore?: boolean;
@@ -137,27 +83,36 @@ export const Icon = ({
   onClick?: any;
   className?: string;
   stc?: boolean;
+  nonMuted?: boolean;
+  link?: boolean;
 }) => {
   if (stc) {
     return (
-      <IconStatic
-        spaceBefore={spaceBefore}
-        className={className}
-      >
-         <MapSvgBackground type={type} />
+      <IconStatic spaceBefore={spaceBefore} className={className}>
+        <MapSvgBackground type={type} />
         {children && children}
       </IconStatic>
     );
-    }else{
+  } else if (link) {
+    return (
+      <IconStatic className={className}>
+        <MapSvgBackground type={type} />
+        <a href="{children}" target="_blank" rel="nofollow noreferrer">
+          {children}
+        </a>
+      </IconStatic>
+    );
+  } else {
     return (
       <IconButton
         spaceBefore={spaceBefore}
         onClick={onClick}
         className={className}
+        nonMuted={nonMuted}
       >
         <MapSvgBackground type={type} />
         {children && children}
       </IconButton>
     );
-    }
+  }
 };

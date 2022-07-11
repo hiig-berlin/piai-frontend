@@ -21,11 +21,12 @@ export const GlobalStyle = createGlobalStyle`
 
   body {
     ${({ theme }) => theme.textStyle("body")}
-
+    font-size: ${({ theme }) =>
+      theme.colorMode === "dark" ? "var(--text-font-body-size-tool)" : "var(--text-body-font-size)"};
     background-color: ${({ theme }) =>
       theme.colorMode === "dark" ? "var(--color-bg-tool)" : "var(--color-bg)"};
     color: ${({ theme }) =>
-    theme.colorMode === "dark" ? "var(--color-text-muted-dark)" : "var(--color-text-muted)"};
+      theme.colorMode === "dark" ? "var(--color-text-muted-dark)" : "var(--color-text-muted)"};
   }
 
   p {

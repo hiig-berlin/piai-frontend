@@ -1,18 +1,23 @@
 import React from "react";
-import SvgMap from "../../svgs/SvgMap";
-import Svgglobe from "../../svgs/Svgglobe";
-import Svgmoney from "../../svgs/Svgmoney";
-import Svgpeople from "../../svgs/Svgpeople";
-import Svgrepo from "../../svgs/Svgrepo";
-import Svglink from "../../svgs/Svglink";
-import Svglist from "../../svgs/Svglist";
-import Svgprint from "../../svgs/Svgprint";
-import Svgsearch from "../../svgs/Svgsearch";
-import Svgfilter from "../../svgs/Svgfilter";
+import SvgMap from "~/components/svgs/SvgMap";
+import Svgglobe from "~/components/svgs/Svgglobe";
+import Svgmoney from "~/components/svgs/Svgmoney";
+import Svgpeople from "~/components/svgs/Svgpeople";
+import Svgrepo from "~/components/svgs/Svgrepo";
+import Svglink from "~/components/svgs/Svglink";
+import Svglist from "~/components/svgs/Svglist";
+import Svgprint from "~/components/svgs/Svgprint";
+import Svgsearch from "~/components/svgs/Svgsearch";
+import Svgfilter from "~/components/svgs/Svgfilter";
 import Svgshare from "~/components/svgs/Svgshare";
 import Svgmarker from "~/components/svgs/Svgmarker";
 import Svgcompany from "~/components/svgs/Svgcompany";
 import SvglanguageNeg from "~/components/svgs/SvglanguageNeg";
+import SvgcheckAll from "~/components/svgs/Svgcheckall";
+import Svgback from "~/components/svgs/Svgback";
+import Svgcalendar from "~/components/svgs/Svgcalendar";
+import Svgcode from "~/components/svgs/Svgcode";
+import Svgtransgender from "~/components/svgs/Svgtransgender";
 
 // use https://jakearchibald.github.io/svgomg/
 // use https://yoksel.github.io/url-encoder/
@@ -93,6 +98,25 @@ export const MapSvgBackground = ({
 
     case "company":
       activeSvg = Svgcompany;
+      break;
+    case "checkAll":
+      activeSvg = SvgcheckAll;
+      break;
+
+    case "back":
+      activeSvg = Svgback;
+      break;
+
+    case "calendar":
+      activeSvg = Svgcalendar;
+      break;
+
+    case "code":
+      activeSvg = Svgcode;
+      break;
+      
+    case "genders":
+      activeSvg = Svgtransgender;
       break;
   }
   return (
