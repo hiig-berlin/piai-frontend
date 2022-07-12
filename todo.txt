@@ -2,6 +2,8 @@
 +++++ TODO: Frontend ++++++++++++++++++++++++
 +++++++++++++++++++++++++++++++++++++++++++++
 
+- Fix jumping map layout because of scrollbar.
+
 - User Tracking (Matomo)
   - cookie popup... 
     - cookies or local storage ... 
