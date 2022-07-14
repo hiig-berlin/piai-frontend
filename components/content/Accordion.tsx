@@ -49,8 +49,11 @@ const Pillars = styled.div<{ marginBottom?: number }>`
   }
 
   ${({ theme }) => theme.breakpoints.desktop} {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     grid-auto-rows: auto;
+    gap: calc(var(--size-gutter-width) * 1);
+    margin-left: calc(0px - var(--size-page-margin) / 2);
+    margin-right: calc(0px - var(--size-page-margin) / 2);
 
     ${({ marginBottom }) =>
       marginBottom && marginBottom > 0
@@ -103,15 +106,21 @@ const ToggleBox = styled(ButtonNormalized)`
 
   & h3 {
     padding-bottom: 0;
+    ${({ theme }) => theme.breakpoints.desktop} {
+      font-size: calc(var(--text-h3-font-size) * 0.6);
+    }
+    
   }
 
   & p {
-    padding-top: 20px;
+    padding-top: 10px;
     font-size: calc(var(--text-body-font-size));
+    
     color: var(--color-text-muted);
 
     ${({ theme }) => theme.breakpoints.desktop} {
-      font-size: calc(var(--text-body-font-size) * 0.85);
+      font-size: calc(var(--text-body-font-size) * 0.75);
+      font-family: var(--font-family-narrow);
     }
   }
 
@@ -218,7 +227,7 @@ const Headline = styled.div`
 `;
 
 export const Accordion = ({ data }: { data: any }) => {
-  const [activeIndex, setActiveIndex] = useState(6);
+  const [activeIndex, setActiveIndex] = useState(7);
   const [height, setHeight] = useState(0);
   const boxesRefs = useRef(new Array());
 
@@ -229,7 +238,7 @@ export const Accordion = ({ data }: { data: any }) => {
   // Update hight and scroll to details
   // when pillars get (de)selected (i.e. activeIndex changes)
   useEffect(() => {
-    if (activeIndex < 5) {
+    if (activeIndex < 6) {
       setHeight(boxesRefs.current[activeIndex].clientHeight);
       boxesRefs.current[activeIndex].scrollIntoView({
         behavior: "smooth",

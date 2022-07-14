@@ -24,7 +24,7 @@ import { ProjectCard } from "~/components/tools/map/ProjectCard";
 import { useRouter } from "next/router";
 import { Meta } from "~/components/tools/map/Styled";
 import { Question } from "~/components/tools/map/Question";
-import { FALSE } from "sass";
+import { Label } from "~/components/tools/map/Styled";
 
 const Container = styled.main<{
   toolColor?: string;
@@ -74,25 +74,9 @@ const Container = styled.main<{
     `}
     }
 
-    .labElement {
-      margin-bottom: var(--size-3);
-    }
-
-    .cta {
-      color: ${({ toolColor }) => toolColor || "#fff"};
-
-      h3 {
-        font-size: 1.1em;
-      }
-
-      a {
-        color: ${({ toolColor }) => toolColor || "#fff"};
-        border-color: ${({ toolColor }) => toolColor || "#fff"};
-        align-self: end;
-        margin-right: 0;
-        &:hover {
-          margin-right: -0.3em;
-        }
+    .contact {
+      .name h4{
+        margin-bottom: var(--size-1);
       }
     }
   }
@@ -188,8 +172,12 @@ const Project = ({ data, tool }: { data: any; tool: PiAiTool }) => {
             <span>back</span>
           </Icon>
           <ProjectCard view="detail" data={data} />
-          <Box>
+          <Box className="contact">
             <h3>Contact</h3>
+            <div className="name">
+              <Label as="h4">Responsible Person</Label>
+              <p>{data.contact.responsiblePerson}</p>
+            </div>
             <Meta col={1}>
               {data.contact.website && (
                 <Icon type="globe" link>
@@ -218,8 +206,8 @@ const Project = ({ data, tool }: { data: any; tool: PiAiTool }) => {
             <Box className="toolbar">
               <Icon
                 onClick={() => setIsCollapsed(!isCollapsed)}
-                aria-label="Change to simple language"
-                className="languageSwitch"
+                aria-label="Expand/collapse all answers"
+                className="textLink"
                 type={isCollapsed ? "expand" : "collapse"}
               >
                 <span>
@@ -231,6 +219,18 @@ const Project = ({ data, tool }: { data: any; tool: PiAiTool }) => {
             </Box>
           )}
           <Box>
+            {!isTabletLandscapeAndUp && (
+              <Icon
+                onClick={() => setIsCollapsed(!isCollapsed)}
+                aria-label="Expand/collapse all answers"
+                className="textLink inBox"
+                type={isCollapsed ? "expand" : "collapse"}
+              >
+                <span>
+                  {isCollapsed ? "Expand all answers" : "Collapse all answers"}
+                </span>
+              </Icon>
+            )}
             {data?.details?.length > 0 &&
               data?.details?.map((s: any, index: Number) => {
                 return (

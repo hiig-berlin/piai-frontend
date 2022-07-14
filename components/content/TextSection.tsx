@@ -97,7 +97,7 @@ export const TextSection = ({ data }: { data: any }) => {
             inView
             inViewDelay={1}
           >
-            Select one of the 5 conditions to find out more.
+            Select one of the 6 conditions to find out more.
           </Wizard>
         </DisplayAbove>
         <DisplayBelow
@@ -114,7 +114,7 @@ export const TextSection = ({ data }: { data: any }) => {
             inView
             inViewDelay={1}
           >
-            Select one of the 5 conditions to find out more.
+            Select one of the 6 conditions to find out more.
           </Wizard>
         </DisplayBelow>
       </PageMargins>

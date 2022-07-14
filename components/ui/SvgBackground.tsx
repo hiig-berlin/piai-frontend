@@ -1,5 +1,6 @@
 import React from "react";
 import SvgMenu from "../svgs/SvgMenuRounded";
+import SvgMenuNeg from "../svgs/SvgMenuNeg";
 import SvgClose from "../svgs/SvgCloseNeg";
 import SvgRightArrow from "../svgs/SvgRightArrow";
 import SvgPIAI from "../svgs/SvgPIAI";
@@ -32,6 +33,10 @@ export const SvgBackground = ({
   switch (type) {
     case "menu":
       activeSvg = SvgMenu;
+      break;
+    
+    case "menuNeg":
+      activeSvg = SvgMenuNeg;
       break;
 
     case "close":

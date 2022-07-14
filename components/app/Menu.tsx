@@ -10,6 +10,7 @@ import { LabElement } from "../ui/LabElement";
 import { Chevron } from "../ui/StaticSvgs";
 import { useConfigContext } from "~/providers/ConfigContextProvider";
 import Link from "next/link";
+import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
 
 const ANIMATION_LENGTH = 500;
 
@@ -209,6 +210,10 @@ export const Menu = () => {
     null
   );
 
+  const {
+    vars: { isTabletAndUp, isMobileLandscape}
+  } = useCssVarsContext();
+
   const onResize = useCallback(() => {
     if (menuContainerRef.current)
       menuContainerRef.current.style.height = `${window.innerHeight + 200}px`;
@@ -269,7 +274,7 @@ export const Menu = () => {
               <Column className="piai">
                 <header>
                   <Logo color="white" hoverColor="white" size={1} />
-                  Public interest AI
+                  {(isTabletAndUp || isMobileLandscape) && <span>Public interest AI</span>}
                 </header>
                 <section>
                   <h1>{menuContent.piai.headline}</h1>

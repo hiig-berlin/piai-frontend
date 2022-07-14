@@ -15,6 +15,7 @@ import { LabElement } from "../ui/LabElement";
 import { useConfigContext } from "~/providers/ConfigContextProvider";
 import Link from "next/link";
 
+
 const SCROLL_UP_THRESHOLD_PX = 150;
 const SCROLL_DOWN_THRESHOLD_PX = 250;
 const SCROLL_UP_REVEAL_TIMEOUT = 2500;

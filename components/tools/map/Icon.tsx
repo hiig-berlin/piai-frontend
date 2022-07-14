@@ -31,10 +31,11 @@ const IconStatic = styled.li`
 const IconButton = styled(ButtonNormalized)<{
   spaceBefore?: boolean;
   nonMuted?: boolean;
+  active?: boolean;
 }>`
   ${baseStyling}
 
-  opacity: ${({ nonMuted }) => (nonMuted === true ? "1" : "0.6")};
+  opacity: ${({ nonMuted, active}) => ((nonMuted || active) ? "1" : "0.6")};
   transition: opacity 0.5s ease;
 
   &:hover {
@@ -83,6 +84,7 @@ export const Icon = ({
   stc,
   nonMuted,
   link,
+  active,
 }: {
   type: string;
   spaceBefore?: boolean;
@@ -92,6 +94,7 @@ export const Icon = ({
   stc?: boolean;
   nonMuted?: boolean;
   link?: boolean;
+  active?: boolean;
 }) => {
   if (stc) {
     return (
@@ -116,6 +119,7 @@ export const Icon = ({
         onClick={onClick}
         className={className}
         nonMuted={nonMuted}
+        active={active}
       >
         <MapSvgBackground type={type} />
         {children && children}

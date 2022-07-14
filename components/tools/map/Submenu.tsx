@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Link from "next/link";
 import { ButtonNormalized } from "~/components/styled/Button";
 import { MapSvgBackground } from "./MapSvgBackground";
+import { Icon } from "./Icon";
 
 const sidebarPadding = "var(--size-3)";
 
@@ -40,6 +41,13 @@ const ActionItems = styled.div`
   padding: ${sidebarPadding} 0 var(--size-1);
 `;
 
+// TODO: add actionItem onClick events + active status
+
+// TODO: decide if highlight (active filter collapsed) is crucial
+//       --> either solve through css filter (with volor variable?) 
+//           or change icons to inline svgs…
+
+
 export const Submenu = ({ tool, slug }: { tool?: string; slug?: string }) => {
   return (
     <ToolSubmenu>
@@ -58,24 +66,8 @@ export const Submenu = ({ tool, slug }: { tool?: string; slug?: string }) => {
         </Link>
         {slug === "index" && (
           <ActionItems>
-            <ButtonNormalized>
-              <MapSvgBackground
-                className="svg icon"
-                type="search"
-                position="left center"
-                height="1.3em"
-                width="1.3em"
-              />
-            </ButtonNormalized>
-            <ButtonNormalized>
-              <MapSvgBackground
-                className="svg icon"
-                type="filter"
-                position="left center"
-                height="1.3em"
-                width="1.3em"
-              />
-            </ButtonNormalized>
+            <Icon type="search" active/>
+            <Icon type="filter"/>
           </ActionItems>
         )}
       </div>
@@ -94,24 +86,8 @@ export const Submenu = ({ tool, slug }: { tool?: string; slug?: string }) => {
         </Link>
         {slug === "directory" && (
           <ActionItems>
-            <ButtonNormalized>
-              <MapSvgBackground
-                className="svg icon"
-                type="search"
-                position="left center"
-                height="1.3em"
-                width="1.3em"
-              />
-            </ButtonNormalized>
-            <ButtonNormalized>
-              <MapSvgBackground
-                className="svg icon"
-                type="filter"
-                position="left center"
-                height="1.3em"
-                width="1.3em"
-              />
-            </ButtonNormalized>
+           <Icon type="search" />
+            <Icon type="filter" />
           </ActionItems>
         )}
       </div>

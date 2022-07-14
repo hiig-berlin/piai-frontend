@@ -1,5 +1,6 @@
-import React, { useRef } from "react";
-import styled from "styled-components";
+import React, { useContext, useRef } from "react";
+import styled, { ThemeContext } from "styled-components";
+import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
 
 import { useMenuContext } from "~/providers/MenuContextProvider";
 import { SvgBackground } from "../ui/SvgBackground";
@@ -8,9 +9,20 @@ const MenuButtonContainer = styled.div`
   position: fixed;
   z-index: ${({ theme }) => theme.zIndex.menu + 1};
 
-  top: calc(var(--size-4) + 10px);
-  right: var(--size-4);
+  top: ${({ theme }) =>
+    theme.colorMode === "dark"
+      ? "var(--size-3)"
+      : "calc(var(--size-4) + 10px)"};
 
+  ${({ theme }) => theme.breakpoints.tablet} {
+    top: ${({ theme }) =>
+      theme.colorMode === "dark"
+        ? "calc(var(--size-3) + 4px)"
+        : "calc(var(--size-4) + 10px)"};
+  }
+
+  right: ${({ theme }) =>
+    theme.colorMode === "dark" ? "var(--size-3)" : "var(--size-4)"};
 `;
 
 const StyledMenuButton = styled.button`
@@ -19,9 +31,10 @@ const StyledMenuButton = styled.button`
   cursor: pointer;
   padding: 0;
   position: relative;
+  opacity: 1;
 
   & > span {
-    transition: filter 0.3s;
+    transition: opacity 0.3s;
     position: absolute;
     top: 0;
     left: 0;
@@ -29,7 +42,7 @@ const StyledMenuButton = styled.button`
 
   height: var(--size-5);
   width: var(--size-5);
-  
+
   ${({ theme }) => theme.breakpoints.tablet} {
     height: var(--size-4);
     width: var(--size-4);
@@ -38,14 +51,14 @@ const StyledMenuButton = styled.button`
   &:active,
   &:focus-within {
     & > span {
-      filter: invert(33.33%);
+      opacity: 0.6;
     }
   }
 
   @media (any-pointer: fine) {
     &:hover {
       & > span {
-        filter: invert(33.33%);
+        opacity: 0.6;
       }
     }
   }
@@ -53,6 +66,7 @@ const StyledMenuButton = styled.button`
 
 export const MenuButton = () => {
   const menuContext = useMenuContext();
+  const theme = useContext(ThemeContext);
 
   const menuButtonRef = useRef() as React.MutableRefObject<HTMLButtonElement>;
 
@@ -77,7 +91,13 @@ export const MenuButton = () => {
       >
         <SvgBackground
           className="svg open"
-          type={menuContext.isOpen ? "close" : "menu"}
+          type={
+            menuContext.isOpen
+              ? "close"
+              : theme.colorMode === "dark"
+              ? "menuNeg"
+              : "menu"
+          }
           position="left center"
           width="100%"
           height="100%"

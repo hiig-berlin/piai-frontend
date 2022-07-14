@@ -49,6 +49,7 @@ const TileContent = styled.div`
 const TileHeadline = styled.h3`
   ${({ theme }) => theme.textStyle("h3")};
   ${({ theme }) => theme.applyMixin("uppercase")};
+  color: white;
 
   font-weight: bold;
 `;
