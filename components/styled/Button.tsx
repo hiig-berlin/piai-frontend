@@ -1,7 +1,6 @@
 import styled, { css } from "styled-components";
 
 export const ButtonNormalized = styled.button`
-  font-family: var(--text-family-sans-serif);
   border: none;
   background: none;
   cursor: pointer;
