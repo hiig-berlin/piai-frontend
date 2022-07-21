@@ -73,7 +73,6 @@ export default async function handler(
             );
           });
         }
-        // })
       }
       return res.json({ status: 200, message: "ok" });
     } else {
