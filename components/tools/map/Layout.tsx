@@ -1,4 +1,10 @@
+import { Suspense, useEffect } from "react";
+
+import dynamic from "next/dynamic";
+
 import NextHeadSeo from "next-head-seo";
+import styled, { createGlobalStyle } from "styled-components";
+
 import { useConfigContext } from "~/providers/ConfigContextProvider";
 import { Menu } from "~/components/app/Menu";
 import { UserTracking } from "~/components/app/UserTracking";
@@ -10,10 +16,13 @@ import {
   useToolStateContext,
 } from "./ContextProviders";
 import { Map } from "./Map";
-import styled, { createGlobalStyle } from "styled-components";
-import { useEffect } from "react";
+
 import { Sidebar } from "../shared/Sidebar";
 import { Submenu } from "./Submenu";
+
+const ReactQueryContextProvider = dynamic(
+  () => import("./ReactQueryContextProvider")
+);
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -72,8 +81,6 @@ export const Layout = ({
   const { isLoading } = usePageStateContext();
   const { setView } = useToolStateContext();
 
-  // const tool = config.tools.find((tool: PiAiTool) => tool.slug === "map");
-
   useEffect(() => {
     setView(props?.view ?? "page");
   }, [setView, props?.view]);
@@ -95,17 +102,21 @@ export const Layout = ({
       <UserTracking />
       <LoadingBar isLoading={isLoading} />
       <MenuButton />
-      <ToolStateContextProvider>
-        <ToolContainer isStacked={props?.view === "map"}>
-          <Map isVisible={props?.view === "map"} />
-          <ContentContainer isTransparent={props?.view === "map"}>
-            {children}
-          </ContentContainer>
-          <Sidebar tool="map" view={props?.view}>
-            <Submenu tool="map" slug={props?.slug} />
-          </Sidebar>
-        </ToolContainer>
-      </ToolStateContextProvider>
+      <Suspense fallback={<LoadingBar isLoading/>}>
+        <ReactQueryContextProvider>
+          <ToolStateContextProvider>
+            <ToolContainer isStacked={props?.view === "map"}>
+              <Map isVisible={props?.view === "map"} />
+              <ContentContainer isTransparent={props?.view === "map"}>
+                {children}
+              </ContentContainer>
+              <Sidebar tool="map" view={props?.view}>
+                <Submenu tool="map" slug={props?.slug} />
+              </Sidebar>
+            </ToolContainer>
+          </ToolStateContextProvider>
+        </ReactQueryContextProvider>
+      </Suspense>
       <Menu />
     </>
   );
