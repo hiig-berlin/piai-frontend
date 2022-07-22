@@ -20,6 +20,7 @@ import Svgcode from "~/components/svgs/Svgcode";
 import Svgtransgender from "~/components/svgs/Svgtransgender";
 import SvgarrowsExpand from "~/components/svgs/SvgarrowsExpand";
 import SvgarrowsCollapse from "~/components/svgs/SvgarrowsCollapse";
+import SvgClose from "~/components/svgs/SvgCloseNeg";
 
 // use https://jakearchibald.github.io/svgomg/
 // use https://yoksel.github.io/url-encoder/
@@ -129,6 +130,9 @@ export const MapSvgBackground = ({
       activeSvg = SvgarrowsCollapse;
       break;
 
+    case "close":
+      activeSvg = SvgClose;
+      break;
   }
   return (
     <span

@@ -8,7 +8,7 @@ export const tools: PiAiTool[] = [
     iconShort: "Ma",
     iconLong: "Project Map",
     colorBase: "var(--color-piai-map)",
-    colorHighlight: "var(--color-piai-map-hightlight)",
+    colorHighlight: "var(--color-piai-map-highlight)",
     menu: [
       {
         // menu slugs are always prefixed by "/tool/tool-slug/"

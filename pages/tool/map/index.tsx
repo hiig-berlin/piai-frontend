@@ -8,6 +8,7 @@ import { restApiGetSettings } from "~/utils/restApi";
 import { PiAiTool } from "~/types";
 import { LabElement } from "~/components/ui/LabElement";
 import { Counter } from "~/components/tools/map/Counter";
+import { Contribute } from "~/components/tools/map/Contribute";
 
 const Index = ({
   frontendSettings,
@@ -84,7 +85,7 @@ const Index = ({
         </p>
 
         <Counter inView={52} inViewFiltered={2} total={250} totalFiltered={5} />
-
+        <Contribute position="bottom right" />
         
       </div>
     </>

@@ -115,7 +115,7 @@ export const theme = {
     ailabRed: "#BE0042",
     piaiInterface: "#416F83",
     piaiMap: "#AA936E",
-    piaiMapHightlight: "#FDD491",
+    piaiMapHighlight: "#FDD491",
     piaiEnergy: "#1CADAD",
     bg: "#fff",
     bgTool: "#2B2B2B",

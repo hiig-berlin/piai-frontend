@@ -95,7 +95,9 @@ const Container = styled(Grid)<{
         &:hover{
           margin-right: -0.3em
         }
-          
+        &:visited{
+          color: ${({ toolColor }) => toolColor || "#fff"};
+        }  
       }
     }
 
