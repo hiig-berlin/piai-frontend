@@ -230,7 +230,6 @@ export const ToolStateContextProvider = ({
     }
   }, [isLoading, isSuccess, data]);
 
-  console.log(state);
   return (
     <ToolStateContext.Provider
       value={{
