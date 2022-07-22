@@ -32,7 +32,7 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 // Contains:
-// Map + ContentContainer +Sidebar
+// Map + ContentContainer + Sidebar
 const ToolContainer = styled.div<{ isStacked: boolean }>`
   display: ${({ isStacked }) => (isStacked ? "block" : "flex")};
   flex-direction: row-reverse;

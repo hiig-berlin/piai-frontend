@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const BoxWrapper = styled.div`
-  border-radius: 10px;
+  border-radius: var(--size-3);
   background: #000;
 
   padding: var(--size-4);

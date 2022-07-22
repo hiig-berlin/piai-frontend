@@ -7,6 +7,7 @@ import Layout from "~/components/tools/map/Layout";
 import { restApiGetSettings } from "~/utils/restApi";
 import { PiAiTool } from "~/types";
 import { LabElement } from "~/components/ui/LabElement";
+import { Counter } from "~/components/tools/map/Counter";
 
 const Index = ({
   frontendSettings,
@@ -81,6 +82,10 @@ const Index = ({
           The sidebar is a generic element. It can have custom content for each
           tool.
         </p>
+
+        <Counter inView={52} inViewFiltered={2} total={250} totalFiltered={5} />
+
+        
       </div>
     </>
   );

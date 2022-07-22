@@ -13,7 +13,8 @@ const MapContainer = styled.div<{ isVisible?: boolean }>`
   height: 100vh;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(#333, #000);
+  // background: linear-gradient(#333, #000);
+  background: linear-gradient(pink, red);
   // color: #005;
 `;
 export const Map = ({ isVisible }: { isVisible?: boolean }) => {
