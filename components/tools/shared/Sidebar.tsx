@@ -106,8 +106,7 @@ export const Sidebar = ({
     closeAnimationLength: 175,
   });
 
-  const currentTool =
-    config?.tools?.length && config?.tools?.find((t) => t.slug === tool);
+  const currentTool = config?.tools?.find((t) => t.slug === tool);
 
   if (!currentTool) return <></>;
 
