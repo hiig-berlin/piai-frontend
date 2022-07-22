@@ -12,6 +12,7 @@
     "deploy:live": "git checkout main && git push && curl $(grep DEPLOY_HOOK_URL .env.local | cut -d '=' -f2)"
   },
   "dependencies": {
+    "@tanstack/react-query": "^4.0.10",
     "color": "^4.2.3",
     "detect-it": "^4.0.1",
     "js-cookie": "^3.0.1",

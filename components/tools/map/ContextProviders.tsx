@@ -3,8 +3,12 @@ import React, {
   useContext,
   useCallback,
   useReducer,
+  useEffect,
 } from "react";
+import { useQuery } from "@tanstack/react-query";
+
 import useIsMounted from "~/hooks/useIsMounted";
+import { appConfig } from "~/config";
 
 type MapState = {
   ready: boolean;
@@ -21,7 +25,7 @@ type FilterSettingTaxonomyOption = {
   id: number;
   name: string;
   count: number;
-}
+};
 
 type FilterSettingTaxonomyOptionContinentChild = {
   id: number;
@@ -29,22 +33,22 @@ type FilterSettingTaxonomyOptionContinentChild = {
   count: number;
   children?: FilterSettingTaxonomyOptionContinentChild[];
   parent: number;
-}
+};
 
 type FilterSettingTaxonomyOptionContinent = {
   id: number;
   name: string;
   count: number;
-  children?: FilterSettingTaxonomyOptionContinentChild[]
-}
+  children?: FilterSettingTaxonomyOptionContinentChild[];
+};
 
 type FilterSettingTaxonomy = {
   label: string;
   options: FilterSettingTaxonomyOption[];
-}
+};
 type FilterSettings = {
   continents: FilterSettingTaxonomyOptionContinent[] | null | undefined;
-  countries:  FilterSettingTaxonomyOption[] | null | undefined;
+  countries: FilterSettingTaxonomyOption[] | null | undefined;
   funding: FilterSettingTaxonomy | null | undefined;
   industrialSector: FilterSettingTaxonomy | null | undefined;
   useOfAi: FilterSettingTaxonomy | null | undefined;
@@ -67,7 +71,6 @@ type ToolStateContext = {
   setView: (view: View) => void;
   setMapState: (mapState: MapState) => void;
   setFilterState: (filterState: FilterState) => void;
-  setFilterSettings: (filterSettings: FilterSettings) => void;
   reset: () => void;
 };
 
@@ -94,7 +97,7 @@ const defaultToolState: ToolState = {
     industrialSector: null,
     useOfAi: null,
     isProjectOpenSource: null,
-  }
+  },
 };
 
 const defaultToolStateContext: ToolStateContext = {
@@ -102,7 +105,6 @@ const defaultToolStateContext: ToolStateContext = {
   setView: (view: View) => {},
   setMapState: (mapState: MapState) => {},
   setFilterState: (filterState: FilterState) => {},
-  setFilterSettings: (filterSettings: FilterSettings) => {},
   reset: () => {},
 };
 
@@ -124,7 +126,8 @@ const toolStateReducer = function <T>(
     case "filterSettings":
       return {
         ...state,
-        filterSettings: (action?.payload ?? defaultToolState.filterSettings) as FilterSettings,
+        filterSettings: (action?.payload ??
+          defaultToolState.filterSettings) as FilterSettings,
       };
     case "view":
       return {
@@ -145,6 +148,12 @@ const ToolStateContext = createContext<ToolStateContext>(
 
 export const useToolStateContext = () => useContext(ToolStateContext);
 
+const fetchFilterSettings = () => {
+  return fetch(`${appConfig.apiUrl}/fluxed/v1/piai/filter`).then(
+    async (response) => await response.json()
+  );
+};
+
 // context provider
 export const ToolStateContextProvider = ({
   children,
@@ -153,6 +162,11 @@ export const ToolStateContextProvider = ({
 }) => {
   const isMounted = useIsMounted();
   const [state, dispatch] = useReducer(toolStateReducer, defaultToolState);
+
+  const { isLoading, isSuccess, data, isError } = useQuery(
+    ["filterSettings"],
+    fetchFilterSettings
+  );
 
   const setView = useCallback(
     (view: View) => {
@@ -187,7 +201,7 @@ export const ToolStateContextProvider = ({
     [isMounted]
   );
 
-  const setFilterSettings= useCallback(
+  const setFilterSettings = useCallback(
     (filterSettings: FilterSettings) => {
       if (!isMounted) return;
       dispatch({
@@ -205,6 +219,18 @@ export const ToolStateContextProvider = ({
     });
   }, [isMounted]);
 
+  if (isError) throw "Could not fetch needed data from server.";
+
+  useEffect(() => {
+    if (!isLoading && isSuccess && data) {
+      dispatch({
+        type: "filterSettings",
+        payload: data as FilterSettings,
+      });
+    }
+  }, [isLoading, isSuccess, data]);
+
+  console.log(state);
   return (
     <ToolStateContext.Provider
       value={{
@@ -212,7 +238,6 @@ export const ToolStateContextProvider = ({
         setView,
         setMapState,
         setFilterState,
-        setFilterSettings,
         reset,
       }}
     >
