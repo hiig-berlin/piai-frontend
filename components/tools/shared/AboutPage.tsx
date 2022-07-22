@@ -53,30 +53,30 @@ const Container = styled(Grid)<{
 
     ${({ theme }) => theme.breakpoints.tabletLandscape} {
       position: sticky;
-    // Prevent jumping on scroll change  
-    // if column shorter than 100vh
-    min-height: calc(100vh - 2 * var(--size-3));
+      // Prevent jumping on scroll change  
+      // if column shorter than 100vh
+      min-height: calc(100vh - 2 * var(--size-3));
 
-    // Move left column in the beginning
-    // of the scroll vs. the end 
-    ${({ direction }) =>
-      direction === "up"
-        ? `
-    
-        align-self: start;
-        top: var(--size-3);
-    `
-        : `
-        align-self: end;
-        bottom: var(--size-3);
+      // Move left column in the beginning
+      // of the scroll vs. the end 
+      ${({ direction }) =>
+        direction === "up"
+          ? `
       
-    `}
+          align-self: start;
+          top: var(--size-3);
+      `
+          : `
+          align-self: end;
+          bottom: var(--size-3);
+        
+      `}
     }
  
 
-    .labElement {
+    /* .labElement {
       // margin-bottom: var(--size-1);
-    }
+    } */
 
     .cta {
       & * {
@@ -89,7 +89,7 @@ const Container = styled(Grid)<{
   
       a {
         color: ${({ toolColor }) => toolColor || "#fff"};
-        border-color: color: ${({ toolColor }) => toolColor || "#fff"};
+        border-color: ${({ toolColor }) => toolColor || "#fff"};
         align-self: end;
         margin-right: 0;
         &:hover{
@@ -101,9 +101,7 @@ const Container = styled(Grid)<{
 
   }
 
-  
-
-  & .column.details{
+  & .column.details {
 
     .toolbar{
       flex-direction: row;
@@ -137,7 +135,7 @@ const Container = styled(Grid)<{
     
   }
 
-  p + h2, p + h3, p + h4{
+  p + h2, p + h3, p + h4 {
     margin-top: var(--size-4);
   }
 `;
