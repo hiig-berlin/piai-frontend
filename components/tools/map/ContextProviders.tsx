@@ -14,16 +14,50 @@ type MapState = {
 type FilterState = {
   termIds: number[] | null | undefined;
   s: string | null | undefined;
-  continent: number | null | undefined;
+  continents: number[] | null | undefined;
   countries: number[] | null | undefined;
 };
+type FilterSettingTaxonomyOption = {
+  id: number;
+  name: string;
+  count: number;
+}
 
-type View = "map" | "directory" | "page" | null | undefined;
+type FilterSettingTaxonomyOptionContinentChild = {
+  id: number;
+  name: string;
+  count: number;
+  children?: FilterSettingTaxonomyOptionContinentChild[];
+  parent: number;
+}
+
+type FilterSettingTaxonomyOptionContinent = {
+  id: number;
+  name: string;
+  count: number;
+  children?: FilterSettingTaxonomyOptionContinentChild[]
+}
+
+type FilterSettingTaxonomy = {
+  label: string;
+  options: FilterSettingTaxonomyOption[];
+}
+type FilterSettings = {
+  continents: FilterSettingTaxonomyOptionContinent[] | null | undefined;
+  countries:  FilterSettingTaxonomyOption[] | null | undefined;
+  funding: FilterSettingTaxonomy | null | undefined;
+  industrialSector: FilterSettingTaxonomy | null | undefined;
+  useOfAi: FilterSettingTaxonomy | null | undefined;
+  isProjectOpenSource: FilterSettingTaxonomy | null | undefined;
+};
+
+type View = "map" | "directory" | "page" | "filterSettings" | null | undefined;
 
 type ToolState = {
   view: View;
   map: MapState;
   filter: FilterState;
+  filterSettings: FilterSettings;
 };
 
 type ToolStateContext = {
@@ -33,12 +67,13 @@ type ToolStateContext = {
   setView: (view: View) => void;
   setMapState: (mapState: MapState) => void;
   setFilterState: (filterState: FilterState) => void;
+  setFilterSettings: (filterSettings: FilterSettings) => void;
   reset: () => void;
 };
 
 type ToolStateAction = {
   type: string;
-  payload?: MapState | FilterState | View;
+  payload?: MapState | FilterState | View | FilterSettings;
 };
 
 const defaultToolState: ToolState = {
@@ -49,9 +84,17 @@ const defaultToolState: ToolState = {
   filter: {
     termIds: [],
     countries: [],
-    continent: null,
+    continents: null,
     s: null,
   },
+  filterSettings: {
+    countries: [],
+    continents: [],
+    funding: null,
+    industrialSector: null,
+    useOfAi: null,
+    isProjectOpenSource: null,
+  }
 };
 
 const defaultToolStateContext: ToolStateContext = {
@@ -59,6 +102,7 @@ const defaultToolStateContext: ToolStateContext = {
   setView: (view: View) => {},
   setMapState: (mapState: MapState) => {},
   setFilterState: (filterState: FilterState) => {},
+  setFilterSettings: (filterSettings: FilterSettings) => {},
   reset: () => {},
 };
 
@@ -76,6 +120,11 @@ const toolStateReducer = function <T>(
       return {
         ...state,
         filter: (action?.payload ?? defaultToolState.filter) as FilterState,
+      };
+    case "filterSettings":
+      return {
+        ...state,
+        filterSettings: (action?.payload ?? defaultToolState.filterSettings) as FilterSettings,
       };
     case "view":
       return {
@@ -138,6 +187,17 @@ export const ToolStateContextProvider = ({
     [isMounted]
   );
 
+  const setFilterSettings= useCallback(
+    (filterSettings: FilterSettings) => {
+      if (!isMounted) return;
+      dispatch({
+        type: "filterSettings",
+        payload: filterSettings,
+      });
+    },
+    [isMounted]
+  );
+
   const reset = useCallback(() => {
     if (!isMounted) return;
     dispatch({
@@ -152,6 +212,7 @@ export const ToolStateContextProvider = ({
         setView,
         setMapState,
         setFilterState,
+        setFilterSettings,
         reset,
       }}
     >
