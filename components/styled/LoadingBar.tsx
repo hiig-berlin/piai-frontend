@@ -25,7 +25,7 @@ const loadingBorderAnimation = keyframes`
 
 export const LoadingBar = styled.div<{ isLoading: boolean }>`
   position: fixed;
-  height: 5px;
+  height: 3px;
   top: 0;
   left: 0;
   width: 100%;
@@ -37,6 +37,6 @@ export const LoadingBar = styled.div<{ isLoading: boolean }>`
         `
       : "none"};
   background-color: ${({ isLoading }) =>
-    isLoading ? "var(--color-hl)" : "transparent"};
+    isLoading ? "var(--color-loading-bar)" : "transparent"};
   pointer-events: none;
 `;
