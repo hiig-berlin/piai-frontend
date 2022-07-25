@@ -41,7 +41,7 @@ export const Question = ({
   }, [expanded]);
 
   return (
-    <QuestionWrapper svg={expanded ? SvgarrowsCollapse : SvgarrowsExpand}>
+    <QuestionWrapper svg={isExpanded ? SvgarrowsCollapse : SvgarrowsExpand}>
       <h3 role="button" onClick={() => setIsExpanded(!isExpanded)}>
         {question}
       </h3>
