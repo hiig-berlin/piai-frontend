@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import SafeHtmlDiv from "~/components/ui/SafeHtmlDiv";
 import { Box } from "../shared/ui/Box";
-import { Icon } from "./Icon";
+import { Icon } from "../shared/ui/Icon";
 import { Question } from "./Question";
 import { Meta } from "~/components/tools/map/Styled";
 
