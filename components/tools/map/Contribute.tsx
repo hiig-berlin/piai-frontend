@@ -5,7 +5,7 @@ import SafeHtmlSpan from "~/components/ui/SafeHtmlSpan";
 import { Box } from "../shared/ui/Box";
 import Link from "next/link";
 import styled from "styled-components";
-import { Icon } from "./Icon";
+import { Icon } from "../shared/ui/Icon";
 import { useToolStateContext } from "./context/ContextProviders";
 
 const ContributeBox = styled(Box)<{ seen?: Boolean }>`

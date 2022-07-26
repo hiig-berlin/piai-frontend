@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import Link from "next/link";
-import { MapSvgBackground } from "./MapSvgBackground";
-import { Icon } from "./Icon";
+import { ToolSvgBackground } from "../shared/ToolSvgBackground";
+import { Icon } from "../shared/ui/Icon";
 
 const sidebarPadding = "var(--size-3)";
 
@@ -53,7 +53,7 @@ export const Submenu = ({ tool, slug }: { tool?: string; slug?: string }) => {
       <div>
         <Link passHref href="/tool/map">
           <a className="subMenuItem">
-            <MapSvgBackground
+            <ToolSvgBackground
               className="svg icon"
               type="map"
               position="left center"
@@ -73,7 +73,7 @@ export const Submenu = ({ tool, slug }: { tool?: string; slug?: string }) => {
       <div className="actionItems">
         <Link passHref href="/tool/map/directory">
           <a className="subMenuItem">
-            <MapSvgBackground
+            <ToolSvgBackground
               className="svg icon"
               type="list"
               position="left center"
@@ -93,7 +93,7 @@ export const Submenu = ({ tool, slug }: { tool?: string; slug?: string }) => {
       <div>
         <Link passHref href="/tool/map/about">
           <a className="subMenuItem">
-            <MapSvgBackground
+            <ToolSvgBackground
               className="svg icon"
               type="money"
               position="left center"

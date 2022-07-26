@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { ButtonNormalized } from "~/components/styled/Button";
-import { MapSvgBackground } from "./MapSvgBackground";
+import { ToolSvgBackground } from "../ToolSvgBackground";
 
 const baseStyling = css<{ spaceBefore?: boolean }>`
   display: flex;
@@ -99,14 +99,14 @@ export const Icon = ({
   if (stc) {
     return (
       <IconStatic spaceBefore={spaceBefore} className={className}>
-        <MapSvgBackground type={type} />
+        <ToolSvgBackground type={type} />
         {children && children}
       </IconStatic>
     );
   } else if (link) {
     return (
       <IconStatic className={className}>
-        <MapSvgBackground type={type} />
+        <ToolSvgBackground type={type} />
         <a href="{children}" target="_blank" rel="nofollow noreferrer">
           {children}
         </a>
@@ -121,7 +121,7 @@ export const Icon = ({
         nonMuted={nonMuted}
         active={active}
       >
-        <MapSvgBackground type={type} />
+        <ToolSvgBackground type={type} />
         {children && children}
       </IconButton>
     );

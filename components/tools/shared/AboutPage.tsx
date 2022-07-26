@@ -5,14 +5,14 @@ import {
   ButtonNormalized,
   LinkButtonAnimated,
 } from "~/components/styled/Button";
-import { MapSvgBackground } from "../map/MapSvgBackground";
+import { ToolSvgBackground } from "./ToolSvgBackground";
 import { PiAiTool } from "~/types";
 import { LabElement } from "../../ui/LabElement";
 import SafeHtmlDiv from "../../ui/SafeHtmlDiv";
 import SafeHtmlSpan from "../../ui/SafeHtmlSpan";
 import { Box } from "./ui/Box";
 import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
-import { Icon } from "../map/Icon";
+import { Icon } from "./ui/Icon";
 
 export type ToolAboutPageCTA = {
   title: string;

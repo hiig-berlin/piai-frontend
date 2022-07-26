@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
-import { Icon } from "./Icon";
+import { Icon } from "../shared/ui/Icon"
 
 const CounterContainer = styled.div`
   

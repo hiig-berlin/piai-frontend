@@ -13,13 +13,13 @@ import {
   ButtonNormalized,
   LinkButtonAnimated,
 } from "~/components/styled/Button";
-import { MapSvgBackground } from "~/components/tools/map/MapSvgBackground";
+import { ToolSvgBackground } from "~/components/tools/shared/ToolSvgBackground";
 import styled from "styled-components";
 import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
 import { Box } from "~/components/tools/shared/ui/Box";
 import SafeHtmlDiv from "~/components/ui/SafeHtmlDiv";
 import { defaultMaxListeners } from "events";
-import { Icon } from "~/components/tools/map/Icon";
+import { Icon } from "~/components/tools/shared/ui/Icon";
 import { ProjectCard } from "~/components/tools/map/ProjectCard";
 import { useRouter } from "next/router";
 import { Meta } from "~/components/tools/map/Styled";

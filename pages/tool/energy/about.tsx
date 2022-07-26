@@ -33,7 +33,6 @@ const About = ({
           }}
       />*/}
 
-      <main id="content">
         <AboutPage
           {...{
             tool,
@@ -51,7 +50,6 @@ const About = ({
             },
           }}
         />
-      </main>
     </>
   );
 };

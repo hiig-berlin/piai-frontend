@@ -18,8 +18,6 @@ const ToolContainer = styled.div`
 
 const ContentContainer = styled.div`
   display: flex;
-
-  padding: var(--size-3);
 `;
 
 export const LayoutTool = ({
