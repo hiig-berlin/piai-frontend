@@ -102,6 +102,7 @@ export const MapSvgBackground = ({
     case "company":
       activeSvg = Svgcompany;
       break;
+      
     case "checkAll":
       activeSvg = SvgcheckAll;
       break;
