@@ -38,10 +38,10 @@ const GlobalStyle = createGlobalStyle`
 
   .mapboxgl-ctrl.mapboxgl-ctrl-attrib {
     background-color: transparent;
-    color: #fff;
+    color: #999;
 
     a {
-      color: #fff !important;
+      color: #999 !important;
     }
   }
 
@@ -69,7 +69,7 @@ const GlobalStyle = createGlobalStyle`
     font-size: 13px;
     line-height: 17px;
     border-radius: 0;
-    opacity: 0.5;
+    opacity: 0;
     transition: opacity 0.25s;
 
     &.fade-in {
@@ -78,7 +78,7 @@ const GlobalStyle = createGlobalStyle`
 
     &.faded-in {
       opacity: 1;
-      &.fadeOut {
+      &.fade-out {
         opacity: 0 !important;
       }
     }
