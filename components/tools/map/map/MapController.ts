@@ -130,16 +130,6 @@ export class MapController {
 
     self.mapContainerRef = ref;
 
-    console.log({
-      style: this.styleUrl,
-      center: [self.toolConfig?.lng ?? 0, self.toolConfig?.lat ?? 0],
-      zoom: self.toolConfig?.zoom ?? 8,
-      maxBounds: self.toolConfig?.bounds,
-      minZoom: self.toolConfig?.minZoom,
-      maxZoom: self.toolConfig?.maxZoom,
-      attributionControl: false,
-    });
-
     self.map = new Map({
       container: ref,
       style: this.styleUrl,
@@ -152,6 +142,10 @@ export class MapController {
     });
 
     self.overlayZoomLevel = self.toolConfig?.zoom ?? 8;
+
+    self.router.events.on("routeChangeStart", () => {
+      self.popups.hideAll();
+    });
 
     // xxx better attribution ...
     // where to place it best
@@ -269,17 +263,9 @@ export class MapController {
     const self = this;
 
     self.popups.hideAll();
-    self.clusterDetail.hide();
-
+    
     console.log(`PUSH: ${url}`);
     self.router.push(url);
-
-    self.popups.hideAll();
-  }
-
-  onPjaxSend() {
-    // xxx is this function needed?
-    const self = this;
 
     self.popups.hideAll();
   }

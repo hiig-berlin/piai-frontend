@@ -50,7 +50,7 @@ export class MapHighlight {
           onClick: options?.onClick,
         }
       );
-      
+      self.controller.popups.hideAll();
       self.controller.popups.add(popupId, popup);
 
       if (options?.panTo)

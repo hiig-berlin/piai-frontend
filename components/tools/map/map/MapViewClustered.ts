@@ -4,7 +4,7 @@ import { primaryInput } from "detect-it";
 import type { MapController } from "./MapController";
 import { MapPopup } from "./MapPopup";
 
-const CLUSTER_ZOOM_IN_ANIMATION_TIME = 1500;
+const CLUSTER_ZOOM_IN_ANIMATION_TIME = 1200;
 
 export class MapViewClustered {
   controller: MapController;
@@ -210,7 +210,7 @@ export class MapViewClustered {
                           cMapAnimation: true,
                         }
                       );
-                  }, CLUSTER_ZOOM_IN_ANIMATION_TIME * 0.5);
+                  }, CLUSTER_ZOOM_IN_ANIMATION_TIME * 0.55);
 
                   // self.controller.map.easeTo(
                   //   {
@@ -245,10 +245,6 @@ export class MapViewClustered {
                     }
                   );
 
-                  console.log(Math.min(
-                          self.controller.map.getZoom() + 1,
-                          self.controller.toolConfig.maxZoom - 1.1
-                        ), self.controller.toolConfig.maxZoom - 1.1, self.controller.map.getZoom() + 1)
                   setTimeout(() => {
                     if (self.controller.map)
                       self.controller.map.zoomTo(
@@ -264,7 +260,7 @@ export class MapViewClustered {
                           cMapAnimation: true,
                         }
                       );
-                  }, CLUSTER_ZOOM_IN_ANIMATION_TIME * 0.5);
+                  }, CLUSTER_ZOOM_IN_ANIMATION_TIME * 0.55);
                  
                   self.controller.overlayZoomLevel =
                     self.controller.map.getZoom();
@@ -331,6 +327,7 @@ export class MapViewClustered {
           coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
         }
         try {
+          self.controller.popups.hideAll();
           self.controller.popups.add(
             feature?.properties?.slug,
             new MapPopup(
