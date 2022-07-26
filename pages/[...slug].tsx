@@ -84,32 +84,31 @@ export const getStaticProps: GetStaticProps = async (context) => {
       : (context?.params?.slug as string)
     : 1;
 
-  // TODO: enable
-  // const data = await restApiGetPostBySlugOrFallbackId("page", slug, token);
+  const data = await restApiGetPostBySlugOrFallbackId("page", slug, token);
   
-  const data = {
-    title: slug,
-    date: new Date().toISOString(),
-    modified: new Date().toISOString(),
-    acf: {
-      content: [
-        {
-          acf_fc_layout: "column_1",
-          column_content_content: [
-            {
-              acf_fc_layout: "heading",
-              heading: slug,
-              type: "h1"
-            },
-            {
-              acf_fc_layout: "text",
-              text: "this is a bit of dummy text",
-            },
-          ],
-        },
-      ],
-    },
-  };
+  // const data = {
+  //   title: slug,
+  //   date: new Date().toISOString(),
+  //   modified: new Date().toISOString(),
+  //   acf: {
+  //     content: [
+  //       {
+  //         acf_fc_layout: "column_1",
+  //         column_content_content: [
+  //           {
+  //             acf_fc_layout: "heading",
+  //             heading: slug,
+  //             type: "h1"
+  //           },
+  //           {
+  //             acf_fc_layout: "text",
+  //             text: "this is a bit of dummy text",
+  //           },
+  //         ],
+  //       },
+  //     ],
+  //   },
+  // };
 
   // TODO: remove 404 
   if (!data || slug === "404")
