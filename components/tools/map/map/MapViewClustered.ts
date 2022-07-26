@@ -4,7 +4,7 @@ import { primaryInput } from "detect-it";
 import type { MapController } from "./MapController";
 import { MapPopup } from "./MapPopup";
 
-const CLUSTER_ZOOM_IN_ANIMATION_TIME = 1200;
+const CLUSTER_ZOOM_IN_ANIMATION_TIME = 1000;
 
 export class MapViewClustered {
   controller: MapController;
@@ -191,7 +191,7 @@ export class MapViewClustered {
                       offset: (self.controller.getCenterOffset() ?? [
                         0, 0,
                       ]) as PointLike,
-                      duration: CLUSTER_ZOOM_IN_ANIMATION_TIME * 0.5,
+                      duration: CLUSTER_ZOOM_IN_ANIMATION_TIME * 0.33,
                     },
                     {
                       cMapAnimation: true,
@@ -204,13 +204,13 @@ export class MapViewClustered {
                         Math.min(zoom, self.controller.toolConfig.maxZoom - 2),
                         {
                           // around: (features[0].geometry as any).coordinates,
-                          duration: CLUSTER_ZOOM_IN_ANIMATION_TIME * 0.5,
+                          duration: CLUSTER_ZOOM_IN_ANIMATION_TIME * 0.6,
                         },
                         {
                           cMapAnimation: true,
                         }
                       );
-                  }, CLUSTER_ZOOM_IN_ANIMATION_TIME * 0.55);
+                  }, CLUSTER_ZOOM_IN_ANIMATION_TIME * 0.65);
 
                   // self.controller.map.easeTo(
                   //   {
@@ -238,7 +238,7 @@ export class MapViewClustered {
                       offset: (self.controller.getCenterOffset() ?? [
                         0, 0,
                       ]) as PointLike,
-                      duration: CLUSTER_ZOOM_IN_ANIMATION_TIME * 0.5,
+                      duration: CLUSTER_ZOOM_IN_ANIMATION_TIME * 0.33,
                     },
                     {
                       cMapAnimation: true,
@@ -254,13 +254,13 @@ export class MapViewClustered {
                         ),
                         {
                           // around: (features[0].geometry as any).coordinates,
-                          duration: CLUSTER_ZOOM_IN_ANIMATION_TIME * 0.5,
+                          duration: CLUSTER_ZOOM_IN_ANIMATION_TIME * 0.6,
                         },
                         {
                           cMapAnimation: true,
                         }
                       );
-                  }, CLUSTER_ZOOM_IN_ANIMATION_TIME * 0.55);
+                  }, CLUSTER_ZOOM_IN_ANIMATION_TIME * 0.65);
                  
                   self.controller.overlayZoomLevel =
                     self.controller.map.getZoom();
@@ -283,7 +283,7 @@ export class MapViewClustered {
                         );
                       }
                     );
-                  }, CLUSTER_ZOOM_IN_ANIMATION_TIME * 0.75);
+                  }, CLUSTER_ZOOM_IN_ANIMATION_TIME);
                 }
               }
             );

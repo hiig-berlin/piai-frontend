@@ -131,22 +131,20 @@ const Project = ({ data, tool }: { data: any; tool: PiAiTool }) => {
       "goalOfProject",
       "usedGuidelines",
     ].reduce((carry: any, key: string) => {
-      if (
-        Array.isArray(data?.acf?.motivationAndValues?.[key]?.value) &&
-        data?.acf?.motivationAndValues?.[key]?.value?.length
-      ) {
-        carry.push({
-          question: data?.acf?.motivationAndValues?.[key]?.question?.trim(),
-          answer: [
-            ...data.acf.motivationAndValues[key].value,
-            ...(key === "usedGuidelines" &&
-            data?.acf?.motivationAndValues?.usedGuidelinesOther2?.value?.trim()
-              ? [
-                  data?.acf?.motivationAndValues?.usedGuidelinesOther2?.value?.trim(),
-                ]
-              : []),
-          ].join(", "),
-        });
+      if (Array.isArray(data?.acf?.motivationAndValues?.[key]?.value)) {
+        if (data?.acf?.motivationAndValues?.[key]?.value?.length)
+          carry.push({
+            question: data?.acf?.motivationAndValues?.[key]?.question?.trim(),
+            answer: [
+              ...data.acf.motivationAndValues[key].value,
+              ...(key === "usedGuidelines" &&
+              data?.acf?.motivationAndValues?.usedGuidelinesOther2?.value?.trim()
+                ? [
+                    data?.acf?.motivationAndValues?.usedGuidelinesOther2?.value?.trim(),
+                  ]
+                : []),
+            ].join(", "),
+          });
       } else if (data?.acf?.motivationAndValues?.[key]?.value?.trim()) {
         carry.push({
           question: data?.acf?.motivationAndValues?.[key]?.question?.trim(),
@@ -200,14 +198,12 @@ const Project = ({ data, tool }: { data: any; tool: PiAiTool }) => {
       "contributingToUNSustainabilityGoalsDescription",
       "relyingOnOpenData",
     ].reduce((carry: any, key: string) => {
-      if (
-        Array.isArray(data?.acf?.designAndSafeguards?.[key]?.value) &&
-        data?.acf?.designAndSafeguards?.[key]?.value?.length
-      ) {
-        carry.push({
-          question: data?.acf?.designAndSafeguards?.[key]?.question?.trim(),
-          answer: data.acf.designAndSafeguards[key].value.join(", "),
-        });
+      if (Array.isArray(data?.acf?.designAndSafeguards?.[key]?.value)) {
+        if (data?.acf?.designAndSafeguards?.[key]?.value?.length)
+          carry.push({
+            question: data?.acf?.designAndSafeguards?.[key]?.question?.trim(),
+            answer: data.acf.designAndSafeguards[key].value.join(", "),
+          });
       } else if (data?.acf?.designAndSafeguards?.[key]?.value?.trim()) {
         carry.push({
           question: data?.acf?.designAndSafeguards?.[key]?.question?.trim(),
