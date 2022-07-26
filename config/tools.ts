@@ -32,6 +32,22 @@ export const tools: PiAiTool[] = [
         name: "About",
       },
     ],
+    config: {
+      lng: 0,
+      lat: 51.557503, //0,
+      minZoom: 1,
+      maxZoom: 15,
+      boundingBoxMinZoom: 1,
+      boundingBoxMaxZoom: 12,
+      clusterRadius: 35,
+      // bounds: [[-90, -90], [number, number]],
+      zoom: 3,
+      colorText: "#000",
+      colorCluster: '#ff0',
+      colorClusterText: '#000',
+      colorDot: '#fff',
+      urlGeoJson: '/map/geojson'
+    }
   },
   {
     slug: "energy",

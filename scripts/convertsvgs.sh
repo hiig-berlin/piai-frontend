@@ -28,6 +28,6 @@ for file in ./assets/svg/urlencoded/*.txt;do
   
   svg="$(<"$file")"
 
-  echo -e  "export const Svg$svg_name = '$svg';\nexport default Svg$svg_name;" > "./components/svgs/Svg$new_name";
+  echo -e  "export const Svg$svg_name: string = '$svg';\nexport default Svg$svg_name;" > "./components/svgs/Svg$new_name";
   echo "./components/svgs/Svg$new_name"
 done;

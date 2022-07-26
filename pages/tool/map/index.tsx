@@ -9,6 +9,7 @@ import { PiAiTool } from "~/types";
 import { LabElement } from "~/components/ui/LabElement";
 import { Counter } from "~/components/tools/map/Counter";
 import { Contribute } from "~/components/tools/map/Contribute";
+import { Box } from "~/components/tools/shared/ui/Box";
 
 const Index = ({
   frontendSettings,
@@ -37,11 +38,8 @@ const Index = ({
       />*/}
       {/* Dont' wrap this in further divs, 
       <main> is set via Layout component "*/}
-      <div
-        style={{
-          paddingLeft: "100px",
-        }}
-      >
+
+      <Box>
         <div style={{ margin: "20px" }}>
           <LabElement
             shortHandle={tool.iconShort}
@@ -86,8 +84,8 @@ const Index = ({
 
         <Counter inView={52} inViewFiltered={2} total={250} totalFiltered={5} />
         <Contribute position="bottom right" />
-        
-      </div>
+
+      </Box>
     </>
   );
 };
