@@ -3,7 +3,7 @@ import { Suspense, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 
 import NextHeadSeo from "next-head-seo";
-import styled, { createGlobalStyle } from "styled-components";
+import styled from "styled-components";
 
 import { useConfigContext } from "~/providers/ConfigContextProvider";
 import { Menu } from "~/components/app/Menu";
@@ -22,52 +22,34 @@ import ReactQueryContextProvider from "./context/ReactQueryContextProvider";
 
 const Map = dynamic(() => import("./Map"), { suspense: true });
 
-const GlobalStyle = createGlobalStyle`
-  body {
-    // font-size: 1em;
-    // color: #eee;
-  }
-`;
-
-// Contains:
-// Map + ContentContainer +Sidebar
-const ToolContainer = styled.div<{ isMap: boolean }>`
-  display: ${({ isMap }) => (isMap ? "block" : "flex")};
-  background-color: ${({ isMap }) => (isMap ? "#000" : "transparent")};
-  flex-direction: row-reverse;
-  height: 100vh;
-  overflow: hidden;
-`;
-
 // Contains:
 // transparent when overlaying map
 // contains {children}
 const ContentContainer = styled.div<{ isTransparent: boolean }>`
-  position: ${({ isTransparent }) => (isTransparent ? "absolute" : "static")};
+  position: absolute;
+  display: flex;
+  z-index: 2;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 0;
-  height: 100%;
-  overflow-y: auto;
-  overscroll-behavior: none;
-  z-index: 2;
+  min-height: 100%;
+  padding: var(--size-3);
 
   ${({ isTransparent }) =>
     isTransparent
       ? `
     background-color: transparent;
     pointer-events: none;
-
-    & div {
-      pointer-events: all;
-    }
     
     `
       : `
       background: var(--color-bg-tool);
       min-height: calc(100vh - var(--lbh, 0));
   `}
+
+  ${({theme}) => theme.breakpoints.tablet} {
+    padding: 0;
+  }
 `;
 
 export const Layout = ({
@@ -96,11 +78,15 @@ export const Layout = ({
   }, [isMap, showMap]);
 
   const content = (
-    <ContentContainer isTransparent={isMap}>{children}</ContentContainer>
+    <ContentContainer isTransparent={isMap}>
+      <Sidebar tool="map" view={props?.view}>
+        <Submenu tool="map" slug={props?.slug} />
+      </Sidebar>
+      {children}
+    </ContentContainer>
   );
   return (
     <>
-      <GlobalStyle />
       <NextHeadSeo
         title={`${config.appTitle}`}
         og={{
@@ -117,18 +103,13 @@ export const Layout = ({
       <MenuButton />
       <ReactQueryContextProvider>
         <ToolStateContextProvider>
-          <ToolContainer isMap={isMap}>
-            {showMap && (
-              <Suspense fallback={<LoadingBar isLoading />}>
-                <Map />
-                {isMap && content}
-              </Suspense>
-            )}
-            {!isMap && content}
-            <Sidebar tool="map" view={props?.view}>
-              <Submenu tool="map" slug={props?.slug} />
-            </Sidebar>
-          </ToolContainer>
+          {showMap && (
+            <Suspense fallback={<LoadingBar isLoading />}>
+              <Map />
+              {isMap && content}
+            </Suspense>
+          )}
+          {!isMap && content}
         </ToolStateContextProvider>
       </ReactQueryContextProvider>
       <Menu />

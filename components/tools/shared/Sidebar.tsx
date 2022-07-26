@@ -7,7 +7,7 @@ import { LabElement } from "~/components/ui/LabElement";
 import { useModal } from "~/hooks/useModal";
 import { useConfigContext } from "~/providers/ConfigContextProvider";
 
-const sidebarPadding = "var(--size-3)";
+const SIDEBAR_PADDING = "var(--size-3)";
 
 const Container = styled.div.attrs<{
   isOpen: boolean;
@@ -22,11 +22,11 @@ const Container = styled.div.attrs<{
   },
 }))<{
   isVisible: boolean;
-  isFixed: boolean;
 }>`
   display: none;
-  padding: ${sidebarPadding};
-  position: ${({ isFixed }) => (isFixed ? "fixed" : "static")};
+  pointer-events: all;
+  padding: ${SIDEBAR_PADDING};
+  position: sticky;
   top: 0;
   left: 0;
   height: 100vh;
@@ -40,13 +40,14 @@ const Container = styled.div.attrs<{
   ${({ theme }) => theme.breakpoints.tablet} {
     display: ${({ isVisible }) => (isVisible ? "block" : "none")};
     transform: translateX(0) !important;
-    padding: ${sidebarPadding};
+    padding: ${SIDEBAR_PADDING};
   }
 `;
 
 const MobileLogoContainer = styled.div<{
   isVisible: boolean;
 }>`
+  pointer-events: all;
   position: fixed;
   top: 0;
   left: 0;
@@ -61,7 +62,7 @@ const MobileLogoContainer = styled.div<{
 `;
 
 const LogoContainer = styled.div`
-  margin-bottom: ${sidebarPadding};
+  margin-bottom: ${SIDEBAR_PADDING};
   display: none;
   ${({ theme }) => theme.breakpoints.tablet} {
     display: block;
@@ -70,7 +71,7 @@ const LogoContainer = styled.div`
 const Tools = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${sidebarPadding};
+  gap: ${SIDEBAR_PADDING};
 `;
 
 const Tool = styled.div<{ isActive: boolean }>`
@@ -81,9 +82,9 @@ const Tool = styled.div<{ isActive: boolean }>`
 `;
 
 const Children = styled.div`
-  margin-left: calc(0px - ${sidebarPadding});
-  margin-right: calc(0px - ${sidebarPadding});
-  margin-top: ${sidebarPadding};
+  margin-left: calc(0px - ${SIDEBAR_PADDING});
+  margin-right: calc(0px - ${SIDEBAR_PADDING});
+  margin-top: ${SIDEBAR_PADDING};
 `;
 
 const ToolMenuButton = styled(ButtonNormalized)`
@@ -137,11 +138,15 @@ export const Sidebar = ({
       <Container
         {...{ isOpen, isOpening, isClosing }}
         id={`sidebar-${tool}`}
-        isFixed={view !== "page"}
         isVisible
       >
         <LogoContainer>
-          <Logo color="white" hoverColor="#fff7" direction="vertical" size={1} />
+          <Logo
+            color="white"
+            hoverColor="#fff7"
+            direction="vertical"
+            size={1}
+          />
         </LogoContainer>
         <Tools>
           {config?.tools?.length > 0 &&
