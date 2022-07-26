@@ -14,27 +14,27 @@ const BoxWrapper = styled.div`
     padding: var(--size-3);
   }
 
-  & > h1, 
-  & > h2, 
-  &> h3, 
-  &> h4, 
-  &> h5, 
-  &> h6, 
-  &> p, 
-  &> ul{
+  & > h1,
+  & > h2,
+  & > h3,
+  & > h4,
+  & > h5,
+  & > h6,
+  & > p,
+  & > ul {
     margin: 0;
   }
 
   & p:first-child,
   & h2:first-child,
-  & h3:first-child{
+  & h3:first-child {
     margin-top: 5px;
   }
 `;
-export const Box = ({ 
-  children, 
-  className 
-}: { 
+export const Box = ({
+  children,
+  className,
+}: {
   children: any;
   className?: string;
 }) => {
