@@ -53,6 +53,7 @@ const IconButton = styled(ButtonNormalized)<{
     span:last-child {
       display: inline-block;
       ${({ theme }) => theme.applyMixin("uppercase")};
+      text-align: left;
     }
 
     &.inBox {

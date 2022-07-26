@@ -26,6 +26,7 @@ import SvgGPU from "~/components/svgs/SvgGPU";
 import Svgfan from "~/components/svgs/Svgfan";
 import Svgjcow from "~/components/svgs/Svgjcow";
 import Svghardware from "~/components/svgs/Svghardware";
+import Svgdownload from "~/components/svgs/Svgdownload";
 
 // use https://jakearchibald.github.io/svgomg/
 // use https://yoksel.github.io/url-encoder/
@@ -157,6 +158,10 @@ export const ToolSvgBackground = ({
 
     case "hardware": 
       activeSvg = Svghardware;
+      break;
+
+    case "download": 
+      activeSvg = Svgdownload;
       break;
 
   }

@@ -8,7 +8,7 @@ import { restApiGetSettings } from "~/utils/restApi";
 import { PiAiTool } from "~/types";
 import { LabElement } from "~/components/ui/LabElement";
 import { Icon } from "~/components/tools/shared/ui/Icon";
-import styled, {css} from "styled-components";
+import styled, { css } from "styled-components";
 import { Box } from "~/components/tools/shared/ui/Box";
 import { Button } from "~/components/styled/Button";
 import { ToolSvgBackground } from "~/components/tools/shared/ToolSvgBackground";
@@ -46,7 +46,9 @@ const EnergyWrapper = styled.div`
     position: absolute;
   }
 
-  .GPU button {
+  .GPU.script button,
+  .GPU.co2 button {
+    font-size: calc(var(--text-body-font-size-tool)* 0.85);
     align-self: start;
     margin: 0;
     margin-bottom: var(--size-1);
@@ -148,7 +150,7 @@ const Grid = styled.div`
 const narrow = css`
   font-size: 14px;
   font-family: var(--font-family-narrow);
-`
+`;
 
 // Bigger icon with text on the side
 const Blurb = styled.div`
@@ -184,7 +186,6 @@ const Blurb = styled.div`
 `;
 
 // Meta columns with icon and narrow text
-// TODO: Aufräumen
 const Meta = styled.ul<{ col: number }>`
   // ul, li reset
   padding: 0;
@@ -202,8 +203,7 @@ const Meta = styled.ul<{ col: number }>`
     grid-template-columns: repeat(${({ col }) => col}, 1fr);
   }
 
-  font-size: 14px;
-  font-family: var(--font-family-narrow);
+  ${narrow}
 
   .svg {
     min-height: 0.8em !important;
@@ -214,11 +214,23 @@ const Meta = styled.ul<{ col: number }>`
   }
 `;
 
-const Caption = styled.div`
-  font-size: 14px;
-  font-family: var(--font-family-narrow);
-`
+const Chart = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-3);
 
+  ${({ theme }) => theme.breakpoints.desktop} {
+    flex-direction: row;
+  }
+`;
+
+const Caption = styled.div`
+  ${narrow}
+
+  ${({ theme }) => theme.breakpoints.desktop} {
+    max-width: 200px;
+  }
+`;
 
 // Individual elements
 // =================================================
@@ -241,7 +253,7 @@ const Header = styled.header`
     line-hight: 1.1em;
   }
 
-  & p{
+  & p {
     ${narrow}
   }
 
@@ -258,8 +270,6 @@ const Header = styled.header`
 const BoxHighlight = styled(Box)`
   background: ${({ theme }) => theme.colors.piaiEnergy};
 `;
-
-
 
 // END STYLES
 // =================================================
@@ -314,8 +324,13 @@ const Index = ({
           </p>
         </div>
         {isDesktopAndUp && (
-          <Icon type="repo" className="textLink" spaceBefore aria-label="Go to github repository">
-            GitHub Repository
+          <Icon
+            type="repo"
+            className="textLink"
+            spaceBefore
+            aria-label="Go to github repository"
+          >
+            <span>GitHub Repository</span>
           </Icon>
         )}
       </Header>
@@ -384,11 +399,19 @@ const Index = ({
         </Box>
         <Box className="GPU statistic energy">
           <h2>Energy consumption relation</h2>
-          <Meta col={1}>
-            Metus vulputate eu scelerisque felis imperdiet. Eget sit amet tellus
-            cras. Urna condimentum mattis pellentesque id.
-          </Meta>
-          <Chart1 />
+          <Chart>
+            <Caption>
+              <p>
+                Metus vulputate eu scelerisque felis imperdiet. Eget sit amet
+                tellus cras. Urna condimentum mattis pellentesque id.
+              </p>
+              <Icon type="download" nonMuted className="textLink">
+                <span>Get sample chart</span>
+              </Icon>
+            </Caption>
+
+            <Chart1 />
+          </Chart>
           <h3>Explanations</h3>
           <Meta col={2}>
             <Icon stc type="washing">
@@ -401,12 +424,17 @@ const Index = ({
         </Box>
         <Box className="GPU statistic co2">
           <h2>Energy consumption relation</h2>
-          <Caption>
-            Metus vulputate eu scelerisque felis imperdiet. Eget sit amet tellus
-            cras. Urna condimentum mattis pellentesque id.
-            
-          </Caption>
-          <Chart2 />
+          <Chart>
+            <Caption>
+              <p>
+                Metus vulputate eu scelerisque felis imperdiet. Eget sit amet
+                tellus cras. Urna condimentum mattis pellentesque id.
+              </p>
+              <Button>Go to tool</Button>
+            </Caption>
+
+            <Chart2 />
+          </Chart>
           <h3>Explanations</h3>
           <Meta col={2}>
             <Icon stc type="washing">
