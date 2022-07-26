@@ -307,7 +307,7 @@ export const theme = {
         fontFamily: "var(--font-family-sans-serif)",
         fontWeight: 400,
         fontSize: "16px",
-        lineHeight: "30px",
+        lineHeight: "20px",
         marginTop: "-2px",
         marginBottom: "0.6em",
         // marginLeft: "-4px",
@@ -358,7 +358,7 @@ export const theme = {
         // marginLeft: "-4px",
       },
       h1: {
-        fontSize: "25px",
+        fontSize: "20px",
         // lineHeight: "35px",
         marginTop: "-2px",
         marginBottom: "0.6em",
