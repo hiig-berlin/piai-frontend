@@ -10,6 +10,7 @@ import {
 import { appConfig } from "~/config";
 import { PiAiTool } from "~/types";
 import { LabElement } from "~/components/ui/LabElement";
+import { Contribute } from "~/components/tools/map/Contribute";
 
 const Directory = ({ tool }: { tool: PiAiTool }) => {
   return (
@@ -41,6 +42,8 @@ const Directory = ({ tool }: { tool: PiAiTool }) => {
         />
       </div>
       <p>This is the directory page</p>
+
+      <Contribute position="bottom right" />
     </>
   );
 };
