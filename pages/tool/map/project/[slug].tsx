@@ -8,17 +8,9 @@ import {
 } from "~/utils/restApi";
 import { appConfig } from "~/config";
 import { PiAiTool } from "~/types";
-import { LabElement } from "~/components/ui/LabElement";
-import {
-  ButtonNormalized,
-  LinkButtonAnimated,
-} from "~/components/styled/Button";
-import { ToolSvgBackground } from "~/components/tools/shared/ToolSvgBackground";
 import styled from "styled-components";
 import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
 import { Box } from "~/components/tools/shared/ui/Box";
-import SafeHtmlDiv from "~/components/ui/SafeHtmlDiv";
-import { defaultMaxListeners } from "events";
 import { Icon } from "~/components/tools/shared/ui/Icon";
 import { ProjectCard } from "~/components/tools/map/ProjectCard";
 import { useRouter } from "next/router";
@@ -75,7 +67,7 @@ const Container = styled.main<{
     }
 
     .contact {
-      .name h4{
+      .name h4 {
         margin-bottom: var(--size-1);
       }
     }
@@ -129,14 +121,102 @@ const Project = ({ data, tool }: { data: any; tool: PiAiTool }) => {
 
   const router = useRouter();
 
-  // TODO: Remove this when dynamic content
-  data = staticData;
+  const sectionMotivationAndValues = {
+    title: "Motivation and values",
+    questions: [
+      "whatDefinesPublicInterest",
+      "originOfIdea",
+      "goalOfProject",
+      "usedGuidelines",
+    ].reduce((carry: any, key: string) => {
+      if (Array.isArray(data?.acf?.motivationAndValues?.[key]?.value)) {
+        if (data?.acf?.motivationAndValues?.[key]?.value?.length)
+          carry.push({
+            question: data?.acf?.motivationAndValues?.[key]?.question?.trim(),
+            answer: [
+              ...data.acf.motivationAndValues[key].value,
+              ...(key === "usedGuidelines" &&
+              data?.acf?.motivationAndValues?.usedGuidelinesOther2?.value?.trim()
+                ? [
+                    data?.acf?.motivationAndValues?.usedGuidelinesOther2?.value?.trim(),
+                  ]
+                : []),
+            ].join(", "),
+          });
+      } else if (data?.acf?.motivationAndValues?.[key]?.value?.trim()) {
+        carry.push({
+          question: data?.acf?.motivationAndValues?.[key]?.question?.trim(),
+          answer: data?.acf?.motivationAndValues?.[key]?.value?.trim(),
+        });
+      }
+      return carry;
+    }, []),
+  };
+
+  const sectionGuidingValues = {
+    title: "Guiding Values",
+    questions: [
+      "guidingValue1",
+      "guidingValueMeasures1",
+      "guidingValue2",
+      "guidingValueMeasures2",
+      "guidingValue3",
+      "guidingValueMeasures3",
+      "guidingValue4",
+      "guidingValueMeasures4",
+      "guidingValue5",
+      "guidingValueMeasures5",
+    ].reduce((carry: any, key: string) => {
+      if (data?.acf?.guidingValues?.[key]?.value?.trim()) {
+        carry.push({
+          question: data?.acf?.guidingValues?.[key]?.question?.trim(),
+          answer: data?.acf?.guidingValues?.[key]?.value?.trim(),
+        });
+      }
+      return carry;
+    }, []),
+  };
+
+  const sectionDesignSafeguards = {
+    title: "Design & Safeguards",
+    questions: [
+      "stakeholders",
+      "stakeholderEngagement",
+      "participatoryDesignMethods",
+      "thirdPartyValidation",
+      "madeTransparentToPublic",
+      "madeTransparentToPublicMethods",
+      "involvementOfAffectedPeople",
+      "feedbackChannels",
+      "verificationMethods",
+      "transparencyMeasures",
+      "safeguards",
+      "sustainabilityMeasures",
+      "contributingToUNSustainabilityGoals",
+      "contributingToUNSustainabilityGoalsDescription",
+      "relyingOnOpenData",
+    ].reduce((carry: any, key: string) => {
+      if (Array.isArray(data?.acf?.designAndSafeguards?.[key]?.value)) {
+        if (data?.acf?.designAndSafeguards?.[key]?.value?.length)
+          carry.push({
+            question: data?.acf?.designAndSafeguards?.[key]?.question?.trim(),
+            answer: data.acf.designAndSafeguards[key].value.join(", "),
+          });
+      } else if (data?.acf?.designAndSafeguards?.[key]?.value?.trim()) {
+        carry.push({
+          question: data?.acf?.designAndSafeguards?.[key]?.question?.trim(),
+          answer: data?.acf?.designAndSafeguards?.[key]?.value?.trim(),
+        });
+      }
+      return carry;
+    }, []),
+  };
 
   return (
     <>
       <NextHeadSeo
         canonical={data?.yoast_head_json?.canonical}
-        title={data?.yoast_head_json?.title ?? data?.title}
+        title={data?.yoast_head_json?.title ?? data?.details?.title}
         description={data?.yoast_head_json?.description}
         og={{
           title: data?.yoast_head_json?.og_title,
@@ -174,25 +254,30 @@ const Project = ({ data, tool }: { data: any; tool: PiAiTool }) => {
           <ProjectCard view="detail" data={data} />
           <Box className="contact">
             <h3>Contact</h3>
-            <div className="name">
-              <Label as="h4">Responsible Person</Label>
-              <p>{data.contact.responsiblePerson}</p>
-            </div>
+            {data?.acf?.details?.responsiblePerson?.value?.trim() && (
+              <div className="name">
+                <Label as="h4">Responsible Person</Label>
+                <p>{data?.acf?.details?.responsiblePerson?.value}</p>
+              </div>
+            )}
             <Meta col={1}>
-              {data.contact.website && (
-                <Icon type="globe" link>
-                  {data.contact.website}
-                </Icon>
+              {data?.acf?.details?.linkInformation?.value?.trim() && (
+                <Icon
+                  type="globe"
+                  url={data?.acf?.details?.linkInformation?.value}
+                />
               )}
-              {data.contact.repository && (
-                <Icon type="repository" link>
-                  {data.contact.repository}
-                </Icon>
+              {data?.acf?.details?.linkGit?.value?.trim() && (
+                <Icon
+                  type="repository"
+                  url={data?.acf?.details?.linkGit?.value}
+                />
               )}
-              {data.contact.furtherLink && (
-                <Icon type="link" link>
-                  {data.contact.furtherLink}
-                </Icon>
+              {data?.acf?.details?.linkFurther?.value?.trim() && (
+                <Icon
+                  type="link"
+                  url={data?.acf?.details?.linkFurther?.value}
+                />
               )}
             </Meta>
           </Box>
@@ -231,26 +316,57 @@ const Project = ({ data, tool }: { data: any; tool: PiAiTool }) => {
                 </span>
               </Icon>
             )}
-            {data?.details?.length > 0 &&
-              data?.details?.map((s: any, index: Number) => {
-                return (
-                  <>
-                    <h2>{s.section}</h2>
-                    {s.questions?.length > 0 &&
-                      s.questions.map((q: any, i: Number) => {
-                        return (
-                          <Question
-                            question={q.question}
-                            key={`question-${index}-${i}`}
-                            expanded={!isCollapsed}
-                          >
-                            {q.answer}
-                          </Question>
-                        );
-                      })}
-                  </>
-                );
-              })}
+            {sectionMotivationAndValues?.questions?.length > 0 && (
+              <>
+                <h2>{sectionMotivationAndValues.title}</h2>
+                {sectionMotivationAndValues.questions.map(
+                  (q: any, i: Number) => {
+                    return (
+                      <Question
+                        question={q.question}
+                        key={`question-mav-${i}`}
+                        expanded={!isCollapsed}
+                      >
+                        {q.answer}
+                      </Question>
+                    );
+                  }
+                )}
+              </>
+            )}
+            {sectionGuidingValues?.questions?.length > 0 && (
+              <>
+                <h2>{sectionGuidingValues.title}</h2>
+                {sectionGuidingValues.questions.map((q: any, i: Number) => {
+                  return (
+                    <Question
+                      question={q.question}
+                      key={`question-mav-${i}`}
+                      expanded={!isCollapsed}
+                    >
+                      {q.answer}
+                    </Question>
+                  );
+                })}
+              </>
+            )}
+
+            {sectionDesignSafeguards?.questions?.length > 0 && (
+              <>
+                <h2>{sectionDesignSafeguards.title}</h2>
+                {sectionDesignSafeguards.questions.map((q: any, i: Number) => {
+                  return (
+                    <Question
+                      question={q.question}
+                      key={`question-mav-${i}`}
+                      expanded={!isCollapsed}
+                    >
+                      {q.answer}
+                    </Question>
+                  );
+                })}
+              </>
+            )}
           </Box>
         </div>
       </Container>
@@ -286,8 +402,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   const tool = appConfig.tools.find((tool: PiAiTool) => tool.slug === "map");
 
-  // if (!data || !tool)
-  if (!tool)
+  if (!data || !tool)
     return {
       props: {
         frontendSettings: await restApiGetSettings(),
@@ -311,96 +426,5 @@ export const getStaticProps: GetStaticProps = async (context) => {
 Project.getLayout = function getLayout(page: ReactElement, props: any) {
   return <Layout props={props}>{page}</Layout>;
 };
-export default Project;
 
-const staticData = {
-  slug: "testProject",
-  title: "Platform Goal Marketing Analysis Tool for Non-Profit Organisations",
-  meta: {
-    location: "Cologne, Germany",
-    startDate: "2012-02-01",
-    organisation: "Universität Köln",
-    size: "20+ employees",
-  },
-  shortDescription:
-    "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est.",
-  classification: {
-    openSource: true,
-    genderRatio: {
-      male: 70,
-      female: 30,
-      diverse: 0,
-    },
-    funding: "other",
-    fundingOther: "",
-    sector:
-      "Information and communication, Financial and insurance activities, Administrative and support service activities",
-    usageAI:
-      "Natural Language Processing, Data Management and Analysis, Information Retrieval",
-    generationAI: "Deep Learning (CNN, Transformers, etc.)",
-    modelTraining: "Semi-supervised Learning",
-  },
-  contact: {
-    responsiblePerson: "Eric Cartman, South Park Archives",
-    website:
-      "https://portal.uni-koeln.de/universitaet/aktuell/presseinformationen/detail/letzte-beobachtungskampagne-des-astronomischen-instruments-great-sofia-startet-im-sommer",
-    repository: "https://github.com/unikoeln/platmarketinganalysis-tool",
-    furtherLink: "https://someotherwebsite.thatis.super/important",
-  },
-  details: [
-    {
-      section: "Motivation and values",
-      questions: [
-        {
-          question:
-            "What in your view defines the public interest and how does your project meet this purpose?",
-          answer:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        },
-        {
-          question: "How did the idea of your project come about?",
-          answer:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        },
-        {
-          question:
-            "Did you follow one or more guidelines for ethical AI, and if yes, which one?",
-          answer:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        },
-        {
-          question: "What are your top 5 guiding-values for the project?",
-          answer:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        },
-      ],
-    },
-    {
-      section: "Design and safeguards",
-      questions: [
-        {
-          question:
-            "Define the type of primary users that interact with the system.",
-          answer:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        },
-        {
-          question: "How did the idea of your project come about?",
-          answer:
-            "Which stakeholders were involved in the process of development and implementation of the project?",
-        },
-        {
-          question: "How did you engage relevant stakeholders?",
-          answer:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        },
-        {
-          question:
-            "Did you apply specific methods of participatory design, and if yes, which ones?",
-          answer:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        },
-      ],
-    },
-  ],
-};
+export default Project;

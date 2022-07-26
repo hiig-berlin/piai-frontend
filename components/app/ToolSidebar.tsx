@@ -52,8 +52,7 @@ const ToolSubmenu = styled.div`
 export const ToolSidebar = () => {
   const config = useConfigContext();
   const router = useRouter();
-  // console.log("router:", router.pathname)
-
+  
   return (
     <SidebarWrapper>
       <Logo

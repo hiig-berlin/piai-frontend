@@ -469,7 +469,7 @@ export const theme = {
         // lineHeight: "65px",
       },
       h1: {
-        fontSize: "50px",
+        fontSize: "22px",
         // lineHeight: "55px",
       },
       h2: {

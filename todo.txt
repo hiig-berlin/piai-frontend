@@ -6,6 +6,8 @@
   - what about the "mobile" sidebar?
 - Counter (how to place it on mobile Landscape)
 
+- Mapping "Involving the people who will be affected by the project is a necessary part of the project design" numbers to text ??? 
+
 +++++++++++++++++++++++++++++++++++++++++++++
 +++++ TODO: Frontend ++++++++++++++++++++++++
 +++++++++++++++++++++++++++++++++++++++++++++
