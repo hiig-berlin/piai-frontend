@@ -4,7 +4,7 @@ import styled from "styled-components";
 const BoxWrapper = styled.div`
   border-radius: var(--size-3);
   background: #000;
-
+  pointer-events: all;
   padding: var(--size-4);
   display: inline-flex;
   flex-direction: column;
