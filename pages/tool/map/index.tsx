@@ -83,8 +83,7 @@ const Index = ({
         </p>
 
         <Counter inView={52} inViewFiltered={2} total={250} totalFiltered={5} />
-        <Contribute position="bottom right" />
-
+        <Contribute position="bottom right" />        
       </Box>
     </>
   );

@@ -21,7 +21,6 @@ const MapContainer = styled.div`
   height: 100vh;
   justify-content: center;
   align-items: center;
-  // color: #005;
   background-color: #000;
 `;
 export const Map = ({ isVisible }: { isVisible?: boolean }) => {
