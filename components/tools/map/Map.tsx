@@ -32,7 +32,7 @@ export const Map = ({ isVisible }: { isVisible?: boolean }) => {
 
   const [isMapLoaded, setIsMapLoaded] = useState(false);
 
-  const { filterSettings } = useToolStateContext();
+  const { filterSettings, getMapState, setMapState } = useToolStateContext();
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -42,17 +42,32 @@ export const Map = ({ isVisible }: { isVisible?: boolean }) => {
       filterSettings?.styleUrl?.trim() !== "" &&
       !mapControllerRef.current
     ) {
+      console.log("create new map controller");
       const controller = new MapController(
         router,
         config,
-        filterSettings?.styleUrl
+        filterSettings?.styleUrl,
+        getMapState,
+        setMapState
       );
-      controller.init("map", "clustered", mapContainerRef.current, (state: boolean) => {
-        if (isMounted) setIsMapLoaded(state);
-      });
+      controller.init(
+        "map",
+        "clustered",
+        mapContainerRef.current,
+        (state: boolean) => {
+          if (isMounted) setIsMapLoaded(state);
+        }
+      );
       mapControllerRef.current = controller;
     }
-  }, [filterSettings?.styleUrl, isMounted, config, router]);
+  }, [
+    filterSettings?.styleUrl,
+    isMounted,
+    config,
+    router,
+    getMapState,
+    setMapState,
+  ]);
 
   return (
     <>

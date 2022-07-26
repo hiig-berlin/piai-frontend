@@ -5,24 +5,27 @@ import React, {
   useReducer,
   useEffect,
   useState,
+  useRef,
 } from "react";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 
 import useIsMounted from "~/hooks/useIsMounted";
 import { appConfig } from "~/config";
 
-type MapState = {
+export type MapState = {
   ready: boolean;
   hideIntro: boolean;
+  quickViewProjectId: number | null;
   // TODO: extend ...
 };
 
-type FilterState = {
+export type FilterState = {
   termIds: number[] | null | undefined;
   s: string | null | undefined;
   continents: number[] | null | undefined;
   countries: number[] | null | undefined;
 };
+
 type FilterSettingTaxonomyOption = {
   id: number;
   name: string;
@@ -48,6 +51,7 @@ type FilterSettingTaxonomy = {
   label: string;
   options: FilterSettingTaxonomyOption[];
 };
+
 type FilterSettings = {
   styleUrl: string;
   continents: FilterSettingTaxonomyOptionContinent[] | null | undefined;
@@ -75,7 +79,9 @@ type ToolStateContext = {
   setView: (view: View) => void;
   setMapState: (mapState: MapState) => void;
   setFilterState: (filterState: FilterState) => void;
-  setHideMapIntro: (flag: boolean) => void;
+  getState: () => ToolState;
+  getMapState: () => MapState;
+  getFilterState: () => FilterState;
   reset: () => void;
 };
 
@@ -89,6 +95,7 @@ const defaultToolState: ToolState = {
   map: {
     ready: false,
     hideIntro: false,
+    quickViewProjectId: null,
   },
   filter: {
     termIds: [],
@@ -112,7 +119,9 @@ const defaultToolStateContext: ToolStateContext = {
   setView: (view: View) => {},
   setMapState: (mapState: MapState) => {},
   setFilterState: (filterState: FilterState) => {},
-  setHideMapIntro: (flag: boolean) => {},
+  getState: () => defaultToolState,
+  getMapState: () => defaultToolState.map,
+  getFilterState: () => defaultToolState.filter,
   reset: () => {},
 };
 
@@ -122,6 +131,7 @@ const toolStateReducer = function <T>(
 ): ToolState {
   switch (action.type) {
     case "map":
+      console.log("dispatch", action?.payload);
       return {
         ...state,
         map: (action?.payload ?? defaultToolState.map) as MapState,
@@ -172,6 +182,10 @@ export const ToolStateContextProvider = ({
   const isMounted = useIsMounted();
   const [state, dispatch] = useReducer(toolStateReducer, defaultToolState);
 
+  const stateRef = useRef<ToolState>(defaultToolState);
+
+  stateRef.current = state;
+
   const { isLoading, isSuccess, data, isError } = useQuery(
     ["filterSettings"],
     fetchFilterSettings
@@ -190,7 +204,9 @@ export const ToolStateContextProvider = ({
 
   const setMapState = useCallback(
     (mapState: MapState) => {
+      console.log(1);
       if (!isMounted) return;
+      console.log(2, mapState);
       dispatch({
         type: "map",
         payload: mapState,
@@ -217,19 +233,17 @@ export const ToolStateContextProvider = ({
     });
   }, [isMounted]);
 
-  const setHideMapIntro = useCallback(
-    (flag: boolean) => {
-      if (!isMounted) return;
-      dispatch({
-        type: "map",
-        payload: {
-          ...state.map,
-          hideIntro: flag,
-        },
-      });
-    },
-    [isMounted, state]
-  );
+  const getState = useCallback(() => {
+    return stateRef.current;
+  }, []);
+
+  const getMapState = useCallback(() => {
+    return stateRef.current.map;
+  }, []);
+
+  const getFilterState = useCallback(() => {
+    return stateRef.current.filter;
+  }, []);
 
   if (isError) throw "Could not fetch needed data from server.";
 
@@ -242,6 +256,7 @@ export const ToolStateContextProvider = ({
     }
   }, [isLoading, isSuccess, data]);
 
+  console.log("mc", state.map);
   return (
     <ToolStateContext.Provider
       value={{
@@ -249,7 +264,9 @@ export const ToolStateContextProvider = ({
         setView,
         setMapState,
         setFilterState,
-        setHideMapIntro,
+        getState,
+        getMapState,
+        getFilterState,
         reset,
       }}
     >

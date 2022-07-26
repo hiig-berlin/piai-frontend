@@ -251,7 +251,7 @@ const Project = ({ data, tool }: { data: any; tool: PiAiTool }) => {
           >
             <span>back</span>
           </Icon>
-          <ProjectCard view="detail" data={data} />
+          <ProjectCard view="detail" data={data?.acf?.details} />
           <Box className="contact">
             <h3>Contact</h3>
             {data?.acf?.details?.responsiblePerson?.value?.trim() && (

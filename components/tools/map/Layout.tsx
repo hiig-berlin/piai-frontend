@@ -19,6 +19,7 @@ import {
 import { Sidebar } from "../shared/Sidebar";
 import { Submenu } from "./Submenu";
 import ReactQueryContextProvider from "./context/ReactQueryContextProvider";
+import { MapOverlays } from "./MapOverlays";
 
 const Map = dynamic(() => import("./Map"), { suspense: true });
 
@@ -47,7 +48,7 @@ const ContentContainer = styled.div<{ isTransparent: boolean }>`
       min-height: calc(100vh - var(--lbh, 0));
   `}
 
-  ${({theme}) => theme.breakpoints.tablet} {
+  ${({ theme }) => theme.breakpoints.tablet} {
     padding: 0;
   }
 `;
@@ -85,6 +86,7 @@ export const Layout = ({
       {children}
     </ContentContainer>
   );
+
   return (
     <>
       <NextHeadSeo
@@ -110,6 +112,7 @@ export const Layout = ({
             </Suspense>
           )}
           {!isMap && content}
+          {isMap && <MapOverlays />}
         </ToolStateContextProvider>
       </ReactQueryContextProvider>
       <Menu />

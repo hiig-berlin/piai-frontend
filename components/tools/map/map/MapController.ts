@@ -20,6 +20,8 @@ import { MapPopupManager } from "./MapPopupManager";
 import { MapClusterDetail } from "./MapClusterDetail";
 import { MapViewClustered } from "./MapViewClustered";
 
+import type { MapState } from "../context/ContextProviders";
+
 export type MapFitToBoundingBoxOptions = CameraForBoundsOptions & {
   minZoom?: number;
 };
@@ -98,12 +100,24 @@ export class MapController {
 
   onLoadJobs: Function[] = [];
 
-  constructor(router: NextRouter, config: AppConfig, styleUrl: string) {
+  getMapState: () => MapState;
+  setMapState: (mapState: MapState) => void;
+
+  constructor(
+    router: NextRouter,
+    config: AppConfig,
+    styleUrl: string,
+    getMapState: () => MapState,
+    setMapState: (mapState: MapState) => void
+  ) {
     this.config = config;
     this.router = router;
     this.styleUrl = styleUrl;
     this.isInit = false;
     this.map = null;
+
+    this.getMapState = getMapState;
+    this.setMapState = setMapState;
 
     const mapTool = this.config?.tools?.find((t) => t.slug === "map");
     this.toolConfig = mapTool?.config ?? {};
@@ -259,11 +273,22 @@ export class MapController {
     self.isInit = true;
   }
 
+  showQuickView(id: number) {
+    const self = this;
+
+    self.popups.hideAll();
+
+    self.setMapState({
+      ...self.getMapState(),
+      quickViewProjectId: id,
+    });    
+  }
+
   loadUrl(url: string) {
     const self = this;
 
     self.popups.hideAll();
-    
+
     self.router.push(url);
 
     self.popups.hideAll();
@@ -654,7 +679,7 @@ export class MapController {
     if (self.map) {
       const run = async (resolve?: any) => {
         if (Number.isNaN(lng) || Number.isNaN(lat)) return;
-        
+
         self.map?.stop();
         self.map?.setPadding({
           top: 0,

@@ -396,16 +396,11 @@ export class MapViewClustered {
       }
 
       self.events["click-clustered-locations"] = (e: any) => {
-        if (primaryInput !== "touch") {
-          self.controller.clusterDetail.hide();
-          if (e?.features?.[0]?.properties?.slug) {
-            try {
-              self.controller.loadUrl(`/${e?.features?.[0]?.properties?.slug}`);
-            } catch (err) {}
-          }
-        } else {
-          if (e?.features?.[0]?.properties) showMapPop(e);
-        }
+        if (e?.features?.[0]?.properties?.id) {
+          try {
+            self.controller.showQuickView(e?.features?.[0]?.properties?.id);
+          } catch (err) {}
+        }        
       };
 
       self.controller.map.on(

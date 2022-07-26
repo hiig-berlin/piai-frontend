@@ -38,7 +38,7 @@ const ContributeBox = styled(Box)<{ seen?: Boolean }>`
 `;
 
 export const Contribute = ({ position }: { position?: String }) => {
-  const { setHideMapIntro, map } = useToolStateContext();
+  const { setMapState, map } = useToolStateContext();
 
   // TODO: get cta from AboutPageData
   const cta = {
@@ -52,7 +52,15 @@ export const Contribute = ({ position }: { position?: String }) => {
     <ContributeBox className="cta" seen={map.hideIntro}>
       <h3>
         <SafeHtmlSpan html={cta.title} />
-        <Icon type="close" onClick={() => setHideMapIntro(true)} />
+        <Icon
+          type="close"
+          onClick={() =>
+            setMapState({
+              ...map,
+              hideIntro: true,
+            })
+          }
+        />
       </h3>
       <SafeHtmlDiv html={cta.text} />
 
