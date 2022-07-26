@@ -19,7 +19,7 @@ export const tools: PiAiTool[] = [
       {
         // this will create an internal link to "/tool/map/list"
         slug: "directory",
-        name: "Project Directory",
+        name: "Project directory",
         icon: "list",
       },
       {
@@ -51,19 +51,19 @@ export const tools: PiAiTool[] = [
   },
   {
     slug: "energy",
-    name: "Energy usage plugin",
-    description: "Measure your AI’s energy consumption",
+    name: "GPU’s engery consumption log",
+    description: "Measure and log your GPU’s engery consumption",
     colorBase: "var(--color-piai-energy)",
     colorHighlight: "var(--color-piai-energy)",
     iconShort: "En",
-    iconLong: "Energy Usage",
+    iconLong: "Energy Log",
     menu: [
       {
-        name: "Presentation",
+        name: "Overview",
       },
       {
         slug: "about",
-        name: "About",
+        name: "About the tool",
       },
     ],
   },
