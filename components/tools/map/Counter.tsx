@@ -9,7 +9,7 @@ const CounterContainer = styled.div`
   color: white;
   border-radius: var(--size-3);
   border: 1px solid var(--color-piai-map);
-  width: calc(100% - 2 * var(--size-4));
+  width: 100%;
 
   position: sticky;
 
@@ -19,15 +19,12 @@ const CounterContainer = styled.div`
   left: var(--size-4);
   //transform: translateX(-50%);
 
-  ${({ theme }) => theme.breakpoints.tabletLandscape} {
-    top: var(--size-3);
-    bottom: unset;
-  }
 
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  & > * {
+
+& > * {
     padding: var(--size-3);
     border-right: 1px solid #0000001a;
 
@@ -38,12 +35,6 @@ const CounterContainer = styled.div`
 
   .label {
     margin-right: var(--size-2);
-  }
-
-  ${({theme}) => theme.breakpoints.mobileLandscape} {
-    position: fixed;
-    left: calc(50% + var(--size-6));
-    width: calc(50% - var(--size-6) - var(--size-3));
   }
 
   ${({theme}) => theme.breakpoints.tablet} {
