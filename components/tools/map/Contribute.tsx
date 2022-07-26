@@ -6,10 +6,11 @@ import { Box } from "../shared/ui/Box";
 import Link from "next/link";
 import styled from "styled-components";
 import { Icon } from "./Icon";
+import { useToolStateContext } from "./context/ContextProviders";
 
 const ContributeBox = styled(Box)<{ seen?: Boolean }>`
   ${({ seen }) => seen && "display: none;"}
-
+  pointer-events: all;
   max-width: 500px;
 
   & * {
@@ -36,13 +37,9 @@ const ContributeBox = styled(Box)<{ seen?: Boolean }>`
   }
 `;
 
-export const Contribute = ({
-  position,
-  seen = false,
-}: {
-  position?: String;
-  seen?: boolean;
-}) => {
+export const Contribute = ({ position }: { position?: String }) => {
+  const { setHideMapIntro, map } = useToolStateContext();
+
   // TODO: get cta from AboutPageData
   const cta = {
     title: "Contribute",
@@ -51,13 +48,11 @@ export const Contribute = ({
     linkTitle: "Add your project",
   };
 
-  const [isSeen, setIsSeen] = useState(seen);
-
   return (
-    <ContributeBox className="cta" seen={isSeen}>
+    <ContributeBox className="cta" seen={map.hideIntro}>
       <h3>
         <SafeHtmlSpan html={cta.title} />
-        <Icon type="close" onClick={() => setIsSeen(!isSeen)} />
+        <Icon type="close" onClick={() => setHideMapIntro(true)} />
       </h3>
       <SafeHtmlDiv html={cta.text} />
 

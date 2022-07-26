@@ -4,6 +4,7 @@ import React, {
   useCallback,
   useReducer,
   useEffect,
+  useState,
 } from "react";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 
@@ -12,6 +13,7 @@ import { appConfig } from "~/config";
 
 type MapState = {
   ready: boolean;
+  hideIntro: boolean;
   // TODO: extend ...
 };
 
@@ -73,6 +75,7 @@ type ToolStateContext = {
   setView: (view: View) => void;
   setMapState: (mapState: MapState) => void;
   setFilterState: (filterState: FilterState) => void;
+  setHideMapIntro: (flag: boolean) => void;
   reset: () => void;
 };
 
@@ -85,6 +88,7 @@ const defaultToolState: ToolState = {
   view: null,
   map: {
     ready: false,
+    hideIntro: false,
   },
   filter: {
     termIds: [],
@@ -108,6 +112,7 @@ const defaultToolStateContext: ToolStateContext = {
   setView: (view: View) => {},
   setMapState: (mapState: MapState) => {},
   setFilterState: (filterState: FilterState) => {},
+  setHideMapIntro: (flag: boolean) => {},
   reset: () => {},
 };
 
@@ -212,6 +217,20 @@ export const ToolStateContextProvider = ({
     });
   }, [isMounted]);
 
+  const setHideMapIntro = useCallback(
+    (flag: boolean) => {
+      if (!isMounted) return;
+      dispatch({
+        type: "map",
+        payload: {
+          ...state.map,
+          hideIntro: flag,
+        },
+      });
+    },
+    [isMounted, state]
+  );
+
   if (isError) throw "Could not fetch needed data from server.";
 
   useEffect(() => {
@@ -230,6 +249,7 @@ export const ToolStateContextProvider = ({
         setView,
         setMapState,
         setFilterState,
+        setHideMapIntro,
         reset,
       }}
     >
