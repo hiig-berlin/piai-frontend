@@ -121,8 +121,6 @@ const Project = ({ data, tool }: { data: any; tool: PiAiTool }) => {
 
   const router = useRouter();
 
-  console.log(data);
-
   const sectionMotivationAndValues = {
     title: "Motivation and values",
     questions: [

@@ -264,7 +264,6 @@ export class MapController {
 
     self.popups.hideAll();
     
-    console.log(`PUSH: ${url}`);
     self.router.push(url);
 
     self.popups.hideAll();
@@ -654,8 +653,8 @@ export class MapController {
     const self = this;
     if (self.map) {
       const run = async (resolve?: any) => {
-        console.log("panto");
         if (Number.isNaN(lng) || Number.isNaN(lat)) return;
+        
         self.map?.stop();
         self.map?.setPadding({
           top: 0,
@@ -687,7 +686,6 @@ export class MapController {
   }
 
   jumpTo(lng: number, lat: number, options: MapAnimationOptions) {
-    console.log("jumpto");
     this.panTo(lng, lat, {
       animate: false,
       duration: 0,
