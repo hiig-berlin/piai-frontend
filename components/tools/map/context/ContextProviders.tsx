@@ -5,7 +5,7 @@ import React, {
   useReducer,
   useEffect,
 } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 
 import useIsMounted from "~/hooks/useIsMounted";
 import { appConfig } from "~/config";
@@ -47,6 +47,7 @@ type FilterSettingTaxonomy = {
   options: FilterSettingTaxonomyOption[];
 };
 type FilterSettings = {
+  styleUrl: string;
   continents: FilterSettingTaxonomyOptionContinent[] | null | undefined;
   countries: FilterSettingTaxonomyOption[] | null | undefined;
   funding: FilterSettingTaxonomy | null | undefined;
@@ -68,6 +69,7 @@ type ToolStateContext = {
   view: View;
   map: MapState;
   filter: FilterState;
+  filterSettings: FilterSettings;
   setView: (view: View) => void;
   setMapState: (mapState: MapState) => void;
   setFilterState: (filterState: FilterState) => void;
@@ -91,6 +93,7 @@ const defaultToolState: ToolState = {
     s: null,
   },
   filterSettings: {
+    styleUrl: "",
     countries: [],
     continents: [],
     funding: null,
@@ -148,10 +151,11 @@ const ToolStateContext = createContext<ToolStateContext>(
 
 export const useToolStateContext = () => useContext(ToolStateContext);
 
-const fetchFilterSettings = () => {
-  return fetch(`${appConfig.apiUrl}/fluxed/v1/piai/filter`).then(
-    async (response) => await response.json()
-  );
+const fetchFilterSettings = async ({ signal }: QueryFunctionContext) => {
+  return fetch(`${appConfig.apiUrl}/fluxed/v1/piai/filter`, {
+    // Pass the signal to one fetch
+    signal,
+  }).then(async (response) => await response.json());
 };
 
 // context provider
@@ -196,17 +200,6 @@ export const ToolStateContextProvider = ({
       dispatch({
         type: "filter",
         payload: filterState,
-      });
-    },
-    [isMounted]
-  );
-
-  const setFilterSettings = useCallback(
-    (filterSettings: FilterSettings) => {
-      if (!isMounted) return;
-      dispatch({
-        type: "filterSettings",
-        payload: filterSettings,
       });
     },
     [isMounted]

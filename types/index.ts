@@ -31,6 +31,7 @@ export type PiAiTool = {
   iconShort: string;
   iconLong: string;
   menu: PiAiToolMenuItem[];
+  config?: any;
 };
 
 export interface AppConfig {

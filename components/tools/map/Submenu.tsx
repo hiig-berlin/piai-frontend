@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import Link from "next/link";
-import { ButtonNormalized } from "~/components/styled/Button";
 import { MapSvgBackground } from "./MapSvgBackground";
 import { Icon } from "./Icon";
 
@@ -90,6 +89,20 @@ export const Submenu = ({ tool, slug }: { tool?: string; slug?: string }) => {
             <Icon type="filter" />
           </ActionItems>
         )}
+      </div>
+      <div>
+        <Link passHref href="/tool/map/about">
+          <a className="subMenuItem">
+            <MapSvgBackground
+              className="svg icon"
+              type="money"
+              position="left center"
+              height="2em"
+              width="2em"
+            />
+            About
+          </a>
+        </Link>
       </div>
     </ToolSubmenu>
   );

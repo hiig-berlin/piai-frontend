@@ -35,5 +35,9 @@
 ++++++++++++++++++++++++++++++++++++++++++++++++
 - Ensure all pages und /pages/... add the needed and correct meta tags.
 
-
+++++++++++++++++++++++++++++++++++++++++++++++++
++++++++ MAP ++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++
+- cluster expansion, draw molecules only after zoom/pan has finished
+- 
 

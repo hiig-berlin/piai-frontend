@@ -1,4 +1,4 @@
-import { Suspense, useEffect } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 import dynamic from "next/dynamic";
 
@@ -14,15 +14,13 @@ import { MenuButton } from "~/components/app/MenuButton";
 import {
   ToolStateContextProvider,
   useToolStateContext,
-} from "./ContextProviders";
-import { Map } from "./Map";
+} from "./context/ContextProviders";
 
 import { Sidebar } from "../shared/Sidebar";
 import { Submenu } from "./Submenu";
+import ReactQueryContextProvider from "./context/ReactQueryContextProvider";
 
-const ReactQueryContextProvider = dynamic(
-  () => import("./ReactQueryContextProvider")
-);
+const Map = dynamic(() => import("./Map"), { suspense: true });
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -33,8 +31,9 @@ const GlobalStyle = createGlobalStyle`
 
 // Contains:
 // Map + ContentContainer +Sidebar
-const ToolContainer = styled.div<{ isStacked: boolean }>`
-  display: ${({ isStacked }) => (isStacked ? "block" : "flex")};
+const ToolContainer = styled.div<{ isMap: boolean }>`
+  display: ${({ isMap }) => (isMap ? "block" : "flex")};
+  background-color: ${({ isMap }) => (isMap ? "#000" : "transparent")};
   flex-direction: row-reverse;
   height: 100vh;
   overflow: hidden;
@@ -52,6 +51,7 @@ const ContentContainer = styled.div<{ isTransparent: boolean }>`
   height: 100%;
   overflow-y: auto;
   overscroll-behavior: none;
+  z-index: 2;
 
   ${({ isTransparent }) =>
     isTransparent
@@ -81,10 +81,23 @@ export const Layout = ({
   const { isLoading } = usePageStateContext();
   const { setView } = useToolStateContext();
 
+  const [showMap, setShowMap] = useState(props?.view === "map");
+
   useEffect(() => {
     setView(props?.view ?? "page");
   }, [setView, props?.view]);
 
+  const isMap = props?.view === "map";
+
+  useEffect(() => {
+    if (isMap && !showMap) {
+      setShowMap(true);
+    }
+  }, [isMap, showMap]);
+
+  const content = (
+    <ContentContainer isTransparent={isMap}>{children}</ContentContainer>
+  );
   return (
     <>
       <GlobalStyle />
@@ -102,21 +115,22 @@ export const Layout = ({
       <UserTracking />
       <LoadingBar isLoading={isLoading} />
       <MenuButton />
-      <Suspense fallback={<LoadingBar isLoading/>}>
-        <ReactQueryContextProvider>
-          <ToolStateContextProvider>
-            <ToolContainer isStacked={props?.view === "map"}>
-              <Map isVisible={props?.view === "map"} />
-              <ContentContainer isTransparent={props?.view === "map"}>
-                {children}
-              </ContentContainer>
-              <Sidebar tool="map" view={props?.view}>
-                <Submenu tool="map" slug={props?.slug} />
-              </Sidebar>
-            </ToolContainer>
-          </ToolStateContextProvider>
-        </ReactQueryContextProvider>
-      </Suspense>
+      <ReactQueryContextProvider>
+        <ToolStateContextProvider>
+          <ToolContainer isMap={isMap}>
+            {showMap && (
+              <Suspense fallback={<LoadingBar isLoading />}>
+                <Map />
+                {isMap && content}
+              </Suspense>
+            )}
+            {!isMap && content}
+            <Sidebar tool="map" view={props?.view}>
+              <Submenu tool="map" slug={props?.slug} />
+            </Sidebar>
+          </ToolContainer>
+        </ToolStateContextProvider>
+      </ReactQueryContextProvider>
       <Menu />
     </>
   );

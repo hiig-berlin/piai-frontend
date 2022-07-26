@@ -7,6 +7,7 @@ import Layout from "~/components/tools/map/Layout";
 import { restApiGetSettings } from "~/utils/restApi";
 import { PiAiTool } from "~/types";
 import { LabElement } from "~/components/ui/LabElement";
+import { Box } from "~/components/tools/shared/ui/Box";
 
 const Index = ({
   frontendSettings,
@@ -35,11 +36,8 @@ const Index = ({
       />*/}
       {/* Dont' wrap this in further divs, 
       <main> is set via Layout component "*/}
-      <div
-        style={{
-          paddingLeft: "100px",
-        }}
-      >
+
+      <Box>
         <div style={{ margin: "20px" }}>
           <LabElement
             shortHandle={tool.iconShort}
@@ -81,7 +79,7 @@ const Index = ({
           The sidebar is a generic element. It can have custom content for each
           tool.
         </p>
-      </div>
+      </Box>
     </>
   );
 };
