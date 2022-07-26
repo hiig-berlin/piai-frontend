@@ -5,18 +5,35 @@ import { Icon } from "../shared/ui/Icon";
 import { Question } from "./Question";
 import { Meta } from "~/components/tools/map/Styled";
 import { formatDate } from "~/utils";
+import Link from "next/link";
+import { LinkButtonAnimated } from "~/components/styled/Button";
+import styled from "styled-components";
+
+const ViewMore = styled.div`
+  display: flex;
+  justify-content: center;
+  padding-top: var(--size-3);
+  a {
+    color: var(--color-piai-map-highlight) !important;
+    border-color: var(--color-piai-map-highlight);
+    
+    &:visited {
+      color: var(--color-piai-map-highlight);
+    }
+  }
+`
 
 export const ProjectCard = ({
   view = "detail",
+  slug,
   data,
 }: {
   view: string;
+  slug?: string;
   data: any;
 }) => {
   let sourceCode = "Unknown code license";
-  switch (
-    data?.isProjectOpenSource?.value?.trim().toLowerCase()
-  ) {
+  switch (data?.isProjectOpenSource?.value?.trim().toLowerCase()) {
     case "no":
       sourceCode = "Closed source";
       break;
@@ -41,8 +58,7 @@ export const ProjectCard = ({
       <h1>{data?.nameOfProject?.value}</h1>
       <Meta col={2}>
         <Icon type="marker" stc>
-          {data?.city?.value},{" "}
-          {data?.country?.value}
+          {data?.city?.value}, {data?.country?.value}
         </Icon>
         <Icon type="calendar" stc>
           {formatDate(data?.projectStartDate?.value, {
@@ -93,13 +109,12 @@ export const ProjectCard = ({
           {data?.stage?.value}
         </Question>
       )}
-      
-      {view === "detail" &&
-        data?.implementedBy?.value?.length > 0 && (
-          <Question question="Implemented by:" showAlways>
-            {data?.implementedBy?.value.join(", ")}
-          </Question>
-        )}
+
+      {view === "detail" && data?.implementedBy?.value?.length > 0 && (
+        <Question question="Implemented by:" showAlways>
+          {data?.implementedBy?.value.join(", ")}
+        </Question>
+      )}
       {data?.industrialSector?.value?.length > 0 && (
         <Question question="Industrial Sectors:" showAlways>
           {data?.industrialSector?.value.join(", ")}
@@ -119,6 +134,14 @@ export const ProjectCard = ({
         <Question question="Model training:" showAlways>
           {data?.modelTrainingBuilt?.value.join(", ")}
         </Question>
+      )}
+
+      {view === "quickview" && slug && (
+        <ViewMore>
+          <Link href={`/tool/map/project/${slug}`} passHref>
+            <LinkButtonAnimated>View full project profile</LinkButtonAnimated>
+          </Link>
+        </ViewMore>
       )}
     </Box>
   );

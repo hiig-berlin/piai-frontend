@@ -23,7 +23,7 @@ export const ProjectQuickView = ({ id }: { id?: number }) => {
       {isLoading && <LoadingBar isLoading={isLoading} />}
 
       {isSuccess && data?.data?.id && (
-        <ProjectCard view="quickview" data={data?.data?.acf?.details} />        
+        <ProjectCard view="quickview" slug={data?.data?.slug} data={data?.data?.acf?.details} />        
       )}
     </>
   );
