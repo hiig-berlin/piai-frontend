@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import { ButtonNormalized } from "~/components/styled/Button";
 import { ToolSvgBackground } from "../ToolSvgBackground";
+import safeHtml from "~/utils/sanitize";
 
 const baseStyling = css<{ spaceBefore?: boolean }>`
   display: flex;
@@ -35,7 +36,7 @@ const IconButton = styled(ButtonNormalized)<{
 }>`
   ${baseStyling}
 
-  opacity: ${({ nonMuted, active}) => ((nonMuted || active) ? "1" : "0.6")};
+  opacity: ${({ nonMuted, active }) => (nonMuted || active ? "1" : "0.6")};
   transition: opacity 0.5s ease;
 
   &:hover {
@@ -83,7 +84,7 @@ export const Icon = ({
   className,
   stc,
   nonMuted,
-  link,
+  url,
   active,
 }: {
   type: string;
@@ -93,7 +94,7 @@ export const Icon = ({
   className?: string;
   stc?: boolean;
   nonMuted?: boolean;
-  link?: boolean;
+  url?: string;
   active?: boolean;
 }) => {
   if (stc) {
@@ -103,13 +104,29 @@ export const Icon = ({
         {children && children}
       </IconStatic>
     );
-  } else if (link) {
+  } else if (typeof url === "string") {
+    if (!url.trim()) return <></>;
+
     return (
       <IconStatic className={className}>
         <ToolSvgBackground type={type} />
-        <a href="{children}" target="_blank" rel="nofollow noreferrer">
-          {children}
-        </a>
+        <span>{safeHtml(url)
+          .split(",")
+          .reduce((carry: any, u: any) => {
+            if (!u.trim()) return carry;
+
+            if (carry.length > 0) {
+              carry.push(", ");
+            }
+
+            carry.push(
+              <a href={u.trim()} target="_blank" rel="nofollow noreferrer">
+                {u.trim()}
+              </a>
+            );
+
+            return carry;
+          }, [])}</span>
       </IconStatic>
     );
   } else {

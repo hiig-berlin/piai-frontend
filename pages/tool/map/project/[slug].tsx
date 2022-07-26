@@ -75,7 +75,7 @@ const Container = styled.main<{
     }
 
     .contact {
-      .name h4{
+      .name h4 {
         margin-bottom: var(--size-1);
       }
     }
@@ -129,14 +129,13 @@ const Project = ({ data, tool }: { data: any; tool: PiAiTool }) => {
 
   const router = useRouter();
 
-  // TODO: Remove this when dynamic content
-  data = staticData;
+  console.log(data);
 
   return (
     <>
       <NextHeadSeo
         canonical={data?.yoast_head_json?.canonical}
-        title={data?.yoast_head_json?.title ?? data?.title}
+        title={data?.yoast_head_json?.title ?? data?.details?.title}
         description={data?.yoast_head_json?.description}
         og={{
           title: data?.yoast_head_json?.og_title,
@@ -174,25 +173,30 @@ const Project = ({ data, tool }: { data: any; tool: PiAiTool }) => {
           <ProjectCard view="detail" data={data} />
           <Box className="contact">
             <h3>Contact</h3>
-            <div className="name">
-              <Label as="h4">Responsible Person</Label>
-              <p>{data.contact.responsiblePerson}</p>
-            </div>
+            {data?.acf?.details?.responsiblePerson?.value?.trim() && (
+              <div className="name">
+                <Label as="h4">Responsible Person</Label>
+                <p>{data?.acf?.details?.responsiblePerson?.value}</p>
+              </div>
+            )}
             <Meta col={1}>
-              {data.contact.website && (
-                <Icon type="globe" link>
-                  {data.contact.website}
-                </Icon>
+              {data?.acf?.details?.linkInformation?.value?.trim() && (
+                <Icon
+                  type="globe"
+                  url={data?.acf?.details?.linkInformation?.value}
+                />
               )}
-              {data.contact.repository && (
-                <Icon type="repository" link>
-                  {data.contact.repository}
-                </Icon>
+              {data?.acf?.details?.linkGit?.value?.trim() && (
+                <Icon
+                  type="repository"
+                  url={data?.acf?.details?.linkGit?.value}
+                />
               )}
-              {data.contact.furtherLink && (
-                <Icon type="link" link>
-                  {data.contact.furtherLink}
-                </Icon>
+              {data?.acf?.details?.linkFurther?.value?.trim() && (
+                <Icon
+                  type="link"
+                  url={data?.acf?.details?.linkFurther?.value}
+                />
               )}
             </Meta>
           </Box>
@@ -231,8 +235,8 @@ const Project = ({ data, tool }: { data: any; tool: PiAiTool }) => {
                 </span>
               </Icon>
             )}
-            {data?.details?.length > 0 &&
-              data?.details?.map((s: any, index: Number) => {
+            {/* {staticData?.details?.length > 0 &&
+              staticData?.details?.map((s: any, index: Number) => {
                 return (
                   <>
                     <h2>{s.section}</h2>
@@ -250,7 +254,7 @@ const Project = ({ data, tool }: { data: any; tool: PiAiTool }) => {
                       })}
                   </>
                 );
-              })}
+              })} */}
           </Box>
         </div>
       </Container>
@@ -286,8 +290,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   const tool = appConfig.tools.find((tool: PiAiTool) => tool.slug === "map");
 
-  // if (!data || !tool)
-  if (!tool)
+  if (!data || !tool)
     return {
       props: {
         frontendSettings: await restApiGetSettings(),
