@@ -8,6 +8,7 @@ import { formatDate } from "~/utils";
 import Link from "next/link";
 import { LinkButtonAnimated } from "~/components/styled/Button";
 import styled from "styled-components";
+import safeHtml from "~/utils/sanitize";
 
 const ViewMore = styled.div`
   display: flex;
@@ -16,12 +17,12 @@ const ViewMore = styled.div`
   a {
     color: var(--color-piai-map-highlight) !important;
     border-color: var(--color-piai-map-highlight);
-    
+
     &:visited {
       color: var(--color-piai-map-highlight);
     }
   }
-`
+`;
 
 export const ProjectCard = ({
   view = "detail",
@@ -44,21 +45,29 @@ export const ProjectCard = ({
   }
 
   const genderRatio = ["-", "-", "-"];
-  if (data?.teamGenderRatioMale?.value)
-    genderRatio[0] = data?.teamGenderRatioMale?.value;
+  try {
+    if (data?.teamGenderRatioMale?.value)
+      genderRatio[0] = data?.teamGenderRatioMale?.value
+        ? `${parseInt(data?.teamGenderRatioMale?.value)}`
+        : "-";
 
-  if (data?.teamGenderRatioFemale?.value)
-    genderRatio[1] = data?.teamGenderRatioFemale?.value;
+    if (data?.teamGenderRatioFemale?.value)
+      genderRatio[1] = data?.teamGenderRatioFemale?.value
+        ? `${parseInt(data?.teamGenderRatioFemale?.value)}`
+        : "-";
 
-  if (data?.teamGenderRatioNonBinary?.value)
-    genderRatio[2] = data?.teamGenderRatioNonBinary?.value;
+    if (data?.teamGenderRatioNonBinary?.value)
+      genderRatio[2] = data?.teamGenderRatioNonBinary?.value
+        ? `${parseInt(data?.teamGenderRatioNonBinary?.value)}`
+        : "-";
+  } catch (err) {}
 
   return (
     <Box>
       <h1>{data?.nameOfProject?.value}</h1>
       <Meta col={2}>
         <Icon type="marker" stc>
-          {data?.city?.value}, {data?.country?.value}
+          {safeHtml(data?.city?.value)}, {safeHtml(data?.country?.value)}
         </Icon>
         <Icon type="calendar" stc>
           {formatDate(data?.projectStartDate?.value, {
@@ -68,17 +77,17 @@ export const ProjectCard = ({
         </Icon>
         {data?.organisation?.value?.trim() && (
           <Icon type="company" stc>
-            {data?.organisation?.value}
+            {safeHtml(data?.organisation?.value)}
           </Icon>
         )}
         {data?.size?.value?.trim() && (
           <Icon type="people" stc>
-            {data?.size?.value} Team members
+            {safeHtml(data?.size?.value)} Team members
           </Icon>
         )}
       </Meta>
       {data?.shortDescription?.value?.trim() && (
-        <SafeHtmlDiv html={data?.shortDescription?.value} />
+        <SafeHtmlDiv html={safeHtml(data?.shortDescription?.value)} />
       )}
       <Meta col={3}>
         <Icon type="code" stc>
@@ -93,7 +102,7 @@ export const ProjectCard = ({
 
         {data?.funding?.value?.length > 0 && (
           <Icon type="money" stc>
-            {data?.funding?.value.join(", ")}
+            {safeHtml(data?.funding?.value.join(", "))}
           </Icon>
         )}
       </Meta>
@@ -106,33 +115,33 @@ export const ProjectCard = ({
           })}):`}
           showAlways
         >
-          {data?.stage?.value}
+          {safeHtml(data?.stage?.value)}
         </Question>
       )}
 
       {view === "detail" && data?.implementedBy?.value?.length > 0 && (
         <Question question="Implemented by:" showAlways>
-          {data?.implementedBy?.value.join(", ")}
+          {safeHtml(data?.implementedBy?.value.join(", "))}
         </Question>
       )}
       {data?.industrialSector?.value?.length > 0 && (
         <Question question="Industrial Sectors:" showAlways>
-          {data?.industrialSector?.value.join(", ")}
+          {safeHtml(data?.industrialSector?.value.join(", "))}
         </Question>
       )}
       {data?.useOfAi?.value?.length > 0 && (
         <Question question="Usage of AI:" showAlways>
-          {data?.useOfAi?.value.join(", ")}
+          {safeHtml(data?.useOfAi?.value.join(", "))}
         </Question>
       )}
       {data?.generationMachineLearning?.value?.length > 0 && (
         <Question question="Generation of AI:" expanded>
-          {data?.generationMachineLearning?.value.join(", ")}
+          {safeHtml(data?.generationMachineLearning?.value.join(", "))}
         </Question>
       )}
       {data?.modelTrainingBuilt?.value?.length > 0 && (
         <Question question="Model training:" showAlways>
-          {data?.modelTrainingBuilt?.value.join(", ")}
+          {safeHtml(data?.modelTrainingBuilt?.value.join(", "))}
         </Question>
       )}
 
