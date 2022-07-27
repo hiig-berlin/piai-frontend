@@ -6,6 +6,7 @@ import React, {
   useEffect,
   useState,
   useRef,
+  startTransition,
 } from "react";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 
@@ -14,6 +15,7 @@ import { appConfig } from "~/config";
 
 export type MapState = {
   ready: boolean;
+  isDrawerOpen: boolean;
   hideIntro: boolean;
   quickViewProjectId: number | null;
   // TODO: extend ...
@@ -78,6 +80,7 @@ type ToolStateContext = {
   filterSettings: FilterSettings;
   setView: (view: View) => void;
   setMapState: (mapState: MapState) => void;
+  updateMapState: (state: Partial<MapState>) => void;
   setFilterState: (filterState: FilterState) => void;
   getState: () => ToolState;
   getMapState: () => MapState;
@@ -94,6 +97,7 @@ const defaultToolState: ToolState = {
   view: null,
   map: {
     ready: false,
+    isDrawerOpen: false,
     hideIntro: false,
     quickViewProjectId: null,
   },
@@ -117,10 +121,11 @@ const defaultToolState: ToolState = {
 const defaultToolStateContext: ToolStateContext = {
   ...defaultToolState,
   setView: (view: View) => {},
-  setMapState: (mapState: MapState) => {},
   setFilterState: (filterState: FilterState) => {},
   getState: () => defaultToolState,
   getMapState: () => defaultToolState.map,
+  setMapState: (mapState: MapState) => {},
+  updateMapState: (state: Partial<MapState>) => {},
   getFilterState: () => defaultToolState.filter,
   reset: () => {},
 };
@@ -190,45 +195,68 @@ export const ToolStateContextProvider = ({
     fetchFilterSettings
   );
 
+  const startTransitionDispatch = useCallback(
+    (action: ToolStateAction) => {
+      dispatch(action);
+    },
+    [dispatch]
+  );
+
   const setView = useCallback(
     (view: View) => {
       if (!isMounted) return;
-      dispatch({
-        type: "view",
-        payload: view,
-      });
+      startTransition(() =>
+        startTransitionDispatch({
+          type: "view",
+          payload: view,
+        })
+      );
     },
-    [isMounted]
+    [isMounted, startTransitionDispatch]
   );
 
   const setMapState = useCallback(
     (mapState: MapState) => {
       if (!isMounted) return;
-      dispatch({
+      startTransitionDispatch({
         type: "map",
         payload: mapState,
       });
     },
-    [isMounted]
+    [isMounted, startTransitionDispatch]
+  );
+
+  const updateMapState = useCallback(
+    (state: Partial<MapState>) => {
+      if (!isMounted) return;
+      startTransitionDispatch({
+        type: "map",
+        payload: {
+          ...stateRef.current.map,
+          ...state,
+        }
+      });
+    },
+    [isMounted, startTransitionDispatch]
   );
 
   const setFilterState = useCallback(
     (filterState: FilterState) => {
       if (!isMounted) return;
-      dispatch({
+      startTransitionDispatch({
         type: "filter",
         payload: filterState,
       });
     },
-    [isMounted]
+    [isMounted, startTransitionDispatch]
   );
 
   const reset = useCallback(() => {
     if (!isMounted) return;
-    dispatch({
+    startTransitionDispatch({
       type: "reset",
     });
-  }, [isMounted]);
+  }, [isMounted, startTransitionDispatch]);
 
   const getState = useCallback(() => {
     return stateRef.current;
@@ -246,22 +274,23 @@ export const ToolStateContextProvider = ({
 
   useEffect(() => {
     if (!isLoading && isSuccess && data) {
-      dispatch({
+      startTransitionDispatch({
         type: "filterSettings",
         payload: data as FilterSettings,
       });
     }
-  }, [isLoading, isSuccess, data]);
+  }, [isLoading, isSuccess, data, startTransitionDispatch]);
 
   return (
     <ToolStateContext.Provider
       value={{
         ...state,
         setView,
-        setMapState,
         setFilterState,
         getState,
         getMapState,
+        setMapState,
+        updateMapState,
         getFilterState,
         reset,
       }}

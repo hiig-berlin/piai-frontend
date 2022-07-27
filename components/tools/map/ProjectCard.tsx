@@ -1,36 +1,16 @@
 import React from "react";
 import SafeHtmlDiv from "~/components/ui/SafeHtmlDiv";
-import { Box } from "../shared/ui/Box";
 import { Icon } from "../shared/ui/Icon";
 import { Question } from "./Question";
 import { Meta } from "~/components/tools/map/Styled";
 import { formatDate } from "~/utils";
-import Link from "next/link";
-import { LinkButtonAnimated } from "~/components/styled/Button";
-import styled from "styled-components";
 import safeHtml from "~/utils/sanitize";
-
-const ViewMore = styled.div`
-  display: flex;
-  justify-content: center;
-  padding-top: var(--size-3);
-  a {
-    color: var(--color-piai-map-highlight) !important;
-    border-color: var(--color-piai-map-highlight);
-
-    &:visited {
-      color: var(--color-piai-map-highlight);
-    }
-  }
-`;
 
 export const ProjectCard = ({
   view = "detail",
-  slug,
   data,
 }: {
   view: string;
-  slug?: string;
   data: any;
 }) => {
   let sourceCode = "Unknown code license";
@@ -63,7 +43,7 @@ export const ProjectCard = ({
   } catch (err) {}
 
   return (
-    <Box>
+    <>
       <h1>{data?.nameOfProject?.value}</h1>
       <Meta col={2}>
         <Icon type="marker" stc>
@@ -144,14 +124,6 @@ export const ProjectCard = ({
           {safeHtml(data?.modelTrainingBuilt?.value.join(", "))}
         </Question>
       )}
-
-      {view === "quickview" && slug && (
-        <ViewMore>
-          <Link href={`/tool/map/project/${slug}`} passHref>
-            <LinkButtonAnimated>View full project profile</LinkButtonAnimated>
-          </Link>
-        </ViewMore>
-      )}
-    </Box>
+    </>
   );
 };
