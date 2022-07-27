@@ -281,7 +281,7 @@ export class MapController {
     self.setMapState({
       ...self.getMapState(),
       quickViewProjectId: id,
-    });    
+    });
   }
 
   loadUrl(url: string) {
@@ -382,7 +382,8 @@ export class MapController {
 
   fitToBounds = (
     bounds: LngLatBounds,
-    options?: MapFitToBoundingBoxOptions
+    options?: MapFitToBoundingBoxOptions,
+    useEaseTo?: boolean
   ) => {
     if (!this.map) return;
 
@@ -408,7 +409,12 @@ export class MapController {
       options?.maxZoom ?? this.toolConfig.boundingBoxMaxZoom
     );
 
-    this.map.easeTo(calculatedOptions);
+    if (useEaseTo) {
+      this.map.easeTo(calculatedOptions);
+    } else {
+      this.map.zoomTo(calculatedOptions.zoom);
+      this.map.jumpTo(calculatedOptions);
+    }
   };
 
   clearOnloadJobs = () => {
