@@ -37,6 +37,7 @@ export const tools: PiAiTool[] = [
       lat: 51.557503, //0,
       minZoom: 1,
       maxZoom: 15,
+      geoJsonMaxZoom: 12,
       boundingBoxMinZoom: 1,
       boundingBoxMaxZoom: 12,
       clusterRadius: 35,
