@@ -42,7 +42,6 @@ export const Map = ({ isVisible }: { isVisible?: boolean }) => {
       filterSettings?.styleUrl?.trim() !== "" &&
       !mapControllerRef.current
     ) {
-      console.log("create new map controller");
       const controller = new MapController(
         router,
         config,

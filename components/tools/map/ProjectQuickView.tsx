@@ -17,7 +17,6 @@ export const ProjectQuickView = ({ id }: { id?: number }) => {
 
   if (!id || isError) return <></>;
 
-  console.log(id, isLoading, isSuccess, isError, data);
   return (
     <>
       {isLoading && <LoadingBar isLoading={isLoading} />}

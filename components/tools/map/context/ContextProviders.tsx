@@ -131,7 +131,6 @@ const toolStateReducer = function <T>(
 ): ToolState {
   switch (action.type) {
     case "map":
-      console.log("dispatch", action?.payload);
       return {
         ...state,
         map: (action?.payload ?? defaultToolState.map) as MapState,
@@ -204,9 +203,7 @@ export const ToolStateContextProvider = ({
 
   const setMapState = useCallback(
     (mapState: MapState) => {
-      console.log(1);
       if (!isMounted) return;
-      console.log(2, mapState);
       dispatch({
         type: "map",
         payload: mapState,
@@ -256,7 +253,6 @@ export const ToolStateContextProvider = ({
     }
   }, [isLoading, isSuccess, data]);
 
-  console.log("mc", state.map);
   return (
     <ToolStateContext.Provider
       value={{
