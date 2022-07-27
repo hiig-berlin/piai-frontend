@@ -2,6 +2,7 @@ import {
   Map,
   AttributionControl,
   LngLatBounds,
+  LngLatLike,
   PaddingOptions,
 } from "maplibre-gl";
 import type {
@@ -21,6 +22,7 @@ import { MapClusterDetail } from "./MapClusterDetail";
 import { MapViewClustered } from "./MapViewClustered";
 
 import type { MapState } from "../context/ContextProviders";
+import { breakpointEMs } from "~/theme/breakpoints";
 
 export type MapFitToBoundingBoxOptions = CameraForBoundsOptions & {
   minZoom?: number;
@@ -150,7 +152,7 @@ export class MapController {
       center: [self.toolConfig?.lng ?? 0, self.toolConfig?.lat ?? 0],
       zoom: self.toolConfig?.zoom ?? 8,
       maxBounds: self.toolConfig?.bounds,
-      minZoom: self.toolConfig?.minZoom,
+      // minZoom: self.toolConfig?.minZoom,
       maxZoom: self.toolConfig?.maxZoom,
       attributionControl: false,
     });
@@ -273,15 +275,20 @@ export class MapController {
     self.isInit = true;
   }
 
-  showQuickView(id: number) {
+  showQuickView(coordinates: LngLatLike, id: number) {
     const self = this;
 
     self.popups.hideAll();
 
     self.setMapState({
       ...self.getMapState(),
+      isDrawerOpen: true,
       quickViewProjectId: id,
     });
+
+    setTimeout(() => {
+      self.panTo(coordinates, {});
+    }, 250);
   }
 
   loadUrl(url: string) {
@@ -612,12 +619,24 @@ export class MapController {
   getCenterOffset() {
     if (typeof window === "undefined") return [0, 0];
 
-    return [0, 0];
-    // if (window.innerWidth < 740) {
-    //   return [window.innerWidth / 2 - 50, 25];
-    // }
+    if (window.innerWidth < breakpointEMs.mobileLandscape * 16) {
+      if (this.getMapState().isDrawerOpen) {
+        return [0, -0.25 * window.innerHeight];
+      } else {
+        return [0, 0];
+      }
+    } else if (window.innerWidth < breakpointEMs.mobileLandscape * 16) {
+      // xxx improve
+    } else if (window.innerWidth < breakpointEMs.tablet * 16) {
+      // xxx improve
+    } else if (window.innerWidth < breakpointEMs.tabletLandscape * 16) {
+      // xxx improve
+    } else {
+      return [0, 0];
+    }
 
-    // return [442 / 2, 40] as PointLike;
+    // xxx
+    return [0, 0];
   }
 
   // getBoundsPadding() {
@@ -680,12 +699,10 @@ export class MapController {
   //   };
   // }
 
-  panTo(lng: number, lat: number, options: MapAnimationOptions) {
+  panTo(coordinates: LngLatLike, options?: MapAnimationOptions) {
     const self = this;
     if (self.map) {
       const run = async (resolve?: any) => {
-        if (Number.isNaN(lng) || Number.isNaN(lat)) return;
-
         self.map?.stop();
         self.map?.setPadding({
           top: 0,
@@ -694,7 +711,7 @@ export class MapController {
           left: 0,
         });
         self.map?.panTo(
-          [lng, lat],
+          coordinates,
           {
             animate: options?.animate ?? true,
             duration: options?.duration ?? 1250,
@@ -716,11 +733,11 @@ export class MapController {
     }
   }
 
-  jumpTo(lng: number, lat: number, options: MapAnimationOptions) {
-    this.panTo(lng, lat, {
+  jumpTo(coordinates: LngLatLike, options?: MapAnimationOptions) {
+    this.panTo(coordinates, {
       animate: false,
       duration: 0,
-      ...options,
+      ...(options ?? {}),
     });
   }
 

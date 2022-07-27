@@ -1,4 +1,4 @@
-import { PointLike } from "maplibre-gl";
+import { LngLatLike, PointLike } from "maplibre-gl";
 import type { MapController } from "./MapController";
 import type { MapPopupOptions } from "./MapPopup";
 
@@ -25,8 +25,7 @@ export class MapHighlight {
 
   addPin(
     id: string,
-    lng: number,
-    lat: number,
+    coordinates: LngLatLike,
     content: string,
     options: MapHighlightOptions
   ) {
@@ -42,7 +41,7 @@ export class MapHighlight {
       const popup = new MapPopup(
         popupId,
         self.controller,
-        [lng, lat],
+        coordinates,
         content,
         {
           offset: HIGHLIGHT_POPUP_OFFSET,
@@ -54,12 +53,12 @@ export class MapHighlight {
       self.controller.popups.add(popupId, popup);
 
       if (options?.panTo)
-        self.controller.panTo(lng, lat, {
+        self.controller.panTo(coordinates, {
           offset: options?.animationOffset,
         });
 
       if (options?.jumpTo)
-        self.controller.jumpTo(lng, lat, {
+        self.controller.jumpTo(coordinates, {
           offset: options?.animationOffset,
         });
     }

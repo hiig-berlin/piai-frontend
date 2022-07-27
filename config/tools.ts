@@ -38,7 +38,7 @@ export const tools: PiAiTool[] = [
       minZoom: 1,
       maxZoom: 15,
       geoJsonMaxZoom: 12,
-      boundingBoxMinZoom: 1,
+      boundingBoxMinZoom: 0,
       boundingBoxMaxZoom: 12,
       clusterRadius: 35,
       // bounds: [[-90, -90], [number, number]],

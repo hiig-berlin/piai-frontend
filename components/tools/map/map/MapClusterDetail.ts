@@ -25,7 +25,7 @@ export class MapClusterDetail {
       dotRadius: 16,
       clusterRadius: 24,
       onClick: (e: any, spiderLeg: any) => {
-        self.controller.showQuickView(spiderLeg?.feature?.id);
+        self.controller.showQuickView(spiderLeg.latLng, spiderLeg?.feature?.id);
       },
       initializeLeg: (spiderLeg: any) => {
         const showLegPopup = (e: any) => {
