@@ -46,7 +46,7 @@ export const Map = ({ isVisible }: { isVisible?: boolean }) => {
 
   const [isMapLoaded, setIsMapLoaded] = useState(false);
 
-  const { filterSettings, getMapState, setMapState } = useToolStateContext();
+  const { filterSettings, getMapState, updateMapState } = useToolStateContext();
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -61,7 +61,7 @@ export const Map = ({ isVisible }: { isVisible?: boolean }) => {
         config,
         filterSettings?.styleUrl,
         getMapState,
-        setMapState
+        updateMapState
       );
       controller.init(
         "map",
@@ -79,7 +79,7 @@ export const Map = ({ isVisible }: { isVisible?: boolean }) => {
     config,
     router,
     getMapState,
-    setMapState,
+    updateMapState,
   ]);
 
   return (

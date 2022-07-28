@@ -13,6 +13,7 @@ import type {
 
 import "maplibre-gl/dist/maplibre-gl.css";
 
+
 import type { NextRouter } from "next/router";
 
 import type { AppConfig } from "~/types";
@@ -103,14 +104,14 @@ export class MapController {
   onLoadJobs: Function[] = [];
 
   getMapState: () => MapState;
-  setMapState: (mapState: MapState) => void;
+  updateMapState: (mapState: Partial<MapState>) => void;
 
   constructor(
     router: NextRouter,
     config: AppConfig,
     styleUrl: string,
     getMapState: () => MapState,
-    setMapState: (mapState: MapState) => void
+    updateMapState: (mapState: Partial<MapState>) => void
   ) {
     this.config = config;
     this.router = router;
@@ -119,7 +120,7 @@ export class MapController {
     this.map = null;
 
     this.getMapState = getMapState;
-    this.setMapState = setMapState;
+    this.updateMapState = updateMapState;
 
     const mapTool = this.config?.tools?.find((t) => t.slug === "map");
     this.toolConfig = mapTool?.config ?? {};
@@ -216,13 +217,15 @@ export class MapController {
       maybeProcess();
     });
     self.map.once("load", () => {
+      if (!self?.map) return;
+
       self.isLoaded = true;
 
-      self?.map?.on("movestart", (e) => {
+      self.map.on("movestart", (e) => {
         self.isAnimating = (e as any)?.cMapAnimation === true;
       });
 
-      self?.map?.on("moveend", (e) => {
+      self.map.on("moveend", (e) => {
         if (!self.map) return;
         self.isAnimating = false;
         if (self.map.getZoom() > self.toolConfig.maxZoom - 1) {
@@ -253,6 +256,11 @@ export class MapController {
               self.geoJsonAllData = data;
               self.isBaseDataLoaded = true;
 
+              self.updateMapState({
+                totalCount: (data?.features?.length ?? 0) as number,
+                filteredCount: 0,
+              });
+
               maybeProcess();
             }
           }
@@ -280,7 +288,7 @@ export class MapController {
 
     self.popups.hideAll();
 
-    self.setMapState({
+    self.updateMapState({
       ...self.getMapState(),
       isDrawerOpen: true,
       quickViewProjectId: id,
