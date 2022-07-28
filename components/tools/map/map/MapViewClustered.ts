@@ -144,7 +144,8 @@ export class MapViewClustered {
           visibility: "none",
         },
         paint: {
-          "circle-radius": 1,
+          "circle-color": "transparent",
+          "circle-radius": 16,
         },
       });
 
@@ -268,6 +269,7 @@ export class MapViewClustered {
 
                   self.controller.clusterDetail.hide();
                 } else {
+                  console.log(2);
                   self.controller.map.easeTo(
                     {
                       around: (features[0].geometry as any).coordinates,
@@ -493,7 +495,7 @@ export class MapViewClustered {
           totalInViewCount,
           filteredInViewCount: Math.min(filteredInViewCount, totalInViewCount),
           filteredCount: self.featureCount,
-        });        
+        });
       }, CLUSTER_COUNT_UPDATE_TIMEOUT);
 
       self.events["render"] = (e: any) => {
