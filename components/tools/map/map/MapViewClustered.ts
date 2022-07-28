@@ -269,7 +269,6 @@ export class MapViewClustered {
 
                   self.controller.clusterDetail.hide();
                 } else {
-                  console.log(2);
                   self.controller.map.easeTo(
                     {
                       around: (features[0].geometry as any).coordinates,
