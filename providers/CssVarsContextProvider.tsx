@@ -73,7 +73,7 @@ export const CssVarsContextProvider = ({
   children: React.ReactNode;
 }) => {
   const cssVarsRef = useRef<CssVarContextVars>(cssVarContextVarsDefault);
-  const [cssVars, setCssVars] = useState<CssVarContextVars>(
+  const [, setCssVars] = useState<CssVarContextVars>(
     cssVarContextVarsDefault
   );
 
