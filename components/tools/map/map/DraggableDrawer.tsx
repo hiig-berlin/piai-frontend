@@ -167,8 +167,8 @@ export const DraggableDrawer = ({
         y,
       }}
     >
-      <Container>
-        <DragHandle {...bind()}>
+      <Container {...bind()}>
+        <DragHandle>
           <Handle />
         </DragHandle>
         {children}
