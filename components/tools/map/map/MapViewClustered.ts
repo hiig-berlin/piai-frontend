@@ -462,14 +462,12 @@ export class MapViewClustered {
       const debouncedRenderFunction = debounce(() => {
         if (!self?.controller?.map) return;
 
-        let start = new Date().getTime();
         const totalInViewCount = queryFilteredForDuplicates(
           self.controller.map.queryRenderedFeatures(undefined, {
             layers: ["locations"],
           }),
           "id"
         ).length;
-        console.log(1, new Date().getTime() - start);
 
         let filteredInViewCount = queryFilteredForDuplicates(
           self.controller.map.querySourceFeatures("clustered-locations", {
@@ -480,25 +478,22 @@ export class MapViewClustered {
         ).length;
 
         filteredInViewCount += queryFilteredForDuplicates(
-            self.controller.map.querySourceFeatures("clustered-locations", {
-              filter: ["has", "point_count"],
-              sourceLayer: "clustered-locations",
-            }),
-            "cluster_id"
-          ).reduce((count: number, cluster: any) => count += cluster?.properties?.point_count ?? 0, 0);
-
-        console.log(2, new Date().getTime() - start);
-
-
+          self.controller.map.queryRenderedFeatures(undefined, {
+            filter: ["has", "point_count"],
+            sourceLayer: "clustered-locations",
+          }),
+          "cluster_id"
+        ).reduce(
+          (count: number, cluster: any) =>
+            (count += cluster?.properties?.point_count ?? 0),
+          0
+        );
 
         self.controller.updateMapState({
           totalInViewCount,
-          filteredInViewCount,
+          filteredInViewCount: Math.min(filteredInViewCount, totalInViewCount),
           filteredCount: self.featureCount,
-        });
-
-        console.log(3, new Date().getTime() - start);
-        console.log("update on render");
+        });        
       }, CLUSTER_COUNT_UPDATE_TIMEOUT);
 
       self.events["render"] = (e: any) => {
