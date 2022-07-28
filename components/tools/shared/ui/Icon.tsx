@@ -113,7 +113,7 @@ export const Icon = ({
         <ToolSvgBackground type={type} />
         <span>{safeHtml(url)
           .split(",")
-          .reduce((carry: any, u: any) => {
+          .reduce((carry: any, u: any, i: number) => {
             if (!u.trim()) return carry;
 
             if (carry.length > 0) {
@@ -121,7 +121,7 @@ export const Icon = ({
             }
 
             carry.push(
-              <a href={u.trim()} target="_blank" rel="nofollow noreferrer">
+              <a href={u.trim()} key={`${url}-${i}`} target="_blank" rel="nofollow noreferrer">
                 {u.trim()}
               </a>
             );
