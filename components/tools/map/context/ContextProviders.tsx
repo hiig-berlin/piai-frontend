@@ -66,21 +66,16 @@ type FilterSettings = {
   isProjectOpenSource: FilterSettingTaxonomy | null | undefined;
 };
 
-type View = "map" | "directory" | "page" | "filterSettings" | null | undefined;
-
 type ToolState = {
-  view: View;
   map: MapState;
   filter: FilterState;
   filterSettings: FilterSettings;
 };
 
 type ToolStateContext = {
-  view: View;
   map: MapState;
   filter: FilterState;
   filterSettings: FilterSettings;
-  setView: (view: View) => void;
   setMapState: (mapState: MapState) => void;
   setFilterState: (filterState: FilterState) => void;
   updateMapState: (state: Partial<MapState>) => void;
@@ -93,11 +88,10 @@ type ToolStateContext = {
 
 type ToolStateAction = {
   type: string;
-  payload?: MapState | FilterState | View | FilterSettings;
+  payload?: MapState | FilterState | FilterSettings;
 };
 
 const defaultToolState: ToolState = {
-  view: null,
   map: {
     ready: false,
     isDrawerOpen: false,
@@ -127,7 +121,6 @@ const defaultToolState: ToolState = {
 
 const defaultToolStateContext: ToolStateContext = {
   ...defaultToolState,
-  setView: (view: View) => {},
   setFilterState: (filterState: FilterState) => {},
   getState: () => defaultToolState,
   getMapState: () => defaultToolState.map,
@@ -139,7 +132,6 @@ const defaultToolStateContext: ToolStateContext = {
 };
 
 const toolStateReducer = function <T>(
-
   state: ToolState,
   action: ToolStateAction
 ): ToolState {
@@ -159,11 +151,6 @@ const toolStateReducer = function <T>(
         ...state,
         filterSettings: (action?.payload ??
           defaultToolState.filterSettings) as FilterSettings,
-      };
-    case "view":
-      return {
-        ...state,
-        view: (action?.payload ?? defaultToolState.view) as View,
       };
     case "reset":
       return { ...defaultToolState };
@@ -192,6 +179,8 @@ export const ToolStateContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
+
+  
   const isMounted = useIsMounted();
   const [state, dispatch] = useReducer(toolStateReducer, defaultToolState);
 
@@ -206,22 +195,11 @@ export const ToolStateContextProvider = ({
 
   const startTransitionDispatch = useCallback(
     (action: ToolStateAction) => {
-      dispatch(action);
+      startTransition(() => {
+        dispatch(action);
+      });
     },
     [dispatch]
-  );
-
-  const setView = useCallback(
-    (view: View) => {
-      if (!isMounted) return;
-      startTransition(() =>
-        startTransitionDispatch({
-          type: "view",
-          payload: view,
-        })
-      );
-    },
-    [isMounted, startTransitionDispatch]
   );
 
   const getMapState = useCallback(() => {
@@ -247,7 +225,7 @@ export const ToolStateContextProvider = ({
         payload: {
           ...stateRef.current.map,
           ...state,
-        }
+        },
       });
     },
     [isMounted, startTransitionDispatch]
@@ -263,7 +241,6 @@ export const ToolStateContextProvider = ({
   const getState = useCallback(() => {
     return stateRef.current;
   }, []);
-
 
   const getFilterState = useCallback(() => {
     return stateRef.current.filter;
@@ -288,7 +265,7 @@ export const ToolStateContextProvider = ({
         payload: {
           ...stateRef.current.filter,
           ...state,
-        }
+        },
       });
     },
     [isMounted, startTransitionDispatch]
@@ -305,11 +282,11 @@ export const ToolStateContextProvider = ({
     }
   }, [isLoading, isSuccess, data, startTransitionDispatch]);
 
+
   return (
     <ToolStateContext.Provider
       value={{
         ...state,
-        setView,
         getState,
         getFilterState,
         setFilterState,

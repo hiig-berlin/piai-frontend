@@ -5,6 +5,7 @@ import React, {
   useRef,
   useState,
   useCallback,
+  startTransition,
 } from "react";
 import useIsMounted from "~/hooks/useIsMounted";
 import { useRouter } from "next/router";
@@ -63,18 +64,15 @@ export const PageStateContextProvider = ({
     }
   }, []);
 
-  const onLoadStart = useCallback(
-    () => {
-      wasBackRef.current = isBackRef.current;
-      close();
-      setIsLoading(true);
-      isLoadingRef.current = true;
-      if (typeof document !== "undefined") {
-        document.body.setAttribute("tabindex", "-1");
-      }
-    },
-    [close]
-  );
+  const onLoadStart = useCallback(() => {
+    wasBackRef.current = isBackRef.current;
+    close();
+    setIsLoading(true);
+    isLoadingRef.current = true;
+    if (typeof document !== "undefined") {
+      document.body.setAttribute("tabindex", "-1");
+    }
+  }, [close]);
 
   const onLoadEnd = useCallback(
     (url = null) => {
@@ -88,7 +86,6 @@ export const PageStateContextProvider = ({
               window.scrollTo(0, 0);
             }
           }, 60);
-          
         }
       }
       isBackRef.current = false;
@@ -105,7 +102,9 @@ export const PageStateContextProvider = ({
   );
 
   useEffect(() => {
-    setIsLoading(true);
+    startTransition(() => {
+      setIsLoading(true);
+    });
 
     router.beforePopState((state) => {
       isBackRef.current = true;
@@ -130,16 +129,26 @@ export const PageStateContextProvider = ({
     if ("fonts" in document) {
       fontLoadTimeoutRef.current = setTimeout(() => {
         fontLoadTimeoutRef.current = null;
-        if (isMounted) setIsFontsAreLoaded(true);
+        if (isMounted) {
+          startTransition(() => {
+            setIsFontsAreLoaded(true);
+          });
+        }
       }, 1000);
 
       document.fonts.ready.then(() => {
         if (fontLoadTimeoutRef.current)
           clearTimeout(fontLoadTimeoutRef.current);
-        if (isMounted) setIsFontsAreLoaded(true);
+        if (isMounted) {
+          startTransition(() => {
+            setIsFontsAreLoaded(true);
+          });
+        }
       });
     } else {
-      setIsFontsAreLoaded(true);
+      startTransition(() => {
+        setIsFontsAreLoaded(true);
+      });
     }
 
     return () => {
@@ -157,9 +166,11 @@ export const PageStateContextProvider = ({
 
   useEffect(() => {
     if (!isInitiallyLoaded && isLoading && isFontsAreLoaded) {
-      setIsLoading(false);
-      isLoadingRef.current = false;
-      setIsInitiallyLoaded(true);
+      startTransition(() => {
+        setIsLoading(false);
+        isLoadingRef.current = false;
+        setIsInitiallyLoaded(true);
+      });
     }
   }, [isInitiallyLoaded, isLoading, isFontsAreLoaded]);
 

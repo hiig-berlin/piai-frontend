@@ -11,17 +11,16 @@ import { UserTracking } from "~/components/app/UserTracking";
 import { LoadingBar } from "~/components/styled/LoadingBar";
 import { usePageStateContext } from "~/providers/PageStateContextProvider";
 import { MenuButton } from "~/components/app/MenuButton";
-import {
-  ToolStateContextProvider,
-  useToolStateContext,
-} from "./context/ContextProviders";
+import { ToolStateContextProvider } from "./context/ContextProviders";
 
 import { Sidebar } from "../shared/Sidebar";
 import { Submenu } from "./Submenu";
 import ReactQueryContextProvider from "./context/ReactQueryContextProvider";
 import { MapOverlays } from "./MapOverlays";
 
-const Map = dynamic(() => import("./Map"), { suspense: true });
+const Map = dynamic(() => import("./Map"), {
+  suspense: true
+});
 
 // Contains:
 // transparent when overlaying map
@@ -62,13 +61,8 @@ export const Layout = ({
 }) => {
   const config = useConfigContext();
   const { isLoading } = usePageStateContext();
-  const { setView } = useToolStateContext();
 
   const [showMap, setShowMap] = useState(props?.view === "map");
-
-  useEffect(() => {
-    setView(props?.view ?? "page");
-  }, [setView, props?.view]);
 
   const isMap = props?.view === "map";
 

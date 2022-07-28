@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useToolStateContext } from "./context/ContextProviders";
+import { Counter } from "./Counter";
 import { ProjectQuickView } from "./ProjectQuickView";
 
 const Container = styled.div`
@@ -13,8 +14,10 @@ const Container = styled.div`
 
 export const MapOverlays = () => {
   const { map } = useToolStateContext();  
+
   return (
     <Container>
+      <Counter />
       {map?.quickViewProjectId && <ProjectQuickView id={map.quickViewProjectId} />}
     </Container>
   );

@@ -10,10 +10,10 @@ const CounterContainer = styled.div`
   color: white;
   border-radius: var(--size-3);
   border: 1px solid var(--color-piai-map);
-  width: 100%;
+  width: calc(100vw - (2 * var(--size-4)));
 
-  position: sticky;
-
+  position: fixed;
+  
   bottom: var(--size-3);
   top: unset;
 
@@ -39,7 +39,6 @@ const CounterContainer = styled.div`
   }
 
   ${({theme}) => theme.breakpoints.tablet} {
-    position: fixed;
     top: var(--size-3);
     bottom: unset;
     left: 50%;

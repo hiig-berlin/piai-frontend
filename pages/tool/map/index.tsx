@@ -60,10 +60,7 @@ const Index = ({
       />*/}
       <Content>
         <Contribute position="bottom" />
-        <Counter />
       </Content>
-      
-      
     </>
   );
 };
