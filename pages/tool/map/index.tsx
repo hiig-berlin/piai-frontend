@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement, useEffect } from "react";
 import type { GetStaticProps } from "next";
 import NextHeadSeo from "next-head-seo";
 
@@ -9,10 +9,12 @@ import { PiAiTool } from "~/types";
 import { Counter } from "~/components/tools/map/Counter";
 import { Contribute } from "~/components/tools/map/Contribute";
 import styled from "styled-components";
+import useIsMounted from "~/hooks/useIsMounted";
+import { useToolStateContext } from "~/components/tools/map/context/ContextProviders";
 
 const Content = styled.div`
   width: 100%;
-  
+
   min-height: 100%;
   display: flex;
   flex-direction: column;
@@ -21,16 +23,15 @@ const Content = styled.div`
 
   padding-top: var(--size-6);
 
-
-  ${({theme}) => theme.breakpoints.tablet} {
+  ${({ theme }) => theme.breakpoints.tablet} {
     padding-left: var(--size-6);
   }
 
-  ${({theme}) => theme.breakpoints.tablet} {
+  ${({ theme }) => theme.breakpoints.tablet} {
     padding: var(--size-6) var(--size-3) var(--size-3) var(--size-3);
     align-items: flex-end;
   }
-`
+`;
 
 const Index = ({
   frontendSettings,
@@ -39,7 +40,20 @@ const Index = ({
   frontendSettings: any;
   tool: PiAiTool;
 }) => {
-  
+  const isMounted = useIsMounted();
+  const { updateFilterState } = useToolStateContext();
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (isMounted) {
+        updateFilterState({
+          isFilterOpen: true,
+        });
+      }
+    }, 2500);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <>
       {/*
