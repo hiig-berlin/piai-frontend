@@ -213,7 +213,7 @@ export const CssVarsContextProvider = ({
       const outer = document.createElement("div");
       try {
         document.body.appendChild(outer);
-
+        outer.style.position = "fixed";
         outer.style.visibility = "hidden";
         outer.style.width = "100px";
         outer.style.height = "100vh";
@@ -234,6 +234,7 @@ export const CssVarsContextProvider = ({
         const h100percent = Math.min(window.innerHeight, outer.offsetHeight);
         const lbh = h100vh - h100percent;
 
+        console.log(window.innerHeight, outer.offsetHeight, h100vh);
         document.documentElement.style.setProperty(
           "--sbw",
           `${sbw.toFixed(0)}px`
