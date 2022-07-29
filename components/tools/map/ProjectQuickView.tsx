@@ -46,7 +46,9 @@ const Panel = styled.div<{
   padding: var(--size-3);
 
   height: ${({ isFullHeight }) =>
-    isFullHeight ? "calc(100vh - var(--lbh, 0) - var(--size-5))" : "calc(50vh - (0.5 * var(--lbh, 0)) - var(--size-5))"};
+    isFullHeight
+      ? "calc(100vh - var(--lbh, 0) - var(--size-5))"
+      : "calc(50vh - (0.5 * var(--lbh, 0)) - var(--size-5))"};
 
   & > div {
     flex-grow: 1;
@@ -91,11 +93,6 @@ const Scroller = styled.div`
   ${({ theme }) => theme.breakpoints.tabletLandscape} {
     overflow: visible;
   }
-`;
-
-const CloseButtonContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
 `;
 
 const CloseButton = styled(ButtonNormalized)`
@@ -155,18 +152,18 @@ export const ProjectQuickView = ({ id }: { id?: number }) => {
         </ViewMore>
 
         {isTabletLandscapeAndUp && (
-          <CloseButtonContainer>
-            <CloseButton
-              onClick={() => {
-                updateMapState({
-                  quickViewProjectId: null,
-                  isDrawerOpen: false,
-                });
-              }}
-            >
-              <Icon type="back" /> CLOSE
-            </CloseButton>
-          </CloseButtonContainer>
+          <Icon
+          onClick={() => {
+            updateMapState({
+              quickViewProjectId: null,
+              isDrawerOpen: false,
+            });
+          }}
+          type="back"
+          className="textLink back inBox"
+        >
+          <span>Close</span>
+        </Icon>
         )}
       </Panel>
     );

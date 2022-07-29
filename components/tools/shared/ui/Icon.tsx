@@ -3,21 +3,6 @@ import { ButtonNormalized } from "~/components/styled/Button";
 import { ToolSvgBackground } from "../ToolSvgBackground";
 import safeHtml from "~/utils/sanitize";
 
-const baseStyling = css<{ spaceBefore?: boolean }>`
-  display: flex;
-  gap: var(--size-1);
-  color: #fff;
-
-  .svg {
-    min-height: 1.2em;
-    min-width: 1.2em;
-    flex: 1em 0 0;
-  }
-
-  margin-left: ${({ spaceBefore }) =>
-    spaceBefore === true ? "auto" : "unset"};
-`;
-
 const textLinkStyling = css`
   .svg {
     width: 1em !important;
@@ -31,6 +16,42 @@ const textLinkStyling = css`
   }
 `;
 
+
+const baseStyling = css<{ spaceBefore?: boolean }>`
+  display: flex;
+  gap: var(--size-1);
+  color: #fff;
+
+  .svg {
+    min-height: 1.2em;
+    min-width: 1.2em;
+    flex: 1em 0 0;
+  }
+
+  margin-left: ${({ spaceBefore }) =>
+    spaceBefore === true ? "auto" : "unset"};
+
+  &.textLink {
+    ${textLinkStyling}
+  }
+
+  &.textLink.back {
+    margin: var(--size-2) var(--size-1);
+
+    .svg {
+      background-size: 54% !important;
+      background-position: center !important;
+      align-self: center;
+    }
+
+    span:last-child {
+      font-weight: 700;
+    }
+  }
+`;
+
+
+
 const IconStatic = styled.li<{
   spaceBefore?: boolean;
 }>`
@@ -41,10 +62,6 @@ const IconStatic = styled.li<{
     // overflow: hidden;
     // white-space: nowrap;
     // text-overflow: ellipsis;
-  }
-
-  &.textLink {
-    ${textLinkStyling}
   }
 `;
 
@@ -62,28 +79,9 @@ const IconButton = styled(ButtonNormalized)<{
     opacity: ${({ nonMuted }) => (nonMuted === true ? "0.6" : "1")};
   }
 
-  &.languageSwitch,
-  &.textLink {
-    ${textLinkStyling}
-
-    &.inBox {
-      align-self: end;
-      padding: 0 0 var(--size-5);
-    }
-  }
-
-  &.textLink.back {
-    margin: var(--size-2) var(--size-1);
-
-    .svg {
-      background-size: 54% !important;
-      background-position: center !important;
-      align-self: center;
-    }
-
-    span:last-child {
-      font-weight: 700;
-    }
+  &.inBox {
+    align-self: end;
+    padding: 0 0 var(--size-5);
   }
 `;
 
