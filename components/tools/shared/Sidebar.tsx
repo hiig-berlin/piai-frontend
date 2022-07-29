@@ -6,10 +6,38 @@ import { ButtonNormalized } from "~/components/styled/Button";
 import { LabElement } from "~/components/ui/LabElement";
 import { useModal } from "~/hooks/useModal";
 import { useConfigContext } from "~/providers/ConfigContextProvider";
+import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
+import { Box } from "./ui/Box";
 
 const SIDEBAR_PADDING = "var(--size-3)";
 
-const Container = styled.div.attrs<{
+// Mobile: Button and Small Menu
+// =================================================
+
+const MobileToolNavContainer = styled.div<{
+  isVisible: boolean;
+}>`
+  pointer-events: all;
+  position: fixed;
+  top: ${SIDEBAR_PADDING};
+  left: ${SIDEBAR_PADDING};
+  z-index: 4;
+  flex-direction: column;
+
+  display: ${({ isVisible }) => (isVisible ? "flex" : "none")};
+
+  ${({ theme }) => theme.breakpoints.tablet} {
+    display: none;
+  }
+`;
+
+const ToolNav = styled(Box)`
+`
+
+// Tablet+: Sidebar
+// =================================================
+
+const SidebarContainer = styled.div.attrs<{
   isOpen: boolean;
   isOpening: boolean;
   isClosing: boolean;
@@ -44,23 +72,6 @@ const Container = styled.div.attrs<{
   }
 `;
 
-const MobileLogoContainer = styled.div<{
-  isVisible: boolean;
-}>`
-  pointer-events: all;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 4;
-  padding: var(--size-2);
-
-  display: ${({ isVisible }) => (isVisible ? "block" : "none")};
-
-  ${({ theme }) => theme.breakpoints.tablet} {
-    display: none;
-  }
-`;
-
 const LogoContainer = styled.div`
   margin-bottom: ${SIDEBAR_PADDING};
   display: none;
@@ -91,6 +102,7 @@ const ToolMenuButton = styled(ButtonNormalized)`
   font-size: 1.1em;
 `;
 
+
 export const Sidebar = ({
   children,
   tool,
@@ -109,33 +121,18 @@ export const Sidebar = ({
 
   const currentTool = config?.tools?.find((t) => t.slug === tool);
 
+  const {
+    vars: { isTabletAndUp },
+  } = useCssVarsContext();
+
   if (!currentTool) return <></>;
 
   // TODO: I would change the sizing info of the icons from em to some pixel based value like --size-3, or so.
   // As the dependend on the parent's container font size messed with things arould.
-  return (
-    <>
-      <MobileLogoContainer isVisible={view !== "page"}>
-        <ToolMenuButton
-          aria-label={isOpen ? "Close tool's menu" : "open tool's menu"}
-          aria-expanded={isOpen}
-          aria-controls={`sidebar-${tool}`}
-          onClick={(e) => {
-            e.preventDefault();
-
-            toggle();
-          }}
-        >
-          <LabElement
-            shortHandle={currentTool.iconShort}
-            longText={currentTool.iconLong}
-            color={currentTool.colorBase}
-            hoverColor="white"
-            size={1}
-          />
-        </ToolMenuButton>
-      </MobileLogoContainer>
-      <Container
+  
+  if (isTabletAndUp){
+    return(
+      <SidebarContainer
         {...{ isOpen, isOpening, isClosing }}
         id={`sidebar-${tool}`}
         isVisible
@@ -171,7 +168,31 @@ export const Sidebar = ({
               );
             })}
         </Tools>
-      </Container>
-    </>
-  );
-};
+      </SidebarContainer>
+      )
+  }else{
+    return (
+        <MobileToolNavContainer isVisible={view !== "page"}>
+          <ToolMenuButton
+            aria-label={isOpen ? "Close tool's menu" : "open tool's menu"}
+            aria-expanded={isOpen}
+            aria-controls={`sidebar-${tool}`}
+            onClick={(e) => {
+              e.preventDefault();
+  
+              toggle();
+            }}
+          >
+            <LabElement
+              shortHandle={currentTool.iconShort}
+              longText={currentTool.iconLong}
+              color="white"
+              hoverColor={currentTool.colorBase}
+              size={1.5}
+            />
+          </ToolMenuButton>
+          <ToolNav><Children>{children}</Children></ToolNav>
+        </MobileToolNavContainer>
+    );
+  }
+}

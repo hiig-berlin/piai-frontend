@@ -49,8 +49,10 @@ const CounterContainer = styled.div`
 
 const StyledLabel = styled.div`
   display: flex;
-  flex-direction: column;
+  // flex-direction: column;
   flex-grow: 1;
+  gap: var(--size-1);
+  
   ${({theme}) => theme.breakpoints.tablet} {
     flex-direction: row;
     gap: var(--size-1);

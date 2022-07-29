@@ -22,7 +22,7 @@ const Content = styled.div`
   padding-top: var(--size-6);
 
 
-  ${({theme}) => theme.breakpoints.mobileLandscape} {
+  ${({theme}) => theme.breakpoints.tablet} {
     padding-left: var(--size-6);
   }
 
