@@ -33,9 +33,8 @@ const ToolSubmenu = styled.div`
     gap: var(--size-3);
 
     .svg {
-      
       font-size: 0.5em;
-      width: var(--size-4) !important;
+      // width: var(--size-4) !important;
     }
 
     ${({ theme }) => theme.breakpoints.tablet} {
@@ -90,10 +89,13 @@ export const Submenu = ({ tool, slug }: { tool?: string; slug?: string }) => {
           </a>
         </Link>
         {slug === "index" && (
+          // TODO: set icon to active, 
+          // when a filter is set but box hidden
           <ActionItems>
-            <Icon type="search" active />
+            <Icon type="search" />
             <Icon
               type="filter"
+              active={filter.isFilterOpen}
               onClick={() => {
                 updateFilterState({
                   isFilterOpen: !filter.isFilterOpen,

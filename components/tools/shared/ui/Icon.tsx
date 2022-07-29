@@ -79,6 +79,10 @@ const IconButton = styled(ButtonNormalized)<{
     opacity: ${({ nonMuted }) => (nonMuted === true ? "0.6" : "1")};
   }
 
+  & .svg{
+    filter: ${({active}) => active ? "brightness(0) saturate(100%) invert(73%) sepia(90%) saturate(228%) hue-rotate(337deg) brightness(105%) contrast(98%)": "unset"}
+  }
+
   &.inBox {
     align-self: end;
     // padding: 0 0 var(--size-5);
@@ -94,7 +98,7 @@ export const Icon = ({
   stc,
   nonMuted,
   url,
-  active,
+  active = false,
 }: {
   type: string;
   spaceBefore?: boolean;
