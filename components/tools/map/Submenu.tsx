@@ -11,30 +11,55 @@ const ToolSubmenu = styled.div`
   background: #0008;
   // margin-left: calc(0px - var(--size-2));
   // margin-right: calc(0px - var(--size-2));
-  padding: ${sidebarPadding} 0;
+
+  ${({ theme }) => theme.breakpoints.tablet} {
+      padding: ${sidebarPadding} 0;
+  }
+
   display: flex;
   flex-direction: column;
   gap: var(--size-3);
 
   & .subMenuItem {
     ${({ theme }) => theme.applyMixin("uppercase")};
-    font-size: 0.5em;
+    font-size: 1em;
     white-space: break-spaces;
     width: min-content;
     min-width: 100%;
     line-height: 1.3em;
-    text-align: center;
+    text-align: left;
     color: white;
-    display: block;
+    display: flex;
+    gap: var(--size-3);
 
     .svg {
-      margin: 0 auto var(--size-1);
+      
+      font-size: 0.5em;
+      width: var(--size-4) !important;
+    }
+
+    ${({ theme }) => theme.breakpoints.tablet} {
+      font-size: 0.5em;
+      text-align: center;
+      display: block;
+      gap: 0;
+
+      .svg{
+        font-size: 1em;
+        margin: 0 auto var(--size-1);
+      }
     }
   }
 `;
 
 const ActionItems = styled.div`
-  display: flex;
+
+  display: none;
+
+  ${({ theme }) => theme.breakpoints.tablet} {
+    display: flex;
+  }
+  
   flex-direction: column;
   align-items: center;
   gap: ${sidebarPadding};

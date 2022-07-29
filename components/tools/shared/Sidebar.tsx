@@ -1,14 +1,14 @@
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Logo } from "~/components/app/Logo";
 import { ButtonNormalized } from "~/components/styled/Button";
 import { LabElement } from "~/components/ui/LabElement";
-import { useModal } from "~/hooks/useModal";
 import { useConfigContext } from "~/providers/ConfigContextProvider";
 import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
 import { Box } from "./ui/Box";
 import { SidebarTool } from "./ui/SidebarTool";
+
 
 const SIDEBAR_PADDING = "var(--size-3)";
 
@@ -24,6 +24,7 @@ const MobileToolNavContainer = styled.div<{
   left: ${SIDEBAR_PADDING};
   z-index: 4;
   flex-direction: column;
+  gap: var(--size-3);
 
   display: ${({ isVisible }) => (isVisible ? "flex" : "none")};
 
@@ -32,24 +33,15 @@ const MobileToolNavContainer = styled.div<{
   }
 `;
 
-const ToolNav = styled(Box)`
+const ToolNav = styled(Box)<{isOpen: boolean;}>`
+  transition: opacity 0.2s ease;
+  opacity: ${({isOpen}) => isOpen ? "1": "0"};
 `
 
 // Tablet+: Sidebar
 // =================================================
 
-const SidebarContainer = styled.div.attrs<{
-  isOpen: boolean;
-  isOpening: boolean;
-  isClosing: boolean;
-}>((props) => ({
-  style: {
-    transition:
-      props.isOpen || props.isClosing ? "transform 0.175s" : "transform 0.35s",
-    transform:
-      props.isOpening || props.isOpen ? "translateX(0)" : "translateX(-105%)",
-  },
-}))<{
+const SidebarContainer = styled.div<{
   position: string;
   isVisible: boolean;
 }>`
@@ -61,16 +53,13 @@ const SidebarContainer = styled.div.attrs<{
   left: 0;
   height: 100vh;
   /* background: #0003; */
-  background-color: #f0f9;
+  background-color: #0009;
   z-index: 3;
-  transition: transform 0.35s;
-  transform: translateX(-105%);
   font-size: 1.1em;
   width: var(--size-6);
 
   ${({ theme }) => theme.breakpoints.tablet} {
     display: ${({ isVisible }) => (isVisible ? "block" : "none")};
-    transform: translateX(0) !important;
     padding: ${SIDEBAR_PADDING};
   }
 `;
@@ -93,9 +82,13 @@ const ToolMenuButton = styled(ButtonNormalized)`
 `;
 
 const Children = styled.div`
+${({ theme }) => theme.breakpoints.tablet} {
   margin-left: calc(-1 * ${SIDEBAR_PADDING});
   margin-right: calc(-1 * ${SIDEBAR_PADDING});
   margin-top: ${SIDEBAR_PADDING};
+}  
+
+
 `;
 
 export const Sidebar = ({
@@ -108,11 +101,7 @@ export const Sidebar = ({
   view?: string;
 }) => {
   const config = useConfigContext();
-  const { isOpen, isOpening, isClosing, toggle } = useModal({
-    defaultIsOpen: false,
-    openingAnimationLength: 350,
-    closeAnimationLength: 175,
-  });
+  const [isOpen, setIsOpen] = useState(false);
 
   const currentTool = config?.tools?.find((t) => t.slug === tool);
 
@@ -128,7 +117,6 @@ export const Sidebar = ({
   if (isTabletAndUp){
     return(
       <SidebarContainer
-        {...{ isOpen, isOpening, isClosing }}
         id={`sidebar-${tool}`}
         isVisible
         position={view === "map" ? "fixed" : "sticky"}
@@ -165,11 +153,7 @@ export const Sidebar = ({
             aria-label={isOpen ? "Close tool's menu" : "open tool's menu"}
             aria-expanded={isOpen}
             aria-controls={`sidebar-${tool}`}
-            onClick={(e) => {
-              e.preventDefault();
-  
-              toggle();
-            }}
+            onClick={() => setIsOpen(!isOpen)}
           >
             <LabElement
               shortHandle={currentTool.iconShort}
@@ -179,8 +163,12 @@ export const Sidebar = ({
               size={1.5}
             />
           </ToolMenuButton>
-          <ToolNav><Children>{children}</Children></ToolNav>
+          <ToolNav isOpen={isOpen} onClick={() => setIsOpen(false)}><Children>{children}</Children></ToolNav>
         </MobileToolNavContainer>
     );
   }
 }
+function useHooks(arg0: boolean): { isOpen: any; setIsOpen: any; } {
+  throw new Error("Function not implemented.");
+}
+
