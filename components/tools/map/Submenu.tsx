@@ -34,7 +34,6 @@ const ToolSubmenu = styled.div`
 
     .svg {
       font-size: 0.5em;
-      // width: var(--size-4) !important;
     }
 
     ${({ theme }) => theme.breakpoints.tablet} {
