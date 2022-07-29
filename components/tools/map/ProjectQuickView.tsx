@@ -64,14 +64,16 @@ const Panel = styled.div<{
   }
 
   ${({ theme }) => theme.breakpoints.tabletLandscape} {
-    height: auto;
+    // height: auto;
+    height: 75vh;
   }
 `;
 
 const ViewMore = styled.div`
   display: flex;
   justify-content: center;
-  padding-top: var(--size-3);
+  // padding-top: var(--size-3);
+
   a {
     color: var(--color-piai-map-highlight) !important;
     border-color: var(--color-piai-map-highlight);
@@ -83,6 +85,14 @@ const ViewMore = styled.div`
 
   ${({ theme }) => theme.breakpoints.tabletLandscape} {
     justify-content: flex-start;
+
+    a {
+      margin-left: 0;
+
+      &:hover {
+        margin-left: -0.3em;
+      }
+    }
   }
 `;
 
@@ -90,8 +100,12 @@ const Scroller = styled.div`
   height: 100%;
   overflow-y: auto;
 
+  & > * {
+    margin-bottom: var(--size-3);
+  }
+
   ${({ theme }) => theme.breakpoints.tabletLandscape} {
-    overflow: visible;
+    // overflow: visible;
   }
 `;
 
@@ -153,17 +167,17 @@ export const ProjectQuickView = ({ id }: { id?: number }) => {
 
         {isTabletLandscapeAndUp && (
           <Icon
-          onClick={() => {
-            updateMapState({
-              quickViewProjectId: null,
-              isDrawerOpen: false,
-            });
-          }}
-          type="back"
-          className="textLink back inBox"
-        >
-          <span>Close</span>
-        </Icon>
+            onClick={() => {
+              updateMapState({
+                quickViewProjectId: null,
+                isDrawerOpen: false,
+              });
+            }}
+            type="back"
+            className="textLink back inBox"
+          >
+            <span>Close</span>
+          </Icon>
         )}
       </Panel>
     );

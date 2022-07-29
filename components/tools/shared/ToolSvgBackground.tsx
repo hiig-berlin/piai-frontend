@@ -28,6 +28,8 @@ import Svgjcow from "~/components/svgs/Svgjcow";
 import Svghardware from "~/components/svgs/Svghardware";
 import Svgdownload from "~/components/svgs/Svgdownload";
 import Svginfo from "~/components/svgs/Svginfo";
+import SvgPlus from "~/components/svgs/SvgPlus";
+import SvgMinus from "~/components/svgs/SvgMinus";
 
 // use https://jakearchibald.github.io/svgomg/
 // use https://yoksel.github.io/url-encoder/
@@ -167,6 +169,14 @@ export const ToolSvgBackground = ({
 
     case "info": 
       activeSvg = Svginfo;
+      break;
+
+    case "plus"  :
+      activeSvg = SvgPlus;
+      break;
+
+    case "minus" :
+      activeSvg = SvgMinus;
       break;
 
   }

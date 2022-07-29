@@ -19,6 +19,7 @@ const ElementContainer = styled(AspectRatio)<{
   // Resetting inherited styles from parent
   text-transform: none;
   font-weight: 300;
+  text-align: left;
 
   width: 2.4em;
   min-width: 2.4em;

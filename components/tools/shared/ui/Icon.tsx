@@ -81,7 +81,7 @@ const IconButton = styled(ButtonNormalized)<{
 
   &.inBox {
     align-self: end;
-    padding: 0 0 var(--size-5);
+    // padding: 0 0 var(--size-5);
   }
 `;
 

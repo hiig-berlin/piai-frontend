@@ -11,15 +11,21 @@ import { Icon } from "../shared/ui/Icon";
 
 const MapUi = styled.div`
   background-color: #000c;
-  border-radius: var(--size-3);
-  padding: var(--size-2);
+  border-radius: 8px;
+  padding: var(--size-3);
   position: fixed;
+  // bottom: var(--size-3);
   top: var(--size-6);
   right: var(--size-3);
   z-index: 2;
   display: flex;
   flex-direction: column;
-  gap: var(--size-2);
+  gap: var(--size-3);
+
+  ${({ theme }) => theme.breakpoints.tablet} {
+    gap: var(--size-2);
+    padding: var(--size-2);
+  }
 `;
 
 const MapContainer = styled.div`
@@ -100,7 +106,7 @@ export const Map = ({ isVisible }: { isVisible?: boolean }) => {
       </MapContainer>
       <MapUi>
         <Icon
-          type="money"
+          type="plus"
           onClick={() => {
             if (mapControllerRef.current && mapControllerRef.current.map) {
               mapControllerRef.current.runTask(() => {
@@ -122,7 +128,7 @@ export const Map = ({ isVisible }: { isVisible?: boolean }) => {
           }}
         />
         <Icon
-          type="people"
+          type="minus"
           onClick={() => {
             if (mapControllerRef.current && mapControllerRef.current.map) {
               mapControllerRef.current.runTask(() => {
