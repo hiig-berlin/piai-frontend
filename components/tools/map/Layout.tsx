@@ -19,7 +19,7 @@ import ReactQueryContextProvider from "./context/ReactQueryContextProvider";
 import { MapOverlays } from "./MapOverlays";
 
 const Map = dynamic(() => import("./Map"), {
-  suspense: true
+  loading: () => <LoadingBar isLoading />,
 });
 
 // Contains:
@@ -100,10 +100,17 @@ export const Layout = ({
       <ReactQueryContextProvider>
         <ToolStateContextProvider>
           {showMap && (
-            <Suspense fallback={<LoadingBar isLoading />}>
+            <>
               <Map />
               {isMap && content}
-            </Suspense>
+              {/* 
+
+              <Suspense fallback={<LoadingBar isLoading />}>
+                <Map />
+                {isMap && content}
+              </Suspense>
+            */}
+            </>
           )}
           {!isMap && content}
           {isMap && <MapOverlays />}

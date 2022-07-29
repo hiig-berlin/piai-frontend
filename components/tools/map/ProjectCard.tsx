@@ -44,7 +44,7 @@ export const ProjectCard = ({
 
   return (
     <>
-      <h1>{data?.nameOfProject?.value}</h1>
+      {view !== "quickview" && <h1>{safeHtml(data?.nameOfProject?.value)}</h1>}
       <Meta col={2}>
         <Icon type="marker" stc>
           {safeHtml(data?.city?.value)}, {safeHtml(data?.country?.value)}

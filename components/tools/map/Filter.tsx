@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { startTransition, useEffect, useState } from "react";
 import styled from "styled-components";
 import DisplayAbove from "~/components/styled/DisplayAbove";
 import DisplayBelow from "~/components/styled/DisplayBelow";
@@ -7,6 +7,7 @@ import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
 import { Icon } from "../shared/ui/Icon";
 
 import { useToolStateContext } from "./context/ContextProviders";
+
 
 const FilterContainer = styled.div<{
   isOpen: boolean;
@@ -30,10 +31,20 @@ const FilterContainer = styled.div<{
     isOpening || isOpen || isClosing ? "translateX(0)" : "translateX(-105vw)"};
 
   ${({ theme }) => theme.breakpoints.tabletLandscape} {
-    left: var(--size-6);
+    padding-left: var(--size-6);
     padding-bottom: var(--size-3);
     height: calc(100% - var(--lbh) - var(--tool-map-ot));
-    max-width: calc((100vw - var(--size-6) - 2 * var(--size-3)) * 0.3);
+    max-width: calc(
+      var(--size-6) + (100vw - var(--size-6) - 2 * var(--size-3)) * 0.3
+    );
+
+    transition: transform 0.3s;
+    opacity: 1;
+
+    transform: ${({ isOpening, isOpen, isClosing }) =>
+      (isOpening || isOpen) && !isClosing
+        ? "translateX(0)"
+        : "translateX(calc(-100% - var(--size-6)))"};
   }
 `;
 
@@ -56,7 +67,6 @@ const Panel = styled.div<{
     flex-grow: 1;
     transition: opacity var(--transition-speed-link);
     opacity: ${({ isRefetching }) => (isRefetching ? 0.5 : 1)};
-    border: 1px solid #f0f;
   }
 
   & > div:first-child,
@@ -109,20 +119,25 @@ export const Filter = () => {
   };
 
   useEffect(() => {
-    console.log(filter.isFilterOpen);
-    if (filter.isFilterOpen) {
-      open();
-    } else {
-      close();
-    }
+    startTransition(() => {
+      if (filter.isFilterOpen) {
+        open();
+      } else {
+        close();
+      }
+    });
   }, [filter.isFilterOpen, open, close]);
-
+  
   return (
     <FilterContainer {...{ isOpen, isOpening, isClosing }}>
       <Panel isLoading={false} isRefetching={false}>
         <Header>
           <DisplayBelow breakpoint="tabletLandscape">
-            <Icon onClick={close} type="back" className="textLink back inBox">
+            <Icon
+              onClick={closeFilter}
+              type="back"
+              className="textLink back inBox"
+            >
               <span>Close</span>
             </Icon>
           </DisplayBelow>
@@ -196,7 +211,7 @@ export const Filter = () => {
         <Footer>
           <DisplayAbove breakpoint="tabletLandscape">
             <CloseButtonContainer>
-              <Icon onClick={close} type="back" className="textLink back inBox">
+              <Icon onClick={closeFilter} type="back" className="textLink back inBox">
                 <span>Close</span>
               </Icon>
             </CloseButtonContainer>

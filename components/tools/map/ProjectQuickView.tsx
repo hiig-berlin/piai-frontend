@@ -11,21 +11,28 @@ import { ProjectCard } from "./ProjectCard";
 import { useToolStateContext } from "./context/ContextProviders";
 import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
 import { Icon } from "../shared/ui/Icon";
+import safeHtml from "~/utils/sanitize";
 
 const DraggableDrawer = dynamic(() => import("./map/DraggableDrawer"), {
   suspense: true,
 });
 
-const QuickView = styled.div`
+const QuickView = styled.div<{ isFilterOpen: boolean }>`
   position: fixed;
   bottom: var(--size-3);
   left: calc(var(--size-3) + var(--size-6));
   z-index: 5;
   height: auto;
   max-height: 75vh;
-  width: calc(0.5 * (100vw - var(--sbw) - var(--size-6)));
+  width: calc((100vw - var(--size-6) - 2 * var(--size-3)) * 0.4);
   border-radius: var(--size-3);
   overflow: hidden;
+  transition: transform 0.35s;
+
+  transform: ${({ isFilterOpen }) =>
+    isFilterOpen
+      ? "translateX(calc((100vw - var(--size-6) - 2 * var(--size-3)) * 0.3))"
+      : "translateX(0)"};
 `;
 
 const Panel = styled.div<{
@@ -60,8 +67,25 @@ const Panel = styled.div<{
   }
 
   ${({ theme }) => theme.breakpoints.tabletLandscape} {
-    // height: auto;
-    height: 75vh;
+    height: auto;
+    max-height: 75vh;
+  }
+`;
+
+const Header = styled.div`
+  display: flex;
+`;
+
+const Footer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  padding-bottom: var(--size-6);
+
+  ${({ theme }) => theme.breakpoints.tabletLandscape} {
+    justify-content: space-between;
+    padding-bottom: 0;
   }
 `;
 
@@ -69,7 +93,7 @@ const ViewMore = styled.div`
   display: flex;
   justify-content: center;
   // padding-top: var(--size-3);
-
+  align-self: flex-start;
   a {
     color: var(--color-piai-map-highlight) !important;
     border-color: var(--color-piai-map-highlight);
@@ -84,7 +108,6 @@ const ViewMore = styled.div`
 
     a {
       margin-left: 0;
-
       &:hover {
         margin-left: -0.3em;
       }
@@ -109,7 +132,7 @@ export const ProjectQuickView = ({ id }: { id?: number }) => {
   const {
     vars: { isTabletLandscapeAndUp },
   } = useCssVarsContext();
-  const { updateMapState } = useToolStateContext();
+  const { updateMapState, filter } = useToolStateContext();
   const [isDrawerFullHeight, setIsDrawerFullHeight] = useState(false);
 
   const { isLoading, isSuccess, isRefetching, data, isError } = useQuery(
@@ -144,30 +167,34 @@ export const ProjectQuickView = ({ id }: { id?: number }) => {
         isRefetching={isRefetching}
         isFullHeight={!isTabletLandscapeAndUp && isDrawerFullHeight}
       >
+        <Header>
+          <h1>{safeHtml(data?.data?.acf?.details?.nameOfProject?.value)}</h1>
+        </Header>
         <Scroller>
           <ProjectCard view="quickview" data={data?.data?.acf?.details} />
         </Scroller>
-        
-        <ViewMore>
-          <Link href={`/tool/map/project/${data?.data?.slug}`} passHref>
-            <LinkButtonAnimated>View full project profile</LinkButtonAnimated>
-          </Link>
-        </ViewMore>
+        <Footer>
+          <ViewMore>
+            <Link href={`/tool/map/project/${data?.data?.slug}`} passHref>
+              <LinkButtonAnimated>View full project profile</LinkButtonAnimated>
+            </Link>
+          </ViewMore>
 
-        {isTabletLandscapeAndUp && (
-          <Icon
-            onClick={() => {
-              updateMapState({
-                quickViewProjectId: null,
-                isDrawerOpen: false,
-              });
-            }}
-            type="back"
-            className="textLink back inBox"
-          >
-            <span>Close</span>
-          </Icon>
-        )}
+          {isTabletLandscapeAndUp && (
+            <Icon
+              onClick={() => {
+                updateMapState({
+                  quickViewProjectId: null,
+                  isDrawerOpen: false,
+                });
+              }}
+              type="back"
+              className="textLink back inBox"
+            >
+              <span>Close</span>
+            </Icon>
+          )}
+        </Footer>
       </Panel>
     );
 
@@ -179,7 +206,9 @@ export const ProjectQuickView = ({ id }: { id?: number }) => {
     );
 
   if (isTabletLandscapeAndUp && hasContent)
-    content = <QuickView>{content}</QuickView>;
+    content = (
+      <QuickView isFilterOpen={filter.isFilterOpen}>{content}</QuickView>
+    );
 
   return (
     <Suspense fallback={<LoadingBar isLoading />}>
