@@ -24,10 +24,14 @@ export type MapState = {
 };
 
 export type FilterState = {
-  termIds: number[] | null | undefined;
+  isFilterOpen: boolean;
+  genderRatio: boolean;
+  dateFrom: string | null | undefined;
+  dateUntil: string | null | undefined;
+  terms: Record<number, string> | null | undefined;
   s: string | null | undefined;
-  continents: number[] | null | undefined;
-  countries: number[] | null | undefined;
+  continents: Record<number, string> | null | undefined;
+  countries: Record<number, string> | null | undefined;
 };
 
 type FilterSettingTaxonomyOption = {
@@ -83,7 +87,6 @@ type ToolStateContext = {
   getMapState: () => MapState;
   getFilterState: () => FilterState;
   updateFilterState: (state: Partial<FilterState>) => void;
-  reset: () => void;
 };
 
 type ToolStateAction = {
@@ -103,9 +106,13 @@ const defaultToolState: ToolState = {
     filteredInViewCount: 0,
   },
   filter: {
-    termIds: [],
-    countries: [],
-    continents: null,
+    isFilterOpen: false,
+    dateFrom: null,
+    dateUntil: null,
+    genderRatio: false,
+    terms: {},
+    countries: {},
+    continents: {},
     s: null,
   },
   filterSettings: {
@@ -128,7 +135,6 @@ const defaultToolStateContext: ToolStateContext = {
   updateMapState: (state: Partial<MapState>) => {},
   getFilterState: () => defaultToolState.filter,
   updateFilterState: (state: Partial<FilterState>) => {},
-  reset: () => {},
 };
 
 const toolStateReducer = function <T>(
@@ -152,8 +158,6 @@ const toolStateReducer = function <T>(
         filterSettings: (action?.payload ??
           defaultToolState.filterSettings) as FilterSettings,
       };
-    case "reset":
-      return { ...defaultToolState };
     default:
       return state;
   }
@@ -231,13 +235,6 @@ export const ToolStateContextProvider = ({
     [isMounted, startTransitionDispatch]
   );
 
-  const reset = useCallback(() => {
-    if (!isMounted) return;
-    startTransitionDispatch({
-      type: "reset",
-    });
-  }, [isMounted, startTransitionDispatch]);
-
   const getState = useCallback(() => {
     return stateRef.current;
   }, []);
@@ -294,7 +291,6 @@ export const ToolStateContextProvider = ({
         getMapState,
         setMapState,
         updateMapState,
-        reset,
       }}
     >
       {children}

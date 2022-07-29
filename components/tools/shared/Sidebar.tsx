@@ -8,6 +8,7 @@ import { useModal } from "~/hooks/useModal";
 import { useConfigContext } from "~/providers/ConfigContextProvider";
 import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
 import { Box } from "./ui/Box";
+import { SidebarTool } from "./ui/SidebarTool";
 
 const SIDEBAR_PADDING = "var(--size-3)";
 
@@ -49,21 +50,23 @@ const SidebarContainer = styled.div.attrs<{
       props.isOpening || props.isOpen ? "translateX(0)" : "translateX(-105%)",
   },
 }))<{
+  position: string;
   isVisible: boolean;
 }>`
   display: none;
   pointer-events: all;
   padding: ${SIDEBAR_PADDING};
-  position: sticky;
+  position: ${({ position }) => position};
   top: 0;
   left: 0;
   height: 100vh;
-  background: #0003;
+  /* background: #0003; */
+  background-color: #f0f9;
   z-index: 3;
   transition: transform 0.35s;
   transform: translateX(-105%);
   font-size: 1.1em;
-  width: fit-content;
+  width: var(--size-6);
 
   ${({ theme }) => theme.breakpoints.tablet} {
     display: ${({ isVisible }) => (isVisible ? "block" : "none")};
@@ -85,23 +88,15 @@ const Tools = styled.div`
   gap: ${SIDEBAR_PADDING};
 `;
 
-const Tool = styled.div<{ isActive: boolean }>`
-  display: ${({ isActive }) => (isActive ? "block" : "none")};
-  ${({ theme }) => theme.breakpoints.tablet} {
-    display: block;
-  }
-`;
-
-const Children = styled.div`
-  margin-left: calc(0px - ${SIDEBAR_PADDING});
-  margin-right: calc(0px - ${SIDEBAR_PADDING});
-  margin-top: ${SIDEBAR_PADDING};
-`;
-
 const ToolMenuButton = styled(ButtonNormalized)`
   font-size: 1.1em;
 `;
 
+const Children = styled.div`
+  margin-left: calc(-1 * ${SIDEBAR_PADDING});
+  margin-right: calc(-1 * ${SIDEBAR_PADDING});
+  margin-top: ${SIDEBAR_PADDING};
+`;
 
 export const Sidebar = ({
   children,
@@ -136,6 +131,7 @@ export const Sidebar = ({
         {...{ isOpen, isOpening, isClosing }}
         id={`sidebar-${tool}`}
         isVisible
+        position={view === "map" ? "fixed" : "sticky"}
       >
         <LogoContainer>
           <Logo
@@ -149,22 +145,14 @@ export const Sidebar = ({
           {config?.tools?.length > 0 &&
             config?.tools.map((t: any, index: number) => {
               return (
-                <Tool key={`tool-${index}`} isActive={t.slug === tool}>
-                  <Link href={`/tool/${t.slug}`}>
-                    <a>
-                      <LabElement
-                        shortHandle={t.iconShort}
-                        longText={t.iconLong}
-                        color={t.colorBase}
-                        hoverColor="white"
-                        size={1}
-                      />
-                    </a>
-                  </Link>
-                  {t.slug === tool && children && (
-                    <Children>{children}</Children>
-                  )}
-                </Tool>
+                <SidebarTool
+                  key={`tool-${index}`}
+                  tool={t}
+                  padding={SIDEBAR_PADDING}
+                  isActive={t.slug === tool}
+                >
+                  {children}
+                </SidebarTool>
               );
             })}
         </Tools>

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Link from "next/link";
 import { ToolSvgBackground } from "../shared/ToolSvgBackground";
 import { Icon } from "../shared/ui/Icon";
+import { useToolStateContext } from "./context/ContextProviders";
 
 const sidebarPadding = "var(--size-3)";
 
@@ -43,11 +44,11 @@ const ActionItems = styled.div`
 // TODO: add actionItem onClick events + active status
 
 // TODO: decide if highlight (active filter collapsed) is crucial
-//       --> either solve through css filter (with volor variable?) 
+//       --> either solve through css filter (with volor variable?)
 //           or change icons to inline svgs…
 
-
 export const Submenu = ({ tool, slug }: { tool?: string; slug?: string }) => {
+  const { filter, updateFilterState } = useToolStateContext();
   return (
     <ToolSubmenu>
       <div>
@@ -65,8 +66,15 @@ export const Submenu = ({ tool, slug }: { tool?: string; slug?: string }) => {
         </Link>
         {slug === "index" && (
           <ActionItems>
-            <Icon type="search" active/>
-            <Icon type="filter"/>
+            <Icon type="search" active />
+            <Icon
+              type="filter"
+              onClick={() => {
+                updateFilterState({
+                  isFilterOpen: !filter.isFilterOpen,
+                });
+              }}
+            />
           </ActionItems>
         )}
       </div>
@@ -85,7 +93,7 @@ export const Submenu = ({ tool, slug }: { tool?: string; slug?: string }) => {
         </Link>
         {slug === "directory" && (
           <ActionItems>
-           <Icon type="search" />
+            <Icon type="search" />
             <Icon type="filter" />
           </ActionItems>
         )}

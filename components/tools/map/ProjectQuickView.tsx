@@ -4,21 +4,17 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import styled from "styled-components";
 
-const DraggableDrawer = dynamic(() => import("./map/DraggableDrawer"), {
-  suspense: true,
-});
-
-import {
-  ButtonNormalized,
-  LinkButtonAnimated,
-} from "~/components/styled/Button";
+import { LinkButtonAnimated } from "~/components/styled/Button";
 import { appConfig } from "~/config";
 import { LoadingBar } from "~/components/styled/LoadingBar";
 import { ProjectCard } from "./ProjectCard";
-import DisplayBelow from "~/components/styled/DisplayBelow";
 import { useToolStateContext } from "./context/ContextProviders";
 import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
 import { Icon } from "../shared/ui/Icon";
+
+const DraggableDrawer = dynamic(() => import("./map/DraggableDrawer"), {
+  suspense: true,
+});
 
 const QuickView = styled.div`
   position: fixed;
@@ -109,13 +105,6 @@ const Scroller = styled.div`
   }
 `;
 
-const CloseButton = styled(ButtonNormalized)`
-  color: #f0f;
-  font-weight: bold;
-  display: flex;
-  gap: var(--size-1);
-`;
-
 export const ProjectQuickView = ({ id }: { id?: number }) => {
   const {
     vars: { isTabletLandscapeAndUp },
@@ -155,10 +144,10 @@ export const ProjectQuickView = ({ id }: { id?: number }) => {
         isRefetching={isRefetching}
         isFullHeight={!isTabletLandscapeAndUp && isDrawerFullHeight}
       >
-        <DisplayBelow breakpoint="tabletLandscape"></DisplayBelow>
         <Scroller>
           <ProjectCard view="quickview" data={data?.data?.acf?.details} />
         </Scroller>
+        
         <ViewMore>
           <Link href={`/tool/map/project/${data?.data?.slug}`} passHref>
             <LinkButtonAnimated>View full project profile</LinkButtonAnimated>

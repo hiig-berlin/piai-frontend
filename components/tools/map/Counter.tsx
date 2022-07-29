@@ -1,31 +1,31 @@
 import React from "react";
 import styled from "styled-components";
 import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
-import { Icon } from "../shared/ui/Icon"
+import { Icon } from "../shared/ui/Icon";
 import { useToolStateContext } from "./context/ContextProviders";
 
-const CounterContainer = styled.div`
-  
-  background: ${({ theme }) => theme.color("piaiMap", 0.9)};
+const CounterContainer = styled.div<{ invert: boolean }>`
+  background: ${({ theme, invert }) =>
+    invert ? "#0009" : theme.color("piaiMap", 0.9)};
   color: white;
   border-radius: var(--size-3);
-  border: 1px solid var(--color-piai-map);
+  border: 1px solid
+    ${({ invert }) => (invert ? "var(--color-grey)" : "var(--color-piai-map)")};
   width: calc(100vw - (2 * var(--size-4)));
-
+  pointer-events:all ;
   position: fixed;
-  
+  z-index: 6;
   bottom: var(--size-3);
   top: unset;
 
   left: var(--size-4);
   //transform: translateX(-50%);
 
-
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 
-& > * {
+  & > * {
     padding: var(--size-3);
     border-right: 1px solid #0000001a;
 
@@ -38,7 +38,7 @@ const CounterContainer = styled.div`
     margin-right: var(--size-2);
   }
 
-  ${({theme}) => theme.breakpoints.tablet} {
+  ${({ theme }) => theme.breakpoints.tablet} {
     top: var(--size-3);
     bottom: unset;
     left: 50%;
@@ -51,9 +51,7 @@ const StyledLabel = styled.div`
   display: flex;
   // flex-direction: column;
   flex-grow: 1;
-  gap: var(--size-1);
-  
-  ${({theme}) => theme.breakpoints.tablet} {
+  ${({ theme }) => theme.breakpoints.tablet} {
     flex-direction: row;
     gap: var(--size-1);
   }
@@ -78,12 +76,22 @@ export const Counter = () => {
   const {
     vars: { isTabletLandscapeAndUp },
   } = useCssVarsContext();
-  
-  const {map} = useToolStateContext();
+
+  const { map, filter, updateFilterState } = useToolStateContext();
 
   return (
-    <CounterContainer>
-      {!isTabletLandscapeAndUp && <Icon type="filter" />}
+    <CounterContainer invert={filter.isFilterOpen && !isTabletLandscapeAndUp}>
+      {!isTabletLandscapeAndUp && (
+        <Icon
+          type="filter"
+          onClick={() => {
+            console.log(123)
+            updateFilterState({
+              isFilterOpen: !filter.isFilterOpen,
+            });
+          }}
+        />
+      )}
       <div className="inView">
         <Label label={isTabletLandscapeAndUp ? "Projects in view" : "In view"}>
           <strong>{map.filteredInViewCount}</strong>/{map.totalInViewCount}
