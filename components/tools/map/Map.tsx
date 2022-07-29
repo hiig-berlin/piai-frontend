@@ -7,6 +7,20 @@ import { useConfigContext } from "~/providers/ConfigContextProvider";
 import useIsMounted from "~/hooks/useIsMounted";
 import { LoadingBar } from "~/components/styled/LoadingBar";
 import { MapGlobalCss } from "./map/MapGlobalCss";
+import { Icon } from "../shared/ui/Icon";
+
+const MapUi = styled.div`
+  background-color: #000c;
+  border-radius: var(--size-3);
+  padding: var(--size-2);
+  position: fixed;
+  top: var(--size-6);
+  right: var(--size-3);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-2);
+`;
 
 const MapContainer = styled.div`
   display: block;
@@ -32,7 +46,7 @@ export const Map = ({ isVisible }: { isVisible?: boolean }) => {
 
   const [isMapLoaded, setIsMapLoaded] = useState(false);
 
-  const { filterSettings } = useToolStateContext();
+  const { filterSettings, getMapState, updateMapState } = useToolStateContext();
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -45,14 +59,28 @@ export const Map = ({ isVisible }: { isVisible?: boolean }) => {
       const controller = new MapController(
         router,
         config,
-        filterSettings?.styleUrl
+        filterSettings?.styleUrl,
+        getMapState,
+        updateMapState
       );
-      controller.init("map", "clustered", mapContainerRef.current, (state: boolean) => {
-        if (isMounted) setIsMapLoaded(state);
-      });
+      controller.init(
+        "map",
+        "clustered",
+        mapContainerRef.current,
+        (state: boolean) => {
+          if (isMounted) setIsMapLoaded(state);
+        }
+      );
       mapControllerRef.current = controller;
     }
-  }, [filterSettings?.styleUrl, isMounted, config, router]);
+  }, [
+    filterSettings?.styleUrl,
+    isMounted,
+    config,
+    router,
+    getMapState,
+    updateMapState,
+  ]);
 
   return (
     <>
@@ -70,6 +98,41 @@ export const Map = ({ isVisible }: { isVisible?: boolean }) => {
           className="map"
         ></div>
       </MapContainer>
+      <MapUi>
+        <Icon
+          type="money"
+          onClick={() => {
+            if (mapControllerRef.current && mapControllerRef.current.map) {
+              mapControllerRef.current.runTask(() => {
+                if (mapControllerRef.current && mapControllerRef.current.map)
+                  mapControllerRef.current.map.zoomIn();
+              });
+            }
+          }}
+        />
+        <Icon
+          type="globe"
+          onClick={() => {
+            if (mapControllerRef.current && mapControllerRef.current.map) {
+              mapControllerRef.current.runTask(() => {
+                if (mapControllerRef.current && mapControllerRef.current.map)
+                  mapControllerRef.current.views.clustered?.fitToBounds(true);
+              });
+            }
+          }}
+        />
+        <Icon
+          type="people"
+          onClick={() => {
+            if (mapControllerRef.current && mapControllerRef.current.map) {
+              mapControllerRef.current.runTask(() => {
+                if (mapControllerRef.current && mapControllerRef.current.map)
+                  mapControllerRef.current.map.zoomOut();
+              });
+            }
+          }}
+        />
+      </MapUi>
     </>
   );
 };

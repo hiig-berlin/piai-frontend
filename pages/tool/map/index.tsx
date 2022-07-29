@@ -60,10 +60,7 @@ const Index = ({
       />*/}
       <Content>
         <Contribute position="bottom" />
-        <Counter inView={52} inViewFiltered={2} total={250} totalFiltered={5} />
       </Content>
-      
-      
     </>
   );
 };

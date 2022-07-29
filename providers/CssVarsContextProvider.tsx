@@ -5,6 +5,7 @@ import React, {
   useEffect,
   useState,
   useRef,
+  startTransition,
 } from "react";
 import useIsMounted from "~/hooks/useIsMounted";
 import { breakpointEMs } from "~/theme/theme";
@@ -72,7 +73,7 @@ export const CssVarsContextProvider = ({
   children: React.ReactNode;
 }) => {
   const cssVarsRef = useRef<CssVarContextVars>(cssVarContextVarsDefault);
-  const [cssVars, setCssVars] = useState<CssVarContextVars>(
+  const [, setCssVars] = useState<CssVarContextVars>(
     cssVarContextVarsDefault
   );
 
@@ -125,12 +126,16 @@ export const CssVarsContextProvider = ({
       update = true;
     }
 
-    if ((isMobile && !isMobileLandscape) !== cssVarsRef.current.isMobilePortrait) {
+    if (
+      (isMobile && !isMobileLandscape) !== cssVarsRef.current.isMobilePortrait
+    ) {
       cssVarsRef.current.isMobilePortrait = isMobile && !isMobileLandscape;
       update = true;
     }
 
-    if ((isMobileLandscape && !isTablet) !== cssVarsRef.current.isMobileLandscape) {
+    if (
+      (isMobileLandscape && !isTablet) !== cssVarsRef.current.isMobileLandscape
+    ) {
       cssVarsRef.current.isMobileLandscape = isMobileLandscape && !isTablet;
       update = true;
     }
@@ -144,12 +149,16 @@ export const CssVarsContextProvider = ({
       update = true;
     }
 
-    if ((isTablet && !isTabletLandscape) !== cssVarsRef.current.isTabletPortrait) {
+    if (
+      (isTablet && !isTabletLandscape) !== cssVarsRef.current.isTabletPortrait
+    ) {
       cssVarsRef.current.isTabletPortrait = isTablet && !isTabletLandscape;
       update = true;
     }
 
-    if ((isTabletLandscape && !isDesktop) !== cssVarsRef.current.isTabletLandscape) {
+    if (
+      (isTabletLandscape && !isDesktop) !== cssVarsRef.current.isTabletLandscape
+    ) {
       cssVarsRef.current.isTabletLandscape = isTabletLandscape && !isDesktop;
       update = true;
     }
@@ -254,7 +263,9 @@ export const CssVarsContextProvider = ({
     }
 
     if (update && isMounted) {
-      setCssVars({ ...cssVarsRef.current });
+      startTransition(() => {
+        setCssVars({ ...cssVarsRef.current });
+      });
     }
   }, [isMounted]);
   const onResizeDebounced = debounce(onResize, 120);

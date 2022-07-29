@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
 import { Icon } from "../shared/ui/Icon"
+import { useToolStateContext } from "./context/ContextProviders";
 
 const CounterContainer = styled.div`
   
@@ -9,10 +10,10 @@ const CounterContainer = styled.div`
   color: white;
   border-radius: var(--size-3);
   border: 1px solid var(--color-piai-map);
-  width: 100%;
+  width: calc(100vw - (2 * var(--size-4)));
 
-  position: sticky;
-
+  position: fixed;
+  
   bottom: var(--size-3);
   top: unset;
 
@@ -38,7 +39,6 @@ const CounterContainer = styled.div`
   }
 
   ${({theme}) => theme.breakpoints.tablet} {
-    position: fixed;
     top: var(--size-3);
     bottom: unset;
     left: 50%;
@@ -72,32 +72,24 @@ const Label = ({
   );
 };
 
-export const Counter = ({
-  inView,
-  inViewFiltered,
-  total,
-  totalFiltered,
-}: {
-  inView: number;
-  inViewFiltered: number;
-  total: number;
-  totalFiltered: number;
-}) => {
+export const Counter = () => {
   const {
     vars: { isTabletLandscapeAndUp },
   } = useCssVarsContext();
+  
+  const {map} = useToolStateContext();
 
   return (
     <CounterContainer>
       {!isTabletLandscapeAndUp && <Icon type="filter" />}
       <div className="inView">
         <Label label={isTabletLandscapeAndUp ? "Projects in view" : "In view"}>
-          <strong>{inViewFiltered}</strong>/{inView}
+          <strong>{map.filteredInViewCount}</strong>/{map.totalInViewCount}
         </Label>
       </div>
       <div className="total">
         <Label label={isTabletLandscapeAndUp ? "Projects total" : "Total"}>
-          <strong>{totalFiltered}</strong>/{total}
+          <strong>{map.filteredCount}</strong>/{map.totalCount}
         </Label>
       </div>
       {isTabletLandscapeAndUp ? <Icon type="list" /> : <Icon type="search" />}

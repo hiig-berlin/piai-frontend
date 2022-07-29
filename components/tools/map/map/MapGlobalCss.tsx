@@ -33,6 +33,7 @@ const GlobalStyle = createGlobalStyle`
     width: 32px;
     height: 32px;
     border-radius: 32px;
+    cursor: pointer;
     transform: translateY(-16px) translateX(-16px);
   }
 

@@ -4,25 +4,32 @@ import React, {
   useCallback,
   useReducer,
   useEffect,
-  useState,
+  useRef,
+  startTransition,
 } from "react";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 
 import useIsMounted from "~/hooks/useIsMounted";
 import { appConfig } from "~/config";
 
-type MapState = {
+export type MapState = {
   ready: boolean;
+  isDrawerOpen: boolean;
   hideIntro: boolean;
-  // TODO: extend ...
+  quickViewProjectId: number | null;
+  totalCount: number;
+  totalInViewCount: number;
+  filteredCount: number;
+  filteredInViewCount: number;
 };
 
-type FilterState = {
+export type FilterState = {
   termIds: number[] | null | undefined;
   s: string | null | undefined;
   continents: number[] | null | undefined;
   countries: number[] | null | undefined;
 };
+
 type FilterSettingTaxonomyOption = {
   id: number;
   name: string;
@@ -48,6 +55,7 @@ type FilterSettingTaxonomy = {
   label: string;
   options: FilterSettingTaxonomyOption[];
 };
+
 type FilterSettings = {
   styleUrl: string;
   continents: FilterSettingTaxonomyOptionContinent[] | null | undefined;
@@ -58,37 +66,41 @@ type FilterSettings = {
   isProjectOpenSource: FilterSettingTaxonomy | null | undefined;
 };
 
-type View = "map" | "directory" | "page" | "filterSettings" | null | undefined;
-
 type ToolState = {
-  view: View;
   map: MapState;
   filter: FilterState;
   filterSettings: FilterSettings;
 };
 
 type ToolStateContext = {
-  view: View;
   map: MapState;
   filter: FilterState;
   filterSettings: FilterSettings;
-  setView: (view: View) => void;
   setMapState: (mapState: MapState) => void;
   setFilterState: (filterState: FilterState) => void;
-  setHideMapIntro: (flag: boolean) => void;
+  updateMapState: (state: Partial<MapState>) => void;
+  getState: () => ToolState;
+  getMapState: () => MapState;
+  getFilterState: () => FilterState;
+  updateFilterState: (state: Partial<FilterState>) => void;
   reset: () => void;
 };
 
 type ToolStateAction = {
   type: string;
-  payload?: MapState | FilterState | View | FilterSettings;
+  payload?: MapState | FilterState | FilterSettings;
 };
 
 const defaultToolState: ToolState = {
-  view: null,
   map: {
     ready: false,
+    isDrawerOpen: false,
     hideIntro: false,
+    quickViewProjectId: null,
+    totalCount: 0,
+    totalInViewCount: 0,
+    filteredCount: 0,
+    filteredInViewCount: 0,
   },
   filter: {
     termIds: [],
@@ -109,10 +121,13 @@ const defaultToolState: ToolState = {
 
 const defaultToolStateContext: ToolStateContext = {
   ...defaultToolState,
-  setView: (view: View) => {},
-  setMapState: (mapState: MapState) => {},
   setFilterState: (filterState: FilterState) => {},
-  setHideMapIntro: (flag: boolean) => {},
+  getState: () => defaultToolState,
+  getMapState: () => defaultToolState.map,
+  setMapState: (mapState: MapState) => {},
+  updateMapState: (state: Partial<MapState>) => {},
+  getFilterState: () => defaultToolState.filter,
+  updateFilterState: (state: Partial<FilterState>) => {},
   reset: () => {},
 };
 
@@ -136,11 +151,6 @@ const toolStateReducer = function <T>(
         ...state,
         filterSettings: (action?.payload ??
           defaultToolState.filterSettings) as FilterSettings,
-      };
-    case "view":
-      return {
-        ...state,
-        view: (action?.payload ?? defaultToolState.view) as View,
       };
     case "reset":
       return { ...defaultToolState };
@@ -169,87 +179,121 @@ export const ToolStateContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
+
+  
   const isMounted = useIsMounted();
   const [state, dispatch] = useReducer(toolStateReducer, defaultToolState);
+
+  const stateRef = useRef<ToolState>(defaultToolState);
+
+  stateRef.current = state;
 
   const { isLoading, isSuccess, data, isError } = useQuery(
     ["filterSettings"],
     fetchFilterSettings
   );
 
-  const setView = useCallback(
-    (view: View) => {
-      if (!isMounted) return;
-      dispatch({
-        type: "view",
-        payload: view,
+  const startTransitionDispatch = useCallback(
+    (action: ToolStateAction) => {
+      startTransition(() => {
+        dispatch(action);
       });
     },
-    [isMounted]
+    [dispatch]
   );
+
+  const getMapState = useCallback(() => {
+    return stateRef.current.map;
+  }, []);
 
   const setMapState = useCallback(
     (mapState: MapState) => {
       if (!isMounted) return;
-      dispatch({
+      startTransitionDispatch({
         type: "map",
         payload: mapState,
       });
     },
-    [isMounted]
+    [isMounted, startTransitionDispatch]
   );
 
-  const setFilterState = useCallback(
-    (filterState: FilterState) => {
+  const updateMapState = useCallback(
+    (state: Partial<MapState>) => {
       if (!isMounted) return;
-      dispatch({
-        type: "filter",
-        payload: filterState,
+      startTransitionDispatch({
+        type: "map",
+        payload: {
+          ...stateRef.current.map,
+          ...state,
+        },
       });
     },
-    [isMounted]
+    [isMounted, startTransitionDispatch]
   );
 
   const reset = useCallback(() => {
     if (!isMounted) return;
-    dispatch({
+    startTransitionDispatch({
       type: "reset",
     });
-  }, [isMounted]);
+  }, [isMounted, startTransitionDispatch]);
 
-  const setHideMapIntro = useCallback(
-    (flag: boolean) => {
+  const getState = useCallback(() => {
+    return stateRef.current;
+  }, []);
+
+  const getFilterState = useCallback(() => {
+    return stateRef.current.filter;
+  }, []);
+
+  const setFilterState = useCallback(
+    (filterState: FilterState) => {
       if (!isMounted) return;
-      dispatch({
-        type: "map",
+      startTransitionDispatch({
+        type: "filter",
+        payload: filterState,
+      });
+    },
+    [isMounted, startTransitionDispatch]
+  );
+
+  const updateFilterState = useCallback(
+    (state: Partial<FilterState>) => {
+      if (!isMounted) return;
+      startTransitionDispatch({
+        type: "filter",
         payload: {
-          ...state.map,
-          hideIntro: flag,
+          ...stateRef.current.filter,
+          ...state,
         },
       });
     },
-    [isMounted, state]
+    [isMounted, startTransitionDispatch]
   );
 
   if (isError) throw "Could not fetch needed data from server.";
 
   useEffect(() => {
     if (!isLoading && isSuccess && data) {
-      dispatch({
+      startTransitionDispatch({
         type: "filterSettings",
         payload: data as FilterSettings,
       });
     }
-  }, [isLoading, isSuccess, data]);
+  }, [isLoading, isSuccess, data, startTransitionDispatch]);
+
 
   return (
     <ToolStateContext.Provider
       value={{
         ...state,
-        setView,
-        setMapState,
+        getState,
+        getFilterState,
         setFilterState,
-        setHideMapIntro,
+        updateFilterState,
+        getMapState,
+        setMapState,
+        updateMapState,
         reset,
       }}
     >

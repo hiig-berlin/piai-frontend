@@ -121,21 +121,20 @@ export const Icon = ({
     return (
       <IconStatic className={className} spaceBefore={spaceBefore}>
         <ToolSvgBackground type={type} />
-        <span>
-          {safeHtml(url)
-            .split(",")
-            .reduce((carry: any, u: any) => {
-              if (!u.trim()) return carry;
+        <span>{safeHtml(url)
+          .split(",")
+          .reduce((carry: any, u: any, i: number) => {
+            if (!u.trim()) return carry;
 
               if (carry.length > 0) {
                 carry.push(", ");
               }
 
-              carry.push(
-                <a href={u.trim()} target="_blank" rel="nofollow noreferrer">
-                  {children ? children : u.trim()}
-                </a>
-              );
+            carry.push(
+              <a href={u.trim()} key={`${url}-${i}`} target="_blank" rel="nofollow noreferrer">
+                {u.trim()}
+              </a>
+            );
 
               return carry;
             }, [])}

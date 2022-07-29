@@ -2,6 +2,7 @@ import {
   Map,
   AttributionControl,
   LngLatBounds,
+  LngLatLike,
   PaddingOptions,
 } from "maplibre-gl";
 import type {
@@ -12,6 +13,7 @@ import type {
 
 import "maplibre-gl/dist/maplibre-gl.css";
 
+
 import type { NextRouter } from "next/router";
 
 import type { AppConfig } from "~/types";
@@ -19,6 +21,9 @@ import { MapHighlight } from "./MapHighlight";
 import { MapPopupManager } from "./MapPopupManager";
 import { MapClusterDetail } from "./MapClusterDetail";
 import { MapViewClustered } from "./MapViewClustered";
+
+import type { MapState } from "../context/ContextProviders";
+import { breakpointEMs } from "~/theme/breakpoints";
 
 export type MapFitToBoundingBoxOptions = CameraForBoundsOptions & {
   minZoom?: number;
@@ -98,12 +103,24 @@ export class MapController {
 
   onLoadJobs: Function[] = [];
 
-  constructor(router: NextRouter, config: AppConfig, styleUrl: string) {
+  getMapState: () => MapState;
+  updateMapState: (mapState: Partial<MapState>) => void;
+
+  constructor(
+    router: NextRouter,
+    config: AppConfig,
+    styleUrl: string,
+    getMapState: () => MapState,
+    updateMapState: (mapState: Partial<MapState>) => void
+  ) {
     this.config = config;
     this.router = router;
     this.styleUrl = styleUrl;
     this.isInit = false;
     this.map = null;
+
+    this.getMapState = getMapState;
+    this.updateMapState = updateMapState;
 
     const mapTool = this.config?.tools?.find((t) => t.slug === "map");
     this.toolConfig = mapTool?.config ?? {};
@@ -136,7 +153,7 @@ export class MapController {
       center: [self.toolConfig?.lng ?? 0, self.toolConfig?.lat ?? 0],
       zoom: self.toolConfig?.zoom ?? 8,
       maxBounds: self.toolConfig?.bounds,
-      minZoom: self.toolConfig?.minZoom,
+      // minZoom: self.toolConfig?.minZoom,
       maxZoom: self.toolConfig?.maxZoom,
       attributionControl: false,
     });
@@ -200,13 +217,15 @@ export class MapController {
       maybeProcess();
     });
     self.map.once("load", () => {
+      if (!self?.map) return;
+
       self.isLoaded = true;
 
-      self?.map?.on("movestart", (e) => {
+      self.map.on("movestart", (e) => {
         self.isAnimating = (e as any)?.cMapAnimation === true;
       });
 
-      self?.map?.on("moveend", (e) => {
+      self.map.on("moveend", (e) => {
         if (!self.map) return;
         self.isAnimating = false;
         if (self.map.getZoom() > self.toolConfig.maxZoom - 1) {
@@ -237,6 +256,11 @@ export class MapController {
               self.geoJsonAllData = data;
               self.isBaseDataLoaded = true;
 
+              self.updateMapState({
+                totalCount: (data?.features?.length ?? 0) as number,
+                filteredCount: 0,
+              });
+
               maybeProcess();
             }
           }
@@ -259,11 +283,27 @@ export class MapController {
     self.isInit = true;
   }
 
+  showQuickView(coordinates: LngLatLike, id: number) {
+    const self = this;
+
+    self.popups.hideAll();
+
+    self.updateMapState({
+      ...self.getMapState(),
+      isDrawerOpen: true,
+      quickViewProjectId: id,
+    });
+
+    setTimeout(() => {
+      self.panTo(coordinates, {});
+    }, 250);
+  }
+
   loadUrl(url: string) {
     const self = this;
 
     self.popups.hideAll();
-    
+
     self.router.push(url);
 
     self.popups.hideAll();
@@ -357,7 +397,8 @@ export class MapController {
 
   fitToBounds = (
     bounds: LngLatBounds,
-    options?: MapFitToBoundingBoxOptions
+    options?: MapFitToBoundingBoxOptions,
+    useEaseTo?: boolean
   ) => {
     if (!this.map) return;
 
@@ -383,7 +424,12 @@ export class MapController {
       options?.maxZoom ?? this.toolConfig.boundingBoxMaxZoom
     );
 
-    this.map.easeTo(calculatedOptions);
+    if (useEaseTo) {
+      this.map.easeTo(calculatedOptions);
+    } else {
+      this.map.zoomTo(calculatedOptions.zoom);
+      this.map.jumpTo(calculatedOptions);
+    }
   };
 
   clearOnloadJobs = () => {
@@ -581,12 +627,24 @@ export class MapController {
   getCenterOffset() {
     if (typeof window === "undefined") return [0, 0];
 
-    return [0, 0];
-    // if (window.innerWidth < 740) {
-    //   return [window.innerWidth / 2 - 50, 25];
-    // }
+    if (window.innerWidth < breakpointEMs.mobileLandscape * 16) {
+      if (this.getMapState().isDrawerOpen) {
+        return [0, -0.25 * window.innerHeight];
+      } else {
+        return [0, 0];
+      }
+    } else if (window.innerWidth < breakpointEMs.mobileLandscape * 16) {
+      // xxx improve
+    } else if (window.innerWidth < breakpointEMs.tablet * 16) {
+      // xxx improve
+    } else if (window.innerWidth < breakpointEMs.tabletLandscape * 16) {
+      // xxx improve
+    } else {
+      return [0, 0];
+    }
 
-    // return [442 / 2, 40] as PointLike;
+    // xxx
+    return [0, 0];
   }
 
   // getBoundsPadding() {
@@ -649,12 +707,10 @@ export class MapController {
   //   };
   // }
 
-  panTo(lng: number, lat: number, options: MapAnimationOptions) {
+  panTo(coordinates: LngLatLike, options?: MapAnimationOptions) {
     const self = this;
     if (self.map) {
       const run = async (resolve?: any) => {
-        if (Number.isNaN(lng) || Number.isNaN(lat)) return;
-        
         self.map?.stop();
         self.map?.setPadding({
           top: 0,
@@ -663,7 +719,7 @@ export class MapController {
           left: 0,
         });
         self.map?.panTo(
-          [lng, lat],
+          coordinates,
           {
             animate: options?.animate ?? true,
             duration: options?.duration ?? 1250,
@@ -685,11 +741,11 @@ export class MapController {
     }
   }
 
-  jumpTo(lng: number, lat: number, options: MapAnimationOptions) {
-    this.panTo(lng, lat, {
+  jumpTo(coordinates: LngLatLike, options?: MapAnimationOptions) {
+    this.panTo(coordinates, {
       animate: false,
       duration: 0,
-      ...options,
+      ...(options ?? {}),
     });
   }
 

@@ -17,6 +17,7 @@ import { useRouter } from "next/router";
 import { Meta } from "~/components/tools/map/Styled";
 import { Question } from "~/components/tools/map/Question";
 import { Label } from "~/components/tools/map/Styled";
+import safeHtml from "~/utils/sanitize";
 
 const Container = styled.main<{
   toolColor?: string;
@@ -133,20 +134,24 @@ const Project = ({ data, tool }: { data: any; tool: PiAiTool }) => {
         if (data?.acf?.motivationAndValues?.[key]?.value?.length)
           carry.push({
             question: data?.acf?.motivationAndValues?.[key]?.question?.trim(),
-            answer: [
-              ...data.acf.motivationAndValues[key].value,
-              ...(key === "usedGuidelines" &&
-              data?.acf?.motivationAndValues?.usedGuidelinesOther2?.value?.trim()
-                ? [
-                    data?.acf?.motivationAndValues?.usedGuidelinesOther2?.value?.trim(),
-                  ]
-                : []),
-            ].join(", "),
+            answer: safeHtml(
+              [
+                ...data.acf.motivationAndValues[key].value,
+                ...(key === "usedGuidelines" &&
+                data?.acf?.motivationAndValues?.usedGuidelinesOther2?.value?.trim()
+                  ? [
+                      data?.acf?.motivationAndValues?.usedGuidelinesOther2?.value?.trim(),
+                    ]
+                  : []),
+              ].join(", ")
+            ),
           });
       } else if (data?.acf?.motivationAndValues?.[key]?.value?.trim()) {
         carry.push({
           question: data?.acf?.motivationAndValues?.[key]?.question?.trim(),
-          answer: data?.acf?.motivationAndValues?.[key]?.value?.trim(),
+          answer: safeHtml(
+            data?.acf?.motivationAndValues?.[key]?.value?.trim()
+          ),
         });
       }
       return carry;
@@ -170,7 +175,7 @@ const Project = ({ data, tool }: { data: any; tool: PiAiTool }) => {
       if (data?.acf?.guidingValues?.[key]?.value?.trim()) {
         carry.push({
           question: data?.acf?.guidingValues?.[key]?.question?.trim(),
-          answer: data?.acf?.guidingValues?.[key]?.value?.trim(),
+          answer: safeHtml(data?.acf?.guidingValues?.[key]?.value?.trim()),
         });
       }
       return carry;
@@ -200,12 +205,16 @@ const Project = ({ data, tool }: { data: any; tool: PiAiTool }) => {
         if (data?.acf?.designAndSafeguards?.[key]?.value?.length)
           carry.push({
             question: data?.acf?.designAndSafeguards?.[key]?.question?.trim(),
-            answer: data.acf.designAndSafeguards[key].value.join(", "),
+            answer: safeHtml(
+              data.acf.designAndSafeguards[key].value.join(", ")
+            ),
           });
       } else if (data?.acf?.designAndSafeguards?.[key]?.value?.trim()) {
         carry.push({
           question: data?.acf?.designAndSafeguards?.[key]?.question?.trim(),
-          answer: data?.acf?.designAndSafeguards?.[key]?.value?.trim(),
+          answer: safeHtml(
+            data?.acf?.designAndSafeguards?.[key]?.value?.trim()
+          ),
         });
       }
       return carry;
@@ -251,13 +260,13 @@ const Project = ({ data, tool }: { data: any; tool: PiAiTool }) => {
           >
             <span>back</span>
           </Icon>
-          <ProjectCard view="detail" data={data} />
+          <Box><ProjectCard view="detail" data={data?.acf?.details} /></Box>
           <Box className="contact">
             <h3>Contact</h3>
             {data?.acf?.details?.responsiblePerson?.value?.trim() && (
               <div className="name">
                 <Label as="h4">Responsible Person</Label>
-                <p>{data?.acf?.details?.responsiblePerson?.value}</p>
+                <p>{safeHtml(data?.acf?.details?.responsiblePerson?.value)}</p>
               </div>
             )}
             <Meta col={1}>

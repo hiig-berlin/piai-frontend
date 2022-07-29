@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useCallback, useContext, useState } from "react";
 
 type HeaderContextType = {
   observeScroll: boolean;
@@ -22,8 +22,17 @@ export const HeaderContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [observeScroll, setObserveScroll] = useState<boolean>(true);
-  const [fadeOut, setFadeOut] = useState<boolean>(false);
+  const [observeScroll, setObserveScrollState] = useState<boolean>(true);
+  const [fadeOut, setFadeOutState] = useState<boolean>(false);
+
+  const setFadeOut = useCallback((flag: boolean) => {
+    setObserveScrollState(flag);
+  }, []);
+
+  const setObserveScroll = useCallback((flag: boolean) => {
+    setFadeOutState(flag);
+  }, []);
+
   return (
     <HeaderContext.Provider
       value={{

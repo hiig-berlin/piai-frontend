@@ -1,10 +1,37 @@
 import { LngLatBounds } from "maplibre-gl";
 import type { PointLike } from "maplibre-gl";
 import { primaryInput } from "detect-it";
+import debounce from "lodash/debounce";
+
 import type { MapController } from "./MapController";
 import { MapPopup } from "./MapPopup";
+import type { MapState } from "../context/ContextProviders";
 
 const CLUSTER_ZOOM_IN_ANIMATION_TIME = 1000;
+const CLUSTER_COUNT_UPDATE_TIMEOUT = 500;
+
+const queryFilteredForDuplicates = (arr: any[], key: any) => {
+  if (!Array.isArray(arr) || !arr?.length) return [];
+
+  const result = arr.reduce(
+    (carry: any, feature: any) => {
+      if (
+        feature?.properties?.[key] &&
+        !carry.keys.includes(feature?.properties?.[key])
+      ) {
+        carry.keys.push(feature?.properties?.[key]);
+        carry.values.push(feature);
+      }
+      return carry;
+    },
+    {
+      keys: [],
+      values: [],
+    }
+  );
+
+  return result.values;
+};
 
 export class MapViewClustered {
   controller: MapController;
@@ -12,8 +39,14 @@ export class MapViewClustered {
   events: Record<string, any> = {};
   isVisible: boolean = false;
   isDataSet: boolean = false;
+  featureCount: number = 0;
 
-  layers: string[] = ["clusters", "cluster-count", "clustered-locations"];
+  layers: string[] = [
+    "locations",
+    "clusters",
+    "cluster-count",
+    "clustered-locations",
+  ];
 
   constructor(controller: MapController) {
     this.controller = controller;
@@ -33,31 +66,35 @@ export class MapViewClustered {
 
       self.hide();
 
+      const geoJson = data ?? self.controller.geoJsonAllData ?? {};
+      self.featureCount = geoJson?.features?.length;
       if (!self.controller.map.getSource("clustered-locations")) {
         self.controller.map.addSource("clustered-locations", {
           type: "geojson",
-          data: data ?? self.controller.geoJsonAllData ?? {},
+          data: geoJson,
           cluster: true,
-          maxzoom: self.controller.toolConfig.maxZoom,
+          maxzoom: self.controller.toolConfig.geoJsonMaxZoom,
           clusterMaxZoom: self.controller.toolConfig.maxZoom, // Max zoom to cluster points on
           clusterRadius: self.controller.toolConfig.clusterRadius, // Radius of each cluster when clustering points (defaults to 50)
         });
       } else {
         (
           self.controller?.map?.getSource("clustered-locations") as any
-        )?.setData(data ?? self.controller.geoJsonAllData ?? {});
+        )?.setData(geoJson);
+      }
+
+      if (!self.controller.map.getSource("locations")) {
+        self.controller.map.addSource("locations", {
+          type: "geojson",
+          data: self.controller.geoJsonAllData ?? {},
+        });
       }
 
       let bounds: LngLatBounds | undefined;
 
-      if ((data ?? self.controller.geoJsonAllData ?? {})?.features?.length) {
-        for (
-          let i = 0;
-          i < (data ?? self.controller.geoJsonAllData ?? {})?.features?.length;
-          i++
-        ) {
-          const coordinates = (data ?? self.controller.geoJsonAllData ?? {})
-            ?.features[i]?.geometry?.coordinates ?? [
+      if (geoJson?.features?.length) {
+        for (let i = 0; i < geoJson?.features?.length; i++) {
+          const coordinates = geoJson?.features[i]?.geometry?.coordinates ?? [
             self.controller.toolConfig.lng,
             self.controller.toolConfig.lat,
           ];
@@ -69,8 +106,7 @@ export class MapViewClustered {
               bounds.extend(coordinates);
             }
           } else {
-            const feature = (data ?? self.controller.geoJsonAllData ?? {})
-              ?.features[i];
+            const feature = geoJson?.features[i];
             console.warn(
               `Skipped location as it is out of bounds: ID(${feature.properties.id}) - ${feature?.properties?.name}`
             );
@@ -99,6 +135,19 @@ export class MapViewClustered {
         return;
 
       self.clear();
+
+      self.controller.map.addLayer({
+        id: "locations",
+        type: "circle",
+        source: "locations",
+        layout: {
+          visibility: "none",
+        },
+        paint: {
+          "circle-color": "transparent",
+          "circle-radius": 16,
+        },
+      });
 
       self.controller.map.addLayer({
         id: "clusters",
@@ -185,13 +234,17 @@ export class MapViewClustered {
                   (children?.length > 1 && children[0].properties?.cluster) ||
                   Math.floor(zoom) < self.controller.toolConfig.maxZoom - 2
                 ) {
-                  self.controller.map.panTo(
-                    (features[0].geometry as any).coordinates,
+                  self.controller.map.easeTo(
                     {
+                      around: (features[0].geometry as any).coordinates,
                       offset: (self.controller.getCenterOffset() ?? [
                         0, 0,
                       ]) as PointLike,
-                      duration: CLUSTER_ZOOM_IN_ANIMATION_TIME * 0.33,
+                      zoom: Math.min(
+                        zoom,
+                        self.controller.toolConfig.maxZoom - 2
+                      ),
+                      duration: CLUSTER_ZOOM_IN_ANIMATION_TIME * 0.5,
                     },
                     {
                       cMapAnimation: true,
@@ -200,45 +253,33 @@ export class MapViewClustered {
 
                   setTimeout(() => {
                     if (self.controller.map)
-                      self.controller.map.zoomTo(
-                        Math.min(zoom, self.controller.toolConfig.maxZoom - 2),
+                      self.controller.map.panTo(
+                        (features[0].geometry as any).coordinates,
                         {
-                          // around: (features[0].geometry as any).coordinates,
-                          duration: CLUSTER_ZOOM_IN_ANIMATION_TIME * 0.6,
+                          offset: (self.controller.getCenterOffset() ?? [
+                            0, 0,
+                          ]) as PointLike,
+                          duration: CLUSTER_ZOOM_IN_ANIMATION_TIME * 0.5,
                         },
                         {
                           cMapAnimation: true,
                         }
                       );
-                  }, CLUSTER_ZOOM_IN_ANIMATION_TIME * 0.65);
+                  }, CLUSTER_ZOOM_IN_ANIMATION_TIME * 0.55);
 
-                  // self.controller.map.easeTo(
-                  //   {
-                  //     center: (features[0].geometry as any).coordinates,
-                  //     // around: (features[0].geometry as any).coordinates,
-                  //     easing: (time) => time,
-                  //     offset: (self.controller.getCenterOffset() ?? [
-                  //       0, 0,
-                  //     ]) as PointLike,
-                  //     zoom: Math.min(
-                  //       zoom,
-                  //       self.controller.toolConfig.maxZoom - 2
-                  //     ),
-                  //     duration: CLUSTER_ZOOM_IN_ANIMATION_TIME,
-                  //   },
-                  //   {
-                  //     cMapAnimation: true,
-                  //   }
-                  // );
                   self.controller.clusterDetail.hide();
                 } else {
-                  self.controller.map.panTo(
-                    (features[0].geometry as any).coordinates,
+                  self.controller.map.easeTo(
                     {
+                      around: (features[0].geometry as any).coordinates,
+                      zoom: Math.min(
+                        self.controller.map.getZoom() + 1,
+                        self.controller.toolConfig.maxZoom - 1.1
+                      ),
                       offset: (self.controller.getCenterOffset() ?? [
                         0, 0,
                       ]) as PointLike,
-                      duration: CLUSTER_ZOOM_IN_ANIMATION_TIME * 0.33,
+                      duration: CLUSTER_ZOOM_IN_ANIMATION_TIME * 0.5,
                     },
                     {
                       cMapAnimation: true,
@@ -247,21 +288,20 @@ export class MapViewClustered {
 
                   setTimeout(() => {
                     if (self.controller.map)
-                      self.controller.map.zoomTo(
-                        Math.min(
-                          self.controller.map.getZoom() + 1,
-                          self.controller.toolConfig.maxZoom - 1.1
-                        ),
+                      self.controller.map.panTo(
+                        (features[0].geometry as any).coordinates,
                         {
-                          // around: (features[0].geometry as any).coordinates,
-                          duration: CLUSTER_ZOOM_IN_ANIMATION_TIME * 0.6,
+                          offset: (self.controller.getCenterOffset() ?? [
+                            0, 0,
+                          ]) as PointLike,
+                          duration: CLUSTER_ZOOM_IN_ANIMATION_TIME * 0.5,
                         },
                         {
                           cMapAnimation: true,
                         }
                       );
-                  }, CLUSTER_ZOOM_IN_ANIMATION_TIME * 0.65);
-                 
+                  }, CLUSTER_ZOOM_IN_ANIMATION_TIME * 0.55);
+
                   self.controller.overlayZoomLevel =
                     self.controller.map.getZoom();
 
@@ -283,7 +323,7 @@ export class MapViewClustered {
                         );
                       }
                     );
-                  }, CLUSTER_ZOOM_IN_ANIMATION_TIME);
+                  }, CLUSTER_ZOOM_IN_ANIMATION_TIME * 0.75);
                 }
               }
             );
@@ -396,15 +436,21 @@ export class MapViewClustered {
       }
 
       self.events["click-clustered-locations"] = (e: any) => {
-        if (primaryInput !== "touch") {
-          self.controller.clusterDetail.hide();
-          if (e?.features?.[0]?.properties?.slug) {
-            try {
-              self.controller.loadUrl(`/${e?.features?.[0]?.properties?.slug}`);
-            } catch (err) {}
-          }
-        } else {
-          if (e?.features?.[0]?.properties) showMapPop(e);
+        if (e?.features?.[0]?.properties?.id) {
+          try {
+            const coordinates =
+              e?.features?.[0]?.geometry?.coordinates?.slice();
+            // Ensure that if the map is zoomed out such that multiple
+            // copies of the feature are visible, the popup appears
+            // over the copy being pointed to.
+            while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+              coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+            }
+            self.controller.showQuickView(
+              coordinates,
+              e?.features?.[0]?.properties?.id
+            );
+          } catch (err) {}
         }
       };
 
@@ -413,6 +459,49 @@ export class MapViewClustered {
         "clustered-locations",
         self.events["click-clustered-locations"]
       );
+
+      const debouncedRenderFunction = debounce(() => {
+        if (!self?.controller?.map) return;
+
+        const totalInViewCount = queryFilteredForDuplicates(
+          self.controller.map.queryRenderedFeatures(undefined, {
+            layers: ["locations"],
+          }),
+          "id"
+        ).length;
+
+        let filteredInViewCount = queryFilteredForDuplicates(
+          self.controller.map.querySourceFeatures("clustered-locations", {
+            filter: ["!", ["has", "point_count"]],
+            sourceLayer: "clustered-locations",
+          }),
+          "id"
+        ).length;
+
+        filteredInViewCount += queryFilteredForDuplicates(
+          self.controller.map.queryRenderedFeatures(undefined, {
+            filter: ["has", "point_count"],
+            sourceLayer: "clustered-locations",
+          }),
+          "cluster_id"
+        ).reduce(
+          (count: number, cluster: any) =>
+            (count += cluster?.properties?.point_count ?? 0),
+          0
+        );
+
+        self.controller.updateMapState({
+          totalInViewCount,
+          filteredInViewCount: Math.min(filteredInViewCount, totalInViewCount),
+          filteredCount: self.featureCount,
+        });
+      }, CLUSTER_COUNT_UPDATE_TIMEOUT);
+
+      self.events["render"] = (e: any) => {
+        debouncedRenderFunction();
+      };
+
+      self.controller.map.on("render", self.events["render"]);
 
       self.show();
 
@@ -432,13 +521,17 @@ export class MapViewClustered {
     }
   }
 
-  fitToBounds() {
+  fitToBounds(easeTo?: boolean) {
     const self = this;
     if (self.controller?.map && self.bounds) {
-      self.controller.fitToBounds(self.bounds, {
-        maxZoom: self.controller.MAX_BOUNDS_ZOOM,
-        padding: self.controller.getBoundsPadding(),
-      });
+      self.controller.fitToBounds(
+        self.bounds,
+        {
+          maxZoom: self.controller.MAX_BOUNDS_ZOOM,
+          padding: self.controller.getBoundsPadding(),
+        },
+        easeTo
+      );
     }
   }
 
