@@ -95,8 +95,8 @@ export const Submenu = ({ tool, slug }: { tool?: string; slug?: string }) => {
           <a className="subMenuItem">
             <ToolSvgBackground
               className="svg icon"
-              type="money"
-              position="left center"
+              type="info"
+              position="center center"
               height="2em"
               width="2em"
             />

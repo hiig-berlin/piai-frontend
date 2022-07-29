@@ -18,7 +18,22 @@ const baseStyling = css<{ spaceBefore?: boolean }>`
     spaceBefore === true ? "auto" : "unset"};
 `;
 
-const IconStatic = styled.li`
+const textLinkStyling = css`
+  .svg {
+    width: 1em !important;
+    align-self: center;
+  }
+
+  span:last-child {
+    display: inline-block;
+    ${({ theme }) => theme.applyMixin("uppercase")};
+    text-align: left;
+  }
+`;
+
+const IconStatic = styled.li<{
+  spaceBefore?: boolean;
+}>`
   ${baseStyling}
 
   & a {
@@ -26,6 +41,10 @@ const IconStatic = styled.li`
     // overflow: hidden;
     // white-space: nowrap;
     // text-overflow: ellipsis;
+  }
+
+  &.textLink {
+    ${textLinkStyling}
   }
 `;
 
@@ -45,16 +64,7 @@ const IconButton = styled(ButtonNormalized)<{
 
   &.languageSwitch,
   &.textLink {
-    .svg {
-      width: 1em !important;
-      align-self: center;
-    }
-
-    span:last-child {
-      display: inline-block;
-      ${({ theme }) => theme.applyMixin("uppercase")};
-      text-align: left;
-    }
+    ${textLinkStyling}
 
     &.inBox {
       align-self: end;
@@ -109,25 +119,27 @@ export const Icon = ({
     if (!url.trim()) return <></>;
 
     return (
-      <IconStatic className={className}>
+      <IconStatic className={className} spaceBefore={spaceBefore}>
         <ToolSvgBackground type={type} />
-        <span>{safeHtml(url)
-          .split(",")
-          .reduce((carry: any, u: any) => {
-            if (!u.trim()) return carry;
+        <span>
+          {safeHtml(url)
+            .split(",")
+            .reduce((carry: any, u: any) => {
+              if (!u.trim()) return carry;
 
-            if (carry.length > 0) {
-              carry.push(", ");
-            }
+              if (carry.length > 0) {
+                carry.push(", ");
+              }
 
-            carry.push(
-              <a href={u.trim()} target="_blank" rel="nofollow noreferrer">
-                {u.trim()}
-              </a>
-            );
+              carry.push(
+                <a href={u.trim()} target="_blank" rel="nofollow noreferrer">
+                  {children ? children : u.trim()}
+                </a>
+              );
 
-            return carry;
-          }, [])}</span>
+              return carry;
+            }, [])}
+        </span>
       </IconStatic>
     );
   } else {

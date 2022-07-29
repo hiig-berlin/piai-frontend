@@ -32,6 +32,12 @@ const EnergyWrapper = styled.div`
   h2 {
     font-size: var(--text-body-font-size-tool) * 1.1;
     font-weight: bold;
+    margin-top: 0 !important;
+  }
+
+  & .GPU.script h2,
+  & .GPU.statistic h2 {
+    color: ${({ theme }) => theme.colors.piaiEnergy};
   }
 
   h3 {
@@ -48,7 +54,7 @@ const EnergyWrapper = styled.div`
 
   .GPU.script button,
   .GPU.co2 button {
-    font-size: calc(var(--text-body-font-size-tool)* 0.85);
+    font-size: calc(var(--text-body-font-size-tool) * 0.85);
     align-self: start;
     margin: 0;
     margin-bottom: var(--size-1);
@@ -257,13 +263,11 @@ const Header = styled.header`
     ${narrow}
   }
 
-  button {
+  button, li {
     max-height: 1.5em;
     margin-top: 13px;
-
-    // ${({ theme }) => theme.applyMixin("uppercase")};
-    // fontFamily: var(--fontFamily-sans-serif);
-    // font-weight: bold;
+    font-size: calc(var(--text-body-font-size-tool)* 0.85);
+    line-height: 1em;ƒ
   }
 `;
 
@@ -324,14 +328,24 @@ const Index = ({
           </p>
         </div>
         {isDesktopAndUp && (
-          <Icon
-            type="repo"
-            className="textLink"
-            spaceBefore
-            aria-label="Go to github repository"
-          >
-            <span>GitHub Repository</span>
-          </Icon>
+          <>
+            <Icon
+              type="info"
+              className="textLink"
+              spaceBefore
+              url="/tool/energy/about"
+              aria-label="About this tool"
+            >
+              <span>About</span>
+            </Icon>
+            <Icon
+              type="repo"
+              className="textLink"
+              aria-label="Go to github repository"
+            >
+              <span>GitHub</span>
+            </Icon>
+          </>
         )}
       </Header>
 
