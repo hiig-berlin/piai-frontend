@@ -38,7 +38,7 @@ const CounterContainer = styled.div<{ invert: boolean }>`
     margin-right: var(--size-2);
   }
 
-  ${({ theme }) => theme.breakpoints.tablet} {
+  ${({ theme }) => theme.breakpoints.tabletLandscape} {
     top: var(--size-3);
     bottom: unset;
     left: 50%;
