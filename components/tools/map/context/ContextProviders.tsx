@@ -6,6 +6,7 @@ import React, {
   useEffect,
   useRef,
   startTransition,
+  useMemo,
 } from "react";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 
@@ -183,8 +184,6 @@ export const ToolStateContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-
-  
   const isMounted = useIsMounted();
   const [state, dispatch] = useReducer(toolStateReducer, defaultToolState);
 
@@ -279,19 +278,30 @@ export const ToolStateContextProvider = ({
     }
   }, [isLoading, isSuccess, data, startTransitionDispatch]);
 
-
   return (
     <ToolStateContext.Provider
-      value={{
-        ...state,
-        getState,
-        getFilterState,
-        setFilterState,
-        updateFilterState,
-        getMapState,
-        setMapState,
-        updateMapState,
-      }}
+      value={useMemo(
+        () => ({
+          ...state,
+          getState,
+          getFilterState,
+          setFilterState,
+          updateFilterState,
+          getMapState,
+          setMapState,
+          updateMapState,
+        }),
+        [
+          state,
+          getState,
+          getFilterState,
+          setFilterState,
+          updateFilterState,
+          getMapState,
+          setMapState,
+          updateMapState,
+        ]
+      )}
     >
       {children}
     </ToolStateContext.Provider>
