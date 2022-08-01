@@ -1,4 +1,4 @@
-import { ReactElement, useEffect } from "react";
+import { ReactElement, useEffect, useRef } from "react";
 import type { GetStaticProps } from "next";
 import NextHeadSeo from "next-head-seo";
 
@@ -11,6 +11,7 @@ import { Contribute } from "~/components/tools/map/Contribute";
 import styled from "styled-components";
 import useIsMounted from "~/hooks/useIsMounted";
 import { useToolStateContext } from "~/components/tools/map/context/ContextProviders";
+import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
 
 const Content = styled.div`
   width: 100%;
@@ -40,19 +41,27 @@ const Index = ({
   frontendSettings: any;
   tool: PiAiTool;
 }) => {
+  const uiRemoveTimoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   const isMounted = useIsMounted();
   const { updateFilterState } = useToolStateContext();
+  const {
+    vars: { isTabletLandscapeAndUp },
+  } = useCssVarsContext();
 
   useEffect(() => {
-    setTimeout(() => {
-      if (isMounted) {
-        updateFilterState({
-          isFilterOpen: true,
-        });
-      }
-    }, 2500);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    if (isTabletLandscapeAndUp) {
+      if (uiRemoveTimoutRef.current) clearTimeout(uiRemoveTimoutRef.current);
+
+      uiRemoveTimoutRef.current = setTimeout(() => {
+        if (isMounted) {
+          updateFilterState({
+            isFilterOpen: true,
+          });
+        }
+      }, 2500);
+    }
+  }, [isTabletLandscapeAndUp, isMounted, updateFilterState]);
 
   return (
     <>
