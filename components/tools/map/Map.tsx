@@ -1,13 +1,20 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import { useToolStateContext } from "./context/ContextProviders";
+import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
+
+import {
+  defaultToolState,
+  useToolStateContext,
+} from "./context/ContextProviders";
 import { MapController } from "./map/MapController";
 import { useConfigContext } from "~/providers/ConfigContextProvider";
 import useIsMounted from "~/hooks/useIsMounted";
 import { LoadingBar } from "~/components/styled/LoadingBar";
 import { MapGlobalCss } from "./map/MapGlobalCss";
 import { Icon } from "../shared/ui/Icon";
+import { createQueryFromState } from "./map/utils";
+import { appConfig } from "~/config";
 
 const MapUi = styled.div`
   background-color: #000c;
@@ -43,29 +50,47 @@ const MapContainer = styled.div`
   align-items: center;
   background-color: #000;
 `;
+
+const fetchFilteredIds = async ({ signal, queryKey }: QueryFunctionContext) => {
+  const [_key, { queryString }] = queryKey as any;
+  return fetch(`${appConfig.cmsUrl}/map/query?${queryString}`, {
+    // Pass the signal to one fetch
+    signal,
+  }).then(async (response) => await response.json());
+};
+
+const defaultQueryString = createQueryFromState(defaultToolState.filter, {
+  onlyIds: "1",
+}).join("&");
+
 export const Map = ({ isVisible }: { isVisible?: boolean }) => {
   const isMounted = useIsMounted();
   const mapControllerRef = useRef<MapController>();
   const mapContainerRef = useRef<HTMLDivElement>(null);
+
+  const mapLastFilterRef = useRef<string>(defaultQueryString);
+
   const router = useRouter();
   const config = useConfigContext();
 
   const [isMapLoaded, setIsMapLoaded] = useState(false);
+  const [isMapInitialized, setIsMapInitialized] = useState(false);
 
-  const { filterSettings, getMapState, updateMapState } = useToolStateContext();
+  const { settings, filter, getMapState, updateMapState } =
+    useToolStateContext();
 
   useEffect(() => {
     if (typeof window === "undefined") return;
 
     if (
       mapContainerRef.current &&
-      filterSettings?.styleUrl?.trim() !== "" &&
+      settings?.styleUrl?.trim() !== "" &&
       !mapControllerRef.current
     ) {
       const controller = new MapController(
         router,
         config,
-        filterSettings?.styleUrl,
+        settings?.styleUrl,
         getMapState,
         updateMapState
       );
@@ -78,15 +103,50 @@ export const Map = ({ isVisible }: { isVisible?: boolean }) => {
         }
       );
       mapControllerRef.current = controller;
+      setIsMapInitialized(true);
     }
   }, [
-    filterSettings?.styleUrl,
+    settings?.styleUrl,
     isMounted,
     config,
     router,
     getMapState,
     updateMapState,
   ]);
+
+  const currentQueryString = createQueryFromState(filter, { onlyIds: "1" }).join("&");
+
+  const { isFetching, data } = useQuery(
+    ["map-filter", { queryString: currentQueryString }],
+    fetchFilteredIds,
+    {
+      enabled: defaultQueryString !== currentQueryString,
+    }
+  );
+
+  useEffect(() => {
+    if (isMapInitialized && !isFetching) {
+      if (currentQueryString === defaultQueryString) {
+        if (mapLastFilterRef.current !== currentQueryString) {
+          mapControllerRef.current?.resetViewData("clustered");
+          mapControllerRef.current?.showView("clustered");
+          mapLastFilterRef.current = defaultQueryString;
+        }
+      } else {
+        if (
+          data?.data?.length &&
+          mapLastFilterRef.current !== currentQueryString
+        ) {
+          mapControllerRef.current?.setFilteredViewData(
+            "clustered",
+            Array.isArray(data?.data) ? data?.data : []
+          );
+          mapControllerRef.current?.showView("clustered");
+          mapLastFilterRef.current = currentQueryString;
+        }
+      }
+    }
+  }, [isMapInitialized, isFetching, data, currentQueryString]);
 
   return (
     <>

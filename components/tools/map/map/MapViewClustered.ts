@@ -195,7 +195,7 @@ export class MapViewClustered {
       });
 
       self.controller.map.on("click", "clusters", (e) => {
-        if (self.controller.clickBlock || !self.controller.map) return;
+        if (self.controller.clickBlock || !self.controller.map || !e?.point) return;
 
         const features = self.controller.map.queryRenderedFeatures(e.point, {
           layers: ["clusters"],
@@ -207,7 +207,7 @@ export class MapViewClustered {
 
       // inspect a cluster on click
       self.events["click-clusters"] = (e: any) => {
-        if (!self.controller?.map) return;
+        if (!self.controller?.map || !e?.point) return;
 
         var features = self.controller.map.queryRenderedFeatures(e.point, {
           layers: ["clusters"],
@@ -407,7 +407,7 @@ export class MapViewClustered {
 
       if (primaryInput !== "touch") {
         self.events["mouseenter-clustered-locations"] = (e: any) => {
-          if (self.controller.isAnimating) return;
+          if (self.controller.isAnimating || !e) return;
           if (self.controller.map) {
             // Change the cursor style as a UI indicator.
             self.controller.map.getCanvas().style.cursor = "pointer";
@@ -497,7 +497,7 @@ export class MapViewClustered {
         });
       }, CLUSTER_COUNT_UPDATE_TIMEOUT);
 
-      self.events["render"] = (e: any) => {
+      self.events["render"] = () => {
         debouncedRenderFunction();
       };
 

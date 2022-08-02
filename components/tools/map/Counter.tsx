@@ -38,7 +38,7 @@ const CounterContainer = styled.div<{ invert: boolean }>`
     margin-right: var(--size-2);
   }
 
-  ${({ theme }) => theme.breakpoints.tabletLandscape} {
+  ${({ theme }) => theme.breakpoints.tablet} {
     top: var(--size-3);
     bottom: unset;
     left: 50%;
@@ -85,7 +85,6 @@ export const Counter = () => {
         <Icon
           type="filter"
           onClick={() => {
-            console.log(123)
             updateFilterState({
               isFilterOpen: !filter.isFilterOpen,
             });

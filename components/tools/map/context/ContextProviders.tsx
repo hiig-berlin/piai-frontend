@@ -9,6 +9,7 @@ import React, {
   useMemo,
 } from "react";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
+import cloneDeep from "lodash/cloneDeep";
 
 import useIsMounted from "~/hooks/useIsMounted";
 import { appConfig } from "~/config";
@@ -35,7 +36,7 @@ export type FilterState = {
   countries: Record<number, string> | null | undefined;
 };
 
-type FilterSettingTaxonomyOption = {
+export type FilterSettingTaxonomyOption = {
   id: number;
   name: string;
   count: number;
@@ -56,12 +57,12 @@ type FilterSettingTaxonomyOptionContinent = {
   children?: FilterSettingTaxonomyOptionContinentChild[];
 };
 
-type FilterSettingTaxonomy = {
+export type FilterSettingTaxonomy = {
   label: string;
   options: FilterSettingTaxonomyOption[];
 };
 
-type FilterSettings = {
+type Settings = {
   styleUrl: string;
   continents: FilterSettingTaxonomyOptionContinent[] | null | undefined;
   countries: FilterSettingTaxonomyOption[] | null | undefined;
@@ -74,13 +75,13 @@ type FilterSettings = {
 type ToolState = {
   map: MapState;
   filter: FilterState;
-  filterSettings: FilterSettings;
+  settings: Settings;
 };
 
 type ToolStateContext = {
   map: MapState;
   filter: FilterState;
-  filterSettings: FilterSettings;
+  settings: Settings;
   setMapState: (mapState: MapState) => void;
   setFilterState: (filterState: FilterState) => void;
   updateMapState: (state: Partial<MapState>) => void;
@@ -92,10 +93,10 @@ type ToolStateContext = {
 
 type ToolStateAction = {
   type: string;
-  payload?: MapState | FilterState | FilterSettings;
+  payload?: MapState | FilterState | Settings;
 };
 
-const defaultToolState: ToolState = {
+export const defaultToolState: ToolState = {
   map: {
     ready: false,
     isDrawerOpen: false,
@@ -116,7 +117,7 @@ const defaultToolState: ToolState = {
     continents: {},
     s: null,
   },
-  filterSettings: {
+  settings: {
     styleUrl: "",
     countries: [],
     continents: [],
@@ -153,11 +154,10 @@ const toolStateReducer = function <T>(
         ...state,
         filter: (action?.payload ?? defaultToolState.filter) as FilterState,
       };
-    case "filterSettings":
+    case "settings":
       return {
         ...state,
-        filterSettings: (action?.payload ??
-          defaultToolState.filterSettings) as FilterSettings,
+        settings: (action?.payload ?? defaultToolState.settings) as Settings,
       };
     default:
       return state;
@@ -171,7 +171,7 @@ const ToolStateContext = createContext<ToolStateContext>(
 
 export const useToolStateContext = () => useContext(ToolStateContext);
 
-const fetchFilterSettings = async ({ signal }: QueryFunctionContext) => {
+const fetchSettings = async ({ signal }: QueryFunctionContext) => {
   return fetch(`${appConfig.apiUrl}/fluxed/v1/piai/filter`, {
     // Pass the signal to one fetch
     signal,
@@ -185,15 +185,15 @@ export const ToolStateContextProvider = ({
   children: React.ReactNode;
 }) => {
   const isMounted = useIsMounted();
-  const [state, dispatch] = useReducer(toolStateReducer, defaultToolState);
+  const [state, dispatch] = useReducer(toolStateReducer, cloneDeep(defaultToolState));
 
-  const stateRef = useRef<ToolState>(defaultToolState);
+  const stateRef = useRef<ToolState>(state);
 
   stateRef.current = state;
 
   const { isLoading, isSuccess, data, isError } = useQuery(
-    ["filterSettings"],
-    fetchFilterSettings
+    ["settings"],
+    fetchSettings
   );
 
   const startTransitionDispatch = useCallback(
@@ -272,8 +272,8 @@ export const ToolStateContextProvider = ({
   useEffect(() => {
     if (!isLoading && isSuccess && data) {
       startTransitionDispatch({
-        type: "filterSettings",
-        payload: data as FilterSettings,
+        type: "settings",
+        payload: data as Settings,
       });
     }
   }, [isLoading, isSuccess, data, startTransitionDispatch]);

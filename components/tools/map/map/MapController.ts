@@ -13,7 +13,6 @@ import type {
 
 import "maplibre-gl/dist/maplibre-gl.css";
 
-
 import type { NextRouter } from "next/router";
 
 import type { AppConfig } from "~/types";
@@ -24,6 +23,7 @@ import { MapViewClustered } from "./MapViewClustered";
 
 import type { MapState } from "../context/ContextProviders";
 import { breakpointEMs } from "~/theme/breakpoints";
+import { EMPTY_GEOJSON } from "./utils";
 
 export type MapFitToBoundingBoxOptions = CameraForBoundsOptions & {
   minZoom?: number;
@@ -225,7 +225,7 @@ export class MapController {
         self.isAnimating = (e as any)?.cMapAnimation === true;
       });
 
-      self.map.on("moveend", (e) => {
+      self.map.on("moveend", () => {
         if (!self.map) return;
         self.isAnimating = false;
         if (self.map.getZoom() > self.toolConfig.maxZoom - 1) {
@@ -270,14 +270,14 @@ export class MapController {
             typeof window !== "undefined" &&
             window.process.env.NODE_ENV === "development"
           )
-            console.error(err);
+            console.error("Mapcontroller 1: ", err);
         });
     } catch (err) {
       if (
         typeof window !== "undefined" &&
         window.process.env.NODE_ENV === "development"
       )
-        console.error(err);
+        console.error("Mapcontroller 2: ", err);
     }
 
     self.isInit = true;
@@ -468,7 +468,7 @@ export class MapController {
     )
       (this.views[view as keyof MapViews] as any)?.[functionName].call(
         this.views[view as keyof MapViews] as any,
-        functionArgs
+        ...(functionArgs ?? [])
       );
   }
 
@@ -506,13 +506,13 @@ export class MapController {
     }
   }
 
-  hideCurrentView() {
+  hideView(view?: keyof MapViews) {
     const self = this;
     if (self.map) {
       const run = async (resolve?: any) => {
         self.popups.hideAll();
 
-        self.callViewFunction(self.currentView, "hide");
+        self.callViewFunction(view ?? self.currentView, "hide");
 
         if (typeof resolve === "function") resolve(true);
       };
@@ -524,13 +524,13 @@ export class MapController {
     }
   }
 
-  showCurrentView() {
+  showView(view?: keyof MapViews) {
     const self = this;
     if (self.map) {
       const run = async (resolve?: any) => {
         self.popups.hideAll();
 
-        self.callViewFunction(self.currentView, "show");
+        self.callViewFunction(view ?? self.currentView, "show");
 
         if (typeof resolve === "function") resolve(true);
       };
@@ -560,22 +560,51 @@ export class MapController {
     }
   }
 
-  setCurrentViewData(data: any, show: boolean) {
+  resetViewData(view: keyof MapViews) {
     const self = this;
     if (self.map) {
       const run = async (resolve?: any) => {
         self.popups.hideAll();
-
         self.clusterDetail.hide();
 
-        self.callViewFunction(self.currentView, "hide", [data]);
+        self.callViewFunction(view, "setData", [self.geoJsonAllData?.features ? self.geoJsonAllData : EMPTY_GEOJSON]);
+        if (typeof resolve !== "undefined") resolve(true);
+      };
 
-        if (show) {
-          setTimeout(() => {
-            self.callViewFunction(self.currentView, "show");
-            if (typeof resolve === "function") resolve(true);
-          }, 100);
+      if (!self.isReady) {
+        self.onLoadJobs.push(run);
+      } else {
+        run();
+      }
+    }
+  }
+
+
+  setFilteredViewData(view: keyof MapViews, ids: any[]) {
+    const self = this;
+    if (self.map) {
+      const run = async (resolve?: any) => {
+        self.popups.hideAll();
+        self.clusterDetail.hide();
+
+        let geoJson = EMPTY_GEOJSON;
+
+        if (
+          self.geoJsonAllData &&
+          self.geoJsonAllData?.features?.length &&
+          ids?.length
+        ) {
+          geoJson = {
+            type: "FeatureCollection",
+            features: self.geoJsonAllData?.features.filter((f: any) =>
+              ids.includes(f?.properties?.id)
+            ),
+          };
         }
+
+        self.callViewFunction(view, "setData", [geoJson]);
+
+        if (typeof resolve !== "undefined") resolve(true);
       };
 
       if (!self.isReady) {
