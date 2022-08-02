@@ -18,6 +18,10 @@ const ToolContainer = styled.div`
 
 const ContentContainer = styled.div`
   display: flex;
+
+  ${({ theme }) => theme.breakpoints.tablet} {
+    padding-left: var(--size-6);
+  }
 `;
 
 export const LayoutTool = ({

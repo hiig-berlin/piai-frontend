@@ -22,7 +22,7 @@ const MobileToolNavContainer = styled.div<{
   position: fixed;
   top: ${SIDEBAR_PADDING};
   left: ${SIDEBAR_PADDING};
-  z-index: 4;
+  z-index: 3;
   flex-direction: column;
 
   display: ${({ isVisible }) => (isVisible ? "flex" : "none")};
@@ -56,22 +56,28 @@ const SidebarContainer = styled.div.attrs<{
   display: none;
   pointer-events: all;
   padding: ${SIDEBAR_PADDING};
-  position: ${({ position }) => position};
+  position: fixed;
   top: 0;
   left: 0;
   height: 100vh;
-  /* background: #0003; */
-  background-color: #f0f9;
+  background: #0006;
   z-index: 3;
   transition: transform 0.35s;
   transform: translateX(-105%);
   font-size: 1.1em;
   width: var(--size-6);
+  overflow-y: auto;
+
+  ${({theme}) => theme.applyMixin("styledScrollbar", "var(--size-1)")}
 
   ${({ theme }) => theme.breakpoints.tablet} {
     display: ${({ isVisible }) => (isVisible ? "block" : "none")};
     transform: translateX(0) !important;
     padding: ${SIDEBAR_PADDING};
+  }
+
+  ${({ theme }) => theme.breakpoints.tabletLandscape} {
+    z-index: 10;
   }
 `;
 

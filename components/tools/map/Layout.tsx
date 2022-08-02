@@ -49,7 +49,7 @@ const ContentContainer = styled.div<{ isTransparent: boolean }>`
   `}
 
   ${({ theme }) => theme.breakpoints.tablet} {
-    padding: 0;
+    padding: 0 0 0 var(--size-6);
   }
 `;
 
@@ -74,12 +74,7 @@ export const Layout = ({
   }, [isMap, showMap]);
 
   const content = (
-    <ContentContainer isTransparent={isMap}>
-      <Sidebar tool="map" view={props?.view}>
-        <Submenu tool="map" slug={props?.slug} />
-      </Sidebar>
-      {children}
-    </ContentContainer>
+    <ContentContainer isTransparent={isMap}>{children}</ContentContainer>
   );
 
   return (
@@ -100,6 +95,9 @@ export const Layout = ({
       <MenuButton />
       <ReactQueryContextProvider>
         <ToolStateContextProvider>
+          <Sidebar tool="map" view={props?.view}>
+            <Submenu tool="map" slug={props?.slug} />
+          </Sidebar>
           {showMap && (
             <>
               {/* 
