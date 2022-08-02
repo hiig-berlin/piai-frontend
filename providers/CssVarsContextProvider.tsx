@@ -234,7 +234,6 @@ export const CssVarsContextProvider = ({
         const h100percent = Math.min(window.innerHeight, outer.offsetHeight);
         const lbh = h100vh - h100percent;
 
-        console.log(window.innerHeight, outer.offsetHeight, h100vh);
         document.documentElement.style.setProperty(
           "--sbw",
           `${sbw.toFixed(0)}px`
