@@ -128,7 +128,7 @@ export const theme = {
     // link: "#666",
     // linkHover: "#666",
     // hl: "#ff0",
-    loadingBar: "#BE0042"
+    loadingBar: "#BE0042",
   },
   breakpoints: {
     base: `@media screen and (min-width: 1em)`,
@@ -266,8 +266,35 @@ export const theme = {
       fontFamily: "var(--font-family-monospace)",
       color: "var(--color-text-muted)",
       fontSize: "0.8em",
-      lineHight: "1.1em"
+      lineHight: "1.1em",
     },
+    styledScrollbar: (vMargin: string) => {
+      return `
+        scrollbar-width: thin;
+        scrollbar-color: var(--color-light-grey) #000;
+
+        &::-webkit-scrollbar {
+          width: 11px;
+          display: block;
+        };
+        
+        &::-webkit-scrollbar-track {
+          border-left: 3px solid #000;
+          border-right: 3px solid #000;
+          background-color: #000;
+          border-radius: 0;
+          margin: ${vMargin ?? "0"} 0;
+        };
+        
+        &::-webkit-scrollbar-thumb {
+          width: 11px;
+          
+          border-left: 3px solid #000;
+          border-right: 3px solid #000;
+          background-color: var(--color-light-grey)
+        }`;
+    },
+
     // ... or function callback so you can access the theme or do calculations
     // and even pass arguments to the function ${({ theme }) => theme.applyMixin("maxWidth", 1000)}
     // maxWidth: {
@@ -347,7 +374,7 @@ export const theme = {
         fontStyle: "normal",
         fontSize: "0.8em",
         color: "var(--color-text-muted)",
-      }
+      },
     },
     mobile: {
       h0: {
@@ -603,7 +630,7 @@ export const theme = {
       })
       .join("");
   },
-  
+
   getBreakpointRootVars: function (breakpoint: string) {
     const t = this as any;
     let b = breakpoint.replace("Landscape", "");
