@@ -13,10 +13,13 @@ import cloneDeep from "lodash/cloneDeep";
 
 import useIsMounted from "~/hooks/useIsMounted";
 import { appConfig } from "~/config";
+import { GeoJson } from "../map/types";
 
 export type MapState = {
   ready: boolean;
   isDrawerOpen: boolean;
+  loadGeoJson: boolean;
+  geoJson: GeoJson | null;
   hideIntro: boolean;
   quickViewProjectId: number | null;
   totalCount: number;
@@ -94,11 +97,13 @@ type ToolStateContext = {
 
 type ToolStateAction = {
   type: string;
-  payload?: MapState | FilterState | Settings;
+  payload?: MapState | FilterState | Settings | GeoJson;
 };
 
 export const defaultToolState: ToolState = {
   map: {
+    loadGeoJson: false,
+    geoJson: null,
     ready: false,
     isDrawerOpen: false,
     hideIntro: false,
@@ -151,16 +156,25 @@ const toolStateReducer = function <T>(
         ...state,
         map: (action?.payload ?? defaultToolState.map) as MapState,
       };
+
     case "filter":
       return {
         ...state,
         filter: (action?.payload ?? defaultToolState.filter) as FilterState,
       };
+
     case "settings":
       return {
         ...state,
         settings: (action?.payload ?? defaultToolState.settings) as Settings,
       };
+
+    case "geoJson":
+      state.map.geoJson = (action?.payload as GeoJson) ?? null;
+
+      console.log(state.map.geoJson);
+      return state;
+
     default:
       return state;
   }
@@ -180,6 +194,55 @@ const fetchSettings = async ({ signal }: QueryFunctionContext) => {
   }).then(async (response) => await response.json());
 };
 
+const fetchGeoJson = async ({ signal }: QueryFunctionContext) => {
+  const mapTool = appConfig.tools?.find((t) => t.slug === "map");
+
+  if (!mapTool?.config?.urlGeoJson) return null;
+  console.log(`${appConfig.cmsUrl}${mapTool?.config?.urlGeoJson}`);
+  return fetch(`${appConfig.cmsUrl}${mapTool?.config?.urlGeoJson}`, {
+    // Pass the signal to one fetch
+    signal,
+  }).then(async (response) => await response.json());
+};
+
+// try {
+//       fetch(`${self.config.cmsUrl}${self.toolConfig.urlGeoJson}`)
+//         .then(async (response) => {
+//           if (response.ok) {
+//             const data = await response.json();
+//             if (
+//               data &&
+//               data?.type &&
+//               data?.type === "FeatureCollection" &&
+//               Array.isArray(data?.features)
+//             ) {
+//               self.geoJsonAllData = data;
+//               self.isBaseDataLoaded = true;
+
+//               self.updateMapState({
+//                 totalCount: (data?.features?.length ?? 0) as number,
+//                 filteredCount: 0,
+//               });
+
+//               maybeProcess();
+//             }
+//           }
+//         })
+//         .catch((err: any) => {
+//           if (
+//             typeof window !== "undefined" &&
+//             window.process.env.NODE_ENV === "development"
+//           )
+//             console.error("Mapcontroller 1: ", err);
+//         });
+//     } catch (err) {
+//       if (
+//         typeof window !== "undefined" &&
+//         window.process.env.NODE_ENV === "development"
+//       )
+//         console.error("Mapcontroller 2: ", err);
+//     }
+
 // context provider
 export const ToolStateContextProvider = ({
   children,
@@ -187,16 +250,20 @@ export const ToolStateContextProvider = ({
   children: React.ReactNode;
 }) => {
   const isMounted = useIsMounted();
-  const [state, dispatch] = useReducer(toolStateReducer, cloneDeep(defaultToolState));
+  const [state, dispatch] = useReducer(
+    toolStateReducer,
+    cloneDeep(defaultToolState)
+  );
 
   const stateRef = useRef<ToolState>(state);
 
   stateRef.current = state;
 
-  const { isLoading, isSuccess, data, isError } = useQuery(
-    ["settings"],
-    fetchSettings
-  );
+  const queryResultSettings = useQuery(["settings"], fetchSettings);
+
+  const queryResultGeoJson = useQuery(["geojson"], fetchGeoJson, {
+    enabled: state.map.loadGeoJson,
+  });
 
   const startTransitionDispatch = useCallback(
     (action: ToolStateAction) => {
@@ -269,16 +336,45 @@ export const ToolStateContextProvider = ({
     [isMounted, startTransitionDispatch]
   );
 
-  if (isError) throw "Could not fetch needed data from server.";
+  if (queryResultSettings.isError)
+    throw "Could not fetch needed data from server.";
 
   useEffect(() => {
-    if (!isLoading && isSuccess && data) {
+    if (
+      !queryResultSettings.isLoading &&
+      queryResultSettings.isSuccess &&
+      queryResultSettings.data
+    ) {
       startTransitionDispatch({
         type: "settings",
-        payload: data as Settings,
+        payload: queryResultSettings.data as Settings,
       });
     }
-  }, [isLoading, isSuccess, data, startTransitionDispatch]);
+  }, [
+    queryResultSettings.isLoading,
+    queryResultSettings.isSuccess,
+    queryResultSettings.data,
+    startTransitionDispatch,
+  ]);
+
+  useEffect(() => {
+    if (
+      !queryResultGeoJson.isLoading &&
+      queryResultGeoJson.isSuccess &&
+      queryResultGeoJson?.data?.type === "FeatureCollection"
+    ) {
+      startTransitionDispatch({
+        type: "geoJson",
+        payload: queryResultGeoJson.data as GeoJson,
+      });
+    }
+  }, [
+    queryResultGeoJson.isLoading,
+    queryResultGeoJson.isSuccess,
+    queryResultGeoJson.data,
+    startTransitionDispatch,
+  ]);
+
 
   return (
     <ToolStateContext.Provider

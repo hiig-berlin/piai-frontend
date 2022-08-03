@@ -4,7 +4,7 @@ export interface AppProps {
 export type AppConfigRevalidateDates = {
   date: string;
   modified: string;
-}
+};
 
 export type PiAiToolMenuItemActionItem = {
   action?: string;
@@ -47,7 +47,7 @@ export interface AppConfig {
   ga4TagProperty: string;
   apiUrl: string;
   searchUrl: string;
-  tools: PiAiTool[],
+  tools: PiAiTool[];
   revalidateInterval: (
     scope: string,
     dates?: AppConfigRevalidateDates

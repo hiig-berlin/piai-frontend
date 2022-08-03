@@ -1,6 +1,6 @@
 import { FilterState } from "../context/ContextProviders";
-
-export const EMPTY_GEOJSON = { type: "FeatureCollection", features: [] };
+import type { GeoJson } from "./types";
+export const EMPTY_GEOJSON: GeoJson = { type: "FeatureCollection", features: [] };
 
 export const createQueryFromState = (
   state: FilterState,

@@ -76,7 +76,7 @@ export const Map = ({ isVisible }: { isVisible?: boolean }) => {
   const [isMapLoaded, setIsMapLoaded] = useState(false);
   const [isMapInitialized, setIsMapInitialized] = useState(false);
 
-  const { settings, filter, getState, updateMapState } =
+  const { map, settings, filter, getState, updateMapState } =
     useToolStateContext();
 
   useEffect(() => {
@@ -105,16 +105,11 @@ export const Map = ({ isVisible }: { isVisible?: boolean }) => {
       mapControllerRef.current = controller;
       setIsMapInitialized(true);
     }
-  }, [
-    settings?.styleUrl,
-    isMounted,
-    config,
-    router,
-    getState,
-    updateMapState,
-  ]);
+  }, [settings?.styleUrl, isMounted, config, router, getState, updateMapState]);
 
-  const currentQueryString = createQueryFromState(filter, { onlyIds: "1" }).join("&");
+  const currentQueryString = createQueryFromState(filter, {
+    onlyIds: "1",
+  }).join("&");
 
   const { isFetching, data } = useQuery(
     ["map-filter", { queryString: currentQueryString }],
@@ -147,6 +142,18 @@ export const Map = ({ isVisible }: { isVisible?: boolean }) => {
       }
     }
   }, [isMapInitialized, isFetching, data, currentQueryString]);
+
+  useEffect(() => {
+    updateMapState({
+      loadGeoJson: true,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (map.loadGeoJson && map.geoJson && mapControllerRef.current)
+      mapControllerRef.current.setGeoJson(map.geoJson);
+  }, [map.loadGeoJson, map.geoJson]);
 
   return (
     <>

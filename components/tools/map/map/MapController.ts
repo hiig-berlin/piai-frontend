@@ -19,6 +19,7 @@ import type { ToolState, MapState } from "../context/ContextProviders";
 import { breakpointEMs } from "~/theme/breakpoints";
 import { EMPTY_GEOJSON } from "./utils";
 import { themeSpace } from "~/theme/theme";
+import { GeoJson } from "./types";
 
 export type MapFitToBoundingBoxOptions = CameraForBoundsOptions & {
   minZoom?: number;
@@ -86,7 +87,7 @@ export class MapController {
 
   currentView: keyof MapViews | null = null;
 
-  geoJsonAllData: any = null;
+  geoJsonAllData: GeoJson | null = null;
 
   overlayZoomLevel: number = 0;
 
@@ -119,6 +120,23 @@ export class MapController {
     this.clusterDetail = new MapClusterDetail(this);
     this.views.clustered = new MapViewClustered(this);
   }
+
+  processOnLoadJobs = async () => {
+    const self = this;
+    if (self.isReady) return;
+    self.isReady = true;
+
+    self.onLoadJobs.forEach(async (f) => {
+      await new Promise(f as any);
+    });
+  };
+
+  maybeProcessOnLoadJobs = async () => {
+    const self = this;
+    if (self.isBaseDataLoaded && self.isStyleLoaded && self.isLoaded) {
+      await self.processOnLoadJobs();
+    }
+  };
 
   init(
     id: string,
@@ -158,6 +176,10 @@ export class MapController {
     self.isLoaded = false;
     self.onLoadJobs = [];
 
+    if (typeof setIsLoaded === "function") {
+      self.runTask(() => setIsLoaded.call(null, true));
+    }
+
     self.onLoadJobs.push(async (resolve?: any) => {
       if (self.currentView && self.currentView in self.views) {
         self.callViewFunction(self.currentView, "setData");
@@ -174,26 +196,9 @@ export class MapController {
 
     self.clusterDetail.init();
 
-    const process = async () => {
-      if (self.isReady) return;
-      self.isReady = true;
-
-      if (typeof setIsLoaded === "function") setIsLoaded.call(null, true);
-
-      self.onLoadJobs.forEach(async (f) => {
-        await new Promise(f as any);
-      });
-    };
-
-    const maybeProcess = async () => {
-      if (self.isBaseDataLoaded && self.isStyleLoaded && self.isLoaded) {
-        await process();
-      }
-    };
-
     self.map.once("style.load", () => {
       self.isStyleLoaded = true;
-      maybeProcess();
+      self.maybeProcessOnLoadJobs();
     });
     self.map.once("load", () => {
       if (!self?.map) return;
@@ -218,48 +223,30 @@ export class MapController {
         }
       });
 
-      maybeProcess();
+      self.maybeProcessOnLoadJobs();
     });
 
-    try {
-      fetch(`${self.config.cmsUrl}${self.toolConfig.urlGeoJson}`)
-        .then(async (response) => {
-          if (response.ok) {
-            const data = await response.json();
-            if (
-              data &&
-              data?.type &&
-              data?.type === "FeatureCollection" &&
-              Array.isArray(data?.features)
-            ) {
-              self.geoJsonAllData = data;
-              self.isBaseDataLoaded = true;
-
-              self.updateMapState({
-                totalCount: (data?.features?.length ?? 0) as number,
-                filteredCount: 0,
-              });
-
-              maybeProcess();
-            }
-          }
-        })
-        .catch((err: any) => {
-          if (
-            typeof window !== "undefined" &&
-            window.process.env.NODE_ENV === "development"
-          )
-            console.error("Mapcontroller 1: ", err);
-        });
-    } catch (err) {
-      if (
-        typeof window !== "undefined" &&
-        window.process.env.NODE_ENV === "development"
-      )
-        console.error("Mapcontroller 2: ", err);
-    }
-
     self.isInit = true;
+  }
+
+  setGeoJson(geoJson: GeoJson) {
+    const self = this;
+    if (
+      geoJson &&
+      geoJson?.type &&
+      geoJson?.type === "FeatureCollection" &&
+      Array.isArray(geoJson?.features)
+    ) {
+      self.geoJsonAllData = geoJson;
+      self.isBaseDataLoaded = true;
+
+      self.updateMapState({
+        totalCount: (geoJson?.features?.length ?? 0) as number,
+        filteredCount: 0,
+      });
+
+      self.maybeProcessOnLoadJobs();
+    }
   }
 
   showQuickView(coordinates: LngLatLike, id: number) {
