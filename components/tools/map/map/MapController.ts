@@ -314,64 +314,46 @@ export class MapController {
   }
 
   getBoundsPadding() {
-    return 30;
+    if (typeof window === "undefined")
+      return {
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0,
+      };
 
-    // xxx improve
-    // if (typeof window === "undefined")
-    //   return {
-    //     top: 0,
-    //     right: 0,
-    //     bottom: 0,
-    //     left: 0,
-    //   };
+    if (window.innerWidth < breakpointEMs.tablet * 16) {
+      // all mobiles
 
-    // const isMobile = window.matchMedia("(max-width: 44.9999em)").matches;
-    // const isTablet = window.matchMedia(
-    //   "(min-width: 45em) and (max-width: 74.9999em)"
-    // ).matches;
-    // const isTabletWide = window.matchMedia(
-    //   "(min-width: 62em) and (max-width: 74.9999em)"
-    // ).matches;
-    // const isDesktop = window.matchMedia(
-    //   "(min-width: 75em) and (max-width: 119.9999em)"
-    // ).matches;
+      return 40;
+    } else if (window.innerWidth < breakpointEMs.tabletLandscape * 16) {
+      // tablet portrait
 
-    // if (isMobile) {
-    //   return {
-    //     top: 80,
-    //     right: 40,
-    //     bottom: 100,
-    //     left: 80,
-    //   };
-    // } else if (isTablet && !isTabletWide) {
-    //   return {
-    //     top: 80,
-    //     right: 40,
-    //     bottom: 40,
-    //     left: 120,
-    //   };
-    // } else if (isTabletWide) {
-    //   return {
-    //     top: 80,
-    //     right: 40,
-    //     bottom: 40,
-    //     left: 160,
-    //   };
-    // } else if (isDesktop) {
-    //   return {
-    //     top: 80,
-    //     right: 40,
-    //     bottom: 100,
-    //     left: 400,
-    //   };
-    // } else {
-    //   return {
-    //     top: 80,
-    //     right: 40,
-    //     bottom: 100,
-    //     left: 695 + (window.innerWidth * 0.08 - 55) + 40,
-    //   };
-    // }
+      return {
+        top: 100,
+        right: 70,
+        bottom: 100,
+        left: 70,
+      };
+    } else {
+      // tabletLandscape ++
+
+      let sidebarWidth = 0;
+      if (window.innerWidth < breakpointEMs.desktop * 16) {
+        sidebarWidth = themeSpace("tablet", 6);
+      } else if (window.innerWidth < breakpointEMs.screen * 16) {
+        sidebarWidth = themeSpace("desktop", 6, 0);
+      } else {
+        sidebarWidth = themeSpace("screen", 6);
+      }
+
+      return {
+        top: 50,
+        right: 70,
+        bottom: 50,
+        left: sidebarWidth + 750,
+      };
+    }
   }
 
   inBounds = (coordinates: [PointLike, PointLike]) => {
@@ -631,25 +613,7 @@ export class MapController {
     }
   }
 
-  // fitToCurrentViewBounds() {
-  //   const self = this;
-  //   if (self.map) {
-  //     const run = async (resolve?: any) => {
-  //       self.popups.hideAll();
-  //       self.views[self.currentView].fitToBounds();
-  //       if (typeof resolve === "function") resolve(true);
-  //     };
-
-  //     if (!self.isReady) {
-  //       self.onLoadJobs.push(run);
-  //     } else {
-  //       run();
-  //     }
-  //   }
-  // }
-
-  // xxx make the following better
-  // xxx also observe filter
+  // xxx maybe make the following better
   getCenterOffset() {
     if (typeof window === "undefined") return [0, 0];
 
@@ -670,7 +634,7 @@ export class MapController {
     let offsetY = 0;
 
     if (window.innerWidth < breakpointEMs.tablet * 16) {
-      // all mobiles 
+      // all mobiles
       if (this.getState().map.isDrawerOpen) {
         offsetY = -0.25 * window.innerHeight;
       }
@@ -688,77 +652,15 @@ export class MapController {
         this.getState().filter.isFilterOpen ||
         this.getState().filter.isSearchOpen
       ) {
-        offsetX += (window.innerWidth - sidebarWidth - (2 * size3Width)) * 0.15;
+        offsetX += (window.innerWidth - sidebarWidth - 2 * size3Width) * 0.15;
       }
-      if (
-        this.getState().map.quickViewProjectId
-      ) {
+      if (this.getState().map.quickViewProjectId) {
         offsetX += (window.innerWidth - sidebarWidth - 2 * size3Width) * 0.2;
       }
     }
 
     return [offsetX, offsetY];
   }
-
-  // getBoundsPadding() {
-  //   if (typeof window === "undefined")
-  //     return {
-  //       top: 0,
-  //       right: 0,
-  //       bottom: 0,
-  //       left: 0,
-  //     };
-
-  //   const isMobile = window.matchMedia("(max-width: 44.9999em)").matches;
-  //   const isTablet = window.matchMedia(
-  //     "(min-width: 45em) and (max-width: 74.9999em)"
-  //   ).matches;
-  //   const isTabletWide = window.matchMedia(
-  //     "(min-width: 62em) and (max-width: 74.9999em)"
-  //   ).matches;
-  //   const isDesktop = window.matchMedia(
-  //     "(min-width: 75em) and (max-width: 119.9999em)"
-  //   ).matches;
-
-  //   if (isMobile) {
-  //     return {
-  //       top: 80,
-  //       right: 40,
-  //       bottom: 100,
-  //       left: 80,
-  //     };
-  //   }
-  //   if (isTablet && !isTabletWide) {
-  //     return {
-  //       top: 80,
-  //       right: 40,
-  //       bottom: 40,
-  //       left: 120,
-  //     };
-  //   }
-  //   if (isTabletWide) {
-  //     return {
-  //       top: 80,
-  //       right: 40,
-  //       bottom: 40,
-  //       left: 160,
-  //     };
-  //   }
-  //   if (isDesktop) {
-  //     return {
-  //       top: 80,
-  //       right: 40,
-  //       bottom: 100,
-  //       left: 400,
-  //     };
-  //   }
-  //   return {
-  //     top: 80,
-  //     right: 40,
-  //     bottom: 100,
-  //     left: 695 + (window.innerWidth * 0.08 - 55) + 40,
-  //   };
-  // }
 
   panTo(coordinates: LngLatLike, options?: MapAnimationOptions) {
     const self = this;
