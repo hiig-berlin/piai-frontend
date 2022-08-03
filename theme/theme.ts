@@ -54,16 +54,18 @@ export const themeImgSizes = (
 export const themeSpace = (
   breakpoint: string,
   level: number = 1,
-  adjust: number = 0
+  adjust: number = 0,
 ) => {
   let b = breakpoint.replace("Landscape", "");
 
-  if (["base", "mobile"].includes(b) && level >= 9) return 6;
+  const size = SPACE_LEVELS - level + 1;
+
+  if (["base", "mobile"].includes(b) && size >= 9) return 6;
 
   let space = (goldenRatioBase as any)?.[b] ?? 700;
   const gC = 1.61803398875;
 
-  for (let i = 0; i < level; i++) {
+  for (let i = 0; i < size; i++) {
     space = space / gC;
   }
   return space - adjust;
@@ -85,7 +87,7 @@ export const themeGetSpaceValues = (breakpoint: string) => {
     .reduce((carry: any, n: number) => {
       return {
         ...carry,
-        [`level${n + 1}`]: themeSpace(breakpoint, SPACE_LEVELS - n),
+        [`level${n + 1}`]: themeSpace(breakpoint, n + 1),
       };
     }, {});
 };
@@ -103,7 +105,7 @@ export const themeGetBreakpointValue = (level: number) => {
     let b = breakpoint.replace("Landscape", "");
     return {
       ...carry,
-      [breakpoint]: themeSpace(b, 10 - level),
+      [breakpoint]: themeSpace(b, level),
     };
   }, {});
 };
@@ -167,7 +169,7 @@ export const theme = {
     desktop: 100,
     screen: 0,
   },
-  gutterWidth: themeGetBreakpointValue(2),
+  gutterWidth: themeGetBreakpointValue(3),
 
   bodyCopyMaxWidth: {
     base: 450,
@@ -648,7 +650,7 @@ export const theme = {
         .reduce((carry: any, n: number) => {
           return `
             ${carry}
-            --size-${n + 1}: ${themeSpacePx(breakpoint, SPACE_LEVELS - n)};
+            --size-${n + 1}: ${themeSpacePx(breakpoint, n + 1)};
           `;
         }, "")}
     `;
