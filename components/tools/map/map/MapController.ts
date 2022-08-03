@@ -90,12 +90,6 @@ export class MapController {
 
   overlayZoomLevel: number = 0;
 
-  // xxx clean up
-  // clickBlock = false;
-  // highlights;
-  // // tour: MapTour;
-  // intitiallyFitToBounds;
-
   onLoadJobs: Function[] = [];
 
   getState: () => ToolState;
@@ -158,16 +152,6 @@ export class MapController {
     self.router.events.on("routeChangeStart", () => {
       self.popups.hideAll();
     });
-
-    // xxx better attribution ...
-    // where to place it best
-    self.map.addControl(
-      new AttributionControl({
-        customAttribution:
-          '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="nofollow noreferrer">OpenStreetMap contributors</a>',
-      }),
-      "bottom-right"
-    );
 
     self.isReady = false;
     self.isStyleLoaded = false;
@@ -613,7 +597,6 @@ export class MapController {
     }
   }
 
-  // xxx maybe make the following better
   getCenterOffset() {
     if (typeof window === "undefined") return [0, 0];
 

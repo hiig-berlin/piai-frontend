@@ -374,7 +374,7 @@ export class MapViewClustered {
               feature?.properties?.slug,
               self.controller,
               coordinates,
-              feature?.properties?.name, // xxx the content needs probably to be better ...
+              feature?.properties?.name,
               {
                 offset: [
                   self.controller.POPUP_OFFSET.x,
