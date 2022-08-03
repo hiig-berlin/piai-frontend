@@ -1,9 +1,9 @@
-export interface Geometry {
+export interface GeoJsonGeometry {
   type: string;
   coordinates: number[];
 }
 
-export interface Properties {
+export interface GeoJsonProperties {
   id: number;
   name: string;
   slug: string;
@@ -12,13 +12,13 @@ export interface Properties {
   organisation: string;
 }
 
-export interface Feature {
+export interface GeoJsonFeature {
   type: string;
-  geometry: Geometry;
-  properties: Properties;
+  geometry: GeoJsonGeometry;
+  properties: GeoJsonProperties;
 }
 
 export interface GeoJson {
   type: string;
-  features: Feature[];
+  features: GeoJsonFeature[];
 }

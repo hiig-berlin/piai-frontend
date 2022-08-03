@@ -66,11 +66,21 @@ export const Submenu = ({ tool, slug }: { tool?: string; slug?: string }) => {
         </Link>
         {slug === "index" && (
           <ActionItems>
-            <Icon type="search" active />
+            <Icon
+              type="search"
+              active
+              onClick={() => {
+                updateFilterState({
+                  isSearchOpen: !filter.isSearchOpen,
+                  isFilterOpen: false,
+                });
+              }}
+            />
             <Icon
               type="filter"
               onClick={() => {
                 updateFilterState({
+                  isSearchOpen: false,
                   isFilterOpen: !filter.isFilterOpen,
                 });
               }}

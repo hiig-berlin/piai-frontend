@@ -15,6 +15,7 @@ import { MapGlobalCss } from "./map/MapGlobalCss";
 import { Icon } from "../shared/ui/Icon";
 import { createQueryFromState } from "./map/utils";
 import { appConfig } from "~/config";
+import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
 
 const MapUi = styled.div`
   background-color: #000c;
@@ -64,6 +65,12 @@ const defaultQueryString = createQueryFromState(defaultToolState.filter, {
 }).join("&");
 
 export const Map = ({ isVisible }: { isVisible?: boolean }) => {
+  const uiRemoveTimoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const {
+    vars: { isTabletLandscapeAndUp },
+  } = useCssVarsContext();
+
   const isMounted = useIsMounted();
   const mapControllerRef = useRef<MapController>();
   const mapContainerRef = useRef<HTMLDivElement>(null);
@@ -75,8 +82,9 @@ export const Map = ({ isVisible }: { isVisible?: boolean }) => {
 
   const [isMapLoaded, setIsMapLoaded] = useState(false);
   const [isMapInitialized, setIsMapInitialized] = useState(false);
+  const [hasAutoFilterShown, setHasAutoFilterShown] = useState(false);
 
-  const { map, settings, filter, getState, updateMapState } =
+  const { map, settings, filter, getState, updateMapState, updateFilterState } =
     useToolStateContext();
 
   useEffect(() => {
@@ -92,7 +100,8 @@ export const Map = ({ isVisible }: { isVisible?: boolean }) => {
         config,
         settings?.styleUrl,
         getState,
-        updateMapState
+        updateMapState,
+        updateFilterState
       );
       controller.init(
         "map",
@@ -103,9 +112,22 @@ export const Map = ({ isVisible }: { isVisible?: boolean }) => {
         }
       );
       mapControllerRef.current = controller;
+
+      updateMapState({
+        mapController: mapControllerRef.current,
+      });
+
       setIsMapInitialized(true);
     }
-  }, [settings?.styleUrl, isMounted, config, router, getState, updateMapState]);
+  }, [
+    settings?.styleUrl,
+    isMounted,
+    config,
+    router,
+    getState,
+    updateMapState,
+    updateFilterState,
+  ]);
 
   const currentQueryString = createQueryFromState(filter, {
     onlyIds: "1",
@@ -154,6 +176,27 @@ export const Map = ({ isVisible }: { isVisible?: boolean }) => {
     if (map.loadGeoJson && map.geoJson && mapControllerRef.current)
       mapControllerRef.current.setGeoJson(map.geoJson);
   }, [map.loadGeoJson, map.geoJson]);
+
+  useEffect(() => {
+    if (isTabletLandscapeAndUp && !hasAutoFilterShown) {
+      if (uiRemoveTimoutRef.current) clearTimeout(uiRemoveTimoutRef.current);
+
+      uiRemoveTimoutRef.current = setTimeout(() => {
+        if (isMounted) {
+          updateFilterState({
+            isFilterOpen: true,
+            isSearchOpen: false,
+          });
+        }
+        setHasAutoFilterShown(true);
+      }, 2500);
+    }
+  }, [
+    hasAutoFilterShown,
+    isTabletLandscapeAndUp,
+    isMounted,
+    updateFilterState,
+  ]);
 
   return (
     <>

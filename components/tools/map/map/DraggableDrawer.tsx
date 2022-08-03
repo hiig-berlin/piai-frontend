@@ -34,7 +34,7 @@ export const DraggableDrawer = ({
   onFullHeightChange: Function;
 }) => {
   const isMounted = useIsMounted();
-  const { updateMapState } = useToolStateContext();
+  const { updateFilterState } = useToolStateContext();
   const [{ y }, api] = useSpring(() => ({ y: 0 }));
 
   const [allowDrag, setAllowDrag] = useState(false);
@@ -89,7 +89,7 @@ export const DraggableDrawer = ({
     setTimeout(() => {
       if (isMounted) {
         setLastY(0);
-        updateMapState({
+        updateFilterState({
           quickViewProjectId: null,
           isDrawerOpen: false,
         });

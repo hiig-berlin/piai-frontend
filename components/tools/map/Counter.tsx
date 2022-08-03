@@ -12,7 +12,7 @@ const CounterContainer = styled.div<{ invert: boolean }>`
   border: 1px solid
     ${({ invert }) => (invert ? "var(--color-grey)" : "var(--color-piai-map)")};
   width: calc(100vw - (2 * var(--size-4)));
-  pointer-events:all ;
+  pointer-events: all;
   position: fixed;
   z-index: 6;
   bottom: var(--size-3);
@@ -39,11 +39,15 @@ const CounterContainer = styled.div<{ invert: boolean }>`
   }
 
   ${({ theme }) => theme.breakpoints.tablet} {
-    top: var(--size-3);
-    bottom: unset;
     left: 50%;
     transform: translateX(-50%);
+    max-width: 500px;
     width: auto;
+  }
+
+  ${({ theme }) => theme.breakpoints.tabletLandscape} {
+    top: var(--size-3);
+    bottom: unset;
   }
 `;
 
@@ -80,7 +84,11 @@ export const Counter = () => {
   const { map, filter, updateFilterState } = useToolStateContext();
 
   return (
-    <CounterContainer invert={filter.isFilterOpen && !isTabletLandscapeAndUp}>
+    <CounterContainer
+      invert={
+        (filter.isFilterOpen || filter.isSearchOpen) && !isTabletLandscapeAndUp
+      }
+    >
       {!isTabletLandscapeAndUp && (
         <Icon
           type="filter"
@@ -101,7 +109,18 @@ export const Counter = () => {
           <strong>{map.filteredCount}</strong>/{map.totalCount}
         </Label>
       </div>
-      {isTabletLandscapeAndUp ? <Icon type="list" /> : <Icon type="search" />}
+      {isTabletLandscapeAndUp ? (
+        <Icon type="list" />
+      ) : (
+        <Icon
+          type="search"
+          onClick={() => {
+            updateFilterState({
+              isSearchOpen: !filter.isSearchOpen,
+            });
+          }}
+        />
+      )}
     </CounterContainer>
   );
 };

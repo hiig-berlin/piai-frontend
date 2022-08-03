@@ -14,14 +14,14 @@ import cloneDeep from "lodash/cloneDeep";
 import useIsMounted from "~/hooks/useIsMounted";
 import { appConfig } from "~/config";
 import { GeoJson } from "../map/types";
+import type { MapController } from "../map/MapController";
 
 export type MapState = {
   ready: boolean;
-  isDrawerOpen: boolean;
+  mapController: MapController | null;
   loadGeoJson: boolean;
   geoJson: GeoJson | null;
   hideIntro: boolean;
-  quickViewProjectId: number | null;
   totalCount: number;
   totalInViewCount: number;
   filteredCount: number;
@@ -29,6 +29,8 @@ export type MapState = {
 };
 
 export type FilterState = {
+  quickViewProjectId: number | null;
+  isDrawerOpen: boolean;
   isFilterOpen: boolean;
   isSearchOpen: boolean;
   genderRatio: boolean;
@@ -105,15 +107,16 @@ export const defaultToolState: ToolState = {
     loadGeoJson: false,
     geoJson: null,
     ready: false,
-    isDrawerOpen: false,
+    mapController: null,
     hideIntro: false,
-    quickViewProjectId: null,
     totalCount: 0,
     totalInViewCount: 0,
     filteredCount: 0,
     filteredInViewCount: 0,
   },
   filter: {
+    isDrawerOpen: false,
+    quickViewProjectId: null,
     isFilterOpen: false,
     isSearchOpen: false,
     dateFrom: null,
@@ -171,8 +174,6 @@ const toolStateReducer = function <T>(
 
     case "geoJson":
       state.map.geoJson = (action?.payload as GeoJson) ?? null;
-
-      console.log(state.map.geoJson);
       return state;
 
     default:
@@ -198,7 +199,7 @@ const fetchGeoJson = async ({ signal }: QueryFunctionContext) => {
   const mapTool = appConfig.tools?.find((t) => t.slug === "map");
 
   if (!mapTool?.config?.urlGeoJson) return null;
-  console.log(`${appConfig.cmsUrl}${mapTool?.config?.urlGeoJson}`);
+  
   return fetch(`${appConfig.cmsUrl}${mapTool?.config?.urlGeoJson}`, {
     // Pass the signal to one fetch
     signal,
@@ -374,7 +375,6 @@ export const ToolStateContextProvider = ({
     queryResultGeoJson.data,
     startTransitionDispatch,
   ]);
-
 
   return (
     <ToolStateContext.Provider

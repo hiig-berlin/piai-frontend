@@ -15,7 +15,7 @@ import { MapPopupManager } from "./MapPopupManager";
 import { MapClusterDetail } from "./MapClusterDetail";
 import { MapViewClustered } from "./MapViewClustered";
 
-import type { ToolState, MapState } from "../context/ContextProviders";
+import type { ToolState, MapState, FilterState } from "../context/ContextProviders";
 import { breakpointEMs } from "~/theme/breakpoints";
 import { EMPTY_GEOJSON } from "./utils";
 import { themeSpace } from "~/theme/theme";
@@ -95,13 +95,15 @@ export class MapController {
 
   getState: () => ToolState;
   updateMapState: (mapState: Partial<MapState>) => void;
+  updateFilterState: (filterState: Partial<FilterState>) => void;
 
   constructor(
     router: NextRouter,
     config: AppConfig,
     styleUrl: string,
     getState: () => ToolState,
-    updateMapState: (mapState: Partial<MapState>) => void
+    updateMapState: (mapState: Partial<MapState>) => void,
+    updateFilterState: (filterState: Partial<FilterState>) => void
   ) {
     this.config = config;
     this.router = router;
@@ -111,6 +113,7 @@ export class MapController {
 
     this.getState = getState;
     this.updateMapState = updateMapState;
+    this.updateFilterState = updateFilterState;
 
     const mapTool = this.config?.tools?.find((t) => t.slug === "map");
     this.toolConfig = mapTool?.config ?? {};
@@ -254,8 +257,8 @@ export class MapController {
 
     self.popups.hideAll();
 
-    self.updateMapState({
-      ...self.getState().map,
+    self.updateFilterState({
+      ...self.getState().filter,
       isDrawerOpen: true,
       quickViewProjectId: id,
     });
@@ -605,13 +608,13 @@ export class MapController {
 
     if (window.innerWidth < breakpointEMs.tablet * 16) {
       // all mobiles
-      if (this.getState().map.isDrawerOpen) {
+      if (this.getState().filter.isDrawerOpen) {
         offsetY = -0.25 * window.innerHeight;
       }
     } else if (window.innerWidth < breakpointEMs.tabletLandscape * 16) {
       // tablet
       offsetX += sidebarWidth * 0.5;
-      if (this.getState().map.isDrawerOpen) {
+      if (this.getState().filter.isDrawerOpen) {
         offsetY = -0.25 * window.innerHeight;
       }
     } else {
@@ -624,7 +627,7 @@ export class MapController {
       ) {
         offsetX += (window.innerWidth - sidebarWidth - 2 * size3Width) * 0.15;
       }
-      if (this.getState().map.quickViewProjectId) {
+      if (this.getState().filter.quickViewProjectId) {
         offsetX += (window.innerWidth - sidebarWidth - 2 * size3Width) * 0.2;
       }
     }

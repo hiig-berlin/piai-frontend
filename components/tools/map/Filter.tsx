@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
 import React, {
-  startTransition,
   useEffect,
   useState,
   useCallback,
@@ -8,9 +7,6 @@ import React, {
 import styled from "styled-components";
 import cloneDeep from "lodash/cloneDeep";
 
-import DisplayAbove from "~/components/styled/DisplayAbove";
-import DisplayBelow from "~/components/styled/DisplayBelow";
-import { useModal } from "~/hooks/useModal";
 import { Icon } from "../shared/ui/Icon";
 
 import {
@@ -21,100 +17,7 @@ import {
 import { createQueryFromState } from "./map/utils";
 import { TaxonomyCheckboxGroup } from "./ui/TaxonomyCheckboxGroup";
 import { ActiveFilterOption } from "./ui/ActiveFilterOption";
-
-const FilterContainer = styled.div<{
-  isOpen: boolean;
-  isOpening: boolean;
-  isClosing: boolean;
-}>`
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  z-index: 4;
-  height: 100vh;
-  width: 100%;
-  overflow: hidden;
-
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.35s;
-  opacity: ${({ isOpening, isOpen, isClosing }) =>
-    isOpening || (isOpen && !isClosing) ? 1 : 0};
-  transform: ${({ isOpening, isOpen, isClosing }) =>
-    isOpening || isOpen || isClosing ? "translateX(0)" : "translateX(-105vw)"};
-
-  ${({ theme }) => theme.breakpoints.tabletLandscape} {
-    padding-left: var(--size-6);
-    padding-bottom: var(--size-3);
-    height: calc(100% - var(--lbh) - var(--tool-map-ot));
-    max-width: calc(
-      var(--size-6) + (100vw - var(--size-6) - 2 * var(--size-3)) * 0.3
-    );
-
-    opacity: 1;
-
-    transition: transform 0.3s;
-
-    transform: ${({ isOpening, isOpen, isClosing }) =>
-      (isOpening || isOpen) && !isClosing
-        ? "translateX(0)"
-        : "translateX(calc(-100% - var(--size-6)))"};
-  }
-`;
-
-const Panel = styled.div<{
-  isLoading: boolean;
-  isRefetching: boolean;
-}>`
-  display: flex;
-  flex-direction: column;
-  justify-content: stretch;
-  box-sizing: border-box;
-  background: #000;
-  pointer-events: all;
-  padding: var(--size-3) var(--size-4) calc(var(--size-7) + var(--size-2))
-    var(--size-4);
-
-  height: 100%;
-
-  & > div {
-    flex-grow: 1;
-    transition: opacity var(--transition-speed-link);
-    opacity: ${({ isRefetching }) => (isRefetching ? 0.5 : 1)};
-  }
-
-  & > div:first-child,
-  & > span:first-child,
-  & > div:last-child {
-    flex-grow: 0;
-    flex-shrink: 0;
-  }
-
-  ${({ theme }) => theme.breakpoints.tabletLandscape} {
-    padding: var(--size-3);
-    border-top-right-radius: var(--size-3);
-    border-bottom-right-radius: var(--size-3);
-  }
-`;
-
-const Header = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-`;
-
-const Footer = styled.div``;
-
-const Scroller = styled.div`
-  height: 100%;
-  overflow-y: auto;
-
-  ${({ theme }) => theme.applyMixin("styledScrollbar")}
-`;
-
-const CloseButtonContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-`;
+import { SidebarDrawer } from "./ui/SidebarDrawer";
 
 const ActiveFilters = styled.div`
   width: 100%;
@@ -142,29 +45,7 @@ export const Filter = () => {
   const { getFilterState, setFilterState, filter, settings } =
     useToolStateContext();
 
-  const { isOpen, isOpening, isClosing, open, close } = useModal({
-    defaultIsOpen: false,
-    openingAnimationLength: 350,
-    closeAnimationLength: 350,
-  });
-
-  const [isInit, setIsInit] = useState(false);
-  const closeFilter = () => {
-    setFilterState({
-      ...getFilterState(),
-      isFilterOpen: false,
-    });
-  };
-
-  useEffect(() => {
-    startTransition(() => {
-      if (filter.isFilterOpen) {
-        open();
-      } else {
-        close();
-      }
-    });
-  }, [filter.isFilterOpen, open, close]);
+  const [, setIsInit] = useState(false);
 
   const maybeUpdateQueryString = (state: FilterState) => {
     const currentQuery = createQueryFromState(state, { onlyIds: "1" });
@@ -301,85 +182,54 @@ export const Filter = () => {
   }
 
   return (
-    <FilterContainer {...{ isOpen, isOpening, isClosing }}>
-      <Panel isLoading={false} isRefetching={false}>
-        <Header>
-          <DisplayBelow breakpoint="tabletLandscape">
+    <SidebarDrawer statusFlagKey="isFilterOpen" title="Filter Projects">
+      {activeFilters?.length > 0 && (
+        <ActiveFilters>
+          {activeFilters}
+
+          <ClearAll>
             <Icon
-              onClick={closeFilter}
-              type="back"
-              className="textLink back inBox"
+              type="close"
+              onClick={() => {
+                resetFilter();
+              }}
             >
-              <span>Close</span>
+              Clear all
             </Icon>
-          </DisplayBelow>
-          <h3>FILTER PROJECTS</h3>
-        </Header>
-
-        <Scroller>
-          {activeFilters?.length > 0 && (
-            <ActiveFilters>
-              {activeFilters}
-
-              <ClearAll>
-                <Icon
-                  type="close"
-                  onClick={() => {
-                    resetFilter();
-                  }}
-                >
-                  Clear all
-                </Icon>
-              </ClearAll>
-            </ActiveFilters>
-          )}
-          {(settings?.industrialSector?.options?.length ?? 0) > 0 && (
-            <TaxonomyCheckboxGroup
-              label="Industrial Sector"
-              activeTerms={filter?.terms ?? {}}
-              options={settings?.industrialSector?.options}
-              updateState={updateTaxonomyState}
-            />
-          )}
-          {(settings?.industrialSector?.options?.length ?? 0) > 0 && (
-            <TaxonomyCheckboxGroup
-              label="Use of AI"
-              activeTerms={filter?.terms ?? {}}
-              options={settings?.useOfAi?.options}
-              updateState={updateTaxonomyState}
-            />
-          )}
-          {(settings?.funding?.options?.length ?? 0) > 0 && (
-            <TaxonomyCheckboxGroup
-              label="Type of funding"
-              activeTerms={filter?.terms ?? {}}
-              options={settings?.funding?.options}
-              updateState={updateTaxonomyState}
-            />
-          )}
-          xxx
-          <br />
-          xxx Open Source
-          <br />
-          xxx Gender Parity
-          <br />
-          xxx Date Range
-        </Scroller>
-
-        <Footer>
-          <DisplayAbove breakpoint="tabletLandscape">
-            <CloseButtonContainer>
-              <Icon
-                onClick={closeFilter}
-                type="back"
-                className="textLink back inBox"
-              >
-                <span>Close</span>
-              </Icon>
-            </CloseButtonContainer>
-          </DisplayAbove>
-        </Footer>
-      </Panel>
-    </FilterContainer>
+          </ClearAll>
+        </ActiveFilters>
+      )}
+      {(settings?.industrialSector?.options?.length ?? 0) > 0 && (
+        <TaxonomyCheckboxGroup
+          label="Industrial Sector"
+          activeTerms={filter?.terms ?? {}}
+          options={settings?.industrialSector?.options}
+          updateState={updateTaxonomyState}
+        />
+      )}
+      {(settings?.industrialSector?.options?.length ?? 0) > 0 && (
+        <TaxonomyCheckboxGroup
+          label="Use of AI"
+          activeTerms={filter?.terms ?? {}}
+          options={settings?.useOfAi?.options}
+          updateState={updateTaxonomyState}
+        />
+      )}
+      {(settings?.funding?.options?.length ?? 0) > 0 && (
+        <TaxonomyCheckboxGroup
+          label="Type of funding"
+          activeTerms={filter?.terms ?? {}}
+          options={settings?.funding?.options}
+          updateState={updateTaxonomyState}
+        />
+      )}
+      xxx
+      <br />
+      xxx Open Source
+      <br />
+      xxx Gender Parity
+      <br />
+      xxx Date Range
+    </SidebarDrawer>
   );
 };

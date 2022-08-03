@@ -4,6 +4,7 @@ import { useToolStateContext } from "./context/ContextProviders";
 import { Counter } from "./Counter";
 import { Filter } from "./Filter";
 import { ProjectQuickView } from "./ProjectQuickView";
+import { Search } from "./Search";
 
 const Container = styled.div`
   position: absolute;
@@ -14,12 +15,13 @@ const Container = styled.div`
 `
 
 export const MapOverlays = () => {
-  const { map, filter } = useToolStateContext();  
+  const { filter } = useToolStateContext();  
   
   return (
     <Container>
+      <Search />
       <Filter />
-      {map?.quickViewProjectId && <ProjectQuickView id={map.quickViewProjectId} />}
+      {filter?.quickViewProjectId && <ProjectQuickView id={filter.quickViewProjectId} />}
       <Counter />
     </Container>
   );

@@ -132,7 +132,7 @@ export const ProjectQuickView = ({ id }: { id?: number }) => {
   const {
     vars: { isTabletLandscapeAndUp },
   } = useCssVarsContext();
-  const { updateMapState, filter } = useToolStateContext();
+  const { updateFilterState, filter } = useToolStateContext();
   const [isDrawerFullHeight, setIsDrawerFullHeight] = useState(false);
 
   const { isLoading, isSuccess, isRefetching, data, isError } = useQuery(
@@ -151,10 +151,10 @@ export const ProjectQuickView = ({ id }: { id?: number }) => {
   const hasContent = isSuccess && data?.data?.id;
 
   useEffect(() => {
-    updateMapState({
+    updateFilterState({
       isDrawerOpen: hasContent,
     });
-  }, [hasContent, updateMapState]);
+  }, [hasContent, updateFilterState]);
 
   if (!id || isError) return <></>;
 
@@ -183,9 +183,9 @@ export const ProjectQuickView = ({ id }: { id?: number }) => {
           {isTabletLandscapeAndUp && (
             <Icon
               onClick={() => {
-                updateMapState({
-                  quickViewProjectId: null,
+                updateFilterState({
                   isDrawerOpen: false,
+                  quickViewProjectId: null,
                 });
               }}
               type="back"
@@ -207,7 +207,9 @@ export const ProjectQuickView = ({ id }: { id?: number }) => {
 
   if (isTabletLandscapeAndUp && hasContent)
     content = (
-      <QuickView isFilterOpen={filter.isFilterOpen}>{content}</QuickView>
+      <QuickView isFilterOpen={filter.isFilterOpen || filter.isSearchOpen}>
+        {content}
+      </QuickView>
     );
 
   return (
