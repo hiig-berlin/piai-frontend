@@ -27,6 +27,7 @@ export type MapState = {
 
 export type FilterState = {
   isFilterOpen: boolean;
+  isSearchOpen: boolean;
   genderRatio: boolean;
   dateFrom: string | null | undefined;
   dateUntil: string | null | undefined;
@@ -72,7 +73,7 @@ type Settings = {
   isProjectOpenSource: FilterSettingTaxonomy | null | undefined;
 };
 
-type ToolState = {
+export type ToolState = {
   map: MapState;
   filter: FilterState;
   settings: Settings;
@@ -109,6 +110,7 @@ export const defaultToolState: ToolState = {
   },
   filter: {
     isFilterOpen: false,
+    isSearchOpen: false,
     dateFrom: null,
     dateUntil: null,
     genderRatio: false,

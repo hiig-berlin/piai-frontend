@@ -1,10 +1,4 @@
-import {
-  Map,
-  AttributionControl,
-  LngLatBounds,
-  LngLatLike,
-  PaddingOptions,
-} from "maplibre-gl";
+import { Map, AttributionControl, LngLatBounds, LngLatLike } from "maplibre-gl";
 import type {
   PointLike,
   FilterSpecification,
@@ -21,9 +15,10 @@ import { MapPopupManager } from "./MapPopupManager";
 import { MapClusterDetail } from "./MapClusterDetail";
 import { MapViewClustered } from "./MapViewClustered";
 
-import type { MapState } from "../context/ContextProviders";
+import type { ToolState, MapState } from "../context/ContextProviders";
 import { breakpointEMs } from "~/theme/breakpoints";
 import { EMPTY_GEOJSON } from "./utils";
+import { themeSpace } from "~/theme/theme";
 
 export type MapFitToBoundingBoxOptions = CameraForBoundsOptions & {
   minZoom?: number;
@@ -103,14 +98,14 @@ export class MapController {
 
   onLoadJobs: Function[] = [];
 
-  getMapState: () => MapState;
+  getState: () => ToolState;
   updateMapState: (mapState: Partial<MapState>) => void;
 
   constructor(
     router: NextRouter,
     config: AppConfig,
     styleUrl: string,
-    getMapState: () => MapState,
+    getState: () => ToolState,
     updateMapState: (mapState: Partial<MapState>) => void
   ) {
     this.config = config;
@@ -119,7 +114,7 @@ export class MapController {
     this.isInit = false;
     this.map = null;
 
-    this.getMapState = getMapState;
+    this.getState = getState;
     this.updateMapState = updateMapState;
 
     const mapTool = this.config?.tools?.find((t) => t.slug === "map");
@@ -289,7 +284,7 @@ export class MapController {
     self.popups.hideAll();
 
     self.updateMapState({
-      ...self.getMapState(),
+      ...self.getState().map,
       isDrawerOpen: true,
       quickViewProjectId: id,
     });
@@ -567,7 +562,9 @@ export class MapController {
         self.popups.hideAll();
         self.clusterDetail.hide();
 
-        self.callViewFunction(view, "setData", [self.geoJsonAllData?.features ? self.geoJsonAllData : EMPTY_GEOJSON]);
+        self.callViewFunction(view, "setData", [
+          self.geoJsonAllData?.features ? self.geoJsonAllData : EMPTY_GEOJSON,
+        ]);
         if (typeof resolve !== "undefined") resolve(true);
       };
 
@@ -578,7 +575,6 @@ export class MapController {
       }
     }
   }
-
 
   setFilteredViewData(view: keyof MapViews, ids: any[]) {
     const self = this;
@@ -653,27 +649,55 @@ export class MapController {
   // }
 
   // xxx make the following better
+  // xxx also observe filter
   getCenterOffset() {
     if (typeof window === "undefined") return [0, 0];
 
-    if (window.innerWidth < breakpointEMs.mobileLandscape * 16) {
-      if (this.getMapState().isDrawerOpen) {
-        return [0, -0.25 * window.innerHeight];
-      } else {
-        return [0, 0];
-      }
-    } else if (window.innerWidth < breakpointEMs.mobileLandscape * 16) {
-      // xxx improve
-    } else if (window.innerWidth < breakpointEMs.tablet * 16) {
-      // xxx improve
-    } else if (window.innerWidth < breakpointEMs.tabletLandscape * 16) {
-      // xxx improve
+    let sidebarWidth = 0;
+    let size3Width = 0;
+    if (window.innerWidth < breakpointEMs.desktop * 16) {
+      sidebarWidth = themeSpace("tablet", 6);
+      size3Width = themeSpace("tablet", 3);
+    } else if (window.innerWidth < breakpointEMs.screen * 16) {
+      sidebarWidth = themeSpace("desktop", 6, 0);
+      size3Width = themeSpace("desktop", 3, 0);
     } else {
-      return [0, 0];
+      sidebarWidth = themeSpace("screen", 6);
+      size3Width = themeSpace("screen", 3);
     }
 
-    // xxx
-    return [0, 0];
+    let offsetX = 0;
+    let offsetY = 0;
+
+    if (window.innerWidth < breakpointEMs.tablet * 16) {
+      // all mobiles 
+      if (this.getState().map.isDrawerOpen) {
+        offsetY = -0.25 * window.innerHeight;
+      }
+    } else if (window.innerWidth < breakpointEMs.tabletLandscape * 16) {
+      // tablet
+      offsetX += sidebarWidth * 0.5;
+      if (this.getState().map.isDrawerOpen) {
+        offsetY = -0.25 * window.innerHeight;
+      }
+    } else {
+      // tabletLandscape++
+
+      offsetX += sidebarWidth * 0.5;
+      if (
+        this.getState().filter.isFilterOpen ||
+        this.getState().filter.isSearchOpen
+      ) {
+        offsetX += (window.innerWidth - sidebarWidth - (2 * size3Width)) * 0.15;
+      }
+      if (
+        this.getState().map.quickViewProjectId
+      ) {
+        offsetX += (window.innerWidth - sidebarWidth - 2 * size3Width) * 0.2;
+      }
+    }
+
+    return [offsetX, offsetY];
   }
 
   // getBoundsPadding() {
