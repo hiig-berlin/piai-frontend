@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 
 import {
-  defaultToolState,
+  defaultQueryString,
   useToolStateContext,
 } from "./context/ContextProviders";
 import { MapController } from "./map/MapController";
@@ -14,7 +13,6 @@ import { LoadingBar } from "~/components/styled/LoadingBar";
 import { MapGlobalCss } from "./map/MapGlobalCss";
 import { Icon } from "../shared/ui/Icon";
 import { createQueryFromState } from "./map/utils";
-import { appConfig } from "~/config";
 import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
 
 const MapUi = styled.div`
@@ -52,17 +50,7 @@ const MapContainer = styled.div`
   background-color: #000;
 `;
 
-const fetchFilteredIds = async ({ signal, queryKey }: QueryFunctionContext) => {
-  const [_key, { queryString }] = queryKey as any;
-  return fetch(`${appConfig.cmsUrl}/map/query?${queryString}`, {
-    // Pass the signal to one fetch
-    signal,
-  }).then(async (response) => await response.json());
-};
 
-const defaultQueryString = createQueryFromState(defaultToolState.filter, {
-  onlyIds: "1",
-}).join("&");
 
 export const Map = ({ isVisible }: { isVisible?: boolean }) => {
   const uiRemoveTimoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -133,16 +121,8 @@ export const Map = ({ isVisible }: { isVisible?: boolean }) => {
     onlyIds: "1",
   }).join("&");
 
-  const { isFetching, data } = useQuery(
-    ["map-filter", { queryString: currentQueryString }],
-    fetchFilteredIds,
-    {
-      enabled: defaultQueryString !== currentQueryString,
-    }
-  );
-
   useEffect(() => {
-    if (isMapInitialized && !isFetching) {
+    if (isMapInitialized) {
       if (currentQueryString === defaultQueryString) {
         if (mapLastFilterRef.current !== currentQueryString) {
           mapControllerRef.current?.resetViewData("clustered");
@@ -151,19 +131,19 @@ export const Map = ({ isVisible }: { isVisible?: boolean }) => {
         }
       } else {
         if (
-          data?.data?.length &&
-          mapLastFilterRef.current !== currentQueryString
+          filter.filteredIds?.length &&
+          mapLastFilterRef.current !== filter.filterQueryString
         ) {
           mapControllerRef.current?.setFilteredViewData(
             "clustered",
-            Array.isArray(data?.data) ? data?.data : []
+            filter.filteredIds
           );
           mapControllerRef.current?.showView("clustered");
-          mapLastFilterRef.current = currentQueryString;
+          mapLastFilterRef.current = filter.filterQueryString;
         }
       }
     }
-  }, [isMapInitialized, isFetching, data, currentQueryString]);
+  }, [isMapInitialized, filter.filteredIds, filter.filterQueryString, currentQueryString]);
 
   useEffect(() => {
     updateMapState({

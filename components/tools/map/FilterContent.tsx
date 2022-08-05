@@ -1,11 +1,12 @@
 import { useRouter } from "next/router";
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useCallback } from "react";
 import styled from "styled-components";
 import cloneDeep from "lodash/cloneDeep";
 
 import { Icon } from "../shared/ui/Icon";
 
 import {
+  defaultQueryString,
   defaultToolState,
   FilterState,
   useToolStateContext,
@@ -30,17 +31,13 @@ const ClearAll = styled.div`
   justify-content: flex-end;
 `;
 
-const defaultQueryString = createQueryFromState(defaultToolState.filter, {
-  onlyIds: "1",
-}).join("&");
-
+let isInit = false;
+let previousPathName = "";
 export const FilterContent = () => {
   const router = useRouter();
 
   const { getFilterState, setFilterState, filter, settings } =
     useToolStateContext();
-
-  const [, setIsInit] = useState(false);
 
   const maybeUpdateQueryString = useCallback(
     (state: FilterState) => {
@@ -94,7 +91,10 @@ export const FilterContent = () => {
   const resetFilter = useCallback(() => {
     const newState = {
       ...cloneDeep(defaultToolState.filter),
-      isFilterOpen: getFilterState().isFilterOpen,
+      isFilterOpen: true,
+      quickViewProjectId: getFilterState().quickViewProjectId,
+      totalCount: getFilterState().totalCount,
+      filteredCount: getFilterState().totalCount,
     };
 
     setFilterState(newState);
@@ -159,13 +159,22 @@ export const FilterContent = () => {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    if (settings?.styleUrl !== "") {
+    // bit hacky but as the component is rendered several times we want to make sure to
+    // only check the query string once (on load)
+    if (settings?.styleUrl !== "" && !isInit) {
       updateFromQuery(true);
-      setIsInit(true);
+      isInit = true;
+      previousPathName = document.location.pathname;
     }
 
-    const onRouterChangeComplete = () => {
-      updateFromQuery(false);
+    const onRouterChangeComplete = (url: string) => {
+      if (
+        previousPathName === document.location.pathname &&
+        url.replace("?empty=1", "") !== ""
+      )
+        updateFromQuery(false);
+
+      previousPathName = document.location.pathname;
     };
     router.events.on("routeChangeComplete", onRouterChangeComplete);
 

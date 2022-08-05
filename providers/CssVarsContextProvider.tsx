@@ -12,6 +12,7 @@ import { breakpointEMs } from "~/theme/theme";
 import debounce from "lodash/debounce";
 
 type CssVarContextVars = {
+  isInitializing: boolean;
   sbw: number;
   lbh: number;
   h100percent: number;
@@ -37,6 +38,7 @@ export type CssVarContextType = {
 };
 
 const cssVarContextVarsDefault: CssVarContextVars = {
+  isInitializing: true,
   sbw: 0,
   lbh: 0,
   h100percent: 0,
@@ -111,6 +113,11 @@ export const CssVarsContextProvider = ({
     const isScreen = window.matchMedia(
       `(min-width: ${breakpointEMs.screen}em)`
     ).matches;
+
+    if (cssVarsRef.current.isInitializing) {
+      cssVarsRef.current.isInitializing = false;
+      update = true;
+    }
 
     if ((isBase && !isMobile) !== cssVarsRef.current.isBase) {
       cssVarsRef.current.isBase = isBase && !isMobile;

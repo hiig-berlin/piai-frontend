@@ -15,6 +15,7 @@ import useIsMounted from "~/hooks/useIsMounted";
 import { appConfig } from "~/config";
 import { GeoJson } from "../map/types";
 import type { MapController } from "../map/MapController";
+import { createQueryFromState } from "../map/utils";
 
 export type MapState = {
   ready: boolean;
@@ -22,13 +23,16 @@ export type MapState = {
   loadGeoJson: boolean;
   geoJson: GeoJson | null;
   hideIntro: boolean;
-  totalCount: number;
   totalInViewCount: number;
-  filteredCount: number;
   filteredInViewCount: number;
 };
 
 export type FilterState = {
+  totalCount: number;
+  filteredCount: number;
+  filteredIds: number[] | null;
+  filterQueryString: string;
+  isFetchingFilteredIds: boolean;
   quickViewProjectId: number | null;
   isDrawerOpen: boolean;
   isFilterOpen: boolean;
@@ -99,7 +103,7 @@ type ToolStateContext = {
 
 type ToolStateAction = {
   type: string;
-  payload?: MapState | FilterState | Settings | GeoJson;
+  payload?: MapState | FilterState | Partial<FilterState> | Settings | GeoJson;
 };
 
 export const defaultToolState: ToolState = {
@@ -109,12 +113,15 @@ export const defaultToolState: ToolState = {
     ready: false,
     mapController: null,
     hideIntro: false,
-    totalCount: 0,
     totalInViewCount: 0,
-    filteredCount: 0,
     filteredInViewCount: 0,
   },
   filter: {
+    filteredCount: 0,
+    totalCount: 0,
+    filteredIds: null,
+    filterQueryString: "",
+    isFetchingFilteredIds: false,
     isDrawerOpen: false,
     quickViewProjectId: null,
     isFilterOpen: false,
@@ -161,10 +168,38 @@ const toolStateReducer = function <T>(
       };
 
     case "filter":
-      return {
+      const newState = {
         ...state,
         filter: (action?.payload ?? defaultToolState.filter) as FilterState,
       };
+
+      if (
+        createQueryFromState(newState.filter, {
+          onlyIds: "1",
+        }).join("&") === defaultQueryString
+      )
+        newState.filter.filteredCount = newState.filter.totalCount;
+
+      return newState;
+
+    case "filterMerge":
+      const newMergeState = {
+        ...state,
+        filter: {
+          ...state.filter,
+          ...((action?.payload ??
+            defaultToolState.filter) as Partial<FilterState>),
+        },
+      };
+
+      if (
+        createQueryFromState(newMergeState.filter, {
+          onlyIds: "1",
+        }).join("&") === defaultQueryString
+      )
+        newMergeState.filter.filteredCount = newMergeState.filter.totalCount;
+
+      return newMergeState;
 
     case "settings":
       return {
@@ -174,6 +209,9 @@ const toolStateReducer = function <T>(
 
     case "geoJson":
       state.map.geoJson = (action?.payload as GeoJson) ?? null;
+      state.filter.totalCount =
+        (action?.payload as GeoJson)?.features?.length ?? 0;
+      state.filter.filteredCount = state.filter.totalCount;
       return state;
 
     default:
@@ -199,50 +237,30 @@ const fetchGeoJson = async ({ signal }: QueryFunctionContext) => {
   const mapTool = appConfig.tools?.find((t) => t.slug === "map");
 
   if (!mapTool?.config?.urlGeoJson) return null;
-  
+
   return fetch(`${appConfig.cmsUrl}${mapTool?.config?.urlGeoJson}`, {
     // Pass the signal to one fetch
     signal,
   }).then(async (response) => await response.json());
 };
 
-// try {
-//       fetch(`${self.config.cmsUrl}${self.toolConfig.urlGeoJson}`)
-//         .then(async (response) => {
-//           if (response.ok) {
-//             const data = await response.json();
-//             if (
-//               data &&
-//               data?.type &&
-//               data?.type === "FeatureCollection" &&
-//               Array.isArray(data?.features)
-//             ) {
-//               self.geoJsonAllData = data;
-//               self.isBaseDataLoaded = true;
+const fetchFilteredQueryIds = async ({
+  signal,
+  queryKey,
+}: QueryFunctionContext) => {
+  const [_key, { queryString }] = queryKey as any;
+  return fetch(`${appConfig.cmsUrl}/map/query?${queryString}`, {
+    // Pass the signal to one fetch
+    signal,
+  }).then(async (response) => await response.json());
+};
 
-//               self.updateMapState({
-//                 totalCount: (data?.features?.length ?? 0) as number,
-//                 filteredCount: 0,
-//               });
-
-//               maybeProcess();
-//             }
-//           }
-//         })
-//         .catch((err: any) => {
-//           if (
-//             typeof window !== "undefined" &&
-//             window.process.env.NODE_ENV === "development"
-//           )
-//             console.error("Mapcontroller 1: ", err);
-//         });
-//     } catch (err) {
-//       if (
-//         typeof window !== "undefined" &&
-//         window.process.env.NODE_ENV === "development"
-//       )
-//         console.error("Mapcontroller 2: ", err);
-//     }
+export const defaultQueryString = createQueryFromState(
+  defaultToolState.filter,
+  {
+    onlyIds: "1",
+  }
+).join("&");
 
 // context provider
 export const ToolStateContextProvider = ({
@@ -265,6 +283,18 @@ export const ToolStateContextProvider = ({
   const queryResultGeoJson = useQuery(["geojson"], fetchGeoJson, {
     enabled: state.map.loadGeoJson,
   });
+
+  const currentQueryString = createQueryFromState(state.filter, {
+    onlyIds: "1",
+  }).join("&");
+
+  const queryFilteredIds = useQuery(
+    ["map-filter", { queryString: currentQueryString }],
+    fetchFilteredQueryIds,
+    {
+      enabled: defaultQueryString !== currentQueryString,
+    }
+  );
 
   const startTransitionDispatch = useCallback(
     (action: ToolStateAction) => {
@@ -326,8 +356,9 @@ export const ToolStateContextProvider = ({
   const updateFilterState = useCallback(
     (state: Partial<FilterState>) => {
       if (!isMounted) return;
+
       startTransitionDispatch({
-        type: "filter",
+        type: "filterMerge",
         payload: {
           ...stateRef.current.filter,
           ...state,
@@ -373,6 +404,39 @@ export const ToolStateContextProvider = ({
     queryResultGeoJson.isLoading,
     queryResultGeoJson.isSuccess,
     queryResultGeoJson.data,
+    startTransitionDispatch,
+  ]);
+
+  useEffect(() => {
+    if (
+      !queryFilteredIds.isLoading &&
+      !queryFilteredIds.isFetching &&
+      queryFilteredIds.isSuccess &&
+      Array.isArray(queryFilteredIds?.data?.data)
+    ) {
+      startTransitionDispatch({
+        type: "filterMerge",
+        payload: {
+          filteredIds: queryFilteredIds.data.data,
+          filteredCount: queryFilteredIds.data.data.length,
+          isFetchingFilteredIds: false,
+          filterQueryString: currentQueryString,
+        },
+      });
+    } else if (queryFilteredIds.isFetching) {
+      startTransitionDispatch({
+        type: "filterMerge",
+        payload: {
+          isFetchingFilteredIds: true,
+        },
+      });
+    }
+  }, [
+    queryFilteredIds.isLoading,
+    queryFilteredIds.isFetching,
+    queryFilteredIds.isSuccess,
+    queryFilteredIds.data,
+    currentQueryString,
     startTransitionDispatch,
   ]);
 

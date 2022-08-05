@@ -52,7 +52,7 @@ export const MapSearch = () => {
     vars: { isTabletLandscapeAndUp },
   } = useCssVarsContext();
 
-  const { map, filter, getState, updateMapState, updateFilterState } =
+  const { map, filter, updateMapState } =
     useToolStateContext();
 
   const workerRef = useRef<Worker>();
@@ -101,18 +101,15 @@ export const MapSearch = () => {
     (feature: GeoJsonFeature) => {
       if (!feature?.properties?.id) return;
 
-      updateFilterState({
-        isSearchOpen: !isTabletLandscapeAndUp ? false : true,
-      });
-
       if (map?.mapController?.map) {
         map.mapController.showQuickView(
           feature.geometry.coordinates as LngLatLike,
-          feature?.properties?.id
+          feature?.properties?.id,
+          !isTabletLandscapeAndUp ? false : true
         );
       }
     },
-    [updateFilterState, isTabletLandscapeAndUp, map.mapController]
+    [isTabletLandscapeAndUp, map.mapController]
   );
 
   useEffect(() => {
@@ -143,7 +140,7 @@ export const MapSearch = () => {
       <LoadingBar isLoading={!map.geoJson || isSearching} />
       <SidebarDrawer
         statusFlagKey="isSearchOpen"
-        title="Search by keyword"
+        title="Project search"
         dimmContent={isSearching}
         header={
           <Form
@@ -184,7 +181,7 @@ export const MapSearch = () => {
           </Form>
         }
       >
-        {hasNoResults && <p>No Projects found</p>}
+        {hasNoResults && <p>No projects found</p>}
         {!hasNoResults &&
           (searchResult ?? map?.geoJson?.features ?? []).map(
             (feature: GeoJsonFeature, index: number) => {

@@ -12,17 +12,19 @@ const Container = styled.div`
   left: 0;
   z-index: 3;
   pointer-events: none;
-`
+`;
 
 export const MapOverlays = () => {
-  const { filter } = useToolStateContext();  
-  
+  const { filter } = useToolStateContext();
+
   return (
     <Container>
       <MapSearch />
       <MapFilter />
-      {filter?.quickViewProjectId && <ProjectQuickView id={filter.quickViewProjectId} />}
-      <Counter />
+      {filter?.quickViewProjectId && (
+        <ProjectQuickView key={`map-qv-${filter.quickViewProjectId}`} id={filter.quickViewProjectId} view="map" />
+      )}
+      <Counter view="map" />
     </Container>
   );
 };

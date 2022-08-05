@@ -6,7 +6,6 @@ import { useRouter } from "next/router";
 
 import { useConfigContext } from "~/providers/ConfigContextProvider";
 
-import FocusLock from "react-focus-lock";
 import styled from "styled-components";
 import Link from "next/link";
 import { Button } from "../styled/Button";
@@ -151,37 +150,35 @@ export const UserTracking = () => {
       )}
 
       {config.ga4TagProperty && showPopup && (
-        <FocusLock autoFocus={false}>
-          <Aside
-            role="alertdialog"
-            aria-modal="true"
-            aria-labelledby="cpopup_label"
-            aria-describedby="cpopup_desc"
-            opacity={fadingOut ? 0 : 1}
+        <Aside
+          role="alertdialog"
+          aria-modal="true"
+          aria-labelledby="cpopup_label"
+          aria-describedby="cpopup_desc"
+          opacity={fadingOut ? 0 : 1}
+        >
+          <div>
+            This site uses cookies.
+            <br />
+            Find out more in our{" "}
+            <Link href="/privacy-policy" passHref>
+              <a>privacy policy</a>
+            </Link>
+            .
+          </div>
+          <CloseButton
+            onClick={() => {
+              try {
+                Cookies.set(COOKIE_NAME, "yes", { expires: 365 });
+              } catch (e) {
+                // don't do anything ...
+              }
+              fadeOut();
+            }}
           >
-            <div>
-              This site uses cookies.
-              <br />
-              Find out more in our{" "}
-              <Link href="/privacy-policy" passHref>
-                <a>privacy policy</a>
-              </Link>
-              .
-            </div>
-            <CloseButton
-              onClick={() => {
-                try {
-                  Cookies.set(COOKIE_NAME, "yes", { expires: 365 });
-                } catch (e) {
-                  // don't do anything ...
-                }
-                fadeOut();
-              }}
-            >
-              Close
-            </CloseButton>
-          </Aside>
-        </FocusLock>
+            Close
+          </CloseButton>
+        </Aside>
       )}
     </>
   );

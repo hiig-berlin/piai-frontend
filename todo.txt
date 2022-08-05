@@ -8,6 +8,9 @@
 
 - Mapping "Involving the people who will be affected by the project is a necessary part of the project design" numbers to text ??? 
 
+- Share Button
+- Print 
+
 +++++++++++++++++++++++++++++++++++++++++++++
 +++++ TODO: Frontend ++++++++++++++++++++++++
 +++++++++++++++++++++++++++++++++++++++++++++

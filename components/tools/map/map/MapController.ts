@@ -15,7 +15,11 @@ import { MapPopupManager } from "./MapPopupManager";
 import { MapClusterDetail } from "./MapClusterDetail";
 import { MapViewClustered } from "./MapViewClustered";
 
-import type { ToolState, MapState, FilterState } from "../context/ContextProviders";
+import type {
+  ToolState,
+  MapState,
+  FilterState,
+} from "../context/ContextProviders";
 import { breakpointEMs } from "~/theme/breakpoints";
 import { EMPTY_GEOJSON } from "./utils";
 import { themeSpace } from "~/theme/theme";
@@ -168,6 +172,11 @@ export class MapController {
       attributionControl: false,
     });
 
+    self.map.dragRotate.disable();
+    
+    // disable map rotation using touch rotation gesture
+    self.map.touchZoomRotate.disableRotation();
+
     self.overlayZoomLevel = self.toolConfig?.zoom ?? 8;
 
     self.router.events.on("routeChangeStart", () => {
@@ -243,16 +252,11 @@ export class MapController {
       self.geoJsonAllData = geoJson;
       self.isBaseDataLoaded = true;
 
-      self.updateMapState({
-        totalCount: (geoJson?.features?.length ?? 0) as number,
-        filteredCount: 0,
-      });
-
       self.maybeProcessOnLoadJobs();
     }
   }
 
-  showQuickView(coordinates: LngLatLike, id: number) {
+  showQuickView(coordinates: LngLatLike, id: number, showSearch?: boolean) {
     const self = this;
 
     self.popups.hideAll();
@@ -260,6 +264,7 @@ export class MapController {
     self.updateFilterState({
       ...self.getState().filter,
       isDrawerOpen: true,
+      isSearchOpen: !!showSearch,
       quickViewProjectId: id,
     });
 
@@ -619,7 +624,7 @@ export class MapController {
       }
     } else {
       // tabletLandscape++
-      // xxx sometimes the offset is a bit funny! 
+      // xxx sometimes the offset is a bit funny!
       offsetX += sidebarWidth * 0.5;
       if (
         this.getState().filter.isFilterOpen ||

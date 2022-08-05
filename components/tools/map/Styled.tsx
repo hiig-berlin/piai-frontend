@@ -35,3 +35,11 @@ export const Label = styled.h3`
   font-weight: 400;
   font-size: calc(var(--text-body-font-size-tool) * 0.8);
 `;
+
+export const Scroller = styled.div<{ opacity?: number }>`
+  height: 100%;
+  overflow-y: auto;
+  transition: opacity 0.3s;
+  opacity: ${({ opacity }) => opacity ?? 1};
+  ${({ theme }) => theme.applyMixin("styledScrollbar")}
+`;

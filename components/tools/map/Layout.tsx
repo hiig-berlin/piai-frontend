@@ -17,6 +17,7 @@ import { Sidebar } from "../shared/Sidebar";
 import { Submenu } from "./Submenu";
 import ReactQueryContextProvider from "./context/ReactQueryContextProvider";
 import { MapOverlays } from "./MapOverlays";
+import { DirectoryOverlays } from "./DirectoryOverlays";
 
 const Map = dynamic(() => import("./Map"), {
   suspense: true,
@@ -66,6 +67,7 @@ export const Layout = ({
   const [showMap, setShowMap] = useState(props?.view === "map");
 
   const isMap = props?.view === "map";
+  const isDirectory = props?.slug === "directory";
 
   useEffect(() => {
     if (isMap && !showMap) {
@@ -113,6 +115,7 @@ export const Layout = ({
           )}
           {!isMap && content}
           {isMap && <MapOverlays />}
+          {isDirectory && <DirectoryOverlays />}
         </ToolStateContextProvider>
       </ReactQueryContextProvider>
       <Menu />

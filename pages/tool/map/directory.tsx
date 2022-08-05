@@ -1,18 +1,51 @@
-import { ReactElement } from "react";
-import type { GetStaticProps, GetStaticPaths } from "next";
+import { ReactElement, useEffect } from "react";
+import type { GetStaticProps } from "next";
 import NextHeadSeo from "next-head-seo";
+import styled from "styled-components";
 
 import Layout from "~/components/tools/map/Layout";
-import {
-  restApiGetPostBySlugOrFallbackId,
-  restApiGetSettings,
-} from "~/utils/restApi";
+import { restApiGetSettings } from "~/utils/restApi";
 import { appConfig } from "~/config";
 import { PiAiTool } from "~/types";
 import { LabElement } from "~/components/ui/LabElement";
-import { Contribute } from "~/components/tools/map/Contribute";
+import { useToolStateContext } from "~/components/tools/map/context/ContextProviders";
+
+const Content = styled.div`
+  width: 100%;
+
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: var(--size-3);
+
+  padding-top: var(--size-6);
+
+  ${({ theme }) => theme.breakpoints.tablet} {
+    padding-left: var(--size-6);
+  }
+
+  ${({ theme }) => theme.breakpoints.tablet} {
+    padding: var(--size-6) var(--size-3) var(--size-3) var(--size-3);
+    align-items: flex-end;
+    justify-content: center;
+    font-size: var(--text-h1-font-size);
+    color: #f0f;
+  }
+`;
 
 const Directory = ({ tool }: { tool: PiAiTool }) => {
+  const { updateFilterState } = useToolStateContext();
+
+  useEffect(() => {
+    updateFilterState({
+      isFilterOpen: true,
+      isSearchOpen: false,
+    });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <>
       {/* TODO: ensure correct meta data is set <NextHeadSeo
@@ -32,18 +65,8 @@ const Directory = ({ tool }: { tool: PiAiTool }) => {
 
       {/* Dont' wrap this in further divs, 
       <main> is set via Layout component "*/}
-      <div style={{ margin: "20px" }}>
-        <LabElement
-          shortHandle={tool.iconShort}
-          longText={tool.iconLong}
-          color="#f0f"
-          hoverColor={tool.colorHighlight}
-          size={3}
-        />
-      </div>
-      <p>This is the directory page</p>
 
-      <Contribute position="bottom right" />
+      <Content>This is some teaser text explaining the directory</Content>
     </>
   );
 };

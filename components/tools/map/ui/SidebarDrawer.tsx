@@ -5,14 +5,20 @@ import DisplayAbove from "~/components/styled/DisplayAbove";
 import DisplayBelow from "~/components/styled/DisplayBelow";
 import { Icon } from "~/components/tools/shared/ui/Icon";
 import { useModal } from "~/hooks/useModal";
+import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
 import { useToolStateContext } from "../context/ContextProviders";
+import { Scroller } from "../Styled";
 
 const SidebarContainer = styled.div<{
+  isInitializing: boolean;
+  isAlwaysOpen: boolean;
   isOpen: boolean;
   isOpening: boolean;
   isClosing: boolean;
+  columnWidth: number;
 }>`
   position: fixed;
+  display: ${({ isInitializing }) => (isInitializing ? "none" : "block")};
   bottom: 0;
   left: 0;
   z-index: ${({ isOpening, isOpen }) => (isOpening || isOpen ? 5 : 4)};
@@ -25,23 +31,29 @@ const SidebarContainer = styled.div<{
   transition: opacity 0.35s;
   opacity: ${({ isOpening, isOpen, isClosing }) =>
     isOpening || (isOpen && !isClosing) ? 1 : 0};
-  transform: ${({ isOpening, isOpen, isClosing }) =>
-    isOpening || isOpen || isClosing ? "translateX(0)" : "translateX(-105vw)"};
+  transform: ${({ isOpening, isOpen, isClosing, isAlwaysOpen }) =>
+    isOpening || isOpen || isClosing || isAlwaysOpen
+      ? "translateX(0)"
+      : "translateX(-105vw)"};
 
   ${({ theme }) => theme.breakpoints.tabletLandscape} {
     padding-left: var(--size-6);
     padding-bottom: var(--size-3);
     height: calc(100% - var(--lbh) - var(--tool-map-ot));
     max-width: calc(
-      var(--size-6) + (100vw - var(--size-6) - 2 * var(--size-3)) * 0.3
+      var(--size-6) +
+        (
+          (100vw - var(--size-6) - 3 * var(--size-3)) *
+            (1 * ${({ columnWidth }) => columnWidth})
+        )
     );
 
     opacity: 1;
 
     transition: transform 0.3s;
 
-    transform: ${({ isOpening, isOpen, isClosing }) =>
-      (isOpening || isOpen) && !isClosing
+    transform: ${({ isOpening, isOpen, isClosing, isAlwaysOpen }) =>
+      ((isOpening || isOpen) && !isClosing) || isAlwaysOpen
         ? "translateX(0)"
         : "translateX(calc(-100% - var(--size-6)))"};
   }
@@ -103,14 +115,6 @@ const Header = styled.div`
 
 const Footer = styled.div``;
 
-const Scroller = styled.div<{ opacity?: number }>`
-  height: 100%;
-  overflow-y: auto;
-  transition: opacity 0.3s;
-  opacity: ${({ opacity }) => opacity ?? 1};
-  ${({ theme }) => theme.applyMixin("styledScrollbar")}
-`;
-
 const CloseButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -122,15 +126,22 @@ export const SidebarDrawer = ({
   children,
   header,
   dimmContent,
+  alwaysOpenOnTabletLandscape,
+  columnWidth = 0.3,
 }: {
   title: string;
+  columnWidth?: number;
   statusFlagKey: string;
   children: React.ReactNode;
+  alwaysOpenOnTabletLandscape?: boolean;
   dimmContent?: boolean;
   header?: React.ReactNode;
 }) => {
-  const { getFilterState, setFilterState, filter, settings } =
-    useToolStateContext();
+  const {
+    vars: { isTabletLandscapeAndUp, isInitializing },
+  } = useCssVarsContext();
+
+  const { getFilterState, setFilterState, filter } = useToolStateContext();
 
   const { isOpen, isOpening, isClosing, open, close } = useModal({
     defaultIsOpen: false,
@@ -158,7 +169,24 @@ export const SidebarDrawer = ({
   };
 
   return (
-    <SidebarContainer {...{ isOpen, isOpening, isClosing }}>
+    <SidebarContainer
+      {...{
+        columnWidth,
+        isInitializing,
+        isAlwaysOpen:
+          alwaysOpenOnTabletLandscape &&
+          (isInitializing || isTabletLandscapeAndUp)
+            ? true
+            : false,
+        isOpen:
+          alwaysOpenOnTabletLandscape &&
+          (isInitializing || isTabletLandscapeAndUp)
+            ? true
+            : isOpen,
+        isOpening,
+        isClosing,
+      }}
+    >
       <Panel isLoading={false} isRefetching={false}>
         <Header>
           <DisplayBelow breakpoint="tabletLandscape">
@@ -177,17 +205,19 @@ export const SidebarDrawer = ({
         <Scroller opacity={dimmContent ? 0.1 : 1}>{children}</Scroller>
 
         <Footer>
-          <DisplayAbove breakpoint="tabletLandscape">
-            <CloseButtonContainer>
-              <Icon
-                onClick={closeSidebar}
-                type="back"
-                className="textLink back inBox"
-              >
-                <span>Close</span>
-              </Icon>
-            </CloseButtonContainer>
-          </DisplayAbove>
+          {!alwaysOpenOnTabletLandscape && (
+            <DisplayAbove breakpoint="tabletLandscape">
+              <CloseButtonContainer>
+                <Icon
+                  onClick={closeSidebar}
+                  type="back"
+                  className="textLink back inBox"
+                >
+                  <span>Close</span>
+                </Icon>
+              </CloseButtonContainer>
+            </DisplayAbove>
+          )}
         </Footer>
       </Panel>
     </SidebarContainer>

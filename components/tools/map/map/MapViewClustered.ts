@@ -195,7 +195,8 @@ export class MapViewClustered {
       });
 
       self.controller.map.on("click", "clusters", (e) => {
-        if (self.controller.clickBlock || !self.controller.map || !e?.point) return;
+        if (self.controller.clickBlock || !self.controller.map || !e?.point)
+          return;
 
         const features = self.controller.map.queryRenderedFeatures(e.point, {
           layers: ["clusters"],
@@ -459,8 +460,7 @@ export class MapViewClustered {
         "clustered-locations",
         self.events["click-clustered-locations"]
       );
-
-      const debouncedRenderFunction = debounce(() => {
+      const onRender = () => {
         if (!self?.controller?.map) return;
 
         const totalInViewCount = queryFilteredForDuplicates(
@@ -493,9 +493,13 @@ export class MapViewClustered {
         self.controller.updateMapState({
           totalInViewCount,
           filteredInViewCount: Math.min(filteredInViewCount, totalInViewCount),
-          filteredCount: self.featureCount,
         });
-      }, CLUSTER_COUNT_UPDATE_TIMEOUT);
+      };
+
+      const debouncedRenderFunction = debounce(
+        onRender,
+        CLUSTER_COUNT_UPDATE_TIMEOUT
+      );
 
       self.events["render"] = () => {
         debouncedRenderFunction();
@@ -504,6 +508,10 @@ export class MapViewClustered {
       self.controller.map.on("render", self.events["render"]);
 
       self.show();
+
+      setTimeout(() => {
+        onRender();
+      }, 100);
 
       const highlights = self.controller.map.getLayer("highlights");
       if (highlights) {
