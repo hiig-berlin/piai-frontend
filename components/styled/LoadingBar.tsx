@@ -23,7 +23,7 @@ const loadingBorderAnimation = keyframes`
   }
 `;
 
-export const LoadingBar = styled.div<{ isLoading: boolean }>`
+export const LoadingBar = styled.div<{ isLoading: boolean; bgColor?: string }>`
   position: fixed;
   height: 3px;
   top: 0;
@@ -36,7 +36,7 @@ export const LoadingBar = styled.div<{ isLoading: boolean }>`
           ${loadingBorderAnimation} 2s infinite
         `
       : "none"};
-  background-color: ${({ isLoading }) =>
-    isLoading ? "var(--color-loading-bar)" : "transparent"};
+  background-color: ${({ isLoading, bgColor }) =>
+    isLoading ? bgColor ?? "var(--color-loading-bar)" : "transparent"};
   pointer-events: none;
 `;

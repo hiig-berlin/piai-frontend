@@ -45,7 +45,7 @@ const Button = styled(ButtonNormalized)`
   height: var(--size-3);
 `;
 
-export const Search = () => {
+export const MapSearch = () => {
   const isMounted = useIsMounted();
 
   const {

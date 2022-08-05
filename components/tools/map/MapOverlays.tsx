@@ -2,9 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import { useToolStateContext } from "./context/ContextProviders";
 import { Counter } from "./Counter";
-import { Filter } from "./Filter";
+import { MapFilter } from "./MapFilter";
 import { ProjectQuickView } from "./ProjectQuickView";
-import { Search } from "./Search";
+import { MapSearch } from "./MapSearch";
 
 const Container = styled.div`
   position: absolute;
@@ -19,8 +19,8 @@ export const MapOverlays = () => {
   
   return (
     <Container>
-      <Search />
-      <Filter />
+      <MapSearch />
+      <MapFilter />
       {filter?.quickViewProjectId && <ProjectQuickView id={filter.quickViewProjectId} />}
       <Counter />
     </Container>

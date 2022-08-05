@@ -124,9 +124,9 @@ export const SidebarDrawer = ({
   dimmContent,
 }: {
   title: string;
-  dimmContent: boolean;
   statusFlagKey: string;
   children: React.ReactNode;
+  dimmContent?: boolean;
   header?: React.ReactNode;
 }) => {
   const { getFilterState, setFilterState, filter, settings } =

@@ -1,9 +1,5 @@
 import { useRouter } from "next/router";
-import React, {
-  useEffect,
-  useState,
-  useCallback,
-} from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import styled from "styled-components";
 import cloneDeep from "lodash/cloneDeep";
 
@@ -17,7 +13,6 @@ import {
 import { createQueryFromState } from "./map/utils";
 import { TaxonomyCheckboxGroup } from "./ui/TaxonomyCheckboxGroup";
 import { ActiveFilterOption } from "./ui/ActiveFilterOption";
-import { SidebarDrawer } from "./ui/SidebarDrawer";
 
 const ActiveFilters = styled.div`
   width: 100%;
@@ -39,7 +34,7 @@ const defaultQueryString = createQueryFromState(defaultToolState.filter, {
   onlyIds: "1",
 }).join("&");
 
-export const Filter = () => {
+export const FilterContent = () => {
   const router = useRouter();
 
   const { getFilterState, setFilterState, filter, settings } =
@@ -47,23 +42,36 @@ export const Filter = () => {
 
   const [, setIsInit] = useState(false);
 
-  const maybeUpdateQueryString = (state: FilterState) => {
-    const currentQuery = createQueryFromState(state, { onlyIds: "1" });
-    const currentQueryString = currentQuery.join("&");
+  const maybeUpdateQueryString = useCallback(
+    (state: FilterState) => {
+      const currentQuery = createQueryFromState(state, { onlyIds: "1" });
+      const currentQueryString = currentQuery.join("&");
 
-    let queryString = "";
-    if (currentQuery?.length && currentQueryString !== defaultQueryString) {
-      queryString = `?${currentQuery.join("&").replace("&onlyIds=1", "")}`;
-    }
+      let queryString = "";
+      if (currentQuery?.length && currentQueryString !== defaultQueryString) {
+        queryString = `?${currentQuery.join("&").replace("&onlyIds=1", "")}`;
+      }
 
-    if (
-      queryString !== (document.location.search ?? "").replace("&onlyIds=1", "")
-    ) {
-      router.push(`${document?.location.pathname}${queryString}`, undefined, {
-        shallow: true,
-      });
-    }
-  };
+      if (
+        queryString !==
+        (document.location.search ?? "")
+          .replace("&onlyIds=1", "")
+          .replace("&empty=1", "")
+      ) {
+        router.push(
+          {
+            pathname: router.pathname,
+            search: queryString !== "" ? queryString : "?empty=1",
+          },
+          undefined,
+          {
+            shallow: true,
+          }
+        );
+      }
+    },
+    [router]
+  );
 
   const updateTaxonomyState = (id: number, label: string, checked: boolean) => {
     const currentState = getFilterState();
@@ -84,11 +92,14 @@ export const Filter = () => {
   };
 
   const resetFilter = useCallback(() => {
-    setFilterState({
+    const newState = {
       ...cloneDeep(defaultToolState.filter),
       isFilterOpen: getFilterState().isFilterOpen,
-    });
-  }, [setFilterState, getFilterState]);
+    };
+
+    setFilterState(newState);
+    maybeUpdateQueryString(newState);
+  }, [setFilterState, getFilterState, maybeUpdateQueryString]);
 
   const updateFromQuery = useCallback(
     (isInitCall: boolean) => {
@@ -182,7 +193,7 @@ export const Filter = () => {
   }
 
   return (
-    <SidebarDrawer statusFlagKey="isFilterOpen" title="Filter Projects">
+    <>
       {activeFilters?.length > 0 && (
         <ActiveFilters>
           {activeFilters}
@@ -230,6 +241,6 @@ export const Filter = () => {
       xxx Gender Parity
       <br />
       xxx Date Range
-    </SidebarDrawer>
+    </>
   );
 };
