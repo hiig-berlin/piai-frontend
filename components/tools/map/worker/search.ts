@@ -4,7 +4,7 @@ const search = (s: string, geoJson: GeoJson) => {
   if (!geoJson?.features?.length) return {};
 
   const search = s.toLowerCase();
-  
+
   return geoJson.features.filter((feature: GeoJsonFeature) => {
     return Object.keys(feature.properties).some((key: any) => {
       return (
@@ -18,11 +18,9 @@ const search = (s: string, geoJson: GeoJson) => {
   });
 };
 
-function sleep(ms: number) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
 addEventListener("message", async (event) => {
-  await sleep(1500);
-  postMessage(search(event.data.s, event.data.geoJson));
+  postMessage({
+    result: search(event.data.s, event.data.geoJson),
+    s: event.data.s,
+  });
 });

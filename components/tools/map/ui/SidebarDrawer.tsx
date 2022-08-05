@@ -87,20 +87,27 @@ const Header = styled.div`
   gap: var(--size-3);
   flex-wrap: wrap;
   align-items: center;
-  padding-right:var(--size-6) ;
+  padding-right: var(--size-6);
+
+  h3 {
+    margin: 0;
+  }
 
   ${({ theme }) => theme.breakpoints.tablet} {
     flex-direction: column;
     align-items: flex-start;
+    gap: var(--size-2);
+    padding-right: 0;
   }
 `;
 
 const Footer = styled.div``;
 
-const Scroller = styled.div`
+const Scroller = styled.div<{ opacity?: number }>`
   height: 100%;
   overflow-y: auto;
-
+  transition: opacity 0.3s;
+  opacity: ${({ opacity }) => opacity ?? 1};
   ${({ theme }) => theme.applyMixin("styledScrollbar")}
 `;
 
@@ -113,10 +120,14 @@ export const SidebarDrawer = ({
   title,
   statusFlagKey,
   children,
+  header,
+  dimmContent,
 }: {
   title: string;
+  dimmContent: boolean;
   statusFlagKey: string;
   children: React.ReactNode;
+  header?: React.ReactNode;
 }) => {
   const { getFilterState, setFilterState, filter, settings } =
     useToolStateContext();
@@ -160,9 +171,10 @@ export const SidebarDrawer = ({
             </Icon>
           </DisplayBelow>
           <h3>{title}</h3>
+          {header}
         </Header>
 
-        <Scroller>{children}</Scroller>
+        <Scroller opacity={dimmContent ? 0.1 : 1}>{children}</Scroller>
 
         <Footer>
           <DisplayAbove breakpoint="tabletLandscape">

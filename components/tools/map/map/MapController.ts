@@ -619,7 +619,7 @@ export class MapController {
       }
     } else {
       // tabletLandscape++
-
+      // xxx sometimes the offset is a bit funny! 
       offsetX += sidebarWidth * 0.5;
       if (
         this.getState().filter.isFilterOpen ||
