@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  useContext,
-  useState,
-  useCallback,
-  useRef,
-} from "react";
+import React, { useCallback, useRef } from "react";
 import create from "zustand";
 
 import useIsMounted from "~/hooks/useIsMounted";
@@ -69,7 +63,8 @@ export const useMainMenuActions = () => {
 
   const isMounted = useIsMounted();
 
-  const { updateMainMenuState, getMainMenuState } = useMainMenuStateStoreActions();
+  const { updateMainMenuState, getMainMenuState } =
+    useMainMenuStateStoreActions();
 
   const open = useCallback(
     (button: React.MutableRefObject<HTMLButtonElement>) => {
@@ -79,7 +74,7 @@ export const useMainMenuActions = () => {
           clearTimeout(animationTimeoutRef.current);
 
         updateMainMenuState({ isOpen: true });
-        
+
         currentScrollbarWidthRef.current =
           window.innerWidth - document.body.offsetWidth;
 
@@ -100,7 +95,7 @@ export const useMainMenuActions = () => {
   const close = useCallback(() => {
     if (isMounted) {
       updateMainMenuState({ isOpen: false });
-      
+
       document.body.style.overflow = "";
 
       if (currentScrollbarWidthRef.current > 0) {
@@ -115,7 +110,10 @@ export const useMainMenuActions = () => {
     }
   }, [isMounted, updateMainMenuState]);
 
-  const getIsOpen = useCallback(() => getMainMenuState().isOpen, [getMainMenuState]);
+  const getIsOpen = useCallback(
+    () => getMainMenuState().isOpen,
+    [getMainMenuState]
+  );
 
   return {
     getIsOpen,

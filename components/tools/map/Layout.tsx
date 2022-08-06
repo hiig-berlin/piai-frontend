@@ -79,7 +79,6 @@ export const Layout = ({
     <ContentContainer isTransparent={isMap}>{children}</ContentContainer>
   );
 
-  console.log("layout", isLoading);
   return (
     <>
       <NextHeadSeo

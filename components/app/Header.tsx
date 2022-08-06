@@ -2,7 +2,6 @@ import React, { useEffect, useState, useCallback, useRef } from "react";
 import styled from "styled-components";
 import debounce from "lodash/debounce";
 
-import { useHeaderContext } from "~/providers/HeaderContextProvider";
 import {
   useMainMenuActions,
   useMainMenuStateIsOpenState,
@@ -17,6 +16,7 @@ import { LabElement } from "../ui/LabElement";
 import { useConfigContext } from "~/providers/ConfigContextProvider";
 import Link from "next/link";
 import { usePageStateIsLoadingState } from "../state/PageState";
+import { useHeaderStateStore } from "../state/HeaderState";
 
 const SCROLL_UP_THRESHOLD_PX = 150;
 const SCROLL_DOWN_THRESHOLD_PX = 250;
@@ -107,7 +107,7 @@ export const Header = ({
     vars: { isTabletLandscapeAndUp },
   } = useCssVarsContext();
 
-  const headerContext = useHeaderContext();
+  const headerState = useHeaderStateStore();
 
   const isLoading = usePageStateIsLoadingState();
 
@@ -187,7 +187,7 @@ export const Header = ({
   useScrollPosition(
     ({ prevPos, currPos }) => {
       if (!isMounted) return;
-      if (!headerContext.observeScroll) return;
+      if (!headerState.observeScroll) return;
 
       if (currPos.y < prevPos.y) {
         // scrolling down
@@ -268,7 +268,7 @@ export const Header = ({
         }, SCROLL_UP_REVEAL_TIMEOUT);
       }
     },
-    [headerTuckUpTransform, headerContext.observeScroll, isMounted],
+    [headerTuckUpTransform, headerState.observeScroll, isMounted],
     observeScroll,
     undefined,
     false,
@@ -286,7 +286,7 @@ export const Header = ({
         style={{
           width: isMainMenuOpen ? `calc(100vw - var(--sbw, 0))` : undefined,
         }}
-        isHidden={headerContext.fadeOut || isHidden}
+        isHidden={headerState.fadeOut || isHidden}
         className="header"
       >
         <SkipToLink id="content">skip to content</SkipToLink>
