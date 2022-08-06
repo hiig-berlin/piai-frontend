@@ -3,7 +3,10 @@ import styled from "styled-components";
 import debounce from "lodash/debounce";
 
 import { useHeaderContext } from "~/providers/HeaderContextProvider";
-import { useMenuContext } from "~/providers/MenuContextProvider";
+import {
+  useMainMenuActions,
+  useMainMenuStateIsOpenState,
+} from "~/components/state/MainMenuState";
 import { Logo } from "./Logo";
 import { useScrollPosition } from "~/hooks/useScrollPosition";
 import { SkipToLink } from "../ui/SkipToLink";
@@ -14,7 +17,6 @@ import { LabElement } from "../ui/LabElement";
 import { useConfigContext } from "~/providers/ConfigContextProvider";
 import Link from "next/link";
 import { usePageStateIsLoadingState } from "../state/PageState";
-
 
 const SCROLL_UP_THRESHOLD_PX = 150;
 const SCROLL_DOWN_THRESHOLD_PX = 250;
@@ -96,7 +98,8 @@ export const Header = ({
 }) => {
   const config = useConfigContext();
 
-  const menuContext = useMenuContext();
+  const isMainMenuOpen = useMainMenuStateIsOpenState();
+  const menuContext = useMainMenuActions();
 
   const isMounted = useIsMounted();
 
@@ -281,7 +284,7 @@ export const Header = ({
         headerPosition="sticky"
         headerColor="#ffffff"
         style={{
-          width: menuContext.isOpen ? `calc(100vw - var(--sbw, 0))` : undefined,
+          width: isMainMenuOpen ? `calc(100vw - var(--sbw, 0))` : undefined,
         }}
         isHidden={headerContext.fadeOut || isHidden}
         className="header"

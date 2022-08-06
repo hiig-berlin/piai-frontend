@@ -9,7 +9,7 @@ import create from "zustand";
 import useIsMounted from "~/hooks/useIsMounted";
 import { useRouter } from "next/router";
 
-import { useMenuContext } from "~/providers/MenuContextProvider";
+import { useMainMenuActions } from "~/components/state/MainMenuState";
 
 export type PageState = {
   isLoading: boolean;
@@ -87,7 +87,7 @@ export const usePageStateIsLoadingState = () =>
 // page state controller
 export const PageStateController = () => {
   const isMounted = useIsMounted();
-  const { close } = useMenuContext();
+  const { close } = useMainMenuActions();
   const router = useRouter();
 
   const isBackRef = useRef<boolean>(false);
