@@ -1,6 +1,9 @@
-import { FilterState } from "../context/ContextProviders";
+import type { FilterState } from "../state/toolStateStore";
 import type { GeoJson } from "./types";
-export const EMPTY_GEOJSON: GeoJson = { type: "FeatureCollection", features: [] };
+export const EMPTY_GEOJSON: GeoJson = {
+  type: "FeatureCollection",
+  features: [],
+};
 
 export const createQueryFromState = (
   state: FilterState,

@@ -2,13 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import safeHtml from "~/utils/sanitize";
 
-import type {
-  FilterSettingTaxonomyOption,
-} from "../context/ContextProviders";
+import type { FilterSettingTaxonomyOption } from "../state/toolStateStore";
 import { FieldCheckbox } from "./FieldCheckbox";
 
 const Container = styled.div`
-
   margin-top: var(--size-3);
 `;
 
@@ -18,7 +15,6 @@ const H4 = styled.h4`
   margin-top: 0;
   margin-bottom: 0.5em;
 `;
-
 
 export const TaxonomyCheckboxGroup = ({
   label,

@@ -1,4 +1,4 @@
-import { Map, AttributionControl, LngLatBounds, LngLatLike } from "maplibre-gl";
+import { Map, LngLatBounds, LngLatLike } from "maplibre-gl";
 import type {
   PointLike,
   FilterSpecification,
@@ -15,15 +15,11 @@ import { MapPopupManager } from "./MapPopupManager";
 import { MapClusterDetail } from "./MapClusterDetail";
 import { MapViewClustered } from "./MapViewClustered";
 
-import type {
-  ToolState,
-  MapState,
-  FilterState,
-} from "../context/ContextProviders";
 import { breakpointEMs } from "~/theme/breakpoints";
 import { EMPTY_GEOJSON } from "./utils";
 import { themeSpace } from "~/theme/theme";
 import { GeoJson } from "./types";
+import type { ToolState, MapState, FilterState } from "../state/toolStateStore";
 
 export type MapFitToBoundingBoxOptions = CameraForBoundsOptions & {
   minZoom?: number;
@@ -173,7 +169,7 @@ export class MapController {
     });
 
     self.map.dragRotate.disable();
-    
+
     // disable map rotation using touch rotation gesture
     self.map.touchZoomRotate.disableRotation();
 

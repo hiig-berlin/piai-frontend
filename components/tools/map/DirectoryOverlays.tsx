@@ -1,10 +1,13 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { useToolStateContext } from "./context/ContextProviders";
 import { Counter } from "./Counter";
 import { DirectoryFilter } from "./DirectoryFilter";
 import { DirectoryList } from "./DirectoryList";
 import { ProjectQuickView } from "./ProjectQuickView";
+import {
+  useToolStateFilterState,
+  useToolStateStoreActions,
+} from "./state/toolStateStore";
 
 const Container = styled.div`
   position: absolute;
@@ -15,7 +18,8 @@ const Container = styled.div`
 `;
 
 export const DirectoryOverlays = () => {
-  const { filter, updateMapState } = useToolStateContext();
+  const filterState = useToolStateFilterState();
+  const { updateMapState } = useToolStateStoreActions();
 
   useEffect(() => {
     updateMapState({
@@ -23,15 +27,15 @@ export const DirectoryOverlays = () => {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  
+
   return (
     <Container>
       <DirectoryFilter />
       <DirectoryList />
-      {filter?.quickViewProjectId && (
+      {filterState?.quickViewProjectId && (
         <ProjectQuickView
-          key={`directory-qv-${filter.quickViewProjectId}`}
-          id={filter.quickViewProjectId}
+          key={`directory-qv-${filterState.quickViewProjectId}`}
+          id={filterState.quickViewProjectId}
           view="directory"
         />
       )}

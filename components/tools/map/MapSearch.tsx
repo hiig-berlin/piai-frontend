@@ -1,6 +1,5 @@
 import { useEffect, useRef, useCallback, useState } from "react";
 import { LoadingBar } from "~/components/styled/LoadingBar";
-import { useToolStateContext } from "./context/ContextProviders";
 import { SidebarDrawer } from "./ui/SidebarDrawer";
 import styled from "styled-components";
 
@@ -12,6 +11,7 @@ import InputText from "~/components/styled/InputText";
 import { ButtonNormalized } from "~/components/styled/Button";
 import { ToolSvgBackground } from "../shared/ToolSvgBackground";
 import useIsMounted from "~/hooks/useIsMounted";
+import { useToolStateFilterState, useToolStateMapState, useToolStateStoreActions } from "./state/toolStateStore";
 
 const Form = styled.form`
   position: relative;
@@ -52,8 +52,11 @@ export const MapSearch = () => {
     vars: { isTabletLandscapeAndUp },
   } = useCssVarsContext();
 
-  const { map, filter, updateMapState } =
-    useToolStateContext();
+  const mapState = useToolStateMapState();
+  const filterState = useToolStateFilterState();
+
+  const { updateMapState } =
+    useToolStateStoreActions();
 
   const workerRef = useRef<Worker>();
   const inputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
@@ -90,30 +93,30 @@ export const MapSearch = () => {
   }, [onWorkerMessage]);
 
   useEffect(() => {
-    if (filter.isSearchOpen && !map.geoJson) {
+    if (filterState.isSearchOpen && !mapState.geoJson) {
       updateMapState({
         loadGeoJson: true,
       });
     }
-  }, [filter.isSearchOpen, map.geoJson, updateMapState]);
+  }, [filterState.isSearchOpen, mapState.geoJson, updateMapState]);
 
   const openQuickView = useCallback(
     (feature: GeoJsonFeature) => {
       if (!feature?.properties?.id) return;
 
-      if (map?.mapController?.map) {
-        map.mapController.showQuickView(
+      if (mapState?.mapController?.map) {
+        mapState.mapController.showQuickView(
           feature.geometry.coordinates as LngLatLike,
           feature?.properties?.id,
           !isTabletLandscapeAndUp ? false : true
         );
       }
     },
-    [isTabletLandscapeAndUp, map.mapController]
+    [isTabletLandscapeAndUp, mapState.mapController]
   );
 
   useEffect(() => {
-    if (typeof window === "undefined" || !map.geoJson || !workerRef.current)
+    if (typeof window === "undefined" || !mapState.geoJson || !workerRef.current)
       return;
 
     if (keyword.length > 2) {
@@ -122,7 +125,7 @@ export const MapSearch = () => {
           currentShownKeywordRef.current = keyword;
           workerRef.current.postMessage({
             s: keyword,
-            geoJson: map.geoJson,
+            geoJson: mapState.geoJson,
           });
           setIsSearching(true);
         }
@@ -131,13 +134,13 @@ export const MapSearch = () => {
       currentShownKeywordRef.current = "";
       setSearchResult(null);
     }
-  }, [map.geoJson, keyword]);
+  }, [mapState.geoJson, keyword]);
 
   const hasNoResults = keyword.length > 2 && searchResult?.length === 0;
 
   return (
     <>
-      <LoadingBar isLoading={!map.geoJson || isSearching} />
+      <LoadingBar isLoading={!mapState.geoJson || isSearching} />
       <SidebarDrawer
         statusFlagKey="isSearchOpen"
         title="Project search"
@@ -183,7 +186,7 @@ export const MapSearch = () => {
       >
         {hasNoResults && <p>No projects found</p>}
         {!hasNoResults &&
-          (searchResult ?? map?.geoJson?.features ?? []).map(
+          (searchResult ?? mapState?.geoJson?.features ?? []).map(
             (feature: GeoJsonFeature, index: number) => {
               return (
                 <SearchItem

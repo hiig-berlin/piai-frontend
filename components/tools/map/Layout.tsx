@@ -11,13 +11,13 @@ import { UserTracking } from "~/components/app/UserTracking";
 import { LoadingBar } from "~/components/styled/LoadingBar";
 import { usePageStateContext } from "~/providers/PageStateContextProvider";
 import { MenuButton } from "~/components/app/MenuButton";
-import { ToolStateContextProvider } from "./context/ContextProviders";
 
 import { Sidebar } from "../shared/Sidebar";
 import { Submenu } from "./Submenu";
 import ReactQueryContextProvider from "./context/ReactQueryContextProvider";
 import { MapOverlays } from "./MapOverlays";
 import { DirectoryOverlays } from "./DirectoryOverlays";
+import { ToolStateQueryController } from "./ToolStateQueryController";
 
 const Map = dynamic(() => import("./Map"), {
   suspense: true,
@@ -96,27 +96,27 @@ export const Layout = ({
       <LoadingBar isLoading={isLoading} />
       <MenuButton />
       <ReactQueryContextProvider>
-        <ToolStateContextProvider>
-          <Sidebar tool="map" view={props?.view}>
-            <Submenu tool="map" slug={props?.slug} />
-          </Sidebar>
-          {showMap && (
-            <>
-              {/* 
+        <ToolStateQueryController />
+
+        <Sidebar tool="map" view={props?.view}>
+          <Submenu tool="map" slug={props?.slug} />
+        </Sidebar>
+        {showMap && (
+          <>
+            {/* 
               <Map />
               {isMap && content}
             */}
 
-              <Suspense fallback={<LoadingBar isLoading />}>
-                <Map />
-                {isMap && content}
-              </Suspense>
-            </>
-          )}
-          {!isMap && content}
-          {isMap && <MapOverlays />}
-          {isDirectory && <DirectoryOverlays />}
-        </ToolStateContextProvider>
+            <Suspense fallback={<LoadingBar isLoading />}>
+              <Map />
+              {isMap && content}
+            </Suspense>
+          </>
+        )}
+        {!isMap && content}
+        {isMap && <MapOverlays />}
+        {isDirectory && <DirectoryOverlays />}
       </ReactQueryContextProvider>
       <Menu />
     </>

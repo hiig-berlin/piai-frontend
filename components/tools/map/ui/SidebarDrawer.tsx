@@ -6,7 +6,7 @@ import DisplayBelow from "~/components/styled/DisplayBelow";
 import { Icon } from "~/components/tools/shared/ui/Icon";
 import { useModal } from "~/hooks/useModal";
 import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
-import { useToolStateContext } from "../context/ContextProviders";
+import { useToolStateFilterState, useToolStateStore, useToolStateStoreActions } from "../state/toolStateStore";
 import { Scroller } from "../Styled";
 
 const SidebarContainer = styled.div<{
@@ -141,7 +141,8 @@ export const SidebarDrawer = ({
     vars: { isTabletLandscapeAndUp, isInitializing },
   } = useCssVarsContext();
 
-  const { getFilterState, setFilterState, filter } = useToolStateContext();
+  const filterState = useToolStateFilterState();
+  const { getFilterState, setFilterState,  } = useToolStateStoreActions();
 
   const { isOpen, isOpening, isClosing, open, close } = useModal({
     defaultIsOpen: false,
@@ -149,7 +150,7 @@ export const SidebarDrawer = ({
     closeAnimationLength: 350,
   });
 
-  const isSidebarOpen = (filter as any)?.[statusFlagKey] ?? false;
+  const isSidebarOpen = (filterState as any)?.[statusFlagKey] ?? false;
 
   useEffect(() => {
     startTransition(() => {

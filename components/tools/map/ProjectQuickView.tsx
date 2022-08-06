@@ -8,11 +8,11 @@ import { LinkButtonAnimated } from "~/components/styled/Button";
 import { appConfig } from "~/config";
 import { LoadingBar } from "~/components/styled/LoadingBar";
 import { ProjectCard } from "./ProjectCard";
-import { useToolStateContext } from "./context/ContextProviders";
 import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
 import { Icon } from "../shared/ui/Icon";
 import safeHtml from "~/utils/sanitize";
 import { Scroller } from "./Styled";
+import { useToolStateFilterState, useToolStateStoreActions } from "./state/toolStateStore";
 
 const DraggableDrawer = dynamic(() => import("./map/DraggableDrawer"), {
   suspense: true,
@@ -157,7 +157,9 @@ export const ProjectQuickView = ({
   const {
     vars: { isTabletLandscapeAndUp },
   } = useCssVarsContext();
-  const { updateFilterState, filter } = useToolStateContext();
+
+  const filterState = useToolStateFilterState();
+  const { updateFilterState } = useToolStateStoreActions();
   const [isDrawerFullHeight, setIsDrawerFullHeight] = useState(false);
 
   const { isLoading, isSuccess, isRefetching, data, isError } = useQuery(
@@ -234,7 +236,7 @@ export const ProjectQuickView = ({
   if (isTabletLandscapeAndUp && hasContent)
     content = (
       <QuickView
-        isFilterOpen={filter.isFilterOpen || filter.isSearchOpen}
+        isFilterOpen={filterState.isFilterOpen || filterState.isSearchOpen}
         isDirectory={view === "directory"}
       >
         {content}

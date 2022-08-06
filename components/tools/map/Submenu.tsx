@@ -3,7 +3,11 @@ import styled from "styled-components";
 import Link from "next/link";
 import { ToolSvgBackground } from "../shared/ToolSvgBackground";
 import { Icon } from "../shared/ui/Icon";
-import { useToolStateContext } from "./context/ContextProviders";
+import {
+  useToolStateFilterState,
+  useToolStateStoreActions,
+} from "./state/toolStateStore";
+import { createQueryFromState } from "./map/utils";
 
 const sidebarPadding = "var(--size-3)";
 
@@ -48,11 +52,16 @@ const ActionItems = styled.div`
 //           or change icons to inline svgs…
 
 export const Submenu = ({ tool, slug }: { tool?: string; slug?: string }) => {
-  const { filter, updateFilterState } = useToolStateContext();
+  const filterState = useToolStateFilterState();
+  const { updateFilterState } = useToolStateStoreActions();
+
+  let queryString = createQueryFromState(filterState).join("&")
+  queryString = queryString !== "" ? `?${queryString}`:queryString;
+  
   return (
     <ToolSubmenu>
       <div>
-        <Link passHref href="/tool/map">
+        <Link passHref href={`/tool/map${queryString}`}>
           <a className="subMenuItem">
             <ToolSvgBackground
               className="svg icon"
@@ -71,7 +80,7 @@ export const Submenu = ({ tool, slug }: { tool?: string; slug?: string }) => {
               active
               onClick={() => {
                 updateFilterState({
-                  isSearchOpen: !filter.isSearchOpen,
+                  isSearchOpen: !filterState.isSearchOpen,
                   isFilterOpen: false,
                 });
               }}
@@ -81,7 +90,7 @@ export const Submenu = ({ tool, slug }: { tool?: string; slug?: string }) => {
               onClick={() => {
                 updateFilterState({
                   isSearchOpen: false,
-                  isFilterOpen: !filter.isFilterOpen,
+                  isFilterOpen: !filterState.isFilterOpen,
                 });
               }}
             />
@@ -89,7 +98,7 @@ export const Submenu = ({ tool, slug }: { tool?: string; slug?: string }) => {
         )}
       </div>
       <div className="actionItems">
-        <Link passHref href="/tool/map/directory">
+        <Link passHref href={`/tool/map/directory${queryString}`}>
           <a className="subMenuItem">
             <ToolSvgBackground
               className="svg icon"

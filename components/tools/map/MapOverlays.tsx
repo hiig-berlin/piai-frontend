@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import { useToolStateContext } from "./context/ContextProviders";
 import { Counter } from "./Counter";
 import { MapFilter } from "./MapFilter";
 import { ProjectQuickView } from "./ProjectQuickView";
 import { MapSearch } from "./MapSearch";
+import { useToolStateFilterState } from "./state/toolStateStore";
 
 const Container = styled.div`
   position: absolute;
@@ -15,14 +15,17 @@ const Container = styled.div`
 `;
 
 export const MapOverlays = () => {
-  const { filter } = useToolStateContext();
-
+  const filterState = useToolStateFilterState();
   return (
     <Container>
       <MapSearch />
       <MapFilter />
-      {filter?.quickViewProjectId && (
-        <ProjectQuickView key={`map-qv-${filter.quickViewProjectId}`} id={filter.quickViewProjectId} view="map" />
+      {filterState?.quickViewProjectId && (
+        <ProjectQuickView
+          key={`map-qv-${filterState.quickViewProjectId}`}
+          id={filterState.quickViewProjectId}
+          view="map"
+        />
       )}
       <Counter view="map" />
     </Container>

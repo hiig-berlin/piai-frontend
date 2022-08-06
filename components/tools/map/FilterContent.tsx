@@ -1,19 +1,19 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useCallback } from "react";
 import styled from "styled-components";
-import cloneDeep from "lodash/cloneDeep";
 
 import { Icon } from "../shared/ui/Icon";
 
-import {
-  defaultQueryString,
-  defaultToolState,
-  FilterState,
-  useToolStateContext,
-} from "./context/ContextProviders";
 import { createQueryFromState } from "./map/utils";
 import { TaxonomyCheckboxGroup } from "./ui/TaxonomyCheckboxGroup";
 import { ActiveFilterOption } from "./ui/ActiveFilterOption";
+import {
+  useToolStateFilterState,
+  useToolStateSettingsState,
+  useToolStateStoreActions,
+  defaultQueryString,
+  FilterState,
+} from "./state/toolStateStore";
 
 const ActiveFilters = styled.div`
   width: 100%;
@@ -36,8 +36,9 @@ let previousPathName = "";
 export const FilterContent = () => {
   const router = useRouter();
 
-  const { getFilterState, setFilterState, filter, settings } =
-    useToolStateContext();
+  const filterState = useToolStateFilterState();
+  const settingsState = useToolStateSettingsState();
+  const { getDefaultState, getFilterState, setFilterState, updateFilterState } = useToolStateStoreActions();
 
   const maybeUpdateQueryString = useCallback(
     (state: FilterState) => {
@@ -90,7 +91,7 @@ export const FilterContent = () => {
 
   const resetFilter = useCallback(() => {
     const newState = {
-      ...cloneDeep(defaultToolState.filter),
+      ...getDefaultState().filter,
       isFilterOpen: true,
       quickViewProjectId: getFilterState().quickViewProjectId,
       totalCount: getFilterState().totalCount,
@@ -99,7 +100,7 @@ export const FilterContent = () => {
 
     setFilterState(newState);
     maybeUpdateQueryString(newState);
-  }, [setFilterState, getFilterState, maybeUpdateQueryString]);
+  }, [getDefaultState, setFilterState, getFilterState, maybeUpdateQueryString]);
 
   const updateFromQuery = useCallback(
     (isInitCall: boolean) => {
@@ -107,7 +108,7 @@ export const FilterContent = () => {
         if (!isInitCall) {
           resetFilter();
         }
-      } else if (settings?.styleUrl !== "") {
+      } else if (settingsState?.styleUrl !== "") {
         const newState: any = {};
 
         const params = new URLSearchParams(document.location.search);
@@ -124,7 +125,7 @@ export const FilterContent = () => {
           ].reduce((carry: any, key: any) => {
             return {
               ...carry,
-              ...((settings as any)?.[key]?.options ?? []).reduce(
+              ...((settingsState as any)?.[key]?.options ?? []).reduce(
                 (c: any, term: any) => ({
                   ...c,
                   [term.id]: term.name,
@@ -146,14 +147,13 @@ export const FilterContent = () => {
         }
 
         if (Object.keys(newState).length) {
-          setFilterState({
-            ...getFilterState(),
+          updateFilterState({
             ...newState,
           });
         }
       }
     },
-    [settings, setFilterState, getFilterState, resetFilter]
+    [settingsState, updateFilterState, resetFilter]
   );
 
   useEffect(() => {
@@ -161,7 +161,7 @@ export const FilterContent = () => {
 
     // bit hacky but as the component is rendered several times we want to make sure to
     // only check the query string once (on load)
-    if (settings?.styleUrl !== "" && !isInit) {
+    if (settingsState?.styleUrl !== "" && !isInit) {
       updateFromQuery(true);
       isInit = true;
       previousPathName = document.location.pathname;
@@ -182,20 +182,20 @@ export const FilterContent = () => {
       router.events.off("routeChangeComplete", onRouterChangeComplete);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [settings?.styleUrl]);
+  }, [settingsState?.styleUrl]);
 
   let activeFilters: any[] = [];
 
-  if (Object.keys(filter?.terms ?? {}).length) {
+  if (Object.keys(filterState?.terms ?? {}).length) {
     activeFilters = [
       ...activeFilters,
-      ...Object.keys(filter?.terms ?? {}).map((termId: any) => (
+      ...Object.keys(filterState?.terms ?? {}).map((termId: any) => (
         <ActiveFilterOption
           key={`term-${termId}`}
           onRemove={() => {
             updateTaxonomyState(termId, "", false);
           }}
-          label={((filter?.terms ?? {}) as any)?.[termId] ?? "unknown"}
+          label={((filterState?.terms ?? {}) as any)?.[termId] ?? "unknown"}
         />
       )),
     ];
@@ -219,27 +219,27 @@ export const FilterContent = () => {
           </ClearAll>
         </ActiveFilters>
       )}
-      {(settings?.industrialSector?.options?.length ?? 0) > 0 && (
+      {(settingsState?.industrialSector?.options?.length ?? 0) > 0 && (
         <TaxonomyCheckboxGroup
           label="Industrial Sector"
-          activeTerms={filter?.terms ?? {}}
-          options={settings?.industrialSector?.options}
+          activeTerms={filterState?.terms ?? {}}
+          options={settingsState?.industrialSector?.options}
           updateState={updateTaxonomyState}
         />
       )}
-      {(settings?.industrialSector?.options?.length ?? 0) > 0 && (
+      {(settingsState?.industrialSector?.options?.length ?? 0) > 0 && (
         <TaxonomyCheckboxGroup
           label="Use of AI"
-          activeTerms={filter?.terms ?? {}}
-          options={settings?.useOfAi?.options}
+          activeTerms={filterState?.terms ?? {}}
+          options={settingsState?.useOfAi?.options}
           updateState={updateTaxonomyState}
         />
       )}
-      {(settings?.funding?.options?.length ?? 0) > 0 && (
+      {(settingsState?.funding?.options?.length ?? 0) > 0 && (
         <TaxonomyCheckboxGroup
           label="Type of funding"
-          activeTerms={filter?.terms ?? {}}
-          options={settings?.funding?.options}
+          activeTerms={filterState?.terms ?? {}}
+          options={settingsState?.funding?.options}
           updateState={updateTaxonomyState}
         />
       )}

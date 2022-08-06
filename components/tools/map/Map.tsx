@@ -2,10 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 
-import {
-  defaultQueryString,
-  useToolStateContext,
-} from "./context/ContextProviders";
 import { MapController } from "./map/MapController";
 import { useConfigContext } from "~/providers/ConfigContextProvider";
 import useIsMounted from "~/hooks/useIsMounted";
@@ -14,6 +10,13 @@ import { MapGlobalCss } from "./map/MapGlobalCss";
 import { Icon } from "../shared/ui/Icon";
 import { createQueryFromState } from "./map/utils";
 import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
+import {
+  useToolStateFilterState,
+  useToolStateMapState,
+  useToolStateSettingsState,
+  useToolStateStoreActions,
+  defaultQueryString
+} from "./state/toolStateStore";
 
 const MapUi = styled.div`
   background-color: #000c;
@@ -50,8 +53,6 @@ const MapContainer = styled.div`
   background-color: #000;
 `;
 
-
-
 export const Map = ({ isVisible }: { isVisible?: boolean }) => {
   const uiRemoveTimoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -72,21 +73,24 @@ export const Map = ({ isVisible }: { isVisible?: boolean }) => {
   const [isMapInitialized, setIsMapInitialized] = useState(false);
   const [hasAutoFilterShown, setHasAutoFilterShown] = useState(false);
 
-  const { map, settings, filter, getState, updateMapState, updateFilterState } =
-    useToolStateContext();
+  const mapState = useToolStateMapState();
+  const filterState = useToolStateFilterState();
+  const settingsState = useToolStateSettingsState();
+  const { getState, updateMapState, updateFilterState } =
+    useToolStateStoreActions();
 
   useEffect(() => {
     if (typeof window === "undefined") return;
 
     if (
       mapContainerRef.current &&
-      settings?.styleUrl?.trim() !== "" &&
+      settingsState?.styleUrl?.trim() !== "" &&
       !mapControllerRef.current
     ) {
       const controller = new MapController(
         router,
         config,
-        settings?.styleUrl,
+        settingsState?.styleUrl,
         getState,
         updateMapState,
         updateFilterState
@@ -108,7 +112,7 @@ export const Map = ({ isVisible }: { isVisible?: boolean }) => {
       setIsMapInitialized(true);
     }
   }, [
-    settings?.styleUrl,
+    settingsState?.styleUrl,
     isMounted,
     config,
     router,
@@ -117,7 +121,7 @@ export const Map = ({ isVisible }: { isVisible?: boolean }) => {
     updateFilterState,
   ]);
 
-  const currentQueryString = createQueryFromState(filter, {
+  const currentQueryString = createQueryFromState(filterState, {
     onlyIds: "1",
   }).join("&");
 
@@ -131,19 +135,24 @@ export const Map = ({ isVisible }: { isVisible?: boolean }) => {
         }
       } else {
         if (
-          filter.filteredIds?.length &&
-          mapLastFilterRef.current !== filter.filterQueryString
+          filterState.filteredIds?.length &&
+          mapLastFilterRef.current !== filterState.filterQueryString
         ) {
           mapControllerRef.current?.setFilteredViewData(
             "clustered",
-            filter.filteredIds
+            filterState.filteredIds
           );
           mapControllerRef.current?.showView("clustered");
-          mapLastFilterRef.current = filter.filterQueryString;
+          mapLastFilterRef.current = filterState.filterQueryString;
         }
       }
     }
-  }, [isMapInitialized, filter.filteredIds, filter.filterQueryString, currentQueryString]);
+  }, [
+    isMapInitialized,
+    filterState.filteredIds,
+    filterState.filterQueryString,
+    currentQueryString,
+  ]);
 
   useEffect(() => {
     updateMapState({
@@ -153,9 +162,9 @@ export const Map = ({ isVisible }: { isVisible?: boolean }) => {
   }, []);
 
   useEffect(() => {
-    if (map.loadGeoJson && map.geoJson && mapControllerRef.current)
-      mapControllerRef.current.setGeoJson(map.geoJson);
-  }, [map.loadGeoJson, map.geoJson]);
+    if (mapState.loadGeoJson && mapState.geoJson && mapControllerRef.current)
+      mapControllerRef.current.setGeoJson(mapState.geoJson);
+  }, [mapState.loadGeoJson, mapState.geoJson]);
 
   useEffect(() => {
     if (isTabletLandscapeAndUp && !hasAutoFilterShown) {

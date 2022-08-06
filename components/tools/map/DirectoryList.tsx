@@ -1,15 +1,18 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
-import {
-  useToolStateContext,
-  defaultQueryString,
-} from "./context/ContextProviders";
 import { SearchItem } from "./SearchItem";
 import type { GeoJsonFeature } from "./map/types";
 import { Scroller } from "./Styled";
 import useIsMounted from "~/hooks/useIsMounted";
 import { createQueryFromState } from "./map/utils";
+import {
+  useToolStateFilterState,
+  useToolStateMapState,
+  useToolStateStoreActions,
+  defaultQueryString,
+} from "./state/toolStateStore";
+import { useEffectOnMountOnce } from "~/hooks/useEffectOnMountOnce";
 
 const Container = styled.div<{ isFilterOpen: boolean }>`
   position: fixed;
@@ -89,7 +92,9 @@ const Panel = styled.div<{
 export const DirectoryList = () => {
   const isMounted = useIsMounted();
 
-  const { map, filter, updateFilterState } = useToolStateContext();
+  const mapState = useToolStateMapState();
+  const filterState = useToolStateFilterState();
+  const { updateFilterState } = useToolStateStoreActions();
 
   const currentlyRenderedQueryStringRef = useRef<string | null>();
   const workerRef = useRef<Worker>();
@@ -120,7 +125,7 @@ export const DirectoryList = () => {
     [isMounted]
   );
 
-  useEffect(() => {
+  useEffectOnMountOnce(() => {
     workerRef.current = new Worker(
       new URL("./worker/filterByIds.ts", import.meta.url)
     );
@@ -128,24 +133,32 @@ export const DirectoryList = () => {
     workerRef.current.onmessage = onWorkerMessage;
 
     return () => {
-      if (workerRef.current) workerRef.current.terminate();
+      if (workerRef.current) {
+        workerRef.current.terminate();
+      }
     };
   }, [onWorkerMessage]);
 
-  const currentQueryString = createQueryFromState(filter).join("&");
+  const currentQueryString = createQueryFromState(filterState).join("&");
 
   useEffect(() => {
-    if (typeof window === "undefined" || !map.geoJson || !workerRef.current)
+    if (
+      typeof window === "undefined" ||
+      !mapState.geoJson ||
+      !workerRef.current
+    )
       return;
 
-    if (Array.isArray(filter.filteredIds) && currentQueryString !== "") {
+    if (Array.isArray(filterState.filteredIds) && currentQueryString !== "") {
       if (
-        filter.filterQueryString !== currentlyRenderedQueryStringRef.current
+        filterState.filterQueryString !==
+        currentlyRenderedQueryStringRef.current
       ) {
-        currentlyRenderedQueryStringRef.current = filter.filterQueryString;
+        currentlyRenderedQueryStringRef.current = filterState.filterQueryString;
+
         workerRef.current.postMessage({
-          ids: filter.filteredIds,
-          geoJson: map.geoJson,
+          ids: filterState.filteredIds,
+          geoJson: mapState.geoJson,
         });
         setIsFiltering(true);
       }
@@ -153,10 +166,10 @@ export const DirectoryList = () => {
       setSearchResult(null);
     }
   }, [
-    filter.filteredIds,
-    filter.filterQueryString,
+    filterState.filteredIds,
+    filterState.filterQueryString,
     currentQueryString,
-    map.geoJson,
+    mapState.geoJson,
   ]);
 
   const hasNoResults = searchResult?.length === 0;
@@ -164,7 +177,7 @@ export const DirectoryList = () => {
   return (
     <Container isFilterOpen={true}>
       <Panel
-        isRefetching={isFiltering || filter.isFetchingFilteredIds}
+        isRefetching={isFiltering || filterState.isFetchingFilteredIds}
         isFullHeight={false}
       >
         <Header>
@@ -179,7 +192,7 @@ export const DirectoryList = () => {
           {hasNoResults && <p>No projects found</p>}
 
           {!hasNoResults &&
-            (searchResult ?? map?.geoJson?.features ?? []).map(
+            (searchResult ?? mapState?.geoJson?.features ?? []).map(
               (feature: GeoJsonFeature, index: number) => {
                 return (
                   <SearchItem

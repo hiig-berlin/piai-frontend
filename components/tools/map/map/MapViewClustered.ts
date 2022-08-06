@@ -5,7 +5,6 @@ import debounce from "lodash/debounce";
 
 import type { MapController } from "./MapController";
 import { MapPopup } from "./MapPopup";
-import type { MapState } from "../context/ContextProviders";
 
 const CLUSTER_ZOOM_IN_ANIMATION_TIME = 1000;
 const CLUSTER_COUNT_UPDATE_TIMEOUT = 500;

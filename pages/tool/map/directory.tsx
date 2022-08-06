@@ -7,8 +7,7 @@ import Layout from "~/components/tools/map/Layout";
 import { restApiGetSettings } from "~/utils/restApi";
 import { appConfig } from "~/config";
 import { PiAiTool } from "~/types";
-import { LabElement } from "~/components/ui/LabElement";
-import { useToolStateContext } from "~/components/tools/map/context/ContextProviders";
+import { useToolStateStoreActions } from "~/components/tools/map/state/toolStateStore";
 
 const Content = styled.div`
   width: 100%;
@@ -35,7 +34,7 @@ const Content = styled.div`
 `;
 
 const Directory = ({ tool }: { tool: PiAiTool }) => {
-  const { updateFilterState } = useToolStateContext();
+  const { updateFilterState } = useToolStateStoreActions();
 
   useEffect(() => {
     updateFilterState({

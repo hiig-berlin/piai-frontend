@@ -1,9 +1,14 @@
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
 import { Icon } from "../shared/ui/Icon";
-import { useToolStateContext } from "./context/ContextProviders";
+
+import {
+  useToolStateFilterState,
+  useToolStateMapState,
+  useToolStateStoreActions,
+} from "./state/toolStateStore";
 
 const CounterContainer = styled.div<{ invert: boolean }>`
   background: ${({ theme, invert }) =>
@@ -83,27 +88,16 @@ export const Counter = ({ view }: { view: string }) => {
     vars: { isTabletLandscapeAndUp },
   } = useCssVarsContext();
 
-  const { map, filter, updateFilterState } = useToolStateContext();
+  const mapState = useToolStateMapState();
+  const filterState = useToolStateFilterState();
 
-  // uhh the following lines force the counter component to rerender on mount 
-  // sometimes changes to the tool context did not propagate through and totalCount remained 0
-  const [, setTriggerRerender] = useState(false);
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    const id = setTimeout(() => {
-      setTriggerRerender(true);
-    }, 500);
-
-    return () => {
-      if (id) clearTimeout(id);
-    };
-  }, []);
+  const { updateFilterState } = useToolStateStoreActions();
 
   return (
     <CounterContainer
       invert={
-        (filter.isFilterOpen || filter.isSearchOpen) && !isTabletLandscapeAndUp
+        (filterState.isFilterOpen || filterState.isSearchOpen) &&
+        !isTabletLandscapeAndUp
       }
     >
       {!isTabletLandscapeAndUp && (
@@ -111,7 +105,7 @@ export const Counter = ({ view }: { view: string }) => {
           type="filter"
           onClick={() => {
             updateFilterState({
-              isFilterOpen: !filter.isFilterOpen,
+              isFilterOpen: !filterState.isFilterOpen,
               isSearchOpen: false,
             });
           }}
@@ -122,13 +116,14 @@ export const Counter = ({ view }: { view: string }) => {
           <Label
             label={isTabletLandscapeAndUp ? "Projects in view" : "In view"}
           >
-            <strong>{map.filteredInViewCount}</strong>/{map.totalInViewCount}
+            <strong>{mapState.filteredInViewCount}</strong>/
+            {mapState.totalInViewCount}
           </Label>
         </div>
       )}
       <div className="total">
         <Label label={isTabletLandscapeAndUp ? "Projects total" : "Total"}>
-          <strong>{filter.filteredCount}</strong>/{filter.totalCount}
+          <strong>{filterState.filteredCount}</strong>/{filterState.totalCount}
         </Label>
       </div>
       {isTabletLandscapeAndUp ? (
@@ -163,7 +158,7 @@ export const Counter = ({ view }: { view: string }) => {
           onClick={() => {
             updateFilterState({
               isFilterOpen: false,
-              isSearchOpen: !filter.isSearchOpen,
+              isSearchOpen: !filterState.isSearchOpen,
             });
           }}
         />
