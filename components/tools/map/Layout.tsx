@@ -110,7 +110,8 @@ export const Layout = ({
 
             {/*
               Dynamic loading of modules does not play nice width server side rendering 
-              at the moment react 18 throws client side hydration error. 
+              at the moment react 18 throws client side hydration error.
+              hence we're using next.js dynamic loading: ... above 
               <Suspense fallback={<LoadingBar isLoading />}>
                 <Map />
                 {isMap && content}
