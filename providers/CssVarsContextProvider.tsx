@@ -74,13 +74,14 @@ export const CssVarsContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
+  const isMounted = useIsMounted();
+  
   const cssVarsRef = useRef<CssVarContextVars>(cssVarContextVarsDefault);
+  const currentOrientationRef = useRef("");
+
   const [, setCssVars] = useState<CssVarContextVars>(
     cssVarContextVarsDefault
   );
-
-  const currentOrientationRef = useRef("");
-  const isMounted = useIsMounted();
 
   const getVars = useCallback(() => cssVarsRef.current, []);
 
