@@ -12,7 +12,7 @@ import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
 import { Icon } from "../shared/ui/Icon";
 import safeHtml from "~/utils/sanitize";
 import { Scroller } from "./Styled";
-import { useToolStateFilterState, useToolStateStoreActions } from "./state/toolStateStore";
+import { useToolStateFilterState, useToolStateStoreActions } from "./state/ToolState";
 
 const DraggableDrawer = dynamic(() => import("./map/DraggableDrawer"), {
   suspense: true,

@@ -9,7 +9,7 @@ import { Icon } from "../shared/ui/Icon";
 import {
   useToolStateMapState,
   useToolStateStoreActions,
-} from "./state/toolStateStore";
+} from "./state/ToolState";
 
 const ContributeBox = styled(Box)<{ seen?: Boolean }>`
   ${({ seen }) => seen && "display: none;"}

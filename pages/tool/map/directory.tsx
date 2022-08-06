@@ -7,7 +7,7 @@ import Layout from "~/components/tools/map/Layout";
 import { restApiGetSettings } from "~/utils/restApi";
 import { appConfig } from "~/config";
 import { PiAiTool } from "~/types";
-import { useToolStateStoreActions } from "~/components/tools/map/state/toolStateStore";
+import { useToolStateStoreActions } from "~/components/tools/map/state/ToolState";
 
 const Content = styled.div`
   width: 100%;

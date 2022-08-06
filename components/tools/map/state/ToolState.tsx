@@ -1,8 +1,7 @@
-import React from "react";
-// import cloneDeep from "lodash/cloneDeep";
-
 import type { MapController } from "../map/MapController";
 import { GeoJson } from "../map/types";
+import create from "zustand";
+import { createQueryFromState } from "../map/utils";
 
 export type MapState = {
   ready: boolean;
@@ -87,19 +86,12 @@ export type ToolStateActions = {
   setSettingsState: (state: Settings) => void;
 };
 
-export type ToolStateStore = ToolStateActions & {
-  map: MapState;
-  filter: FilterState;
-  settings: Settings;
-};
+export type ToolStateStore = ToolState & ToolStateActions;
 
 export type ToolStateAction = {
   type: string;
   payload?: MapState | FilterState | Partial<FilterState> | Settings | GeoJson;
 };
-
-import create from "zustand";
-import { createQueryFromState } from "../map/utils";
 
 export const defaultToolState: ToolState = {
   map: {
@@ -142,7 +134,7 @@ export const defaultToolState: ToolState = {
 
 export const quickClone = (obj: any): any => {
   if (!obj) return obj;
-  
+
   if (Array.isArray(obj)) return [...obj];
 
   if (typeof obj !== "object") return obj;

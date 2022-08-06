@@ -7,7 +7,7 @@ import { ProjectQuickView } from "./ProjectQuickView";
 import {
   useToolStateFilterState,
   useToolStateStoreActions,
-} from "./state/toolStateStore";
+} from "./state/ToolState";
 
 const Container = styled.div`
   position: absolute;

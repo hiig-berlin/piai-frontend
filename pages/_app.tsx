@@ -17,13 +17,13 @@ import { GlobalStyle } from "~/theme/globalstyle";
 import { AccessibiliyHelpers } from "~/components/app/AccessibiliyHelpers";
 import { HeaderContextProvider } from "~/providers/HeaderContextProvider";
 import { MenuContextProvider } from "~/providers/MenuContextProvider";
-import { PageStateContextProvider } from "~/providers/PageStateContextProvider";
 import { withPasswordProtect } from "~/components/app/PasswordProtect";
 import { AppDefaultHead } from "~/components/app/AppDefaultHead";
 import { CssVarsContextProvider } from "~/providers/CssVarsContextProvider";
 import { appConfig } from "~/config";
 import { ErrorLock } from "~/components/app/ErrorLock";
 import { DevInfo } from "~/components/ui/DevInfo";
+import { PageStateController } from "~/components/state/PageState";
 
 const SmoothScroll = dynamic(() => import("~/components/ui/SmoothScroll"));
 
@@ -38,9 +38,12 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
 
-const CustomErrorHandler = (error: Error /* , info: { componentStack: string } */ ) => {
-  if (typeof window === "undefined" || process.env.NODE_ENV === "development") return;
-  
+const CustomErrorHandler = (
+  error: Error /* , info: { componentStack: string } */
+) => {
+  if (typeof window === "undefined" || process.env.NODE_ENV === "development")
+    return;
+
   if (appConfig.errorLogUrl.trim()) {
     fetch(appConfig.errorLogUrl, {
       method: "POST",
@@ -72,26 +75,25 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
           <SmoothScroll />
         )}
       <ConfigContextProvider>
-        <ThemeProvider theme={{...theme, colorMode: pageProps?.themeColorMode ?? "dark"}}>
+        <ThemeProvider
+          theme={{ ...theme, colorMode: pageProps?.themeColorMode ?? "dark" }}
+        >
           <SettingsContextProvider
             frontendSettings={pageProps.frontendSettings}
           >
             <CssVarsContextProvider>
               <MenuContextProvider>
-                <PageStateContextProvider>
-                  <HeaderContextProvider>
-                    <GlobalStyle />
-                    <AccessibiliyHelpers />
+                <HeaderContextProvider>
+                  <GlobalStyle />
+                  <PageStateController />
+                  <AccessibiliyHelpers />
 
-                    <AppDefaultHead />
-                    <ErrorLock
-                      onError={CustomErrorHandler}
-                    >
-                      {getLayout(<Component {...pageProps} />, pageProps)}
-                    </ErrorLock>
-                    {process.env.NODE_ENV === "development" && <DevInfo />}
-                  </HeaderContextProvider>
-                </PageStateContextProvider>
+                  <AppDefaultHead />
+                  <ErrorLock onError={CustomErrorHandler}>
+                    {getLayout(<Component {...pageProps} />, pageProps)}
+                  </ErrorLock>
+                  {process.env.NODE_ENV === "development" && <DevInfo />}
+                </HeaderContextProvider>
               </MenuContextProvider>
             </CssVarsContextProvider>
           </SettingsContextProvider>

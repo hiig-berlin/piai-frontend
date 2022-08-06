@@ -8,7 +8,7 @@ import {
   useToolStateFilterState,
   useToolStateMapState,
   useToolStateStoreActions,
-} from "./state/toolStateStore";
+} from "./state/ToolState";
 
 const CounterContainer = styled.div<{ invert: boolean }>`
   background: ${({ theme, invert }) =>

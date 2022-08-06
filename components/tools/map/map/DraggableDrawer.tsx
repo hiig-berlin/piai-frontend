@@ -3,7 +3,7 @@ import { useSpring, config, animated } from "react-spring";
 import { useDrag } from "@use-gesture/react";
 import styled from "styled-components";
 import useIsMounted from "~/hooks/useIsMounted";
-import { useToolStateStoreActions } from "../state/toolStateStore";
+import { useToolStateStoreActions } from "../state/ToolState";
 
 const Container = styled.div`
   background: #000;

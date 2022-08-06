@@ -9,7 +9,6 @@ import { useConfigContext } from "~/providers/ConfigContextProvider";
 import { Menu } from "~/components/app/Menu";
 import { UserTracking } from "~/components/app/UserTracking";
 import { LoadingBar } from "~/components/styled/LoadingBar";
-import { usePageStateContext } from "~/providers/PageStateContextProvider";
 import { MenuButton } from "~/components/app/MenuButton";
 
 import { Sidebar } from "../shared/Sidebar";
@@ -17,7 +16,8 @@ import { Submenu } from "./Submenu";
 import ReactQueryContextProvider from "./context/ReactQueryContextProvider";
 import { MapOverlays } from "./MapOverlays";
 import { DirectoryOverlays } from "./DirectoryOverlays";
-import { ToolStateQueryController } from "./ToolStateQueryController";
+import { ToolStateController } from "./state/ToolStateController";
+import { usePageStateIsLoadingState, usePageStateStore } from "~/components/state/PageState";
 
 const Map = dynamic(() => import("./Map"), {
   suspense: true,
@@ -62,7 +62,7 @@ export const Layout = ({
   props: any;
 }) => {
   const config = useConfigContext();
-  const { isLoading } = usePageStateContext();
+  const isLoading = usePageStateStore((state) => state.isLoading);
 
   const [showMap, setShowMap] = useState(props?.view === "map");
 
@@ -79,6 +79,7 @@ export const Layout = ({
     <ContentContainer isTransparent={isMap}>{children}</ContentContainer>
   );
 
+  console.log("layout", isLoading);
   return (
     <>
       <NextHeadSeo
@@ -96,7 +97,7 @@ export const Layout = ({
       <LoadingBar isLoading={isLoading} />
       <MenuButton />
       <ReactQueryContextProvider>
-        <ToolStateQueryController />
+        <ToolStateController />
 
         <Sidebar tool="map" view={props?.view}>
           <Submenu tool="map" slug={props?.slug} />

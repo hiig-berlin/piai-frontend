@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import safeHtml from "~/utils/sanitize";
 
-import type { FilterSettingTaxonomyOption } from "../state/toolStateStore";
+import type { FilterSettingTaxonomyOption } from "../state/ToolState";
 import { FieldCheckbox } from "./FieldCheckbox";
 
 const Container = styled.div`

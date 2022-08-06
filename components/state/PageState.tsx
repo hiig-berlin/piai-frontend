@@ -1,83 +1,132 @@
 import React, {
-  createContext,
-  useContext,
   useEffect,
   useRef,
   useState,
   useCallback,
   startTransition,
 } from "react";
+import create from "zustand";
 import useIsMounted from "~/hooks/useIsMounted";
 import { useRouter } from "next/router";
 
 import { useMenuContext } from "~/providers/MenuContextProvider";
 
-type PageState = {
+export type PageState = {
   isLoading: boolean;
-  getWasBack: Function;
-  getCurrentPath: Function;
-  getIsLoading: Function;
-  getPreviousPath: Function;
+  wasBack: boolean;
+  currentPath: string;
+  previousPath: string;
 };
 
-// create context
-const PageStateContext = createContext<PageState>({
+export type PageStateActions = {
+  getPageState: () => PageState;
+  setPageState: (state: PageState) => void;
+  updatePageState: (state: Partial<PageState>) => void;
+  getWasBack: () => boolean;
+  getCurrentPath: () => string;
+  setCurrentPath: (path: string) => void;
+  getIsLoading: () => boolean;
+  getPreviousPath: () => string;
+};
+
+export type PageStateStore = PageState & PageStateActions;
+
+export const usePageStateStore = create<PageStateStore>((set, get) => ({
   isLoading: true,
-  getWasBack: () => false,
-  getIsLoading: () => false,
-  getPreviousPath: () => "/",
-  getCurrentPath: () => "/",
-});
+  wasBack: false,
+  currentPath: "/",
+  previousPath: "/",
+  getPageState: () => get(),
+  setPageState: (state: PageState) =>
+    set(() => ({
+      ...state,
+    })),
+  updatePageState: (state: Partial<PageState>) =>
+    set(() => ({
+      ...state,
+    })),
+  getWasBack: () => get().wasBack,
+  getIsLoading: () => get().isLoading,
+  getCurrentPath: () => get().currentPath,
+  setCurrentPath: (path: string) => {
+    if (path && get().currentPath !== path) {
+      set({
+        previousPath: get().currentPath,
+        currentPath: path,
+      });
+    }
+  },
+  getPreviousPath: () => get().previousPath,
+}));
 
-export const usePageStateContext = () => useContext(PageStateContext);
+export const usePageStateStoreActions = () => {
+  return usePageStateStore(
+    (state) =>
+      Object.keys(state).reduce(
+        (carry: Partial<PageStateStore>, key: string) => {
+          if (
+            key.startsWith("get") ||
+            key.startsWith("set") ||
+            key.startsWith("update")
+          ) {
+            carry = {
+              ...carry,
+              [key]: state[key as keyof PageStateStore],
+            };
+          }
+          return carry;
+        },
+        {}
+      ) as PageStateActions
+  );
+};
 
-// context provider
-export const PageStateContextProvider = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
+export const usePageStateIsLoadingState = () =>
+  usePageStateStore((state) => state.isLoading);
+
+// page state controller
+export const PageStateController = () => {
   const isMounted = useIsMounted();
   const { close } = useMenuContext();
   const router = useRouter();
 
-  const currentPathRef = useRef("");
-  const previousPathRef = useRef("");
-  const isLoadingRef = useRef<boolean>(true);
   const isBackRef = useRef<boolean>(false);
-  const wasBackRef = useRef<boolean>(false);
   const fontLoadTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const [isLoading, setIsLoading] = useState(true);
   const [isFontsAreLoaded, setIsFontsAreLoaded] = useState(false);
   const [isInitiallyLoaded, setIsInitiallyLoaded] = useState(false);
 
-  const getIsLoading = useCallback(() => isLoadingRef.current, []);
-  const getWasBack = useCallback(() => wasBackRef.current, []);
-  const getPreviousPath = useCallback(() => previousPathRef.current, []);
-  const getCurrentPath = useCallback(() => currentPathRef.current, []);
-
-  const setCurrentPath = useCallback((path: string) => {
-    if (path && currentPathRef.current !== path) {
-      previousPathRef.current = `${currentPathRef.current}`;
-      currentPathRef.current = `${path}`;
-    }
-  }, []);
+  const isLoading = usePageStateStore((state) => state.isLoading);
+  const { updatePageState, getCurrentPath } = usePageStateStoreActions();
 
   const onLoadStart = useCallback(() => {
-    wasBackRef.current = isBackRef.current;
     close();
-    setIsLoading(true);
-    isLoadingRef.current = true;
+
+    updatePageState({
+      wasBack: isBackRef.current,
+      isLoading: true,
+    });
+
     if (typeof document !== "undefined") {
       document.body.setAttribute("tabindex", "-1");
     }
-  }, [close]);
+  }, [close, updatePageState]);
 
   const onLoadEnd = useCallback(
     (url = null) => {
-      setIsLoading(false);
-      isLoadingRef.current = false;
+      let newState: Partial<PageState> = {
+        isLoading: false,
+      };
+
+      if (typeof url === "string") {
+        newState = {
+          ...newState,
+          previousPath: getCurrentPath(),
+          currentPath: url,
+        };
+      }
+
+      updatePageState(newState);
 
       if (typeof window !== "undefined") {
         if (!isBackRef.current) {
@@ -90,22 +139,16 @@ export const PageStateContextProvider = ({
       }
       isBackRef.current = false;
 
-      if (typeof url === "string") setCurrentPath(url);
-
       if (typeof window !== "undefined") {
         document.body.removeAttribute("tabindex");
         document.body.classList.remove("tabbed");
         document.body.focus();
       }
     },
-    [setCurrentPath]
+    [getCurrentPath, updatePageState]
   );
 
   useEffect(() => {
-    startTransition(() => {
-      setIsLoading(true);
-    });
-
     router.beforePopState((state) => {
       isBackRef.current = true;
       return true;
@@ -167,24 +210,13 @@ export const PageStateContextProvider = ({
   useEffect(() => {
     if (!isInitiallyLoaded && isLoading && isFontsAreLoaded) {
       startTransition(() => {
-        setIsLoading(false);
-        isLoadingRef.current = false;
+        updatePageState({
+          isLoading: false,
+        });
         setIsInitiallyLoaded(true);
       });
     }
-  }, [isInitiallyLoaded, isLoading, isFontsAreLoaded]);
+  }, [isInitiallyLoaded, isLoading, isFontsAreLoaded, updatePageState]);
 
-  return (
-    <PageStateContext.Provider
-      value={{
-        isLoading: isLoading || !isFontsAreLoaded,
-        getWasBack,
-        getIsLoading,
-        getPreviousPath,
-        getCurrentPath,
-      }}
-    >
-      {children}
-    </PageStateContext.Provider>
-  );
+  return <></>;
 };

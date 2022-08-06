@@ -4,7 +4,7 @@ import { Counter } from "./Counter";
 import { MapFilter } from "./MapFilter";
 import { ProjectQuickView } from "./ProjectQuickView";
 import { MapSearch } from "./MapSearch";
-import { useToolStateFilterState } from "./state/toolStateStore";
+import { useToolStateFilterState } from "./state/ToolState";
 
 const Container = styled.div`
   position: absolute;

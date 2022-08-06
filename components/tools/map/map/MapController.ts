@@ -19,7 +19,7 @@ import { breakpointEMs } from "~/theme/breakpoints";
 import { EMPTY_GEOJSON } from "./utils";
 import { themeSpace } from "~/theme/theme";
 import { GeoJson } from "./types";
-import type { ToolState, MapState, FilterState } from "../state/toolStateStore";
+import type { ToolState, MapState, FilterState } from "../state/ToolState";
 
 export type MapFitToBoundingBoxOptions = CameraForBoundsOptions & {
   minZoom?: number;

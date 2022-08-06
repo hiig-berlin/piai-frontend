@@ -2,16 +2,16 @@ import React, { useEffect } from "react";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 
 import { appConfig } from "~/config";
-import { GeoJson } from "./map/types";
+import { GeoJson } from "../map/types";
 
-import { createQueryFromState } from "./map/utils";
+import { createQueryFromState } from "../map/utils";
 import {
   defaultToolState,
   Settings,
   useToolStateFilterState,
   useToolStateMapState,
   useToolStateStoreActions,
-} from "./state/toolStateStore";
+} from "./ToolState";
 
 const fetchSettings = async ({ signal }: QueryFunctionContext) => {
   return fetch(`${appConfig.apiUrl}/fluxed/v1/piai/filter`, {
@@ -50,7 +50,7 @@ export const defaultQueryString = createQueryFromState(
 ).join("&");
 
 // context provider
-export const ToolStateQueryController = () => {
+export const ToolStateController = () => {
   const stateMap = useToolStateMapState();
   const stateFilter = useToolStateFilterState();
   const { updateFilterState, updateMapState, setSettingsState } =

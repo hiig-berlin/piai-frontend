@@ -6,7 +6,7 @@ import DisplayBelow from "~/components/styled/DisplayBelow";
 import { Icon } from "~/components/tools/shared/ui/Icon";
 import { useModal } from "~/hooks/useModal";
 import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
-import { useToolStateFilterState, useToolStateStore, useToolStateStoreActions } from "../state/toolStateStore";
+import { useToolStateFilterState, useToolStateStore, useToolStateStoreActions } from "../state/ToolState";
 import { Scroller } from "../Styled";
 
 const SidebarContainer = styled.div<{

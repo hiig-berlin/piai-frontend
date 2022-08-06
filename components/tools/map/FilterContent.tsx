@@ -13,7 +13,7 @@ import {
   useToolStateStoreActions,
   defaultQueryString,
   FilterState,
-} from "./state/toolStateStore";
+} from "./state/ToolState";
 
 const ActiveFilters = styled.div`
   width: 100%;

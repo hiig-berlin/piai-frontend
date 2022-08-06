@@ -1,4 +1,4 @@
-import type { FilterState } from "../state/toolStateStore";
+import type { FilterState } from "../state/ToolState";
 import type { GeoJson } from "./types";
 export const EMPTY_GEOJSON: GeoJson = {
   type: "FeatureCollection",

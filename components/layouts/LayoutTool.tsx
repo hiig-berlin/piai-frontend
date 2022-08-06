@@ -3,10 +3,10 @@ import { useConfigContext } from "~/providers/ConfigContextProvider";
 import { Menu } from "../app/Menu";
 import { UserTracking } from "../app/UserTracking";
 import { LoadingBar } from "../styled/LoadingBar";
-import { usePageStateContext } from "~/providers/PageStateContextProvider";
 import { MenuButton } from "../app/MenuButton";
 import { Sidebar } from "../tools/shared/Sidebar";
 import styled from "styled-components";
+import { usePageStateIsLoadingState } from "../state/PageState";
 
 const ToolContainer = styled.div`
   display: flex;
@@ -32,7 +32,8 @@ export const LayoutTool = ({
   props: any;
 }) => {
   const config = useConfigContext();
-  const { isLoading } = usePageStateContext();
+
+  const isLoading = usePageStateIsLoadingState();
 
   return (
     <>

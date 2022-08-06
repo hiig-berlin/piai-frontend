@@ -16,7 +16,7 @@ import {
   useToolStateSettingsState,
   useToolStateStoreActions,
   defaultQueryString
-} from "./state/toolStateStore";
+} from "./state/ToolState";
 
 const MapUi = styled.div`
   background-color: #000c;

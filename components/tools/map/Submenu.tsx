@@ -6,7 +6,7 @@ import { Icon } from "../shared/ui/Icon";
 import {
   useToolStateFilterState,
   useToolStateStoreActions,
-} from "./state/toolStateStore";
+} from "./state/ToolState";
 import { createQueryFromState } from "./map/utils";
 
 const sidebarPadding = "var(--size-3)";

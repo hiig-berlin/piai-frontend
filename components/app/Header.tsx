@@ -5,7 +5,6 @@ import debounce from "lodash/debounce";
 import { useHeaderContext } from "~/providers/HeaderContextProvider";
 import { useMenuContext } from "~/providers/MenuContextProvider";
 import { Logo } from "./Logo";
-import { usePageStateContext } from "~/providers/PageStateContextProvider";
 import { useScrollPosition } from "~/hooks/useScrollPosition";
 import { SkipToLink } from "../ui/SkipToLink";
 import useIsMounted from "~/hooks/useIsMounted";
@@ -14,6 +13,7 @@ import { MenuButton } from "./MenuButton";
 import { LabElement } from "../ui/LabElement";
 import { useConfigContext } from "~/providers/ConfigContextProvider";
 import Link from "next/link";
+import { usePageStateIsLoadingState } from "../state/PageState";
 
 
 const SCROLL_UP_THRESHOLD_PX = 150;
@@ -105,7 +105,8 @@ export const Header = ({
   } = useCssVarsContext();
 
   const headerContext = useHeaderContext();
-  const { isLoading } = usePageStateContext();
+
+  const isLoading = usePageStateIsLoadingState();
 
   const scrollUpCounterTimeoutRef = useRef<ReturnType<
     typeof setTimeout
