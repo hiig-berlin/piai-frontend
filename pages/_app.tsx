@@ -17,7 +17,7 @@ import { GlobalStyle } from "~/theme/globalstyle";
 import { AccessibiliyHelpers } from "~/components/app/AccessibiliyHelpers";
 import { withPasswordProtect } from "~/components/app/PasswordProtect";
 import { AppDefaultHead } from "~/components/app/AppDefaultHead";
-import { CssVarsContextProvider } from "~/providers/CssVarsContextProvider";
+import { CssVarsStateController } from "~/components/state/CssVarsState";
 import { appConfig } from "~/config";
 import { ErrorLock } from "~/components/app/ErrorLock";
 import { DevInfo } from "~/components/ui/DevInfo";
@@ -79,17 +79,18 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
           <SettingsContextProvider
             frontendSettings={pageProps.frontendSettings}
           >
-            <CssVarsContextProvider>
-              <GlobalStyle />
-              <PageStateController />
-              <AccessibiliyHelpers />
+            <GlobalStyle />
+            
+            <CssVarsStateController />
+            <PageStateController />
 
-              <AppDefaultHead />
-              <ErrorLock onError={CustomErrorHandler}>
-                {getLayout(<Component {...pageProps} />, pageProps)}
-              </ErrorLock>
-              {process.env.NODE_ENV === "development" && <DevInfo />}
-            </CssVarsContextProvider>
+            <AccessibiliyHelpers />
+
+            <AppDefaultHead />
+            <ErrorLock onError={CustomErrorHandler}>
+              {getLayout(<Component {...pageProps} />, pageProps)}
+            </ErrorLock>
+            {process.env.NODE_ENV === "development" && <DevInfo />}
           </SettingsContextProvider>
         </ThemeProvider>
       </ConfigContextProvider>

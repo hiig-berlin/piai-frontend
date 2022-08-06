@@ -102,10 +102,12 @@ export const PageStateController = () => {
   const onLoadStart = useCallback(() => {
     close();
 
-    updatePageState({
-      wasBack: isBackRef.current,
-      isLoading: true,
-    });
+    startTransition(
+      () => updatePageState({
+        wasBack: isBackRef.current,
+        isLoading: true,
+      })
+    );
 
     if (typeof document !== "undefined") {
       document.body.setAttribute("tabindex", "-1");
@@ -125,8 +127,7 @@ export const PageStateController = () => {
           currentPath: url,
         };
       }
-
-      updatePageState(newState);
+      startTransition(() => updatePageState(newState));
 
       if (typeof window !== "undefined") {
         if (!isBackRef.current) {

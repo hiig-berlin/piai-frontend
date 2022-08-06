@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import ReactTypingEffect from "react-typing-effect";
 import { Wizard } from "./Wizard";
-import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
+import { useCssVarsStateIsTabletAndUpState } from "~/components/state/CssVarsState";
 import SafeHtmlSpan from "../ui/SafeHtmlSpan";
 
 const Container = styled.div`
@@ -55,9 +55,7 @@ const Typing = styled.div`
 `;
 
 export const Intro = ({ data }: { data: any }) => {
-  const {
-    vars: { isTabletAndUp },
-  } = useCssVarsContext();
+  const isTabletAndUp = useCssVarsStateIsTabletAndUpState();
 
   return (
     <Container>
@@ -67,7 +65,9 @@ export const Intro = ({ data }: { data: any }) => {
       <Typing>
         {data?.acf?.pageHero?.introAnswers?.length > 0 && (
           <ReactTypingEffect
-            text={data.acf.pageHero.introAnswers.map((answer: any) => answer.answer)}
+            text={data.acf.pageHero.introAnswers.map(
+              (answer: any) => answer.answer
+            )}
             speed={80}
             eraseSpeed={20}
             eraseDelay={3000}

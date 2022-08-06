@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { startTransition, useEffect } from "react";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 
 import { appConfig } from "~/config";
@@ -83,7 +83,9 @@ export const ToolStateController = () => {
       queryResultSettings.isSuccess &&
       queryResultSettings.data
     ) {
-      setSettingsState(queryResultSettings.data as Settings);
+      startTransition(() =>
+        setSettingsState(queryResultSettings.data as Settings)
+      );
     }
   }, [
     queryResultSettings.isLoading,
@@ -98,12 +100,14 @@ export const ToolStateController = () => {
       queryResultGeoJson.isSuccess &&
       queryResultGeoJson?.data?.type === "FeatureCollection"
     ) {
-      updateMapState({
-        geoJson: queryResultGeoJson.data as GeoJson,
-      });
-      updateFilterState({
-        totalCount: queryResultGeoJson.data?.features?.length ?? 0,
-        filteredCount: queryResultGeoJson.data?.features?.length ?? 0,
+      startTransition(() => {
+        updateMapState({
+          geoJson: queryResultGeoJson.data as GeoJson,
+        });
+        updateFilterState({
+          totalCount: queryResultGeoJson.data?.features?.length ?? 0,
+          filteredCount: queryResultGeoJson.data?.features?.length ?? 0,
+        });
       });
     }
   }, [
@@ -121,16 +125,20 @@ export const ToolStateController = () => {
       queryFilteredIds.isSuccess &&
       Array.isArray(queryFilteredIds?.data?.data)
     ) {
-      updateFilterState({
-        filteredIds: queryFilteredIds.data.data,
-        filteredCount: queryFilteredIds.data.data.length,
-        isFetchingFilteredIds: false,
-        filterQueryString: currentQueryString,
-      });
+      startTransition(() =>
+        updateFilterState({
+          filteredIds: queryFilteredIds.data.data,
+          filteredCount: queryFilteredIds.data.data.length,
+          isFetchingFilteredIds: false,
+          filterQueryString: currentQueryString,
+        })
+      );
     } else if (queryFilteredIds.isFetching) {
-      updateFilterState({
-        isFetchingFilteredIds: true,
-      });
+      startTransition(() =>
+        updateFilterState({
+          isFetchingFilteredIds: true,
+        })
+      );
     }
   }, [
     queryFilteredIds.isLoading,

@@ -8,7 +8,7 @@ import { LinkButtonAnimated } from "~/components/styled/Button";
 import { appConfig } from "~/config";
 import { LoadingBar } from "~/components/styled/LoadingBar";
 import { ProjectCard } from "./ProjectCard";
-import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
+import { useCssVarsStateIsTabletLandscapeAndUpState } from "~/components/state/CssVarsState";
 import { Icon } from "../shared/ui/Icon";
 import safeHtml from "~/utils/sanitize";
 import { Scroller } from "./Styled";
@@ -154,9 +154,7 @@ export const ProjectQuickView = ({
   id?: number;
   view: string;
 }) => {
-  const {
-    vars: { isTabletLandscapeAndUp },
-  } = useCssVarsContext();
+  const isTabletLandscapeAndUp = useCssVarsStateIsTabletLandscapeAndUpState();
 
   const filterState = useToolStateFilterState();
   const { updateFilterState } = useToolStateStoreActions();

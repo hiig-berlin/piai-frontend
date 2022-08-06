@@ -10,7 +10,7 @@ import { Logo } from "./Logo";
 import { useScrollPosition } from "~/hooks/useScrollPosition";
 import { SkipToLink } from "../ui/SkipToLink";
 import useIsMounted from "~/hooks/useIsMounted";
-import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
+import { useCssVarsStateIsTabletLandscapeAndUpState } from "~/components/state/CssVarsState";
 import { MenuButton } from "./MenuButton";
 import { LabElement } from "../ui/LabElement";
 import { useConfigContext } from "~/providers/ConfigContextProvider";
@@ -103,10 +103,8 @@ export const Header = ({
 
   const isMounted = useIsMounted();
 
-  const {
-    vars: { isTabletLandscapeAndUp },
-  } = useCssVarsContext();
-
+  const isTabletLandscapeAndUp = useCssVarsStateIsTabletLandscapeAndUpState();
+  
   const headerState = useHeaderStateStore();
 
   const isLoading = usePageStateIsLoadingState();

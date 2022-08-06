@@ -1,4 +1,6 @@
-import { Suspense, useEffect, useState } from "react";
+import { 
+    // Suspense, 
+    useEffect, useState } from "react";
 
 import dynamic from "next/dynamic";
 
@@ -17,11 +19,11 @@ import ReactQueryContextProvider from "./context/ReactQueryContextProvider";
 import { MapOverlays } from "./MapOverlays";
 import { DirectoryOverlays } from "./DirectoryOverlays";
 import { ToolStateController } from "./state/ToolStateController";
-import { usePageStateIsLoadingState, usePageStateStore } from "~/components/state/PageState";
+import { usePageStateIsLoadingState } from "~/components/state/PageState";
 
 const Map = dynamic(() => import("./Map"), {
-  suspense: true,
-  // loading: () => <LoadingBar isLoading />,
+  // suspense: true,
+  loading: () => <LoadingBar isLoading />,
 });
 
 // Contains:
@@ -62,7 +64,7 @@ export const Layout = ({
   props: any;
 }) => {
   const config = useConfigContext();
-  const isLoading = usePageStateStore((state) => state.isLoading);
+  const isLoading = usePageStateIsLoadingState();
 
   const [showMap, setShowMap] = useState(props?.view === "map");
 
@@ -103,15 +105,19 @@ export const Layout = ({
         </Sidebar>
         {showMap && (
           <>
-            {/* 
-              <Map />
-              {isMap && content}
+            <Map />
+            {isMap && content}
+
+            {/*
+              Dynamic loading of modules does not play nice width server side rendering 
+              at the moment react 18 throws client side hydration error. 
+              <Suspense fallback={<LoadingBar isLoading />}>
+                <Map />
+                {isMap && content}
+              </Suspense>
             */}
 
-            <Suspense fallback={<LoadingBar isLoading />}>
-              <Map />
-              {isMap && content}
-            </Suspense>
+            {isMap && content}
           </>
         )}
         {!isMap && content}

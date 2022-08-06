@@ -56,7 +56,7 @@ const Index = ({
           }}
       />*/}
       <Content>
-        <Contribute position="bottom" />
+        xxx content {/* <Contribute position="bottom" /> */}
       </Content>
     </>
   );

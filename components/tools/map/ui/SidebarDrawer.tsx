@@ -5,8 +5,15 @@ import DisplayAbove from "~/components/styled/DisplayAbove";
 import DisplayBelow from "~/components/styled/DisplayBelow";
 import { Icon } from "~/components/tools/shared/ui/Icon";
 import { useModal } from "~/hooks/useModal";
-import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
-import { useToolStateFilterState, useToolStateStore, useToolStateStoreActions } from "../state/ToolState";
+import {
+  useCssVarsStateIsTabletLandscapeAndUpState,
+  useCssVarsStateIsInitializingState,
+} from "~/components/state/CssVarsState";
+import {
+  useToolStateFilterState,
+  useToolStateStore,
+  useToolStateStoreActions,
+} from "../state/ToolState";
 import { Scroller } from "../Styled";
 
 const SidebarContainer = styled.div<{
@@ -137,12 +144,11 @@ export const SidebarDrawer = ({
   dimmContent?: boolean;
   header?: React.ReactNode;
 }) => {
-  const {
-    vars: { isTabletLandscapeAndUp, isInitializing },
-  } = useCssVarsContext();
+  const isInitializing = useCssVarsStateIsInitializingState();
+  const isTabletLandscapeAndUp = useCssVarsStateIsTabletLandscapeAndUpState();
 
   const filterState = useToolStateFilterState();
-  const { getFilterState, setFilterState,  } = useToolStateStoreActions();
+  const { getFilterState, setFilterState } = useToolStateStoreActions();
 
   const { isOpen, isOpening, isClosing, open, close } = useModal({
     defaultIsOpen: false,

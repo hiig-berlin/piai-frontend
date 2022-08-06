@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React from "react";
 import styled from "styled-components";
-import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
+import { useCssVarsStateIsTabletLandscapeAndUpState } from "~/components/state/CssVarsState";
 import { Icon } from "../shared/ui/Icon";
 
 import {
@@ -84,9 +84,7 @@ const Label = ({
 
 export const Counter = ({ view }: { view: string }) => {
   const router = useRouter();
-  const {
-    vars: { isTabletLandscapeAndUp },
-  } = useCssVarsContext();
+  const isTabletLandscapeAndUp = useCssVarsStateIsTabletLandscapeAndUpState();
 
   const mapState = useToolStateMapState();
   const filterState = useToolStateFilterState();

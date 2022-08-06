@@ -9,13 +9,13 @@ import { LoadingBar } from "~/components/styled/LoadingBar";
 import { MapGlobalCss } from "./map/MapGlobalCss";
 import { Icon } from "../shared/ui/Icon";
 import { createQueryFromState } from "./map/utils";
-import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
+import { useCssVarsStateIsTabletLandscapeAndUpState } from "~/components/state/CssVarsState";
 import {
   useToolStateFilterState,
   useToolStateMapState,
   useToolStateSettingsState,
   useToolStateStoreActions,
-  defaultQueryString
+  defaultQueryString,
 } from "./state/ToolState";
 
 const MapUi = styled.div`
@@ -54,20 +54,16 @@ const MapContainer = styled.div`
 `;
 
 export const Map = ({ isVisible }: { isVisible?: boolean }) => {
-  const uiRemoveTimoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const {
-    vars: { isTabletLandscapeAndUp },
-  } = useCssVarsContext();
-
   const isMounted = useIsMounted();
-  const mapControllerRef = useRef<MapController>();
-  const mapContainerRef = useRef<HTMLDivElement>(null);
-
-  const mapLastFilterRef = useRef<string>(defaultQueryString);
-
   const router = useRouter();
   const config = useConfigContext();
+
+  const isTabletLandscapeAndUp = useCssVarsStateIsTabletLandscapeAndUpState();
+
+  const uiRemoveTimoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const mapControllerRef = useRef<MapController>();
+  const mapContainerRef = useRef<HTMLDivElement>(null);
+  const mapLastFilterRef = useRef<string>(defaultQueryString);
 
   const [isMapLoaded, setIsMapLoaded] = useState(false);
   const [isMapInitialized, setIsMapInitialized] = useState(false);

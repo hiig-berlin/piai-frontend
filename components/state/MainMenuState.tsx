@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from "react";
+import React, { startTransition, useCallback, useRef } from "react";
 import create from "zustand";
 
 import useIsMounted from "~/hooks/useIsMounted";
@@ -73,7 +73,7 @@ export const useMainMenuActions = () => {
         if (animationTimeoutRef.current)
           clearTimeout(animationTimeoutRef.current);
 
-        updateMainMenuState({ isOpen: true });
+        startTransition(() => updateMainMenuState({ isOpen: true }));
 
         currentScrollbarWidthRef.current =
           window.innerWidth - document.body.offsetWidth;
@@ -94,7 +94,7 @@ export const useMainMenuActions = () => {
 
   const close = useCallback(() => {
     if (isMounted) {
-      updateMainMenuState({ isOpen: false });
+      startTransition(() => updateMainMenuState({ isOpen: false }));
 
       document.body.style.overflow = "";
 

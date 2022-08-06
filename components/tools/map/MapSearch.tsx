@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 import type { GeoJsonFeature } from "./map/types";
 import { SearchItem } from "./SearchItem";
-import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
+import { useCssVarsStateIsTabletLandscapeAndUpState } from "~/components/state/CssVarsState";
 import { LngLatLike } from "maplibre-gl";
 import InputText from "~/components/styled/InputText";
 import { ButtonNormalized } from "~/components/styled/Button";
@@ -48,9 +48,7 @@ const Button = styled(ButtonNormalized)`
 export const MapSearch = () => {
   const isMounted = useIsMounted();
 
-  const {
-    vars: { isTabletLandscapeAndUp },
-  } = useCssVarsContext();
+  const isTabletLandscapeAndUp = useCssVarsStateIsTabletLandscapeAndUpState();
 
   const mapState = useToolStateMapState();
   const filterState = useToolStateFilterState();

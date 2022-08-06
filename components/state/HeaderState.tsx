@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { startTransition, useCallback } from "react";
 import create from "zustand";
 
 export type HeaderState = {
@@ -62,18 +62,22 @@ export const useHeaderActions = () => {
 
   const setFadeOut = useCallback(
     (flag: boolean) => {
-      updateHeaderState({
-        fadeOut: flag,
-      });
+      startTransition(() =>
+        updateHeaderState({
+          fadeOut: flag,
+        })
+      );
     },
     [updateHeaderState]
   );
 
   const setObserveScroll = useCallback(
     (flag: boolean) => {
-      updateHeaderState({
-        observeScroll: flag,
-      });
+      startTransition(() =>
+        updateHeaderState({
+          observeScroll: flag,
+        })
+      );
     },
     [updateHeaderState]
   );

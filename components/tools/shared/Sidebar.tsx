@@ -6,7 +6,7 @@ import { ButtonNormalized } from "~/components/styled/Button";
 import { LabElement } from "~/components/ui/LabElement";
 import { useModal } from "~/hooks/useModal";
 import { useConfigContext } from "~/providers/ConfigContextProvider";
-import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
+import { useCssVarsStateIsTabletAndUpState } from "~/components/state/CssVarsState";
 import { Box } from "./ui/Box";
 import { SidebarTool } from "./ui/SidebarTool";
 
@@ -32,8 +32,7 @@ const MobileToolNavContainer = styled.div<{
   }
 `;
 
-const ToolNav = styled(Box)`
-`
+const ToolNav = styled(Box)``;
 
 // Tablet+: Sidebar
 // =================================================
@@ -68,7 +67,7 @@ const SidebarContainer = styled.div.attrs<{
   width: var(--size-6);
   overflow-y: auto;
 
-  ${({theme}) => theme.applyMixin("styledScrollbar", "var(--size-1)")}
+  ${({ theme }) => theme.applyMixin("styledScrollbar", "var(--size-1)")}
 
   ${({ theme }) => theme.breakpoints.tablet} {
     display: ${({ isVisible }) => (isVisible ? "block" : "none")};
@@ -122,17 +121,15 @@ export const Sidebar = ({
 
   const currentTool = config?.tools?.find((t) => t.slug === tool);
 
-  const {
-    vars: { isTabletAndUp },
-  } = useCssVarsContext();
+  const isTabletAndUp = useCssVarsStateIsTabletAndUpState();
 
   if (!currentTool) return <></>;
 
   // TODO: I would change the sizing info of the icons from em to some pixel based value like --size-3, or so.
   // As the dependend on the parent's container font size messed with things arould.
-  
-  if (isTabletAndUp){
-    return(
+
+  if (isTabletAndUp) {
+    return (
       <SidebarContainer
         {...{ isOpen, isOpening, isClosing }}
         id={`sidebar-${tool}`}
@@ -163,30 +160,32 @@ export const Sidebar = ({
             })}
         </Tools>
       </SidebarContainer>
-      )
-  }else{
+    );
+  } else {
     return (
-        <MobileToolNavContainer isVisible={view !== "page"}>
-          <ToolMenuButton
-            aria-label={isOpen ? "Close tool's menu" : "open tool's menu"}
-            aria-expanded={isOpen}
-            aria-controls={`sidebar-${tool}`}
-            onClick={(e) => {
-              e.preventDefault();
-  
-              toggle();
-            }}
-          >
-            <LabElement
-              shortHandle={currentTool.iconShort}
-              longText={currentTool.iconLong}
-              color="white"
-              hoverColor={currentTool.colorBase}
-              size={1.5}
-            />
-          </ToolMenuButton>
-          <ToolNav><Children>{children}</Children></ToolNav>
-        </MobileToolNavContainer>
+      <MobileToolNavContainer isVisible={view !== "page"}>
+        <ToolMenuButton
+          aria-label={isOpen ? "Close tool's menu" : "open tool's menu"}
+          aria-expanded={isOpen}
+          aria-controls={`sidebar-${tool}`}
+          onClick={(e) => {
+            e.preventDefault();
+
+            toggle();
+          }}
+        >
+          <LabElement
+            shortHandle={currentTool.iconShort}
+            longText={currentTool.iconLong}
+            color="white"
+            hoverColor={currentTool.colorBase}
+            size={1.5}
+          />
+        </ToolMenuButton>
+        <ToolNav>
+          <Children>{children}</Children>
+        </ToolNav>
+      </MobileToolNavContainer>
     );
   }
-}
+};

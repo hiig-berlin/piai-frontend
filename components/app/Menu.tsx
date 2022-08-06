@@ -3,16 +3,17 @@ import styled from "styled-components";
 import debounce from "lodash/debounce";
 import FocusLock from "react-focus-lock";
 
-import {
-  useMainMenuStateIsOpenState,
-} from "~/components/state/MainMenuState";
+import { useMainMenuStateIsOpenState } from "~/components/state/MainMenuState";
 import { MenuFooter } from "./Menus/MenuFooter";
 import { Logo } from "./Logo";
 import { LabElement } from "../ui/LabElement";
 import { Chevron } from "../ui/StaticSvgs";
 import { useConfigContext } from "~/providers/ConfigContextProvider";
 import Link from "next/link";
-import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
+import {
+  useCssVarsStateIsMobileLandscapeState,
+  useCssVarsStateIsTabletAndUpState,
+} from "~/components/state/CssVarsState";
 
 const ANIMATION_LENGTH = 500;
 
@@ -203,7 +204,7 @@ export const Menu = () => {
   const config = useConfigContext();
 
   const mainMenuOpen = useMainMenuStateIsOpenState();
-  
+
   const menuContainerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   const menuContentRef = useRef() as React.MutableRefObject<HTMLDivElement>;
 
@@ -212,9 +213,8 @@ export const Menu = () => {
     null
   );
 
-  const {
-    vars: { isTabletAndUp, isMobileLandscape },
-  } = useCssVarsContext();
+  const isMobileLandscape = useCssVarsStateIsMobileLandscapeState();
+  const isTabletAndUp = useCssVarsStateIsTabletAndUpState();
 
   const onResize = useCallback(() => {
     if (menuContainerRef.current)

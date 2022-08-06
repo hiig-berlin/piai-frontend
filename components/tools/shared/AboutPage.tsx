@@ -11,7 +11,7 @@ import { LabElement } from "../../ui/LabElement";
 import SafeHtmlDiv from "../../ui/SafeHtmlDiv";
 import SafeHtmlSpan from "../../ui/SafeHtmlSpan";
 import { Box } from "./ui/Box";
-import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
+import { useCssVarsStateIsTabletLandscapeAndUpState } from "~/components/state/CssVarsState";
 import { Icon } from "./ui/Icon";
 
 export type ToolAboutPageCTA = {
@@ -161,9 +161,7 @@ export const AboutPage = ({
   const [scrollDir, setScrollDir] = useState("down");
   const [isSimple, setIsSimple] = useState(false);
 
-  const {
-    vars: { isTabletLandscapeAndUp },
-  } = useCssVarsContext();
+  const isTabletLandscapeAndUp = useCssVarsStateIsTabletLandscapeAndUpState();
 
   return (
     <Container
