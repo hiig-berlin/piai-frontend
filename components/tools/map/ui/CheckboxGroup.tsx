@@ -9,14 +9,18 @@ const Container = styled.div`
   margin-top: var(--size-3);
 `;
 
-const Options = styled.div``;
+const Options = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--size-2);
+`;
 
 const H4 = styled.h4`
   margin-top: 0;
   margin-bottom: 0.5em;
 `;
 
-export const TaxonomyCheckboxGroup = ({
+export const CheckboxGroup = ({
   label,
   options,
   activeTerms,
@@ -35,6 +39,7 @@ export const TaxonomyCheckboxGroup = ({
       <Options>
         {options.map((option) => (
           <FieldCheckbox
+            noMargin
             key={`tax-${label}-${option.id}`}
             label={option.name}
             value={option.id}

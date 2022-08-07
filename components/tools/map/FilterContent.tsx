@@ -14,6 +14,9 @@ import {
   defaultQueryString,
   FilterState,
 } from "./state/ToolState";
+import { CheckboxGroup } from "./ui/CheckboxGroup";
+import { RangeSlider } from "./ui/RangeSlider";
+import { useConfigContext } from "~/providers/ConfigContextProvider";
 
 const ActiveFilters = styled.div`
   width: 100%;
@@ -35,10 +38,13 @@ let isInit = false;
 let previousPathName = "";
 export const FilterContent = () => {
   const router = useRouter();
+  const config = useConfigContext();
+  const mapTool = config?.tools?.find((t) => t.slug === "map");
 
   const filterState = useToolStateFilterState();
   const settingsState = useToolStateSettingsState();
-  const { getDefaultState, getFilterState, setFilterState, updateFilterState } = useToolStateStoreActions();
+  const { getDefaultState, getFilterState, setFilterState, updateFilterState } =
+    useToolStateStoreActions();
 
   const maybeUpdateQueryString = useCallback(
     (state: FilterState) => {
@@ -71,18 +77,22 @@ export const FilterContent = () => {
     [router]
   );
 
-  const updateTaxonomyState = (id: number, label: string, checked: boolean) => {
+  const updateTaxonomyState = (
+    id: number | string,
+    label: string,
+    checked: boolean
+  ) => {
     const currentState = getFilterState();
 
     if (!currentState?.terms) return;
 
     if (checked) {
       if (!(id in currentState?.terms)) {
-        currentState.terms[id] = label;
+        currentState.terms[id as number] = label;
       }
     } else {
       if (id in currentState?.terms) {
-        delete currentState.terms[id];
+        delete currentState.terms[id as number];
       }
     }
 
@@ -243,13 +253,75 @@ export const FilterContent = () => {
           updateState={updateTaxonomyState}
         />
       )}
-      xxx
-      <br />
-      xxx Open Source
-      <br />
-      xxx Gender Parity
-      <br />
-      xxx Date Range
+      <CheckboxGroup
+        label="Code license"
+        activeTerms={filterState?.license ?? {}}
+        options={[
+          {
+            id: "os",
+            name: "Open source",
+          },
+          {
+            id: "cs",
+            name: "Close source",
+          },
+        ]}
+        updateState={(id: string | number, label: string, checked: boolean) => {
+          const currentState = getFilterState();
+
+          if (!currentState?.license) return;
+
+          if (checked) {
+            if (!(id in currentState?.license)) {
+              currentState.license[id] = label;
+            }
+          } else {
+            if (id in currentState?.license) {
+              delete currentState.license[id];
+            }
+          }
+
+          maybeUpdateQueryString(currentState);
+        }}
+      />
+      <CheckboxGroup
+        label="Gender ratio"
+        activeTerms={filterState?.genderRatio ?? {}}
+        options={[
+          {
+            id: "lt50",
+            name: "< 50% (female/diverse)",
+          },
+          {
+            id: "gte50",
+            name: ">= 50% (female/diverse)",
+          },
+        ]}
+        updateState={(id: string | number, label: string, checked: boolean) => {
+          const currentState = getFilterState();
+
+          if (!currentState?.genderRatio) return;
+
+          if (checked) {
+            if (!(id in currentState?.genderRatio)) {
+              currentState.genderRatio[id] = label;
+            }
+          } else {
+            if (id in currentState?.genderRatio) {
+              delete currentState.genderRatio[id];
+            }
+          }
+
+          maybeUpdateQueryString(currentState);
+        }}
+      />
+      <RangeSlider
+        label="Release date between"
+        min={mapTool?.config?.minYear ?? 1996}
+        max={new Date().getFullYear()}
+        stepSize={1}
+        updateState={(values) => console.log(values)}
+      />
     </>
   );
 };

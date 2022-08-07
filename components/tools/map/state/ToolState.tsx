@@ -23,7 +23,8 @@ export type FilterState = {
   isDrawerOpen: boolean;
   isFilterOpen: boolean;
   isSearchOpen: boolean;
-  genderRatio: boolean;
+  license: Record<string, string>;
+  genderRatio: Record<string, string>;
   dateFrom: string | null | undefined;
   dateUntil: string | null | undefined;
   terms: Record<number, string> | null | undefined;
@@ -33,9 +34,9 @@ export type FilterState = {
 };
 
 export type FilterSettingTaxonomyOption = {
-  id: number;
+  id: number | string;
   name: string;
-  count: number;
+  count?: number;
 };
 
 export type FilterSettingTaxonomyOptionContinentChild = {
@@ -113,9 +114,10 @@ export const defaultToolState: ToolState = {
     quickViewProjectId: null,
     isFilterOpen: false,
     isSearchOpen: false,
+    license: {},
     dateFrom: null,
     dateUntil: null,
-    genderRatio: false,
+    genderRatio: {},
     terms: {},
     countries: {},
     continents: {},

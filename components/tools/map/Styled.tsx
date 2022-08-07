@@ -39,6 +39,7 @@ export const Label = styled.h3`
 export const Scroller = styled.div<{ opacity?: number }>`
   height: 100%;
   overflow-y: auto;
+  overflow-x: hidden;
   transition: opacity 0.3s;
   opacity: ${({ opacity }) => opacity ?? 1};
   ${({ theme }) => theme.applyMixin("styledScrollbar")}

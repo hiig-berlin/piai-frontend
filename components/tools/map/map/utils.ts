@@ -14,6 +14,15 @@ export const createQueryFromState = (
   if (state?.terms && Object.keys(state.terms).length) {
     queryParams.push(`term=${Object.keys(state.terms).sort().join(",")}`);
   }
+
+  if (state?.license && Object.keys(state.license).length) {
+    queryParams.push(`license=${Object.keys(state.license).sort().join(",")}`);
+  }
+
+  if (state?.genderRatio && Object.keys(state.genderRatio).length) {
+    queryParams.push(`genderRatio=${Object.keys(state.genderRatio).sort().join(",")}`);
+  }
+
   if (additionalParams) {
     for (const param in additionalParams) {
       queryParams.push(`${param}=${additionalParams[param]}`);
