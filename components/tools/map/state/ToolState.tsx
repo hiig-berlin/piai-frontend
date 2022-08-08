@@ -39,20 +39,15 @@ export type FilterSettingTaxonomyOption = {
   count?: number;
 };
 
-export type FilterSettingTaxonomyOptionContinentChild = {
-  id: number;
-  name: string;
-  count: number;
-  children?: FilterSettingTaxonomyOptionContinentChild[];
-  parent: number;
-};
+export type FilterSettingTaxonomyOptionContinent =
+  FilterSettingTaxonomyOption & {
+    children?: FilterSettingTaxonomyOptionContinentChild[];
+  };
 
-export type FilterSettingTaxonomyOptionContinent = {
-  id: number;
-  name: string;
-  count: number;
-  children?: FilterSettingTaxonomyOptionContinentChild[];
-};
+export type FilterSettingTaxonomyOptionContinentChild =
+  FilterSettingTaxonomyOptionContinent & {
+    parent: number;
+  };
 
 export type FilterSettingTaxonomy = {
   label: string;
@@ -144,14 +139,14 @@ export const quickClone = (obj: any): any => {
   return Object.keys(obj).reduce((carry: any, key: any) => {
     return {
       ...carry,
-      [key]: quickClone(obj[key])
+      [key]: quickClone(obj[key]),
     };
-  }, {})
-}
+  }, {});
+};
 
 export const getToolStateDefaultState = (): ToolState => {
   return quickClone(defaultToolState);
-}
+};
 
 export const useToolStateStore = create<ToolStateStore>((set, get) => ({
   ...getToolStateDefaultState(),

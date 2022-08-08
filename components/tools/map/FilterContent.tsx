@@ -17,12 +17,17 @@ import {
 import { CheckboxGroup } from "./ui/CheckboxGroup";
 import { RangeSlider } from "./ui/RangeSlider";
 import { useConfigContext } from "~/providers/ConfigContextProvider";
+import { RegionOrCountrySelector } from "./ui/RegionOrCountrySelector";
+
+const Container = styled.div`
+  position: relative;
+`;
 
 const ActiveFilters = styled.div`
   width: 100%;
   border-top: 1px solid #fff;
   padding-top: var(--size-1);
-
+  margin-top: var(--size-3);
   display: flex;
   flex-wrap: wrap;
   gap: var(--size-1);
@@ -93,6 +98,50 @@ export const FilterContent = () => {
     } else {
       if (id in currentState?.terms) {
         delete currentState.terms[id as number];
+      }
+    }
+
+    maybeUpdateQueryString(currentState);
+  };
+
+  const updateContinentState = (
+    id: number | string,
+    label: string,
+    checked: boolean
+  ) => {
+    const currentState = getFilterState();
+
+    if (!currentState?.continents) return;
+
+    if (checked) {
+      if (!(id in currentState?.continents)) {
+        currentState.continents[id as number] = label;
+      }
+    } else {
+      if (id in currentState?.continents) {
+        delete currentState.continents[id as number];
+      }
+    }
+
+    maybeUpdateQueryString(currentState);
+  };
+
+  const updateCountryState = (
+    id: number | string,
+    label: string,
+    checked: boolean
+  ) => {
+    const currentState = getFilterState();
+
+    if (!currentState?.countries) return;
+
+    if (checked) {
+      if (!(id in currentState?.countries)) {
+        currentState.countries[id as number] = label;
+      }
+    } else {
+      if (id in currentState?.countries) {
+        delete currentState.countries[id as number];
       }
     }
 
@@ -212,7 +261,24 @@ export const FilterContent = () => {
   }
 
   return (
-    <>
+    <Container>
+      <RegionOrCountrySelector
+        label="Regions"
+        labelAllShown="All regions (narrow down using the + to the right)"
+        activeTerms={filterState?.continents ?? {}}
+        options={settingsState?.continents ?? []}
+        updateState={updateContinentState}
+      />
+
+      <RegionOrCountrySelector
+        label="Countries"
+        labelAllShown="All countries (narrow down using the + to the right)"
+        activeTerms={filterState?.countries ?? {}}
+        options={settingsState?.countries ?? []}
+        updateState={updateCountryState}
+      />
+
+
       {activeFilters?.length > 0 && (
         <ActiveFilters>
           {activeFilters}
@@ -322,6 +388,6 @@ export const FilterContent = () => {
         stepSize={1}
         updateState={(values) => console.log(values)}
       />
-    </>
+    </Container>
   );
 };

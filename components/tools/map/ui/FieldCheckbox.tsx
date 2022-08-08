@@ -3,8 +3,14 @@ import styled from "styled-components";
 import safeHtml from "~/utils/sanitize";
 import { Checkbox } from "~/components/styled/Checkbox";
 
-const Container = styled.div<{ noMargin?: boolean }>`
+const Container = styled.div<{ noMargin?: boolean; indent: number }>`
   margin-bottom: ${({ noMargin }) => (noMargin ? "0" : "0.6em")};
+  ${({ indent }) =>
+    indent > 0
+      ? `padding-left: ${
+          indent > 1 ? `calc(${indent} * var(--size-3))` : "var(--size-3)"
+        }`
+      : ""}
 `;
 
 const Label = styled.label`
@@ -14,7 +20,7 @@ const Label = styled.label`
   font-family: var(--font-family-sans-serif);
   font-size: var(--text-small-font-size);
   line-height: var(--text-small-line-height);
-  
+
   white-space: nowrap;
   cursor: pointer;
 `;
@@ -37,6 +43,7 @@ export const FieldCheckbox = ({
   defaultChecked,
   updateState,
   noMargin,
+  indent = 0,
 }: {
   name: string;
   label: string;
@@ -44,12 +51,13 @@ export const FieldCheckbox = ({
   isChecked?: boolean;
   defaultChecked?: boolean;
   noMargin?: boolean;
+  indent?: number;
   updateState: React.ChangeEventHandler<HTMLInputElement>;
 }) => {
   const id = useId();
 
   return (
-    <Container noMargin={noMargin}>
+    <Container noMargin={noMargin} indent={indent}>
       <Label htmlFor={id}>
         <Input
           type="checkbox"

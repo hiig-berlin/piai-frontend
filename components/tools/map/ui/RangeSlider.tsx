@@ -109,7 +109,6 @@ export const RangeSlider = ({
     onChange: updateState,
   } as any);
 
-  console.log(max - min, ticks);
   return (
     <Container>
       <H4>{safeHtml(label)}</H4>

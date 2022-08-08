@@ -15,6 +15,14 @@ export const createQueryFromState = (
     queryParams.push(`term=${Object.keys(state.terms).sort().join(",")}`);
   }
 
+  if (state?.continents && Object.keys(state.continents).length) {
+    queryParams.push(`continents=${Object.keys(state.continents).sort().join(",")}`);
+  }
+
+  if (state?.countries && Object.keys(state.countries).length) {
+    queryParams.push(`countries=${Object.keys(state.countries).sort().join(",")}`);
+  }
+
   if (state?.license && Object.keys(state.license).length) {
     queryParams.push(`license=${Object.keys(state.license).sort().join(",")}`);
   }
