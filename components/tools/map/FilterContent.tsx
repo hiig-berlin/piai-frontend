@@ -13,6 +13,9 @@ import {
   useToolStateStoreActions,
   defaultQueryString,
   FilterState,
+  FilterStateRecords,
+  FilterSettingTaxonomyOptionRegion,
+  FilterSettingTaxonomyOptionRegionChild,
 } from "./state/ToolState";
 import { CheckboxGroup } from "./ui/CheckboxGroup";
 import { RangeSlider } from "./ui/RangeSlider";
@@ -82,70 +85,37 @@ export const FilterContent = () => {
     [router]
   );
 
+  const updateFormStateRecord = (
+    key: keyof FilterStateRecords,
+    id: string | number,
+    label: string,
+    checked: boolean
+  ) => {
+    const currentState: FilterState = getFilterState();
+
+    if (!currentState?.[key] || !currentState[key]) return;
+
+    if (currentState[key] instanceof Object && currentState[key]) {
+      if (checked) {
+        if (!(id in (currentState[key] ?? {}))) {
+          (currentState as any)[key][id] = label;
+        }
+      } else {
+        if (id in (currentState[key] ?? {})) {
+          delete (currentState as any)[key][id];
+        }
+      }
+
+      maybeUpdateQueryString(currentState);
+    }
+  };
+
   const updateTaxonomyState = (
     id: number | string,
     label: string,
     checked: boolean
   ) => {
-    const currentState = getFilterState();
-
-    if (!currentState?.terms) return;
-
-    if (checked) {
-      if (!(id in currentState?.terms)) {
-        currentState.terms[id as number] = label;
-      }
-    } else {
-      if (id in currentState?.terms) {
-        delete currentState.terms[id as number];
-      }
-    }
-
-    maybeUpdateQueryString(currentState);
-  };
-
-  const updateContinentState = (
-    id: number | string,
-    label: string,
-    checked: boolean
-  ) => {
-    const currentState = getFilterState();
-
-    if (!currentState?.continents) return;
-
-    if (checked) {
-      if (!(id in currentState?.continents)) {
-        currentState.continents[id as number] = label;
-      }
-    } else {
-      if (id in currentState?.continents) {
-        delete currentState.continents[id as number];
-      }
-    }
-
-    maybeUpdateQueryString(currentState);
-  };
-
-  const updateCountryState = (
-    id: number | string,
-    label: string,
-    checked: boolean
-  ) => {
-    const currentState = getFilterState();
-
-    if (!currentState?.countries) return;
-
-    if (checked) {
-      if (!(id in currentState?.countries)) {
-        currentState.countries[id as number] = label;
-      }
-    } else {
-      if (id in currentState?.countries) {
-        delete currentState.countries[id as number];
-      }
-    }
-
-    maybeUpdateQueryString(currentState);
+    updateFormStateRecord("terms", id, label, checked);
   };
 
   const resetFilter = useCallback(() => {
@@ -205,6 +175,85 @@ export const FilterContent = () => {
           newState.terms = {};
         }
 
+        const regions = params.get("regions") ?? "";
+        if (regions !== "" && settingsState.regions) {
+          const activeRegions = regions.split(",");
+
+          const flattenRegions = (
+            regions:
+              | FilterSettingTaxonomyOptionRegion[]
+              | FilterSettingTaxonomyOptionRegionChild[],
+            carry: any
+          ) => {
+            if (!regions?.length) return carry;
+
+            return (regions as any).reduce((carry: any, region: any) => {
+              carry = {
+                ...carry,
+                [region.id]: region.name,
+                ...(region.children.length
+                  ? flattenRegions(region.children, {})
+                  : {}),
+              };
+              return carry;
+            }, carry);
+          };
+
+          const allRegions = flattenRegions(settingsState.regions, {});
+
+          newState.regions = activeRegions.reduce(
+            (carry: any, regionId: string) => ({
+              ...carry,
+              [regionId]: allRegions[regionId],
+            }),
+            {}
+          );
+        } else {
+          newState.regions = {};
+        }
+
+        ["countries", "license", "genderRatio"].reduce(
+          (state: any, key: any) => {
+            const selected = params.get(key) ?? "";
+            if (selected !== "" && (settingsState as any)?.[key]?.length) {
+              const active = selected.split(",");
+
+              const allTerms = ((settingsState as any)[key] as any).reduce(
+                (carry: any, term: any) => {
+                  carry = {
+                    ...carry,
+                    [term.id]: term.name,
+                  };
+                  return carry;
+                },
+                {}
+              );
+
+              (newState as any)[key] = active.reduce(
+                (carry: any, id: string) => ({
+                  ...carry,
+                  [id]: allTerms[id],
+                }),
+                {}
+              );
+            } else {
+              (newState as any)[key] = {};
+            }
+            return state;
+          },
+          newState
+        );
+
+        const dateFrom = params.get("dateFrom") ?? "";
+        const dateUntil = params.get("dateUntil") ?? "";
+        if (dateFrom !== "" && dateUntil !== "") {
+          newState.dateFrom = dateFrom;
+          newState.dateUntil = dateUntil;
+        } else {
+          newState.dateFrom = "";
+          newState.dateUntil = "";
+        }
+
         if (Object.keys(newState).length) {
           updateFilterState({
             ...newState,
@@ -245,19 +294,41 @@ export const FilterContent = () => {
 
   let activeFilters: any[] = [];
 
-  if (Object.keys(filterState?.terms ?? {}).length) {
-    activeFilters = [
-      ...activeFilters,
-      ...Object.keys(filterState?.terms ?? {}).map((termId: any) => (
-        <ActiveFilterOption
-          key={`term-${termId}`}
-          onRemove={() => {
-            updateTaxonomyState(termId, "", false);
-          }}
-          label={((filterState?.terms ?? {}) as any)?.[termId] ?? "unknown"}
-        />
-      )),
-    ];
+  activeFilters = ["terms", "license", "genderRatio"].reduce(
+    (carry: any, key: any) => {
+      return [
+        ...carry,
+        ...Object.keys((filterState as any)[key] ?? {}).map((id: any) => (
+          <ActiveFilterOption
+            key={`active-${key}-${id}`}
+            onRemove={() => {
+              updateFormStateRecord(key, id, "", false);
+            }}
+            label={
+              (((filterState as any)[key] ?? {}) as any)?.[id] ?? "unknown"
+            }
+          />
+        )),
+      ];
+    },
+    []
+  );
+
+  if (filterState.dateFrom && filterState.dateUntil) {
+    activeFilters.push(
+      <ActiveFilterOption
+        key={`active-date`}
+        onRemove={() => {
+          const currentState: FilterState = getFilterState();
+
+          currentState.dateFrom = null;
+          currentState.dateUntil = null;
+
+          maybeUpdateQueryString(currentState);
+        }}
+        label={`${filterState.dateFrom} - ${filterState.dateUntil}`}
+      />
+    );
   }
 
   return (
@@ -265,9 +336,11 @@ export const FilterContent = () => {
       <RegionOrCountrySelector
         label="Regions"
         labelAllShown="All regions (narrow down using the + to the right)"
-        activeTerms={filterState?.continents ?? {}}
-        options={settingsState?.continents ?? []}
-        updateState={updateContinentState}
+        activeTerms={filterState?.regions ?? {}}
+        options={settingsState?.regions ?? []}
+        updateState={(id: number | string, label: string, checked: boolean) => {
+          updateFormStateRecord("regions", id, label, checked);
+        }}
       />
 
       <RegionOrCountrySelector
@@ -275,9 +348,10 @@ export const FilterContent = () => {
         labelAllShown="All countries (narrow down using the + to the right)"
         activeTerms={filterState?.countries ?? {}}
         options={settingsState?.countries ?? []}
-        updateState={updateCountryState}
+        updateState={(id: number | string, label: string, checked: boolean) => {
+          updateFormStateRecord("countries", id, label, checked);
+        }}
       />
-
 
       {activeFilters?.length > 0 && (
         <ActiveFilters>
@@ -322,71 +396,47 @@ export const FilterContent = () => {
       <CheckboxGroup
         label="Code license"
         activeTerms={filterState?.license ?? {}}
-        options={[
-          {
-            id: "os",
-            name: "Open source",
-          },
-          {
-            id: "cs",
-            name: "Close source",
-          },
-        ]}
-        updateState={(id: string | number, label: string, checked: boolean) => {
-          const currentState = getFilterState();
-
-          if (!currentState?.license) return;
-
-          if (checked) {
-            if (!(id in currentState?.license)) {
-              currentState.license[id] = label;
-            }
-          } else {
-            if (id in currentState?.license) {
-              delete currentState.license[id];
-            }
-          }
-
-          maybeUpdateQueryString(currentState);
+        options={settingsState.license}
+        updateState={(id: number | string, label: string, checked: boolean) => {
+          updateFormStateRecord("license", id, label, checked);
         }}
       />
       <CheckboxGroup
         label="Gender ratio"
         activeTerms={filterState?.genderRatio ?? {}}
-        options={[
-          {
-            id: "lt50",
-            name: "< 50% (female/diverse)",
-          },
-          {
-            id: "gte50",
-            name: ">= 50% (female/diverse)",
-          },
-        ]}
-        updateState={(id: string | number, label: string, checked: boolean) => {
-          const currentState = getFilterState();
-
-          if (!currentState?.genderRatio) return;
-
-          if (checked) {
-            if (!(id in currentState?.genderRatio)) {
-              currentState.genderRatio[id] = label;
-            }
-          } else {
-            if (id in currentState?.genderRatio) {
-              delete currentState.genderRatio[id];
-            }
-          }
-
-          maybeUpdateQueryString(currentState);
+        options={settingsState.genderRatio}
+        updateState={(id: number | string, label: string, checked: boolean) => {
+          updateFormStateRecord("genderRatio", id, label, checked);
         }}
       />
       <RangeSlider
         label="Release date between"
         min={mapTool?.config?.minYear ?? 1996}
         max={new Date().getFullYear()}
+        initialValueFrom={
+          filterState.dateFrom ?? mapTool?.config?.minYear ?? 1996
+        }
+        initialValueUntil={
+          filterState.dateUntil ?? new Date().getFullYear()
+        }
         stepSize={1}
-        updateState={(values) => console.log(values)}
+        updateState={(values) => {
+          const currentState: FilterState = getFilterState();
+
+          if (values?.length !== 2) return;
+
+          if (
+            values[0] === (mapTool?.config?.minYear ?? 1996) &&
+            values[1] === new Date().getFullYear()
+          ) {
+            currentState.dateFrom = null;
+            currentState.dateUntil = null;
+          } else {
+            currentState.dateFrom = values[0];
+            currentState.dateUntil = values[1];
+          }
+          maybeUpdateQueryString(currentState);
+        }}
       />
     </Container>
   );

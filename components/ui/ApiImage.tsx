@@ -114,7 +114,7 @@ export const ApiImage = ({
   }, []);
 
   let sortedFiles: any[] = [];
-  if (typeof sizes === "object") {
+  if (sizes instanceof Object) {
     sortedFiles = Object.keys(sizes).reduce((carry: any[], key: string) => {
       if (key.indexOf("-") === -1 && key.indexOf("level") === 0) {
         carry.push({

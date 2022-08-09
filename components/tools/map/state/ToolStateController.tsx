@@ -53,7 +53,7 @@ export const defaultQueryString = createQueryFromState(
 export const ToolStateController = () => {
   const stateMap = useToolStateMapState();
   const stateFilter = useToolStateFilterState();
-  const { updateFilterState, updateMapState, setSettingsState } =
+  const { updateFilterState, updateMapState, updateSettingsState } =
     useToolStateStoreActions();
 
   const queryResultSettings = useQuery(["settings"], fetchSettings);
@@ -84,14 +84,14 @@ export const ToolStateController = () => {
       queryResultSettings.data
     ) {
       startTransition(() =>
-        setSettingsState(queryResultSettings.data as Settings)
+        updateSettingsState(queryResultSettings.data as Settings)
       );
     }
   }, [
     queryResultSettings.isLoading,
     queryResultSettings.isSuccess,
     queryResultSettings.data,
-    setSettingsState,
+    updateSettingsState,
   ]);
 
   useEffect(() => {

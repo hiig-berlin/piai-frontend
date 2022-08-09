@@ -15,8 +15,8 @@ export const createQueryFromState = (
     queryParams.push(`term=${Object.keys(state.terms).sort().join(",")}`);
   }
 
-  if (state?.continents && Object.keys(state.continents).length) {
-    queryParams.push(`continents=${Object.keys(state.continents).sort().join(",")}`);
+  if (state?.regions && Object.keys(state.regions).length) {
+    queryParams.push(`regions=${Object.keys(state.regions).sort().join(",")}`);
   }
 
   if (state?.countries && Object.keys(state.countries).length) {
@@ -29,6 +29,11 @@ export const createQueryFromState = (
 
   if (state?.genderRatio && Object.keys(state.genderRatio).length) {
     queryParams.push(`genderRatio=${Object.keys(state.genderRatio).sort().join(",")}`);
+  }
+
+  if (state?.dateFrom && state?.dateUntil) {
+    queryParams.push(`dateFrom=${state?.dateFrom}`);
+    queryParams.push(`dateUntil=${state?.dateUntil}`);
   }
 
   if (additionalParams) {

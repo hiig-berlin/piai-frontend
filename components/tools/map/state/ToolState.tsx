@@ -13,7 +13,15 @@ export type MapState = {
   filteredInViewCount: number;
 };
 
-export type FilterState = {
+export type FilterStateRecords = {
+  license: Record<string, string>;
+  genderRatio: Record<string, string>;
+  terms: Record<number, string>;
+  regions: Record<number, string>;
+  countries: Record<number, string>;
+};
+
+export type FilterState = FilterStateRecords & {
   totalCount: number;
   filteredCount: number;
   filteredIds: number[] | null;
@@ -23,14 +31,9 @@ export type FilterState = {
   isDrawerOpen: boolean;
   isFilterOpen: boolean;
   isSearchOpen: boolean;
-  license: Record<string, string>;
-  genderRatio: Record<string, string>;
-  dateFrom: string | null | undefined;
-  dateUntil: string | null | undefined;
-  terms: Record<number, string> | null | undefined;
+  dateFrom: number | null | undefined;
+  dateUntil: number | null | undefined;
   s: string | null | undefined;
-  continents: Record<number, string> | null | undefined;
-  countries: Record<number, string> | null | undefined;
 };
 
 export type FilterSettingTaxonomyOption = {
@@ -39,13 +42,12 @@ export type FilterSettingTaxonomyOption = {
   count?: number;
 };
 
-export type FilterSettingTaxonomyOptionContinent =
-  FilterSettingTaxonomyOption & {
-    children?: FilterSettingTaxonomyOptionContinentChild[];
-  };
+export type FilterSettingTaxonomyOptionRegion = FilterSettingTaxonomyOption & {
+  children?: FilterSettingTaxonomyOptionRegionChild[];
+};
 
-export type FilterSettingTaxonomyOptionContinentChild =
-  FilterSettingTaxonomyOptionContinent & {
+export type FilterSettingTaxonomyOptionRegionChild =
+  FilterSettingTaxonomyOptionRegion & {
     parent: number;
   };
 
@@ -54,14 +56,21 @@ export type FilterSettingTaxonomy = {
   options: FilterSettingTaxonomyOption[];
 };
 
+export type SettingTerm = {
+  id: string;
+  name: string;
+};
+
 export type Settings = {
   styleUrl: string;
-  continents: FilterSettingTaxonomyOptionContinent[] | null | undefined;
+  regions: FilterSettingTaxonomyOptionRegion[] | null | undefined;
   countries: FilterSettingTaxonomyOption[] | null | undefined;
   funding: FilterSettingTaxonomy | null | undefined;
   industrialSector: FilterSettingTaxonomy | null | undefined;
   useOfAi: FilterSettingTaxonomy | null | undefined;
   isProjectOpenSource: FilterSettingTaxonomy | null | undefined;
+  license: SettingTerm[];
+  genderRatio: SettingTerm[];
 };
 
 export type ToolState = {
@@ -80,6 +89,7 @@ export type ToolStateActions = {
   getFilterState: () => FilterState;
   updateFilterState: (state: Partial<FilterState>) => void;
   setSettingsState: (state: Settings) => void;
+  updateSettingsState: (state: Partial<Settings>) => void;
 };
 
 export type ToolStateStore = ToolState & ToolStateActions;
@@ -115,17 +125,37 @@ export const defaultToolState: ToolState = {
     genderRatio: {},
     terms: {},
     countries: {},
-    continents: {},
+    regions: {},
     s: null,
   },
   settings: {
     styleUrl: "",
     countries: [],
-    continents: [],
+    regions: [],
     funding: null,
     industrialSector: null,
     useOfAi: null,
     isProjectOpenSource: null,
+    license: [
+      {
+        id: "os",
+        name: "Open source",
+      },
+      {
+        id: "cs",
+        name: "Closed source",
+      },
+    ],
+    genderRatio: [
+      {
+        id: "lt50",
+        name: "< 50% (female/diverse)",
+      },
+      {
+        id: "gte50",
+        name: ">= 50% (female/diverse)",
+      },
+    ],
   },
 };
 
@@ -134,7 +164,7 @@ export const quickClone = (obj: any): any => {
 
   if (Array.isArray(obj)) return [...obj];
 
-  if (typeof obj !== "object") return obj;
+  if (!(obj instanceof Object)) return obj;
 
   return Object.keys(obj).reduce((carry: any, key: any) => {
     return {
@@ -190,6 +220,13 @@ export const useToolStateStore = create<ToolStateStore>((set, get) => ({
   setSettingsState: (state: Settings) =>
     set(() => ({
       settings: state,
+    })),
+  updateSettingsState: (state: Partial<Settings>) =>
+    set(() => ({
+      settings: {
+        ...get().settings,
+        ...state,
+      },
     })),
 }));
 

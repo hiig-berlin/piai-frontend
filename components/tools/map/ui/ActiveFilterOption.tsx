@@ -13,7 +13,7 @@ const Option = styled.div`
   border: 1px solid #fff;
   padding: 0.3em 0 0.5em 0.5em;
   gap: var(--size-1);
-  max-width:100% ;
+  max-width: 100%;
 `;
 
 const Trim = styled.span`
@@ -23,8 +23,7 @@ const Trim = styled.span`
   text-overflow: ellipsis;
   white-space: nowrap;
   max-width: 100%;
-  
-`
+`;
 
 export const ActiveFilterOption = ({
   label,
@@ -35,7 +34,11 @@ export const ActiveFilterOption = ({
 }) => {
   return (
     <Option>
-      <Trim>{safeHtml(label)}</Trim>
+      <Trim
+        dangerouslySetInnerHTML={{
+          __html: safeHtml(label),
+        }}
+      />
       <Icon type="close" onClick={onRemove} />
     </Option>
   );

@@ -1,4 +1,4 @@
-import React, { useId, useState } from "react";
+import React, { useEffect, useId, useState } from "react";
 import styled from "styled-components";
 import safeHtml from "~/utils/sanitize";
 
@@ -87,17 +87,21 @@ export const RangeSlider = ({
   label,
   min,
   max,
+  initialValueFrom,
+  initialValueUntil,
   stepSize,
   updateState,
 }: {
   label: string;
   min: number;
   max: number;
+  initialValueFrom: number;
+  initialValueUntil: number;
   stepSize: number;
   updateState: (values: number[]) => void;
 }) => {
   const id = useId();
-  const [values, setValues] = useState([min, max]);
+  const [values, setValues] = useState([initialValueFrom, initialValueUntil]);
 
   const { getTrackProps, ticks, segments, handles } = useRanger({
     min,
@@ -109,6 +113,10 @@ export const RangeSlider = ({
     onChange: updateState,
   } as any);
 
+  useEffect(() => {
+    setValues([initialValueFrom, initialValueUntil]);
+  }, [initialValueFrom, initialValueUntil])
+  
   return (
     <Container>
       <H4>{safeHtml(label)}</H4>

@@ -5,8 +5,8 @@ import safeHtml from "~/utils/sanitize";
 import { Icon } from "../../shared/ui/Icon";
 import {
   FilterSettingTaxonomyOption,
-  FilterSettingTaxonomyOptionContinent,
-  FilterSettingTaxonomyOptionContinentChild,
+  FilterSettingTaxonomyOptionRegion,
+  FilterSettingTaxonomyOptionRegionChild,
 } from "../state/ToolState";
 import { ActiveFilterOption } from "./ActiveFilterOption";
 import { FieldCheckbox } from "./FieldCheckbox";
@@ -76,8 +76,8 @@ const renderOptions = (
   activeTerms: Record<number, string> | null | undefined,
   options:
     | FilterSettingTaxonomyOption[]
-    | FilterSettingTaxonomyOptionContinent[]
-    | FilterSettingTaxonomyOptionContinentChild[],
+    | FilterSettingTaxonomyOptionRegion[]
+    | FilterSettingTaxonomyOptionRegionChild[],
   updateState: (id: string | number, name: string, isChecked: boolean) => void,
   indent: number = 0,
   allOptions: any
@@ -123,7 +123,7 @@ export const RegionOrCountrySelector = ({
   label: string;
   labelAllShown: string;
   options:
-    | FilterSettingTaxonomyOptionContinent[]
+    | FilterSettingTaxonomyOptionRegion[]
     | FilterSettingTaxonomyOption[];
   activeTerms: Record<number, string> | null | undefined;
   updateState: (id: string | number, name: string, isChecked: boolean) => void;
