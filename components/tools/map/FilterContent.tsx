@@ -125,6 +125,8 @@ export const FilterContent = () => {
       quickViewProjectId: getFilterState().quickViewProjectId,
       totalCount: getFilterState().totalCount,
       filteredCount: getFilterState().totalCount,
+      regions: getFilterState().regions,
+      countries: getFilterState().countries,
     };
 
     setFilterState(newState);
@@ -250,8 +252,8 @@ export const FilterContent = () => {
           newState.dateFrom = dateFrom;
           newState.dateUntil = dateUntil;
         } else {
-          newState.dateFrom = "";
-          newState.dateUntil = "";
+          newState.dateFrom = null;
+          newState.dateUntil = null;
         }
 
         if (Object.keys(newState).length) {
@@ -413,10 +415,10 @@ export const FilterContent = () => {
         label="Release date between"
         min={mapTool?.config?.minYear ?? 1996}
         max={new Date().getFullYear()}
-        initialValueFrom={
+        valueFrom={
           filterState.dateFrom ?? mapTool?.config?.minYear ?? 1996
         }
-        initialValueUntil={
+        valueUntil={
           filterState.dateUntil ?? new Date().getFullYear()
         }
         stepSize={1}

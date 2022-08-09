@@ -130,13 +130,10 @@ export const Map = ({ isVisible }: { isVisible?: boolean }) => {
           mapLastFilterRef.current = defaultQueryString;
         }
       } else {
-        if (
-          filterState.filteredIds?.length &&
-          mapLastFilterRef.current !== filterState.filterQueryString
-        ) {
+        if (mapLastFilterRef.current !== filterState.filterQueryString) {
           mapControllerRef.current?.setFilteredViewData(
             "clustered",
-            filterState.filteredIds
+            filterState.filteredIds ?? []
           );
           mapControllerRef.current?.showView("clustered");
           mapLastFilterRef.current = filterState.filterQueryString;

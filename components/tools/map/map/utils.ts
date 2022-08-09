@@ -41,5 +41,6 @@ export const createQueryFromState = (
       queryParams.push(`${param}=${additionalParams[param]}`);
     }
   }
+  
   return queryParams;
 };

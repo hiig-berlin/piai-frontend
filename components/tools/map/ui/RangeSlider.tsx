@@ -87,21 +87,21 @@ export const RangeSlider = ({
   label,
   min,
   max,
-  initialValueFrom,
-  initialValueUntil,
+  valueFrom,
+  valueUntil,
   stepSize,
   updateState,
 }: {
   label: string;
   min: number;
   max: number;
-  initialValueFrom: number;
-  initialValueUntil: number;
+  valueFrom: number;
+  valueUntil: number;
   stepSize: number;
   updateState: (values: number[]) => void;
 }) => {
   const id = useId();
-  const [values, setValues] = useState([initialValueFrom, initialValueUntil]);
+  const [values, setValues] = useState([valueFrom, valueUntil]);
 
   const { getTrackProps, ticks, segments, handles } = useRanger({
     min,
@@ -114,9 +114,9 @@ export const RangeSlider = ({
   } as any);
 
   useEffect(() => {
-    setValues([initialValueFrom, initialValueUntil]);
-  }, [initialValueFrom, initialValueUntil])
-  
+    setValues([valueFrom, valueUntil]);
+  }, [valueFrom, valueUntil]);
+
   return (
     <Container>
       <H4>{safeHtml(label)}</H4>
