@@ -167,11 +167,14 @@ export const theme = {
   },
   gutterWidth: themeGetBreakpointValue(2),
 
+  // These values destroy the tool page layouts 
+  // (make the boxes weirly narrow)
+
   bodyCopyMaxWidth: {
-    base: 450,
-    mobile: 450,
-    mobileLandscape: 450,
-    tablet: 600,
+    // base: 450,
+    // mobile: 450,
+    // mobileLandscape: 450,
+    // tablet: 600,
     tabletLandscape: 600,
     desktop: 750,
     screen: 750,

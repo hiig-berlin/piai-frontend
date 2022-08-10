@@ -33,7 +33,10 @@ const ContentContainer = styled.div<{ isTransparent: boolean }>`
   left: 0;
   width: 100%;
   min-height: 100%;
-  padding: var(--size-3);
+  
+  // hier kein padding!
+  // das wird in den page layouts gesetzt
+  // padding: var(--size-3);
 
   ${({ isTransparent }) =>
     isTransparent

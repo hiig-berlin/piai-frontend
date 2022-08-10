@@ -40,7 +40,7 @@ const Container = styled(Grid)<{
   
 
   ${({ theme }) => theme.breakpoints.tablet} {
-    padding-right: 100px;
+    padding-right: calc(34px + 2 * var(--size-3) + 6px);
   }
 
   & .column {

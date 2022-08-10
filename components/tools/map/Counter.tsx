@@ -96,6 +96,10 @@ export const Counter = () => {
 
   const { map, filter, updateFilterState } = useToolStateContext();
 
+  // TODO: Ich würde das Klickevent zumindest für mobile
+  // auch auf die Zahlen setzen. Dan kann man einfach unten
+  // drauf klicken um auf die Filteransicht zu kommen. Bei mobile 
+  // ist ja auch filter und suche das gleiche fenster….
   return (
     <CounterContainer invert={filter.isFilterOpen && !isTabletLandscapeAndUp}>
       {!isTabletLandscapeAndUp && (
