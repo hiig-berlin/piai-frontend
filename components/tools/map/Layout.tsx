@@ -1,4 +1,6 @@
-import { Suspense, useEffect, useState } from "react";
+import { 
+    // Suspense, 
+    useEffect, useState } from "react";
 
 import dynamic from "next/dynamic";
 
@@ -9,16 +11,18 @@ import { useConfigContext } from "~/providers/ConfigContextProvider";
 import { Menu } from "~/components/app/Menu";
 import { UserTracking } from "~/components/app/UserTracking";
 import { LoadingBar } from "~/components/styled/LoadingBar";
-import { usePageStateContext } from "~/providers/PageStateContextProvider";
 import { MenuButton } from "~/components/app/MenuButton";
-import { ToolStateContextProvider } from "./context/ContextProviders";
 
 import { Sidebar } from "../shared/Sidebar";
 import { Submenu } from "./Submenu";
 import ReactQueryContextProvider from "./context/ReactQueryContextProvider";
 import { MapOverlays } from "./MapOverlays";
+import { DirectoryOverlays } from "./DirectoryOverlays";
+import { ToolStateController } from "./state/ToolStateController";
+import { usePageStateIsLoadingState } from "~/components/state/PageState";
 
 const Map = dynamic(() => import("./Map"), {
+  // suspense: true,
   loading: () => <LoadingBar isLoading />,
 });
 
@@ -51,7 +55,7 @@ const ContentContainer = styled.div<{ isTransparent: boolean }>`
   `}
 
   ${({ theme }) => theme.breakpoints.tablet} {
-    padding: 0;
+    padding: 0 0 0 var(--size-6);
   }
 `;
 
@@ -63,11 +67,12 @@ export const Layout = ({
   props: any;
 }) => {
   const config = useConfigContext();
-  const { isLoading } = usePageStateContext();
+  const isLoading = usePageStateIsLoadingState();
 
   const [showMap, setShowMap] = useState(props?.view === "map");
 
   const isMap = props?.view === "map";
+  const isDirectory = props?.slug === "directory";
 
   useEffect(() => {
     if (isMap && !showMap) {
@@ -76,12 +81,7 @@ export const Layout = ({
   }, [isMap, showMap]);
 
   const content = (
-    <ContentContainer isTransparent={isMap}>
-      <Sidebar tool="map" view={props?.view}>
-        <Submenu tool="map" slug={props?.slug} />
-      </Sidebar>
-      {children}
-    </ContentContainer>
+    <ContentContainer isTransparent={isMap}>{children}</ContentContainer>
   );
 
   return (
@@ -101,23 +101,32 @@ export const Layout = ({
       <LoadingBar isLoading={isLoading} />
       <MenuButton />
       <ReactQueryContextProvider>
-        <ToolStateContextProvider>
-          {showMap && (
-            <>
-              <Map />
-              {isMap && content}
-              {/* 
+        <ToolStateController />
 
+        <Sidebar tool="map" view={props?.view}>
+          <Submenu tool="map" slug={props?.slug} />
+        </Sidebar>
+        {showMap && (
+          <>
+            <Map />
+            {isMap && content}
+
+            {/*
+              Dynamic loading of modules does not play nice width server side rendering 
+              at the moment react 18 throws client side hydration error.
+              hence we're using next.js dynamic loading: ... above 
               <Suspense fallback={<LoadingBar isLoading />}>
                 <Map />
                 {isMap && content}
               </Suspense>
             */}
-            </>
-          )}
-          {!isMap && content}
-          {isMap && <MapOverlays />}
-        </ToolStateContextProvider>
+
+            {isMap && content}
+          </>
+        )}
+        {!isMap && content}
+        {isMap && <MapOverlays />}
+        {isDirectory && <DirectoryOverlays />}
       </ReactQueryContextProvider>
       <Menu />
     </>

@@ -9,7 +9,7 @@ import {
 import { appConfig } from "~/config";
 import { PiAiTool } from "~/types";
 import styled from "styled-components";
-import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
+import { useCssVarsStateIsTabletLandscapeAndUpState } from "~/components/state/CssVarsState";
 import { Box } from "~/components/tools/shared/ui/Box";
 import { Icon } from "~/components/tools/shared/ui/Icon";
 import { ProjectCard } from "~/components/tools/map/ProjectCard";
@@ -116,9 +116,7 @@ const Project = ({ data, tool }: { data: any; tool: PiAiTool }) => {
   const [scrollDir, setScrollDir] = useState("down");
   const [isCollapsed, setIsCollapsed] = useState(false);
 
-  const {
-    vars: { isTabletLandscapeAndUp },
-  } = useCssVarsContext();
+  const isTabletLandscapeAndUp = useCssVarsStateIsTabletLandscapeAndUpState();
 
   const router = useRouter();
 
@@ -260,7 +258,9 @@ const Project = ({ data, tool }: { data: any; tool: PiAiTool }) => {
           >
             <span>back</span>
           </Icon>
-          <Box><ProjectCard view="detail" data={data?.acf?.details} /></Box>
+          <Box>
+            <ProjectCard view="detail" data={data?.acf?.details} />
+          </Box>
           <Box className="contact">
             <h3>Contact</h3>
             {data?.acf?.details?.responsiblePerson?.value?.trim() && (

@@ -8,34 +8,56 @@ import { LinkButtonAnimated } from "~/components/styled/Button";
 import { appConfig } from "~/config";
 import { LoadingBar } from "~/components/styled/LoadingBar";
 import { ProjectCard } from "./ProjectCard";
-import { useToolStateContext } from "./context/ContextProviders";
-import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
+import { useCssVarsStateIsTabletLandscapeAndUpState } from "~/components/state/CssVarsState";
 import { Icon } from "../shared/ui/Icon";
 import safeHtml from "~/utils/sanitize";
+import { Scroller } from "./Styled";
+import { useToolStateFilterState, useToolStateStoreActions } from "./state/ToolState";
 
 const DraggableDrawer = dynamic(() => import("./map/DraggableDrawer"), {
   suspense: true,
 });
 
-const QuickView = styled.div<{ isFilterOpen: boolean }>`
+const QuickView = styled.div<{ isFilterOpen: boolean; isDirectory: boolean }>`
   position: fixed;
   bottom: var(--size-3);
   left: calc(var(--size-3) + var(--size-6));
   z-index: 5;
   height: auto;
   max-height: 75vh;
-  width: calc((100vw - var(--size-6) - 2 * var(--size-3)) * 0.4);
+  width: calc((100vw - var(--size-6) - 3 * var(--size-3)) * 0.4);
   border-radius: var(--size-3);
   overflow: hidden;
   transition: transform 0.35s;
 
   transform: ${({ isFilterOpen }) =>
     isFilterOpen
-      ? "translateX(calc((100vw - var(--size-6) - 2 * var(--size-3)) * 0.3))"
+      ? "translateX(calc((100vw - var(--size-6) - 3 * var(--size-3)) * 0.3))"
       : "translateX(0)"};
+
+  ${({ isDirectory, theme, isFilterOpen }) =>
+    isDirectory
+      ? `
+    max-height: 100%;
+
+    ${theme.breakpoints.tabletLandscape} {
+      left: calc(2 * var(--size-3) + var(--size-6));
+      bottom: 0;
+      padding-bottom: var(--size-3);
+      height: calc(100vh - var(--lbh) - var(--tool-map-ot));
+      width: calc((100vw - var(--size-6) - 3 * var(--size-3)) * 0.33);
+      transform: ${
+        isFilterOpen
+          ? "translateX(calc((100vw - var(--size-6) - 3 * var(--size-3)) * 0.66))"
+          : "translateX(calc((100vw - var(--size-6) - 3 * var(--size-3)) * 0.33))"
+      };
+    }
+  `
+      : ``}
 `;
 
 const Panel = styled.div<{
+  isDirectory: boolean;
   isLoading: boolean;
   isRefetching: boolean;
   isFullHeight: boolean;
@@ -67,8 +89,9 @@ const Panel = styled.div<{
   }
 
   ${({ theme }) => theme.breakpoints.tabletLandscape} {
-    height: auto;
-    max-height: 75vh;
+    border-radius: ${({ isDirectory }) => (isDirectory ? "var(--size-3)" : "0")};
+    height: ${({ isDirectory }) => (isDirectory ? "100%" : "auto")};
+    max-height: ${({ isDirectory }) => (isDirectory ? "100%" : "75vh")};
   }
 `;
 
@@ -115,24 +138,26 @@ const ViewMore = styled.div`
   }
 `;
 
-const Scroller = styled.div`
+const QVScroller = styled(Scroller)`
   height: 100%;
   overflow-y: auto;
 
   & > * {
     margin-bottom: var(--size-3);
   }
-
-  ${({ theme }) => theme.breakpoints.tabletLandscape} {
-    // overflow: visible;
-  }
 `;
 
-export const ProjectQuickView = ({ id }: { id?: number }) => {
-  const {
-    vars: { isTabletLandscapeAndUp },
-  } = useCssVarsContext();
-  const { updateMapState, filter } = useToolStateContext();
+export const ProjectQuickView = ({
+  id,
+  view,
+}: {
+  id?: number;
+  view: string;
+}) => {
+  const isTabletLandscapeAndUp = useCssVarsStateIsTabletLandscapeAndUpState();
+
+  const filterState = useToolStateFilterState();
+  const { updateFilterState } = useToolStateStoreActions();
   const [isDrawerFullHeight, setIsDrawerFullHeight] = useState(false);
 
   const { isLoading, isSuccess, isRefetching, data, isError } = useQuery(
@@ -151,10 +176,10 @@ export const ProjectQuickView = ({ id }: { id?: number }) => {
   const hasContent = isSuccess && data?.data?.id;
 
   useEffect(() => {
-    updateMapState({
+    updateFilterState({
       isDrawerOpen: hasContent,
     });
-  }, [hasContent, updateMapState]);
+  }, [hasContent, updateFilterState]);
 
   if (!id || isError) return <></>;
 
@@ -163,6 +188,7 @@ export const ProjectQuickView = ({ id }: { id?: number }) => {
   if (hasContent)
     content = (
       <Panel
+        isDirectory={view === "directory"}
         isLoading={isLoading}
         isRefetching={isRefetching}
         isFullHeight={!isTabletLandscapeAndUp && isDrawerFullHeight}
@@ -170,9 +196,9 @@ export const ProjectQuickView = ({ id }: { id?: number }) => {
         <Header>
           <h1>{safeHtml(data?.data?.acf?.details?.nameOfProject?.value)}</h1>
         </Header>
-        <Scroller>
+        <QVScroller>
           <ProjectCard view="quickview" data={data?.data?.acf?.details} />
-        </Scroller>
+        </QVScroller>
         <Footer>
           <ViewMore>
             <Link href={`/tool/map/project/${data?.data?.slug}`} passHref>
@@ -183,9 +209,9 @@ export const ProjectQuickView = ({ id }: { id?: number }) => {
           {isTabletLandscapeAndUp && (
             <Icon
               onClick={() => {
-                updateMapState({
-                  quickViewProjectId: null,
+                updateFilterState({
                   isDrawerOpen: false,
+                  quickViewProjectId: null,
                 });
               }}
               type="back"
@@ -207,7 +233,12 @@ export const ProjectQuickView = ({ id }: { id?: number }) => {
 
   if (isTabletLandscapeAndUp && hasContent)
     content = (
-      <QuickView isFilterOpen={filter.isFilterOpen}>{content}</QuickView>
+      <QuickView
+        isFilterOpen={filterState.isFilterOpen || filterState.isSearchOpen}
+        isDirectory={view === "directory"}
+      >
+        {content}
+      </QuickView>
     );
 
   return (

@@ -6,7 +6,7 @@ import { Menu } from "../app/Menu";
 import { Footer } from "../app/Footer";
 import { UserTracking } from "../app/UserTracking";
 import { LoadingBar } from "../styled/LoadingBar";
-import { usePageStateContext } from "~/providers/PageStateContextProvider";
+import { usePageStateIsLoadingState } from "../state/PageState";
 
 const FullHeightGrid = styled.div`
   min-height: 100%;
@@ -18,7 +18,7 @@ const FullHeightGrid = styled.div`
 
 export const LayoutMain = ({ children }: AppProps) => {
   const config = useConfigContext();
-  const { isLoading } = usePageStateContext();
+  const isLoading = usePageStateIsLoadingState();
 
   return (
     <>

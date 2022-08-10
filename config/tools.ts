@@ -33,6 +33,7 @@ export const tools: PiAiTool[] = [
       },
     ],
     config: {
+      minYear: 1996,
       lng: 0,
       lat: 51.557503, //0,
       minZoom: 1,

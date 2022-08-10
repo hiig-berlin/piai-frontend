@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
+import { useCssVarsStateStore } from "~/components/state/CssVarsState";
 const Info = styled.div`
   position: fixed;
   left: 50%;
@@ -13,21 +13,21 @@ const Info = styled.div`
   line-height: 10px;
 `;
 export const DevInfo = () => {
-  const cssContext = useCssVarsContext();
+  const cssContext = useCssVarsStateStore();
 
   let breakpoint = "unknown";
   
-  if (cssContext.vars.isScreen) {
+  if (cssContext.isScreen) {
     breakpoint = "screen";
-  } else if (cssContext.vars.isDesktop) {
+  } else if (cssContext.isDesktop) {
     breakpoint = "desktop";
-  } else if (cssContext.vars.isTabletLandscape) {
+  } else if (cssContext.isTabletLandscape) {
     breakpoint = "tablet landscape";
-  } else if (cssContext.vars.isTabletPortrait) {
+  } else if (cssContext.isTabletPortrait) {
     breakpoint = "tablet portrait";
-  } else if (cssContext.vars.isMobileLandscape) {
+  } else if (cssContext.isMobileLandscape) {
     breakpoint = "mobile landscape";
-  } else if (cssContext.vars.isMobilePortrait) {
+  } else if (cssContext.isMobilePortrait) {
     breakpoint = "mobile portrait";
   } else {
     breakpoint = "base";

@@ -44,7 +44,7 @@ export class MapClusterDetail {
               spiderLeg?.feature?.slug,
               self.controller,
               spiderLeg.latLng,
-              spiderLeg?.feature?.name, // xxx the content needs probably to be better ...
+              spiderLeg?.feature?.name,
               {
                 offset: [
                   spiderLeg.popupOffset.bottom[0] +

@@ -1,10 +1,4 @@
-import {
-  Map,
-  AttributionControl,
-  LngLatBounds,
-  LngLatLike,
-  PaddingOptions,
-} from "maplibre-gl";
+import { Map, LngLatBounds, LngLatLike } from "maplibre-gl";
 import type {
   PointLike,
   FilterSpecification,
@@ -12,7 +6,6 @@ import type {
 } from "maplibre-gl";
 
 import "maplibre-gl/dist/maplibre-gl.css";
-
 
 import type { NextRouter } from "next/router";
 
@@ -22,8 +15,11 @@ import { MapPopupManager } from "./MapPopupManager";
 import { MapClusterDetail } from "./MapClusterDetail";
 import { MapViewClustered } from "./MapViewClustered";
 
-import type { MapState } from "../context/ContextProviders";
 import { breakpointEMs } from "~/theme/breakpoints";
+import { EMPTY_GEOJSON } from "./utils";
+import { themeSpace } from "~/theme/theme";
+import { GeoJson } from "./types";
+import type { ToolState, MapState, FilterState } from "../state/ToolState";
 
 export type MapFitToBoundingBoxOptions = CameraForBoundsOptions & {
   minZoom?: number;
@@ -91,27 +87,23 @@ export class MapController {
 
   currentView: keyof MapViews | null = null;
 
-  geoJsonAllData: any = null;
+  geoJsonAllData: GeoJson | null = null;
 
   overlayZoomLevel: number = 0;
 
-  // xxx clean up
-  // clickBlock = false;
-  // highlights;
-  // // tour: MapTour;
-  // intitiallyFitToBounds;
-
   onLoadJobs: Function[] = [];
 
-  getMapState: () => MapState;
+  getState: () => ToolState;
   updateMapState: (mapState: Partial<MapState>) => void;
+  updateFilterState: (filterState: Partial<FilterState>) => void;
 
   constructor(
     router: NextRouter,
     config: AppConfig,
     styleUrl: string,
-    getMapState: () => MapState,
-    updateMapState: (mapState: Partial<MapState>) => void
+    getState: () => ToolState,
+    updateMapState: (mapState: Partial<MapState>) => void,
+    updateFilterState: (filterState: Partial<FilterState>) => void
   ) {
     this.config = config;
     this.router = router;
@@ -119,8 +111,9 @@ export class MapController {
     this.isInit = false;
     this.map = null;
 
-    this.getMapState = getMapState;
+    this.getState = getState;
     this.updateMapState = updateMapState;
+    this.updateFilterState = updateFilterState;
 
     const mapTool = this.config?.tools?.find((t) => t.slug === "map");
     this.toolConfig = mapTool?.config ?? {};
@@ -130,6 +123,23 @@ export class MapController {
     this.clusterDetail = new MapClusterDetail(this);
     this.views.clustered = new MapViewClustered(this);
   }
+
+  processOnLoadJobs = async () => {
+    const self = this;
+    if (self.isReady) return;
+    self.isReady = true;
+
+    self.onLoadJobs.forEach(async (f) => {
+      await new Promise(f as any);
+    });
+  };
+
+  maybeProcessOnLoadJobs = async () => {
+    const self = this;
+    if (self.isBaseDataLoaded && self.isStyleLoaded && self.isLoaded) {
+      await self.processOnLoadJobs();
+    }
+  };
 
   init(
     id: string,
@@ -158,26 +168,25 @@ export class MapController {
       attributionControl: false,
     });
 
+    self.map.dragRotate.disable();
+
+    // disable map rotation using touch rotation gesture
+    self.map.touchZoomRotate.disableRotation();
+
     self.overlayZoomLevel = self.toolConfig?.zoom ?? 8;
 
     self.router.events.on("routeChangeStart", () => {
       self.popups.hideAll();
     });
 
-    // xxx better attribution ...
-    // where to place it best
-    self.map.addControl(
-      new AttributionControl({
-        customAttribution:
-          '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="nofollow noreferrer">OpenStreetMap contributors</a>',
-      }),
-      "bottom-right"
-    );
-
     self.isReady = false;
     self.isStyleLoaded = false;
     self.isLoaded = false;
     self.onLoadJobs = [];
+
+    if (typeof setIsLoaded === "function") {
+      self.runTask(() => setIsLoaded.call(null, true));
+    }
 
     self.onLoadJobs.push(async (resolve?: any) => {
       if (self.currentView && self.currentView in self.views) {
@@ -195,26 +204,9 @@ export class MapController {
 
     self.clusterDetail.init();
 
-    const process = async () => {
-      if (self.isReady) return;
-      self.isReady = true;
-
-      if (typeof setIsLoaded === "function") setIsLoaded.call(null, true);
-
-      self.onLoadJobs.forEach(async (f) => {
-        await new Promise(f as any);
-      });
-    };
-
-    const maybeProcess = async () => {
-      if (self.isBaseDataLoaded && self.isStyleLoaded && self.isLoaded) {
-        await process();
-      }
-    };
-
     self.map.once("style.load", () => {
       self.isStyleLoaded = true;
-      maybeProcess();
+      self.maybeProcessOnLoadJobs();
     });
     self.map.once("load", () => {
       if (!self?.map) return;
@@ -225,7 +217,7 @@ export class MapController {
         self.isAnimating = (e as any)?.cMapAnimation === true;
       });
 
-      self.map.on("moveend", (e) => {
+      self.map.on("moveend", () => {
         if (!self.map) return;
         self.isAnimating = false;
         if (self.map.getZoom() > self.toolConfig.maxZoom - 1) {
@@ -239,58 +231,36 @@ export class MapController {
         }
       });
 
-      maybeProcess();
+      self.maybeProcessOnLoadJobs();
     });
-
-    try {
-      fetch(`${self.config.cmsUrl}${self.toolConfig.urlGeoJson}`)
-        .then(async (response) => {
-          if (response.ok) {
-            const data = await response.json();
-            if (
-              data &&
-              data?.type &&
-              data?.type === "FeatureCollection" &&
-              Array.isArray(data?.features)
-            ) {
-              self.geoJsonAllData = data;
-              self.isBaseDataLoaded = true;
-
-              self.updateMapState({
-                totalCount: (data?.features?.length ?? 0) as number,
-                filteredCount: 0,
-              });
-
-              maybeProcess();
-            }
-          }
-        })
-        .catch((err: any) => {
-          if (
-            typeof window !== "undefined" &&
-            window.process.env.NODE_ENV === "development"
-          )
-            console.error(err);
-        });
-    } catch (err) {
-      if (
-        typeof window !== "undefined" &&
-        window.process.env.NODE_ENV === "development"
-      )
-        console.error(err);
-    }
 
     self.isInit = true;
   }
 
-  showQuickView(coordinates: LngLatLike, id: number) {
+  setGeoJson(geoJson: GeoJson) {
+    const self = this;
+    if (
+      geoJson &&
+      geoJson?.type &&
+      geoJson?.type === "FeatureCollection" &&
+      Array.isArray(geoJson?.features)
+    ) {
+      self.geoJsonAllData = geoJson;
+      self.isBaseDataLoaded = true;
+
+      self.maybeProcessOnLoadJobs();
+    }
+  }
+
+  showQuickView(coordinates: LngLatLike, id: number, showSearch?: boolean) {
     const self = this;
 
     self.popups.hideAll();
 
-    self.updateMapState({
-      ...self.getMapState(),
+    self.updateFilterState({
+      ...self.getState().filter,
       isDrawerOpen: true,
+      isSearchOpen: !!showSearch,
       quickViewProjectId: id,
     });
 
@@ -319,64 +289,46 @@ export class MapController {
   }
 
   getBoundsPadding() {
-    return 30;
+    if (typeof window === "undefined")
+      return {
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0,
+      };
 
-    // xxx improve
-    // if (typeof window === "undefined")
-    //   return {
-    //     top: 0,
-    //     right: 0,
-    //     bottom: 0,
-    //     left: 0,
-    //   };
+    if (window.innerWidth < breakpointEMs.tablet * 16) {
+      // all mobiles
 
-    // const isMobile = window.matchMedia("(max-width: 44.9999em)").matches;
-    // const isTablet = window.matchMedia(
-    //   "(min-width: 45em) and (max-width: 74.9999em)"
-    // ).matches;
-    // const isTabletWide = window.matchMedia(
-    //   "(min-width: 62em) and (max-width: 74.9999em)"
-    // ).matches;
-    // const isDesktop = window.matchMedia(
-    //   "(min-width: 75em) and (max-width: 119.9999em)"
-    // ).matches;
+      return 40;
+    } else if (window.innerWidth < breakpointEMs.tabletLandscape * 16) {
+      // tablet portrait
 
-    // if (isMobile) {
-    //   return {
-    //     top: 80,
-    //     right: 40,
-    //     bottom: 100,
-    //     left: 80,
-    //   };
-    // } else if (isTablet && !isTabletWide) {
-    //   return {
-    //     top: 80,
-    //     right: 40,
-    //     bottom: 40,
-    //     left: 120,
-    //   };
-    // } else if (isTabletWide) {
-    //   return {
-    //     top: 80,
-    //     right: 40,
-    //     bottom: 40,
-    //     left: 160,
-    //   };
-    // } else if (isDesktop) {
-    //   return {
-    //     top: 80,
-    //     right: 40,
-    //     bottom: 100,
-    //     left: 400,
-    //   };
-    // } else {
-    //   return {
-    //     top: 80,
-    //     right: 40,
-    //     bottom: 100,
-    //     left: 695 + (window.innerWidth * 0.08 - 55) + 40,
-    //   };
-    // }
+      return {
+        top: 100,
+        right: 70,
+        bottom: 100,
+        left: 70,
+      };
+    } else {
+      // tabletLandscape ++
+
+      let sidebarWidth = 0;
+      if (window.innerWidth < breakpointEMs.desktop * 16) {
+        sidebarWidth = themeSpace("tablet", 6);
+      } else if (window.innerWidth < breakpointEMs.screen * 16) {
+        sidebarWidth = themeSpace("desktop", 6, 0);
+      } else {
+        sidebarWidth = themeSpace("screen", 6);
+      }
+
+      return {
+        top: 50,
+        right: 70,
+        bottom: 50,
+        left: sidebarWidth + 750,
+      };
+    }
   }
 
   inBounds = (coordinates: [PointLike, PointLike]) => {
@@ -468,7 +420,7 @@ export class MapController {
     )
       (this.views[view as keyof MapViews] as any)?.[functionName].call(
         this.views[view as keyof MapViews] as any,
-        functionArgs
+        ...(functionArgs ?? [])
       );
   }
 
@@ -506,13 +458,13 @@ export class MapController {
     }
   }
 
-  hideCurrentView() {
+  hideView(view?: keyof MapViews) {
     const self = this;
     if (self.map) {
       const run = async (resolve?: any) => {
         self.popups.hideAll();
 
-        self.callViewFunction(self.currentView, "hide");
+        self.callViewFunction(view ?? self.currentView, "hide");
 
         if (typeof resolve === "function") resolve(true);
       };
@@ -524,13 +476,13 @@ export class MapController {
     }
   }
 
-  showCurrentView() {
+  showView(view?: keyof MapViews) {
     const self = this;
     if (self.map) {
       const run = async (resolve?: any) => {
         self.popups.hideAll();
 
-        self.callViewFunction(self.currentView, "show");
+        self.callViewFunction(view ?? self.currentView, "show");
 
         if (typeof resolve === "function") resolve(true);
       };
@@ -560,22 +512,52 @@ export class MapController {
     }
   }
 
-  setCurrentViewData(data: any, show: boolean) {
+  resetViewData(view: keyof MapViews) {
     const self = this;
     if (self.map) {
       const run = async (resolve?: any) => {
         self.popups.hideAll();
-
         self.clusterDetail.hide();
 
-        self.callViewFunction(self.currentView, "hide", [data]);
+        self.callViewFunction(view, "setData", [
+          self.geoJsonAllData?.features ? self.geoJsonAllData : EMPTY_GEOJSON,
+        ]);
+        if (typeof resolve !== "undefined") resolve(true);
+      };
 
-        if (show) {
-          setTimeout(() => {
-            self.callViewFunction(self.currentView, "show");
-            if (typeof resolve === "function") resolve(true);
-          }, 100);
+      if (!self.isReady) {
+        self.onLoadJobs.push(run);
+      } else {
+        run();
+      }
+    }
+  }
+
+  setFilteredViewData(view: keyof MapViews, ids: any[]) {
+    const self = this;
+    if (self.map) {
+      const run = async (resolve?: any) => {
+        self.popups.hideAll();
+        self.clusterDetail.hide();
+
+        let geoJson = EMPTY_GEOJSON;
+
+        if (
+          self.geoJsonAllData &&
+          self.geoJsonAllData?.features?.length &&
+          ids?.length
+        ) {
+          geoJson = {
+            type: "FeatureCollection",
+            features: self.geoJsonAllData?.features.filter((f: any) =>
+              ids.includes(f?.properties?.id)
+            ),
+          };
         }
+
+        self.callViewFunction(view, "setData", [geoJson]);
+
+        if (typeof resolve !== "undefined") resolve(true);
       };
 
       if (!self.isReady) {
@@ -606,106 +588,53 @@ export class MapController {
     }
   }
 
-  // fitToCurrentViewBounds() {
-  //   const self = this;
-  //   if (self.map) {
-  //     const run = async (resolve?: any) => {
-  //       self.popups.hideAll();
-  //       self.views[self.currentView].fitToBounds();
-  //       if (typeof resolve === "function") resolve(true);
-  //     };
-
-  //     if (!self.isReady) {
-  //       self.onLoadJobs.push(run);
-  //     } else {
-  //       run();
-  //     }
-  //   }
-  // }
-
-  // xxx make the following better
   getCenterOffset() {
     if (typeof window === "undefined") return [0, 0];
 
-    if (window.innerWidth < breakpointEMs.mobileLandscape * 16) {
-      if (this.getMapState().isDrawerOpen) {
-        return [0, -0.25 * window.innerHeight];
-      } else {
-        return [0, 0];
-      }
-    } else if (window.innerWidth < breakpointEMs.mobileLandscape * 16) {
-      // xxx improve
-    } else if (window.innerWidth < breakpointEMs.tablet * 16) {
-      // xxx improve
-    } else if (window.innerWidth < breakpointEMs.tabletLandscape * 16) {
-      // xxx improve
+    let sidebarWidth = 0;
+    let size3Width = 0;
+    if (window.innerWidth < breakpointEMs.desktop * 16) {
+      sidebarWidth = themeSpace("tablet", 6);
+      size3Width = themeSpace("tablet", 3);
+    } else if (window.innerWidth < breakpointEMs.screen * 16) {
+      sidebarWidth = themeSpace("desktop", 6, 0);
+      size3Width = themeSpace("desktop", 3, 0);
     } else {
-      return [0, 0];
+      sidebarWidth = themeSpace("screen", 6);
+      size3Width = themeSpace("screen", 3);
     }
 
-    // xxx
-    return [0, 0];
+    let offsetX = 0;
+    let offsetY = 0;
+
+    if (window.innerWidth < breakpointEMs.tablet * 16) {
+      // all mobiles
+      if (this.getState().filter.isDrawerOpen) {
+        offsetY = -0.25 * window.innerHeight;
+      }
+    } else if (window.innerWidth < breakpointEMs.tabletLandscape * 16) {
+      // tablet
+      offsetX += sidebarWidth * 0.5;
+      if (this.getState().filter.isDrawerOpen) {
+        offsetY = -0.25 * window.innerHeight;
+      }
+    } else {
+      // tabletLandscape++
+      // xxx sometimes the offset is a bit funny!
+      offsetX += sidebarWidth * 0.5;
+      if (
+        this.getState().filter.isFilterOpen ||
+        this.getState().filter.isSearchOpen
+      ) {
+        offsetX += (window.innerWidth - sidebarWidth - 2 * size3Width) * 0.15;
+      }
+      if (this.getState().filter.quickViewProjectId) {
+        offsetX += (window.innerWidth - sidebarWidth - 2 * size3Width) * 0.2;
+      }
+    }
+
+    return [offsetX, offsetY];
   }
-
-  // getBoundsPadding() {
-  //   if (typeof window === "undefined")
-  //     return {
-  //       top: 0,
-  //       right: 0,
-  //       bottom: 0,
-  //       left: 0,
-  //     };
-
-  //   const isMobile = window.matchMedia("(max-width: 44.9999em)").matches;
-  //   const isTablet = window.matchMedia(
-  //     "(min-width: 45em) and (max-width: 74.9999em)"
-  //   ).matches;
-  //   const isTabletWide = window.matchMedia(
-  //     "(min-width: 62em) and (max-width: 74.9999em)"
-  //   ).matches;
-  //   const isDesktop = window.matchMedia(
-  //     "(min-width: 75em) and (max-width: 119.9999em)"
-  //   ).matches;
-
-  //   if (isMobile) {
-  //     return {
-  //       top: 80,
-  //       right: 40,
-  //       bottom: 100,
-  //       left: 80,
-  //     };
-  //   }
-  //   if (isTablet && !isTabletWide) {
-  //     return {
-  //       top: 80,
-  //       right: 40,
-  //       bottom: 40,
-  //       left: 120,
-  //     };
-  //   }
-  //   if (isTabletWide) {
-  //     return {
-  //       top: 80,
-  //       right: 40,
-  //       bottom: 40,
-  //       left: 160,
-  //     };
-  //   }
-  //   if (isDesktop) {
-  //     return {
-  //       top: 80,
-  //       right: 40,
-  //       bottom: 100,
-  //       left: 400,
-  //     };
-  //   }
-  //   return {
-  //     top: 80,
-  //     right: 40,
-  //     bottom: 100,
-  //     left: 695 + (window.innerWidth * 0.08 - 55) + 40,
-  //   };
-  // }
 
   panTo(coordinates: LngLatLike, options?: MapAnimationOptions) {
     const self = this;

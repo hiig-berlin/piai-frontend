@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { LinkButtonAnimated } from "~/components/styled/Button";
 import SafeHtmlDiv from "~/components/ui/SafeHtmlDiv";
 import SafeHtmlSpan from "~/components/ui/SafeHtmlSpan";
@@ -6,7 +6,10 @@ import { Box } from "../shared/ui/Box";
 import Link from "next/link";
 import styled from "styled-components";
 import { Icon } from "../shared/ui/Icon";
-import { useToolStateContext } from "./context/ContextProviders";
+import {
+  useToolStateMapState,
+  useToolStateStoreActions,
+} from "./state/ToolState";
 
 const ContributeBox = styled(Box)<{ seen?: Boolean }>`
   ${({ seen }) => seen && "display: none;"}
@@ -38,7 +41,9 @@ const ContributeBox = styled(Box)<{ seen?: Boolean }>`
 `;
 
 export const Contribute = ({ position }: { position?: String }) => {
-  const { setMapState, map } = useToolStateContext();
+  const mapState = useToolStateMapState();
+
+  const { updateMapState } = useToolStateStoreActions();
 
   // TODO: get cta from AboutPageData
   const cta = {
@@ -49,14 +54,13 @@ export const Contribute = ({ position }: { position?: String }) => {
   };
 
   return (
-    <ContributeBox className="cta" seen={map.hideIntro}>
+    <ContributeBox className="cta" seen={mapState.hideIntro}>
       <h3>
         <SafeHtmlSpan html={cta.title} />
         <Icon
           type="close"
           onClick={() =>
-            setMapState({
-              ...map,
+            updateMapState({
               hideIntro: true,
             })
           }

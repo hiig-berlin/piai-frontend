@@ -3,7 +3,7 @@ import { useSpring, config, animated } from "react-spring";
 import { useDrag } from "@use-gesture/react";
 import styled from "styled-components";
 import useIsMounted from "~/hooks/useIsMounted";
-import { useToolStateContext } from "../context/ContextProviders";
+import { useToolStateStoreActions } from "../state/ToolState";
 
 const Container = styled.div`
   background: #000;
@@ -34,7 +34,7 @@ export const DraggableDrawer = ({
   onFullHeightChange: Function;
 }) => {
   const isMounted = useIsMounted();
-  const { updateMapState } = useToolStateContext();
+  const { updateFilterState } = useToolStateStoreActions();
   const [{ y }, api] = useSpring(() => ({ y: 0 }));
 
   const [allowDrag, setAllowDrag] = useState(false);
@@ -89,7 +89,7 @@ export const DraggableDrawer = ({
     setTimeout(() => {
       if (isMounted) {
         setLastY(0);
-        updateMapState({
+        updateFilterState({
           quickViewProjectId: null,
           isDrawerOpen: false,
         });

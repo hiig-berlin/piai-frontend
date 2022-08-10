@@ -1,8 +1,10 @@
 import React, { useContext, useRef } from "react";
 import styled, { ThemeContext } from "styled-components";
-import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
 
-import { useMenuContext } from "~/providers/MenuContextProvider";
+import {
+  useMainMenuActions,
+  useMainMenuStateIsOpenState,
+} from "~/components/state/MainMenuState";
 import { SvgBackground } from "../ui/SvgBackground";
 
 const MenuButtonContainer = styled.div`
@@ -65,7 +67,8 @@ const StyledMenuButton = styled.button`
 `;
 
 export const MenuButton = () => {
-  const menuContext = useMenuContext();
+  const isMainMenuOpen = useMainMenuStateIsOpenState();
+  const mainMenuActions = useMainMenuActions();
   const theme = useContext(ThemeContext);
 
   const menuButtonRef = useRef() as React.MutableRefObject<HTMLButtonElement>;
@@ -74,16 +77,16 @@ export const MenuButton = () => {
     <MenuButtonContainer>
       <StyledMenuButton
         ref={menuButtonRef}
-        aria-expanded={menuContext.isOpen}
-        aria-label={`${menuContext.isOpen ? "close" : "open"} menu`}
+        aria-expanded={isMainMenuOpen}
+        aria-label={`${isMainMenuOpen ? "close" : "open"} menu`}
         aria-controls="menu"
         onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
           event.preventDefault();
 
-          if (menuContext.isOpen) {
-            menuContext.close();
+          if (isMainMenuOpen) {
+            mainMenuActions.close();
           } else {
-            menuContext.open(menuButtonRef);
+            mainMenuActions.open(menuButtonRef);
           }
 
           event.currentTarget.blur();
@@ -92,7 +95,7 @@ export const MenuButton = () => {
         <SvgBackground
           className="svg open"
           type={
-            menuContext.isOpen
+            isMainMenuOpen
               ? "close"
               : theme.colorMode === "dark"
               ? "menuNeg"

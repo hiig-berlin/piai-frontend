@@ -3,7 +3,11 @@ import styled from "styled-components";
 import Link from "next/link";
 import { ToolSvgBackground } from "../shared/ToolSvgBackground";
 import { Icon } from "../shared/ui/Icon";
-import { useToolStateContext } from "./context/ContextProviders";
+import {
+  useToolStateFilterState,
+  useToolStateStoreActions,
+} from "./state/ToolState";
+import { createQueryFromState } from "./map/utils";
 
 const sidebarPadding = "var(--size-3)";
 
@@ -48,6 +52,7 @@ const ToolSubmenu = styled.div`
       }
     }
   }
+  }
 `;
 
 const ActionItems = styled.div`
@@ -71,11 +76,16 @@ const ActionItems = styled.div`
 //           or change icons to inline svgs…
 
 export const Submenu = ({ tool, slug }: { tool?: string; slug?: string }) => {
-  const { filter, updateFilterState } = useToolStateContext();
+  const filterState = useToolStateFilterState();
+  const { updateFilterState } = useToolStateStoreActions();
+
+  let queryString = createQueryFromState(filterState).join("&")
+  queryString = queryString !== "" ? `?${queryString}`:queryString;
+  
   return (
     <ToolSubmenu>
       <div>
-        <Link passHref href="/tool/map">
+        <Link passHref href={`/tool/map${queryString}`}>
           <a className="subMenuItem">
             <ToolSvgBackground
               className="svg icon"
@@ -88,16 +98,23 @@ export const Submenu = ({ tool, slug }: { tool?: string; slug?: string }) => {
           </a>
         </Link>
         {slug === "index" && (
-          // TODO: set icon to active, 
-          // when a filter is set but box hidden
           <ActionItems>
-            <Icon type="search" />
             <Icon
-              type="filter"
-              active={filter.isFilterOpen}
+              type="search"
+              active
               onClick={() => {
                 updateFilterState({
-                  isFilterOpen: !filter.isFilterOpen,
+                  isSearchOpen: !filterState.isSearchOpen,
+                  isFilterOpen: false,
+                });
+              }}
+            />
+            <Icon
+              type="filter"
+              onClick={() => {
+                updateFilterState({
+                  isSearchOpen: false,
+                  isFilterOpen: !filterState.isFilterOpen,
                 });
               }}
             />
@@ -105,7 +122,7 @@ export const Submenu = ({ tool, slug }: { tool?: string; slug?: string }) => {
         )}
       </div>
       <div className="actionItems">
-        <Link passHref href="/tool/map/directory">
+        <Link passHref href={`/tool/map/directory${queryString}`}>
           <a className="subMenuItem">
             <ToolSvgBackground
               className="svg icon"

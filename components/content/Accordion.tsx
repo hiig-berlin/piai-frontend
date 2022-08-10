@@ -5,7 +5,7 @@ import { Accessible } from "./Accessible";
 import { ButtonNormalized } from "~/components/styled/Button";
 import { Arrow, Frame, Borders, BoxSvgs } from "~/components/ui/StaticSvgs";
 import SafeHtmlSpan from "~/components/ui/SafeHtmlSpan";
-import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
+import { useCssVarsStateIsTabletAndUpState } from "~/components/state/CssVarsState";
 import { AspectRatio } from "~/components/ui/AspectRatio";
 import PageMargins from "~/components/ui/PageMargins";
 import SafeHtmlDiv from "../ui/SafeHtmlDiv";
@@ -109,13 +109,12 @@ const ToggleBox = styled(ButtonNormalized)`
     ${({ theme }) => theme.breakpoints.desktop} {
       font-size: calc(var(--text-h3-font-size) * 0.6);
     }
-    
   }
 
   & p {
     padding-top: 10px;
     font-size: calc(var(--text-body-font-size));
-    
+
     color: var(--color-text-muted);
 
     ${({ theme }) => theme.breakpoints.desktop} {
@@ -231,9 +230,7 @@ export const Accordion = ({ data }: { data: any }) => {
   const [height, setHeight] = useState(0);
   const boxesRefs = useRef(new Array());
 
-  const {
-    vars: { isTabletAndUp },
-  } = useCssVarsContext();
+  const isTabletAndUp = useCssVarsStateIsTabletAndUpState();
 
   // Update hight and scroll to details
   // when pillars get (de)selected (i.e. activeIndex changes)
@@ -297,7 +294,10 @@ export const Accordion = ({ data }: { data: any }) => {
                       )} */}
                       {pillar?.sidebar?.length > 0 &&
                         pillar?.sidebar?.map((note: any, nIndex: number) => (
-                          <SafeHtmlDiv key={`pillar-${index}-sn-${nIndex}`} html={note.sidebarElement} />
+                          <SafeHtmlDiv
+                            key={`pillar-${index}-sn-${nIndex}`}
+                            html={note.sidebarElement}
+                          />
                         ))}
                     </div>
                   </Columns>

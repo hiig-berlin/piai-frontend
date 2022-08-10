@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
+import { useCssVarsStateIsTabletAndUpState } from "~/components/state/CssVarsState";
 import DisplayAbove from "../styled/DisplayAbove";
 import DisplayBelow from "../styled/DisplayBelow";
 import { Heading } from "../ui/Heading";
@@ -48,9 +48,7 @@ const GridLeftColumn = styled.div`
 `;
 
 export const TextSection = ({ data }: { data: any }) => {
-  const {
-    vars: { isTabletAndUp },
-  } = useCssVarsContext();
+  const isTabletAndUp = useCssVarsStateIsTabletAndUpState();
 
   return (
     <>

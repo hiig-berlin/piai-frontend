@@ -3,14 +3,17 @@ import styled from "styled-components";
 import debounce from "lodash/debounce";
 import FocusLock from "react-focus-lock";
 
-import { useMenuContext } from "~/providers/MenuContextProvider";
+import { useMainMenuStateIsOpenState } from "~/components/state/MainMenuState";
 import { MenuFooter } from "./Menus/MenuFooter";
 import { Logo } from "./Logo";
 import { LabElement } from "../ui/LabElement";
 import { Chevron } from "../ui/StaticSvgs";
 import { useConfigContext } from "~/providers/ConfigContextProvider";
 import Link from "next/link";
-import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
+import {
+  useCssVarsStateIsMobileLandscapeState,
+  useCssVarsStateIsTabletAndUpState,
+} from "~/components/state/CssVarsState";
 
 const ANIMATION_LENGTH = 500;
 
@@ -200,7 +203,7 @@ const Column = styled.div<{ stretch?: boolean }>`
 export const Menu = () => {
   const config = useConfigContext();
 
-  const menuContext = useMenuContext();
+  const mainMenuOpen = useMainMenuStateIsOpenState();
 
   const menuContainerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   const menuContentRef = useRef() as React.MutableRefObject<HTMLDivElement>;
@@ -210,9 +213,8 @@ export const Menu = () => {
     null
   );
 
-  const {
-    vars: { isTabletAndUp, isMobileLandscape}
-  } = useCssVarsContext();
+  const isMobileLandscape = useCssVarsStateIsMobileLandscapeState();
+  const isTabletAndUp = useCssVarsStateIsTabletAndUpState();
 
   const onResize = useCallback(() => {
     if (menuContainerRef.current)
@@ -255,18 +257,18 @@ export const Menu = () => {
       isAnimatingRef.current = false;
       isAnimatingTimeoutRef.current = null;
     }, ANIMATION_LENGTH);
-  }, [menuContext.isOpen]);
+  }, [mainMenuOpen]);
 
   return (
-    <FocusLock disabled={!menuContext.isOpen}>
+    <FocusLock disabled={!mainMenuOpen}>
       <MenuContainer
         ref={menuContainerRef}
-        isOpen={menuContext.isOpen}
+        isOpen={mainMenuOpen}
         isAnimating={isAnimatingRef.current}
         id="menu"
-        aria-hidden={!menuContext.isOpen}
+        aria-hidden={!mainMenuOpen}
         role="menu"
-        tabIndex={!menuContext.isOpen ? -1 : undefined}
+        tabIndex={!mainMenuOpen ? -1 : undefined}
       >
         <MenuWrapper>
           <MenuContent ref={menuContentRef}>
@@ -274,7 +276,9 @@ export const Menu = () => {
               <Column className="piai">
                 <header>
                   <Logo color="white" hoverColor="white" size={1} />
-                  {(isTabletAndUp || isMobileLandscape) && <span>Public interest AI</span>}
+                  {(isTabletAndUp || isMobileLandscape) && (
+                    <span>Public interest AI</span>
+                  )}
                 </header>
                 <section>
                   <h1>{menuContent.piai.headline}</h1>

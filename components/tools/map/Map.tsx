@@ -1,13 +1,22 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import { useToolStateContext } from "./context/ContextProviders";
+
 import { MapController } from "./map/MapController";
 import { useConfigContext } from "~/providers/ConfigContextProvider";
 import useIsMounted from "~/hooks/useIsMounted";
 import { LoadingBar } from "~/components/styled/LoadingBar";
 import { MapGlobalCss } from "./map/MapGlobalCss";
 import { Icon } from "../shared/ui/Icon";
+import { createQueryFromState } from "./map/utils";
+import { useCssVarsStateIsTabletLandscapeAndUpState } from "~/components/state/CssVarsState";
+import {
+  useToolStateFilterState,
+  useToolStateMapState,
+  useToolStateSettingsState,
+  useToolStateStoreActions,
+  defaultQueryString,
+} from "./state/ToolState";
 
 const MapUi = styled.div`
   background-color: #000c;
@@ -43,31 +52,44 @@ const MapContainer = styled.div`
   align-items: center;
   background-color: #000;
 `;
+
 export const Map = ({ isVisible }: { isVisible?: boolean }) => {
   const isMounted = useIsMounted();
-  const mapControllerRef = useRef<MapController>();
-  const mapContainerRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const config = useConfigContext();
 
-  const [isMapLoaded, setIsMapLoaded] = useState(false);
+  const isTabletLandscapeAndUp = useCssVarsStateIsTabletLandscapeAndUpState();
 
-  const { filterSettings, getMapState, updateMapState } = useToolStateContext();
+  const uiRemoveTimoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const mapControllerRef = useRef<MapController>();
+  const mapContainerRef = useRef<HTMLDivElement>(null);
+  const mapLastFilterRef = useRef<string>(defaultQueryString);
+
+  const [isMapLoaded, setIsMapLoaded] = useState(false);
+  const [isMapInitialized, setIsMapInitialized] = useState(false);
+  const [hasAutoFilterShown, setHasAutoFilterShown] = useState(false);
+
+  const mapState = useToolStateMapState();
+  const filterState = useToolStateFilterState();
+  const settingsState = useToolStateSettingsState();
+  const { getState, updateMapState, updateFilterState } =
+    useToolStateStoreActions();
 
   useEffect(() => {
     if (typeof window === "undefined") return;
 
     if (
       mapContainerRef.current &&
-      filterSettings?.styleUrl?.trim() !== "" &&
+      settingsState?.styleUrl?.trim() !== "" &&
       !mapControllerRef.current
     ) {
       const controller = new MapController(
         router,
         config,
-        filterSettings?.styleUrl,
-        getMapState,
-        updateMapState
+        settingsState?.styleUrl,
+        getState,
+        updateMapState,
+        updateFilterState
       );
       controller.init(
         "map",
@@ -78,14 +100,84 @@ export const Map = ({ isVisible }: { isVisible?: boolean }) => {
         }
       );
       mapControllerRef.current = controller;
+
+      updateMapState({
+        mapController: mapControllerRef.current,
+      });
+
+      setIsMapInitialized(true);
     }
   }, [
-    filterSettings?.styleUrl,
+    settingsState?.styleUrl,
     isMounted,
     config,
     router,
-    getMapState,
+    getState,
     updateMapState,
+    updateFilterState,
+  ]);
+
+  const currentQueryString = createQueryFromState(filterState, {
+    onlyIds: "1",
+  }).join("&");
+
+  useEffect(() => {
+    if (isMapInitialized) {
+      if (currentQueryString === defaultQueryString) {
+        if (mapLastFilterRef.current !== currentQueryString) {
+          mapControllerRef.current?.resetViewData("clustered");
+          mapControllerRef.current?.showView("clustered");
+          mapLastFilterRef.current = defaultQueryString;
+        }
+      } else {
+        if (mapLastFilterRef.current !== filterState.filterQueryString) {
+          mapControllerRef.current?.setFilteredViewData(
+            "clustered",
+            filterState.filteredIds ?? []
+          );
+          mapControllerRef.current?.showView("clustered");
+          mapLastFilterRef.current = filterState.filterQueryString;
+        }
+      }
+    }
+  }, [
+    isMapInitialized,
+    filterState.filteredIds,
+    filterState.filterQueryString,
+    currentQueryString,
+  ]);
+
+  useEffect(() => {
+    updateMapState({
+      loadGeoJson: true,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (mapState.loadGeoJson && mapState.geoJson && mapControllerRef.current)
+      mapControllerRef.current.setGeoJson(mapState.geoJson);
+  }, [mapState.loadGeoJson, mapState.geoJson]);
+
+  useEffect(() => {
+    if (isTabletLandscapeAndUp && !hasAutoFilterShown) {
+      if (uiRemoveTimoutRef.current) clearTimeout(uiRemoveTimoutRef.current);
+
+      uiRemoveTimoutRef.current = setTimeout(() => {
+        if (isMounted) {
+          updateFilterState({
+            isFilterOpen: true,
+            isSearchOpen: false,
+          });
+        }
+        setHasAutoFilterShown(true);
+      }, 2500);
+    }
+  }, [
+    hasAutoFilterShown,
+    isTabletLandscapeAndUp,
+    isMounted,
+    updateFilterState,
   ]);
 
   return (

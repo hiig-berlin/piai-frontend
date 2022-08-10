@@ -5,7 +5,6 @@ import debounce from "lodash/debounce";
 
 import type { MapController } from "./MapController";
 import { MapPopup } from "./MapPopup";
-import type { MapState } from "../context/ContextProviders";
 
 const CLUSTER_ZOOM_IN_ANIMATION_TIME = 1000;
 const CLUSTER_COUNT_UPDATE_TIMEOUT = 500;
@@ -195,7 +194,8 @@ export class MapViewClustered {
       });
 
       self.controller.map.on("click", "clusters", (e) => {
-        if (self.controller.clickBlock || !self.controller.map) return;
+        if (self.controller.clickBlock || !self.controller.map || !e?.point)
+          return;
 
         const features = self.controller.map.queryRenderedFeatures(e.point, {
           layers: ["clusters"],
@@ -207,7 +207,7 @@ export class MapViewClustered {
 
       // inspect a cluster on click
       self.events["click-clusters"] = (e: any) => {
-        if (!self.controller?.map) return;
+        if (!self.controller?.map || !e?.point) return;
 
         var features = self.controller.map.queryRenderedFeatures(e.point, {
           layers: ["clusters"],
@@ -374,7 +374,7 @@ export class MapViewClustered {
               feature?.properties?.slug,
               self.controller,
               coordinates,
-              feature?.properties?.name, // xxx the content needs probably to be better ...
+              feature?.properties?.name,
               {
                 offset: [
                   self.controller.POPUP_OFFSET.x,
@@ -407,7 +407,7 @@ export class MapViewClustered {
 
       if (primaryInput !== "touch") {
         self.events["mouseenter-clustered-locations"] = (e: any) => {
-          if (self.controller.isAnimating) return;
+          if (self.controller.isAnimating || !e) return;
           if (self.controller.map) {
             // Change the cursor style as a UI indicator.
             self.controller.map.getCanvas().style.cursor = "pointer";
@@ -459,8 +459,7 @@ export class MapViewClustered {
         "clustered-locations",
         self.events["click-clustered-locations"]
       );
-
-      const debouncedRenderFunction = debounce(() => {
+      const onRender = () => {
         if (!self?.controller?.map) return;
 
         const totalInViewCount = queryFilteredForDuplicates(
@@ -493,17 +492,25 @@ export class MapViewClustered {
         self.controller.updateMapState({
           totalInViewCount,
           filteredInViewCount: Math.min(filteredInViewCount, totalInViewCount),
-          filteredCount: self.featureCount,
         });
-      }, CLUSTER_COUNT_UPDATE_TIMEOUT);
+      };
 
-      self.events["render"] = (e: any) => {
+      const debouncedRenderFunction = debounce(
+        onRender,
+        CLUSTER_COUNT_UPDATE_TIMEOUT
+      );
+
+      self.events["render"] = () => {
         debouncedRenderFunction();
       };
 
       self.controller.map.on("render", self.events["render"]);
 
       self.show();
+
+      setTimeout(() => {
+        onRender();
+      }, 100);
 
       const highlights = self.controller.map.getLayer("highlights");
       if (highlights) {

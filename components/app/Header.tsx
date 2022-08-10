@@ -2,19 +2,21 @@ import React, { useEffect, useState, useCallback, useRef } from "react";
 import styled from "styled-components";
 import debounce from "lodash/debounce";
 
-import { useHeaderContext } from "~/providers/HeaderContextProvider";
-import { useMenuContext } from "~/providers/MenuContextProvider";
+import {
+  useMainMenuActions,
+  useMainMenuStateIsOpenState,
+} from "~/components/state/MainMenuState";
 import { Logo } from "./Logo";
-import { usePageStateContext } from "~/providers/PageStateContextProvider";
 import { useScrollPosition } from "~/hooks/useScrollPosition";
 import { SkipToLink } from "../ui/SkipToLink";
 import useIsMounted from "~/hooks/useIsMounted";
-import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
+import { useCssVarsStateIsTabletLandscapeAndUpState } from "~/components/state/CssVarsState";
 import { MenuButton } from "./MenuButton";
 import { LabElement } from "../ui/LabElement";
 import { useConfigContext } from "~/providers/ConfigContextProvider";
 import Link from "next/link";
-
+import { usePageStateIsLoadingState } from "../state/PageState";
+import { useHeaderStateStore } from "../state/HeaderState";
 
 const SCROLL_UP_THRESHOLD_PX = 150;
 const SCROLL_DOWN_THRESHOLD_PX = 250;
@@ -96,16 +98,16 @@ export const Header = ({
 }) => {
   const config = useConfigContext();
 
-  const menuContext = useMenuContext();
+  const isMainMenuOpen = useMainMenuStateIsOpenState();
+  const menuContext = useMainMenuActions();
 
   const isMounted = useIsMounted();
 
-  const {
-    vars: { isTabletLandscapeAndUp },
-  } = useCssVarsContext();
+  const isTabletLandscapeAndUp = useCssVarsStateIsTabletLandscapeAndUpState();
+  
+  const headerState = useHeaderStateStore();
 
-  const headerContext = useHeaderContext();
-  const { isLoading } = usePageStateContext();
+  const isLoading = usePageStateIsLoadingState();
 
   const scrollUpCounterTimeoutRef = useRef<ReturnType<
     typeof setTimeout
@@ -183,7 +185,7 @@ export const Header = ({
   useScrollPosition(
     ({ prevPos, currPos }) => {
       if (!isMounted) return;
-      if (!headerContext.observeScroll) return;
+      if (!headerState.observeScroll) return;
 
       if (currPos.y < prevPos.y) {
         // scrolling down
@@ -264,7 +266,7 @@ export const Header = ({
         }, SCROLL_UP_REVEAL_TIMEOUT);
       }
     },
-    [headerTuckUpTransform, headerContext.observeScroll, isMounted],
+    [headerTuckUpTransform, headerState.observeScroll, isMounted],
     observeScroll,
     undefined,
     false,
@@ -280,9 +282,9 @@ export const Header = ({
         headerPosition="sticky"
         headerColor="#ffffff"
         style={{
-          width: menuContext.isOpen ? `calc(100vw - var(--sbw, 0))` : undefined,
+          width: isMainMenuOpen ? `calc(100vw - var(--sbw, 0))` : undefined,
         }}
-        isHidden={headerContext.fadeOut || isHidden}
+        isHidden={headerState.fadeOut || isHidden}
         className="header"
       >
         <SkipToLink id="content">skip to content</SkipToLink>

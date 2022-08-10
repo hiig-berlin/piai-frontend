@@ -12,7 +12,10 @@ import styled, { css } from "styled-components";
 import { Box } from "~/components/tools/shared/ui/Box";
 import { Button } from "~/components/styled/Button";
 import { ToolSvgBackground } from "~/components/tools/shared/ToolSvgBackground";
-import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
+import {
+  useCssVarsStateIsDesktopAndUpState,
+  useCssVarsStateIsTabletAndUpState,
+} from "~/components/state/CssVarsState";
 
 // Wrapper + General tool styles
 // =================================================
@@ -256,7 +259,7 @@ const Header = styled.header`
   h1 {
     font-weight: bold;
     margin-bottom: 0;
-    line-hight: 1.1em;
+    line-height: 1.1em;
   }
 
   & p {
@@ -267,7 +270,7 @@ const Header = styled.header`
     max-height: 1.5em;
     margin-top: 13px;
     font-size: calc(var(--text-body-font-size-tool)* 0.85);
-    line-height: 1em;ƒ
+    line-height: 1em;
   }
 `;
 
@@ -285,9 +288,8 @@ const Index = ({
   frontendSettings: any;
   tool: PiAiTool;
 }) => {
-  const {
-    vars: { isDesktopAndUp, isTabletAndUp },
-  } = useCssVarsContext();
+  const isTabletAndUp = useCssVarsStateIsTabletAndUpState();
+  const isDesktopAndUp = useCssVarsStateIsDesktopAndUpState();
 
   return (
     <EnergyWrapper>

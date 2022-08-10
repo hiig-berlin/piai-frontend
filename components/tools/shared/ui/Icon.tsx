@@ -50,7 +50,11 @@ const baseStyling = css<{ spaceBefore?: boolean }>`
   }
 `;
 
-
+const IconInline = styled.span<{
+  spaceBefore?: boolean;
+}>`
+  ${baseStyling}
+`;
 
 const IconStatic = styled.li<{
   spaceBefore?: boolean;
@@ -96,6 +100,7 @@ export const Icon = ({
   onClick,
   className,
   stc,
+  inline,
   nonMuted,
   url,
   active = false,
@@ -105,12 +110,20 @@ export const Icon = ({
   children?: any;
   onClick?: any;
   className?: string;
+  inline?: boolean;
   stc?: boolean;
   nonMuted?: boolean;
   url?: string;
   active?: boolean;
 }) => {
-  if (stc) {
+  if (inline) {
+    return (
+      <IconInline spaceBefore={spaceBefore} className={className}>
+        <ToolSvgBackground type={type} />
+        {children && children}
+      </IconInline>
+    );
+  } else if (stc) {
     return (
       <IconStatic spaceBefore={spaceBefore} className={className}>
         <ToolSvgBackground type={type} />

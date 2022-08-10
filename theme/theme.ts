@@ -54,16 +54,18 @@ export const themeImgSizes = (
 export const themeSpace = (
   breakpoint: string,
   level: number = 1,
-  adjust: number = 0
+  adjust: number = 0,
 ) => {
   let b = breakpoint.replace("Landscape", "");
 
-  if (["base", "mobile"].includes(b) && level >= 9) return 6;
+  const size = SPACE_LEVELS - level + 1;
+
+  if (["base", "mobile"].includes(b) && size >= 9) return 6;
 
   let space = (goldenRatioBase as any)?.[b] ?? 700;
   const gC = 1.61803398875;
 
-  for (let i = 0; i < level; i++) {
+  for (let i = 0; i < size; i++) {
     space = space / gC;
   }
   return space - adjust;
@@ -85,7 +87,7 @@ export const themeGetSpaceValues = (breakpoint: string) => {
     .reduce((carry: any, n: number) => {
       return {
         ...carry,
-        [`level${n + 1}`]: themeSpace(breakpoint, SPACE_LEVELS - n),
+        [`level${n + 1}`]: themeSpace(breakpoint, n + 1),
       };
     }, {});
 };
@@ -103,7 +105,7 @@ export const themeGetBreakpointValue = (level: number) => {
     let b = breakpoint.replace("Landscape", "");
     return {
       ...carry,
-      [breakpoint]: themeSpace(b, 10 - level),
+      [breakpoint]: themeSpace(b, level),
     };
   }, {});
 };
@@ -123,12 +125,14 @@ export const theme = {
     textMuted: "#666",
     grey: "#aaa",
     lightGrey: "#f0f0f0",
+    mediumGrey: "#777",
+    darkGrey: "#333",
     textMutedDark: "#eee",
     textDark: "#fff",
     // link: "#666",
     // linkHover: "#666",
     // hl: "#ff0",
-    loadingBar: "#BE0042"
+    loadingBar: "#BE0042",
   },
   breakpoints: {
     base: `@media screen and (min-width: 1em)`,
@@ -165,7 +169,7 @@ export const theme = {
     desktop: 100,
     screen: 0,
   },
-  gutterWidth: themeGetBreakpointValue(2),
+  gutterWidth: themeGetBreakpointValue(3),
 
   // These values destroy the tool page layouts 
   // (make the boxes weirly narrow)
@@ -269,8 +273,35 @@ export const theme = {
       fontFamily: "var(--font-family-monospace)",
       color: "var(--color-text-muted)",
       fontSize: "0.8em",
-      lineHight: "1.1em"
+      lineHight: "1.1em",
     },
+    styledScrollbar: (vMargin: string) => {
+      return `
+        scrollbar-width: thin;
+        scrollbar-color: var(--color-light-grey) #000;
+
+        &::-webkit-scrollbar {
+          width: 11px;
+          display: block;
+        };
+        
+        &::-webkit-scrollbar-track {
+          border-left: 3px solid #000;
+          border-right: 3px solid #000;
+          background-color: #000;
+          border-radius: 0;
+          margin: ${vMargin ?? "0"} 0;
+        };
+        
+        &::-webkit-scrollbar-thumb {
+          width: 11px;
+          
+          border-left: 3px solid #000;
+          border-right: 3px solid #000;
+          background-color: var(--color-light-grey)
+        }`;
+    },
+
     // ... or function callback so you can access the theme or do calculations
     // and even pass arguments to the function ${({ theme }) => theme.applyMixin("maxWidth", 1000)}
     // maxWidth: {
@@ -349,8 +380,9 @@ export const theme = {
         fontWeight: 300,
         fontStyle: "normal",
         fontSize: "0.8em",
+        lineHeight: "1.1em",
         color: "var(--color-text-muted)",
-      }
+      },
     },
     mobile: {
       h0: {
@@ -606,7 +638,7 @@ export const theme = {
       })
       .join("");
   },
-  
+
   getBreakpointRootVars: function (breakpoint: string) {
     const t = this as any;
     let b = breakpoint.replace("Landscape", "");
@@ -621,7 +653,7 @@ export const theme = {
         .reduce((carry: any, n: number) => {
           return `
             ${carry}
-            --size-${n + 1}: ${themeSpacePx(breakpoint, SPACE_LEVELS - n)};
+            --size-${n + 1}: ${themeSpacePx(breakpoint, n + 1)};
           `;
         }, "")}
     `;

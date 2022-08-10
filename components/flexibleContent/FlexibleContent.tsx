@@ -6,7 +6,11 @@ import { AspectRatio } from "../ui/AspectRatio";
 import { themeImgSizes } from "~/theme/theme";
 import { safeAnchorId } from "~/utils/safeAnchorId";
 import { Heading } from "../ui/Heading";
-import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
+import {
+  useCssVarsStateIsMobileLandscapeState,
+  useCssVarsStateIsTabletLandscapeAndUpState,
+  useCssVarsStateIsDesktopAndUpState,
+} from "~/components/state/CssVarsState";
 
 const imgSizesLandscape: any = {
   full: {
@@ -212,9 +216,9 @@ export const FlexibleContent = ({
   WrapWithContainer?: StyledComponent<any, any>;
   WrapWith?: StyledComponent<any, any>;
 }) => {
-  const {
-    vars: { isMobileLandscape, isTabletLandscape, isDesktopAndUp },
-  } = useCssVarsContext();
+  const isMobileLandscape = useCssVarsStateIsMobileLandscapeState();
+  const isTabletLandscape = useCssVarsStateIsTabletLandscapeAndUpState();
+  const isDesktopAndUp = useCssVarsStateIsDesktopAndUpState();
 
   const parsedContent: any[] = Array.isArray(content)
     ? content.map((block: any, index: number) => {

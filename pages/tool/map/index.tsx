@@ -1,4 +1,4 @@
-import { ReactElement, useEffect } from "react";
+import { ReactElement } from "react";
 import type { GetStaticProps } from "next";
 import NextHeadSeo from "next-head-seo";
 
@@ -6,11 +6,8 @@ import { appConfig } from "~/config";
 import Layout from "~/components/tools/map/Layout";
 import { restApiGetSettings } from "~/utils/restApi";
 import { PiAiTool } from "~/types";
-import { Counter } from "~/components/tools/map/Counter";
 import { Contribute } from "~/components/tools/map/Contribute";
 import styled from "styled-components";
-import useIsMounted from "~/hooks/useIsMounted";
-import { useToolStateContext } from "~/components/tools/map/context/ContextProviders";
 
 const Content = styled.div`
   width: 100%;
@@ -40,20 +37,6 @@ const Index = ({
   frontendSettings: any;
   tool: PiAiTool;
 }) => {
-  const isMounted = useIsMounted();
-  const { updateFilterState } = useToolStateContext();
-
-  useEffect(() => {
-    setTimeout(() => {
-      if (isMounted) {
-        updateFilterState({
-          isFilterOpen: true,
-        });
-      }
-    }, 2500);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
     <>
       {/*
@@ -73,7 +56,7 @@ const Index = ({
           }}
       />*/}
       <Content>
-        <Contribute position="bottom" />
+        xxx content {/* <Contribute position="bottom" /> */}
       </Content>
     </>
   );

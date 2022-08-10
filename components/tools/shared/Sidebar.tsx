@@ -5,7 +5,7 @@ import { Logo } from "~/components/app/Logo";
 import { ButtonNormalized } from "~/components/styled/Button";
 import { LabElement } from "~/components/ui/LabElement";
 import { useConfigContext } from "~/providers/ConfigContextProvider";
-import { useCssVarsContext } from "~/providers/CssVarsContextProvider";
+import { useCssVarsStateIsTabletAndUpState } from "~/components/state/CssVarsState";
 import { Box } from "./ui/Box";
 import { SidebarTool } from "./ui/SidebarTool";
 
@@ -22,7 +22,7 @@ const MobileToolNavContainer = styled.div<{
   position: fixed;
   top: ${SIDEBAR_PADDING};
   left: ${SIDEBAR_PADDING};
-  z-index: 4;
+  z-index: 3;
   flex-direction: column;
   gap: var(--size-3);
 
@@ -48,7 +48,7 @@ const SidebarContainer = styled.div<{
   display: none;
   pointer-events: all;
   padding: ${SIDEBAR_PADDING};
-  position: ${({ position }) => position};
+  position: fixed;
   top: 0;
   left: 0;
   height: 100vh;
@@ -57,10 +57,17 @@ const SidebarContainer = styled.div<{
   z-index: 3;
   font-size: 1.1em;
   width: var(--size-6);
+  overflow-y: auto;
+
+  ${({ theme }) => theme.applyMixin("styledScrollbar", "var(--size-1)")}
 
   ${({ theme }) => theme.breakpoints.tablet} {
     display: ${({ isVisible }) => (isVisible ? "block" : "none")};
     padding: ${SIDEBAR_PADDING};
+  }
+
+  ${({ theme }) => theme.breakpoints.tabletLandscape} {
+    z-index: 10;
   }
 `;
 
@@ -105,17 +112,15 @@ export const Sidebar = ({
 
   const currentTool = config?.tools?.find((t) => t.slug === tool);
 
-  const {
-    vars: { isTabletAndUp },
-  } = useCssVarsContext();
+  const isTabletAndUp = useCssVarsStateIsTabletAndUpState();
 
   if (!currentTool) return <></>;
 
   // TODO: I would change the sizing info of the icons from em to some pixel based value like --size-3, or so.
   // As the dependend on the parent's container font size messed with things arould.
-  
-  if (isTabletAndUp){
-    return(
+
+  if (isTabletAndUp) {
+    return (
       <SidebarContainer
         id={`sidebar-${tool}`}
         isVisible
@@ -145,8 +150,8 @@ export const Sidebar = ({
             })}
         </Tools>
       </SidebarContainer>
-      )
-  }else{
+    );
+  } else {
     return (
         <MobileToolNavContainer isVisible={view !== "page"}>
           <ToolMenuButton
@@ -167,8 +172,4 @@ export const Sidebar = ({
         </MobileToolNavContainer>
     );
   }
-}
-function useHooks(arg0: boolean): { isOpen: any; setIsOpen: any; } {
-  throw new Error("Function not implemented.");
-}
-
+};
