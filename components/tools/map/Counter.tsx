@@ -17,14 +17,9 @@ const CounterContainer = styled.div<{ invert: boolean }>`
   border-radius: var(--size-3);
   border: 1px solid
     ${({ invert }) => (invert ? "var(--color-grey)" : "var(--color-piai-map)")};
-<<<<<<< HEAD
-  // width: calc(100vw - (2 * var(--size-4)));
+    // width: calc(100vw - (2 * var(--size-4)));
 
-  pointer-events:all ;
-=======
-  width: calc(100vw - (2 * var(--size-4)));
-  pointer-events: all;
->>>>>>> refs/remotes/origin/dev-frontend
+    pointer-events:all ;
   position: fixed;
   z-index: 6;
   bottom: var(--size-3);
@@ -52,31 +47,16 @@ const CounterContainer = styled.div<{ invert: boolean }>`
   }
 
   ${({ theme }) => theme.breakpoints.tablet} {
-<<<<<<< HEAD
-    top: var(--size-3);
-    bottom: unset;
-    left: 50%;
-    transform: translateX(-50%);
-    width: auto;
-    height: var(--size-5);
-=======
     left: 50%;
     transform: translateX(-50%);
     max-width: 500px;
     width: auto;
->>>>>>> refs/remotes/origin/dev-frontend
+    height: var(--size-5);
   }
 
   ${({ theme }) => theme.breakpoints.tabletLandscape} {
     top: var(--size-3);
     bottom: unset;
-<<<<<<< HEAD
-    left: 50%;
-    transform: translateX(-50%);
-    width: auto;
-    height: var(--size-5);
-=======
->>>>>>> refs/remotes/origin/dev-frontend
   }
 `;
 
@@ -141,18 +121,7 @@ export const Counter = ({ view }: { view: string }) => {
           }}
         />
       )}
-<<<<<<< HEAD
 
-        <Label className="inView" label={isTabletLandscapeAndUp ? "Projects in view" : "In view"}>
-          <strong>{map.filteredInViewCount}</strong>/{map.totalInViewCount}
-        </Label>
-
-        <Label className="total" label={isTabletLandscapeAndUp ? "Projects total" : "Total"}>
-          <strong>{map.filteredCount}</strong>/{map.totalCount}
-        </Label>
-
-      {isTabletLandscapeAndUp ? <Icon type="list" /> : <Icon type="search" />}
-=======
       {view === "map" && (
         <div className="inView">
           <Label
@@ -205,7 +174,6 @@ export const Counter = ({ view }: { view: string }) => {
           }}
         />
       )}
->>>>>>> refs/remotes/origin/dev-frontend
     </CounterContainer>
   );
 };
