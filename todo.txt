@@ -34,6 +34,14 @@
 
 - Tools need skip to content link
 
+– Select (yellow background) gets black font in tool.
+
+– Contribute box close x icon bigger
+
+– Checkboxes in Filter styling
+
+– Project list styling (meta data)
+
 ++++++++++++++++++++++++++++++++++++++++++++++++
 +++++++ TODO INTRO +++++++++++++++++++++++++++++
 ++++++++++++++++++++++++++++++++++++++++++++++++
