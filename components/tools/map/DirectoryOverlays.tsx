@@ -4,6 +4,7 @@ import { Counter } from "./Counter";
 import { DirectoryFilter } from "./DirectoryFilter";
 import { DirectoryList } from "./DirectoryList";
 import { ProjectQuickView } from "./ProjectQuickView";
+import { Search } from "./Search";
 import {
   useToolStateFilterState,
   useToolStateStoreActions,
@@ -30,7 +31,9 @@ export const DirectoryOverlays = () => {
 
   return (
     <Container>
+      <Search view="directory" />
       <DirectoryFilter />
+      
       <DirectoryList />
       {filterState?.quickViewProjectId && (
         <ProjectQuickView
@@ -39,7 +42,6 @@ export const DirectoryOverlays = () => {
           view="directory"
         />
       )}
-      <Counter view="directory" />
     </Container>
   );
 };

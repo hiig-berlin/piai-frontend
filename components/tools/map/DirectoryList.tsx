@@ -13,18 +13,22 @@ import {
   defaultQueryString,
 } from "./state/ToolState";
 import { useEffectOnMountOnce } from "~/hooks/useEffectOnMountOnce";
+import { Box } from "../shared/ui/Box";
 
 const Container = styled.div<{ isFilterOpen: boolean }>`
   position: fixed;
   bottom: 0;
   left: calc(var(--size-3) + var(--size-6));
   z-index: 5;
-  height: calc(100vh - var(--lbh) - var(--tool-map-ot));
+  height: calc(100vh - var(--lbh) - var(--size-3));
   width: calc((100vw - var(--size-6) - 3 * var(--size-3)) * 0.33);
 
   overflow: hidden;
   transition: transform 0.35s;
 
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-3);
   transform: ${({ isFilterOpen }) =>
     isFilterOpen
       ? "translateX(calc((100vw - var(--size-6) - 3 * var(--size-3)) * 0.33))"
@@ -176,6 +180,7 @@ export const DirectoryList = () => {
 
   return (
     <Container isFilterOpen={true}>
+      <Box>xxx</Box>
       <Panel
         isRefetching={isFiltering || filterState.isFetchingFilteredIds}
         isFullHeight={false}

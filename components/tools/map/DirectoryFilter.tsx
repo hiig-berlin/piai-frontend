@@ -3,8 +3,14 @@ import { FilterContent } from "./FilterContent";
 
 export const DirectoryFilter = () => {
   return (
-    <SidebarDrawer columnWidth={0.33} statusFlagKey="isFilterOpen" title="Filter Projects" alwaysOpenOnTabletLandscape>
-      <FilterContent />
+    <SidebarDrawer
+      columnWidth={0.33}
+      statusFlagKey="isFilterOpen"
+      title="Filter Projects"
+      alwaysOpenOnTabletLandscape
+      hasTopOffset={false}
+    >
+      <FilterContent view="directory" />
     </SidebarDrawer>
   );
 };

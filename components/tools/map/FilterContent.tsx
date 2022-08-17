@@ -21,6 +21,7 @@ import { CheckboxGroup } from "./ui/CheckboxGroup";
 import { RangeSlider } from "./ui/RangeSlider";
 import { useConfigContext } from "~/providers/ConfigContextProvider";
 import { RegionOrCountrySelector } from "./ui/RegionOrCountrySelector";
+import { ClearAll } from "./ui/ClearAll";
 
 const Container = styled.div`
   position: relative;
@@ -36,15 +37,10 @@ const ActiveFilters = styled.div`
   gap: var(--size-1);
 `;
 
-const ClearAll = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-`;
-
 let isInit = false;
 let previousPathName = "";
-export const FilterContent = () => {
+
+export const FilterContent = ({ view }: { view: string }) => {
   const router = useRouter();
   const config = useConfigContext();
   const mapTool = config?.tools?.find((t) => t.slug === "map");
@@ -87,24 +83,33 @@ export const FilterContent = () => {
 
   const updateFormStateRecord = (
     key: keyof FilterStateRecords,
-    id: string | number,
-    label: string,
-    checked: boolean
+    id: string | number | number[] | string[],
+    label: string | string[],
+    checked: boolean | boolean[]
   ) => {
     const currentState: FilterState = getFilterState();
 
     if (!currentState?.[key] || !currentState[key]) return;
 
+    const ids = Array.isArray(id) ? id : [id];
+    const labels = Array.isArray(label) ? label : [label];
+    const arrChecked = Array.isArray(checked) ? checked : [checked];
+
+    if (ids.length !== labels.length || labels.length !== arrChecked.length)
+      return;
+
     if (currentState[key] instanceof Object && currentState[key]) {
-      if (checked) {
-        if (!(id in (currentState[key] ?? {}))) {
-          (currentState as any)[key][id] = label;
+      ids.forEach((val: any, index: number) => {
+        if (arrChecked[index]) {
+          if (!(val in (currentState[key] ?? {}))) {
+            (currentState as any)[key][val] = labels[index];
+          }
+        } else {
+          if (val in (currentState[key] ?? {})) {
+            delete (currentState as any)[key][val];
+          }
         }
-      } else {
-        if (id in (currentState[key] ?? {})) {
-          delete (currentState as any)[key][id];
-        }
-      }
+      });
 
       maybeUpdateQueryString(currentState);
     }
@@ -178,7 +183,7 @@ export const FilterContent = () => {
         }
 
         const regions = params.get("regions") ?? "";
-        if (regions !== "" && settingsState.regions) {
+        if (regions !== "" && settingsState.regions && view !== "map") {
           const activeRegions = regions.split(",");
 
           const flattenRegions = (
@@ -214,37 +219,38 @@ export const FilterContent = () => {
           newState.regions = {};
         }
 
-        ["countries", "license", "genderRatio"].reduce(
-          (state: any, key: any) => {
-            const selected = params.get(key) ?? "";
-            if (selected !== "" && (settingsState as any)?.[key]?.length) {
-              const active = selected.split(",");
+        [
+          "license",
+          "genderRatio",
+          ...(view !== "map" ? ["countries"] : []),
+        ].reduce((state: any, key: any) => {
+          const selected = params.get(key) ?? "";
+          if (selected !== "" && (settingsState as any)?.[key]?.length) {
+            const active = selected.split(",");
 
-              const allTerms = ((settingsState as any)[key] as any).reduce(
-                (carry: any, term: any) => {
-                  carry = {
-                    ...carry,
-                    [term.id]: term.name,
-                  };
-                  return carry;
-                },
-                {}
-              );
-
-              (newState as any)[key] = active.reduce(
-                (carry: any, id: string) => ({
+            const allTerms = ((settingsState as any)[key] as any).reduce(
+              (carry: any, term: any) => {
+                carry = {
                   ...carry,
-                  [id]: allTerms[id],
-                }),
-                {}
-              );
-            } else {
-              (newState as any)[key] = {};
-            }
-            return state;
-          },
-          newState
-        );
+                  [term.id]: term.name,
+                };
+                return carry;
+              },
+              {}
+            );
+
+            (newState as any)[key] = active.reduce(
+              (carry: any, id: string) => ({
+                ...carry,
+                [id]: allTerms[id],
+              }),
+              {}
+            );
+          } else {
+            (newState as any)[key] = {};
+          }
+          return state;
+        }, newState);
 
         const dateFrom = params.get("dateFrom") ?? "";
         const dateUntil = params.get("dateUntil") ?? "";
@@ -263,7 +269,7 @@ export const FilterContent = () => {
         }
       }
     },
-    [settingsState, updateFilterState, resetFilter]
+    [settingsState, updateFilterState, resetFilter, view]
   );
 
   useEffect(() => {
@@ -335,40 +341,57 @@ export const FilterContent = () => {
 
   return (
     <Container>
-      <RegionOrCountrySelector
-        label="Regions"
-        labelAllShown="All regions (narrow down using the + to the right)"
-        activeTerms={filterState?.regions ?? {}}
-        options={settingsState?.regions ?? []}
-        updateState={(id: number | string, label: string, checked: boolean) => {
-          updateFormStateRecord("regions", id, label, checked);
-        }}
-      />
+      {view !== "map" && (
+        <RegionOrCountrySelector
+          label="Regions"
+          labelAllShown="All regions (narrow down using the + to the right)"
+          activeTerms={filterState?.regions ?? {}}
+          options={settingsState?.regions ?? []}
+          clearAllOnClick={() => {
+            updateFilterState({
+              regions: {},
+            });
+          }}
+          updateState={(
+            id: number | string | number[] | string[],
+            label: string | string[],
+            checked: boolean | boolean[]
+          ) => {
+            updateFormStateRecord("regions", id, label, checked);
+          }}
+        />
+      )}
 
-      <RegionOrCountrySelector
-        label="Countries"
-        labelAllShown="All countries (narrow down using the + to the right)"
-        activeTerms={filterState?.countries ?? {}}
-        options={settingsState?.countries ?? []}
-        updateState={(id: number | string, label: string, checked: boolean) => {
-          updateFormStateRecord("countries", id, label, checked);
-        }}
-      />
+      {view !== "map" && (
+        <RegionOrCountrySelector
+          label="Countries"
+          labelAllShown="All countries (narrow down using the + to the right)"
+          activeTerms={filterState?.countries ?? {}}
+          options={settingsState?.countries ?? []}
+          clearAllOnClick={() => {
+            updateFilterState({
+              countries: {},
+            });
+          }}
+          updateState={(
+            id: number | string | number[] | string[],
+            label: string | string[],
+            checked: boolean | boolean[]
+          ) => {
+            updateFormStateRecord("countries", id, label, checked);
+          }}
+        />
+      )}
 
       {activeFilters?.length > 0 && (
         <ActiveFilters>
           {activeFilters}
 
-          <ClearAll>
-            <Icon
-              type="close"
-              onClick={() => {
-                resetFilter();
-              }}
-            >
-              Clear all
-            </Icon>
-          </ClearAll>
+          <ClearAll
+            onClick={() => {
+              resetFilter();
+            }}
+          />
         </ActiveFilters>
       )}
       {(settingsState?.industrialSector?.options?.length ?? 0) > 0 && (
@@ -415,12 +438,8 @@ export const FilterContent = () => {
         label="Release date between"
         min={mapTool?.config?.minYear ?? 1996}
         max={new Date().getFullYear()}
-        valueFrom={
-          filterState.dateFrom ?? mapTool?.config?.minYear ?? 1996
-        }
-        valueUntil={
-          filterState.dateUntil ?? new Date().getFullYear()
-        }
+        valueFrom={filterState.dateFrom ?? mapTool?.config?.minYear ?? 1996}
+        valueUntil={filterState.dateUntil ?? new Date().getFullYear()}
         stepSize={1}
         updateState={(values) => {
           const currentState: FilterState = getFilterState();

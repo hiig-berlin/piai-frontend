@@ -19,9 +19,11 @@ const Container = styled.div<{
 
 const Payload = styled.div<{
   active: boolean;
+  position: string;
 }>`
   position: ${({ active }) => (active ? "absolute" : "static")};
-  bottom: 0;
+  top: ${({ position }) => (position === "top" ? "0" : "auto")};
+  bottom: ${({ position }) => (position === "bottom" ? "0" : "auto")};
   left: 0;
   width: 100%;
 `;
@@ -30,10 +32,11 @@ export const Reveal = ({
   id,
   role,
   children,
-  duration = 300,
   open,
+  duration = 300,
   initiallyOpen,
   active = true,
+  position = "bottom",
 }: {
   id: string;
   role: string;
@@ -42,6 +45,7 @@ export const Reveal = ({
   open: boolean;
   initiallyOpen?: boolean;
   active?: boolean;
+  position?: string;
 }) => {
   const isMounted = useIsMounted();
   const offsetTimoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -99,7 +103,7 @@ export const Reveal = ({
       role={role}
       tabIndex={!open ? -1 : undefined}
     >
-      <Payload ref={payloadRef} active={active}>
+      <Payload ref={payloadRef} active={active} position={position}>
         {children}
       </Payload>
     </Container>

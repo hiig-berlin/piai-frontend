@@ -22,6 +22,7 @@ const SidebarContainer = styled.div<{
   isOpen: boolean;
   isOpening: boolean;
   isClosing: boolean;
+  hasTopOffset: boolean;
   columnWidth: number;
 }>`
   position: fixed;
@@ -46,7 +47,10 @@ const SidebarContainer = styled.div<{
   ${({ theme }) => theme.breakpoints.tabletLandscape} {
     padding-left: var(--size-6);
     padding-bottom: var(--size-3);
-    height: calc(100% - var(--lbh) - var(--tool-map-ot));
+    height: ${({ hasTopOffset }) =>
+      hasTopOffset
+        ? "calc(100% - var(--lbh) - var(--tool-map-ot))"
+        : "calc(100% - var(--lbh) - var(--size-3))"};
     max-width: calc(
       var(--size-6) +
         (
@@ -135,6 +139,7 @@ export const SidebarDrawer = ({
   dimmContent,
   alwaysOpenOnTabletLandscape,
   columnWidth = 0.3,
+  hasTopOffset = true,
 }: {
   title: string;
   columnWidth?: number;
@@ -143,6 +148,7 @@ export const SidebarDrawer = ({
   alwaysOpenOnTabletLandscape?: boolean;
   dimmContent?: boolean;
   header?: React.ReactNode;
+  hasTopOffset?: boolean;
 }) => {
   const isInitializing = useCssVarsStateIsInitializingState();
   const isTabletLandscapeAndUp = useCssVarsStateIsTabletLandscapeAndUpState();
@@ -179,6 +185,7 @@ export const SidebarDrawer = ({
     <SidebarContainer
       {...{
         columnWidth,
+        hasTopOffset,
         isInitializing,
         isAlwaysOpen:
           alwaysOpenOnTabletLandscape &&

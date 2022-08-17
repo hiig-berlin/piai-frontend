@@ -4,7 +4,7 @@ import { FilterContent } from "./FilterContent";
 export const MapFilter = () => {
   return (
     <SidebarDrawer statusFlagKey="isFilterOpen" title="Filter Projects">
-      <FilterContent />
+      <FilterContent view="map" />
     </SidebarDrawer>
   );
 };

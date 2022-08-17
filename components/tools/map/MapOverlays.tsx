@@ -5,6 +5,7 @@ import { MapFilter } from "./MapFilter";
 import { ProjectQuickView } from "./ProjectQuickView";
 import { MapSearch } from "./MapSearch";
 import { useToolStateFilterState } from "./state/ToolState";
+import { Search } from "./Search";
 
 const Container = styled.div`
   position: absolute;
@@ -18,7 +19,7 @@ export const MapOverlays = () => {
   const filterState = useToolStateFilterState();
   return (
     <Container>
-      <MapSearch />
+      <Search view="map" />
       <MapFilter />
       {filterState?.quickViewProjectId && (
         <ProjectQuickView

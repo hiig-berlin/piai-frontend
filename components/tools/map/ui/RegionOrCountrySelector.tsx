@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useModal } from "~/hooks/useModal";
 import safeHtml from "~/utils/sanitize";
+import { Reveal } from "~/components/ui/Reveal";
 import { Icon } from "../../shared/ui/Icon";
 import {
   FilterSettingTaxonomyOption,
@@ -10,38 +10,14 @@ import {
 } from "../state/ToolState";
 import { ActiveFilterOption } from "./ActiveFilterOption";
 import { FieldCheckbox } from "./FieldCheckbox";
+import { ClearAll } from "./ClearAll";
 
 const Container = styled.div`
   margin-top: var(--size-3);
 `;
 
-const OptionsContainer = styled.div<{
-  isOpening: boolean;
-  isOpen: boolean;
-  isClosing: boolean;
-}>`
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 2;
-  transition: opacity 0.3s;
-  background-color: #000;
-  opacity: ${({ isOpening, isOpen, isClosing }) =>
-    (isOpening || isOpen) && !isClosing ? 1 : 0};
-  height: 100%;
-  width: 100%;
-  transform: translateX(
-    ${({ isOpening, isOpen, isClosing }) =>
-      isOpening || isOpen || isClosing ? "0" : "-105%"}
-  );
-  pointer-events: none;
-`;
-
-const Options = styled.div`
-  pointer-events: all;
-  background-color: #000;
-  height: 100%;
-  width: 100%;
+const OptionsContainer = styled.div`
+  padding-top: var(--size-3);
 `;
 
 const H4 = styled.h4`
@@ -71,6 +47,12 @@ const OptionsClose = styled.div`
   margin-bottom: var(--size-3);
 `;
 
+type RegionOrCountrySelectorNewState = {
+  ids: number[];
+  name: string[];
+  checked: boolean[];
+};
+
 const renderOptions = (
   label: string,
   activeTerms: Record<number, string> | null | undefined,
@@ -78,7 +60,11 @@ const renderOptions = (
     | FilterSettingTaxonomyOption[]
     | FilterSettingTaxonomyOptionRegion[]
     | FilterSettingTaxonomyOptionRegionChild[],
-  updateState: (id: string | number, name: string, isChecked: boolean) => void,
+  updateState: (
+    id: string | number | number[] | string[],
+    name: string | string[],
+    isChecked: boolean | boolean[]
+  ) => void,
   indent: number = 0,
   allOptions: any
 ) => {
@@ -94,7 +80,41 @@ const renderOptions = (
         name={`field-${option.id}`}
         isChecked={option.id in (activeTerms ?? {})}
         updateState={(event) => {
-          updateState(option.id, option.name, event.target.checked);
+          let newstate: RegionOrCountrySelectorNewState = {
+            ids: [],
+            name: [],
+            checked: [],
+          };
+
+          if (option?.children?.length) {
+            newstate = option.children.reduce(
+              (
+                carry: any,
+                o:
+                  | FilterSettingTaxonomyOption
+                  | FilterSettingTaxonomyOptionRegion
+                  | FilterSettingTaxonomyOptionRegionChild
+              ) => {
+                carry.ids.push(o.id);
+                carry.name.push(o.name);
+                carry.checked.push(event.target.checked);
+                return carry;
+              },
+              newstate
+            );
+          }
+
+          newstate.ids.push(option.id);
+          newstate.name.push(option.name);
+          newstate.checked.push(event.target.checked);
+
+          if (!event.target.checked && option?.parent) {
+            newstate.ids.push(option.parent);
+            newstate.name.push("");
+            newstate.checked.push(false);
+          }
+
+          updateState(newstate.ids, newstate.name, newstate.checked);
         }}
       />
     );
@@ -119,20 +139,25 @@ export const RegionOrCountrySelector = ({
   options,
   activeTerms,
   updateState,
+  clearAllOnClick,
 }: {
   label: string;
   labelAllShown: string;
-  options:
-    | FilterSettingTaxonomyOptionRegion[]
-    | FilterSettingTaxonomyOption[];
+  options: FilterSettingTaxonomyOptionRegion[] | FilterSettingTaxonomyOption[];
   activeTerms: Record<number, string> | null | undefined;
-  updateState: (id: string | number, name: string, isChecked: boolean) => void;
+  clearAllOnClick?: () => void;
+  updateState: (
+    id: string | number | number[] | string[],
+    name: string | string[],
+    isChecked: boolean | boolean[]
+  ) => void;
 }) => {
-  const { open, close, isOpen, isOpening, isClosing } = useModal({
-    defaultIsOpen: false,
-    openingAnimationLength: 350,
-    closeAnimationLength: 350,
-  });
+  const [isOpen, setIsOpen] = useState(false);
+
+  if (activeTerms)
+    console.log(
+      Object.keys(activeTerms).map((k: any) => `${k} - ${activeTerms[k]}`)
+    );
 
   return (
     <>
@@ -154,35 +179,32 @@ export const RegionOrCountrySelector = ({
             {Object.keys(activeTerms ?? {}).length === 0 && (
               <span>{labelAllShown}</span>
             )}
+
+            {typeof clearAllOnClick === "function" &&
+              Object.keys(activeTerms ?? {}).length > 0 && (
+                <ClearAll onClick={clearAllOnClick} />
+              )}
           </Selected>
           <Add>
             <Icon
-              type="plus"
+              type={isOpen ? "minus" : "plus"}
               onClick={() => {
-                open();
+                setIsOpen(!isOpen);
               }}
             />
           </Add>
         </Active>
       </Container>
-
-      <OptionsContainer {...{ isOpening, isOpen, isClosing }}>
-        {(isOpen || isClosing || isOpening) && (
-          <Options>
-            <OptionsClose>
-              <Icon
-                type="close"
-                onClick={() => {
-                  close();
-                }}
-              >
-                Close
-              </Icon>
-            </OptionsClose>
-            {renderOptions(label, activeTerms, options, updateState, 0, [])}
-          </Options>
-        )}
-      </OptionsContainer>
+      <Reveal
+        open={isOpen}
+        id={`${label}-options`}
+        role="region"
+        position="top"
+      >
+        <OptionsContainer>
+          {renderOptions(label, activeTerms, options, updateState, 0, [])}
+        </OptionsContainer>
+      </Reveal>
     </>
   );
 };

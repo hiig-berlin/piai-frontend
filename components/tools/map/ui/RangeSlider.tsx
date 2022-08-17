@@ -103,7 +103,7 @@ export const RangeSlider = ({
   const id = useId();
   const [values, setValues] = useState([valueFrom, valueUntil]);
 
-  const { getTrackProps, ticks, segments, handles } = useRanger({
+  const { getTrackProps, segments, handles } = useRanger({
     min,
     max,
     stepSize,
@@ -124,11 +124,7 @@ export const RangeSlider = ({
         <Value>{values[0]}</Value>
         <Slider>
           <Track {...(getTrackProps() as any)}>
-            {ticks.map(({ value, getTickProps }: any, i: number) => (
-              <Tick {...(getTickProps() as any)} key={`${id}-tick-${i}`}>
-                {/* <TickLabel>{value}</TickLabel> */}
-              </Tick>
-            ))}
+  
             {segments.map(({ getSegmentProps }: any, i: number) => (
               <Segment
                 {...(getSegmentProps() as any)}

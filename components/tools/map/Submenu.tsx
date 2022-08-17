@@ -79,9 +79,9 @@ export const Submenu = ({ tool, slug }: { tool?: string; slug?: string }) => {
   const filterState = useToolStateFilterState();
   const { updateFilterState } = useToolStateStoreActions();
 
-  let queryString = createQueryFromState(filterState).join("&")
-  queryString = queryString !== "" ? `?${queryString}`:queryString;
-  
+  let queryString = createQueryFromState(filterState).join("&");
+  queryString = queryString !== "" ? `?${queryString}` : queryString;
+
   return (
     <ToolSubmenu>
       <div>
@@ -100,21 +100,21 @@ export const Submenu = ({ tool, slug }: { tool?: string; slug?: string }) => {
         {slug === "index" && (
           <ActionItems>
             <Icon
+              type="filter"
+              onClick={() => {
+                updateFilterState({
+                  isSearchOpen: false,
+                  isFilterOpen: !filterState.isFilterOpen,
+                });
+              }}
+            />
+            <Icon
               type="search"
               active
               onClick={() => {
                 updateFilterState({
                   isSearchOpen: !filterState.isSearchOpen,
                   isFilterOpen: false,
-                });
-              }}
-            />
-            <Icon
-              type="filter"
-              onClick={() => {
-                updateFilterState({
-                  isSearchOpen: false,
-                  isFilterOpen: !filterState.isFilterOpen,
                 });
               }}
             />
@@ -136,8 +136,21 @@ export const Submenu = ({ tool, slug }: { tool?: string; slug?: string }) => {
         </Link>
         {slug === "directory" && (
           <ActionItems>
-            <Icon type="search" />
-            <Icon type="filter" />
+            <Icon type="filter" onClick={() => {
+                updateFilterState({
+                  isSearchOpen: false,
+                  isFilterOpen: !filterState.isFilterOpen,
+                });
+              }}/>
+            <Icon
+              type="search"
+              onClick={() => {
+                updateFilterState({
+                  isSearchOpen: !filterState.isSearchOpen,
+                  isFilterOpen: false,
+                });
+              }}
+            />
           </ActionItems>
         )}
       </div>
