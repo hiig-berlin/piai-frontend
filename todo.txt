@@ -1,15 +1,41 @@
 +++++++++++++++++++++++++++++++++++++++++++++
 +++++ TODO: Discuss +++++++++++++++++++++++++
 +++++++++++++++++++++++++++++++++++++++++++++
-- About link in sidebar
-- Sidebar width
-  - what about the "mobile" sidebar?
-- Counter (how to place it on mobile Landscape)
-
-- Mapping "Involving the people who will be affected by the project is a necessary part of the project design" numbers to text ??? 
 
 - Share Button
 - Print 
+
+- Use local google fonts!
+
+- remove cookie banner
+
+- map regions and countries not in filter ... switch between map and list resets region/country filter
+
+- search column to filter 
+
+- SELECT white on black ... .
+
+- Active state filter 
+
+- directory filter can be hidden (3 column to 2 column layout)
+
+- new toolbar for directory filter view 
+
+- search needs to be part of the query string (so back goes to filter)
+
+- no search in filter view ... 
+
+- contribute to be 1/3 column wide ...
+
+- filter to overlay list view on mobile ... 
+
+- print view ... 
+
+- about page in cms 
+
+- about page funny scolling 
+
+
 
 +++++++++++++++++++++++++++++++++++++++++++++
 +++++ TODO: Frontend ++++++++++++++++++++++++
