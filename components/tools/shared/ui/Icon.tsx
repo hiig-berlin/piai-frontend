@@ -147,7 +147,7 @@ export const Icon = ({
 
             carry.push(
               <a href={u.trim()} key={`${url}-${i}`} target="_blank" rel="nofollow noreferrer">
-                {u.trim()}
+                {children ? children : u.trim()}
               </a>
             );
 

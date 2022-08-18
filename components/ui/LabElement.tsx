@@ -7,10 +7,13 @@ import { AspectRatio } from "./AspectRatio";
 const ElementContainer = styled(AspectRatio)<{
   color?: string;
   hoverColor?: string;
+  bgColor?: string;
   size?: number;
 }>`
   border-color: ${({ color }) => color || "#000"};
   color: ${({ color }) => color || "#000"};
+  background-color: ${({ theme, bgColor }) => bgColor ? theme.color(bgColor, 0.8) : "transparent"};
+  
   font-size: ${({ size }) => size || 1}em;
   border-style: solid;
   border-width: 0.16em;
@@ -65,18 +68,21 @@ export const LabElement = ({
   shortHandle,
   longText,
   size,
+  bgColor
 }: {
   color?: string;
   hoverColor?: string;
   shortHandle?: string;
   longText?: string;
   size?: number;
+  bgColor?: string;
 }) => {
   return (
     <ElementContainer
       ratio="1"
       color={color}
       hoverColor={hoverColor}
+      bgColor={bgColor}
       size={size}
       className="labElement"
     >

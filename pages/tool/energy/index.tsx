@@ -159,6 +159,7 @@ const Grid = styled.div`
 const narrow = css`
   font-size: 14px;
   font-family: var(--font-family-narrow);
+  line-height: 18px;
 `;
 
 // Bigger icon with text on the side
@@ -352,6 +353,7 @@ const Index = ({
               type="repo"
               className="textLink"
               aria-label="Go to github repository"
+              url="https://github.com/hiig-berlin/energy-log"
             >
               <span>GitHub</span>
             </Icon>
@@ -381,7 +383,7 @@ const Index = ({
               <h3>Hardware production</h3>
               <p>
                 Manufacturing the hardware comes with{" "}
-                <em>embodied emissions</em> for mining the materials producing
+                <em>embodied emissions</em> for mining the materials and producing
                 the final product.
               </p>
             </Blurb>
@@ -573,7 +575,7 @@ const Chart1 = () => {
           />
         </clipPath>
       </defs>
-      <g id="Group_182" data-name="Group 182" clip-path="url(#clip-path)">
+      <g id="Group_182" data-name="Group 182" clipPath="url(#clip-path)">
         <path
           id="Line_47"
           data-name="Line 47"
@@ -586,8 +588,8 @@ const Chart1 = () => {
           data-name="0 kWh"
           transform="translate(7.801 340.874)"
           fill="#fff"
-          font-size="16"
-          font-family="PTSans-Narrow, PT Sans Narrow"
+          fontSize="16"
+          fontFamily="PTSans-Narrow, PT Sans Narrow"
         >
           <tspan x="0" y="0">
             0 kWh
@@ -598,22 +600,22 @@ const Chart1 = () => {
           data-name="5 kWh"
           transform="translate(7.801 273.962)"
           fill="#fff"
-          font-size="16"
-          font-family="PTSans-Narrow, PT Sans Narrow"
+          fontSize="16"
+          fontFamily="PTSans-Narrow, PT Sans Narrow"
         >
           <tspan x="0" y="0">
             5 kWh
           </tspan>
         </text>
         <g id="Group_173" data-name="Group 173">
-          <g id="Group_172" data-name="Group 172" clip-path="url(#clip-path)">
+          <g id="Group_172" data-name="Group 172" clipPath="url(#clip-path)">
             <text
               id="_10_kWh"
               data-name="10 kWh"
               transform="translate(0 207.056)"
               fill="#fff"
-              font-size="16"
-              font-family="PTSans-Narrow, PT Sans Narrow"
+              fontSize="16"
+              fontFamily="PTSans-Narrow, PT Sans Narrow"
             >
               <tspan x="0" y="0">
                 10 kWh
@@ -624,8 +626,8 @@ const Chart1 = () => {
               data-name="15 kWh"
               transform="translate(0 140.144)"
               fill="#fff"
-              font-size="16"
-              font-family="PTSans-Narrow, PT Sans Narrow"
+              fontSize="16"
+              fontFamily="PTSans-Narrow, PT Sans Narrow"
             >
               <tspan x="0" y="0">
                 15 kWh
@@ -636,8 +638,8 @@ const Chart1 = () => {
               data-name="20 kWh"
               transform="translate(0 73.232)"
               fill="#fff"
-              font-size="16"
-              font-family="PTSans-Narrow, PT Sans Narrow"
+              fontSize="16"
+              fontFamily="PTSans-Narrow, PT Sans Narrow"
             >
               <tspan x="0" y="0">
                 20 kWh
@@ -733,7 +735,7 @@ const Chart1 = () => {
           fill="#fff"
         />
         <g id="Group_175" data-name="Group 175">
-          <g id="Group_174" data-name="Group 174" clip-path="url(#clip-path)">
+          <g id="Group_174" data-name="Group 174" clipPath="url(#clip-path)">
             <path
               id="Path_116"
               data-name="Path 116"
@@ -789,8 +791,8 @@ const Chart1 = () => {
           data-name="0.11"
           transform="translate(81.436 322.836)"
           fill="#fff"
-          font-size="16"
-          font-family="PTSans-Narrow, PT Sans Narrow"
+          fontSize="16"
+          fontFamily="PTSans-Narrow, PT Sans Narrow"
         >
           <tspan x="0" y="0">
             0.11
@@ -801,8 +803,8 @@ const Chart1 = () => {
           data-name="0.95"
           transform="translate(160.252 310.02)"
           fill="#fff"
-          font-size="16"
-          font-family="PTSans-Narrow, PT Sans Narrow"
+          fontSize="16"
+          fontFamily="PTSans-Narrow, PT Sans Narrow"
         >
           <tspan x="0" y="0">
             0.95
@@ -813,8 +815,8 @@ const Chart1 = () => {
           data-name="1.95"
           transform="translate(238.252 298.292)"
           fill="#fff"
-          font-size="16"
-          font-family="PTSans-Narrow, PT Sans Narrow"
+          fontSize="16"
+          fontFamily="PTSans-Narrow, PT Sans Narrow"
         >
           <tspan x="0" y="0">
             1.95
@@ -825,8 +827,8 @@ const Chart1 = () => {
           data-name="5.14"
           transform="translate(317.372 252.132)"
           fill="#fff"
-          font-size="16"
-          font-family="PTSans-Narrow, PT Sans Narrow"
+          fontSize="16"
+          fontFamily="PTSans-Narrow, PT Sans Narrow"
         >
           <tspan x="0" y="0">
             5.14
@@ -837,9 +839,9 @@ const Chart1 = () => {
           data-name="14.48"
           transform="translate(390.62 131.844)"
           fill="#0d988c"
-          font-size="16"
-          font-family="PTSans-NarrowBold, PT Sans Narrow"
-          font-weight="700"
+          fontSize="16"
+          fontFamily="PTSans-NarrowBold, PT Sans Narrow"
+          fontWeight="700"
         >
           <tspan x="0" y="0">
             14.48
@@ -850,23 +852,23 @@ const Chart1 = () => {
           data-name="15.74"
           transform="translate(471.196 114.309)"
           fill="#fff"
-          font-size="16"
-          font-family="PTSans-Narrow, PT Sans Narrow"
+          fontSize="16"
+          fontFamily="PTSans-Narrow, PT Sans Narrow"
         >
           <tspan x="0" y="0">
             15.74
           </tspan>
         </text>
         <g id="Group_181" data-name="Group 181">
-          <g id="Group_180" data-name="Group 180" clip-path="url(#clip-path)">
+          <g id="Group_180" data-name="Group 180" clipPath="url(#clip-path)">
             <text
               id="_14_460.50"
               data-name="14 460.50"
               transform="translate(534.224 13.6)"
               fill="#0d988c"
-              font-size="16"
-              font-family="PTSans-NarrowBold, PT Sans Narrow"
-              font-weight="700"
+              fontSize="16"
+              fontFamily="PTSans-NarrowBold, PT Sans Narrow"
+              fontWeight="700"
             >
               <tspan x="0" y="0">
                 14 460.50
@@ -883,7 +885,7 @@ const Chart1 = () => {
               data-name="Path 122"
               d="M407.667,357.021a.548.548,0,0,0-.406,0l-6.519,2.611,6.721,2.689,6.721-2.688Zm7.442,3.414-7.1,2.84v8.652l7.1-2.84v-8.652Zm-8.192,11.5v-8.655l-7.1-2.839v8.653Zm-.062-15.922a1.641,1.641,0,0,1,1.217,0l7.786,3.11a.547.547,0,0,1,.343.507v9.461a1.092,1.092,0,0,1-.687,1.014l-7.847,3.142a.548.548,0,0,1-.406,0l-7.847-3.138a1.092,1.092,0,0,1-.688-1.014v-9.461a.545.545,0,0,1,.343-.511Z"
               fill="#1d9f9d"
-              fill-rule="evenodd"
+              fillRule="evenodd"
             />
             <path
               id="Path_123"
@@ -896,21 +898,21 @@ const Chart1 = () => {
               data-name="Path 124"
               d="M565.786,352.139a.9.9,0,0,0-.668,0l-10.709,4.284,11.043,4.416,11.044-4.416Zm12.227,5.61-11.664,4.665V376.63l11.664-4.666V357.75Zm-13.459,18.883V362.413l-11.664-4.664v14.217Zm-.1-26.16a2.691,2.691,0,0,1,2,0l12.79,5.118a.9.9,0,0,1,.563.833v15.543a1.8,1.8,0,0,1-1.129,1.665l-12.892,5.158a.9.9,0,0,1-.668,0l-12.892-5.157a1.794,1.794,0,0,1-1.13-1.666V356.423a.9.9,0,0,1,.564-.833Z"
               fill="#1d9f9d"
-              fill-rule="evenodd"
+              fillRule="evenodd"
             />
             <path
               id="Path_125"
               data-name="Path 125"
               d="M324.88,346.868a1.322,1.322,0,0,1,1.135-.49l3.224,3.475.132-.005.133.005,3.243-3.475a1.3,1.3,0,0,1,1.118.49c.4.566.161-.985-.727-.985h-7.532C324.718,345.882,324.475,347.432,324.88,346.868Zm4.492-.485h2.657l-2.607,2.722v-.016l-.05.057-.049-.057v.016l-2.544-2.722Zm-7.88,30.106h1.63l1.291-2.6h-.907Zm12.981-2.6,1.2,2.6H337.3l-1.926-2.6Zm-8.164-1.017h6.241v-1.813h-6.241Zm12.515-19.606c0-1.6-6.6-1.716-6.6-1.716l-1.109-1.184-3.426-.019-1.43,1.193s-5.483.1-6.281,1.725c0,0,.023,16.048.023,16.876s1.622,2.733,2.731,2.733c1.6,0,2.686.008,2.686.008l-.024-2.7h8.118v2.718s1.422-.027,2.777-.027,2.568-2.392,2.568-2.726C338.857,368.933,338.824,353.263,338.824,353.263Zm-12.225.143a.431.431,0,0,0,.006.063.509.509,0,0,1,.5-.449h4.59a.51.51,0,0,1,.5.449.468.468,0,0,0,.007-.063v.125a.408.408,0,0,0-.007-.061.551.551,0,0,1-.5.5h-4.59a.549.549,0,0,1-.5-.5.4.4,0,0,0-.006.061Zm-3.431,16.117a.732.732,0,1,1,.723-.732.727.727,0,0,1-.723.732m5.845-6.666a1.018,1.018,0,0,1-1.02,1.019h-6.047a1.019,1.019,0,0,1-1.02-1.019v-6.969a1.018,1.018,0,0,1,1.02-1.019h6.047a1.02,1.02,0,0,1,1.02,1.019Zm6.771,6.722a.732.732,0,1,1,.723-.731.727.727,0,0,1-.723.731m2.229-6.722a1.019,1.019,0,0,1-1.02,1.019h-6.075a1.018,1.018,0,0,1-1.019-1.019V355.89a1.018,1.018,0,0,1,1.019-1.02h6.076a1.02,1.02,0,0,1,1.02,1.02Z"
               fill="#fff"
-              fill-rule="evenodd"
+              fillRule="evenodd"
             />
             <path
               id="Path_126"
               data-name="Path 126"
               d="M245.915,353.851h14.9a3.969,3.969,0,0,1,3.958,3.957v8.226a3.97,3.97,0,0,1-3.958,3.958h-14.9a3.97,3.97,0,0,1-3.958-3.958v-8.226A3.969,3.969,0,0,1,245.915,353.851Zm-2.687,19.937a.555.555,0,0,1,0-1.109h6.023a.555.555,0,1,1,0,1.109Zm7.962-2.033a.554.554,0,1,1,1.109,0v.924h11.2a.555.555,0,0,1,0,1.109H252.3v.926a.554.554,0,0,1-1.109,0Zm.178-13.9,6.041,3.6a.55.55,0,0,1-.005.951l-6.086,3.624a.552.552,0,0,1-.756-.193.558.558,0,0,1-.078-.282h0v-7.255a.554.554,0,0,1,.885-.444Zm4.682,4.072-4.459-2.656v5.312Z"
               fill="#fff"
-              fill-rule="evenodd"
+              fillRule="evenodd"
             />
             <path
               id="Path_127"
@@ -979,9 +981,9 @@ const Chart2 = () => {
           />
         </clipPath>
       </defs>
-      <g id="Group_194" data-name="Group 194" clip-path="url(#clip-path)">
+      <g id="Group_194" data-name="Group 194" clipPath="url(#clip-path)">
         <g id="Group_185" data-name="Group 185">
-          <g id="Group_184" data-name="Group 184" clip-path="url(#clip-path)">
+          <g id="Group_184" data-name="Group 184" clipPath="url(#clip-path)">
             <path
               id="Line_57"
               data-name="Line 57"
@@ -996,8 +998,8 @@ const Chart2 = () => {
           data-name="0 g"
           transform="translate(34.057 342.042)"
           fill="#fff"
-          font-size="16"
-          font-family="PTSans-Narrow, PT Sans Narrow"
+          fontSize="16"
+          fontFamily="PTSans-Narrow, PT Sans Narrow"
         >
           <tspan x="0" y="0">
             0 g
@@ -1008,8 +1010,8 @@ const Chart2 = () => {
           data-name="2 000 g"
           transform="translate(7.617 288.523)"
           fill="#fff"
-          font-size="16"
-          font-family="PTSans-Narrow, PT Sans Narrow"
+          fontSize="16"
+          fontFamily="PTSans-Narrow, PT Sans Narrow"
         >
           <tspan x="0" y="0">
             2 000 g
@@ -1020,8 +1022,8 @@ const Chart2 = () => {
           data-name="4 000 g"
           transform="translate(7.617 235.002)"
           fill="#fff"
-          font-size="16"
-          font-family="PTSans-Narrow, PT Sans Narrow"
+          fontSize="16"
+          fontFamily="PTSans-Narrow, PT Sans Narrow"
         >
           <tspan x="0" y="0">
             4 000 g
@@ -1032,8 +1034,8 @@ const Chart2 = () => {
           data-name="6 000 g"
           transform="translate(7.617 181.482)"
           fill="#fff"
-          font-size="16"
-          font-family="PTSans-Narrow, PT Sans Narrow"
+          fontSize="16"
+          fontFamily="PTSans-Narrow, PT Sans Narrow"
         >
           <tspan x="0" y="0">
             6 000 g
@@ -1044,22 +1046,22 @@ const Chart2 = () => {
           data-name="8 000 g"
           transform="translate(7.617 127.962)"
           fill="#fff"
-          font-size="16"
-          font-family="PTSans-Narrow, PT Sans Narrow"
+          fontSize="16"
+          fontFamily="PTSans-Narrow, PT Sans Narrow"
         >
           <tspan x="0" y="0">
             8 000 g
           </tspan>
         </text>
         <g id="Group_187" data-name="Group 187">
-          <g id="Group_186" data-name="Group 186" clip-path="url(#clip-path)">
+          <g id="Group_186" data-name="Group 186" clipPath="url(#clip-path)">
             <text
               id="_10_000_g"
               data-name="10 000 g"
               transform="translate(0 74.407)"
               fill="#fff"
-              font-size="16"
-              font-family="PTSans-Narrow, PT Sans Narrow"
+              fontSize="16"
+              fontFamily="PTSans-Narrow, PT Sans Narrow"
             >
               <tspan x="0" y="0">
                 10 000 g
@@ -1196,7 +1198,7 @@ const Chart2 = () => {
           <g
             id="Group_188"
             data-name="Group 188"
-            clip-path="url(#clip-path-4x)"
+            clipPath="url(#clip-path-4x)"
           >
             <image
               id="Rectangle_88"
@@ -1217,7 +1219,7 @@ const Chart2 = () => {
           fill="#fff"
         />
         <g id="Group_191" data-name="Group 191">
-          <g id="Group_190" data-name="Group 190" clip-path="url(#clip-path)">
+          <g id="Group_190" data-name="Group 190" clipPath="url(#clip-path)">
             <path
               id="Path_132"
               data-name="Path 132"
@@ -1237,8 +1239,8 @@ const Chart2 = () => {
           data-name="34"
           transform="translate(87.923 322.836)"
           fill="#fff"
-          font-size="16"
-          font-family="PTSans-Narrow, PT Sans Narrow"
+          fontSize="16"
+          fontFamily="PTSans-Narrow, PT Sans Narrow"
         >
           <tspan x="0" y="0">
             34
@@ -1249,8 +1251,8 @@ const Chart2 = () => {
           data-name="297"
           transform="translate(154.323 316.165)"
           fill="#fff"
-          font-size="16"
-          font-family="PTSans-Narrow, PT Sans Narrow"
+          fontSize="16"
+          fontFamily="PTSans-Narrow, PT Sans Narrow"
         >
           <tspan x="0" y="0">
             297
@@ -1261,8 +1263,8 @@ const Chart2 = () => {
           data-name="607"
           transform="translate(223.411 307.428)"
           fill="#fff"
-          font-size="16"
-          font-family="PTSans-Narrow, PT Sans Narrow"
+          fontSize="16"
+          fontFamily="PTSans-Narrow, PT Sans Narrow"
         >
           <tspan x="0" y="0">
             607
@@ -1273,8 +1275,8 @@ const Chart2 = () => {
           data-name="1 600"
           transform="translate(286.499 279.781)"
           fill="#fff"
-          font-size="16"
-          font-family="PTSans-Narrow, PT Sans Narrow"
+          fontSize="16"
+          fontFamily="PTSans-Narrow, PT Sans Narrow"
         >
           <tspan x="0" y="0">
             1 600
@@ -1285,9 +1287,9 @@ const Chart2 = () => {
           data-name="4 509"
           transform="translate(354.755 204.661)"
           fill="#0d988c"
-          font-size="16"
-          font-family="PTSans-NarrowBold, PT Sans Narrow"
-          font-weight="700"
+          fontSize="16"
+          fontFamily="PTSans-NarrowBold, PT Sans Narrow"
+          fontWeight="700"
         >
           <tspan x="0" y="0">
             4 509
@@ -1298,8 +1300,8 @@ const Chart2 = () => {
           data-name="4 900"
           transform="translate(424.723 193.621)"
           fill="#fff"
-          font-size="16"
-          font-family="PTSans-Narrow, PT Sans Narrow"
+          fontSize="16"
+          fontFamily="PTSans-Narrow, PT Sans Narrow"
         >
           <tspan x="0" y="0">
             4 900
@@ -1310,8 +1312,8 @@ const Chart2 = () => {
           data-name="8 352"
           transform="translate(563.314 101.988)"
           fill="#fff"
-          font-size="16"
-          font-family="PTSans-Narrow, PT Sans Narrow"
+          fontSize="16"
+          fontFamily="PTSans-Narrow, PT Sans Narrow"
         >
           <tspan x="0" y="0">
             8 352
@@ -1322,23 +1324,23 @@ const Chart2 = () => {
           data-name="16"
           transform="translate(572.211 220.693)"
           fill="#fff"
-          font-size="16"
-          font-family="PTSans-Narrow, PT Sans Narrow"
+          fontSize="16"
+          fontFamily="PTSans-Narrow, PT Sans Narrow"
         >
           <tspan x="0" y="0">
             16
           </tspan>
         </text>
         <g id="Group_193" data-name="Group 193">
-          <g id="Group_192" data-name="Group 192" clip-path="url(#clip-path)">
+          <g id="Group_192" data-name="Group 192" clipPath="url(#clip-path)">
             <text
               id="_4_503_000"
               data-name="4 503 000"
               transform="translate(479.918 13.6)"
               fill="#0d988c"
-              font-size="16"
-              font-family="PTSans-NarrowBold, PT Sans Narrow"
-              font-weight="700"
+              fontSize="16"
+              fontFamily="PTSans-NarrowBold, PT Sans Narrow"
+              fontWeight="700"
             >
               <tspan x="0" y="0">
                 4 503 000
@@ -1355,7 +1357,7 @@ const Chart2 = () => {
               data-name="Path 135"
               d="M371.888,357.021a.548.548,0,0,0-.406,0l-6.519,2.611,6.721,2.689,6.721-2.688Zm7.442,3.414-7.1,2.84v8.652l7.1-2.84v-8.652Zm-8.192,11.5v-8.655l-7.1-2.839v8.653Zm-.062-15.922a1.641,1.641,0,0,1,1.217,0l7.786,3.11a.547.547,0,0,1,.343.507v9.461a1.092,1.092,0,0,1-.687,1.014l-7.847,3.142a.548.548,0,0,1-.406,0l-7.847-3.138a1.092,1.092,0,0,1-.688-1.014v-9.461a.545.545,0,0,1,.343-.511Z"
               fill="#1d9f9d"
-              fill-rule="evenodd"
+              fillRule="evenodd"
             />
             <path
               id="Path_136"
@@ -1368,21 +1370,21 @@ const Chart2 = () => {
               data-name="Path 137"
               d="M510.3,352.139a.9.9,0,0,0-.668,0l-10.709,4.284,11.043,4.416,11.044-4.416Zm12.227,5.61-11.664,4.665V376.63l11.664-4.666V357.75Zm-13.459,18.883V362.413L497.4,357.749v14.217Zm-.1-26.16a2.691,2.691,0,0,1,2,0l12.79,5.118a.9.9,0,0,1,.563.833v15.543a1.794,1.794,0,0,1-1.129,1.665L510.3,378.789a.9.9,0,0,1-.668,0l-12.892-5.157a1.794,1.794,0,0,1-1.13-1.666V356.423a.9.9,0,0,1,.564-.833Z"
               fill="#1d9f9d"
-              fill-rule="evenodd"
+              fillRule="evenodd"
             />
             <path
               id="Path_138"
               data-name="Path 138"
               d="M298.005,346.868a1.322,1.322,0,0,1,1.135-.49l3.224,3.475.132-.005.133.005,3.243-3.475a1.3,1.3,0,0,1,1.118.49c.4.566.161-.985-.727-.985h-7.532C297.843,345.882,297.6,347.432,298.005,346.868Zm4.492-.485h2.657l-2.607,2.722v-.016l-.05.057-.049-.057v.016l-2.544-2.722Zm-7.88,30.106h1.63l1.291-2.6h-.907Zm12.981-2.6,1.2,2.6h1.631l-1.926-2.6Zm-8.164-1.017h6.241v-1.813h-6.241Zm12.515-19.606c0-1.6-6.6-1.716-6.6-1.716l-1.109-1.184-3.426-.019-1.43,1.193s-5.483.1-6.281,1.725c0,0,.023,16.048.023,16.876s1.622,2.733,2.731,2.733c1.6,0,2.686.008,2.686.008l-.024-2.7h8.118v2.718s1.422-.027,2.777-.027,2.568-2.392,2.568-2.726C311.982,368.933,311.949,353.263,311.949,353.263Zm-12.225.143a.431.431,0,0,0,.006.063.509.509,0,0,1,.5-.449h4.59a.51.51,0,0,1,.5.449.468.468,0,0,0,.007-.063v.125a.408.408,0,0,0-.007-.061.551.551,0,0,1-.5.5h-4.59a.549.549,0,0,1-.5-.5.4.4,0,0,0-.006.061Zm-3.431,16.117a.732.732,0,1,1,.723-.732.727.727,0,0,1-.723.732m5.845-6.666a1.018,1.018,0,0,1-1.02,1.019h-6.047a1.019,1.019,0,0,1-1.02-1.019v-6.969a1.018,1.018,0,0,1,1.02-1.019h6.047a1.019,1.019,0,0,1,1.02,1.019Zm6.771,6.722a.732.732,0,1,1,.723-.731.727.727,0,0,1-.723.731m2.229-6.722a1.019,1.019,0,0,1-1.02,1.019h-6.075a1.018,1.018,0,0,1-1.019-1.019V355.89a1.018,1.018,0,0,1,1.019-1.02h6.076a1.019,1.019,0,0,1,1.02,1.02Z"
               fill="#fff"
-              fill-rule="evenodd"
+              fillRule="evenodd"
             />
             <path
               id="Path_139"
               data-name="Path 139"
               d="M225.955,353.851h14.9a3.969,3.969,0,0,1,3.958,3.957v8.226a3.97,3.97,0,0,1-3.958,3.958h-14.9A3.97,3.97,0,0,1,222,366.034v-8.226A3.969,3.969,0,0,1,225.955,353.851Zm-2.687,19.937a.555.555,0,0,1,0-1.109h6.023a.555.555,0,1,1,0,1.109Zm7.962-2.033a.555.555,0,1,1,1.109,0v.924h11.2a.555.555,0,0,1,0,1.109h-11.2v.926a.555.555,0,0,1-1.109,0Zm.178-13.9,6.041,3.6a.55.55,0,0,1-.005.951l-6.087,3.624a.551.551,0,0,1-.755-.193.558.558,0,0,1-.078-.282h0v-7.255a.554.554,0,0,1,.885-.444Zm4.682,4.072-4.459-2.656v5.312Z"
               fill="#fff"
-              fill-rule="evenodd"
+              fillRule="evenodd"
             />
             <path
               id="Path_140"

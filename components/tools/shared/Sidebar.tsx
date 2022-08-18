@@ -164,6 +164,7 @@ export const Sidebar = ({
               shortHandle={currentTool.iconShort}
               longText={currentTool.iconLong}
               color="white"
+              bgColor="bgTool"
               hoverColor={currentTool.colorBase}
               size={1.5}
             />
