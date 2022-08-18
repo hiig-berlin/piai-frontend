@@ -30,6 +30,14 @@ import Svgdownload from "~/components/svgs/Svgdownload";
 import Svginfo from "~/components/svgs/Svginfo";
 import SvgPlus from "~/components/svgs/SvgPlus";
 import SvgMinus from "~/components/svgs/SvgMinus";
+import Svgkettle from "~/components/svgs/Svgkettle";
+import Svgstreaming from "~/components/svgs/Svgstreaming";
+import Svgopnv from "~/components/svgs/Svgopnv";
+import Svgcar from "~/components/svgs/Svgcar";
+import SvgboxSmall from "~/components/svgs/SvgboxSmall";
+import SvgboxLarge from "~/components/svgs/SvgboxLarge";
+import Svgscreen from "~/components/svgs/Svgscreen";
+import Svgscribble from "~/components/svgs/Svgscribble";
 
 // use https://jakearchibald.github.io/svgomg/
 // use https://yoksel.github.io/url-encoder/
@@ -178,6 +186,39 @@ export const ToolSvgBackground = ({
     case "minus" :
       activeSvg = SvgMinus;
       break;
+
+    case "kettle":
+      activeSvg = Svgkettle;
+      break;
+
+    case "streaming":
+      activeSvg = Svgstreaming;
+      break;
+
+    case "opnv":
+      activeSvg = Svgopnv;
+      break;
+
+    case "car":
+      activeSvg = Svgcar;
+      break;
+
+    case "boxSmall":
+      activeSvg = SvgboxSmall;
+      break;
+
+    case "boxLarge":
+      activeSvg = SvgboxLarge;
+      break;
+
+    case "screen":
+      activeSvg = Svgscreen;
+      break;
+
+    case "scribble":
+      activeSvg = Svgscribble;
+      break;  
+
 
   }
   return (

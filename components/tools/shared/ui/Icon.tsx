@@ -127,7 +127,7 @@ export const Icon = ({
     return (
       <IconStatic spaceBefore={spaceBefore} className={className}>
         <ToolSvgBackground type={type} />
-        {children && children}
+        <span>{children && children}</span>
       </IconStatic>
     );
   } else if (typeof url === "string") {
