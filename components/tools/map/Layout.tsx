@@ -115,7 +115,7 @@ export const Layout = ({
         </Sidebar>
         {showMap && (
           <>
-            <Map />
+            <Map isMapView={isMap} />
             {isMap && content}
 
             {/*

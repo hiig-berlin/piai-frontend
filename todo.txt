@@ -4,11 +4,18 @@
 - Share Button Does not work on (MacOS Chrome and FF)
 - Use local google fonts!
 
+- About Page jumps if scroll direction changes inbetween
+
++++++++++++++++++++++++++++++++++++++++++++++
++++++ TODO: +++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++++++++++++++
+
+- Confirm that Matomo tracks referral correctly
+
+
 +++++++++++++++++++++++++++++++++++++++++++++
 +++++ TODO: Discuss +++++++++++++++++++++++++
 +++++++++++++++++++++++++++++++++++++++++++++
-
-- Print 
 
 - map regions and countries not in filter ... switch between map and list resets region/country filter
 
@@ -33,10 +40,6 @@
 - jumpy about page ... 
 
 - about page in cms 
-
-- about page funny scolling 
-
-- Confirm that Matomo tracks referral correctly
 
 - Map moves to far to the right if no detail has been opened, why?
 

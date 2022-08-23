@@ -37,6 +37,14 @@ const Container = styled.div<{ isFilterOpen: boolean }>`
   ${({ theme }) => theme.breakpoints.tablet} {
     padding-bottom: var(--size-3);
   }
+
+  @media print {
+    position: static;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+    transform: none;
+  }
 `;
 
 const Header = styled.div`
@@ -180,7 +188,7 @@ export const DirectoryList = () => {
 
   return (
     <Container isFilterOpen={true}>
-      <Box>xxx</Box>
+      <Box hideOnPrint>xxx</Box>
       <Panel
         isRefetching={isFiltering || filterState.isFetchingFilteredIds}
         isFullHeight={false}

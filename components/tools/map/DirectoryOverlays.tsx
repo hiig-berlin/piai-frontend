@@ -38,7 +38,7 @@ export const DirectoryOverlays = () => {
     <Container>
       <Search view="directory" />
       <DirectoryFilter />
-      
+
       <DirectoryList />
       {filterState?.quickViewProjectId && (
         <ProjectQuickView

@@ -31,6 +31,8 @@ const Content = styled.div`
     font-size: var(--text-h1-font-size);
     color: #f0f;
   }
+
+  ${({ theme }) => theme.applyMixin("noPrint")}
 `;
 
 const Directory = ({ tool }: { tool: PiAiTool }) => {
