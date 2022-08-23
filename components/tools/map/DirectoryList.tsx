@@ -14,6 +14,7 @@ import {
 } from "./state/ToolState";
 import { useEffectOnMountOnce } from "~/hooks/useEffectOnMountOnce";
 import { Box } from "../shared/ui/Box";
+import { IconButtonPrint } from "./ui/IconButtonPrint";
 
 const Container = styled.div<{ isFilterOpen: boolean }>`
   position: fixed;
@@ -79,9 +80,10 @@ const Panel = styled.div<{
   padding: var(--size-3);
   border-radius: var(--size-3);
   height: ${({ isFullHeight }) =>
-    isFullHeight
-      ? "calc(100vh - var(--lbh, 0) - var(--size-5))"
-      : "calc(50vh - (0.5 * var(--lbh, 0)) - var(--size-5))"};
+    isFullHeight ? "calc(100vh - var(--lbh, 0) - var(--size-5))" : "200ox"};
+
+  flex-grow: ${({ isFullHeight }) => (isFullHeight ? 0 : 1)};
+  flex-shrink: ${({ isFullHeight }) => (isFullHeight ? 0 : 1)};
 
   & > div {
     flex-grow: 1;
@@ -96,9 +98,15 @@ const Panel = styled.div<{
   }
 
   ${({ theme }) => theme.breakpoints.tabletLandscape} {
-    height: 100%;
+    height: 50vh;
     gap: var(--size-3);
   }
+`;
+
+const Toolbar = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 `;
 
 export const DirectoryList = () => {
@@ -188,7 +196,12 @@ export const DirectoryList = () => {
 
   return (
     <Container isFilterOpen={true}>
-      <Box hideOnPrint>xxx</Box>
+      <Box hideOnPrint>
+        <Toolbar>
+          <div>{filterState.filteredCount}/{filterState.totalCount}</div>
+          <IconButtonPrint />
+        </Toolbar>
+      </Box>
       <Panel
         isRefetching={isFiltering || filterState.isFetchingFilteredIds}
         isFullHeight={false}

@@ -114,16 +114,16 @@ const Header = styled.div`
   align-items: center;
   padding-right: var(--size-6);
 
-  h3 {
-    margin: 0;
-  }
-
   ${({ theme }) => theme.breakpoints.tablet} {
     flex-direction: column;
     align-items: flex-start;
     gap: var(--size-2);
     padding-right: 0;
   }
+`;
+
+const H3 = styled.h3<{ hasHeader: boolean }>`
+  margin: ${({ hasHeader }) => (hasHeader ? "0" : "0 0 var(--size-2) 0")};
 `;
 
 const Footer = styled.div``;
@@ -214,7 +214,7 @@ export const SidebarDrawer = ({
               <span>Close</span>
             </Icon>
           </DisplayBelow>
-          <h3>{title}</h3>
+          <H3 hasHeader={false}>{title}</H3>
           {header}
         </Header>
 

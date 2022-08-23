@@ -27,11 +27,11 @@ const Container = styled.div`
   position: relative;
 `;
 
-const ActiveFilters = styled.div`
+const ActiveFilters = styled.div<{ withRegions: boolean }>`
   width: 100%;
-  border-top: 1px solid #fff;
+  border-top: ${({ withRegions }) => (withRegions ? "1px solid #fff" : "none")};
   padding-top: var(--size-1);
-  margin-top: var(--size-3);
+  margin-top: ${({ withRegions }) => (withRegions ? "var(--size-3)" : "0")};
   display: flex;
   flex-wrap: wrap;
   gap: var(--size-1);
@@ -384,7 +384,7 @@ export const FilterContent = ({ view }: { view: string }) => {
       )}
 
       {activeFilters?.length > 0 && (
-        <ActiveFilters>
+        <ActiveFilters withRegions={view !== "map"}>
           {activeFilters}
 
           <ClearAll

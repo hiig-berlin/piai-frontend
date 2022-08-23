@@ -326,7 +326,7 @@ export class MapController {
         top: 50,
         right: 70,
         bottom: 50,
-        left: sidebarWidth + 750,
+        left: sidebarWidth + 70,
       };
     }
   }
@@ -619,8 +619,6 @@ export class MapController {
         offsetY = -0.25 * window.innerHeight;
       }
     } else {
-      // tabletLandscape++
-      // xxx sometimes the offset is a bit funny!
       offsetX += sidebarWidth * 0.5;
       if (
         this.getState().filter.isFilterOpen ||
@@ -628,6 +626,7 @@ export class MapController {
       ) {
         offsetX += (window.innerWidth - sidebarWidth - 2 * size3Width) * 0.15;
       }
+
       if (this.getState().filter.quickViewProjectId) {
         offsetX += (window.innerWidth - sidebarWidth - 2 * size3Width) * 0.2;
       }

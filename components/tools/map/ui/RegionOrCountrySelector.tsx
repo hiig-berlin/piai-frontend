@@ -14,6 +14,10 @@ import { ClearAll } from "./ClearAll";
 
 const Container = styled.div`
   margin-top: var(--size-3);
+
+  &:first-child {
+    margin-top: 0;
+  }
 `;
 
 const OptionsContainer = styled.div`
