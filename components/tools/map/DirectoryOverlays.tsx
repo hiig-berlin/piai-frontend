@@ -16,6 +16,11 @@ const Container = styled.div`
   left: 0;
   z-index: 3;
   pointer-events: none;
+
+  *::selection {
+    background: #fff !important;
+    color: #000 !important;
+  }
 `;
 
 export const DirectoryOverlays = () => {

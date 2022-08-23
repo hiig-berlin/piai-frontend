@@ -68,6 +68,8 @@ const SidebarContainer = styled.div<{
         ? "translateX(0)"
         : "translateX(calc(-100% - var(--size-6)))"};
   }
+
+  ${({ theme }) => theme.applyMixin("noPrint")}
 `;
 
 const Panel = styled.div<{

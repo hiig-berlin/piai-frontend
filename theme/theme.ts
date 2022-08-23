@@ -301,7 +301,13 @@ export const theme = {
           background-color: var(--color-light-grey)
         }`;
     },
-
+    noPrint: () => {
+      return `
+        @media print {
+          display: none;
+        }
+      `;
+    },
     // ... or function callback so you can access the theme or do calculations
     // and even pass arguments to the function ${({ theme }) => theme.applyMixin("maxWidth", 1000)}
     // maxWidth: {

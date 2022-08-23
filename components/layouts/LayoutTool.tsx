@@ -22,6 +22,11 @@ const ContentContainer = styled.div`
   ${({ theme }) => theme.breakpoints.tablet} {
     padding-left: var(--size-6);
   }
+
+  *::selection {
+    background: #fff !important;
+    color: #000 !important;
+  }
 `;
 
 export const LayoutTool = ({

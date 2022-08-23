@@ -9,7 +9,6 @@ import { useCssVarsStateIsTabletAndUpState } from "~/components/state/CssVarsSta
 import { Box } from "./ui/Box";
 import { SidebarTool } from "./ui/SidebarTool";
 
-
 const SIDEBAR_PADDING = "var(--size-3)";
 
 // Mobile: Button and Small Menu
@@ -33,10 +32,10 @@ const MobileToolNavContainer = styled.div<{
   }
 `;
 
-const ToolNav = styled(Box)<{isOpen: boolean;}>`
+const ToolNav = styled(Box)<{ isOpen: boolean }>`
   transition: opacity 0.2s ease;
-  opacity: ${({isOpen}) => isOpen ? "1": "0"};
-`
+  opacity: ${({ isOpen }) => (isOpen ? "1" : "0")};
+`;
 
 // Tablet+: Sidebar
 // =================================================
@@ -69,6 +68,8 @@ const SidebarContainer = styled.div<{
   ${({ theme }) => theme.breakpoints.tabletLandscape} {
     z-index: 10;
   }
+
+  ${({ theme }) => theme.applyMixin("noPrint")}
 `;
 
 const LogoContainer = styled.div`
@@ -89,13 +90,11 @@ const ToolMenuButton = styled(ButtonNormalized)`
 `;
 
 const Children = styled.div`
-${({ theme }) => theme.breakpoints.tablet} {
-  margin-left: calc(-1 * ${SIDEBAR_PADDING});
-  margin-right: calc(-1 * ${SIDEBAR_PADDING});
-  margin-top: ${SIDEBAR_PADDING};
-}  
-
-
+  ${({ theme }) => theme.breakpoints.tablet} {
+    margin-left: calc(-1 * ${SIDEBAR_PADDING});
+    margin-right: calc(-1 * ${SIDEBAR_PADDING});
+    margin-top: ${SIDEBAR_PADDING};
+  }
 `;
 
 export const Sidebar = ({
@@ -153,24 +152,26 @@ export const Sidebar = ({
     );
   } else {
     return (
-        <MobileToolNavContainer isVisible={view !== "page"}>
-          <ToolMenuButton
-            aria-label={isOpen ? "Close tool's menu" : "open tool's menu"}
-            aria-expanded={isOpen}
-            aria-controls={`sidebar-${tool}`}
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            <LabElement
-              shortHandle={currentTool.iconShort}
-              longText={currentTool.iconLong}
-              color="white"
-              bgColor="bgTool"
-              hoverColor={currentTool.colorBase}
-              size={1.5}
-            />
-          </ToolMenuButton>
-          <ToolNav isOpen={isOpen}><Children onClick={() => setIsOpen(false)}>{children }</Children></ToolNav>
-        </MobileToolNavContainer>
+      <MobileToolNavContainer isVisible={view !== "page"}>
+        <ToolMenuButton
+          aria-label={isOpen ? "Close tool's menu" : "open tool's menu"}
+          aria-expanded={isOpen}
+          aria-controls={`sidebar-${tool}`}
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          <LabElement
+            shortHandle={currentTool.iconShort}
+            longText={currentTool.iconLong}
+            color="white"
+            bgColor="bgTool"
+            hoverColor={currentTool.colorBase}
+            size={1.5}
+          />
+        </ToolMenuButton>
+        <ToolNav isOpen={isOpen}>
+          <Children onClick={() => setIsOpen(false)}>{children}</Children>
+        </ToolNav>
+      </MobileToolNavContainer>
     );
   }
 };

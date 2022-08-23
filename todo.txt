@@ -1,11 +1,14 @@
 +++++++++++++++++++++++++++++++++++++++++++++
++++++ Discuss +++++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++++++++++++++
+- Share Button Does not work on (MacOS Chrome and FF)
+- Use local google fonts!
+
++++++++++++++++++++++++++++++++++++++++++++++
 +++++ TODO: Discuss +++++++++++++++++++++++++
 +++++++++++++++++++++++++++++++++++++++++++++
 
-- Share Button
 - Print 
-
-- Use local google fonts!
 
 - map regions and countries not in filter ... switch between map and list resets region/country filter
 
@@ -27,21 +30,23 @@
 
 - print view ... 
 
+- jumpy about page ... 
+
 - about page in cms 
 
 - about page funny scolling 
 
 - Confirm that Matomo tracks referral correctly
 
+- Map moves to far to the right if no detail has been opened, why?
+
+- mobile views sort overlays ... 
+
 +++++++++++++++++++++++++++++++++++++++++++++
 +++++ TODO: Frontend ++++++++++++++++++++++++
 +++++++++++++++++++++++++++++++++++++++++++++
 
 - Fix jumping map layout because of scrollbar.
-
-- User Tracking (Matomo)
-  - cookie popup... 
-    - cookies or local storage ... 
   
 - Add poster.jpg as share fallback image to /public/img/... 
 
@@ -49,11 +54,11 @@
 
 - custom fonts preload in header?
 
+- FAV ICONS! 
+
 - Configure further preview routes in /pages/api/preview ... 
 
 - Tools need skip to content link
-
-– Select (yellow background) gets black font in tool.
 
 – Contribute box close x icon bigger
 
@@ -62,22 +67,7 @@
 – Project list styling (meta data)
 
 ++++++++++++++++++++++++++++++++++++++++++++++++
-+++++++ TODO INTRO +++++++++++++++++++++++++++++
-++++++++++++++++++++++++++++++++++++++++++++++++
-- Video
-- Make Tiles background image CMS configurable? 
-- Finish Tiles Buttons
-- TextSection's Wizzards to be clickable? Wysiwyg?
-- About LinkButton not perfect
-
-++++++++++++++++++++++++++++++++++++++++++++++++
 +++++++ TODO +++++++++++++++++++++++++++++++++++
 ++++++++++++++++++++++++++++++++++++++++++++++++
 - Ensure all pages und /pages/... add the needed and correct meta tags.
-
-++++++++++++++++++++++++++++++++++++++++++++++++
-+++++++ MAP ++++++++++++++++++++++++++++++++++++
-++++++++++++++++++++++++++++++++++++++++++++++++
-- cluster expansion, draw molecules only after zoom/pan has finished
-- 
 

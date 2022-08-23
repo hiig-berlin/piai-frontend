@@ -1,6 +1,8 @@
-import { 
-    // Suspense, 
-    useEffect, useState } from "react";
+import {
+  // Suspense,
+  useEffect,
+  useState,
+} from "react";
 
 import dynamic from "next/dynamic";
 
@@ -37,7 +39,7 @@ const ContentContainer = styled.div<{ isTransparent: boolean }>`
   left: 0;
   width: 100%;
   min-height: 100%;
-  
+
   // hier kein padding!
   // das wird in den page layouts gesetzt
   // padding: var(--size-3);
@@ -56,6 +58,11 @@ const ContentContainer = styled.div<{ isTransparent: boolean }>`
 
   ${({ theme }) => theme.breakpoints.tablet} {
     padding: 0 0 0 var(--size-6);
+  }
+
+  *::selection {
+    background: #fff !important;
+    color: #000 !important;
   }
 `;
 

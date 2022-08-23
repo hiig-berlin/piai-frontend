@@ -154,11 +154,6 @@ export const RegionOrCountrySelector = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  if (activeTerms)
-    console.log(
-      Object.keys(activeTerms).map((k: any) => `${k} - ${activeTerms[k]}`)
-    );
-
   return (
     <>
       <Container>

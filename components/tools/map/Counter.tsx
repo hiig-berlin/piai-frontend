@@ -58,6 +58,8 @@ const CounterContainer = styled.div<{ invert: boolean }>`
     top: var(--size-3);
     bottom: unset;
   }
+
+  ${({ theme }) => theme.applyMixin("noPrint")}
 `;
 
 const StyledLabel = styled.div`
