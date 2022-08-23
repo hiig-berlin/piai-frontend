@@ -9,7 +9,7 @@ import styled from "styled-components";
 
 import { useConfigContext } from "~/providers/ConfigContextProvider";
 import { Menu } from "~/components/app/Menu";
-import { UserTracking } from "~/components/app/UserTracking";
+import { MatomoUserTracking } from "~/components/app/MatomoUserTracking";
 import { LoadingBar } from "~/components/styled/LoadingBar";
 import { MenuButton } from "~/components/app/MenuButton";
 
@@ -97,7 +97,7 @@ export const Layout = ({
           card: "summary_large_image",
         }}
       />
-      <UserTracking />
+      <MatomoUserTracking />
       <LoadingBar isLoading={isLoading} />
       <MenuButton />
       <ReactQueryContextProvider>

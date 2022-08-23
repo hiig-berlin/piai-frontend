@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useId, useState } from "react";
 import styled from "styled-components";
 import SafeHtmlDiv from "~/components/ui/SafeHtmlDiv";
 import SvgarrowsExpand from "~/components/svgs/SvgarrowsExpand";
 import SvgarrowsCollapse from "~/components/svgs/SvgarrowsCollapse";
+import { Reveal } from "~/components/ui/Reveal";
 
 const QuestionWrapper = styled.div<{ svg: string }>`
   h3 {
@@ -29,13 +30,13 @@ export const Question = ({
   showAlways = false,
   children,
 }: {
-  question: String;
-  expanded?: Boolean;
-  showAlways?: Boolean;
+  question: string;
+  expanded?: boolean;
+  showAlways?: boolean;
   children: any;
 }) => {
   const [isExpanded, setIsExpanded] = useState(expanded);
-
+  const id = useId();
   useEffect(() => {
     setIsExpanded(expanded);
   }, [expanded]);
@@ -45,7 +46,16 @@ export const Question = ({
       <h3 role="button" onClick={() => setIsExpanded(!isExpanded)}>
         {question}
       </h3>
-      {(isExpanded || showAlways) && <SafeHtmlDiv html={children} />}
+
+      <Reveal
+        id={id}
+        role="region"
+        open={isExpanded || showAlways}
+        initiallyOpen={isExpanded || showAlways}
+      >
+        <SafeHtmlDiv html={children} />
+      </Reveal>
+
     </QuestionWrapper>
   );
 };

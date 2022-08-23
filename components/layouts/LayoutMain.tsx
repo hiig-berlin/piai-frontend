@@ -4,7 +4,7 @@ import { useConfigContext } from "~/providers/ConfigContextProvider";
 import { AppProps } from "~/types";
 import { Menu } from "../app/Menu";
 import { Footer } from "../app/Footer";
-import { UserTracking } from "../app/UserTracking";
+import { MatomoUserTracking } from "../app/MatomoUserTracking";
 import { LoadingBar } from "../styled/LoadingBar";
 import { usePageStateIsLoadingState } from "../state/PageState";
 
@@ -33,7 +33,7 @@ export const LayoutMain = ({ children }: AppProps) => {
           card: "summary_large_image",
         }}
       />
-      <UserTracking />
+      <MatomoUserTracking />
       <LoadingBar isLoading={isLoading} />
       <FullHeightGrid>
         {children}

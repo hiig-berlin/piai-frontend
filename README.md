@@ -15,10 +15,10 @@ Variable | Example | Explanation
 `NEXT_PUBLIC_DEFAULT_API_CACHE_TIME` | 60 | How many minutes for a page to expire
 `NEXT_PUBLIC_PREVIEW_LOCKED` | 0 | If *1* the login screen will be shown 
 `NEXT_PUBLIC_PREVIEW_PWD` | SuperSecure | The password needed get past the login screen
-`NEXT_PUBLIC_GA4TAG_PROPERTY` | GA-324329432 | The usage tracking property ID
+`NEXT_PUBLIC_MATOMO_TRACKING_URL` | https://track.example.com | Set to matomo url if you want to use usage tracking
+`NEXT_PUBLIC_MATOMO_TRACKING_ID` | 21 |  | Set matomo property id if you want to use usage tracking
 `REVALIDATE_TOKEN` | mrUrX8LP9Ec3tQDYnoGH | Shared secret between CMS and frontend permitting content revalidation
-`DEPLOY_HOOK_URL` | https://example.com | Set to the secret webhook URL to trigger a build by running `npm run deploy:live` or `npm run deploy:staging`
-
+`DEPLOY_HOOK_URL` | https://example.com | Needed only for development. Set to the secret webhook URL to trigger a build by running `npm run deploy:live` or `npm run deploy:staging`
 
 ## CSS
 The frontend is using [styled components](https://styled-components.com/docs/basics#getting-started) and if you really need to `.scss` which you could import wherever it suits you. 

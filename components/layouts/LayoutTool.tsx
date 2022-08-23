@@ -1,7 +1,7 @@
 import NextHeadSeo from "next-head-seo";
 import { useConfigContext } from "~/providers/ConfigContextProvider";
 import { Menu } from "../app/Menu";
-import { UserTracking } from "../app/UserTracking";
+import { MatomoUserTracking } from "../app/MatomoUserTracking";
 import { LoadingBar } from "../styled/LoadingBar";
 import { MenuButton } from "../app/MenuButton";
 import { Sidebar } from "../tools/shared/Sidebar";
@@ -48,7 +48,7 @@ export const LayoutTool = ({
           card: "summary_large_image",
         }}
       />
-      <UserTracking />
+      <MatomoUserTracking />
       <LoadingBar isLoading={isLoading} />
 
       <MenuButton />

@@ -2,7 +2,7 @@ import { AppProps } from "~/types";
 import styled from "styled-components";
 import NextHeadSeo from "next-head-seo";
 import { useConfigContext } from "~/providers/ConfigContextProvider";
-import { UserTracking } from "../app/UserTracking";
+import { MatomoUserTracking } from "../app/MatomoUserTracking";
 
 const FullHeightGrid = styled.div`
   min-height: 100%;
@@ -27,7 +27,7 @@ export const LayoutLogin = ({ children }: AppProps) => {
           card: "summary_large_image",
         }}
       />
-      <UserTracking />
+      <MatomoUserTracking />
       <FullHeightGrid>{children}</FullHeightGrid>
     </>
   );

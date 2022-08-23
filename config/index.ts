@@ -24,7 +24,8 @@ export const appConfig: AppConfig = {
   errorLogUrl: `${process.env.NEXT_PUBLIC_ERROR_LOG_URL ?? ""}`,
   apiUrl: `${process.env.NEXT_PUBLIC_CMS_BASE_URL ?? ""}/wp-json`,
   searchUrl: `${process.env.NEXT_PUBLIC_API_URL ?? ""}`,
-  ga4TagProperty: `${process.env.NEXT_PUBLIC_GA4TAG_PROPERTY ?? ""}`,
+  matomoTrackingUrl: `${process.env.NEXT_PUBLIC_MATOMO_TRACKING_URL ?? ""}`,
+  matomoTrackingId: `${process.env.NEXT_PUBLIC_MATOMO_TRACKING_ID ?? ""}`,
   tools,
   // TODO: set dynamic interval ...
   revalidateInterval: (scope: string, dates?: AppConfigRevalidateDates) => {

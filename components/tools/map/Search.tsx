@@ -33,6 +33,10 @@ const Input = styled(InputText)<{ isError: boolean }>`
   border-bottom: 1px solid
     ${({ isError }) => (isError ? "var(--color-ailab-red)" : "#fff")};
   padding-bottom: 3px;
+
+  &::placeholder {
+    color: var(--color-medium-grey) !important;
+  }
 `;
 
 const Buttons = styled.div`

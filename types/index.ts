@@ -44,7 +44,8 @@ export interface AppConfig {
   appTitle: string;
   baseUrl: string;
   cmsUrl: string;
-  ga4TagProperty: string;
+  matomoTrackingUrl: string;
+  matomoTrackingId: string;
   apiUrl: string;
   searchUrl: string;
   tools: PiAiTool[];

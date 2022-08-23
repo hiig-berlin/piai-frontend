@@ -16,8 +16,7 @@ const textLinkStyling = css`
   }
 `;
 
-
-const baseStyling = css<{ spaceBefore?: boolean }>`
+const baseStyling = css<{ spaceBefore?: boolean; hideOnPrint?: boolean }>`
   display: flex;
   gap: var(--size-1);
   color: #fff;
@@ -48,16 +47,29 @@ const baseStyling = css<{ spaceBefore?: boolean }>`
       font-weight: 700;
     }
   }
+
+  ${({ hideOnPrint }) =>
+    hideOnPrint
+      ? `@media print {
+          display: none;
+        }`
+      : `@media print {
+          & .svg {
+            filter: invert(100%) !important;
+          }
+        }`}
 `;
 
 const IconInline = styled.span<{
   spaceBefore?: boolean;
+  hideOnPrint?: boolean;
 }>`
   ${baseStyling}
 `;
 
 const IconStatic = styled.li<{
   spaceBefore?: boolean;
+  hideOnPrint?: boolean;
 }>`
   ${baseStyling}
 
@@ -71,6 +83,7 @@ const IconStatic = styled.li<{
 
 const IconButton = styled(ButtonNormalized)<{
   spaceBefore?: boolean;
+  hideOnPrint?: boolean;
   nonMuted?: boolean;
   active?: boolean;
 }>`
@@ -83,8 +96,11 @@ const IconButton = styled(ButtonNormalized)<{
     opacity: ${({ nonMuted }) => (nonMuted === true ? "0.6" : "1")};
   }
 
-  & .svg{
-    filter: ${({active}) => active ? "brightness(0) saturate(100%) invert(73%) sepia(90%) saturate(228%) hue-rotate(337deg) brightness(105%) contrast(98%)": "unset"}
+  & .svg {
+    filter: ${({ active }) =>
+      active
+        ? "brightness(0) saturate(100%) invert(73%) sepia(90%) saturate(228%) hue-rotate(337deg) brightness(105%) contrast(98%)"
+        : "unset"};
   }
 
   &.inBox {
@@ -103,6 +119,7 @@ export const Icon = ({
   inline,
   nonMuted,
   url,
+  hideOnPrint,
   active = false,
 }: {
   type: string;
@@ -111,6 +128,7 @@ export const Icon = ({
   onClick?: any;
   className?: string;
   inline?: boolean;
+  hideOnPrint?: boolean;
   stc?: boolean;
   nonMuted?: boolean;
   url?: string;
@@ -118,14 +136,22 @@ export const Icon = ({
 }) => {
   if (inline) {
     return (
-      <IconInline spaceBefore={spaceBefore} className={className}>
+      <IconInline
+        hideOnPrint={hideOnPrint}
+        spaceBefore={spaceBefore}
+        className={className}
+      >
         <ToolSvgBackground type={type} />
         {children && children}
       </IconInline>
     );
   } else if (stc) {
     return (
-      <IconStatic spaceBefore={spaceBefore} className={className}>
+      <IconStatic
+        hideOnPrint={hideOnPrint}
+        spaceBefore={spaceBefore}
+        className={className}
+      >
         <ToolSvgBackground type={type} />
         <span>{children && children}</span>
       </IconStatic>
@@ -134,12 +160,17 @@ export const Icon = ({
     if (!url.trim()) return <></>;
 
     return (
-      <IconStatic className={className} spaceBefore={spaceBefore}>
+      <IconStatic
+        hideOnPrint={hideOnPrint}
+        className={className}
+        spaceBefore={spaceBefore}
+      >
         <ToolSvgBackground type={type} />
-        <span>{safeHtml(url)
-          .split(",")
-          .reduce((carry: any, u: any, i: number) => {
-            if (!u.trim()) return carry;
+        <span>
+          {safeHtml(url)
+            .split(",")
+            .reduce((carry: any, u: any, i: number) => {
+              if (!u.trim()) return carry;
 
               if (carry.length > 0) {
                 carry.push(", ");
@@ -147,7 +178,7 @@ export const Icon = ({
 
             carry.push(
               <a href={u.trim()} key={`${url}-${i}`} target="_blank" rel="nofollow noreferrer">
-                {children ? children : u.trim()}
+                {u.trim()}
               </a>
             );
 
@@ -160,6 +191,7 @@ export const Icon = ({
     return (
       <IconButton
         spaceBefore={spaceBefore}
+        hideOnPrint={hideOnPrint}
         onClick={onClick}
         className={className}
         nonMuted={nonMuted}

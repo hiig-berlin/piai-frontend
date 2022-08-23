@@ -7,13 +7,9 @@
 
 - Use local google fonts!
 
-- remove cookie banner
-
 - map regions and countries not in filter ... switch between map and list resets region/country filter
 
 - search column to filter 
-
-- SELECT white on black ... .
 
 - Active state filter 
 
@@ -35,7 +31,7 @@
 
 - about page funny scolling 
 
-
+- Confirm that Matomo tracks referral correctly
 
 +++++++++++++++++++++++++++++++++++++++++++++
 +++++ TODO: Frontend ++++++++++++++++++++++++
@@ -52,9 +48,6 @@
 - Style 404 and 500 pages ... 
 
 - custom fonts preload in header?
-
-- Implement Native Share, 
-  https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share
 
 - Configure further preview routes in /pages/api/preview ... 
 

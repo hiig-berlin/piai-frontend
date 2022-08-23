@@ -18,6 +18,8 @@ import { Meta } from "~/components/tools/map/Styled";
 import { Question } from "~/components/tools/map/Question";
 import { Label } from "~/components/tools/map/Styled";
 import safeHtml from "~/utils/sanitize";
+import { IconButtonShare } from "~/components/tools/map/ui/IconButtonShare";
+import { IconButtonPrint } from "~/components/tools/map/ui/IconButtonPrint";
 
 const Container = styled.main<{
   toolColor?: string;
@@ -219,14 +221,17 @@ const Project = ({ data, tool }: { data: any; tool: PiAiTool }) => {
     }, []),
   };
 
+  const title = data?.yoast_head_json?.title ?? data?.details?.title;
+  
   return (
     <>
       <NextHeadSeo
-        canonical={data?.yoast_head_json?.canonical}
-        title={data?.yoast_head_json?.title ?? data?.details?.title}
+        canonical={data?.yoast_head_json?.canonical ?? data?.yoast_head_json?.og_url}
+        title={title}
         description={data?.yoast_head_json?.description}
         og={{
           title: data?.yoast_head_json?.og_title,
+          url: data?.yoast_head_json?.og_url,
           type: data?.yoast_head_json?.og_type,
           siteName: data?.yoast_head_json?.og_site_name,
           image: data?.yoast_head_json?.twitter_image,
@@ -250,6 +255,7 @@ const Project = ({ data, tool }: { data: any; tool: PiAiTool }) => {
 
         <div className="column about">
           <Icon
+            hideOnPrint
             onClick={() => router.back()}
             aria-label="Back to previous view"
             className="textLink back"
@@ -297,7 +303,7 @@ const Project = ({ data, tool }: { data: any; tool: PiAiTool }) => {
 
         <div className="column details">
           {isTabletLandscapeAndUp && (
-            <Box className="toolbar">
+            <Box hideOnPrint className="toolbar">
               <Icon
                 onClick={() => setIsCollapsed(!isCollapsed)}
                 aria-label="Expand/collapse all answers"
@@ -308,8 +314,8 @@ const Project = ({ data, tool }: { data: any; tool: PiAiTool }) => {
                   {isCollapsed ? "Expand all answers" : "Collapse all answers"}
                 </span>
               </Icon>
-              <Icon type="share" spaceBefore aria-label="Share this page" />
-              <Icon type="print" aria-label="Print this page"></Icon>
+              <IconButtonShare label="Share project" spaceBefore title={title ?? ""} text={data?.yoast_head_json?.description ?? ""} url={data?.yoast_head_json?.canonical ?? ""} />
+              <IconButtonPrint />
             </Box>
           )}
           <Box>

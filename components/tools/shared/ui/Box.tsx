@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const BoxWrapper = styled.div`
+const BoxWrapper = styled.div<{ hideOnPrint: boolean }>`
   border-radius: var(--size-3);
   background: #000;
   pointer-events: all;
@@ -30,13 +30,21 @@ const BoxWrapper = styled.div`
   & h3:first-child {
     margin-top: 5px;
   }
+
+  ${({ hideOnPrint }) => (hideOnPrint ? `@media print {display:none;}` : "")}
 `;
 export const Box = ({
   children,
+  hideOnPrint,
   className,
 }: {
   children: any;
+  hideOnPrint?: boolean;
   className?: string;
 }) => {
-  return <BoxWrapper className={className}>{children}</BoxWrapper>;
+  return (
+    <BoxWrapper hideOnPrint={!!hideOnPrint} className={className}>
+      {children}
+    </BoxWrapper>
+  );
 };

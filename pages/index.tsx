@@ -20,11 +20,12 @@ const Home = ({ data }: { data: any }) => {
   return (
     <>
       <NextHeadSeo
-        canonical={data?.yoast_head_json?.canonical}
+        canonical={data?.yoast_head_json?.canonical ?? data?.yoast_head_json?.og_url}
         title={data?.yoast_head_json?.title ?? data?.title}
         description={data?.yoast_head_json?.description}
         og={{
           title: data?.yoast_head_json?.og_title,
+          url: data?.yoast_head_json?.og_url,
           type: data?.yoast_head_json?.og_type,
           siteName: data?.yoast_head_json?.og_site_name,
           image: data?.yoast_head_json?.twitter_image,

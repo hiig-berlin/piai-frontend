@@ -41,7 +41,6 @@ import Svgscribble from "~/components/svgs/Svgscribble";
 
 // use https://jakearchibald.github.io/svgomg/
 // use https://yoksel.github.io/url-encoder/
-
 export const ToolSvgBackground = ({
   type,
   width = "100%",
@@ -151,74 +150,41 @@ export const ToolSvgBackground = ({
       activeSvg = SvgClose;
       break;
 
-    case "CPU": 
+    case "CPU":
       activeSvg = SvgCPU;
       break;
 
-    case "GPU": 
+    case "GPU":
       activeSvg = SvgGPU;
       break;
 
-    case "fan": 
+    case "fan":
       activeSvg = Svgfan;
       break;
 
-    case "cow": 
+    case "cow":
       activeSvg = Svgjcow;
       break;
 
-    case "hardware": 
+    case "hardware":
       activeSvg = Svghardware;
       break;
 
-    case "download": 
+    case "download":
       activeSvg = Svgdownload;
       break;
 
-    case "info": 
+    case "info":
       activeSvg = Svginfo;
       break;
 
-    case "plus"  :
+    case "plus":
       activeSvg = SvgPlus;
       break;
 
-    case "minus" :
+    case "minus":
       activeSvg = SvgMinus;
       break;
-
-    case "kettle":
-      activeSvg = Svgkettle;
-      break;
-
-    case "streaming":
-      activeSvg = Svgstreaming;
-      break;
-
-    case "opnv":
-      activeSvg = Svgopnv;
-      break;
-
-    case "car":
-      activeSvg = Svgcar;
-      break;
-
-    case "boxSmall":
-      activeSvg = SvgboxSmall;
-      break;
-
-    case "boxLarge":
-      activeSvg = SvgboxLarge;
-      break;
-
-    case "screen":
-      activeSvg = Svgscreen;
-      break;
-
-    case "scribble":
-      activeSvg = Svgscribble;
-      break;  
-
 
   }
   return (
@@ -234,6 +200,6 @@ export const ToolSvgBackground = ({
         backgroundSize: size,
         backgroundImage: `url('data:image/svg+xml,${activeSvg}')`,
       }}
-    ></span>
+    />
   );
 };

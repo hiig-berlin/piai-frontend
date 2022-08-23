@@ -58,6 +58,7 @@ export const UserTracking = () => {
 
   const trackView = useCallback(
     (url: any) => {
+      console.log(url);
       if ((window as any)?.ga || (window as any)?.gtag) {
         if ((window as any)?.ga) {
           (window as any)?.ga("send", "pageview", {
@@ -70,7 +71,7 @@ export const UserTracking = () => {
           (window as any)?.gtag("event", "page_view", {
             page_title: document.title,
             page_location: url,
-            send_to: config.ga4TagProperty,
+            send_to: config.matomoTrackingUrl,
           });
         }
       }
@@ -85,7 +86,7 @@ export const UserTracking = () => {
         setShowPopup(true);
       }
     },
-    [config.ga4TagProperty]
+    [config.matomoTrackingUrl]
   );
 
   const fadeOut = () => {
@@ -132,24 +133,24 @@ export const UserTracking = () => {
 
   return (
     <>
-      {config.ga4TagProperty && (
+      {config.matomoTrackingUrl && (
         <>
           <Script
             strategy="afterInteractive"
-            src={`https://www.googletagmanager.com/gtag/js?id=${config.ga4TagProperty}`}
+            src={`https://www.googletagmanager.com/gtag/js?id=${config.matomoTrackingUrl}`}
           />
           <Script id="google-ga4-tag" strategy="afterInteractive">
             {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', '${config.ga4TagProperty}', {});
+            gtag('config', '${config.matomoTrackingUrl}', {});
           `}
           </Script>
         </>
       )}
 
-      {config.ga4TagProperty && showPopup && (
+      {config.matomoTrackingUrl && showPopup && (
         <Aside
           role="alertdialog"
           aria-modal="true"

@@ -15,6 +15,11 @@ const Container = styled.div<{
     active ? `height ${duration}ms` : "none"};
   width: 100%;
   overflow: ${({ offset }) => offset};
+
+  @media print { 
+    height: auto;
+    position: static;
+  }
 `;
 
 const Payload = styled.div<{
@@ -26,6 +31,10 @@ const Payload = styled.div<{
   bottom: ${({ position }) => (position === "bottom" ? "0" : "auto")};
   left: 0;
   width: 100%;
+
+  @media print { 
+    position: static;
+  }
 `;
 
 export const Reveal = ({

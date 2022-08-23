@@ -13,28 +13,15 @@ import { appConfig } from "~/config";
 import { safeAnchorId } from "~/utils/safeAnchorId";
 
 const Page = ({ data }: { data: any }) => {
-  const menuItems = data?.acf?.is_microsite
-    ? data?.acf?.content?.length > 0
-      ? data?.acf?.content.reduce((carry: any, row: any) => {
-          if (row?.acf_fc_layout === "subpage") {
-            carry.push({
-              anchor: `#${safeAnchorId(row?.name)}`,
-              title: row?.name,
-            });
-          }
-          return carry;
-        }, [])
-      : []
-    : data?.subMenu?.menu;
-
   return (
     <>
       <NextHeadSeo
-        canonical={data?.yoast_head_json?.canonical}
+        canonical={data?.yoast_head_json?.canonical ?? data?.yoast_head_json?.og_url}
         title={data?.yoast_head_json?.title ?? data?.title}
         description={data?.yoast_head_json?.description}
         og={{
           title: data?.yoast_head_json?.og_title,
+          url: data?.yoast_head_json?.og_url,
           type: data?.yoast_head_json?.og_type,
           siteName: data?.yoast_head_json?.og_site_name,
           image: data?.yoast_head_json?.twitter_image,

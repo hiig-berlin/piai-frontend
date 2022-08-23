@@ -5,7 +5,6 @@ import {
   ButtonNormalized,
   LinkButtonAnimated,
 } from "~/components/styled/Button";
-import { ToolSvgBackground } from "./ToolSvgBackground";
 import { PiAiTool } from "~/types";
 import { LabElement } from "../../ui/LabElement";
 import SafeHtmlDiv from "../../ui/SafeHtmlDiv";
@@ -33,7 +32,6 @@ const Grid = styled.div<{ col?: number }>`
 
 const Container = styled(Grid)<{
   toolColor?: string;
-  onWheel?: Function;
   direction?: string;
 }>`
   padding: var(--size-3);
@@ -170,7 +168,7 @@ export const AboutPage = ({
         if (Math.abs(e.deltaY) > 5) {
           e.deltaY > 0 ? setScrollDir("down") : setScrollDir("up");
         }
-      }}
+      }} 
       direction={scrollDir}
     >
       <div className="column about">
@@ -203,7 +201,7 @@ export const AboutPage = ({
       </div>
       <div className="column details">
         {isTabletLandscapeAndUp && (
-          <Box className="toolbar">
+          <Box hideOnPrint className="toolbar">
             <Icon
               onClick={() => setIsSimple(!isSimple)}
               aria-label="Change to simple language"
