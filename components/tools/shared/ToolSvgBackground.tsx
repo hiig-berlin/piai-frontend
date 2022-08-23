@@ -186,6 +186,37 @@ export const ToolSvgBackground = ({
       activeSvg = SvgMinus;
       break;
 
+    case "kettle":
+      activeSvg = Svgkettle;
+      break;
+
+    case "streaming":
+      activeSvg = Svgstreaming;
+      break;
+
+    case "opnv":
+      activeSvg = Svgopnv;
+      break;
+
+    case "car":
+      activeSvg = Svgcar;
+      break;
+
+    case "boxSmall":
+      activeSvg = SvgboxSmall;
+      break;
+
+    case "boxLarge":
+      activeSvg = SvgboxLarge;
+      break;
+
+    case "screen":
+      activeSvg = Svgscreen;
+      break;
+
+    case "scribble":
+      activeSvg = Svgscribble;
+      break;
   }
   return (
     <span
