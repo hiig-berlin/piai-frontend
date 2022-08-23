@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { useState, WheelEvent } from "react";
+import React, { useEffect, useRef, useState, WheelEvent } from "react";
 import styled from "styled-components";
 import {
   ButtonNormalized,
@@ -12,6 +12,7 @@ import SafeHtmlSpan from "../../ui/SafeHtmlSpan";
 import { Box } from "./ui/Box";
 import { useCssVarsStateIsTabletLandscapeAndUpState } from "~/components/state/CssVarsState";
 import { Icon } from "./ui/Icon";
+import { emitWarning } from "process";
 
 export type ToolAboutPageCTA = {
   title: string;
@@ -35,7 +36,6 @@ const Container = styled(Grid)<{
   direction?: string;
 }>`
   padding: var(--size-3);
-  
 
   ${({ theme }) => theme.breakpoints.tablet} {
     padding-right: calc(34px + 2 * var(--size-3) + 6px);
@@ -48,15 +48,14 @@ const Container = styled(Grid)<{
   }
 
   & .column.about {
-
     ${({ theme }) => theme.breakpoints.tabletLandscape} {
       position: sticky;
-      // Prevent jumping on scroll change  
+      // Prevent jumping on scroll change
       // if column shorter than 100vh
       min-height: calc(100vh - 2 * var(--size-3));
 
       // Move left column in the beginning
-      // of the scroll vs. the end 
+      // of the scroll vs. the end
       ${({ direction }) =>
         direction === "up"
           ? `
@@ -70,40 +69,33 @@ const Container = styled(Grid)<{
         
       `}
     }
- 
-
-    /* .labElement {
-      // margin-bottom: var(--size-1);
-    } */
 
     .cta {
       & * {
-        color: ${({ toolColor }) => toolColor || "#fff"}
+        color: ${({ toolColor }) => toolColor || "#fff"};
       }
-  
-      h3{
+
+      h3 {
         font-size: 1.1em;
       }
-  
+
       a {
         color: ${({ toolColor }) => toolColor || "#fff"};
         border-color: ${({ toolColor }) => toolColor || "#fff"};
         align-self: end;
         margin-right: 0;
-        &:hover{
-          margin-right: -0.3em
+        &:hover {
+          margin-right: -0.3em;
         }
-        &:visited{
+        &:visited {
           color: ${({ toolColor }) => toolColor || "#fff"};
-        }  
+        }
       }
     }
-
   }
 
   & .column.details {
-
-    .toolbar{
+    .toolbar {
       flex-direction: row;
       justify-content: space-between;
       gap: var(--size-2);
@@ -117,26 +109,31 @@ const Container = styled(Grid)<{
       ${({ theme }) => theme.breakpoints.tablet} {
         padding: var(--size-2) var(--size-3);
       }
-      
     }
 
-    h2{
+    h2 {
       ${({ theme }) => theme.applyMixin("uppercase")};
       color: #fff;
       font-size: 1.3em;
     }
 
-    h3{
+    h3 {
       text-transform: none;
       color: #fff;
       font-size: 1em;
       font-weight: 700;
     }
-    
   }
 
-  p + h2, p + h3, p + h4 {
+  p + h2,
+  p + h3,
+  p + h4 {
     margin-top: var(--size-4);
+  }
+
+  *::selection {
+    background: #fff !important;
+    color: #000 !important;
   }
 `;
 
@@ -153,7 +150,7 @@ export const AboutPage = ({
   contentSimple: string;
   cta?: ToolAboutPageCTA;
 }) => {
-  // TODO: cta urls should be able to distinguish between internal and extrenal links
+  // TODO: cta urls should be able to distinguish between internal and external links
   // also add the ability to add a target
 
   const [scrollDir, setScrollDir] = useState("down");
@@ -161,16 +158,32 @@ export const AboutPage = ({
 
   const isTabletLandscapeAndUp = useCssVarsStateIsTabletLandscapeAndUpState();
 
-  return (
-    <Container
-      toolColor={tool.colorHighlight}
-      onWheel={(e: WheelEvent) => {
-        if (Math.abs(e.deltaY) > 5) {
-          e.deltaY > 0 ? setScrollDir("down") : setScrollDir("up");
+  const scrollYRef = useRef(0);
+
+  useEffect(() => {
+    if (typeof window === "undefined" || !isTabletLandscapeAndUp) return;
+
+    const onScroll = () => {
+      if (Math.abs(scrollYRef.current - window.scrollY) > 5) {
+        if (scrollYRef.current - window.scrollY < 0) {
+          setScrollDir("down");
+        } else {
+          setScrollDir("up");
         }
-      }} 
-      direction={scrollDir}
-    >
+
+        scrollYRef.current = window.scrollY;
+      }
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, [isTabletLandscapeAndUp]);
+
+  return (
+    <Container toolColor={tool.colorHighlight} direction={scrollDir}>
       <div className="column about">
         <Box>
           <h1>
