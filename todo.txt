@@ -8,25 +8,13 @@
 
 - About page in CMS 
 
+- Directory Listing on mobile. As the counter does not exist how will the menu be opened. Maybe it needs the counter on mobiles? 
+
 +++++++++++++++++++++++++++++++++++++++++++++
 +++++ TODO: +++++++++++++++++++++++++
 +++++++++++++++++++++++++++++++++++++++++++++
 
 - Confirm that Matomo tracks referral correctly
-
-+++++++++++++++++++++++++++++++++++++++++++++
-+++++ TODO TODAY! +++++++++++++++++++++++++++
-+++++++++++++++++++++++++++++++++++++++++++++
-
-- Search needs to be part of the query string (so back goes to filter)
-
-- filter to overlay list view on mobile ... 
-- mobile views sort overlays ... 
-
-= Filter Out Need Search Params ... 
-
-> Do not open filter on mobile, 
-> Sort order of overlays on mobile
 
 +++++++++++++++++++++++++++++++++++++++++++++
 +++++ TODO: Frontend ++++++++++++++++++++++++
