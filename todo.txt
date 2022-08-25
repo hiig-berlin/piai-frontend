@@ -55,11 +55,19 @@
 
 – Select (yellow background) gets black font in tool.
 
-– Contribute box close x icon bigger
-
 – Checkboxes in Filter styling
 
 – Project list styling (meta data)
+
+
+TODO Larissa Frontend
+++++++++++++++++++++++++++++++++++++++++++++++++
+
+- survey embed page and links from CTA 
+
+– Contribute box close x icon bigger
+
+
 
 ++++++++++++++++++++++++++++++++++++++++++++++++
 +++++++ TODO INTRO +++++++++++++++++++++++++++++
