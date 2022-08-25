@@ -1,10 +1,4 @@
-import {
-  useCallback,
-  useState,
-  useEffect,
-  useRef,
-  startTransition,
-} from "react";
+import { useEffect, startTransition } from "react";
 import styled from "styled-components";
 
 import DisplayAbove from "~/components/styled/DisplayAbove";
@@ -16,6 +10,7 @@ import {
   useToolStateStoreActions,
 } from "../state/ToolState";
 import { Scroller } from "../Styled";
+import { useModal } from "~/hooks/useModal";
 
 const SidebarContainer = styled.div<{
   isInitializing: boolean;
@@ -167,46 +162,11 @@ export const SidebarDrawer = ({
   const filterState = useToolStateFilterState();
   const { getFilterState, setFilterState } = useToolStateStoreActions();
 
-  const isAnimatingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
-    null
-  );
-
-  const isOpenRef = useRef(!!initiallyOpen);
-  const isOpeningRef = useRef(false);
-  const isClosingRef = useRef(false);
-
-  const [, setStatus] = useState(!!initiallyOpen ? "open" : "closed");
-
-  const open = useCallback(() => {
-    isOpenRef.current = false;
-    isClosingRef.current = false;
-    isOpeningRef.current = true;
-    setStatus("opening");
-
-    if (isAnimatingTimeoutRef.current)
-      clearTimeout(isAnimatingTimeoutRef.current);
-
-    isAnimatingTimeoutRef.current = setTimeout(() => {
-      isOpeningRef.current = false;
-      isOpenRef.current = true;
-      setStatus("open");
-    }, openingAnimationLength);
-  }, []);
-
-  const close = useCallback(() => {
-    isClosingRef.current = true;
-    isOpeningRef.current = false;
-    setStatus("closing");
-
-    if (isAnimatingTimeoutRef.current)
-      clearTimeout(isAnimatingTimeoutRef.current);
-
-    isAnimatingTimeoutRef.current = setTimeout(() => {
-      isClosingRef.current = false;
-      isOpenRef.current = false;
-      setStatus("closed");
-    }, closeAnimationLength);
-  }, []);
+  const { isOpen, isOpening, isClosing, open, close } = useModal({
+    defaultIsOpen: !!initiallyOpen,
+    openingAnimationLength,
+    closeAnimationLength,
+  });
 
   const isSidebarOpen = (filterState as any)?.[statusFlagKey] ?? false;
 
@@ -234,12 +194,9 @@ export const SidebarDrawer = ({
         hasTopOffset,
         isInitializing,
         isAlwaysOpen: initiallyOpen && isInitializing ? true : false,
-        isOpen:
-          initiallyOpen && isInitializing
-            ? true
-            : isOpenRef.current || isOpeningRef.current,
-        isOpening: isOpeningRef.current,
-        isClosing: isClosingRef.current,
+        isOpen: initiallyOpen && isInitializing ? true : isOpen || isOpening,
+        isOpening: isOpening,
+        isClosing: isClosing,
       }}
     >
       <Panel isLoading={false} isRefetching={false}>
