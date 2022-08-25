@@ -4,6 +4,7 @@ export type useModalReturnType = {
   isOpen: boolean;
   isClosing: boolean;
   isOpening: boolean;
+  status: string;
   open: () => void;
   close: () => void;
   toggle: () => void;
@@ -20,52 +21,60 @@ export const useModal = ({
   openingAnimationLength = 500,
   closeAnimationLength = 250,
 }: useModalProps = {}): useModalReturnType => {
-  const [isOpen, setIsOpen] = useState(defaultIsOpen);
-  const [isOpening, setIsOpening] = useState(false);
-  const [isClosing, setIsClosing] = useState(false);
-
   const isAnimatingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
     null
   );
 
+  const isOpenRef = useRef(defaultIsOpen);
+  const isOpeningRef = useRef(false);
+  const isClosingRef = useRef(false);
+
+  const [status, setStatus] = useState(defaultIsOpen ? "open" : "closed");
+
   const open = useCallback(() => {
-    setIsClosing(false);
-    setIsOpening(true);
+    isOpenRef.current = false;
+    isClosingRef.current = false;
+    isOpeningRef.current = true;
+    setStatus("opening");
 
     if (isAnimatingTimeoutRef.current)
       clearTimeout(isAnimatingTimeoutRef.current);
 
     isAnimatingTimeoutRef.current = setTimeout(() => {
-      setIsOpening(false);
-      setIsOpen(true);
+      isOpeningRef.current = false;
+      isOpenRef.current = true;
+      setStatus("open");
     }, openingAnimationLength);
   }, [openingAnimationLength]);
 
   const close = useCallback(() => {
-    setIsClosing(true);
-    setIsOpening(false);
+    isClosingRef.current = true;
+    isOpeningRef.current = false;
+    setStatus("closing");
 
     if (isAnimatingTimeoutRef.current)
       clearTimeout(isAnimatingTimeoutRef.current);
 
     isAnimatingTimeoutRef.current = setTimeout(() => {
-      setIsClosing(false);
-      setIsOpen(false);
+      isClosingRef.current = false;
+      isOpenRef.current = false;
+      setStatus("closed");
     }, closeAnimationLength);
   }, [closeAnimationLength]);
 
   const toggle = useCallback(() => {
-    if (isOpen || isOpening) {
+    if (isOpenRef.current || isOpeningRef.current) {
       close();
     } else {
       open();
     }
-  }, [isOpen, isOpening, close, open]);
+  }, [close, open]);
 
   return {
-    isOpen,
-    isOpening,
-    isClosing,
+    isOpen: isOpenRef.current,
+    isOpening: isOpeningRef.current,
+    isClosing: isClosingRef.current,
+    status,
     open,
     close,
     toggle,

@@ -22,6 +22,7 @@ export type FilterStateRecords = {
 };
 
 export type FilterState = FilterStateRecords & {
+  keyword: string;
   totalCount: number;
   filteredCount: number;
   filteredIds: number[] | null;
@@ -117,8 +118,9 @@ export const defaultToolState: ToolState = {
     isFetchingFilteredIds: false,
     isDrawerOpen: false,
     quickViewProjectId: null,
-    isFilterOpen: false,
+    isFilterOpen: true,
     isSearchOpen: false,
+    keyword: "",
     license: {},
     dateFrom: null,
     dateUntil: null,

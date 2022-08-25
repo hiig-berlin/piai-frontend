@@ -162,26 +162,26 @@ export const Map = ({ isMapView }: { isMapView?: boolean }) => {
       mapControllerRef.current.setGeoJson(mapState.geoJson);
   }, [mapState.loadGeoJson, mapState.geoJson]);
 
-  useEffect(() => {
-    if (isTabletLandscapeAndUp && !hasAutoFilterShown) {
-      if (uiRemoveTimoutRef.current) clearTimeout(uiRemoveTimoutRef.current);
+  // useEffect(() => {
+  //   if (isTabletLandscapeAndUp && !hasAutoFilterShown) {
+  //     if (uiRemoveTimoutRef.current) clearTimeout(uiRemoveTimoutRef.current);
 
-      uiRemoveTimoutRef.current = setTimeout(() => {
-        if (isMounted) {
-          updateFilterState({
-            isFilterOpen: true,
-            isSearchOpen: false,
-          });
-        }
-        setHasAutoFilterShown(true);
-      }, 2500);
-    }
-  }, [
-    hasAutoFilterShown,
-    isTabletLandscapeAndUp,
-    isMounted,
-    updateFilterState,
-  ]);
+  //     uiRemoveTimoutRef.current = setTimeout(() => {
+  //       if (isMounted) {
+  //         updateFilterState({
+  //           isFilterOpen: true,
+  //           isSearchOpen: false,
+  //         });
+  //       }
+  //       setHasAutoFilterShown(true);
+  //     }, 2500);
+  //   }
+  // }, [
+  //   hasAutoFilterShown,
+  //   isTabletLandscapeAndUp,
+  //   isMounted,
+  //   updateFilterState,
+  // ]);
 
   return (
     <>

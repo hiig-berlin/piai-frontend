@@ -4,9 +4,7 @@ import safeHtml from "~/utils/sanitize";
 
 import { useRanger } from "~/hooks/useRanger";
 
-const Container = styled.div`
-  margin-top: var(--size-3);
-`;
+const Container = styled.div``;
 
 const SliderContainer = styled.div`
   display: flex;
@@ -17,7 +15,7 @@ const SliderContainer = styled.div`
 `;
 
 const Slider = styled.div`
-  width: calc(100% - 2 * var(--size-3) - 2 * var(--size-4));
+  width: calc(100% - 2 * var(--size-3) - 15px - 2 * var(--size-4));
 `;
 
 const Value = styled.div`
@@ -124,7 +122,6 @@ export const RangeSlider = ({
         <Value>{values[0]}</Value>
         <Slider>
           <Track {...(getTrackProps() as any)}>
-  
             {segments.map(({ getSegmentProps }: any, i: number) => (
               <Segment
                 {...(getSegmentProps() as any)}

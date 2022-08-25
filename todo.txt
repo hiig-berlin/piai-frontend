@@ -6,36 +6,25 @@
 
 - About Page jumps if scroll direction changes inbetween
 
+- About page in CMS 
+
 +++++++++++++++++++++++++++++++++++++++++++++
 +++++ TODO: +++++++++++++++++++++++++
 +++++++++++++++++++++++++++++++++++++++++++++
 
 - Confirm that Matomo tracks referral correctly
 
-
 +++++++++++++++++++++++++++++++++++++++++++++
-+++++ TODO: Discuss +++++++++++++++++++++++++
++++++ TODO TODAY! +++++++++++++++++++++++++++
 +++++++++++++++++++++++++++++++++++++++++++++
 
-- map regions and countries not in filter ... switch between map and list resets region/country filter
-
-- search column to filter 
-
-- Active state filter 
-
-- directory filter can be hidden (3 column to 2 column layout)
-
-- search needs to be part of the query string (so back goes to filter)
-
-- no search in filter view ... 
-
-- contribute to be 1/3 column wide ...
+- Search needs to be part of the query string (so back goes to filter)
 
 - filter to overlay list view on mobile ... 
 - mobile views sort overlays ... 
 
-- about page in cms 
 
+= Filter Out Need Search Params ... 
 
 +++++++++++++++++++++++++++++++++++++++++++++
 +++++ TODO: Frontend ++++++++++++++++++++++++

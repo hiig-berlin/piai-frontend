@@ -36,7 +36,6 @@ export const DirectoryOverlays = () => {
 
   return (
     <Container>
-      <Search view="directory" />
       <DirectoryFilter />
 
       <DirectoryList />

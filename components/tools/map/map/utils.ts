@@ -11,29 +11,47 @@ export const createQueryFromState = (
 ): string[] => {
   const queryParams = [];
 
-  if (state?.terms && Object.keys(state.terms).length) {
-    queryParams.push(`term=${Object.keys(state.terms).sort().join(",")}`);
-  }
+  if (typeof state?.isSearchOpen !== "undefined") 
+    queryParams.push(`search=${state.isSearchOpen ? 1 : 0}`);
 
-  if (state?.regions && Object.keys(state.regions).length) {
-    queryParams.push(`regions=${Object.keys(state.regions).sort().join(",")}`);
-  }
+  if (typeof state?.isFilterOpen !== "undefined") 
+    queryParams.push(`filter=${state.isFilterOpen ? 1 : 0}`);
 
-  if (state?.countries && Object.keys(state.countries).length) {
-    queryParams.push(`countries=${Object.keys(state.countries).sort().join(",")}`);
-  }
+  if (state.isSearchOpen) {
+     queryParams.push(`keyword=${state.keyword}`);
+  } else {
+    if (state?.terms && Object.keys(state.terms).length) {
+      queryParams.push(`term=${Object.keys(state.terms).sort().join(",")}`);
+    }
 
-  if (state?.license && Object.keys(state.license).length) {
-    queryParams.push(`license=${Object.keys(state.license).sort().join(",")}`);
-  }
+    if (state?.regions && Object.keys(state.regions).length) {
+      queryParams.push(
+        `regions=${Object.keys(state.regions).sort().join(",")}`
+      );
+    }
 
-  if (state?.genderRatio && Object.keys(state.genderRatio).length) {
-    queryParams.push(`genderRatio=${Object.keys(state.genderRatio).sort().join(",")}`);
-  }
+    if (state?.countries && Object.keys(state.countries).length) {
+      queryParams.push(
+        `countries=${Object.keys(state.countries).sort().join(",")}`
+      );
+    }
 
-  if (state?.dateFrom && state?.dateUntil) {
-    queryParams.push(`dateFrom=${state?.dateFrom}`);
-    queryParams.push(`dateUntil=${state?.dateUntil}`);
+    if (state?.license && Object.keys(state.license).length) {
+      queryParams.push(
+        `license=${Object.keys(state.license).sort().join(",")}`
+      );
+    }
+
+    if (state?.genderRatio && Object.keys(state.genderRatio).length) {
+      queryParams.push(
+        `genderRatio=${Object.keys(state.genderRatio).sort().join(",")}`
+      );
+    }
+
+    if (state?.dateFrom && state?.dateUntil) {
+      queryParams.push(`dateFrom=${state?.dateFrom}`);
+      queryParams.push(`dateUntil=${state?.dateUntil}`);
+    }
   }
 
   if (additionalParams) {
@@ -41,6 +59,6 @@ export const createQueryFromState = (
       queryParams.push(`${param}=${additionalParams[param]}`);
     }
   }
-  
+
   return queryParams;
 };

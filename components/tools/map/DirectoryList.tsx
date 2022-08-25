@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useId, useRef, useState } from "react";
 import styled from "styled-components";
 
 import { SearchItem } from "./SearchItem";
@@ -11,10 +11,14 @@ import {
   useToolStateMapState,
   useToolStateStoreActions,
   defaultQueryString,
+  FilterState,
 } from "./state/ToolState";
 import { useEffectOnMountOnce } from "~/hooks/useEffectOnMountOnce";
 import { Box } from "../shared/ui/Box";
 import { IconButtonPrint } from "./ui/IconButtonPrint";
+import { Reveal } from "~/components/ui/Reveal";
+import { SearchForm } from "./SearchForm";
+import { useRouter } from "next/router";
 
 const Container = styled.div<{ isFilterOpen: boolean }>`
   position: fixed;
@@ -22,17 +26,20 @@ const Container = styled.div<{ isFilterOpen: boolean }>`
   left: calc(var(--size-3) + var(--size-6));
   z-index: 5;
   height: calc(100vh - var(--lbh) - var(--size-3));
-  width: calc((100vw - var(--size-6) - 3 * var(--size-3)) * 0.33);
+  width: ${({ isFilterOpen }) =>
+    isFilterOpen
+      ? "calc((100vw - var(--size-6) - 3 * var(--size-3)) * 0.333)"
+      : "calc((100vw - var(--size-6) - 3 * var(--size-3)) * 0.5)"};
 
   overflow: hidden;
-  transition: transform 0.35s;
+  transition: transform 0.35s, width 0.35s;
 
   display: flex;
   flex-direction: column;
   gap: var(--size-3);
   transform: ${({ isFilterOpen }) =>
     isFilterOpen
-      ? "translateX(calc((100vw - var(--size-6) - 3 * var(--size-3)) * 0.33))"
+      ? "translateX(calc((100vw - var(--size-6) - 3 * var(--size-3)) * 0.333))"
       : "translateX(0)"};
 
   ${({ theme }) => theme.breakpoints.tablet} {
@@ -110,20 +117,31 @@ const Toolbar = styled.div`
 `;
 
 export const DirectoryList = () => {
+  const searchFieldId = useId();
+  const router = useRouter();
+
   const isMounted = useIsMounted();
 
   const mapState = useToolStateMapState();
   const filterState = useToolStateFilterState();
-  const { updateFilterState } = useToolStateStoreActions();
+  const { updateFilterState, getDefaultState } = useToolStateStoreActions();
 
   const currentlyRenderedQueryStringRef = useRef<string | null>();
-  const workerRef = useRef<Worker>();
+  const filterWorkerRef = useRef<Worker>();
+  const searchWorkerRef = useRef<Worker>();
+
+  const currentShownKeywordRef = useRef<string>("");
 
   const [searchResult, setSearchResult] = useState<GeoJsonFeature[] | null>(
     null
   );
 
   const [isFiltering, setIsFiltering] = useState(false);
+
+  const [keyword, setKeyword] = useState("");
+  
+  const [isError, setIsError] = useState(false);
+
   const openQuickView = useCallback(
     (feature: GeoJsonFeature) => {
       if (!feature?.properties?.id) return;
@@ -135,7 +153,16 @@ export const DirectoryList = () => {
     [updateFilterState]
   );
 
-  const onWorkerMessage = useCallback(
+  const onFilterWorkerMessage = useCallback(
+    (e: MessageEvent<any>) => {
+      if (!isMounted) return;
+      setIsFiltering(false);
+      setSearchResult(e?.data?.result ?? []);
+    },
+    [isMounted]
+  );
+
+  const onSearchWorkerMessage = useCallback(
     (e: MessageEvent<any>) => {
       if (!isMounted) return;
 
@@ -146,59 +173,146 @@ export const DirectoryList = () => {
   );
 
   useEffectOnMountOnce(() => {
-    workerRef.current = new Worker(
+    filterWorkerRef.current = new Worker(
       new URL("./worker/filterByIds.ts", import.meta.url)
     );
 
-    workerRef.current.onmessage = onWorkerMessage;
+    searchWorkerRef.current = new Worker(
+      new URL("./worker/search.ts", import.meta.url)
+    );
+
+    filterWorkerRef.current.onmessage = onFilterWorkerMessage;
+    searchWorkerRef.current.onmessage = onSearchWorkerMessage;
 
     return () => {
-      if (workerRef.current) {
-        workerRef.current.terminate();
+      if (filterWorkerRef.current) {
+        filterWorkerRef.current.terminate();
+      }
+      if (searchWorkerRef.current) {
+        searchWorkerRef.current.terminate();
       }
     };
-  }, [onWorkerMessage]);
+  }, [onFilterWorkerMessage, onSearchWorkerMessage]);
+
+  const maybeUpdateQueryString = useCallback(
+    (state: FilterState) => {
+      const currentQuery = createQueryFromState(state);
+
+      const currentQueryString = currentQuery.join("&");
+
+      let queryString = "";
+      if (currentQuery?.length && currentQueryString !== defaultQueryString) {
+        queryString = `?${currentQuery.join("&").replace("&onlyIds=1", "")}`;
+      }
+
+      if (
+        queryString !==
+        (document.location.search ?? "")
+          .replace("&onlyIds=1", "")
+          .replace("&empty=1", "")
+      ) {
+        console.log("maybe", queryString);
+        router.push(
+          {
+            pathname: router.pathname,
+            search: queryString !== "" ? queryString : "?empty=1",
+          },
+          undefined,
+          {
+            shallow: true,
+          }
+        );
+      }
+    },
+    [router]
+  );
 
   const currentQueryString = createQueryFromState(filterState).join("&");
 
   useEffect(() => {
-    if (
-      typeof window === "undefined" ||
-      !mapState.geoJson ||
-      !workerRef.current
-    )
-      return;
+    if (typeof window === "undefined" || !mapState.geoJson) return;
 
-    if (Array.isArray(filterState.filteredIds) && currentQueryString !== "") {
+    if (!filterState.isSearchOpen) {
+      currentShownKeywordRef.current = "";
       if (
-        filterState.filterQueryString !==
-        currentlyRenderedQueryStringRef.current
+        filterWorkerRef.current &&
+        Array.isArray(filterState.filteredIds) &&
+        currentQueryString !== ""
       ) {
-        currentlyRenderedQueryStringRef.current = filterState.filterQueryString;
+        if (
+          filterState.filterQueryString !==
+          currentlyRenderedQueryStringRef.current
+        ) {
+          currentlyRenderedQueryStringRef.current =
+            filterState.filterQueryString;
 
-        workerRef.current.postMessage({
-          ids: filterState.filteredIds,
-          geoJson: mapState.geoJson,
-        });
-        setIsFiltering(true);
+          filterWorkerRef.current.postMessage({
+            ids: filterState.filteredIds,
+            geoJson: mapState.geoJson,
+          });
+          setIsFiltering(true);
+        }
+      } else {
+        setSearchResult(null);
       }
     } else {
-      setSearchResult(null);
+      
+      currentlyRenderedQueryStringRef.current = "";
+      if (searchWorkerRef.current && keyword.length > 2) {
+        if (keyword !== currentShownKeywordRef.current) {
+          if (searchWorkerRef.current) {
+            currentShownKeywordRef.current = keyword;
+            searchWorkerRef.current.postMessage({
+              s: keyword,
+              geoJson: mapState.geoJson,
+            });
+
+            console.log("muqs", 1);
+            maybeUpdateQueryString({
+              ...filterState,
+              isSearchOpen: true,
+              keyword,
+            });
+            console.log("muqs", 2);
+
+            setIsFiltering(true);
+          }
+        }
+      } else {
+        currentShownKeywordRef.current = "";
+        setSearchResult(null);
+      }
     }
   }, [
+    filterState,
+    filterState.isSearchOpen,
     filterState.filteredIds,
     filterState.filterQueryString,
+    keyword,
+    getDefaultState,
+    maybeUpdateQueryString,
     currentQueryString,
     mapState.geoJson,
   ]);
 
+ 
+
   const hasNoResults = searchResult?.length === 0;
 
+  let count = filterState.totalCount;
+
+  if (filterState.isFilterOpen) count = filterState.filteredCount;
+
+  if (filterState.isSearchOpen)
+    count = searchResult?.length ?? filterState.totalCount;
+
   return (
-    <Container isFilterOpen={true}>
+    <Container isFilterOpen={filterState.isFilterOpen}>
       <Box hideOnPrint>
         <Toolbar>
-          <div>{filterState.filteredCount}/{filterState.totalCount}</div>
+          <div>
+            {count}/{filterState.totalCount}
+          </div>
           <IconButtonPrint />
         </Toolbar>
       </Box>
@@ -207,12 +321,42 @@ export const DirectoryList = () => {
         isFullHeight={false}
       >
         <Header>
-          <h3>
-            All Projects{" "}
-            {defaultQueryString.replace("onlyIds=1", "") !== currentQueryString
-              ? "(filtered)"
-              : ""}
-          </h3>
+          <h3>Projects</h3>
+          <Reveal
+            id={searchFieldId}
+            role="region"
+            open={filterState.isSearchOpen}
+          >
+            <SearchForm
+              isError={isError}
+              keyword={keyword}
+              onSubmit={(value: string) => {
+                setKeyword(value);
+
+                if (value?.length < 3) {
+                  maybeUpdateQueryString({
+                    ...getDefaultState().filter,
+                    isSearchOpen: true,
+                    keyword: "",
+                  });
+                  setIsError(true);
+                }
+              }}
+              onChange={(value: string) => {
+                setKeyword(value);
+                setIsError(false);
+              }}
+              onResetClick={() => {
+                maybeUpdateQueryString({
+                  ...getDefaultState().filter,
+                  isSearchOpen: true,
+                  keyword: "",
+                });
+                setKeyword("");
+                setIsFiltering(false);
+              }}
+            />
+          </Reveal>
         </Header>
         <Scroller opacity={1}>
           {hasNoResults && <p>No projects found</p>}

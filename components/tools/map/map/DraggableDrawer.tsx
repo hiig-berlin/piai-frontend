@@ -21,7 +21,7 @@ const DragHandle = styled.div`
 const Handle = styled.div`
   height: 5px;
   border-radius: 10px;
-  background-color: #f0f;
+  background-color: #fff;
   width: var(--size-6);
   cursor: pointer;
 `;
