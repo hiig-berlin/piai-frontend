@@ -45,6 +45,6 @@ export const LoadingIcon = ({
   size?: number;
 }) => {
   return (
-    <Icon isLoading={loading || !!isLoading} size={size} color={color}></Icon>
+    <Icon isLoading={loading || !!isLoading} size={size} color={color} ></Icon>
   );
 };

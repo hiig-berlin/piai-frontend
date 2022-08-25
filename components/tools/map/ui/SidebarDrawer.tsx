@@ -1,10 +1,13 @@
-import { useEffect, startTransition } from "react";
+import { useEffect, startTransition, useState } from "react";
 import styled from "styled-components";
 
 import DisplayAbove from "~/components/styled/DisplayAbove";
 import DisplayBelow from "~/components/styled/DisplayBelow";
 import { Icon } from "~/components/tools/shared/ui/Icon";
-import { useCssVarsStateIsInitializingState } from "~/components/state/CssVarsState";
+import {
+  useCssVarsStateIsInitializingState,
+  useCssVarsStateIsTabletLandscapeAndUpState,
+} from "~/components/state/CssVarsState";
 import {
   useToolStateFilterState,
   useToolStateStoreActions,
@@ -14,7 +17,6 @@ import { useModal } from "~/hooks/useModal";
 
 const SidebarContainer = styled.div<{
   isInitializing: boolean;
-  isAlwaysOpen: boolean;
   isOpen: boolean;
   isOpening: boolean;
   isClosing: boolean;
@@ -35,10 +37,8 @@ const SidebarContainer = styled.div<{
   transition: opacity 0.35s;
   opacity: ${({ isOpening, isOpen, isClosing }) =>
     isOpening || (isOpen && !isClosing) ? 1 : 0};
-  transform: ${({ isOpening, isOpen, isClosing, isAlwaysOpen }) =>
-    isOpening || isOpen || isClosing || isAlwaysOpen
-      ? "translateX(0)"
-      : "translateX(-105vw)"};
+  transform: ${({ isOpening, isOpen, isClosing }) =>
+    isOpening || isOpen || isClosing ? "translateX(0)" : "translateX(-105vw)"};
 
   ${({ theme }) => theme.breakpoints.tabletLandscape} {
     padding-left: var(--size-6);
@@ -76,6 +76,7 @@ const SidebarContainer = styled.div<{
 const Panel = styled.div<{
   isLoading: boolean;
   isRefetching: boolean;
+  addCounterPadding: boolean;
 }>`
   display: flex;
   flex-direction: column;
@@ -83,7 +84,11 @@ const Panel = styled.div<{
   box-sizing: border-box;
   background: #000;
   pointer-events: all;
-  padding: var(--size-3) var(--size-4) calc(var(--size-7) + var(--size-2))
+  padding: var(--size-3) var(--size-4)
+    ${({ addCounterPadding }) =>
+      addCounterPadding
+        ? "calc(var(--size-7) + var(--size-2))"
+        : "var(--size-3)"}
     var(--size-4);
 
   height: 100%;
@@ -142,31 +147,35 @@ export const SidebarDrawer = ({
   statusFlagKey,
   children,
   header,
-  initiallyOpen,
+  initiallyOpenOnLargerScreens,
   dimmContent,
   columnWidth = 0.333,
   hasTopOffset = true,
+  addCounterPadding,
 }: {
   title: string;
   columnWidth?: number;
   statusFlagKey: string;
   children: React.ReactNode;
-
   dimmContent?: boolean;
-  initiallyOpen?: boolean;
+  addCounterPadding?: boolean;
+  initiallyOpenOnLargerScreens?: boolean;
   header?: React.ReactNode;
   hasTopOffset?: boolean;
 }) => {
   const isInitializing = useCssVarsStateIsInitializingState();
+  const isTabletLandscapeAndUp = useCssVarsStateIsTabletLandscapeAndUpState();
 
   const filterState = useToolStateFilterState();
-  const { getFilterState, setFilterState } = useToolStateStoreActions();
+  const { updateFilterState } = useToolStateStoreActions();
 
   const { isOpen, isOpening, isClosing, open, close } = useModal({
-    defaultIsOpen: !!initiallyOpen,
+    defaultIsOpen: false,
     openingAnimationLength,
     closeAnimationLength,
   });
+
+  const [initiallyStateSet, setInitiallyStateSet] = useState(false);
 
   const isSidebarOpen = (filterState as any)?.[statusFlagKey] ?? false;
 
@@ -181,11 +190,35 @@ export const SidebarDrawer = ({
   }, [isSidebarOpen, open, close]);
 
   const closeSidebar = () => {
-    setFilterState({
-      ...getFilterState(),
+    updateFilterState({
       [statusFlagKey]: false,
     });
   };
+
+  useEffect(() => {
+    startTransition(() => {
+      if (
+        !isInitializing &&
+        isTabletLandscapeAndUp &&
+        initiallyOpenOnLargerScreens &&
+        !initiallyStateSet
+      ) {
+        updateFilterState({
+          [statusFlagKey]: true,
+        });
+        open();
+        setInitiallyStateSet(true);
+      }
+    });
+  }, [
+    isInitializing,
+    isTabletLandscapeAndUp,
+    statusFlagKey,
+    initiallyStateSet,
+    initiallyOpenOnLargerScreens,
+    updateFilterState,
+    open,
+  ]);
 
   return (
     <SidebarContainer
@@ -193,13 +226,16 @@ export const SidebarDrawer = ({
         columnWidth,
         hasTopOffset,
         isInitializing,
-        isAlwaysOpen: initiallyOpen && isInitializing ? true : false,
-        isOpen: initiallyOpen && isInitializing ? true : isOpen || isOpening,
+        isOpen: isOpen || isOpening,
         isOpening: isOpening,
         isClosing: isClosing,
       }}
     >
-      <Panel isLoading={false} isRefetching={false}>
+      <Panel
+        isLoading={false}
+        isRefetching={false}
+        addCounterPadding={!!addCounterPadding}
+      >
         <Header>
           <DisplayBelow breakpoint="tabletLandscape">
             <Icon

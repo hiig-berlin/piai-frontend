@@ -36,17 +36,6 @@ const Content = styled.div`
 `;
 
 const Directory = ({ tool }: { tool: PiAiTool }) => {
-  const { updateFilterState } = useToolStateStoreActions();
-
-  useEffect(() => {
-    updateFilterState({
-      isFilterOpen: true,
-      isSearchOpen: false,
-    });
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
     <>
       {/* TODO: ensure correct meta data is set <NextHeadSeo

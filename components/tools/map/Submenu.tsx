@@ -7,15 +7,14 @@ import {
   useToolStateFilterState,
   useToolStateStoreActions,
 } from "./state/ToolState";
-import { createQueryFromState } from "./map/utils";
+import { createCompareQueryFromState, createQueryFromState } from "./map/utils";
 import { useRouter } from "next/router";
+import { useCssVarsStateIsTabletLandscapeAndUpState } from "~/components/state/CssVarsState";
 
 const sidebarPadding = "var(--size-3)";
 
 const ToolSubmenu = styled.div`
   background: #0008;
-  // margin-left: calc(0px - var(--size-2));
-  // margin-right: calc(0px - var(--size-2));
 
   ${({ theme }) => theme.breakpoints.tablet} {
     padding: ${sidebarPadding} 0;
@@ -68,34 +67,11 @@ const ActionItems = styled.div`
   padding: ${sidebarPadding} 0 var(--size-1);
 `;
 
-// TODO: add actionItem onClick events + active status
-
-// TODO: decide if highlight (active filter collapsed) is crucial
-//       --> either solve through css filter (with volor variable?)
-//           or change icons to inline svgs…
-
 export const Submenu = ({ tool, slug }: { tool?: string; slug?: string }) => {
   const router = useRouter();
   const filterState = useToolStateFilterState();
-  const { getDefaultState, updateFilterState } = useToolStateStoreActions();
-
-  let queryStringMap = createQueryFromState({
-    ...filterState,
-    countries: {},
-    regions: {},
-  }).join("&");
-  queryStringMap =
-    queryStringMap !== "" ? `?${queryStringMap}` : queryStringMap;
-
-  let queryStringDirectory = createQueryFromState({
-    ...filterState,
-    isSearchOpen: false,
-  }).join("&");
-  queryStringDirectory =
-    queryStringDirectory !== ""
-      ? `?${queryStringDirectory}`
-      : queryStringDirectory;
-
+  const { updateFilterState } = useToolStateStoreActions();
+  const isTabletLandscapeAndUp = useCssVarsStateIsTabletLandscapeAndUpState();
   return (
     <ToolSubmenu>
       <div>
@@ -106,7 +82,7 @@ export const Submenu = ({ tool, slug }: { tool?: string; slug?: string }) => {
               e.preventDefault();
 
               updateFilterState({
-                isFilterOpen: true,
+                isFilterOpen: isTabletLandscapeAndUp,
                 isSearchOpen: false,
                 countries: {},
                 regions: {},
@@ -115,7 +91,17 @@ export const Submenu = ({ tool, slug }: { tool?: string; slug?: string }) => {
               router.push(
                 {
                   pathname: "/tool/map",
-                  search: queryStringMap,
+                  search: createQueryFromState(
+                    {
+                      ...filterState,
+                      countries: {},
+                      regions: {},
+                      isFilterOpen: true,
+                      isSearchOpen: false,
+                    },
+                    null,
+                    ["filter", "search", "keyword", "empty"]
+                  ),
                 },
                 undefined,
                 {
@@ -138,24 +124,30 @@ export const Submenu = ({ tool, slug }: { tool?: string; slug?: string }) => {
           <ActionItems>
             <Icon
               type="filter"
-              active={queryStringDirectory.replace("?empty=1", "") !== ""}
+              active={createCompareQueryFromState(filterState) !== ""}
               onClick={() => {
-                updateFilterState({
+                const newState = {
+                  ...filterState,
                   isSearchOpen: false,
-                  isFilterOpen: !filterState.isFilterOpen,
                   keyword: "",
-                  quickViewProjectId: null,
-                });
-                // router.push(
-                //   {
-                //     pathname: "/tool/map",
-                //     search: queryStringDirectory,
-                //   },
-                //   undefined,
-                //   {
-                //     shallow: true,
-                //   }
-                // );
+                  isFilterOpen: !filterState.isFilterOpen,
+                };
+                updateFilterState(newState);
+
+                router.push(
+                  {
+                    pathname: "/tool/map",
+                    search: createQueryFromState(newState, null, [
+                      "search",
+                      "keyword",
+                      "empty",
+                    ]),
+                  },
+                  undefined,
+                  {
+                    shallow: true,
+                  }
+                );
               }}
             />
             <Icon
@@ -163,8 +155,8 @@ export const Submenu = ({ tool, slug }: { tool?: string; slug?: string }) => {
               onClick={() => {
                 updateFilterState({
                   isSearchOpen: !filterState.isSearchOpen,
+                  isFilterOpen: false,
                   keyword: "",
-                  quickViewProjectId: null,
                 });
                 router.push(
                   {
@@ -184,15 +176,14 @@ export const Submenu = ({ tool, slug }: { tool?: string; slug?: string }) => {
         )}
       </div>
       <div className="actionItems">
-        <Link passHref href={`/tool/map/directory${queryStringDirectory}`}>
+        <Link passHref href={`/tool/map/directory`}>
           <a
             className="subMenuItem"
             onClick={(e) => {
               e.preventDefault();
 
               updateFilterState({
-                ...filterState,
-                isFilterOpen: true,
+                isFilterOpen: isTabletLandscapeAndUp,
                 isSearchOpen: false,
                 keyword: "",
                 quickViewProjectId: null,
@@ -200,7 +191,15 @@ export const Submenu = ({ tool, slug }: { tool?: string; slug?: string }) => {
               router.push(
                 {
                   pathname: "/tool/map/directory",
-                  search: queryStringDirectory,
+                  search: createQueryFromState(
+                    {
+                      ...filterState,
+                      isFilterOpen: true,
+                      isSearchOpen: false,
+                    },
+                    null,
+                    ["filter", "search", "keyword", "empty"]
+                  ),
                 },
                 undefined,
                 {
@@ -223,7 +222,7 @@ export const Submenu = ({ tool, slug }: { tool?: string; slug?: string }) => {
           <ActionItems>
             <Icon
               type="filter"
-              active={queryStringDirectory.replace("?empty=1", "") !== ""}
+              active={createCompareQueryFromState(filterState) !== ""}
               onClick={() => {
                 const newState = {
                   ...filterState,
@@ -233,17 +232,14 @@ export const Submenu = ({ tool, slug }: { tool?: string; slug?: string }) => {
                 };
                 updateFilterState(newState);
 
-                let queryString = createQueryFromState(newState).join("&");
-                queryString =
-                  queryString !== "" ? `?${queryString}` : queryString;
-
-
-                console.log("QS", queryString, newState);
-
                 router.push(
                   {
                     pathname: "/tool/map/directory",
-                    search: queryString,
+                    search: createQueryFromState(newState, null, [
+                      "search",
+                      "keyword",
+                      "empty",
+                    ]),
                   },
                   undefined,
                   {
@@ -257,8 +253,8 @@ export const Submenu = ({ tool, slug }: { tool?: string; slug?: string }) => {
               onClick={() => {
                 updateFilterState({
                   isFilterOpen: false,
-                  keyword: "",
                   isSearchOpen: !filterState.isSearchOpen,
+                  keyword: "",
                 });
                 router.push(
                   {

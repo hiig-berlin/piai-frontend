@@ -24,7 +24,7 @@ export const MapOverlays = () => {
   const filterState = useToolStateFilterState();
   return (
     <Container>
-      <Search view="map" />
+      <Search view="map" addCounterPadding={true}/>
       <MapFilter />
       {filterState?.quickViewProjectId && (
         <ProjectQuickView

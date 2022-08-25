@@ -30,8 +30,10 @@ import {
   FilterSettingTaxonomyOptionRegion,
   FilterSettingTaxonomyOptionRegionChild,
   useToolStateFilterState,
+  defaultCompareQueryString,
 } from "./state/ToolState";
 import { useRouter } from "next/router";
+import { createCompareQueryFromState } from "./map/utils";
 
 const Map = dynamic(() => import("./Map"), {
   // suspense: true,
@@ -225,16 +227,19 @@ export const Layout = ({
           newState.dateUntil = null;
         }
 
-        const search = params.get("search")
-        newState.isSearchOpen = search === "1";
+        const search = params.get("search");
+        if (search) newState.isSearchOpen = search === "1";
 
-        if (newState.isSearchOpen) 
-          newState.isFilterOpen = false;
+        if (newState?.isSearchOpen) newState.isFilterOpen = false;
 
-        const keyword = params.get("keyword")
+        const filter = params.get("filter");
+        if (filter) newState.isFilterOpen = filter === "1";
+
+        if (newState?.isFilterOpen) newState.isSearchOpen = false;
+
+        const keyword = params.get("keyword");
         newState.keyword = keyword ? keyword.trim() : "";
-        
-        console.log("NEW STATE", newState);
+
         if (Object.keys(newState).length) {
           updateFilterState({
             ...newState,

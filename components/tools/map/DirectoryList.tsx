@@ -5,12 +5,11 @@ import { SearchItem } from "./SearchItem";
 import type { GeoJsonFeature } from "./map/types";
 import { Scroller } from "./Styled";
 import useIsMounted from "~/hooks/useIsMounted";
-import { createQueryFromState } from "./map/utils";
+import { createCompareQueryFromState } from "./map/utils";
 import {
   useToolStateFilterState,
   useToolStateMapState,
   useToolStateStoreActions,
-  defaultQueryString,
   FilterState,
 } from "./state/ToolState";
 import { useEffectOnMountOnce } from "~/hooks/useEffectOnMountOnce";
@@ -24,26 +23,29 @@ const Container = styled.div<{ isFilterOpen: boolean }>`
   position: fixed;
   bottom: 0;
   left: calc(var(--size-3) + var(--size-6));
-  z-index: 5;
+  z-index: 4;
   height: calc(100vh - var(--lbh) - var(--size-3));
-  width: ${({ isFilterOpen }) =>
-    isFilterOpen
-      ? "calc((100vw - var(--size-6) - 3 * var(--size-3)) * 0.333)"
-      : "calc((100vw - var(--size-6) - 3 * var(--size-3)) * 0.5)"};
 
   overflow: hidden;
   transition: transform 0.35s, width 0.35s;
-
+  width: calc((100vw - var(--size-6) - 2 * var(--size-3)));
   display: flex;
   flex-direction: column;
   gap: var(--size-3);
-  transform: ${({ isFilterOpen }) =>
-    isFilterOpen
-      ? "translateX(calc((100vw - var(--size-6) - 3 * var(--size-3)) * 0.333))"
-      : "translateX(0)"};
 
   ${({ theme }) => theme.breakpoints.tablet} {
     padding-bottom: var(--size-3);
+  }
+
+  ${({ theme }) => theme.breakpoints.tabletLandscape} {
+    width: ${({ isFilterOpen }) =>
+      isFilterOpen
+        ? "calc((100vw - var(--size-6) - 3 * var(--size-3)) * 0.333)"
+        : "calc((100vw - var(--size-6) - 3 * var(--size-3)) * 0.5)"};
+    transform: ${({ isFilterOpen }) =>
+      isFilterOpen
+        ? "translateX(calc((100vw - var(--size-6) - 3 * var(--size-3)) * 0.333))"
+        : "translateX(0)"};
   }
 
   @media print {
@@ -87,7 +89,7 @@ const Panel = styled.div<{
   padding: var(--size-3);
   border-radius: var(--size-3);
   height: ${({ isFullHeight }) =>
-    isFullHeight ? "calc(100vh - var(--lbh, 0) - var(--size-5))" : "200ox"};
+    isFullHeight ? "calc(100vh - var(--lbh, 0) - var(--size-5))" : "200px"};
 
   flex-grow: ${({ isFullHeight }) => (isFullHeight ? 0 : 1)};
   flex-shrink: ${({ isFullHeight }) => (isFullHeight ? 0 : 1)};
@@ -106,7 +108,7 @@ const Panel = styled.div<{
 
   ${({ theme }) => theme.breakpoints.tabletLandscape} {
     height: 50vh;
-    gap: var(--size-3);
+    // gap: var(--size-3);
   }
 `;
 
@@ -114,6 +116,11 @@ const Toolbar = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
+`;
+
+const ScrollerContainer = styled.div`
+  width: 100%;
+  height: 50vw;
 `;
 
 export const DirectoryList = () => {
@@ -139,7 +146,7 @@ export const DirectoryList = () => {
   const [isFiltering, setIsFiltering] = useState(false);
 
   const [keyword, setKeyword] = useState("");
-  
+
   const [isError, setIsError] = useState(false);
 
   const openQuickView = useCallback(
@@ -196,26 +203,16 @@ export const DirectoryList = () => {
 
   const maybeUpdateQueryString = useCallback(
     (state: FilterState) => {
-      const currentQuery = createQueryFromState(state);
-
-      const currentQueryString = currentQuery.join("&");
-
-      let queryString = "";
-      if (currentQuery?.length && currentQueryString !== defaultQueryString) {
-        queryString = `?${currentQuery.join("&").replace("&onlyIds=1", "")}`;
-      }
+      const newQueryString = createCompareQueryFromState(state);
 
       if (
-        queryString !==
-        (document.location.search ?? "")
-          .replace("&onlyIds=1", "")
-          .replace("&empty=1", "")
+        newQueryString !==
+        (document.location.search ?? "").replace("&empty=1", "")
       ) {
-        console.log("maybe", queryString);
         router.push(
           {
             pathname: router.pathname,
-            search: queryString !== "" ? queryString : "?empty=1",
+            search: newQueryString !== "" ? newQueryString : "?empty=1",
           },
           undefined,
           {
@@ -227,13 +224,14 @@ export const DirectoryList = () => {
     [router]
   );
 
-  const currentQueryString = createQueryFromState(filterState).join("&");
+  const currentQueryString = createCompareQueryFromState(filterState);
 
   useEffect(() => {
     if (typeof window === "undefined" || !mapState.geoJson) return;
 
     if (!filterState.isSearchOpen) {
       currentShownKeywordRef.current = "";
+
       if (
         filterWorkerRef.current &&
         Array.isArray(filterState.filteredIds) &&
@@ -256,7 +254,6 @@ export const DirectoryList = () => {
         setSearchResult(null);
       }
     } else {
-      
       currentlyRenderedQueryStringRef.current = "";
       if (searchWorkerRef.current && keyword.length > 2) {
         if (keyword !== currentShownKeywordRef.current) {
@@ -267,13 +264,11 @@ export const DirectoryList = () => {
               geoJson: mapState.geoJson,
             });
 
-            console.log("muqs", 1);
             maybeUpdateQueryString({
               ...filterState,
               isSearchOpen: true,
               keyword,
             });
-            console.log("muqs", 2);
 
             setIsFiltering(true);
           }
@@ -295,16 +290,17 @@ export const DirectoryList = () => {
     mapState.geoJson,
   ]);
 
- 
-
   const hasNoResults = searchResult?.length === 0;
 
   let count = filterState.totalCount;
 
-  if (filterState.isFilterOpen) count = filterState.filteredCount;
-
-  if (filterState.isSearchOpen)
+  if (filterState.isSearchOpen) {
     count = searchResult?.length ?? filterState.totalCount;
+  } else {
+    if (filterState.filterQueryString) {
+      count = filterState.filteredCount;
+    }
+  }
 
   return (
     <Container isFilterOpen={filterState.isFilterOpen}>
@@ -358,22 +354,24 @@ export const DirectoryList = () => {
             />
           </Reveal>
         </Header>
-        <Scroller opacity={1}>
-          {hasNoResults && <p>No projects found</p>}
+        <ScrollerContainer>
+          <Scroller opacity={1}>
+            {hasNoResults && <p>No projects found</p>}
 
-          {!hasNoResults &&
-            (searchResult ?? mapState?.geoJson?.features ?? []).map(
-              (feature: GeoJsonFeature, index: number) => {
-                return (
-                  <SearchItem
-                    feature={feature}
-                    key={`search-${index}`}
-                    openQuickView={openQuickView}
-                  />
-                );
-              }
-            )}
-        </Scroller>
+            {!hasNoResults &&
+              (searchResult ?? mapState?.geoJson?.features ?? []).map(
+                (feature: GeoJsonFeature, index: number) => {
+                  return (
+                    <SearchItem
+                      feature={feature}
+                      key={`search-${index}`}
+                      openQuickView={openQuickView}
+                    />
+                  );
+                }
+              )}
+          </Scroller>
+        </ScrollerContainer>
       </Panel>
     </Container>
   );

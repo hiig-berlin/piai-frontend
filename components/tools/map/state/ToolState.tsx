@@ -1,7 +1,7 @@
 import type { MapController } from "../map/MapController";
 import { GeoJson } from "../map/types";
 import create from "zustand";
-import { createQueryFromState } from "../map/utils";
+import { createCompareQueryFromState } from "../map/utils";
 
 export type MapState = {
   ready: boolean;
@@ -118,7 +118,7 @@ export const defaultToolState: ToolState = {
     isFetchingFilteredIds: false,
     isDrawerOpen: false,
     quickViewProjectId: null,
-    isFilterOpen: true,
+    isFilterOpen: false,
     isSearchOpen: false,
     keyword: "",
     license: {},
@@ -191,15 +191,14 @@ export const useToolStateStore = create<ToolStateStore>((set, get) => ({
     })),
   updateFilterState: (state: Partial<FilterState>) =>
     set(() => {
-      const newFilterState = {
+      const newFilterState: FilterState = {
         ...get().filter,
         ...state,
       };
 
       if (
-        createQueryFromState(newFilterState, {
-          onlyIds: "1",
-        }).join("&") === defaultQueryString
+        createCompareQueryFromState(newFilterState) ===
+        defaultCompareQueryString
       )
         newFilterState.filteredCount = newFilterState.totalCount;
 
@@ -232,12 +231,9 @@ export const useToolStateStore = create<ToolStateStore>((set, get) => ({
     })),
 }));
 
-export const defaultQueryString = createQueryFromState(
-  defaultToolState.filter,
-  {
-    onlyIds: "1",
-  }
-).join("&");
+export const defaultCompareQueryString = createCompareQueryFromState(
+  defaultToolState.filter
+);
 
 export const useToolStateStoreActions = () => {
   return useToolStateStore(

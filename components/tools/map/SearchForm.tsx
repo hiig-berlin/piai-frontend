@@ -8,6 +8,8 @@ const Form = styled.form`
   position: relative;
   margin-bottom: var(--size-2);
   width: 100%;
+
+  ${({ theme }) => theme.applyMixin("noPrint")}
 `;
 
 const Input = styled(InputText)<{ isError: boolean }>`

@@ -22,7 +22,7 @@ const QuickView = styled.div<{ isFilterOpen: boolean; isDirectory: boolean }>`
   position: fixed;
   bottom: var(--size-3);
   left: calc(var(--size-3) + var(--size-6));
-  z-index: 5;
+  z-index: 12;
   height: auto;
   max-height: 75vh;
   width: calc((100vw - var(--size-6) - 3 * var(--size-3)) * 0.333);
@@ -57,6 +57,14 @@ const QuickView = styled.div<{ isFilterOpen: boolean; isDirectory: boolean }>`
     }
   `
       : ``}
+
+  @media print {
+    position: static;
+    transform: none;
+    width: 100%;
+    height: auto;
+    max-height: auto;
+  }
 `;
 
 const Panel = styled.div<{
@@ -96,6 +104,11 @@ const Panel = styled.div<{
     height: ${({ isDirectory }) => (isDirectory ? "100%" : "auto")};
     max-height: ${({ isDirectory }) => (isDirectory ? "100%" : "75vh")};
   }
+
+  @media print {
+    height: auto;
+    max-height: auto;
+  }
 `;
 
 const Header = styled.div`
@@ -113,6 +126,8 @@ const Footer = styled.div`
     justify-content: space-between;
     padding-bottom: 0;
   }
+
+  ${({ theme }) => theme.applyMixin("noPrint")}
 `;
 
 const ViewMore = styled.div`

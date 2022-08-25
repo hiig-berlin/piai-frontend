@@ -15,7 +15,13 @@ import {
 } from "./state/ToolState";
 import { SearchForm } from "./SearchForm";
 
-export const Search = ({ view }: { view: string }) => {
+export const Search = ({
+  view,
+  addCounterPadding,
+}: {
+  view: string;
+  addCounterPadding: boolean;
+}) => {
   const isMounted = useIsMounted();
 
   const isTabletLandscapeAndUp = useCssVarsStateIsTabletLandscapeAndUpState();
@@ -26,7 +32,7 @@ export const Search = ({ view }: { view: string }) => {
   const { updateMapState, updateFilterState } = useToolStateStoreActions();
 
   const workerRef = useRef<Worker>();
-  
+
   const currentShownKeywordRef = useRef<string>("");
 
   const [searchResult, setSearchResult] = useState<GeoJsonFeature[] | null>([]);
@@ -120,6 +126,7 @@ export const Search = ({ view }: { view: string }) => {
         statusFlagKey="isSearchOpen"
         title="Project search"
         dimmContent={isSearching}
+        addCounterPadding={addCounterPadding}
         header={
           <SearchForm
             isError={isError}

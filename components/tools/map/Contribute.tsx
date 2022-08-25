@@ -14,7 +14,6 @@ import {
 const ContributeBox = styled(Box)<{ seen?: Boolean }>`
   ${({ seen }) => seen && "display: none;"}
   pointer-events: all;
-  max-width: calc((100vw - var(--size-6) - 3 * var(--size-3)) * 0.333);;
 
   & * {
     color: var(--color-piai-map-highlight);
@@ -37,6 +36,12 @@ const ContributeBox = styled(Box)<{ seen?: Boolean }>`
     &:visited {
       color: var(--color-piai-map-highlight);
     }
+  }
+  ${({ theme }) => theme.breakpoints.mobileLandscape} {
+    max-width: calc((100vw - var(--size-6) - 2 * var(--size-3)) * 0.666);
+  }
+  ${({ theme }) => theme.breakpoints.tabletLandscape} {
+    max-width: calc((100vw - var(--size-6) - 3 * var(--size-3)) * 0.333);
   }
 `;
 

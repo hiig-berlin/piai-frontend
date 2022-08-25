@@ -8,14 +8,14 @@ import useIsMounted from "~/hooks/useIsMounted";
 import { LoadingBar } from "~/components/styled/LoadingBar";
 import { MapGlobalCss } from "./map/MapGlobalCss";
 import { Icon } from "../shared/ui/Icon";
-import { createQueryFromState } from "./map/utils";
-import { useCssVarsStateIsTabletLandscapeAndUpState } from "~/components/state/CssVarsState";
+import { createCompareQueryFromState } from "./map/utils";
+
 import {
   useToolStateFilterState,
   useToolStateMapState,
   useToolStateSettingsState,
   useToolStateStoreActions,
-  defaultQueryString,
+  defaultCompareQueryString,
 } from "./state/ToolState";
 
 const MapUi = styled.div<{ isMapView: boolean }>`
@@ -61,17 +61,13 @@ export const Map = ({ isMapView }: { isMapView?: boolean }) => {
   const router = useRouter();
   const config = useConfigContext();
 
-  const isTabletLandscapeAndUp = useCssVarsStateIsTabletLandscapeAndUpState();
-
-  const uiRemoveTimoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const mapControllerRef = useRef<MapController>();
   const mapContainerRef = useRef<HTMLDivElement>(null);
-  const mapLastFilterRef = useRef<string>(defaultQueryString);
+  const mapLastFilterRef = useRef<string>(defaultCompareQueryString);
 
   const [isMapLoaded, setIsMapLoaded] = useState(false);
   const [isMapInitialized, setIsMapInitialized] = useState(false);
-  const [hasAutoFilterShown, setHasAutoFilterShown] = useState(false);
-
+  
   const mapState = useToolStateMapState();
   const filterState = useToolStateFilterState();
   const settingsState = useToolStateSettingsState();
@@ -120,17 +116,15 @@ export const Map = ({ isMapView }: { isMapView?: boolean }) => {
     updateFilterState,
   ]);
 
-  const currentQueryString = createQueryFromState(filterState, {
-    onlyIds: "1",
-  }).join("&");
+  const currentQueryString = createCompareQueryFromState(filterState);
 
   useEffect(() => {
     if (isMapInitialized) {
-      if (currentQueryString === defaultQueryString) {
+      if (currentQueryString === defaultCompareQueryString) {
         if (mapLastFilterRef.current !== currentQueryString) {
           mapControllerRef.current?.resetViewData("clustered");
           mapControllerRef.current?.showView("clustered");
-          mapLastFilterRef.current = defaultQueryString;
+          mapLastFilterRef.current = defaultCompareQueryString;
         }
       } else {
         if (mapLastFilterRef.current !== filterState.filterQueryString) {
@@ -161,27 +155,6 @@ export const Map = ({ isMapView }: { isMapView?: boolean }) => {
     if (mapState.loadGeoJson && mapState.geoJson && mapControllerRef.current)
       mapControllerRef.current.setGeoJson(mapState.geoJson);
   }, [mapState.loadGeoJson, mapState.geoJson]);
-
-  // useEffect(() => {
-  //   if (isTabletLandscapeAndUp && !hasAutoFilterShown) {
-  //     if (uiRemoveTimoutRef.current) clearTimeout(uiRemoveTimoutRef.current);
-
-  //     uiRemoveTimoutRef.current = setTimeout(() => {
-  //       if (isMounted) {
-  //         updateFilterState({
-  //           isFilterOpen: true,
-  //           isSearchOpen: false,
-  //         });
-  //       }
-  //       setHasAutoFilterShown(true);
-  //     }, 2500);
-  //   }
-  // }, [
-  //   hasAutoFilterShown,
-  //   isTabletLandscapeAndUp,
-  //   isMounted,
-  //   updateFilterState,
-  // ]);
 
   return (
     <>

@@ -9,6 +9,7 @@ const Container = styled.div`
   background: #000;
   pointer-events: all;
   height: 120vh;
+  touch-action: none;
 `;
 
 const DragHandle = styled.div`
@@ -164,6 +165,7 @@ export const DraggableDrawer = ({
         position: "fixed",
         top: "100%",
         width: "100%",
+        zIndex:6,
         y,
       }}
     >

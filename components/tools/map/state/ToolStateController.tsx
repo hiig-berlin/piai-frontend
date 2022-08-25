@@ -4,9 +4,12 @@ import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { appConfig } from "~/config";
 import { GeoJson } from "../map/types";
 
-import { createQueryFromState } from "../map/utils";
 import {
-  defaultToolState,
+  createCompareQueryFromState,
+  createQueryFromState,
+} from "../map/utils";
+import {
+  defaultCompareQueryString,
   Settings,
   useToolStateFilterState,
   useToolStateMapState,
@@ -42,13 +45,6 @@ const fetchFilteredQueryIds = async ({
   }).then(async (response) => await response.json());
 };
 
-export const defaultQueryString = createQueryFromState(
-  defaultToolState.filter,
-  {
-    onlyIds: "1",
-  }
-).join("&");
-
 // context provider
 export const ToolStateController = () => {
   const stateMap = useToolStateMapState();
@@ -62,15 +58,27 @@ export const ToolStateController = () => {
     enabled: stateMap.loadGeoJson,
   });
 
-  const currentQueryString = createQueryFromState(stateFilter, {
-    onlyIds: "1",
-  }).join("&");
+  const currentQueryString = createCompareQueryFromState(stateFilter);
+
+  const newFilterIdsQuery = createQueryFromState(
+    stateFilter,
+    {
+      onlyIds: "1",
+    },
+    ["filter", "search", "empty", "keyword"]
+  );
 
   const queryFilteredIds = useQuery(
-    ["map-filter", { queryString: currentQueryString }],
+    [
+      "map-filter",
+      {
+        queryString:
+          newFilterIdsQuery.length > 0 ? newFilterIdsQuery.slice(1) : "",
+      },
+    ],
     fetchFilteredQueryIds,
     {
-      enabled: defaultQueryString !== currentQueryString,
+      enabled: defaultCompareQueryString !== currentQueryString,
     }
   );
 
@@ -148,6 +156,5 @@ export const ToolStateController = () => {
     currentQueryString,
     updateFilterState,
   ]);
-
   return <></>;
 };

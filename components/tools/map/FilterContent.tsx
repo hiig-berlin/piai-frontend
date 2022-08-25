@@ -2,14 +2,13 @@ import { useRouter } from "next/router";
 import React, { useCallback } from "react";
 import styled from "styled-components";
 
-import { createQueryFromState } from "./map/utils";
+import { createCompareQueryFromState } from "./map/utils";
 import { TaxonomyCheckboxGroup } from "./ui/TaxonomyCheckboxGroup";
 import { ActiveFilterOption } from "./ui/ActiveFilterOption";
 import {
   useToolStateFilterState,
   useToolStateSettingsState,
   useToolStateStoreActions,
-  defaultQueryString,
   FilterState,
   FilterStateRecords,
 } from "./state/ToolState";
@@ -48,24 +47,16 @@ export const FilterContent = ({ view }: { view: string }) => {
 
   const maybeUpdateQueryString = useCallback(
     (state: FilterState) => {
-      const currentQuery = createQueryFromState(state, { onlyIds: "1" });
-      const currentQueryString = currentQuery.join("&");
-
-      let queryString = "";
-      if (currentQuery?.length && currentQueryString !== defaultQueryString) {
-        queryString = `?${currentQuery.join("&").replace("&onlyIds=1", "")}`;
-      }
+      const newQueryString = createCompareQueryFromState(state);
 
       if (
-        queryString !==
-        (document.location.search ?? "")
-          .replace("&onlyIds=1", "")
-          .replace("&empty=1", "")
+        newQueryString !==
+        (document.location.search ?? "").replace("&empty=1", "")
       ) {
         router.push(
           {
             pathname: router.pathname,
-            search: queryString !== "" ? queryString : "?empty=1",
+            search: newQueryString !== "" ? newQueryString : "?empty=1",
           },
           undefined,
           {

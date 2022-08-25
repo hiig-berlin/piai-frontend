@@ -5,9 +5,10 @@ export const MapFilter = () => {
   return (
     <SidebarDrawer
       columnWidth={0.333}
-      initiallyOpen={true}
+      initiallyOpenOnLargerScreens={true}
       statusFlagKey="isFilterOpen"
       title="Filter Projects"
+      addCounterPadding={true}
     >
       <FilterContent view="map" />
     </SidebarDrawer>

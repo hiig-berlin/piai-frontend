@@ -2,7 +2,7 @@
 +++++ Discuss +++++++++++++++++++++++++++++++
 +++++++++++++++++++++++++++++++++++++++++++++
 - Share Button Does not work on (MacOS Chrome and FF)
-- Use local google fonts!
+- Use local google fonts?
 
 - About Page jumps if scroll direction changes inbetween
 
@@ -23,8 +23,10 @@
 - filter to overlay list view on mobile ... 
 - mobile views sort overlays ... 
 
-
 = Filter Out Need Search Params ... 
+
+> Do not open filter on mobile, 
+> Sort order of overlays on mobile
 
 +++++++++++++++++++++++++++++++++++++++++++++
 +++++ TODO: Frontend ++++++++++++++++++++++++
@@ -35,8 +37,6 @@
 - Add poster.jpg as share fallback image to /public/img/... 
 
 - Style 404 and 500 pages ... 
-
-- custom fonts preload in header?
 
 - FAV ICONS! 
 
@@ -50,6 +50,8 @@
 – Checkboxes in Filter styling
 
 – Project list styling (meta data)
+
+- Clear all button on filter not too pretty
 
 ++++++++++++++++++++++++++++++++++++++++++++++++
 +++++++ TODO +++++++++++++++++++++++++++++++++++
