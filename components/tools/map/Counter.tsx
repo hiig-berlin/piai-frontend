@@ -17,9 +17,9 @@ const CounterContainer = styled.div<{ invert: boolean }>`
   border-radius: var(--size-3);
   border: 1px solid
     ${({ invert }) => (invert ? "var(--color-grey)" : "var(--color-piai-map)")};
-    // width: calc(100vw - (2 * var(--size-4)));
+  // width: calc(100vw - (2 * var(--size-4)));
 
-    pointer-events:all ;
+  pointer-events: all;
   position: fixed;
   z-index: 6;
   bottom: var(--size-3);
@@ -27,7 +27,7 @@ const CounterContainer = styled.div<{ invert: boolean }>`
   height: var(--size-6);
   left: 50%;
   transform: translateX(-50%);
-  
+
   // justify-items: center;
   display: flex;
   flex-direction: row;
@@ -58,6 +58,8 @@ const CounterContainer = styled.div<{ invert: boolean }>`
     top: var(--size-3);
     bottom: unset;
   }
+
+  ${({ theme }) => theme.applyMixin("noPrint")}
 `;
 
 const StyledLabel = styled.div`
@@ -69,8 +71,8 @@ const StyledLabel = styled.div`
   //   flex-direction: row;
   //   gap: var(--size-1);
   // }
-  
-  span{
+
+  span {
     white-space: nowrap;
   }
 `;
@@ -101,7 +103,7 @@ export const Counter = ({ view }: { view: string }) => {
 
   // TODO: Ich würde das Klickevent zumindest für mobile
   // auch auf die Zahlen setzen. Dan kann man einfach unten
-  // drauf klicken um auf die Filteransicht zu kommen. Bei mobile 
+  // drauf klicken um auf die Filteransicht zu kommen. Bei mobile
   // ist ja auch filter und suche das gleiche fenster….
   return (
     <CounterContainer
@@ -143,6 +145,10 @@ export const Counter = ({ view }: { view: string }) => {
             type="list"
             onClick={() => {
               if (typeof document === "undefined") return;
+
+              updateFilterState({
+                quickViewProjectId: null,
+              });
 
               router.push({
                 pathname: "/tool/map/directory",

@@ -58,7 +58,6 @@ export const UserTracking = () => {
 
   const trackView = useCallback(
     (url: any) => {
-      console.log(url);
       if ((window as any)?.ga || (window as any)?.gtag) {
         if ((window as any)?.ga) {
           (window as any)?.ga("send", "pageview", {

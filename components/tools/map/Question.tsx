@@ -20,7 +20,7 @@ const QuestionWrapper = styled.div<{ svg: string }>`
       background-position: right 0.2em;
       background-repeat: no-repeat;
       background-size: 0.8em;
-      background-image: url('data:image/svg+xml,${({ svg }) => svg}');
+      background-image: url("data:image/svg+xml,${({ svg }) => svg}");
     }
   }
 `;
@@ -47,15 +47,17 @@ export const Question = ({
         {question}
       </h3>
 
-      <Reveal
-        id={id}
-        role="region"
-        open={isExpanded || showAlways}
-        initiallyOpen={isExpanded || showAlways}
-      >
-        <SafeHtmlDiv html={children} />
-      </Reveal>
-
+      {showAlways && <SafeHtmlDiv html={children} />}
+      {!showAlways && (
+        <Reveal
+          id={id}
+          role="region"
+          open={isExpanded || showAlways}
+          initiallyOpen={isExpanded || showAlways}
+        >
+          <SafeHtmlDiv html={children} />
+        </Reveal>
+      )}
     </QuestionWrapper>
   );
 };

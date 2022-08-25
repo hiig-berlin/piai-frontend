@@ -14,7 +14,7 @@ import {
 const ContributeBox = styled(Box)<{ seen?: Boolean }>`
   ${({ seen }) => seen && "display: none;"}
   pointer-events: all;
-  max-width: 500px;
+  max-width: calc((100vw - var(--size-6) - 3 * var(--size-3)) * 0.333);;
 
   & * {
     color: var(--color-piai-map-highlight);

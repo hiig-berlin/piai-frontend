@@ -6,7 +6,7 @@ import type { FilterSettingTaxonomyOption } from "../state/ToolState";
 import { FieldCheckbox } from "./FieldCheckbox";
 
 const Container = styled.div`
-  margin-top: var(--size-3);
+  width: 100%;
 `;
 
 const Options = styled.div`

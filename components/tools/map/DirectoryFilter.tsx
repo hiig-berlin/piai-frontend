@@ -4,10 +4,10 @@ import { FilterContent } from "./FilterContent";
 export const DirectoryFilter = () => {
   return (
     <SidebarDrawer
-      columnWidth={0.33}
+      columnWidth={0.333}
       statusFlagKey="isFilterOpen"
       title="Filter Projects"
-      alwaysOpenOnTabletLandscape
+      initiallyOpen={true}
       hasTopOffset={false}
     >
       <FilterContent view="directory" />

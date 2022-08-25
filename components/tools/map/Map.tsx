@@ -18,7 +18,7 @@ import {
   defaultQueryString,
 } from "./state/ToolState";
 
-const MapUi = styled.div`
+const MapUi = styled.div<{ isMapView: boolean }>`
   background-color: #000c;
   border-radius: 8px;
   padding: var(--size-3);
@@ -35,9 +35,11 @@ const MapUi = styled.div`
     gap: var(--size-2);
     padding: var(--size-2);
   }
+
+  ${({ isMapView, theme }) => (!isMapView ? theme.applyMixin("noPrint") : "")}
 `;
 
-const MapContainer = styled.div`
+const MapContainer = styled.div<{ isMapView: boolean }>`
   display: block;
   position: fixed;
   top: 0;
@@ -51,9 +53,10 @@ const MapContainer = styled.div`
   justify-content: center;
   align-items: center;
   background-color: #000;
+  ${({ isMapView, theme }) => (!isMapView ? theme.applyMixin("noPrint") : "")}
 `;
 
-export const Map = ({ isVisible }: { isVisible?: boolean }) => {
+export const Map = ({ isMapView }: { isMapView?: boolean }) => {
   const isMounted = useIsMounted();
   const router = useRouter();
   const config = useConfigContext();
@@ -159,32 +162,32 @@ export const Map = ({ isVisible }: { isVisible?: boolean }) => {
       mapControllerRef.current.setGeoJson(mapState.geoJson);
   }, [mapState.loadGeoJson, mapState.geoJson]);
 
-  useEffect(() => {
-    if (isTabletLandscapeAndUp && !hasAutoFilterShown) {
-      if (uiRemoveTimoutRef.current) clearTimeout(uiRemoveTimoutRef.current);
+  // useEffect(() => {
+  //   if (isTabletLandscapeAndUp && !hasAutoFilterShown) {
+  //     if (uiRemoveTimoutRef.current) clearTimeout(uiRemoveTimoutRef.current);
 
-      uiRemoveTimoutRef.current = setTimeout(() => {
-        if (isMounted) {
-          updateFilterState({
-            isFilterOpen: true,
-            isSearchOpen: false,
-          });
-        }
-        setHasAutoFilterShown(true);
-      }, 2500);
-    }
-  }, [
-    hasAutoFilterShown,
-    isTabletLandscapeAndUp,
-    isMounted,
-    updateFilterState,
-  ]);
+  //     uiRemoveTimoutRef.current = setTimeout(() => {
+  //       if (isMounted) {
+  //         updateFilterState({
+  //           isFilterOpen: true,
+  //           isSearchOpen: false,
+  //         });
+  //       }
+  //       setHasAutoFilterShown(true);
+  //     }, 2500);
+  //   }
+  // }, [
+  //   hasAutoFilterShown,
+  //   isTabletLandscapeAndUp,
+  //   isMounted,
+  //   updateFilterState,
+  // ]);
 
   return (
     <>
       <MapGlobalCss />
       <LoadingBar isLoading={!isMapLoaded} />
-      <MapContainer>
+      <MapContainer isMapView={!!isMapView}>
         <div
           ref={mapContainerRef}
           style={{
@@ -196,7 +199,7 @@ export const Map = ({ isVisible }: { isVisible?: boolean }) => {
           className="map"
         ></div>
       </MapContainer>
-      <MapUi>
+      <MapUi isMapView={!!isMapView}>
         <Icon
           type="plus"
           onClick={() => {

@@ -25,14 +25,13 @@ const QuickView = styled.div<{ isFilterOpen: boolean; isDirectory: boolean }>`
   z-index: 5;
   height: auto;
   max-height: 75vh;
-  width: calc((100vw - var(--size-6) - 3 * var(--size-3)) * 0.4);
+  width: calc((100vw - var(--size-6) - 3 * var(--size-3)) * 0.333);
   border-radius: var(--size-3);
   overflow: hidden;
-  transition: transform 0.35s;
-
+  transition: transform 0.35s, width 0.35s;
   transform: ${({ isFilterOpen }) =>
     isFilterOpen
-      ? "translateX(calc((100vw - var(--size-6) - 3 * var(--size-3)) * 0.3))"
+      ? "translateX(calc((100vw - var(--size-6) - 3 * var(--size-3)) * 0.333))"
       : "translateX(0)"};
 
   ${({ isDirectory, theme, isFilterOpen }) =>
@@ -41,15 +40,19 @@ const QuickView = styled.div<{ isFilterOpen: boolean; isDirectory: boolean }>`
     max-height: 100%;
 
     ${theme.breakpoints.tabletLandscape} {
-      left: calc(2 * var(--size-3) + var(--size-6));
       bottom: 0;
       padding-bottom: var(--size-3);
       height: calc(100vh - var(--lbh) - var(--tool-map-ot));
-      width: calc((100vw - var(--size-6) - 3 * var(--size-3)) * 0.33);
       transform: ${
         isFilterOpen
-          ? "translateX(calc((100vw - var(--size-6) - 3 * var(--size-3)) * 0.66))"
-          : "translateX(calc((100vw - var(--size-6) - 3 * var(--size-3)) * 0.33))"
+          ? "translateX(calc(var(--size-3) + ((100vw - var(--size-6) - 3 * var(--size-3)) * 0.666)))"
+          : "translateX(calc(var(--size-3) + ((100vw - var(--size-6) - 3 * var(--size-3)) * 0.5)))"
+      };
+
+      width: ${
+        isFilterOpen
+          ? "calc((100vw - var(--size-6) - 3 * var(--size-3)) * 0.333)"
+          : "calc((100vw - var(--size-6) - 3 * var(--size-3)) * 0.5)"
       };
     }
   `
@@ -234,7 +237,7 @@ export const ProjectQuickView = ({
   if (isTabletLandscapeAndUp && hasContent)
     content = (
       <QuickView
-        isFilterOpen={filterState.isFilterOpen || filterState.isSearchOpen}
+        isFilterOpen={filterState.isFilterOpen || (view !== "directory" && filterState.isSearchOpen)}
         isDirectory={view === "directory"}
       >
         {content}

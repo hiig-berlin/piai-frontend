@@ -39,7 +39,7 @@ const Payload = styled.div<{
 
 export const Reveal = ({
   id,
-  role,
+  role = "region",
   children,
   open,
   duration = 300,
@@ -48,7 +48,7 @@ export const Reveal = ({
   position = "bottom",
 }: {
   id: string;
-  role: string;
+  role?: string;
   children: React.ReactNode;
   duration?: number;
   open: boolean;

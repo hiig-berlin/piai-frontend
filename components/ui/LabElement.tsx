@@ -31,6 +31,8 @@ const ElementContainer = styled(AspectRatio)<{
 
   display: flex;
   flex-direction: column;
+  
+  
 
   // & + &{
   //   margin-left: 0.3em;
@@ -44,6 +46,10 @@ const ElementContainer = styled(AspectRatio)<{
       border-color: ${({ hoverColor }) => hoverColor || "#666"};
       color: ${({ hoverColor }) => hoverColor || "#666"};
     }
+  }
+
+  @media print {
+    border-color: #000;
   }
 `;
 

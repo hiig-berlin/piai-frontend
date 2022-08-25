@@ -281,27 +281,30 @@ export const theme = {
         scrollbar-color: var(--color-light-grey) #000;
 
         &::-webkit-scrollbar {
-          width: 11px;
+          width: 15px;
           display: block;
         };
         
         &::-webkit-scrollbar-track {
-          border-left: 3px solid #000;
-          border-right: 3px solid #000;
+          border-left: 10px solid #000;
           background-color: #000;
           border-radius: 0;
           margin: ${vMargin ?? "0"} 0;
         };
         
         &::-webkit-scrollbar-thumb {
-          width: 11px;
-          
-          border-left: 3px solid #000;
-          border-right: 3px solid #000;
+          width: 15px;
+          border-left: 10px solid #000;
           background-color: var(--color-light-grey)
         }`;
     },
-
+    noPrint: () => {
+      return `
+        @media print {
+          display: none;
+        }
+      `;
+    },
     // ... or function callback so you can access the theme or do calculations
     // and even pass arguments to the function ${({ theme }) => theme.applyMixin("maxWidth", 1000)}
     // maxWidth: {

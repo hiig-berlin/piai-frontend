@@ -1,47 +1,36 @@
 +++++++++++++++++++++++++++++++++++++++++++++
-+++++ TODO: Discuss +++++++++++++++++++++++++
++++++ Discuss +++++++++++++++++++++++++++++++
 +++++++++++++++++++++++++++++++++++++++++++++
-
-- Share Button
-- Print 
-
+- Share Button Does not work on (MacOS Chrome and FF)
 - Use local google fonts!
 
-- map regions and countries not in filter ... switch between map and list resets region/country filter
+- About Page jumps if scroll direction changes inbetween
 
-- search column to filter 
+- About page in CMS 
 
-- Active state filter 
-
-- directory filter can be hidden (3 column to 2 column layout)
-
-- new toolbar for directory filter view 
-
-- search needs to be part of the query string (so back goes to filter)
-
-- no search in filter view ... 
-
-- contribute to be 1/3 column wide ...
-
-- filter to overlay list view on mobile ... 
-
-- print view ... 
-
-- about page in cms 
-
-- about page funny scolling 
++++++++++++++++++++++++++++++++++++++++++++++
++++++ TODO: +++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++++++++++++++
 
 - Confirm that Matomo tracks referral correctly
+
++++++++++++++++++++++++++++++++++++++++++++++
++++++ TODO TODAY! +++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++++++++++++++
+
+- Search needs to be part of the query string (so back goes to filter)
+
+- filter to overlay list view on mobile ... 
+- mobile views sort overlays ... 
+
+
+= Filter Out Need Search Params ... 
 
 +++++++++++++++++++++++++++++++++++++++++++++
 +++++ TODO: Frontend ++++++++++++++++++++++++
 +++++++++++++++++++++++++++++++++++++++++++++
 
 - Fix jumping map layout because of scrollbar.
-
-- User Tracking (Matomo)
-  - cookie popup... 
-    - cookies or local storage ... 
   
 - Add poster.jpg as share fallback image to /public/img/... 
 
@@ -49,43 +38,21 @@
 
 - custom fonts preload in header?
 
+- FAV ICONS! 
+
 - Configure further preview routes in /pages/api/preview ... 
 
 - Tools need skip to content link
 
-– Select (yellow background) gets black font in tool.
+– Contribute box close x icon bigger
+>>>>>>> refs/remotes/origin/dev-frontend
 
 – Checkboxes in Filter styling
 
 – Project list styling (meta data)
 
-
-TODO Larissa Frontend
-++++++++++++++++++++++++++++++++++++++++++++++++
-
-- survey embed page and links from CTA 
-
-– Contribute box close x icon bigger
-
-
-
-++++++++++++++++++++++++++++++++++++++++++++++++
-+++++++ TODO INTRO +++++++++++++++++++++++++++++
-++++++++++++++++++++++++++++++++++++++++++++++++
-- Video
-- Make Tiles background image CMS configurable? 
-- Finish Tiles Buttons
-- TextSection's Wizzards to be clickable? Wysiwyg?
-- About LinkButton not perfect
-
 ++++++++++++++++++++++++++++++++++++++++++++++++
 +++++++ TODO +++++++++++++++++++++++++++++++++++
 ++++++++++++++++++++++++++++++++++++++++++++++++
 - Ensure all pages und /pages/... add the needed and correct meta tags.
-
-++++++++++++++++++++++++++++++++++++++++++++++++
-+++++++ MAP ++++++++++++++++++++++++++++++++++++
-++++++++++++++++++++++++++++++++++++++++++++++++
-- cluster expansion, draw molecules only after zoom/pan has finished
-- 
 

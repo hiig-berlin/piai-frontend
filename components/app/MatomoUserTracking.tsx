@@ -14,8 +14,6 @@ export const MatomoUserTracking = () => {
 
   const prepareTrackView = useCallback(
     (path: any) => {
-      console.log(1, path);
-
       if (
         config.matomoTrackingUrl &&
         config.matomoTrackingId &&
@@ -37,8 +35,6 @@ export const MatomoUserTracking = () => {
 
   const trackView = useCallback(
     (path: any) => {
-      console.log(2, path);
-
       if (
         config.matomoTrackingUrl &&
         config.matomoTrackingId &&
@@ -75,7 +71,6 @@ export const MatomoUserTracking = () => {
     router.events.on("routeChangeStart", prepareTrackView);
     router.events.on("routeChangeComplete", trackView);
 
-    console.log(document.location);
     previousPathName = document.location.pathname;
 
     return () => {

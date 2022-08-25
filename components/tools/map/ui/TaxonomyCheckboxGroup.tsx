@@ -5,9 +5,7 @@ import safeHtml from "~/utils/sanitize";
 import type { FilterSettingTaxonomyOption } from "../state/ToolState";
 import { FieldCheckbox } from "./FieldCheckbox";
 
-const Container = styled.div`
-  margin-top: var(--size-3);
-`;
+const Container = styled.div``;
 
 const Options = styled.div``;
 

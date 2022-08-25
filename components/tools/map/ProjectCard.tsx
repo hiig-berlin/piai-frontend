@@ -115,7 +115,7 @@ export const ProjectCard = ({
         </Question>
       )}
       {data?.generationMachineLearning?.value?.length > 0 && (
-        <Question question="Generation of AI:" expanded>
+        <Question question="Generation of AI:" showAlways>
           {safeHtml(data?.generationMachineLearning?.value.join(", "))}
         </Question>
       )}

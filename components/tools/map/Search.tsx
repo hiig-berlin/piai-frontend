@@ -1,57 +1,19 @@
 import { useEffect, useRef, useCallback, useState } from "react";
 import { LoadingBar } from "~/components/styled/LoadingBar";
 import { SidebarDrawer } from "./ui/SidebarDrawer";
-import styled from "styled-components";
 
 import type { GeoJsonFeature } from "./map/types";
 import { SearchItem } from "./SearchItem";
 import { useCssVarsStateIsTabletLandscapeAndUpState } from "~/components/state/CssVarsState";
 import { LngLatLike } from "maplibre-gl";
-import InputText from "~/components/styled/InputText";
-import { ButtonNormalized } from "~/components/styled/Button";
-import { ToolSvgBackground } from "../shared/ToolSvgBackground";
+
 import useIsMounted from "~/hooks/useIsMounted";
 import {
   useToolStateFilterState,
   useToolStateMapState,
   useToolStateStoreActions,
 } from "./state/ToolState";
-
-const Form = styled.form`
-  position: relative;
-  margin-bottom: var(--size-2);
-  width: 100%;
-`;
-
-const Input = styled(InputText)<{ isError: boolean }>`
-  ${({ theme }) => theme.textStyle("h3", true)}
-  text-transform: none;
-  background-color: #000;
-  color: #fff;
-  width: 100%;
-  margin: 0;
-  border-bottom: 1px solid
-    ${({ isError }) => (isError ? "var(--color-ailab-red)" : "#fff")};
-  padding-bottom: 3px;
-
-  &::placeholder {
-    color: var(--color-medium-grey) !important;
-  }
-`;
-
-const Buttons = styled.div`
-  position: absolute;
-  top: 50%;
-  right: 0;
-  display: flex;
-  transform: translateY(-50%);
-  gap: var(--size-2);
-`;
-
-const Button = styled(ButtonNormalized)`
-  width: var(--size-3);
-  height: var(--size-3);
-`;
+import { SearchForm } from "./SearchForm";
 
 export const Search = ({ view }: { view: string }) => {
   const isMounted = useIsMounted();
@@ -64,8 +26,7 @@ export const Search = ({ view }: { view: string }) => {
   const { updateMapState, updateFilterState } = useToolStateStoreActions();
 
   const workerRef = useRef<Worker>();
-  const inputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
-
+  
   const currentShownKeywordRef = useRef<string>("");
 
   const [searchResult, setSearchResult] = useState<GeoJsonFeature[] | null>([]);
@@ -155,46 +116,27 @@ export const Search = ({ view }: { view: string }) => {
     <>
       <LoadingBar isLoading={!mapState.geoJson || isSearching} />
       <SidebarDrawer
+        columnWidth={0.333}
         statusFlagKey="isSearchOpen"
         title="Project search"
         dimmContent={isSearching}
         header={
-          <Form
-            action="/"
-            onSubmit={(e) => {
-              e.preventDefault();
-              setKeyword(inputRef.current.value);
+          <SearchForm
+            isError={isError}
+            keyword={keyword}
+            onSubmit={(value: string) => {
+              setKeyword(value);
 
-              if (inputRef.current.value?.length < 3) setIsError(true);
+              if (value?.length < 3) setIsError(true);
             }}
-          >
-            <Input
-              isError={isError}
-              placeholder="Keyword"
-              ref={inputRef}
-              onChange={(e) => {
-                setKeyword(e.target.value);
-                setIsError(false);
-              }}
-            />
-            <Buttons>
-              {keyword !== "" && (
-                <Button
-                  type="reset"
-                  aria-label="reset search"
-                  onClick={() => {
-                    inputRef.current.value = "";
-                    setKeyword("");
-                  }}
-                >
-                  <ToolSvgBackground type="close" />
-                </Button>
-              )}
-              <Button aria-label="search" type="submit">
-                <ToolSvgBackground type="search" />
-              </Button>
-            </Buttons>
-          </Form>
+            onChange={(value: string) => {
+              setKeyword(value);
+              setIsError(false);
+            }}
+            onResetClick={() => {
+              setKeyword("");
+            }}
+          />
         }
       >
         {hasNoResults && <p>No projects found</p>}

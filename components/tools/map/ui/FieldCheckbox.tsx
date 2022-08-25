@@ -4,6 +4,11 @@ import safeHtml from "~/utils/sanitize";
 import { Checkbox } from "~/components/styled/Checkbox";
 
 const Container = styled.div<{ noMargin?: boolean; indent: number }>`
+  width: 100%;
+  font-family: var(--font-family-sans-serif);
+  font-size: var(--text-small-font-size);
+  line-height: var(--text-small-line-height);
+
   margin-bottom: ${({ noMargin }) => (noMargin ? "0" : "0.6em")};
   ${({ indent }) =>
     indent > 0
@@ -14,13 +19,10 @@ const Container = styled.div<{ noMargin?: boolean; indent: number }>`
 `;
 
 const Label = styled.label`
-  display: inline-block;
-  display: flex;
+  display: inline-flex;
   align-items: flex-start;
-  font-family: var(--font-family-sans-serif);
-  font-size: var(--text-small-font-size);
-  line-height: var(--text-small-line-height);
-
+  max-width: 100%;
+  
   white-space: nowrap;
   cursor: pointer;
 `;
@@ -33,6 +35,8 @@ const Input = styled(Checkbox)`
 const StyledLabel = styled.span`
   display: inline-block;
   padding-left: 0.5em;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const FieldCheckbox = ({

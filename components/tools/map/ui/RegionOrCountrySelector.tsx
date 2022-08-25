@@ -3,18 +3,18 @@ import styled from "styled-components";
 import safeHtml from "~/utils/sanitize";
 import { Reveal } from "~/components/ui/Reveal";
 import { Icon } from "../../shared/ui/Icon";
+
 import {
   FilterSettingTaxonomyOption,
   FilterSettingTaxonomyOptionRegion,
   FilterSettingTaxonomyOptionRegionChild,
 } from "../state/ToolState";
+
 import { ActiveFilterOption } from "./ActiveFilterOption";
 import { FieldCheckbox } from "./FieldCheckbox";
 import { ClearAll } from "./ClearAll";
 
-const Container = styled.div`
-  margin-top: var(--size-3);
-`;
+const Container = styled.div``;
 
 const OptionsContainer = styled.div`
   padding-top: var(--size-3);
@@ -27,7 +27,6 @@ const H4 = styled.h4`
 
 const Active = styled.div`
   display: flex;
-  flex-wrap: wrap;
   width: 100%;
   gap: var(--size-3);
 `;
@@ -154,47 +153,41 @@ export const RegionOrCountrySelector = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  if (activeTerms)
-    console.log(
-      Object.keys(activeTerms).map((k: any) => `${k} - ${activeTerms[k]}`)
-    );
-
   return (
-    <>
-      <Container>
-        <H4>{safeHtml(label)}</H4>
-        <Active>
-          <Selected>
-            {Object.keys(activeTerms ?? {}).length > 0 &&
-              Object.keys(activeTerms ?? {}).map((termId: any) => (
-                <ActiveFilterOption
-                  key={`term-${termId}`}
-                  onRemove={() => {
-                    updateState(termId, "", false);
-                  }}
-                  label={((activeTerms ?? {}) as any)?.[termId] ?? "unknown"}
-                />
-              ))}
+    <Container>
+      <H4>{safeHtml(label)}</H4>
+      <Active>
+        <Selected>
+          {Object.keys(activeTerms ?? {}).length > 0 &&
+            Object.keys(activeTerms ?? {}).map((termId: any) => (
+              <ActiveFilterOption
+                key={`term-${termId}`}
+                onRemove={() => {
+                  updateState(termId, "", false);
+                }}
+                label={((activeTerms ?? {}) as any)?.[termId] ?? "unknown"}
+              />
+            ))}
 
-            {Object.keys(activeTerms ?? {}).length === 0 && (
-              <span>{labelAllShown}</span>
+          {Object.keys(activeTerms ?? {}).length === 0 && (
+            <span>{labelAllShown}</span>
+          )}
+
+          {typeof clearAllOnClick === "function" &&
+            Object.keys(activeTerms ?? {}).length > 0 && (
+              <ClearAll onClick={clearAllOnClick} />
             )}
+        </Selected>
+        <Add>
+          <Icon
+            type={isOpen ? "minus" : "plus"}
+            onClick={() => {
+              setIsOpen(!isOpen);
+            }}
+          />
+        </Add>
+      </Active>
 
-            {typeof clearAllOnClick === "function" &&
-              Object.keys(activeTerms ?? {}).length > 0 && (
-                <ClearAll onClick={clearAllOnClick} />
-              )}
-          </Selected>
-          <Add>
-            <Icon
-              type={isOpen ? "minus" : "plus"}
-              onClick={() => {
-                setIsOpen(!isOpen);
-              }}
-            />
-          </Add>
-        </Active>
-      </Container>
       <Reveal
         open={isOpen}
         id={`${label}-options`}
@@ -205,6 +198,6 @@ export const RegionOrCountrySelector = ({
           {renderOptions(label, activeTerms, options, updateState, 0, [])}
         </OptionsContainer>
       </Reveal>
-    </>
+    </Container>
   );
 };

@@ -43,4 +43,10 @@ export const Scroller = styled.div<{ opacity?: number }>`
   transition: opacity 0.3s;
   opacity: ${({ opacity }) => opacity ?? 1};
   ${({ theme }) => theme.applyMixin("styledScrollbar")}
+
+  @media print {
+    height: auto;
+    overflow: visible;
+    opacity: 1;
+  }
 `;

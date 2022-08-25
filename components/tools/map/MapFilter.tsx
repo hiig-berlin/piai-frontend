@@ -3,7 +3,12 @@ import { FilterContent } from "./FilterContent";
 
 export const MapFilter = () => {
   return (
-    <SidebarDrawer statusFlagKey="isFilterOpen" title="Filter Projects">
+    <SidebarDrawer
+      columnWidth={0.333}
+      initiallyOpen={true}
+      statusFlagKey="isFilterOpen"
+      title="Filter Projects"
+    >
       <FilterContent view="map" />
     </SidebarDrawer>
   );

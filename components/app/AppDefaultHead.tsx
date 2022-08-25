@@ -11,7 +11,7 @@ export const AppDefaultHead = () => {
         name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=5.0"
       />
-      <title>TODO: Set Title </title>
+      <title>Public Interest AI</title>
 
       <link rel="shortcut icon" href={`${config.baseUrl}/TODO:_SET_FAVICON.png`} />
       <meta name="#000" />
@@ -28,7 +28,7 @@ export const AppDefaultHead = () => {
         href={`${config.baseUrl}/TODO:_SET_FAVICON.png`}
         sizes="32x32"
       />
-      <link
+      {/* <link
         rel="preload"
         href="/fonts/TODO:/CUSTOM-FONT-Regular.woff2"
         as="font"
@@ -41,7 +41,7 @@ export const AppDefaultHead = () => {
         as="font"
         type="font/woff2"
         crossOrigin="anonymous"
-      />
+      /> */}
     </Head>
   );
 };

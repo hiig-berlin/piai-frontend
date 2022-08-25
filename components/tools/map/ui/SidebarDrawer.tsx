@@ -4,17 +4,13 @@ import styled from "styled-components";
 import DisplayAbove from "~/components/styled/DisplayAbove";
 import DisplayBelow from "~/components/styled/DisplayBelow";
 import { Icon } from "~/components/tools/shared/ui/Icon";
-import { useModal } from "~/hooks/useModal";
-import {
-  useCssVarsStateIsTabletLandscapeAndUpState,
-  useCssVarsStateIsInitializingState,
-} from "~/components/state/CssVarsState";
+import { useCssVarsStateIsInitializingState } from "~/components/state/CssVarsState";
 import {
   useToolStateFilterState,
-  useToolStateStore,
   useToolStateStoreActions,
 } from "../state/ToolState";
 import { Scroller } from "../Styled";
+import { useModal } from "~/hooks/useModal";
 
 const SidebarContainer = styled.div<{
   isInitializing: boolean;
@@ -59,15 +55,22 @@ const SidebarContainer = styled.div<{
         )
     );
 
+    width: calc(
+      var(--size-6) + (100vw - var(--size-6) - 3 * var(--size-3)) *
+        (1 * ${({ columnWidth }) => columnWidth})
+    );
+
     opacity: 1;
 
-    transition: transform 0.3s;
+    transition: transform 0.25s;
 
-    transform: ${({ isOpening, isOpen, isClosing, isAlwaysOpen }) =>
-      ((isOpening || isOpen) && !isClosing) || isAlwaysOpen
-        ? "translateX(0)"
-        : "translateX(calc(-100% - var(--size-6)))"};
+    transform: ${({ isOpen, isClosing }) =>
+      isClosing || !isOpen
+        ? "translateX(calc(-100% - var(--size-6)))"
+        : "translateX(0)"};
   }
+
+  ${({ theme }) => theme.applyMixin("noPrint")}
 `;
 
 const Panel = styled.div<{
@@ -112,16 +115,16 @@ const Header = styled.div`
   align-items: center;
   padding-right: var(--size-6);
 
-  h3 {
-    margin: 0;
-  }
-
   ${({ theme }) => theme.breakpoints.tablet} {
     flex-direction: column;
     align-items: flex-start;
     gap: var(--size-2);
     padding-right: 0;
   }
+`;
+
+const H3 = styled.h3<{ hasHeader: boolean }>`
+  margin: ${({ hasHeader }) => (hasHeader ? "0" : "0 0 var(--size-2) 0")};
 `;
 
 const Footer = styled.div``;
@@ -131,35 +134,38 @@ const CloseButtonContainer = styled.div`
   justify-content: flex-end;
 `;
 
+const openingAnimationLength = 350;
+const closeAnimationLength = 350;
+
 export const SidebarDrawer = ({
   title,
   statusFlagKey,
   children,
   header,
+  initiallyOpen,
   dimmContent,
-  alwaysOpenOnTabletLandscape,
-  columnWidth = 0.3,
+  columnWidth = 0.333,
   hasTopOffset = true,
 }: {
   title: string;
   columnWidth?: number;
   statusFlagKey: string;
   children: React.ReactNode;
-  alwaysOpenOnTabletLandscape?: boolean;
+
   dimmContent?: boolean;
+  initiallyOpen?: boolean;
   header?: React.ReactNode;
   hasTopOffset?: boolean;
 }) => {
   const isInitializing = useCssVarsStateIsInitializingState();
-  const isTabletLandscapeAndUp = useCssVarsStateIsTabletLandscapeAndUpState();
 
   const filterState = useToolStateFilterState();
   const { getFilterState, setFilterState } = useToolStateStoreActions();
 
   const { isOpen, isOpening, isClosing, open, close } = useModal({
-    defaultIsOpen: false,
-    openingAnimationLength: 350,
-    closeAnimationLength: 350,
+    defaultIsOpen: !!initiallyOpen,
+    openingAnimationLength,
+    closeAnimationLength,
   });
 
   const isSidebarOpen = (filterState as any)?.[statusFlagKey] ?? false;
@@ -187,18 +193,10 @@ export const SidebarDrawer = ({
         columnWidth,
         hasTopOffset,
         isInitializing,
-        isAlwaysOpen:
-          alwaysOpenOnTabletLandscape &&
-          (isInitializing || isTabletLandscapeAndUp)
-            ? true
-            : false,
-        isOpen:
-          alwaysOpenOnTabletLandscape &&
-          (isInitializing || isTabletLandscapeAndUp)
-            ? true
-            : isOpen,
-        isOpening,
-        isClosing,
+        isAlwaysOpen: initiallyOpen && isInitializing ? true : false,
+        isOpen: initiallyOpen && isInitializing ? true : isOpen || isOpening,
+        isOpening: isOpening,
+        isClosing: isClosing,
       }}
     >
       <Panel isLoading={false} isRefetching={false}>
@@ -212,26 +210,24 @@ export const SidebarDrawer = ({
               <span>Close</span>
             </Icon>
           </DisplayBelow>
-          <h3>{title}</h3>
+          <H3 hasHeader={false}>{title}</H3>
           {header}
         </Header>
 
         <Scroller opacity={dimmContent ? 0.1 : 1}>{children}</Scroller>
 
         <Footer>
-          {!alwaysOpenOnTabletLandscape && (
-            <DisplayAbove breakpoint="tabletLandscape">
-              <CloseButtonContainer>
-                <Icon
-                  onClick={closeSidebar}
-                  type="back"
-                  className="textLink back inBox"
-                >
-                  <span>Close</span>
-                </Icon>
-              </CloseButtonContainer>
-            </DisplayAbove>
-          )}
+          <DisplayAbove breakpoint="tabletLandscape">
+            <CloseButtonContainer>
+              <Icon
+                onClick={closeSidebar}
+                type="back"
+                className="textLink back inBox"
+              >
+                <span>Close</span>
+              </Icon>
+            </CloseButtonContainer>
+          </DisplayAbove>
         </Footer>
       </Panel>
     </SidebarContainer>
