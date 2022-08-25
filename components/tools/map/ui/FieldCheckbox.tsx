@@ -5,6 +5,10 @@ import { Checkbox } from "~/components/styled/Checkbox";
 
 const Container = styled.div<{ noMargin?: boolean; indent: number }>`
   width: 100%;
+  font-family: var(--font-family-sans-serif);
+  font-size: var(--text-small-font-size);
+  line-height: var(--text-small-line-height);
+
   margin-bottom: ${({ noMargin }) => (noMargin ? "0" : "0.6em")};
   ${({ indent }) =>
     indent > 0
@@ -15,14 +19,10 @@ const Container = styled.div<{ noMargin?: boolean; indent: number }>`
 `;
 
 const Label = styled.label`
-  display: inline-block;
-  display: flex;
+  display: inline-flex;
   align-items: flex-start;
-  width: 100%;
-  font-family: var(--font-family-sans-serif);
-  font-size: var(--text-small-font-size);
-  line-height: var(--text-small-line-height);
-
+  max-width: 100%;
+  
   white-space: nowrap;
   cursor: pointer;
 `;
