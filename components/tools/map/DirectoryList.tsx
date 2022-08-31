@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { SearchItem } from "./SearchItem";
 import type { GeoJsonFeature } from "./map/types";
-import { Scroller } from "./Styled";
+import { Label, Scroller } from "./Styled";
 import useIsMounted from "~/hooks/useIsMounted";
 import { createCompareQueryFromState } from "./map/utils";
 import {
@@ -107,7 +107,8 @@ const Panel = styled.div<{
   }
 
   ${({ theme }) => theme.breakpoints.tabletLandscape} {
-    height: 50vh;
+    // height: 50vh;
+    flex: 100%;
     // gap: var(--size-3);
   }
 `;
@@ -120,7 +121,10 @@ const Toolbar = styled.div`
 
 const ScrollerContainer = styled.div`
   width: 100%;
-  height: 50vw;
+  // Overflow on firefox in directory view
+  // height: 50vw;
+  flex: 100%;
+  overflow: hidden;
 `;
 
 export const DirectoryList = () => {
@@ -304,20 +308,22 @@ export const DirectoryList = () => {
 
   return (
     <Container isFilterOpen={filterState.isFilterOpen}>
-      <Box hideOnPrint>
-        <Toolbar>
-          <div>
-            {count}/{filterState.totalCount}
-          </div>
-          <IconButtonPrint />
-        </Toolbar>
-      </Box>
+      {!filterState.isSearchOpen && (
+        <Box hideOnPrint>
+          <Toolbar>
+            <div>
+              FILTERED {count}/{filterState.totalCount}
+            </div>
+            <IconButtonPrint />
+          </Toolbar>
+        </Box>
+      )}
       <Panel
         isRefetching={isFiltering || filterState.isFetchingFilteredIds}
         isFullHeight={false}
       >
         <Header>
-          <h3>Projects</h3>
+          <Label>Project directory</Label>
           <Reveal
             id={searchFieldId}
             role="region"

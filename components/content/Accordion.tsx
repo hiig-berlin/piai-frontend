@@ -114,6 +114,7 @@ const ToggleBox = styled(ButtonNormalized)`
   & p {
     padding-top: 10px;
     font-size: calc(var(--text-body-font-size));
+    font-family: var(--text-body-font-family);
 
     color: var(--color-text-muted);
 

@@ -42,7 +42,7 @@ const QuickView = styled.div<{ isFilterOpen: boolean; isDirectory: boolean }>`
     ${theme.breakpoints.tabletLandscape} {
       bottom: 0;
       padding-bottom: var(--size-3);
-      height: calc(100vh - var(--lbh) - var(--tool-map-ot));
+      // height: calc(100vh - var(--lbh) - var(--tool-map-ot));
       transform: ${
         isFilterOpen
           ? "translateX(calc(var(--size-3) + ((100vw - var(--size-6) - 3 * var(--size-3)) * 0.666)))"
@@ -161,7 +161,7 @@ const QVScroller = styled(Scroller)`
   overflow-y: auto;
 
   & > * {
-    margin-bottom: var(--size-3);
+    margin-bottom: var(--size-3) !important;
   }
 `;
 

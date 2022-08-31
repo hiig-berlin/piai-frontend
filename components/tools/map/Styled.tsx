@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "styled-components";
+import { isNullOrUndefined } from "util";
+import DisplayAbove from "~/components/styled/DisplayAbove";
 
-export const Meta = styled.ul<{ col: number }>`
+export const Meta = styled.ul<{ col: number, inline?: boolean }>`
   // ul, li reset
   padding: 0;
   margin: 0;
@@ -10,13 +12,20 @@ export const Meta = styled.ul<{ col: number }>`
     padding: 0;
   }
 
+  ${({ inline }) => inline ? `
+  display: flex;
+  gap: var(--size-3);
+  ` : `
   display: grid;
   gap: var(--size-1);
+  `}
+
+  
   grid-template-columns: repeat(${({ col }) => (col > 1 ? 2 : 1)}, 1fr);
 
   ${({ theme }) => theme.breakpoints.mobileLandscape} {
     grid-template-columns: repeat(${({ col }) => col}, 1fr);
-  }
+  }  
 
   font-size: 14px;
   font-family: var(--font-family-narrow);
@@ -32,8 +41,8 @@ export const Meta = styled.ul<{ col: number }>`
 
 export const Label = styled.h3`
   ${({ theme }) => theme.applyMixin("uppercase")};
-  font-weight: 400;
-  font-size: calc(var(--text-body-font-size-tool) * 0.8);
+  font-weight: 700;
+  font-size: calc(var(--text-body-font-size-tool) * 0.9);
 `;
 
 export const Scroller = styled.div<{ opacity?: number }>`

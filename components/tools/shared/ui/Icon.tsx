@@ -198,7 +198,7 @@ export const Icon = ({
         active={active}
       >
         <ToolSvgBackground type={type} />
-        {children && children}
+        {children && <span>{children}</span>}
       </IconButton>
     );
   }

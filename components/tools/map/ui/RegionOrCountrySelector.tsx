@@ -23,6 +23,8 @@ const OptionsContainer = styled.div`
 const H4 = styled.h4`
   margin-top: 0;
   margin-bottom: 0.5em;
+  display: flex;
+  justify-content: space-between;
 `;
 
 const Active = styled.div`
@@ -36,10 +38,20 @@ const Selected = styled.div`
   flex-wrap: wrap;
   gap: var(--size-1);
   flex-grow: 1;
+
+  & .labelAll{
+    color: var(--color-light-grey);
+    font-family: var(--font-family-monospace);
+    font-size: var(--text-small-font-size);
+  }
 `;
 
 const Add = styled.div`
   flex-grow: 0;
+
+  & .svg{
+    min-height: var(--size-2);
+  }
 `;
 
 const OptionsClose = styled.div`
@@ -155,7 +167,19 @@ export const RegionOrCountrySelector = ({
 
   return (
     <Container>
-      <H4>{safeHtml(label)}</H4>
+      <H4>
+        {safeHtml(label)}
+        <Add>
+          <Icon
+            className="textLink"
+            type={isOpen ? "minus" : "plus"}
+            onClick={() => {
+              setIsOpen(!isOpen);
+            }}
+          >{isOpen ? "Collapse" : "Select"}</Icon>
+        </Add>
+      </H4>
+
       <Active>
         <Selected>
           {Object.keys(activeTerms ?? {}).length > 0 &&
@@ -170,22 +194,22 @@ export const RegionOrCountrySelector = ({
             ))}
 
           {Object.keys(activeTerms ?? {}).length === 0 && (
-            <span>{labelAllShown}</span>
+            <span
+              className="labelAll"
+              onClick={() => {
+                setIsOpen(!isOpen);
+              }}
+            >
+              {labelAllShown}
+            </span>
           )}
-
           {typeof clearAllOnClick === "function" &&
-            Object.keys(activeTerms ?? {}).length > 0 && (
-              <ClearAll onClick={clearAllOnClick} />
-            )}
+          Object.keys(activeTerms ?? {}).length > 0 && (
+            <ClearAll onClick={clearAllOnClick} />
+          )}{" "}
         </Selected>
-        <Add>
-          <Icon
-            type={isOpen ? "minus" : "plus"}
-            onClick={() => {
-              setIsOpen(!isOpen);
-            }}
-          />
-        </Add>
+        
+        
       </Active>
 
       <Reveal

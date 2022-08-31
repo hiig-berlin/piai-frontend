@@ -25,11 +25,13 @@ const Content = styled.div`
   }
 
   ${({ theme }) => theme.breakpoints.tablet} {
-    padding: var(--size-6) var(--size-3) var(--size-3) var(--size-3);
-    align-items: flex-end;
+    padding: var(--size-6) var(--size-3) var(--size-3) 60vw;
+    align-items: center;
     justify-content: center;
     font-size: var(--text-h1-font-size);
-    color: #f0f;
+    color: var(--color-medium-grey);
+    font-family: var(--font-family-monospace);
+    line-height: 1.3em;
   }
 
   ${({ theme }) => theme.applyMixin("noPrint")}
@@ -57,7 +59,7 @@ const Directory = ({ tool }: { tool: PiAiTool }) => {
       {/* Dont' wrap this in further divs, 
       <main> is set via Layout component "*/}
 
-      <Content>This is some teaser text explaining the directory</Content>
+      <Content>Select a project from <br/>the list on the left <br/>to explore the details.</Content>
     </>
   );
 };

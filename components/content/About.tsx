@@ -53,7 +53,7 @@ const AboutContainer = styled(PageMargins)`
     }
   }
 
-  button {
+  .button {
     margin-left: 0;
 
     &:hover {
@@ -252,6 +252,7 @@ export const About = ({ data }: { data: any }) => {
                   href={data?.acf?.footerAbout.linkUrl}
                   target="_blank"
                   rel="norefferer"
+                  className="button"
                 >
                   {data?.acf?.footerAbout.linkLabel}
                 </LinkButton>

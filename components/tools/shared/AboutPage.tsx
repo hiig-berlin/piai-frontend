@@ -164,7 +164,7 @@ export const AboutPage = ({
     if (typeof window === "undefined" || !isTabletLandscapeAndUp) return;
 
     const onScroll = () => {
-      if (Math.abs(scrollYRef.current - window.scrollY) > 5) {
+      if (Math.abs(scrollYRef.current - window.scrollY) > 1) {
         if (scrollYRef.current - window.scrollY < 0) {
           setScrollDir("down");
         } else {

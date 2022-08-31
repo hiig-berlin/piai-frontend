@@ -16,6 +16,8 @@
 
 - Confirm that Matomo tracks referral correctly
 
+– FilterCount Total shows 0
+
 +++++++++++++++++++++++++++++++++++++++++++++
 +++++ TODO: Frontend ++++++++++++++++++++++++
 +++++++++++++++++++++++++++++++++++++++++++++
@@ -32,7 +34,6 @@
 
 - Tools need skip to content link
 
-– Contribute box close x icon bigger
 >>>>>>> refs/remotes/origin/dev-frontend
 
 – Checkboxes in Filter styling

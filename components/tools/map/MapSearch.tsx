@@ -20,8 +20,10 @@ const Form = styled.form`
 `;
 
 const Input = styled(InputText)<{ isError: boolean }>`
-  ${({ theme }) => theme.textStyle("h3", true)}
-  text-transform: none;
+  // ${({ theme }) => theme.textStyle("h3", true)}
+  // text-transform: none;
+
+  font-family: var(--font-family-monospace);
   background-color: #000;
   color: #fff;
   width: 100%;
@@ -157,9 +159,12 @@ export const MapSearch = () => {
               if (inputRef.current.value?.length < 3) setIsError(true);
             }}
           >
+            <Button aria-label="search" type="submit">
+                <ToolSvgBackground type="search" />
+              </Button>
             <Input
               isError={isError}
-              placeholder="Keyword"
+              placeholder="Search project titles"
               ref={inputRef}
               onChange={(e) => {
                 setKeyword(e.target.value);
@@ -179,9 +184,7 @@ export const MapSearch = () => {
                   <ToolSvgBackground type="close" />
                 </Button>
               )}
-              <Button aria-label="search" type="submit">
-                <ToolSvgBackground type="search" />
-              </Button>
+              
             </Buttons>
           </Form>
         }

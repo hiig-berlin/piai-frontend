@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import React, { useCallback } from "react";
 import styled from "styled-components";
 
-import { createCompareQueryFromState } from "./map/utils";
+import { createCompareπQueryFromState } from "./map/utils";
 import { TaxonomyCheckboxGroup } from "./ui/TaxonomyCheckboxGroup";
 import { ActiveFilterOption } from "./ui/ActiveFilterOption";
 import {
@@ -23,13 +23,19 @@ const Container = styled.div`
   display: flex;
   gap: var(--size-3);
   flex-direction: column;
+
+  hr{
+    border-top: 1px solid #ccc;
+    margin: var(--size-1) 0;
+    clear: both;
+  }
 `;
 
 const ActiveFilters = styled.div<{ withRegions: boolean }>`
   width: 100%;
-  border-top: ${({ withRegions }) => (withRegions ? "1px solid #fff" : "none")};
-  padding-top: var(--size-1);
-  margin-top: ${({ withRegions }) => (withRegions ? "var(--size-3)" : "0")};
+  // border-top: ${({ withRegions }) => (withRegions ? "1px solid #fff" : "none")};
+  // padding-top: var(--size-1);
+  // margin-top: ${({ withRegions }) => (withRegions ? "var(--size-3)" : "0")};
   display: flex;
   flex-wrap: wrap;
   gap: var(--size-1);
@@ -169,7 +175,7 @@ export const FilterContent = ({ view }: { view: string }) => {
       {view !== "map" && (
         <RegionOrCountrySelector
           label="Regions"
-          labelAllShown="All regions (narrow down using the + to the right)"
+          labelAllShown="All regions"
           activeTerms={filterState?.regions ?? {}}
           options={settingsState?.regions ?? []}
           clearAllOnClick={() => {
@@ -188,24 +194,27 @@ export const FilterContent = ({ view }: { view: string }) => {
       )}
 
       {view !== "map" && (
-        <RegionOrCountrySelector
-          label="Countries"
-          labelAllShown="All countries (narrow down using the + to the right)"
-          activeTerms={filterState?.countries ?? {}}
-          options={settingsState?.countries ?? []}
-          clearAllOnClick={() => {
-            updateFilterState({
-              countries: {},
-            });
-          }}
-          updateState={(
-            id: number | string | number[] | string[],
-            label: string | string[],
-            checked: boolean | boolean[]
-          ) => {
-            updateFormStateRecord("countries", id, label, checked);
-          }}
-        />
+        <>
+          <RegionOrCountrySelector
+            label="Countries"
+            labelAllShown="All countries"
+            activeTerms={filterState?.countries ?? {}}
+            options={settingsState?.countries ?? []}
+            clearAllOnClick={() => {
+              updateFilterState({
+                countries: {},
+              });
+            }}
+            updateState={(
+              id: number | string | number[] | string[],
+              label: string | string[],
+              checked: boolean | boolean[]
+            ) => {
+              updateFormStateRecord("countries", id, label, checked);
+            }}
+          />
+          <hr />
+        </>
       )}
 
       {activeFilters?.length > 0 && (

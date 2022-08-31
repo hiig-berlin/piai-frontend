@@ -6,40 +6,50 @@ import { ToolSvgBackground } from "../shared/ToolSvgBackground";
 
 const Form = styled.form`
   position: relative;
-  margin-bottom: var(--size-2);
+  margin-bottom: var(--size-3);
   width: 100%;
 
   ${({ theme }) => theme.applyMixin("noPrint")}
 `;
 
 const Input = styled(InputText)<{ isError: boolean }>`
-  ${({ theme }) => theme.textStyle("h3", true)}
+  // ${({ theme }) => theme.textStyle("h3", true)}
+  font-family: var(--font-family-monospace);
   text-transform: none;
-  background-color: #000;
+  background-color: transparent;
   color: #fff;
   width: 100%;
   margin: 0;
   border-bottom: 1px solid
     ${({ isError }) => (isError ? "var(--color-ailab-red)" : "#fff")};
-  padding-bottom: 3px;
+  padding-bottom: 5px;
+  padding-left: calc(var(--size-1) + var(--size-3));
 
   &::placeholder {
-    color: var(--color-medium-grey) !important;
+    color: var(--color-light-grey) !important;
+    font-family: var(--font-family-monospace);
   }
-`;
-
-const Buttons = styled.div`
-  position: absolute;
-  top: 50%;
-  right: 0;
-  display: flex;
-  transform: translateY(-50%);
-  gap: var(--size-2);
 `;
 
 const Button = styled(ButtonNormalized)`
   width: var(--size-3);
   height: var(--size-3);
+
+  position: absolute;
+  display: inline-block;
+  top: 50%;
+  transform: translateY(-50%);
+
+  &.searchIcon{
+    left: 0;
+    .svg{
+      max-height: 80%;
+    }
+  }
+
+  &.resetSearch{
+    right: 0;
+  }
 `;
 
 export const SearchForm = ({
@@ -65,19 +75,22 @@ export const SearchForm = ({
         onSubmit(inputRef.current.value);
       }}
     >
+      <Button aria-label="search" type="submit" className="searchIcon">
+          <ToolSvgBackground type="search" />
+        </Button>
       <Input
         isError={isError}
-        placeholder="Keyword"
+        placeholder="Search project titles"
         ref={inputRef}
         onChange={(e) => {
           onChange(e.target.value);
         }}
       />
-      <Buttons>
-        {keyword !== "" && (
+      {keyword !== "" && (
           <Button
             type="reset"
             aria-label="reset search"
+            className="resetSearch"
             onClick={() => {
               inputRef.current.value = "";
               onResetClick();
@@ -86,10 +99,6 @@ export const SearchForm = ({
             <ToolSvgBackground type="close" />
           </Button>
         )}
-        <Button aria-label="search" type="submit">
-          <ToolSvgBackground type="search" />
-        </Button>
-      </Buttons>
     </Form>
   );
 };

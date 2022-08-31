@@ -13,7 +13,7 @@ export const ProjectCard = ({
   view: string;
   data: any;
 }) => {
-  let sourceCode = "Unknown code license";
+  let sourceCode = "Unknown license";
   switch (data?.isProjectOpenSource?.value?.trim().toLowerCase()) {
     case "no":
       sourceCode = "Closed source";
@@ -109,17 +109,17 @@ export const ProjectCard = ({
           {safeHtml(data?.industrialSector?.value.join(", "))}
         </Question>
       )}
-      {data?.useOfAi?.value?.length > 0 && (
+      {(data?.useOfAi?.value?.length > 0 && data?.useOfAi?.value!="") && (
         <Question question="Usage of AI:" showAlways>
           {safeHtml(data?.useOfAi?.value.join(", "))}
         </Question>
       )}
-      {data?.generationMachineLearning?.value?.length > 0 && (
+      {(data?.generationMachineLearning?.value?.length > 0 && data?.generationMachineLearning?.value!="") && (
         <Question question="Generation of AI:" showAlways>
           {safeHtml(data?.generationMachineLearning?.value.join(", "))}
         </Question>
       )}
-      {data?.modelTrainingBuilt?.value?.length > 0 && (
+      {(data?.modelTrainingBuilt?.value?.length > 0 && data?.modelTrainingBuilt?.value!="") && (
         <Question question="Model training:" showAlways>
           {safeHtml(data?.modelTrainingBuilt?.value.join(", "))}
         </Question>

@@ -70,6 +70,7 @@ const ActionItems = styled.div`
 export const Submenu = ({ tool, slug }: { tool?: string; slug?: string }) => {
   const router = useRouter();
   const filterState = useToolStateFilterState();
+  console.log(filterState);
   const { updateFilterState } = useToolStateStoreActions();
   const isTabletLandscapeAndUp = useCssVarsStateIsTabletLandscapeAndUpState();
   return (
@@ -125,6 +126,7 @@ export const Submenu = ({ tool, slug }: { tool?: string; slug?: string }) => {
             <Icon
               type="filter"
               active={createCompareQueryFromState(filterState) !== ""}
+              nonMuted={filterState.isFilterOpen}
               onClick={() => {
                 const newState = {
                   ...filterState,
@@ -152,6 +154,7 @@ export const Submenu = ({ tool, slug }: { tool?: string; slug?: string }) => {
             />
             <Icon
               type="search"
+              nonMuted={filterState.isSearchOpen}
               onClick={() => {
                 updateFilterState({
                   isSearchOpen: !filterState.isSearchOpen,
@@ -222,6 +225,7 @@ export const Submenu = ({ tool, slug }: { tool?: string; slug?: string }) => {
           <ActionItems>
             <Icon
               type="filter"
+              nonMuted={filterState.isFilterOpen}
               active={createCompareQueryFromState(filterState) !== ""}
               onClick={() => {
                 const newState = {
@@ -250,6 +254,7 @@ export const Submenu = ({ tool, slug }: { tool?: string; slug?: string }) => {
             />
             <Icon
               type="search"
+              nonMuted={filterState.isSearchOpen}
               onClick={() => {
                 updateFilterState({
                   isFilterOpen: false,

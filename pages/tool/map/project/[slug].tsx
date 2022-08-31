@@ -244,7 +244,7 @@ const Project = ({ data, tool }: { data: any; tool: PiAiTool }) => {
       <Container
         toolColor={tool.colorHighlight}
         onWheel={(e: WheelEvent) => {
-          if (Math.abs(e.deltaY) > 5) {
+          if (Math.abs(e.deltaY) > 1) {
             e.deltaY > 0 ? setScrollDir("down") : setScrollDir("up");
           }
         }}

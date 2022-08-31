@@ -12,7 +12,7 @@ import {
   useToolStateFilterState,
   useToolStateStoreActions,
 } from "../state/ToolState";
-import { Scroller } from "../Styled";
+import { Label, Scroller } from "../Styled";
 import { useModal } from "~/hooks/useModal";
 
 const SidebarContainer = styled.div<{
@@ -246,7 +246,7 @@ export const SidebarDrawer = ({
               <span>Close</span>
             </Icon>
           </DisplayBelow>
-          <H3 hasHeader={false}>{title}</H3>
+          <Label hasHeader={false}>{title}</Label>
           {header}
         </Header>
 
