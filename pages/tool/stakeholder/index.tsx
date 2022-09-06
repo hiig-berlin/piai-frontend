@@ -33,6 +33,10 @@ const StakeholderWrapper = styled.div`
     ${({ theme }) => theme.applyMixin("uppercase")};
   }
 
+  h1{
+    line-height: 1em;
+  }
+
   h2 {
     font-size: var(--text-body-font-size-tool) * 1.1;
     font-weight: bold;
@@ -77,8 +81,15 @@ const Grid = styled.div`
   gap: var(--size-3);
   // align-content: space-between;
 
-  grid-template-columns: repeat(3, 1fr);
+  ${({ theme }) => theme.breakpoints.tablet} {
+    grid-template-columns: repeat(2, 1fr);
   }
+
+  ${({ theme }) => theme.breakpoints.tabletLandscape} {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+
 `;
 
 // Repeating elements
@@ -153,7 +164,11 @@ const Header = styled.header`
 
 const Entry = styled(Box)<{ isExpanded: boolean }>`
 
-  grid-row: ${({isExpanded}) => isExpanded ? "auto / span 3" : "auto / span 1"};
+  grid-row: auto;
+
+  ${({ theme }) => theme.breakpoints.tablet} {
+    grid-row: ${({isExpanded}) => isExpanded ? "auto / span 3" : "auto / span 1"};
+  }
 
   & h1 {
     text-transform: none;

@@ -25,7 +25,12 @@ const ContributeBox = styled(Box)<{ seen?: Boolean }>`
     justify-content: space-between;
 
     .svg{
-      min-width: var(--size-3);
+      min-width: var(--size-4);
+
+      ${({ theme }) => theme.breakpoints.tablet} {
+        min-width: var(--size-3);
+      }
+
     }
   }
 

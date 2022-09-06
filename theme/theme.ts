@@ -345,7 +345,7 @@ export const theme = {
         fontFamily: "var(--font-family-sans-serif)",
         fontWeight: 400,
         fontSize: "16px",
-        lineHeight: "20px",
+        lineHeight: "1.3em",
         marginTop: "-2px",
         marginBottom: "0.6em",
         // marginLeft: "-4px",

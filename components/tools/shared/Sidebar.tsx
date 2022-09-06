@@ -168,9 +168,11 @@ export const Sidebar = ({
             size={1.5}
           />
         </ToolMenuButton>
+        {children &&
         <ToolNav isOpen={isOpen}>
           <Children onClick={() => setIsOpen(false)}>{children}</Children>
         </ToolNav>
+        }
       </MobileToolNavContainer>
     );
   }
