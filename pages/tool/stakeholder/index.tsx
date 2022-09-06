@@ -15,7 +15,7 @@ import {
   useCssVarsStateIsDesktopAndUpState,
   useCssVarsStateIsTabletAndUpState,
 } from "~/components/state/CssVarsState";
-import { stakeholderList } from "./stakeholderList";
+import { stakeholderList } from "~/components/tools/stakeholder/stakeholderList";
 import safeHtml from "~/utils/sanitize";
 
 // Wrapper + General tool styles
