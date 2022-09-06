@@ -54,9 +54,9 @@ const Survey = ({
         src="https://tally.so/r/mD4e8p?transparentBackground=1"
         width="100%"
         height="100%"
-        frameborder="0"
-        marginheight="0"
-        marginwidth="0"
+        frameBorder="0"
+        marginHeight={0}
+        marginWidth={0}
         title="Add your project to the data set (Developer version)"
       ></iframe>
     </SurveyWrapper>
