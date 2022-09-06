@@ -69,4 +69,22 @@ export const tools: PiAiTool[] = [
   //     },
   //   ],
   // },
+    {
+    slug: "stakeholder",
+    name: "Index of stakeholders around the discussion of AI",
+    description: "Landscape of the global discurse around Public interest AI ",
+    colorBase: "var(--color-piai-stakeholder)",
+    colorHighlight: "var(--color-piai-stakeholder)",
+    iconShort: "St",
+    iconLong: "Stakeholder Index",
+    menu: [
+      {
+        name: "Overview",
+      },
+      {
+        slug: "about",
+        name: "About the tool",
+      },
+    ],
+  },
 ];

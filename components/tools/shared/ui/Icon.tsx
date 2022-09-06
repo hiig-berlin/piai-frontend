@@ -175,7 +175,8 @@ export const Icon = ({
               if (carry.length > 0) {
                 carry.push(", ");
               }
-
+              
+            // TODO: only open blank when start with http/https
             carry.push(
               <a href={u.trim()} key={`${url}-${i}`} target="_blank" rel="nofollow noreferrer">
                 {children ? children : u.trim()}

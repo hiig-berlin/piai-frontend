@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import React, { useCallback } from "react";
 import styled from "styled-components";
 
-import { createCompareπQueryFromState } from "./map/utils";
+import { createCompareQueryFromState } from "./map/utils";
 import { TaxonomyCheckboxGroup } from "./ui/TaxonomyCheckboxGroup";
 import { ActiveFilterOption } from "./ui/ActiveFilterOption";
 import {

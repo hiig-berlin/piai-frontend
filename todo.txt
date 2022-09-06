@@ -34,13 +34,14 @@
 
 - Tools need skip to content link
 
->>>>>>> refs/remotes/origin/dev-frontend
-
 – Checkboxes in Filter styling
 
 – Project list styling (meta data)
 
 - Clear all button on filter not too pretty
+
+- Submenu mobile hide when empty
+
 
 ++++++++++++++++++++++++++++++++++++++++++++++++
 +++++++ TODO +++++++++++++++++++++++++++++++++++

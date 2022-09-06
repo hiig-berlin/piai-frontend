@@ -246,7 +246,8 @@ export const SidebarDrawer = ({
               <span>Close</span>
             </Icon>
           </DisplayBelow>
-          <Label hasHeader={false}>{title}</Label>
+          {/* <Label hasHeader={false}>{title}</Label> */}
+          <Label>{title}</Label>
           {header}
         </Header>
 
