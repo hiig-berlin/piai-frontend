@@ -23,8 +23,7 @@ export const tools: PiAiTool[] = [
         icon: "list",
       },
       {
-        url: "https://abc.com", // TODO: fix URL
-        target: "_blank",
+        url: "survey",
         name: "Submit Project",
       },
       {

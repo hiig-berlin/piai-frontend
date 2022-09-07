@@ -65,7 +65,6 @@ export const Tiles = ({ data }: { data: any }) => {
 
   return (
     <Grid bg={background.src}>
-      {/* TODO: Replace this with CMS Content */}
       <Tile
         bgOverlay="piaiMap"
         element={

@@ -59,7 +59,6 @@ export const Contribute = ({ position }: { position?: String }) => {
 
   const { updateMapState } = useToolStateStoreActions();
 
-  // TODO: get cta from AboutPageData
   const cta = {
     title: "Contribute",
     text: "<p>There is a lack of accumulated and detailed data on public interest AI projects, including their specific objectives, methods, and frameworks. This is why we created a survey.</p><p>Contribute by filling out the online survey and include your project in this interactive map and directory.</p>",
