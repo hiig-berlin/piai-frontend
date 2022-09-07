@@ -10,6 +10,8 @@
 
 - Directory Listing on mobile. As the counter does not exist how will the menu be opened. Maybe it needs the counter on mobiles? 
 
+– Add SEO data, where, how?
+
 +++++++++++++++++++++++++++++++++++++++++++++
 +++++ TODO: +++++++++++++++++++++++++
 +++++++++++++++++++++++++++++++++++++++++++++
@@ -46,5 +48,6 @@
 ++++++++++++++++++++++++++++++++++++++++++++++++
 +++++++ TODO +++++++++++++++++++++++++++++++++++
 ++++++++++++++++++++++++++++++++++++++++++++++++
+
 - Ensure all pages und /pages/... add the needed and correct meta tags.
 
