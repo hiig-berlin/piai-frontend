@@ -303,14 +303,6 @@ const Index = ({
             >
               <span>About</span>
             </Icon>
-            <Icon
-              type="repo"
-              className="textLink"
-              aria-label="Go to github repository"
-              url="https://github.com/hiig-berlin/energy-log"
-            >
-              <span>GitHub</span>
-            </Icon>
           </>
         )}
       </Header>

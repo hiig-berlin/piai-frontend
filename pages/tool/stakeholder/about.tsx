@@ -37,16 +37,16 @@ const About = ({
           {...{
             tool,
             intro:
-              "<p>This index is gathering information about organizations and institutions involved in the discourse around public interest AI.</p>",
+              "<p>An index of organisations and institutions involved in the discourse around public interest AI.</p>",
             content:
-              "<p>This index is gathering information about organizations and institutions involved in the discourse around public interest AI. Their involvement may take various forms - form giving funding to NGO work around the issue. This collection is based on the work of the PIAI research group and should be seen as a starting point for mapping the field of stakeholders. We hope this overview shows the broad interest in the public interest AI field, it’s influences from many sides and allows new projects to get an overview of the landscape of funders and existing stakeholders. </p>",
+              "<p>This index is gathering information about organisations and institutions involved in the discourse around public interest AI. Their involvement may take various forms – from giving funding to NGO work around the issue. This collection is based on the work of the PIAI research group and should be seen as a starting point for mapping the field of stakeholders.</p><p>We hope this overview shows the broad interest in the public interest AI field, it’s influences from many sides and allows new projects to get an overview of the landscape of funders and existing stakeholders. </p>",
             contentSimple:
-              "<p>This index is gathering information about organizations and institutions involved in the discourse around public interest AI.",
+              "This index is gathering information about organizations and institutions involved in the discourse around public interest AI.",
             cta: {
-              title: "CTA Title",
-              text: "<p>Aliquam gravida eu leo a pulvinar. Etiam sollicitudin mauris dolor, et luctus enim volutpat sit amet. Curabitur erat risus, tincidunt at turpis in, molestie efficitur tellus.</p>",
-              url: "/",
-              linkTitle: "Go back home",
+              title: "Who is missing?",
+              text: "This is a living document. Let us know, who else is involved in the dialoge and what their role is.",
+              url: "mailto:piai@hiig.de",
+              linkTitle: "Contact us",
             },
           }}
         />
@@ -57,7 +57,7 @@ const About = ({
 export const getStaticProps: GetStaticProps = async (context) => {
   // const token = (context?.previewData as any)?.token;
 
-  const tool = appConfig.tools.find((tool: PiAiTool) => tool.slug === "energy");
+  const tool = appConfig.tools.find((tool: PiAiTool) => tool.slug === "stakeholder");
   if (!tool)
     return {
       props: {
