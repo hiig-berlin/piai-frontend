@@ -13,7 +13,6 @@
 +++++++++++++++++++++++++++++++++++++++++++++
 +++++ TODO: +++++++++++++++++++++++++
 +++++++++++++++++++++++++++++++++++++++++++++
-
 - Confirm that Matomo tracks referral correctly
 
 – FilterCount Total shows 0
@@ -33,6 +32,8 @@
 - Configure further preview routes in /pages/api/preview ... 
 
 - Tools need skip to content link
+
+– Contribute box close x icon bigger
 
 – Checkboxes in Filter styling
 
