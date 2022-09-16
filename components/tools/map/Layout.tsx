@@ -313,9 +313,10 @@ export const Layout = ({
       <ReactQueryContextProvider>
         <ToolStateController />
 
-        <Sidebar tool="map" view={props?.view}>
+        <Sidebar tool="map" view={props?.view} slug={props?.slug}>
           <Submenu tool="map" slug={props?.slug} />
         </Sidebar>
+
         {showMap && (
           <>
             <Map isMapView={isMap} />
@@ -330,13 +331,14 @@ export const Layout = ({
                 {isMap && content}
               </Suspense>
             */}
-
-            {isMap && content}
           </>
         )}
         {!isMap && content}
         {isMap && <MapOverlays />}
         {isDirectory && <DirectoryOverlays />}
+
+        
+
       </ReactQueryContextProvider>
       <Menu />
     </>

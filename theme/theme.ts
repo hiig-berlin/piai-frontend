@@ -415,7 +415,12 @@ export const theme = {
         marginTop: "-2px",
         marginBottom: "0.6em",
       },
-
+      h4: {
+        fontSize: "14px",
+        // lineHeight: "25px",
+        marginTop: "-2px",
+        marginBottom: "0.6em",
+      },
       body: {
         fontSize: "18px",
         // lineHeight: "24px",

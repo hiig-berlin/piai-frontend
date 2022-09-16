@@ -7,7 +7,7 @@ export const MapFilter = () => {
       columnWidth={0.333}
       initiallyOpenOnLargerScreens={true}
       statusFlagKey="isFilterOpen"
-      title="Filter Projects"
+      title="Project filter"
       addCounterPadding={true}
     >
       <FilterContent view="map" />

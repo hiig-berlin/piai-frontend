@@ -15,13 +15,13 @@ const SIDEBAR_PADDING = "var(--size-3)";
 // =================================================
 
 const MobileToolNavContainer = styled.div<{
-  isVisible: boolean;
+  isVisible: boolean; isOpen: boolean;
 }>`
   pointer-events: all;
   position: fixed;
   top: ${SIDEBAR_PADDING};
   left: ${SIDEBAR_PADDING};
-  z-index: 3;
+  z-index: ${({ isOpen }) => (isOpen ? "4" : "3")};
   flex-direction: column;
   gap: var(--size-3);
 
@@ -100,10 +100,12 @@ const Children = styled.div`
 export const Sidebar = ({
   children,
   tool,
+  slug,
   view,
 }: {
   children?: React.ReactNode;
   tool: string;
+  slug: string;
   view?: string;
 }) => {
   const config = useConfigContext();
@@ -152,7 +154,7 @@ export const Sidebar = ({
     );
   } else {
     return (
-      <MobileToolNavContainer isVisible={view !== "page"}>
+      <MobileToolNavContainer isVisible={view !== "page" || slug == "directory"} isOpen={isOpen}>
         <ToolMenuButton
           aria-label={isOpen ? "Close tool's menu" : "open tool's menu"}
           aria-expanded={isOpen}

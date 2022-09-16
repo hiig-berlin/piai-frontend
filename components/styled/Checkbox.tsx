@@ -7,9 +7,14 @@ export const Checkbox = styled.input`
   margin: 0;
   padding: 0;
   position: relative;
-  width: var(--size-2);
-  height: var(--size-2);
+  width: var(--size-3);
+  height: var(--size-3);
   cursor: pointer;
+
+  ${({ theme }) => theme.breakpoints.tablet} {
+    width: var(--size-2);
+    height: var(--size-2);
+  }
   
   &:after {
     position: absolute;

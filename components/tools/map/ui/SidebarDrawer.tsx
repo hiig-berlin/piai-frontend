@@ -119,12 +119,17 @@ const Header = styled.div`
   flex-wrap: wrap;
   align-items: center;
   padding-right: var(--size-6);
+  padding-bottom: var(--size-3);
 
   ${({ theme }) => theme.breakpoints.tablet} {
     flex-direction: column;
     align-items: flex-start;
     gap: var(--size-2);
     padding-right: 0;
+  }
+
+  h3{
+    margin-bottom: 0;
   }
 `;
 

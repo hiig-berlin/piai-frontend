@@ -13,18 +13,16 @@ const Content = styled.div`
   width: 100%;
 
   min-height: 100%;
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: flex-end;
   gap: var(--size-3);
 
   padding-top: var(--size-6);
 
-  ${({ theme }) => theme.breakpoints.tablet} {
-    padding-left: var(--size-6);
-  }
 
   ${({ theme }) => theme.breakpoints.tablet} {
+    display: flex;
     padding: var(--size-6) var(--size-3) var(--size-3) 60vw;
     align-items: center;
     justify-content: center;

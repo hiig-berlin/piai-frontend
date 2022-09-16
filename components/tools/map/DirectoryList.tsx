@@ -18,22 +18,47 @@ import { IconButtonPrint } from "./ui/IconButtonPrint";
 import { Reveal } from "~/components/ui/Reveal";
 import { SearchForm } from "./SearchForm";
 import { useRouter } from "next/router";
+import { TRUE } from "sass";
+import { Icon } from "../shared/ui/Icon";
 
 const Container = styled.div<{ isFilterOpen: boolean }>`
   position: fixed;
-  bottom: 0;
-  left: calc(var(--size-3) + var(--size-6));
+  bottom: var(--size-3);
+  left: var(--size-3);
   z-index: 4;
-  height: calc(100vh - var(--lbh) - var(--size-3));
+  height: calc(100vh - var(--lbh) - 2 * var(--size-3));
 
   overflow: hidden;
   transition: transform 0.35s, width 0.35s;
-  width: calc((100vw - var(--size-6) - 2 * var(--size-3)));
+  width: calc((100vw - 2 * var(--size-3)));
   display: flex;
   flex-direction: column;
   gap: var(--size-3);
 
+  h1{
+
+    flex: calc(var(--size-3) + var(--size-6)) 0 0;
+    display: flex;
+    margin: 0;
+    margin-left: calc(2* var(--size-3) + var(--size-6));
+    height: var(--size-6);
+    align-items: center;
+
+    ${({ theme }) => theme.applyMixin("uppercase")}
+    font-weight: bold;
+    word-spacing: 10000000px;
+    
+
+    ${({ theme }) => theme.breakpoints.tablet} {
+      display: none;
+    }
+  }
+
   ${({ theme }) => theme.breakpoints.tablet} {
+    bottom: 0;
+    left: calc(var(--size-3) + var(--size-6));
+    height: calc(100vh - var(--lbh) - var(--size-3));
+    width: calc((100vw - var(--size-6) - 2 * var(--size-3)));
     padding-bottom: var(--size-3);
   }
 
@@ -117,6 +142,15 @@ const Toolbar = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
+  gap: var(--size-3);
+
+  & .print{
+    display: none;
+    
+    ${({ theme }) => theme.breakpoints.tablet} {
+      display: block;
+    }
+  }
 `;
 
 const ScrollerContainer = styled.div`
@@ -308,16 +342,23 @@ export const DirectoryList = () => {
 
   return (
     <Container isFilterOpen={filterState.isFilterOpen}>
-      {!filterState.isSearchOpen && (
+
+      <h1>Project Directory</h1>
+      
         <Box hideOnPrint>
           <Toolbar>
-            <div>
+          {!filterState.isSearchOpen && (
+             <div onClick={() => updateFilterState({isFilterOpen: true})}>
               FILTERED {count}/{filterState.totalCount}
             </div>
+             )}
+            <Icon onClick={() => filterState.isSearchOpen ? updateFilterState({isSearchOpen: false, isFilterOpen: true}) : updateFilterState({isFilterOpen: true})} type="filter" spaceBefore />
+            <Icon onClick={() => updateFilterState({isSearchOpen: true})} type="search" />
+
             <IconButtonPrint />
           </Toolbar>
         </Box>
-      )}
+     
       <Panel
         isRefetching={isFiltering || filterState.isFetchingFilteredIds}
         isFullHeight={false}

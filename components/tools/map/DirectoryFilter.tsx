@@ -6,7 +6,7 @@ export const DirectoryFilter = () => {
     <SidebarDrawer
       columnWidth={0.333}
       statusFlagKey="isFilterOpen"
-      title="Filter Projects"
+      title="Project filter"
       initiallyOpenOnLargerScreens={true}
       hasTopOffset={false}
       addCounterPadding={false}

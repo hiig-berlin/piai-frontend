@@ -16,17 +16,23 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  align-items: flex-end;
   gap: var(--size-3);
 
-  padding-top: var(--size-6);
+  padding: var(--size-3);
+  padding-bottom: calc(var(--size-6) + 2 * var(--size-3));
 
-  ${({ theme }) => theme.breakpoints.tablet} {
-    padding-left: var(--size-6);
+  ${({ theme }) => theme.breakpoints.tablet } {
+    padding: var(--size-3);
+    padding-bottom: calc(2 * var(--size-3) + var(--size-5));
   }
 
-  ${({ theme }) => theme.breakpoints.tablet} {
-    padding: var(--size-6) var(--size-3) var(--size-3) var(--size-3);
-    align-items: flex-end;
+  ${({ theme }) => theme.breakpoints.tabletLandscape} {
+    padding: var(--size-3);
+  }
+
+  ${({ theme }) => theme.breakpoints.desktop} {
+    padding: var(--size-6) var(--size-3) calc(var(--size-6)) var(--size-3);
   }
 `;
 
