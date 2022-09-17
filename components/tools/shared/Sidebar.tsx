@@ -105,7 +105,7 @@ export const Sidebar = ({
 }: {
   children?: React.ReactNode;
   tool: string;
-  slug: string;
+  slug?: string;
   view?: string;
 }) => {
   const config = useConfigContext();
