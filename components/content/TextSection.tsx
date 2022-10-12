@@ -52,7 +52,7 @@ export const TextSection = ({ data }: { data: any }) => {
 
   return (
     <>
-      <PageMargins spaceBottom={7} spaceTop={4}>
+      <PageMargins spaceBottom={7} spaceTop={4} id="textSection">
         <SectionHeading asTag="h2" heading="h2">
           <SafeHtmlSpan html={data?.acf?.textSectionsTitle} />
         </SectionHeading>

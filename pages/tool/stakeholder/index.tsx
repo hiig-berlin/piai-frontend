@@ -194,6 +194,10 @@ const Tags = styled.div`
   display: flex;
   flex-direction: row;
   gap: var(--size-2);
+
+  &.filter{
+    justify-content: end;
+  }
 `;
 
 const Tag = styled(ButtonNormalized)<{ isActive: boolean }>`
@@ -254,6 +258,16 @@ const Index = ({
           return e.tags.includes(currentTag);
         });
 
+  let allTags : any[] = [];
+  stakeholderList.forEach((s) => {
+    s.tags.forEach( (t) => {
+      if (allTags.indexOf(t) === -1) {
+        allTags.push(t);
+      }
+    })
+  })
+  console.log("Tags: ", allTags);
+
   return (
     <StakeholderWrapper>
       {/*
@@ -307,6 +321,23 @@ const Index = ({
         )}
       </Header>
 
+      <Tags className="filter">
+        {allTags.map((tag: any, j: number) => {
+          const isActive = currentTag === tag;
+          return (
+            <Tag
+              onClick={() =>
+                isActive ? setCurrentTag("") : setCurrentTag(tag)
+              }
+              key={`tag-${j}`}
+              isActive={isActive}
+            >
+              {tag}
+              {isActive && <Icon type="close" stc inline />}
+            </Tag>
+          );
+        })}
+      </Tags>
       <Grid>
         {filteredList.map((entry: any, i: number) => {
           const isExpanded = selectedEntry == i;

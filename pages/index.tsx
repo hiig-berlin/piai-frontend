@@ -34,7 +34,7 @@ const Home = ({ data }: { data: any }) => {
           card: "summary_large_image",
         }}
       />
-      <Header isHome slideUpOnScroll={false} />
+      <Header isHome slideUpOnScroll={true} />
 
       <main id="content">
              

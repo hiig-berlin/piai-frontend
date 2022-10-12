@@ -3,7 +3,7 @@ import styled from "styled-components";
 import debounce from "lodash/debounce";
 import FocusLock from "react-focus-lock";
 
-import { useMainMenuStateIsOpenState } from "~/components/state/MainMenuState";
+import { useMainMenuStateIsOpenState, useMainMenuActions } from "~/components/state/MainMenuState";
 import { MenuFooter } from "./Menus/MenuFooter";
 import { Logo } from "./Logo";
 import { LabElement } from "../ui/LabElement";
@@ -204,6 +204,7 @@ export const Menu = () => {
   const config = useConfigContext();
 
   const mainMenuOpen = useMainMenuStateIsOpenState();
+  const mainMenuActions = useMainMenuActions();
 
   const menuContainerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   const menuContentRef = useRef() as React.MutableRefObject<HTMLDivElement>;
@@ -283,7 +284,7 @@ export const Menu = () => {
                 <section>
                   <h1>{menuContent.piai.headline}</h1>
                   <p>{menuContent.piai.description}</p>
-                  <a href={menuContent.piai.linkURL}>
+                  <a href={menuContent.piai.linkURL} onClick={() => mainMenuActions.close()}>
                     <Chevron /> {menuContent.piai.linkText}
                   </a>
                 </section>
@@ -348,8 +349,8 @@ const menuContent = {
   piai: {
     headline: "What is Public Interest AI?",
     description:
-      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata.",
+      "Defining public interest AI is as difficult as it is crucial for our society. Academia and various societal stakeholder have entered a discourse to sharpen the edges of this explanation.",
     linkText: "Explore the definition",
-    linkURL: "/",
+    linkURL: "/#textSection",
   },
 };

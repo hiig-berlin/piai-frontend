@@ -62,7 +62,15 @@ const TileText = styled.div`
   margin: auto;
 `;
 
-const TileButtons = styled.div``;
+const TileButtons = styled.div`
+  flex: auto 0 0;
+  display: flex;
+  justify-content: center;
+  
+  & a {
+    align-self: flex-end;
+  }
+`;
 
 export const Tile = ({
   bgOverlay,
