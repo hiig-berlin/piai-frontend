@@ -143,6 +143,12 @@ const Header = styled.header`
     margin-right: 100px;
   }
 
+  & .toolIntro{
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+  }
+
   h1 {
     font-weight: bold;
     margin-bottom: 0;
@@ -151,6 +157,8 @@ const Header = styled.header`
 
   & p {
     ${narrow}
+    margin-bottom: 0;
+    margin-top: var(--size-1);
   }
 
   button,
@@ -160,6 +168,8 @@ const Header = styled.header`
     font-size: calc(var(--text-body-font-size-tool) * 0.85);
     line-height: 1em;
   }
+
+  
 `;
 
 const Entry = styled(Box)<{ isExpanded: boolean }>`
@@ -297,12 +307,12 @@ const Index = ({
             size={2}
           />
         )}
-        <div>
+        <div className="toolIntro">
           <h1>
-          Organisations and institutions involved in the discourse
+          Would you like to get an overview of the stakeholders in the PIAI field?
           </h1>
           <p>
-            Interactive index of stakeholders that are involved in the discourse around public interest AI, their role within the discourse and link to their funded projects.
+          We have started to identify organisations and institutions that can play an important role in the development of the field or Public Interst AI (PIAI). Are you missing a stakeholder? Let us know and we’ll be happy to add it!
           </p>
         </div>
         {isDesktopAndUp && (
