@@ -299,11 +299,10 @@ const Index = ({
         )}
         <div>
           <h1>
-            How many cows is your AI training’s CO<sub>2</sub> production worth?
+          Organisations and institutions involved in the discourse
           </h1>
           <p>
-            Metus vulputate eu scelerisque felis imperdiet. Eget sit amet tellus
-            cras. Urna condimentum mattis pellentesque id.
+            Interactive index of stakeholders that are involved in the discourse around public interest AI, their role within the discourse and link to their funded projects.
           </p>
         </div>
         {isDesktopAndUp && (
