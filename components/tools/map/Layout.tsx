@@ -33,7 +33,6 @@ import {
   defaultCompareQueryString,
 } from "./state/ToolState";
 import { useRouter } from "next/router";
-import { createCompareQueryFromState } from "./map/utils";
 
 const Map = dynamic(() => import("./Map"), {
   // suspense: true,
@@ -93,7 +92,6 @@ export const Layout = ({
   const isLoading = usePageStateIsLoadingState();
 
   const settingsState = useToolStateSettingsState();
-  const filterState = useToolStateFilterState();
 
   const { updateFilterState, setFilterState, getDefaultState } =
     useToolStateStoreActions();
@@ -101,7 +99,7 @@ export const Layout = ({
   const [showMap, setShowMap] = useState(props?.view === "map");
 
   const isMap = props?.view === "map";
-  const isDirectory = props?.slug === "directory";
+  const isDirectory = props?.view === "page" && props?.slug === "directory";
 
   const updateFromQuery = useCallback(
     (isInitCall: boolean) => {
@@ -113,6 +111,9 @@ export const Layout = ({
         const newState: any = {};
 
         const params = new URLSearchParams(document.location.search);
+
+        const isDirectory =
+          props?.view === "page" && props?.slug === "directory";
 
         const term = params.get("term") ?? "";
         if (term !== "") {
@@ -146,9 +147,8 @@ export const Layout = ({
         } else {
           newState.terms = {};
         }
-
         const regions = params.get("regions") ?? "";
-        if (regions !== "" && settingsState.regions && props?.view !== "map") {
+        if (regions !== "" && settingsState.regions && isDirectory) {
           const activeRegions = regions.split(",");
 
           const flattenRegions = (
@@ -187,7 +187,7 @@ export const Layout = ({
         [
           "license",
           "genderRatio",
-          ...(props?.view !== "map" ? ["countries"] : []),
+          ...(isDirectory ? ["countries"] : []),
         ].reduce((state: any, key: any) => {
           const selected = params.get(key) ?? "";
           if (selected !== "" && (settingsState as any)?.[key]?.length) {
@@ -252,6 +252,7 @@ export const Layout = ({
       setFilterState,
       updateFilterState,
       getDefaultState,
+      props?.slug,
       props?.view,
     ]
   );
@@ -336,9 +337,6 @@ export const Layout = ({
         {!isMap && content}
         {isMap && <MapOverlays />}
         {isDirectory && <DirectoryOverlays />}
-
-        
-
       </ReactQueryContextProvider>
       <Menu />
     </>
