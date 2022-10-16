@@ -338,7 +338,7 @@ const Index = ({
               onClick={() =>
                 isActive ? setCurrentTag("") : setCurrentTag(tag)
               }
-              key={`tag-${j}`}
+              key={`tag-filter-${j}`}
               isActive={isActive}
             >
               {tag}
@@ -372,7 +372,7 @@ const Index = ({
                       onClick={() =>
                         isActive ? setCurrentTag("") : setCurrentTag(tag)
                       }
-                      key={`tag-${i}`}
+                      key={`tag-${j}`}
                       isActive={isActive}
                     >
                       {tag}
