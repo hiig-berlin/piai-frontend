@@ -32,7 +32,7 @@ const Content = styled.div`
   }
 
   ${({ theme }) => theme.breakpoints.desktop} {
-    padding: var(--size-6) var(--size-3) calc(var(--size-6)) var(--size-3);
+    padding: var(--size-6) var(--size-3) calc(var(--size-3)) var(--size-3);
   }
 `;
 
