@@ -70,7 +70,7 @@ const ActionItems = styled.div`
 export const Submenu = ({ tool, slug }: { tool?: string; slug?: string }) => {
   const router = useRouter();
   const filterState = useToolStateFilterState();
-  console.log(filterState);
+  
   const { updateFilterState } = useToolStateStoreActions();
   const isTabletLandscapeAndUp = useCssVarsStateIsTabletLandscapeAndUpState();
   return (
