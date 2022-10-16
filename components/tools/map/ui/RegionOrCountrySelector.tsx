@@ -77,7 +77,8 @@ const renderOptions = (
     isChecked: boolean | boolean[]
   ) => void,
   indent: number = 0,
-  allOptions: any
+  allOptions: any,
+  debug: boolean,
 ) => {
   if (!options?.length) return <></>;
 
@@ -137,7 +138,8 @@ const renderOptions = (
         option?.children,
         updateState,
         indent + 1,
-        carry
+        carry,
+        debug
       );
 
     return carry;
@@ -149,10 +151,12 @@ export const RegionOrCountrySelector = ({
   labelAllShown,
   options,
   activeTerms,
+  debug,
   updateState,
   clearAllOnClick,
 }: {
   label: string;
+  debug?: boolean;
   labelAllShown: string;
   options: FilterSettingTaxonomyOptionRegion[] | FilterSettingTaxonomyOption[];
   activeTerms: Record<number, string> | null | undefined;
@@ -219,7 +223,7 @@ export const RegionOrCountrySelector = ({
         position="top"
       >
         <OptionsContainer>
-          {renderOptions(label, activeTerms, options, updateState, 0, [])}
+          {renderOptions(label, activeTerms, options, updateState, 0, [], !!debug)}
         </OptionsContainer>
       </Reveal>
     </Container>
