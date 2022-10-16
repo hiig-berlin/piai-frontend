@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useId } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 
@@ -35,6 +35,8 @@ const createButtons = (links: any, scope: string) => {
     return links.map((link: any, index: number) => {
       if (!link?.url || link.url.trim() === "") return <></>;
 
+      const id = useId();
+
       let target = undefined;
       let rel = undefined;
 
@@ -44,7 +46,7 @@ const createButtons = (links: any, scope: string) => {
       }
 
       return (
-        <Link href={link.url} passHref key={`tile-button-${scope}-${index}`}>
+        <Link href={link.url} passHref key={`tile-button-${scope}-${id}`}>
           <LinkButtonAnimated {...{ rel, target }}>
             {link.label}
           </LinkButtonAnimated>
