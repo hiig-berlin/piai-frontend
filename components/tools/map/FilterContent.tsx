@@ -18,24 +18,33 @@ import { useConfigContext } from "~/providers/ConfigContextProvider";
 import { RegionOrCountrySelector } from "./ui/RegionOrCountrySelector";
 import { ClearAll } from "./ui/ClearAll";
 
-const Container = styled.div`
+const Container = styled.div<{ isDirectory: boolean }>`
   position: relative;
   display: flex;
   gap: var(--size-3);
   flex-direction: column;
 
-  hr{
+  hr {
     border-top: 1px solid #ccc;
     margin: var(--size-1) 0;
     clear: both;
+  }
+
+  padding-bottom: ${({ isDirectory }) => ((isDirectory) ? "var(--size-7)" : 0)};
+
+  ${({ theme }) => theme.breakpoints.tablet} {
+    padding-bottom: 0;
   }
 `;
 
 const ActiveFilters = styled.div<{ withRegions: boolean }>`
   width: 100%;
-  // border-top: ${({ withRegions }) => (withRegions ? "1px solid #fff" : "none")};
-  // padding-top: var(--size-1);
-  // margin-top: ${({ withRegions }) => (withRegions ? "var(--size-3)" : "0")};
+  /*
+    border-top: ${({ withRegions }) =>
+     withRegions ? "1px solid #fff" : "none"};
+    padding-top: var(--size-1);
+    margin-top: ${({ withRegions }) => (withRegions ? "var(--size-3)" : "0")};
+  */
   display: flex;
   flex-wrap: wrap;
   gap: var(--size-1);
@@ -169,9 +178,9 @@ export const FilterContent = ({ view }: { view: string }) => {
       />
     );
   }
-
+  
   return (
-    <Container>
+    <Container isDirectory={view !== "map"}>
       {view !== "map" && (
         <RegionOrCountrySelector
           label="Regions"

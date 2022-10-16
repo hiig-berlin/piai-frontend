@@ -105,6 +105,9 @@ export const Counter = ({ view }: { view: string }) => {
   // auch auf die Zahlen setzen. Dan kann man einfach unten
   // drauf klicken um auf die Filteransicht zu kommen. Bei mobile
   // ist ja auch filter und suche das gleiche fenster….
+
+  if (view === "directory" && isTabletLandscapeAndUp) return <></>
+  
   return (
     <CounterContainer
       invert={

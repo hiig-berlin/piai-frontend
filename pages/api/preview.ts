@@ -24,6 +24,12 @@ export default async function handler(
   res.setPreviewData({
     token,
   });
+
+  /*
+    For more complex tools (with own custom post types in wordpress) you might want to 
+    define preview course. Similar to the project case further down.
+
+  */
   
   let location = "/";
   switch (postType) {

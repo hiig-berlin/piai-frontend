@@ -18,8 +18,8 @@ import { IconButtonPrint } from "./ui/IconButtonPrint";
 import { Reveal } from "~/components/ui/Reveal";
 import { SearchForm } from "./SearchForm";
 import { useRouter } from "next/router";
-import { TRUE } from "sass";
 import { Icon } from "../shared/ui/Icon";
+import { useCssVarsStateIsTabletLandscapeAndUpState } from "~/components/state/CssVarsState";
 
 const Container = styled.div<{ isFilterOpen: boolean }>`
   position: fixed;
@@ -35,19 +35,17 @@ const Container = styled.div<{ isFilterOpen: boolean }>`
   flex-direction: column;
   gap: var(--size-3);
 
-  h1{
-
+  h1 {
     flex: calc(var(--size-3) + var(--size-6)) 0 0;
     display: flex;
     margin: 0;
-    margin-left: calc(2* var(--size-3) + var(--size-6));
+    margin-left: calc(2 * var(--size-3) + var(--size-6));
     height: var(--size-6);
     align-items: center;
 
     ${({ theme }) => theme.applyMixin("uppercase")}
     font-weight: bold;
     word-spacing: 10000000px;
-    
 
     ${({ theme }) => theme.breakpoints.tablet} {
       display: none;
@@ -144,9 +142,9 @@ const Toolbar = styled.div`
   justify-content: space-between;
   gap: var(--size-3);
 
-  & .print{
+  & .print {
     display: none;
-    
+
     ${({ theme }) => theme.breakpoints.tablet} {
       display: block;
     }
@@ -170,6 +168,7 @@ export const DirectoryList = () => {
   const mapState = useToolStateMapState();
   const filterState = useToolStateFilterState();
   const { updateFilterState, getDefaultState } = useToolStateStoreActions();
+  const isTabletLandscapeAndUp = useCssVarsStateIsTabletLandscapeAndUpState();
 
   const currentlyRenderedQueryStringRef = useRef<string | null>();
   const filterWorkerRef = useRef<Worker>();
@@ -342,23 +341,38 @@ export const DirectoryList = () => {
 
   return (
     <Container isFilterOpen={filterState.isFilterOpen}>
-
       <h1>Project Directory</h1>
-      
+
+      {isTabletLandscapeAndUp && (
         <Box hideOnPrint>
           <Toolbar>
-          {!filterState.isSearchOpen && (
-             <div onClick={() => updateFilterState({isFilterOpen: true})}>
-              FILTERED {count}/{filterState.totalCount}
-            </div>
-             )}
-            <Icon onClick={() => filterState.isSearchOpen ? updateFilterState({isSearchOpen: false, isFilterOpen: true}) : updateFilterState({isFilterOpen: true})} type="filter" spaceBefore />
-            <Icon onClick={() => updateFilterState({isSearchOpen: true})} type="search" />
+            {!filterState.isSearchOpen && (
+              <div onClick={() => updateFilterState({ isFilterOpen: true })}>
+                FILTERED {count}/{filterState.totalCount}
+              </div>
+            )}
+            <Icon
+              onClick={() =>
+                filterState.isSearchOpen
+                  ? updateFilterState({
+                      isSearchOpen: false,
+                      isFilterOpen: true,
+                    })
+                  : updateFilterState({ isFilterOpen: true })
+              }
+              type="filter"
+              spaceBefore
+            />
+            <Icon
+              onClick={() => updateFilterState({ isSearchOpen: true })}
+              type="search"
+            />
 
             <IconButtonPrint />
           </Toolbar>
         </Box>
-     
+      )}
+
       <Panel
         isRefetching={isFiltering || filterState.isFetchingFilteredIds}
         isFullHeight={false}

@@ -1,55 +1,41 @@
 +++++++++++++++++++++++++++++++++++++++++++++
-+++++ Discuss +++++++++++++++++++++++++++++++
++++++ DISCUSS: VVU + LW +++++++++++++++++++++
 +++++++++++++++++++++++++++++++++++++++++++++
 - Share Button Does not work on (MacOS Chrome and FF)
 - Use local google fonts?
 
 - About Page jumps if scroll direction changes inbetween
 
-- About page in CMS 
+- About page in CMS, really needed?
 
-- Directory Listing on mobile. As the counter does not exist how will the menu be opened. Maybe it needs the counter on mobiles? 
+- Directory listing on mobile view, what to do with the menu 
+button on the top right. It lays over the listing and doesn't look to pretty.
 
+- Directory listing on mobile view, counter overlays the bottom of the list. What to do? 
+
++++++++++++++++++++++++++++++++++++++++++++++
++++++ TODO: VVU +++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++++++++++++++
 – Add SEO data, where, how?
 
-+++++++++++++++++++++++++++++++++++++++++++++
-+++++ TODO: +++++++++++++++++++++++++
-+++++++++++++++++++++++++++++++++++++++++++++
-
-- Confirm that Matomo tracks referral correctly
-
-– FilterCount Total shows 0
-
-+++++++++++++++++++++++++++++++++++++++++++++
-+++++ TODO: Frontend ++++++++++++++++++++++++
-+++++++++++++++++++++++++++++++++++++++++++++
-
-- Fix jumping map layout because of scrollbar.
-  
-- Add poster.jpg as share fallback image to /public/img/... 
-
-- Style 404 and 500 pages ... 
-
-- FAV ICONS! 
-
-- Configure further preview routes in /pages/api/preview ... 
+- Make sure that poster.jpg is being used properly 
 
 - Tools need skip to content link
 
-– Contribute box close x icon bigger
++++++++++++++++++++++++++++++++++++++++++++++
++++++ TODO: LW ++++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++++++++++++++
+- Confirm that Matomo tracks referral correctly
+  
+- Add poster.jpg as share fallback image to /public/img/... 
 
-– Checkboxes in Filter styling
+- FAV ICONS! 
 
-– Project list styling (meta data)
 
-- Clear all button on filter not too pretty
+++++++++++++++++++++++++++++++++++++++++++++++++
++++++++ TODO: ???? +++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++
+– FilterCount Total shows 0
 
 - Submenu mobile hide when empty
-
-
-++++++++++++++++++++++++++++++++++++++++++++++++
-+++++++ TODO +++++++++++++++++++++++++++++++++++
-++++++++++++++++++++++++++++++++++++++++++++++++
-
-- Ensure all pages und /pages/... add the needed and correct meta tags.
 

@@ -46,6 +46,7 @@ export const DirectoryOverlays = () => {
           view="directory"
         />
       )}
+      <Counter view="directory" />
     </Container>
   );
 };
