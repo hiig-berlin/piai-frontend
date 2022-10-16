@@ -29,8 +29,6 @@ import {
   useToolStateStoreActions,
   FilterSettingTaxonomyOptionRegion,
   FilterSettingTaxonomyOptionRegionChild,
-  useToolStateFilterState,
-  defaultCompareQueryString,
 } from "./state/ToolState";
 import { useRouter } from "next/router";
 
