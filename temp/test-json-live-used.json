@@ -1,0 +1,50 @@
+{
+  "eventId": "ae4fed12-d35e-4825-bfec-9f252a4cf004",
+  "createdAt": "2022-10-15T11:26:09.248Z",
+  "data": {
+    "responseId": "mJ8olz",
+    "submissionId": "mJ8olz",
+    "respondentId": "nrEDXL",
+    "formId": "w79g0m",
+    "formName": "Add your project to the data set",
+    "createdAt": "2022-02-22T22:45:49.000Z",
+    "fields": [
+      {
+        "key": "question_3yDv54",
+        "label": "What is the gender ratio in your project team?",
+        "type": "INPUT_NUMBER",
+        "value": null
+      },
+      {
+        "key": "question_3XqYP4",
+        "label": "female %",
+        "type": "INPUT_NUMBER",
+        "value": null
+      },
+      {
+        "key": "question_w8e84x",
+        "label": "non-binary %",
+        "type": "INPUT_NUMBER",
+        "value": null
+      },
+      {
+        "key": "question_w7q7eR",
+        "label": "male %",
+        "type": "INPUT_TEXT",
+        "value": "0"
+      },
+      {
+        "key": "question_wbq1DZ",
+        "label": "female %",
+        "type": "INPUT_TEXT",
+        "value": "100"
+      },
+      {
+        "key": "question_wAzM0z",
+        "label": "non-binary %",
+        "type": "INPUT_TEXT",
+        "value": null
+      }
+    ]
+  }
+}

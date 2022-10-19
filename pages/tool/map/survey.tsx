@@ -51,13 +51,13 @@ const Survey = ({
       {/* Dont' wrap this in further divs, 
       <main> is set via Layout component "*/}
       <iframe
-        src="https://tally.so/r/mD4e8p?transparentBackground=1"
+        src="https://tally.so/r/w79g0m?transparentBackground=1"
         width="100%"
         height="100%"
         frameBorder="0"
         marginHeight={0}
         marginWidth={0}
-        title="Add your project to the data set (Developer version)"
+        title="Add your project to the data set"
       ></iframe>
     </SurveyWrapper>
   );
