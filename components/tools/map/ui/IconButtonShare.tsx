@@ -14,7 +14,6 @@ export const IconButtonShare = ({
   text: string;
   spaceBefore?: boolean;
 }) => {
-  // TODO: Share alternative for Desktop Browser
   if (typeof navigator?.share === "undefined") return <></>;
 
   return (

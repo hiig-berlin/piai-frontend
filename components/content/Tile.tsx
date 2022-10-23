@@ -76,17 +76,19 @@ export const Tile = ({
   bgOverlay,
   element,
   headline,
+  id,
   buttons,
   children,
 }: {
   bgOverlay: string;
   element: React.ReactNode | null;
   headline: string;
+  id?: string;
   buttons: any;
   children: React.ReactNode;
 }) => {
   return (
-    <TileContainer>
+    <TileContainer id={id}>
       <TileOverlay bgColor={bgOverlay} />
       <TileElement>{element}</TileElement>
       <TileContent>

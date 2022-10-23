@@ -117,9 +117,6 @@ export const Sidebar = ({
 
   if (!currentTool) return <></>;
 
-  // TODO: I would change the sizing info of the icons from em to some pixel based value like --size-3, or so.
-  // As the dependend on the parent's container font size messed with things arould.
-
   if (isTabletAndUp) {
     return (
       <SidebarContainer

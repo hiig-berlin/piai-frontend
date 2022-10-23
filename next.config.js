@@ -10,36 +10,11 @@ const nextConfig = {
   //   loader: "custom",
   // },
 
-  // TODO: other redirects needed?
+  // Add other redirects needed?
   // https://github.com/vercel/next.js/discussions/15344
   // https://nextjs.org/docs/api-reference/next.config.js/redirects
   async redirects() {
     return [
-      // {
-      //   source: '/blog/category/:slug',
-      //   destination: '/news/catgory/:slug',
-      //   permanent: true
-      // },
-      // {
-      //   source: '/blog/page/:slug(\\d{1,})',
-      //   destination: '/news/:slug',
-      //   permanent: true
-      // },
-      // {
-      //   source: '/blog/:year(\\d{1,})/:month(\\d{1,})/:day(\\d{1,})/:slug',
-      //   destination: '/news/view/:slug',
-      //   permanent: true
-      // },
-      // {
-      //   source: '/events/category/:slug',
-      //   destination: '/whats-on/catgory/:slug',
-      //   permanent: true
-      // },
-      // {
-      //   source: '/venuehire',
-      //   destination: '/support/venue-hire',
-      //   permanent: true
-      // },
       {
         source: "/sitemap.xml",
         destination: "/sitemap_index.xml",

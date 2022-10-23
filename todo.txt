@@ -1,12 +1,6 @@
 +++++++++++++++++++++++++++++++++++++++++++++
 +++++ DISCUSS: VVU + LW +++++++++++++++++++++
 +++++++++++++++++++++++++++++++++++++++++++++
-- Share Button Does not work on (MacOS Chrome and FF)
-  - Clip to copy
-
-- About Page jumps if scroll direction changes inbetween
-
-- About page in CMS, really needed?
 
 - Directory listing on mobile view, what to do with the menu 
 button on the top right. It lays over the listing and doesn't look to pretty.
@@ -21,11 +15,15 @@ button on the top right. It lays over the listing and doesn't look to pretty.
   > to the left-bottom
   > Increase size ...
 
-<JumpTo name="abc" offset={-300} /> {/* !-- JumpAncor  */}
+<JumpTo name="abc" offset={-300} /> {/* !-- JumpAncor  */} />
+
+> Mobile filter counter text to toggle fitler ... 
 
 +++++++++++++++++++++++++++++++++++++++++++++
 +++++ TODO: VVU +++++++++++++++++++++++++++++
 +++++++++++++++++++++++++++++++++++++++++++++
+- Bring tool title and description to tools from config ... 
+
 - Make sure that poster.jpg is being used properly 
 
 - Tools need skip to content link
@@ -48,10 +46,4 @@ button on the top right. It lays over the listing and doesn't look to pretty.
 
 - Use local google fonts? Add TypeKit into imprint
 
-++++++++++++++++++++++++++++++++++++++++++++++++
-+++++++ TODO: ???? +++++++++++++++++++++++++++++
-++++++++++++++++++++++++++++++++++++++++++++++++
-– FilterCount Total shows 0
-
-- Submenu mobile hide when empty
-
+- Check TODOs: in other files I've got some questions ...

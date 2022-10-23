@@ -1,11 +1,12 @@
 import { ReactElement } from "react";
 import type { GetStaticProps } from "next";
+import NextHeadSeo from "next-head-seo";
 import styled from "styled-components";
+
 import { PiAiTool } from "~/types";
 import { appConfig } from "~/config";
 import Layout from "~/components/tools/map/Layout";
 import { restApiGetSettings } from "~/utils/restApi";
-import { AboutPage } from "~/components/tools/shared/AboutPage";
 
 const SurveyWrapper = styled.div`
   margin: 0;
@@ -20,7 +21,6 @@ const SurveyWrapper = styled.div`
     left: 0;
     border: 0;
   }
-
 `;
 
 const Survey = ({
@@ -30,24 +30,25 @@ const Survey = ({
   frontendSettings: any;
   tool: PiAiTool;
 }) => {
+  const currentTool = appConfig.tools?.find((t) => t.slug === "map");
+
   return (
     <SurveyWrapper>
-      {/*
-        TODO: Set correct values ... 
-        <NextHeadSeo
-          canonical={currentPage?.yoast_head_json?.canonical}
-          title={currentPage?.yoast_head_json?.title ?? currentPage?.title}
-          description={currentPage?.yoast_head_json?.description}
-          og={{
-            title: currentPage?.yoast_head_json?.og_title,
-            type: currentPage?.yoast_head_json?.og_type,
-            siteName: currentPage?.yoast_head_json?.og_site_name,
-            image: currentPage?.yoast_head_json?.twitter_image,
-          }}
-          twitter={{
-            card: "summary_large_image",
-          }}
-      />*/}
+      <NextHeadSeo
+        title={`Survey - ${
+          currentTool?.name ? `${currentTool?.name} - ` : ""
+        } ${appConfig.appTitle}`}
+        description={currentTool?.description ?? undefined}
+        og={{
+          title: `Survey - ${
+            currentTool?.name ? `${currentTool?.name} - ` : ""
+          } ${appConfig.appTitle}`,
+          siteName: appConfig.appTitle,
+        }}
+        twitter={{
+          card: "summary_large_image",
+        }}
+      />
       {/* Dont' wrap this in further divs, 
       <main> is set via Layout component "*/}
       <iframe

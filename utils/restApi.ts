@@ -1,4 +1,3 @@
-// TODO: VVU-CLEANUP
 import { getHeaderValueAsInt } from "~/hooks/restApi/utils";
 import inMemoryCache from "~/utils/inMemoryCache";
 import { appConfig } from "~/config";
@@ -253,7 +252,6 @@ export const restApiFetchPromiseCatch = (err: any) => ({
   isError: true,
 });
 
-// TODO: this should be cachable
 export const restApiGetPosts: any | null = async (
   type: string,
   query: string | number | Record<string, string>,
@@ -268,7 +266,6 @@ export const restApiGetPosts: any | null = async (
   return data;
 };
 
-// TODO: this should be cachable
 export const restApiGetTerms: any | null = async (
   taxonomy: string,
   query: Record<string, string>

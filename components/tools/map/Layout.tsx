@@ -298,17 +298,6 @@ export const Layout = ({
 
   return (
     <>
-      <NextHeadSeo
-        title={`${config.appTitle}`}
-        og={{
-          image: `${config.baseUrl}/img/poster.jpg`,
-          type: "article",
-          siteName: `${config.appTitle}`,
-        }}
-        twitter={{
-          card: "summary_large_image",
-        }}
-      />
       <MatomoUserTracking />
       <LoadingBar isLoading={isLoading} />
       <MenuButton />

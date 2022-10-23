@@ -27,7 +27,6 @@ export const appConfig: AppConfig = {
   matomoTrackingUrl: `${process.env.NEXT_PUBLIC_MATOMO_TRACKING_URL ?? ""}`,
   matomoTrackingId: `${process.env.NEXT_PUBLIC_MATOMO_TRACKING_ID ?? ""}`,
   tools,
-  // TODO: set dynamic interval ...
   revalidateInterval: (scope: string, dates?: AppConfigRevalidateDates) => {
     const defaultInterval =
       process.env.NODE_ENV === "development"

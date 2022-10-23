@@ -14,42 +14,43 @@ const About = ({
   frontendSettings: any;
   tool: PiAiTool;
 }) => {
+  const currentTool = appConfig.tools?.find((t) => t.slug === "energy");
+
   return (
     <>
-      {/*
-        TODO: Set correct values ... 
-        <NextHeadSeo
-          canonical={currentPage?.yoast_head_json?.canonical}
-          title={currentPage?.yoast_head_json?.title ?? currentPage?.title}
-          description={currentPage?.yoast_head_json?.description}
-          og={{
-            title: currentPage?.yoast_head_json?.og_title,
-            type: currentPage?.yoast_head_json?.og_type,
-            siteName: currentPage?.yoast_head_json?.og_site_name,
-            image: currentPage?.yoast_head_json?.twitter_image,
-          }}
-          twitter={{
-            card: "summary_large_image",
-          }}
-      />*/}
+      <NextHeadSeo
+        title={`${currentTool?.name ? `${currentTool?.name} - ` : ""} ${
+          appConfig.appTitle
+        }`}
+        description={currentTool?.description ?? undefined}
+        og={{
+          title: `${currentTool?.name ? `${currentTool?.name} - ` : ""} ${
+            appConfig.appTitle
+          }`,
+          siteName: appConfig.appTitle,
+        }}
+        twitter={{
+          card: "summary_large_image",
+        }}
+      />
 
-        <AboutPage
-          {...{
-            tool,
-            intro:
-              "<p>Curabitur quis lorem justo. Donec lacinia, metus eu ultricies aliquet, velit neque ornare quam, non hendrerit enim arcu nec turpis. Quisque felis nunc, varius at turpis tristique, tempus dapibus nunc. Vivamus volutpat turpis orci. In posuere sem nulla, eget fringilla turpis egestas at. Vivamus sed facilisis risus. Nullam quis augue feugiat, fermentum sapien vitae, efficitur augue. Nunc vestibulum elit sit amet arcu iaculis dignissim.</p>",
-            content:
-              "<p>Integer eu eros et ligula porttitor rutrum. Phasellus condimentum feugiat sagittis. Suspendisse pretium tellus ac orci luctus, nec maximus risus molestie. Pellentesque blandit lacus ac nulla congue feugiat. Etiam id nisi id arcu ultricies fringilla ut quis ipsum.</p>",
-            contentSimple:
-              "<p>Integer eu eros et ligula porttitor rutrum. Phasellus condimentum feugiat sagittis. Suspendisse pretium tellus ac orci luctus, nec maximus risus molestie. Pellentesque blandit lacus ac nulla congue feugiat. Etiam id nisi id arcu ultricies fringilla ut quis ipsum.</p>",
-            cta: {
-              title: "CTA Title",
-              text: "<p>Aliquam gravida eu leo a pulvinar. Etiam sollicitudin mauris dolor, et luctus enim volutpat sit amet. Curabitur erat risus, tincidunt at turpis in, molestie efficitur tellus.</p>",
-              url: "/",
-              linkTitle: "Go back home",
-            },
-          }}
-        />
+      <AboutPage
+        {...{
+          tool,
+          intro:
+            "<p>Curabitur quis lorem justo. Donec lacinia, metus eu ultricies aliquet, velit neque ornare quam, non hendrerit enim arcu nec turpis. Quisque felis nunc, varius at turpis tristique, tempus dapibus nunc. Vivamus volutpat turpis orci. In posuere sem nulla, eget fringilla turpis egestas at. Vivamus sed facilisis risus. Nullam quis augue feugiat, fermentum sapien vitae, efficitur augue. Nunc vestibulum elit sit amet arcu iaculis dignissim.</p>",
+          content:
+            "<p>Integer eu eros et ligula porttitor rutrum. Phasellus condimentum feugiat sagittis. Suspendisse pretium tellus ac orci luctus, nec maximus risus molestie. Pellentesque blandit lacus ac nulla congue feugiat. Etiam id nisi id arcu ultricies fringilla ut quis ipsum.</p>",
+          contentSimple:
+            "<p>Integer eu eros et ligula porttitor rutrum. Phasellus condimentum feugiat sagittis. Suspendisse pretium tellus ac orci luctus, nec maximus risus molestie. Pellentesque blandit lacus ac nulla congue feugiat. Etiam id nisi id arcu ultricies fringilla ut quis ipsum.</p>",
+          cta: {
+            title: "CTA Title",
+            text: "<p>Aliquam gravida eu leo a pulvinar. Etiam sollicitudin mauris dolor, et luctus enim volutpat sit amet. Curabitur erat risus, tincidunt at turpis in, molestie efficitur tellus.</p>",
+            url: "/",
+            linkTitle: "Go back home",
+          },
+        }}
+      />
     </>
   );
 };

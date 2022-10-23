@@ -16,17 +16,6 @@ export const LayoutLogin = ({ children }: AppProps) => {
   const config = useConfigContext();
   return (
     <>
-      <NextHeadSeo
-        title={`${config.appTitle}`}
-        og={{
-          image: `${config.baseUrl}/img/poster.jpg`,
-          type: "article",
-          siteName: `${config.appTitle}`,
-        }}
-        twitter={{
-          card: "summary_large_image",
-        }}
-      />
       <MatomoUserTracking />
       <FullHeightGrid>{children}</FullHeightGrid>
     </>

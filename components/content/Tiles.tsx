@@ -1,6 +1,5 @@
 import React, { useId } from "react";
 import styled from "styled-components";
-import Image from "next/image";
 
 import { Tile } from "./Tile";
 import { PiAiTool } from "~/types";
@@ -29,13 +28,10 @@ const Grid = styled.div<{ bg: string }>`
   }
 `;
 
-
-const createButtons = (links: any, scope: string) => {
+const createButtons = (links: any, scope: string, id: string) => {
   if (links?.length) {
     return links.map((link: any, index: number) => {
       if (!link?.url || link.url.trim() === "") return <></>;
-
-      const id = useId();
 
       let target = undefined;
       let rel = undefined;
@@ -46,7 +42,11 @@ const createButtons = (links: any, scope: string) => {
       }
 
       return (
-        <Link href={link.url} passHref key={`tile-button-${scope}-${id}`}>
+        <Link
+          href={link.url}
+          passHref
+          key={`tile-tile-button-${scope}-${id}-${index}`}
+        >
           <LinkButtonAnimated {...{ rel, target }}>
             {link.label}
           </LinkButtonAnimated>
@@ -54,15 +54,12 @@ const createButtons = (links: any, scope: string) => {
       );
     });
   }
-
-  return [];
+  return <></>;
 };
 
 export const Tiles = ({ data }: { data: any }) => {
-  const id = useId();
-
   const config = useConfigContext();
-
+  const id = useId();
   const tool = config.tools.find(
     (tool: PiAiTool) => tool.slug === data?.acf?.tileLeft?.toolSlug
   );
@@ -70,11 +67,12 @@ export const Tiles = ({ data }: { data: any }) => {
   return (
     <Grid bg={background.src}>
       <Tile
-        key={`${id}-left`}
+        key={`tiles-tile-left-${id}`}
         bgOverlay="piaiMap"
         element={
           tool ? (
             <LabElement
+              key={`tiles-tile-left-logo-${id}`}
               shortHandle={tool.iconShort}
               longText={tool.iconLong}
               color="white"
@@ -85,19 +83,30 @@ export const Tiles = ({ data }: { data: any }) => {
           )
         }
         headline={data?.acf?.tileLeft?.title}
-        buttons={createButtons(data?.acf?.tileLeft?.links, "left")}
+        buttons={createButtons(data?.acf?.tileLeft?.links, "left", id)}
       >
-        <SafeHtmlDiv html={data?.acf?.tileLeft?.teaser} />
+        <SafeHtmlDiv
+          key={`tiles-tile-left-html-${id}`}
+          html={data?.acf?.tileLeft?.teaser}
+        />
       </Tile>
       <Tile
-        key={`${id}-right`}
+        key={`tiles-tile-right-${id}`}
         bgOverlay="piaiInterface"
-        element={<Logo color="white" hoverColor="white" />}
+        element={
+          <Logo
+            key={`tiles-tile-right-logo-${id}`}
+            color="white"
+            hoverColor="white"
+          />
+        }
         headline={data?.acf?.tileRight?.title}
-        // TODO: Buttons here only on mobile
-        buttons={createButtons(data?.acf?.tileRight?.links, "right")}
+        buttons={createButtons(data?.acf?.tileRight?.links, "right", id)}
       >
-        <SafeHtmlDiv html={data?.acf?.tileRight?.teaser} />
+        <SafeHtmlDiv
+          key={`tiles-tile-right-html-${id}`}
+          html={data?.acf?.tileRight?.teaser}
+        />
       </Tile>
     </Grid>
   );

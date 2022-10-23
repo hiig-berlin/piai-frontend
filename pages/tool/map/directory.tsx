@@ -7,7 +7,6 @@ import Layout from "~/components/tools/map/Layout";
 import { restApiGetSettings } from "~/utils/restApi";
 import { appConfig } from "~/config";
 import { PiAiTool } from "~/types";
-import { useToolStateStoreActions } from "~/components/tools/map/state/ToolState";
 
 const Content = styled.div`
   width: 100%;
@@ -36,23 +35,21 @@ const Content = styled.div`
 `;
 
 const Directory = ({ tool }: { tool: PiAiTool }) => {
+  const currentTool = appConfig.tools?.find((t) => t.slug === "map");
+
   return (
     <>
-      {/* TODO: ensure correct meta data is set <NextHeadSeo
-        canonical={data?.yoast_head_json?.canonical ?? data?.yoast_head_json?.og_url}
-        title={data?.yoast_head_json?.title ?? data?.title}
-        description={data?.yoast_head_json?.description}
+      <NextHeadSeo
+        title={`Directory - ${currentTool?.name ? `${currentTool?.name} - ` : ""} ${appConfig.appTitle}`}
+        description={currentTool?.description ?? undefined}
         og={{
-          title: data?.yoast_head_json?.og_title,
-          url: data?.yoast_head_json?.og_url,
-          type: data?.yoast_head_json?.og_type,
-          siteName: data?.yoast_head_json?.og_site_name,
-          image: data?.yoast_head_json?.twitter_image,
+          title: `Directory - ${currentTool?.name ? `${currentTool?.name} - ` : ""} ${appConfig.appTitle}`,
+          siteName: appConfig.appTitle,
         }}
         twitter={{
           card: "summary_large_image",
         }}
-      /> */}
+      />
 
       {/* Dont' wrap this in further divs, 
       <main> is set via Layout component "*/}
