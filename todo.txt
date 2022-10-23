@@ -2,7 +2,7 @@
 +++++ DISCUSS: VVU + LW +++++++++++++++++++++
 +++++++++++++++++++++++++++++++++++++++++++++
 - Share Button Does not work on (MacOS Chrome and FF)
-- Use local google fonts?
+  - Clip to copy
 
 - About Page jumps if scroll direction changes inbetween
 
@@ -16,8 +16,6 @@ button on the top right. It lays over the listing and doesn't look to pretty.
 +++++++++++++++++++++++++++++++++++++++++++++
 +++++ TODO: VVU +++++++++++++++++++++++++++++
 +++++++++++++++++++++++++++++++++++++++++++++
-– Add SEO data, where, how?
-
 - Make sure that poster.jpg is being used properly 
 
 - Tools need skip to content link
@@ -25,12 +23,18 @@ button on the top right. It lays over the listing and doesn't look to pretty.
 +++++++++++++++++++++++++++++++++++++++++++++
 +++++ TODO: LW ++++++++++++++++++++++++++++++
 +++++++++++++++++++++++++++++++++++++++++++++
+
+– Add SEO data, where, how?
+  <AppDefaultHead />
+    but also in each <Layout ... />
+
 - Confirm that Matomo tracks referral correctly
   
 - Add poster.jpg as share fallback image to /public/img/... 
 
 - FAV ICONS! 
 
+- Use local google fonts? Add TypeKit into imprint
 
 ++++++++++++++++++++++++++++++++++++++++++++++++
 +++++++ TODO: ???? +++++++++++++++++++++++++++++

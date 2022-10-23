@@ -13,19 +13,19 @@ export const AppDefaultHead = () => {
       />
       <title>Public Interest AI</title>
 
-      <link rel="shortcut icon" href={`${config.baseUrl}/TODO:_SET_FAVICON.png`} />
+      <link rel="shortcut icon" href={`${config.baseUrl}/favicon.png`} />
       <meta name="#000" />
       <link
         rel="icon"
         type="image/png"
-        href={`${config.baseUrl}/TODO:_SET_FAVICON.png`}
+        href={`${config.baseUrl}/favicon.png`}
         sizes="16x16"
       />
-      <link rel="apple-touch-icon" href={`${config.baseUrl}/TODO:_SET_FAVICON.png`} />
+      <link rel="apple-touch-icon" href={`${config.baseUrl}/favicon.png`} />
       <link
         rel="icon"
         type="image/png"
-        href={`${config.baseUrl}/TODO:_SET_FAVICON.png`}
+        href={`${config.baseUrl}/favicon.png`}
         sizes="32x32"
       />
       {/* <link

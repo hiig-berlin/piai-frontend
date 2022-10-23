@@ -59,6 +59,8 @@ const createButtons = (links: any, scope: string) => {
 };
 
 export const Tiles = ({ data }: { data: any }) => {
+  const id = useId();
+
   const config = useConfigContext();
 
   const tool = config.tools.find(
@@ -68,6 +70,7 @@ export const Tiles = ({ data }: { data: any }) => {
   return (
     <Grid bg={background.src}>
       <Tile
+        key={`${id}-left`}
         bgOverlay="piaiMap"
         element={
           tool ? (
@@ -87,6 +90,7 @@ export const Tiles = ({ data }: { data: any }) => {
         <SafeHtmlDiv html={data?.acf?.tileLeft?.teaser} />
       </Tile>
       <Tile
+        key={`${id}-right`}
         bgOverlay="piaiInterface"
         element={<Logo color="white" hoverColor="white" />}
         headline={data?.acf?.tileRight?.title}
