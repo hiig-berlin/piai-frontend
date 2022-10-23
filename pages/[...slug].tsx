@@ -10,7 +10,6 @@ import {
 } from "~/utils/restApi";
 import { FlexibleContentRow } from "~/components/flexibleContent/FlexibleContentRow";
 import { appConfig } from "~/config";
-import { safeAnchorId } from "~/utils/safeAnchorId";
 
 const Page = ({ data }: { data: any }) => {
   return (
@@ -48,14 +47,6 @@ const Page = ({ data }: { data: any }) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  // TODO: Fill in paths that should be prerendered
-  // const pages = await restApiESQuery({
-  //   type: "page",
-  //   perPage: 50,
-  //   orderby: "post_date",
-  //   order: "desc",
-  // });
-
   return {
     paths: [],
     fallback: "blocking",
@@ -97,8 +88,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   //   },
   // };
 
-  // TODO: remove 404 
-  if (!data || slug === "404")
+  if (!data)
     return {
       props: {
         frontendSettings: await restApiGetSettings(),
