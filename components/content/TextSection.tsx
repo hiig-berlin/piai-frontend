@@ -52,7 +52,8 @@ export const TextSection = ({ data }: { data: any }) => {
 
   return (
     <>
-      <PageMargins spaceBottom={7} spaceTop={4} id="textSection">
+      {/* !-- JumpAncor  */}
+      <PageMargins spaceBottom={7} spaceTop={4} >
         <SectionHeading asTag="h2" heading="h2">
           <SafeHtmlSpan html={data?.acf?.textSectionsTitle} />
         </SectionHeading>

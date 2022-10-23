@@ -62,7 +62,7 @@ const SidebarContainer = styled.div<{
 
     opacity: 1;
 
-    transition: transform 0.25s;
+    transition: transform 0.35s;
 
     transform: ${({ isOpen, isClosing }) =>
       isClosing || !isOpen
