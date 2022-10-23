@@ -151,7 +151,7 @@ export const theme = {
     overlay: 50,
   },
   spaceValues: {
-    // TODO: overwrite the breakpoint values individually, like page Margin values below.
+    // Overwrite the breakpoint values individually, like page Margin values below.
     base: themeGetSpaceValues("base"),
     mobile: themeGetSpaceValues("mobile"),
     mobileLandscape: themeGetSpaceValues("mobile"),
@@ -160,7 +160,7 @@ export const theme = {
     desktop: themeGetSpaceValues("desktop"),
     screen: themeGetSpaceValues("screen"),
   },
-  // TODO: you could also configure
+  // You could also configure
   pageMarginValues: {
     base: 10,
     mobile: 20,

@@ -20,6 +20,7 @@ const baseStyling = css<{ spaceBefore?: boolean; hideOnPrint?: boolean }>`
   display: flex;
   gap: var(--size-1);
   color: #fff;
+  font-family: var(--font-family-sans-serif);
 
   .svg {
     min-height: 1.2em;
