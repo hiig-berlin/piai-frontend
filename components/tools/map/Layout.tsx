@@ -97,8 +97,8 @@ export const Layout = ({
   const [showMap, setShowMap] = useState(props?.view === "map");
 
   const isMap = props?.view === "map";
-  const isDirectory = props?.view === "page" && props?.slug === "directory";
-
+  const isDirectory = router.pathname.indexOf("directory") > -1;
+  
   const updateFromQuery = useCallback(
     (isInitCall: boolean) => {
       if (document.location.search === "") {
@@ -110,9 +110,7 @@ export const Layout = ({
 
         const params = new URLSearchParams(document.location.search);
 
-        const isDirectory =
-          props?.view === "page" && props?.slug === "directory";
-
+        const isDirectory = router.pathname.indexOf("directory") > -1;
         const term = params.get("term") ?? "";
         if (term !== "") {
           const terms = term.split(",");
@@ -145,6 +143,7 @@ export const Layout = ({
         } else {
           newState.terms = {};
         }
+        
         const regions = params.get("regions") ?? "";
         if (regions !== "" && settingsState.regions && isDirectory) {
           const activeRegions = regions.split(",");
@@ -250,11 +249,24 @@ export const Layout = ({
       setFilterState,
       updateFilterState,
       getDefaultState,
-      props?.slug,
-      props?.view,
+      router.pathname
     ]
   );
 
+  const onRouterChangeComplete = useCallback(
+    (url: string) => {
+      if (
+        previousPathName === document.location.pathname &&
+        url.replace("?empty=1", "") !== ""
+      ) {
+        updateFromQuery(false);
+      }
+
+      previousPathName = router.pathname;
+    },
+    [updateFromQuery, router.pathname],
+  )
+  
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -265,16 +277,7 @@ export const Layout = ({
       isInit = true;
       previousPathName = document.location.pathname;
     }
-
-    const onRouterChangeComplete = (url: string) => {
-      if (
-        previousPathName === document.location.pathname &&
-        url.replace("?empty=1", "") !== ""
-      )
-        updateFromQuery(false);
-
-      previousPathName = document.location.pathname;
-    };
+    
     router.events.on("routeChangeComplete", onRouterChangeComplete);
 
     return () => {
