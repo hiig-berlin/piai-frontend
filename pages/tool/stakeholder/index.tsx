@@ -276,7 +276,7 @@ const Index = ({
       }
     })
   })
-  console.log("Tags: ", allTags);
+  // console.log("Tags: ", allTags);
 
   return (
     <StakeholderWrapper>
