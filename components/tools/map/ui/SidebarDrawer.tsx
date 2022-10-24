@@ -50,13 +50,13 @@ const SidebarContainer = styled.div<{
     max-width: calc(
       var(--size-6) +
         (
-          (100vw - var(--size-6) - 3 * var(--size-3)) *
+          (100vw - var(--size-6) - var(--size-5) - 3 * var(--size-3)) *
             (1 * ${({ columnWidth }) => columnWidth})
         )
     );
 
     width: calc(
-      var(--size-6) + (100vw - var(--size-6) - 3 * var(--size-3)) *
+      var(--size-6) + (100vw - var(--size-6) - var(--size-5) - 3 * var(--size-3)) *
         (1 * ${({ columnWidth }) => columnWidth})
     );
 

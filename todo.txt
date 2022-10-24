@@ -4,8 +4,7 @@
 
 - Directory listing on mobile view, what to do with the menu 
 button on the top right. It lays over the listing and doesn't look to pretty.
-  > Leave space to the right... 
-  > Direectory elements top aligned ...
+> Top
 
 - Directory listing on mobile view, counter overlays the bottom of the list. What to do? 
   > Bottom padding, move to right. 
@@ -17,13 +16,10 @@ button on the top right. It lays over the listing and doesn't look to pretty.
 
 <JumpTo name="abc" offset={-300} /> {/* !-- JumpAncor  */} />
 
-> Mobile filter counter text to toggle fitler ... 
 
 +++++++++++++++++++++++++++++++++++++++++++++
 +++++ TODO: VVU +++++++++++++++++++++++++++++
 +++++++++++++++++++++++++++++++++++++++++++++
-- Bring tool title and description to tools from config ... 
-
 - Make sure that poster.jpg is being used properly 
 
 - Tools need skip to content link
@@ -34,16 +30,12 @@ button on the top right. It lays over the listing and doesn't look to pretty.
 +++++ TODO: LW ++++++++++++++++++++++++++++++
 +++++++++++++++++++++++++++++++++++++++++++++
 
-– Add SEO data, where, how?
-  <AppDefaultHead />
-    but also in each <Layout ... />
+- Menu button. The button is actually of a good size. But the SVG is funny. 
+Could you double check, that the artboard is closely fitting and best a square
+(for the rounded and neg version)
 
 - Confirm that Matomo tracks referral correctly
   
-- Add poster.jpg as share fallback image to /public/img/... 
-
-- FAV ICONS! 
-
 - Use local google fonts? Add TypeKit into imprint
 
 - Check TODOs: in other files I've got some questions ...

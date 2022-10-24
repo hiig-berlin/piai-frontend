@@ -19,7 +19,6 @@ const Content = styled.div`
 
   padding-top: var(--size-6);
 
-
   ${({ theme }) => theme.breakpoints.tablet} {
     display: flex;
     padding: var(--size-6) var(--size-3) var(--size-3) 60vw;

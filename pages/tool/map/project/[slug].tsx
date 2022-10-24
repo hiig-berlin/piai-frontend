@@ -37,7 +37,7 @@ const Container = styled.main<{
   padding: var(--size-3);
 
   ${({ theme }) => theme.breakpoints.tablet} {
-    padding-right: 100px;
+    padding-right: calc(var(--size-5) + var(--size-3));
   }
 
   & .column {

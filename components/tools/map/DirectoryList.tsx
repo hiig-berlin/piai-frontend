@@ -55,19 +55,20 @@ const Container = styled.div<{ isFilterOpen: boolean }>`
   ${({ theme }) => theme.breakpoints.tablet} {
     bottom: 0;
     left: calc(var(--size-3) + var(--size-6));
-    height: calc(100vh - var(--lbh) - var(--size-3));
-    width: calc((100vw - var(--size-6) - 2 * var(--size-3)));
+    height: calc(100vh - var(--lbh));
+    width: calc((100vw - var(--size-6) - var(--size-5) - 2 * var(--size-3)));
+    padding-top: var(--size-3);
     padding-bottom: var(--size-3);
   }
 
   ${({ theme }) => theme.breakpoints.tabletLandscape} {
     width: ${({ isFilterOpen }) =>
       isFilterOpen
-        ? "calc((100vw - var(--size-6) - 3 * var(--size-3)) * 0.333)"
-        : "calc((100vw - var(--size-6) - 3 * var(--size-3)) * 0.5)"};
+        ? "calc((100vw - var(--size-6) - var(--size-5) - 3 * var(--size-3)) * 0.333)"
+        : "calc((100vw - var(--size-6) - var(--size-5) - 3 * var(--size-3)) * 0.5)"};
     transform: ${({ isFilterOpen }) =>
       isFilterOpen
-        ? "translateX(calc((100vw - var(--size-6) - 3 * var(--size-3)) * 0.333))"
+        ? "translateX(calc((100vw - var(--size-6) - var(--size-5) - 3 * var(--size-3)) * 0.333))"
         : "translateX(0)"};
   }
 

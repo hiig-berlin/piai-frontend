@@ -12,7 +12,10 @@ import { useCssVarsStateIsTabletLandscapeAndUpState } from "~/components/state/C
 import { Icon } from "../shared/ui/Icon";
 import safeHtml from "~/utils/sanitize";
 import { Scroller } from "./Styled";
-import { useToolStateFilterState, useToolStateStoreActions } from "./state/ToolState";
+import {
+  useToolStateFilterState,
+  useToolStateStoreActions,
+} from "./state/ToolState";
 
 const DraggableDrawer = dynamic(() => import("./map/DraggableDrawer"), {
   suspense: true,
@@ -40,19 +43,21 @@ const QuickView = styled.div<{ isFilterOpen: boolean; isDirectory: boolean }>`
     max-height: 100%;
 
     ${theme.breakpoints.tabletLandscape} {
-      bottom: 0;
-      padding-bottom: var(--size-3);
-      // height: calc(100vh - var(--lbh) - var(--tool-map-ot));
+      bottom: ${`${ isDirectory ? "auto" : "0"}`};
+      top: ${`${ isDirectory ? "var(--size-3)" : "auto"}`};
+      padding-bottom: ${`${ isDirectory ? "0" : "var(--size-3)"}`};
+      max-height: ${`${ isDirectory ? "calc(100vh - var(--lbh) - 2 * var(--size-3))" : "75vh"}`};
+      height: ${`${ isDirectory ? "calc(100vh - var(--lbh) - var(--size-3))" : "auto"}`};
       transform: ${
         isFilterOpen
-          ? "translateX(calc(var(--size-3) + ((100vw - var(--size-6) - 3 * var(--size-3)) * 0.666)))"
-          : "translateX(calc(var(--size-3) + ((100vw - var(--size-6) - 3 * var(--size-3)) * 0.5)))"
+          ? "translateX(calc(var(--size-3) + ((100vw - var(--size-6) - var(--size-5) - 3 * var(--size-3)) * 0.666)))"
+          : "translateX(calc(var(--size-3) + ((100vw - var(--size-6) - var(--size-5) - 3 * var(--size-3)) * 0.5)))"
       };
 
       width: ${
         isFilterOpen
-          ? "calc((100vw - var(--size-6) - 3 * var(--size-3)) * 0.333)"
-          : "calc((100vw - var(--size-6) - 3 * var(--size-3)) * 0.5)"
+          ? "calc((100vw - var(--size-6) - var(--size-5) - 3 * var(--size-3)) * 0.333)"
+          : "calc((100vw - var(--size-6) - var(--size-5) - 3 * var(--size-3)) * 0.5)"
       };
     }
   `
@@ -100,8 +105,9 @@ const Panel = styled.div<{
   }
 
   ${({ theme }) => theme.breakpoints.tabletLandscape} {
-    border-radius: ${({ isDirectory }) => (isDirectory ? "var(--size-3)" : "0")};
-    height: ${({ isDirectory }) => (isDirectory ? "100%" : "auto")};
+    border-radius: ${({ isDirectory }) =>
+      isDirectory ? "var(--size-3)" : "0"};
+    height: auto;
     max-height: ${({ isDirectory }) => (isDirectory ? "100%" : "75vh")};
   }
 
@@ -252,7 +258,10 @@ export const ProjectQuickView = ({
   if (isTabletLandscapeAndUp && hasContent)
     content = (
       <QuickView
-        isFilterOpen={filterState.isFilterOpen || (view !== "directory" && filterState.isSearchOpen)}
+        isFilterOpen={
+          filterState.isFilterOpen ||
+          (view !== "directory" && filterState.isSearchOpen)
+        }
         isDirectory={view === "directory"}
       >
         {content}

@@ -247,7 +247,8 @@ export const CssVarsStateController = () => {
         outer.style.visibility = "hidden";
         outer.style.width = "100px";
         outer.style.height = "100vh";
-        outer.style.overflow = "scroll";
+        outer.style.overflowY = "scroll";
+        outer.style.overflowX = "hidden";
         const widthNoScroll = outer.offsetWidth;
 
         const inner = document.createElement("div");
@@ -259,11 +260,9 @@ export const CssVarsStateController = () => {
 
         const sbw = widthNoScroll - widthScroll;
 
-        outer.style.height = "100%";
-
         const h100percent = Math.min(window.innerHeight, outer.offsetHeight);
         const lbh = h100vh - h100percent;
-
+        
         document.documentElement.style.setProperty(
           "--sbw",
           `${sbw.toFixed(0)}px`
@@ -272,7 +271,7 @@ export const CssVarsStateController = () => {
           "--lbh",
           `${lbh.toFixed(0)}px`
         );
-        document.body.removeChild(outer);
+        // document.body.removeChild(outer);
 
         newState = {
           ...newState,
