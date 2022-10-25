@@ -44,7 +44,7 @@ const Home = ({ data }: { data: any }) => {
 
         {/* <Video></Video> */} 
 
-        <TextSection data={data} />
+        <TextSection data={data} id="more"/>
 
         <Accordion data={data} />
 

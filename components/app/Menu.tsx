@@ -351,6 +351,6 @@ const menuContent = {
     description:
       "Defining public interest AI is as difficult as it is crucial for our society. Academia and various societal stakeholder have entered a discourse to sharpen the edges of this explanation.",
     linkText: "Explore the definition",
-    linkURL: "/#textSection",
+    linkURL: "/#more",
   },
 };

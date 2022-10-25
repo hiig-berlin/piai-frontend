@@ -4,7 +4,8 @@
 
 - Directory listing on mobile view, what to do with the menu 
 button on the top right. It lays over the listing and doesn't look to pretty.
-> Top
+> Top spacing on mobiles
+> New column with, quick view on map needs to be pushed to the left. 
 
 - Directory listing on mobile view, counter overlays the bottom of the list. What to do? 
   > Bottom padding, move to right. 
@@ -13,8 +14,6 @@ button on the top right. It lays over the listing and doesn't look to pretty.
 - Move Mobile menu button
   > to the left-bottom
   > Increase size ...
-
-<JumpTo name="abc" offset={-300} /> {/* !-- JumpAncor  */} />
 
 
 +++++++++++++++++++++++++++++++++++++++++++++
@@ -39,3 +38,9 @@ Could you double check, that the artboard is closely fitting and best a square
 - Use local google fonts? Add TypeKit into imprint
 
 - Check TODOs: in other files I've got some questions ...
+
+- VVU: I added new JumpAnchor component (it's in use in TextSection). 
+  > The "id" is the jump anchor. 
+  > If you load a page with a hash bang "#!" after page transition the site will soft scroll to the location
+    e.g http://localhost:3000/#!more
+  > I've changed the #textSection to #more (also in the CMS)

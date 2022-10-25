@@ -8,6 +8,7 @@ import PageMargins from "../ui/PageMargins";
 import { Wizard } from "./Wizard";
 import { Accessible } from "./Accessible";
 import SafeHtmlSpan from "../ui/SafeHtmlSpan";
+import { JumpAnchor } from "../ui/JumpAnchor";
 
 const Grid = styled.div`
   display: grid;
@@ -47,13 +48,13 @@ const GridLeftColumn = styled.div`
   }
 `;
 
-export const TextSection = ({ data }: { data: any }) => {
+export const TextSection = ({ data, id }: { data: any; id: string }) => {
   const isTabletAndUp = useCssVarsStateIsTabletAndUpState();
 
   return (
     <>
-      {/* !-- JumpAncor  */}
-      <PageMargins spaceBottom={7} spaceTop={4} >
+      <JumpAnchor id={id} />
+      <PageMargins spaceBottom={7} spaceTop={4}>
         <SectionHeading asTag="h2" heading="h2">
           <SafeHtmlSpan html={data?.acf?.textSectionsTitle} />
         </SectionHeading>
