@@ -9,7 +9,7 @@ export const DirectoryFilter = () => {
       title="Project filter"
       initiallyOpenOnLargerScreens={true}
       hasTopOffset={false}
-      addCounterPadding={false}
+      addCounterPadding={true}
     >
       <FilterContent view="directory" />
     </SidebarDrawer>

@@ -1,29 +1,13 @@
 +++++++++++++++++++++++++++++++++++++++++++++
 +++++ DISCUSS: VVU + LW +++++++++++++++++++++
 +++++++++++++++++++++++++++++++++++++++++++++
-
-- Directory listing on mobile view, what to do with the menu 
-button on the top right. It lays over the listing and doesn't look to pretty.
-> Top spacing on mobiles
-> New column with, quick view on map needs to be pushed to the left. 
-
-- Directory listing on mobile view, counter overlays the bottom of the list. What to do? 
-  > Bottom padding, move to right. 
-  > Also bottom padding for filter content ... like on map - but make map shorter 
-
-- Move Mobile menu button
-  > to the left-bottom
-  > Increase size ...
-
+All done! :-)
 
 +++++++++++++++++++++++++++++++++++++++++++++
 +++++ TODO: VVU +++++++++++++++++++++++++++++
 +++++++++++++++++++++++++++++++++++++++++++++
-- Make sure that poster.jpg is being used properly 
-
-- Tools need skip to content link
-
-- Tripple check why region does reset. 
+- Support LW to move/resize menu button if needed.
+  > Increase size ...
 
 +++++++++++++++++++++++++++++++++++++++++++++
 +++++ TODO: LW ++++++++++++++++++++++++++++++

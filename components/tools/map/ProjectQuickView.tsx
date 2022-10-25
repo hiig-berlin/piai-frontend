@@ -25,7 +25,7 @@ const QuickView = styled.div<{ isFilterOpen: boolean; isDirectory: boolean }>`
   position: fixed;
   bottom: var(--size-3);
   left: calc(var(--size-3) + var(--size-6));
-  z-index: 12;
+  z-index: 25;
   height: auto;
   max-height: 75vh;
   width: calc((100vw - var(--size-6) - 3 * var(--size-3)) * 0.333);
@@ -34,7 +34,7 @@ const QuickView = styled.div<{ isFilterOpen: boolean; isDirectory: boolean }>`
   transition: transform 0.35s, width 0.35s;
   transform: ${({ isFilterOpen }) =>
     isFilterOpen
-      ? "translateX(calc((100vw - var(--size-6) - 3 * var(--size-3)) * 0.333))"
+      ? "translateX(calc((100vw - var(--size-6) - var(--size-5) - 3 * var(--size-3)) * 0.333))"
       : "translateX(0)"};
 
   ${({ isDirectory, theme, isFilterOpen }) =>
@@ -126,7 +126,7 @@ const Footer = styled.div`
   flex-direction: row;
   justify-content: center;
 
-  padding-bottom: var(--size-6);
+  padding-bottom: var(--size-3);
 
   ${({ theme }) => theme.breakpoints.tabletLandscape} {
     justify-content: space-between;

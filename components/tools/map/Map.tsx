@@ -24,7 +24,7 @@ const MapUi = styled.div<{ isMapView: boolean }>`
   padding: var(--size-3);
   position: fixed;
   // bottom: var(--size-3);
-  top: var(--size-6);
+  top: var(--size-7);
   right: var(--size-3);
   z-index: 2;
   display: flex;
@@ -34,6 +34,8 @@ const MapUi = styled.div<{ isMapView: boolean }>`
   ${({ theme }) => theme.breakpoints.tablet} {
     gap: var(--size-2);
     padding: var(--size-2);
+    top: auto;
+    bottom: var(--size-3);
   }
 
   ${({ isMapView, theme }) => (!isMapView ? theme.applyMixin("noPrint") : "")}
