@@ -40,7 +40,7 @@ export const LayoutMain = ({ children }: AppProps) => {
 
         <Footer />
       </FullHeightGrid>
-      <Menu/>
+      <Menu />
     </>
   );
 };

@@ -152,6 +152,7 @@ export const AboutPage = ({
 }) => {
   // TODO: cta urls should be able to distinguish between internal and external links
   // also add the ability to add a target
+  // LARISSA: Is the above needed?
 
   const [scrollDir, setScrollDir] = useState("down");
   const [isSimple, setIsSimple] = useState(false);

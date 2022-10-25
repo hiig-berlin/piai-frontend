@@ -299,25 +299,21 @@ const Index = ({
 }) => {
   const isTabletAndUp = useCssVarsStateIsTabletAndUpState();
   const isDesktopAndUp = useCssVarsStateIsDesktopAndUpState();
+  const currentTool = appConfig.tools?.find((t) => t.slug === "energy");
 
   return (
     <EnergyWrapper>
-      {/*
-        TODO: Set correct values ... 
-        <NextHeadSeo
-          canonical={currentPage?.yoast_head_json?.canonical}
-          title={currentPage?.yoast_head_json?.title ?? currentPage?.title}
-          description={currentPage?.yoast_head_json?.description}
-          og={{
-            title: currentPage?.yoast_head_json?.og_title,
-            type: currentPage?.yoast_head_json?.og_type,
-            siteName: currentPage?.yoast_head_json?.og_site_name,
-            image: currentPage?.yoast_head_json?.twitter_image,
-          }}
-          twitter={{
-            card: "summary_large_image",
-          }}
-      />*/}
+      <NextHeadSeo
+        title={currentTool?.name ?? appConfig.appTitle}
+        description={currentTool?.description ?? undefined}
+        og={{
+          title: currentTool?.name ?? appConfig.appTitle,
+          siteName: appConfig.appTitle,
+        }}
+        twitter={{
+          card: "summary_large_image",
+        }}
+      />
 
       <Header>
         {isTabletAndUp && (

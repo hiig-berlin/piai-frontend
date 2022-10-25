@@ -21,6 +21,7 @@ const Container = styled.div`
     background: #fff !important;
     color: #000 !important;
   }
+
 `;
 
 export const DirectoryOverlays = () => {

@@ -33,7 +33,7 @@ const StakeholderWrapper = styled.div`
     ${({ theme }) => theme.applyMixin("uppercase")};
   }
 
-  h1{
+  h1 {
     line-height: 1em;
   }
 
@@ -88,8 +88,6 @@ const Grid = styled.div`
   ${({ theme }) => theme.breakpoints.tabletLandscape} {
     grid-template-columns: repeat(3, 1fr);
   }
-
-
 `;
 
 // Repeating elements
@@ -143,7 +141,7 @@ const Header = styled.header`
     margin-right: 100px;
   }
 
-  & .toolIntro{
+  & .toolIntro {
     justify-content: center;
     display: flex;
     flex-direction: column;
@@ -168,16 +166,14 @@ const Header = styled.header`
     font-size: calc(var(--text-body-font-size-tool) * 0.85);
     line-height: 1em;
   }
-
-  
 `;
 
 const Entry = styled(Box)<{ isExpanded: boolean }>`
-
   grid-row: auto;
 
   ${({ theme }) => theme.breakpoints.tablet} {
-    grid-row: ${({isExpanded}) => isExpanded ? "auto / span 3" : "auto / span 1"};
+    grid-row: ${({ isExpanded }) =>
+      isExpanded ? "auto / span 3" : "auto / span 1"};
   }
 
   & h1 {
@@ -205,7 +201,7 @@ const Tags = styled.div`
   flex-direction: row;
   gap: var(--size-2);
 
-  &.filter{
+  &.filter {
     justify-content: end;
   }
 `;
@@ -261,6 +257,8 @@ const Index = ({
   const [currentTag, setCurrentTag] = useState("");
   const [selectedEntry, setSelectedEntry] = useState<number>();
 
+  const currentTool = appConfig.tools?.find((t) => t.slug === "stakeholder");
+
   let filteredList =
     currentTag === ""
       ? stakeholderList
@@ -268,34 +266,33 @@ const Index = ({
           return e.tags.includes(currentTag);
         });
 
-  let allTags : any[] = [];
+  let allTags: any[] = [];
   stakeholderList.forEach((s) => {
-    s.tags.forEach( (t) => {
+    s.tags.forEach((t) => {
       if (allTags.indexOf(t) === -1) {
         allTags.push(t);
       }
-    })
-  })
+    });
+  });
   // console.log("Tags: ", allTags);
 
   return (
     <StakeholderWrapper>
-      {/*
-        TODO: Set correct values ... 
-        <NextHeadSeo
-          canonical={currentPage?.yoast_head_json?.canonical}
-          title={currentPage?.yoast_head_json?.title ?? currentPage?.title}
-          description={currentPage?.yoast_head_json?.description}
-          og={{
-            title: currentPage?.yoast_head_json?.og_title,
-            type: currentPage?.yoast_head_json?.og_type,
-            siteName: currentPage?.yoast_head_json?.og_site_name,
-            image: currentPage?.yoast_head_json?.twitter_image,
-          }}
-          twitter={{
-            card: "summary_large_image",
-          }}
-      />*/}
+      <NextHeadSeo
+        title={`${currentTool?.name ? `${currentTool?.name} - ` : ""} ${
+          appConfig.appTitle
+        }`}
+        description={currentTool?.description ?? undefined}
+        og={{
+          title: `${currentTool?.name ? `${currentTool?.name} - ` : ""} ${
+            appConfig.appTitle
+          }`,
+          siteName: appConfig.appTitle,
+        }}
+        twitter={{
+          card: "summary_large_image",
+        }}
+      />
 
       <Header>
         {isTabletAndUp && (
@@ -309,10 +306,14 @@ const Index = ({
         )}
         <div className="toolIntro">
           <h1>
-          Would you like to get an overview of the stakeholders in the PIAI field?
+            Would you like to get an overview of the stakeholders in the PIAI
+            field?
           </h1>
           <p>
-          We have started to identify organisations and institutions that can play an important role in the development of the field or Public Interst AI (PIAI). Are you missing a stakeholder? Let us know and we’ll be happy to add it!
+            We have started to identify organisations and institutions that can
+            play an important role in the development of the field or Public
+            Interst AI (PIAI). Are you missing a stakeholder? Let us know and
+            we’ll be happy to add it!
           </p>
         </div>
         {isDesktopAndUp && (

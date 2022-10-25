@@ -9,7 +9,6 @@ import {
   restApiGetPostBySlugOrFallbackId,
   restApiGetSettings,
 } from "~/utils/restApi";
-import { FlexibleContentRow } from "~/components/flexibleContent/FlexibleContentRow";
 
 const Home = ({ currentPage }: { currentPage: any }) => {
   return (
@@ -42,7 +41,6 @@ const Home = ({ currentPage }: { currentPage: any }) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  // TODO: fill in paths that should be prerendered
   return {
     paths: [],
     fallback: "blocking",
@@ -52,12 +50,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async (context) => {
   const token = (context?.previewData as any)?.token;
 
-  // TODO: Enable const currentPage = await restApiGetPostBySlugOrFallbackId("page", "home", token);
-  const currentPage: any = {
-    date: new Date().toISOString(),
-    modified: new Date().toISOString(),
-  };
+  const slug = context?.params?.slug
+    ? Array.isArray(context?.params?.slug) && context?.params?.slug?.length
+      ? (context?.params?.slug?.pop() as string)
+      : (context?.params?.slug as string)
+    : 1;
 
+  const currentPage = await restApiGetPostBySlugOrFallbackId("page", slug, token);
+  
   if (!currentPage)
     return {
       props: {

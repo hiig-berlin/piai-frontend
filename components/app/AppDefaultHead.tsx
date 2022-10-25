@@ -30,14 +30,14 @@ export const AppDefaultHead = () => {
       />
       {/* <link
         rel="preload"
-        href="/fonts/TODO:/CUSTOM-FONT-Regular.woff2"
+        href="/fonts/CUSTOM-FONT-Regular.woff2"
         as="font"
         type="font/woff2"
         crossOrigin="anonymous"
       />
       <link
         rel="preload"
-        href="/fonts/TODO:/CUSTOM-FONT-Bold.woff2"
+        href="/fonts/CUSTOM-FONT-Bold.woff2"
         as="font"
         type="font/woff2"
         crossOrigin="anonymous"

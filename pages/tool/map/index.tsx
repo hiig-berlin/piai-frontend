@@ -22,7 +22,7 @@ const Content = styled.div`
   padding: var(--size-3);
   padding-bottom: calc(var(--size-6) + 2 * var(--size-3));
 
-  ${({ theme }) => theme.breakpoints.tablet } {
+  ${({ theme }) => theme.breakpoints.tablet} {
     padding: var(--size-3);
     padding-bottom: calc(2 * var(--size-3) + var(--size-5));
   }
@@ -43,24 +43,25 @@ const Index = ({
   frontendSettings: any;
   tool: PiAiTool;
 }) => {
+  const currentTool = appConfig.tools?.find((t) => t.slug === "map");
+
   return (
     <>
-      {/*
-        TODO: Set correct values ... 
-        <NextHeadSeo
-          canonical={currentPage?.yoast_head_json?.canonical}
-          title={currentPage?.yoast_head_json?.title ?? currentPage?.title}
-          description={currentPage?.yoast_head_json?.description}
-          og={{
-            title: currentPage?.yoast_head_json?.og_title,
-            type: currentPage?.yoast_head_json?.og_type,
-            siteName: currentPage?.yoast_head_json?.og_site_name,
-            image: currentPage?.yoast_head_json?.twitter_image,
-          }}
-          twitter={{
-            card: "summary_large_image",
-          }}
-      />*/}
+      <NextHeadSeo
+        title={`${currentTool?.name ? `${currentTool?.name} - ` : ""} ${
+          appConfig.appTitle
+        }`}
+        description={currentTool?.description ?? undefined}
+        og={{
+          title: `${currentTool?.name ? `${currentTool?.name} - ` : ""} ${
+            appConfig.appTitle
+          }`,
+          siteName: appConfig.appTitle,
+        }}
+        twitter={{
+          card: "summary_large_image",
+        }}
+      />
       <Content>
         <Contribute position="bottom" />
       </Content>

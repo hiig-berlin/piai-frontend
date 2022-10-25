@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://TODO:-SET-BACKEND-URL/sitemap_index.xml
+Sitemap: https://cms.publicinterest.ai

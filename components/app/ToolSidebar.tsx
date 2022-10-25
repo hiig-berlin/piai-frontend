@@ -12,6 +12,7 @@ const SidebarWrapper = styled.nav`
   left: 0;
   top: 0;
   // TODO: Vincent, you know this 100% stuff better
+  // LARISSA: DON'T KNOW WHAT THIS MEANS? 
   height: 100%;
 
   font-size: 1.1em;

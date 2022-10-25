@@ -53,6 +53,7 @@ export const LayoutTool = ({
           card: "summary_large_image",
         }}
       />
+
       <MatomoUserTracking />
       <LoadingBar isLoading={isLoading} />
 

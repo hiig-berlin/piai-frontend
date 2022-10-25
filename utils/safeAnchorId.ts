@@ -1,5 +1,3 @@
-// TODO: VVU-CLEANUP
-
 import xss from "xss";
 
 export const safeAnchorId = (anchor: string) => {

@@ -1,17 +1,10 @@
 +++++++++++++++++++++++++++++++++++++++++++++
 +++++ DISCUSS: VVU + LW +++++++++++++++++++++
 +++++++++++++++++++++++++++++++++++++++++++++
-- Share Button Does not work on (MacOS Chrome and FF)
-  - Clip to copy
-
-- About Page jumps if scroll direction changes inbetween
-
-- About page in CMS, really needed?
 
 - Directory listing on mobile view, what to do with the menu 
 button on the top right. It lays over the listing and doesn't look to pretty.
-  > Leave space to the right... 
-  > Direectory elements top aligned ...
+> Top
 
 - Directory listing on mobile view, counter overlays the bottom of the list. What to do? 
   > Bottom padding, move to right. 
@@ -21,7 +14,8 @@ button on the top right. It lays over the listing and doesn't look to pretty.
   > to the left-bottom
   > Increase size ...
 
-<JumpTo name="abc" offset={-300} /> {/* !-- JumpAncor  */}
+<JumpTo name="abc" offset={-300} /> {/* !-- JumpAncor  */} />
+
 
 +++++++++++++++++++++++++++++++++++++++++++++
 +++++ TODO: VVU +++++++++++++++++++++++++++++
@@ -36,22 +30,12 @@ button on the top right. It lays over the listing and doesn't look to pretty.
 +++++ TODO: LW ++++++++++++++++++++++++++++++
 +++++++++++++++++++++++++++++++++++++++++++++
 
-– Add SEO data, where, how?
-  <AppDefaultHead />
-    but also in each <Layout ... />
+- Menu button. The button is actually of a good size. But the SVG is funny. 
+Could you double check, that the artboard is closely fitting and best a square
+(for the rounded and neg version)
 
 - Confirm that Matomo tracks referral correctly
   
-- Add poster.jpg as share fallback image to /public/img/... 
-
-- FAV ICONS! 
-
 - Use local google fonts? Add TypeKit into imprint
 
-++++++++++++++++++++++++++++++++++++++++++++++++
-+++++++ TODO: ???? +++++++++++++++++++++++++++++
-++++++++++++++++++++++++++++++++++++++++++++++++
-– FilterCount Total shows 0
-
-- Submenu mobile hide when empty
-
+- Check TODOs: in other files I've got some questions ...

@@ -37,7 +37,7 @@ const Container = styled.main<{
   padding: var(--size-3);
 
   ${({ theme }) => theme.breakpoints.tablet} {
-    padding-right: 100px;
+    padding-right: calc(var(--size-5) + var(--size-3));
   }
 
   & .column {
@@ -390,14 +390,6 @@ const Project = ({ data, tool }: { data: any; tool: PiAiTool }) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  // TODO: Fill in paths that should be prerendered
-  // const pages = await restApiESQuery({
-  //   type: "page",
-  //   perPage: 50,
-  //   orderby: "post_date",
-  //   order: "desc",
-  // });
-
   return {
     paths: [],
     fallback: "blocking",

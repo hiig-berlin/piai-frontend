@@ -61,16 +61,6 @@ const StyledFlexibleHtmlContent = styled.div<{ shortBottomMargin?: boolean }>`
     --size-${({ shortBottomMargin }) => (shortBottomMargin ? 3 : 5)}
   );
 
-  /* TODO: Here you could add further overwrites if wanted (remove if not)
-    & h1, & h2 {
-      ...
-    }
-
-    & h3, & h4, & h5 {
-      ...
-    }
-    */
-
   & p {
     &:last-child {
       margin-bottom: 0;

@@ -101,13 +101,15 @@ export const Counter = ({ view }: { view: string }) => {
 
   const { updateFilterState } = useToolStateStoreActions();
 
-  // TODO: Ich würde das Klickevent zumindest für mobile
-  // auch auf die Zahlen setzen. Dan kann man einfach unten
-  // drauf klicken um auf die Filteransicht zu kommen. Bei mobile
-  // ist ja auch filter und suche das gleiche fenster….
+  if (view === "directory" && isTabletLandscapeAndUp) return <></>;
 
-  if (view === "directory" && isTabletLandscapeAndUp) return <></>
-  
+  const onClickFilter = () => {
+    updateFilterState({
+      isFilterOpen: !filterState.isFilterOpen,
+      isSearchOpen: false,
+    });
+  };
+
   return (
     <CounterContainer
       invert={
@@ -116,19 +118,17 @@ export const Counter = ({ view }: { view: string }) => {
       }
     >
       {!isTabletLandscapeAndUp && (
-        <Icon
-          type="filter"
-          onClick={() => {
-            updateFilterState({
-              isFilterOpen: !filterState.isFilterOpen,
-              isSearchOpen: false,
-            });
-          }}
-        />
+        <Icon type="filter" onClick={onClickFilter} />
       )}
 
       {view === "map" && (
-        <div className="inView">
+        <div
+          className="inView"
+          onClick={!isTabletLandscapeAndUp ? onClickFilter : undefined}
+          style={{
+            cursor: !isTabletLandscapeAndUp ? "pointer" : "default",
+          }}
+        >
           <Label
             label={isTabletLandscapeAndUp ? "Projects in view" : "In view"}
           >
@@ -137,7 +137,13 @@ export const Counter = ({ view }: { view: string }) => {
           </Label>
         </div>
       )}
-      <div className="total">
+      <div
+        className="total"
+        onClick={!isTabletLandscapeAndUp ? onClickFilter : undefined}
+        style={{
+          cursor: !isTabletLandscapeAndUp ? "pointer" : "default",
+        }}
+      >
         <Label label={isTabletLandscapeAndUp ? "Projects total" : "Total"}>
           <strong>{filterState.filteredCount}</strong>/{filterState.totalCount}
         </Label>
