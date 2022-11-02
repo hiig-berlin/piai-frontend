@@ -1,4 +1,3 @@
-import type { MouseEvent } from "react";
 import { Icon } from "../shared/ui/Icon";
 import safeHtml from "~/utils/sanitize";
 import styled from "styled-components";

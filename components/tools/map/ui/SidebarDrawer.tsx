@@ -87,7 +87,7 @@ const Panel = styled.div<{
   padding: var(--size-3) var(--size-4)
     ${({ addCounterPadding }) =>
       addCounterPadding
-        ? "calc(var(--size-7) + var(--size-2))"
+        ? "calc(var(--size-7) + var(--size-3) + var(--size-2))"
         : "var(--size-3)"}
     var(--size-4);
 
@@ -106,6 +106,13 @@ const Panel = styled.div<{
     flex-shrink: 0;
   }
 
+  ${({ theme }) => theme.breakpoints.tablet} {
+    padding: var(--size-3) var(--size-4)
+    ${({ addCounterPadding }) =>
+      addCounterPadding
+        ? "calc(var(--size-6) + var(--size-2))"
+        : "var(--size-3)"}
+  }
   ${({ theme }) => theme.breakpoints.tabletLandscape} {
     padding: var(--size-3);
     border-top-right-radius: var(--size-3);

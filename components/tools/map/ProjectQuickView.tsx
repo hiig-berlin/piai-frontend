@@ -25,7 +25,7 @@ const QuickView = styled.div<{ isFilterOpen: boolean; isDirectory: boolean }>`
   position: fixed;
   bottom: var(--size-3);
   left: calc(var(--size-3) + var(--size-6));
-  z-index: 12;
+  z-index: 25;
   height: auto;
   max-height: 75vh;
   width: calc((100vw - var(--size-6) - 3 * var(--size-3)) * 0.333);
@@ -126,7 +126,7 @@ const Footer = styled.div`
   flex-direction: row;
   justify-content: center;
 
-  padding-bottom: var(--size-6);
+  padding-bottom: var(--size-3);
 
   ${({ theme }) => theme.breakpoints.tabletLandscape} {
     justify-content: space-between;

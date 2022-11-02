@@ -10,6 +10,7 @@ import useIsMounted from "~/hooks/useIsMounted";
 import { useRouter } from "next/router";
 
 import { useMainMenuActions } from "~/components/state/MainMenuState";
+import { scrollToHash } from "~/utils/scrollToHash";
 
 export type PageState = {
   isLoading: boolean;
@@ -145,6 +146,8 @@ export const PageStateController = () => {
         document.body.classList.remove("tabbed");
         document.body.focus();
       }
+
+      scrollToHash(document.location.hash);
     },
     [getCurrentPath, updatePageState]
   );
@@ -194,6 +197,8 @@ export const PageStateController = () => {
         setIsFontsAreLoaded(true);
       });
     }
+
+    scrollToHash(document.location.hash);
 
     return () => {
       router.events.off("routeChangeStart", onLoadStart);

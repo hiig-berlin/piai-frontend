@@ -22,7 +22,7 @@ const CounterContainer = styled.div<{ invert: boolean }>`
   pointer-events: all;
   position: fixed;
   z-index: 6;
-  bottom: var(--size-3);
+  bottom: calc(2 * var(--size-3));
   top: unset;
   height: var(--size-6);
   left: 50%;

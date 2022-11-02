@@ -165,7 +165,7 @@ export const DraggableDrawer = ({
         position: "fixed",
         top: "100%",
         width: "100%",
-        zIndex:6,
+        zIndex:24,
         y,
       }}
     >

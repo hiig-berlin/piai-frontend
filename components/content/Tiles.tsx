@@ -12,6 +12,7 @@ import SafeHtmlDiv from "../ui/SafeHtmlDiv";
 import { useConfigContext } from "~/providers/ConfigContextProvider";
 
 import Link from "next/link";
+import { scrollToHash } from "~/utils/scrollToHash";
 
 const Grid = styled.div<{ bg: string }>`
   display: grid;
@@ -35,19 +36,27 @@ const createButtons = (links: any, scope: string, id: string) => {
 
       let target = undefined;
       let rel = undefined;
+      let onClick = undefined;
 
       if (link?.newTab === true) {
         target = "_blank";
         rel = "norefferer";
       }
 
+      if (link.url.indexOf('#') > -1) {
+        onClick = (event: any) => {
+          event.preventDefault();
+          scrollToHash(link.url);
+        }
+      }
       return (
         <Link
           href={link.url}
           passHref
+          
           key={`tile-tile-button-${scope}-${id}-${index}`}
         >
-          <LinkButtonAnimated {...{ rel, target }}>
+          <LinkButtonAnimated {...{ rel, target, onClick }}>
             {link.label}
           </LinkButtonAnimated>
         </Link>
