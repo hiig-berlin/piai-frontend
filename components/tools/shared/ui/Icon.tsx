@@ -80,6 +80,7 @@ const IconStatic = styled.li<{
     // white-space: nowrap;
     // text-overflow: ellipsis;
   }
+
 `;
 
 const IconButton = styled(ButtonNormalized)<{

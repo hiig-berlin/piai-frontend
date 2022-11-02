@@ -51,7 +51,7 @@ export const SearchItem = ({
       }}
     >
       <p>{safeHtml(feature?.properties?.name ?? "")}</p>
-      <Meta col={1} inline>
+      <Meta col={2} nowrap>
         <Icon type="marker" stc>
           {safeHtml(feature?.properties?.city ?? "")},{" "}
           {safeHtml(feature?.properties?.country ?? "")}

@@ -38,11 +38,11 @@ const About = ({
         {...{
           tool,
           intro:
-            "<p>An index of organisations and institutions involved in the discourse around public interest AI.</p>",
+            "<p>An index of organisations and institutions involved in the discourse around Public Interest AI.</p>",
           content:
-            "<p>This index gathers information about organisations and institutions involved in the discourse around public interest AI. Their involvement may take various forms – from giving funding to NGO work around the issue. This collection is based on the work of the PIAI research group and should be seen as a starting point for mapping the field of stakeholders.</p><p>We hope this overview shows the broad interest in the public interest AI field, its influences from many sides and allows new projects to get an overview of the landscape of funders and existing stakeholders. </p>",
+            "<p>This index gathers information about organisations and institutions involved in the discourse around Public Interest AI. Their involvement may take various forms – from giving funding to NGO work around the issue. This collection is based on the work of the PIAI research group and should be seen as a starting point for mapping the field of stakeholders.</p><p>We hope this overview shows the broad interest in the Public Interest AI field, its influences from many sides and allows new projects to get an overview of the landscape of funders and existing stakeholders. </p>",
           contentSimple:
-            "This index gathers information about organisations and institutions involved in the discourse around public interest AI.",
+            "<p>Please be patient with us while we simplify! Come back in a while, our next version will include simplified texts.</p>",
           cta: {
             title: "Who is missing?",
             text: "This is a living document. Let us know who else is involved in the dialogue and what their role is.",

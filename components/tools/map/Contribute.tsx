@@ -42,13 +42,15 @@ const ContributeBox = styled(Box)<{ seen?: Boolean }>`
     &:hover {
       margin-right: -0.3em;
     }
-    &:visited {
+    &:visited, &:link {
       color: var(--color-piai-map-highlight);
     }
   }
+
   ${({ theme }) => theme.breakpoints.mobileLandscape} {
     max-width: calc((100vw - var(--size-6) - 2 * var(--size-3)) * 0.666);
   }
+
   ${({ theme }) => theme.breakpoints.tabletLandscape} {
     max-width: calc((100vw - var(--size-6) - 3 * var(--size-3)) * 0.333);
   }
@@ -71,6 +73,7 @@ export const Contribute = ({ position }: { position?: String }) => {
       <h3>
         <SafeHtmlSpan html={cta.title} />
         <Icon
+          active
           type="close"
           onClick={() =>
             updateMapState({

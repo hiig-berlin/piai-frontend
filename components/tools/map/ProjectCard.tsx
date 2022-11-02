@@ -45,7 +45,7 @@ export const ProjectCard = ({
   return (
     <>
       {view !== "quickview" && <h1>{safeHtml(data?.nameOfProject?.value)}</h1>}
-      <Meta col={2}>
+      <Meta col={2} nowrap={view == "quickview" ? true : false}>
         <Icon type="marker" stc>
           {safeHtml(data?.city?.value)}, {safeHtml(data?.country?.value)}
         </Icon>
@@ -69,7 +69,7 @@ export const ProjectCard = ({
       {data?.shortDescription?.value?.trim() && (
         <SafeHtmlDiv html={safeHtml(data?.shortDescription?.value)} />
       )}
-      <Meta col={3}>
+      <Meta col={3} nowrap={view == "quickview" ? true : false}>
         <Icon type="code" stc>
           {sourceCode}
         </Icon>

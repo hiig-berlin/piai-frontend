@@ -34,7 +34,7 @@ const QuickView = styled.div<{ isFilterOpen: boolean; isDirectory: boolean }>`
   transition: transform 0.35s, width 0.35s;
   transform: ${({ isFilterOpen }) =>
     isFilterOpen
-      ? "translateX(calc((100vw - var(--size-6) - 3 * var(--size-3)) * 0.333))"
+      ? "translateX(calc((100vw - var(--size-6) - var(--size-5) - 3 * var(--size-3)) * 0.333))"
       : "translateX(0)"};
 
   ${({ isDirectory, theme, isFilterOpen }) =>
@@ -178,9 +178,10 @@ export const ProjectQuickView = ({
   id?: number;
   view: string;
 }) => {
-  const isTabletLandscapeAndUp = useCssVarsStateIsTabletLandscapeAndUpState();
+    const isTabletLandscapeAndUp = useCssVarsStateIsTabletLandscapeAndUpState();
 
   const filterState = useToolStateFilterState();
+  
   const { updateFilterState } = useToolStateStoreActions();
   const [isDrawerFullHeight, setIsDrawerFullHeight] = useState(false);
 
@@ -198,7 +199,7 @@ export const ProjectQuickView = ({
   );
 
   const hasContent = isSuccess && data?.data?.id;
-
+  console.log(hasContent);
   useEffect(() => {
     updateFilterState({
       isDrawerOpen: hasContent,

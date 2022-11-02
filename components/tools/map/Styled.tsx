@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { isNullOrUndefined } from "util";
 import DisplayAbove from "~/components/styled/DisplayAbove";
 
-export const Meta = styled.ul<{ col: number, inline?: boolean }>`
+export const Meta = styled.ul<{ col: number, inline?: boolean, nowrap?: boolean}>`
   // ul, li reset
   padding: 0;
   margin: 0;
@@ -27,6 +27,25 @@ export const Meta = styled.ul<{ col: number, inline?: boolean }>`
     grid-template-columns: repeat(${({ col }) => col}, 1fr);
   }  
 
+  ${({ nowrap }) => nowrap ? `
+
+    li {
+      max-width: 90%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    li span {
+      max-height: 1.3em;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      width: 100%;
+      overflow: hidden;
+    }
+    }
+    ` : `
+
+  `}
+
   font-size: 14px;
   font-family: var(--font-family-narrow);
 
@@ -35,8 +54,14 @@ export const Meta = styled.ul<{ col: number, inline?: boolean }>`
     min-width: 0.8em !important;
     max-height: 0.8em;
     max-width: 0.8em;
-    align-self: center;
+    position: relative;
+    top: 5px;
+    align-self: flex-start;
   }
+
+
+
+
 `;
 
 export const Label = styled.h3`
