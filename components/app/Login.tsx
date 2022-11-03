@@ -49,7 +49,7 @@ const LoginInput = styled(InputText)<{ isError: boolean }>`
   color: ${({ isError }) => (isError ? "var(--color-ailab-red, #ff0)" : "white")};
   vertical-align: top;
   &::placeholder {
-    color: var(--color-medium-grey, #333) !important;
+    color: var(--color-medium-grey, #666) !important;
   }
   border-top: 2px solid white;
   border-bottom: 2px solid white;
