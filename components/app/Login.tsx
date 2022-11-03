@@ -15,13 +15,12 @@ import { GlobalStyle } from "~/theme/globalstyle";
 import { AccessibiliyHelpers } from "~/components/app/AccessibiliyHelpers";
 import { AppDefaultHead } from "./AppDefaultHead";
 import { Button } from "~/components/styled/Button";
-import { SvgBackground } from "../ui/SvgBackground";
 
 const GlobalStyleLogin = createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
-    background: var(--color-bg, #ff0);
+    background: white;
     font-family: Open-Sans, Helvetica, Sans-Serif;
   }
 `;
@@ -39,24 +38,24 @@ const LoginWrapper = styled.div`
   width: 100%;
 
   position: relative;
-  height: var(--size-5);
+  // height: var(--size-5);
 `;
 
 const LoginInput = styled(InputText)<{ isError: boolean }>`
-  width: 100%;
+  width: 80%;
   height: 100%;
   border: none;
-  background: ${({ isError }) => (isError ? "#f00" : "var(--color-bg, #ff0)")};
-  color: ${({ isError }) => (isError ? "#fff" : "#000")};
+  background: white;
+  color: ${({ isError }) => (isError ? "var(--color-ailab-red, #ff0)" : "white")};
   vertical-align: top;
   &::placeholder {
-    color: #000 !important;
+    color: var(--color-medium-grey, #333) !important;
   }
-  border-top: 1px solid #000;
-  border-bottom: 1px solid #000;
-  border-color: ${({ isError }) => (isError ? "#f00" : "#000")};
+  border-top: 2px solid white;
+  border-bottom: 2px solid white;
+  // border-color: ${({ isError }) => (isError ? "var(--color-ailab-red, #ff0)" : "var(--color-medium-grey)")};
 
-  ${({ theme }) => theme.textStyle("h2")};
+  ${({ theme }) => theme.textStyle("h1")};
 `;
 
 const LoginButton = styled(Button)`
@@ -66,15 +65,18 @@ const LoginButton = styled(Button)`
   transform: translateY(-50%);
   opacity: 1;
   transition: opacity 0.3s;
+  margin: 0;
 
-  width: var(--size-5);
-  height: var(--size-5);
+  // width: var(--size-5);
+  // height: var(--size-5);
 
-  ${({ theme }) => theme.textStyle("h2")};
+  border-color: var(--color-medium-grey);
+  color: var(--color-medium-grey);
 
   @media (any-pointer: fine) {
     &:hover {
       opacity: 0.75;
+      margin: 0;
     }
   }
 `;
@@ -115,12 +117,7 @@ export const Login = () => {
                   onChange={() => setIsError(false)}
                 />
                 <LoginButton>
-                  <SvgBackground
-                    type="arrow"
-                    position="center center"
-                    width="100%"
-                    height="100%"
-                  />
+                  Submit
                 </LoginButton>
               </LoginWrapper>
             </LoginContainer>

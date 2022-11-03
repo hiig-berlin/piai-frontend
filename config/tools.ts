@@ -50,24 +50,24 @@ export const tools: PiAiTool[] = [
       urlGeoJson: '/map/geojson'
     }
   },
-  // {
-  //   slug: "energy",
-  //   name: "GPU’s engery consumption log",
-  //   description: "Measure and log your GPU’s engery consumption",
-  //   colorBase: "var(--color-piai-energy)",
-  //   colorHighlight: "var(--color-piai-energy)",
-  //   iconShort: "En",
-  //   iconLong: "Energy Log",
-  //   menu: [
-  //     {
-  //       name: "Overview",
-  //     },
-  //     {
-  //       slug: "about",
-  //       name: "About the tool",
-  //     },
-  //   ],
-  // },
+  {
+    slug: "energy",
+    name: "GPU’s engery consumption log",
+    description: "Measure and log your GPU’s engery consumption",
+    colorBase: "var(--color-piai-energy)",
+    colorHighlight: "var(--color-piai-energy)",
+    iconShort: "En",
+    iconLong: "Energy Log",
+    menu: [
+      {
+        name: "Overview",
+      },
+      {
+        slug: "about",
+        name: "About the tool",
+      },
+    ],
+  },
     {
     slug: "stakeholder",
     name: "Index of stakeholders around the discussion of AI",
