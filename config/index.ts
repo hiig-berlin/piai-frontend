@@ -50,11 +50,11 @@ export const appConfig: AppConfig = {
         } else if (today - modified < ONE_DAY) {
           return 300; // 5 min
         } else if (today - modified < ONE_DAY * 15) {
-          return 1800; // 30 min
-        } else if (today - modified < ONE_MONTH) {
-          return 3600; // 1 hrs
-        } else {
           return 3600 * 24; // 1 day
+        } else if (today - modified < ONE_MONTH) {
+          return 3600 * 24 * 7; // 1 week
+        } else {
+          return 3600 * 24 * 30; // 1 month
         }
       } catch (e) {}
     }
