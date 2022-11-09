@@ -23,7 +23,7 @@ export const tools: PiAiTool[] = [
         icon: "list",
       },
       {
-        url: "survey",
+        slug: "survey",
         name: "Submit Project",
       },
       {
