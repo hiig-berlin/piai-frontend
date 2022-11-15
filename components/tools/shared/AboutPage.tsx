@@ -247,7 +247,13 @@ export const AboutPage = ({
               </span>
             </Icon>
           )}
-          <SafeHtmlDiv html={isSimple ? contentSimple : content} />
+          <SafeHtmlDiv
+            style={{ 
+              fontSize: isSimple ? "1.1em" : "inherit",
+              lineHeight: isSimple ? "1.4em" : "inherit",
+            }}
+            html={isSimple ? contentSimple : content}
+          />
         </Box>
       </div>
     </Container>

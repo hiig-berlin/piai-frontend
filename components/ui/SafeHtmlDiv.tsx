@@ -1,10 +1,10 @@
 import React from "react";
 import safeHtml from "~/utils/sanitize";
 
-export const SafeHtmlDiv = ({ html }: { html: string }) => {
+export const SafeHtmlDiv = ({ html, style}: { html: string; style?: any }) => {
   if (typeof html !== "string") return html;
   return (
-    <div
+    <div style={style}
       dangerouslySetInnerHTML={{
         __html: safeHtml(html)
       }}

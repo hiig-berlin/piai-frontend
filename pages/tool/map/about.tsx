@@ -48,7 +48,18 @@ const About = ({
             <p>As a research group focussed on Public Interest AI, we provide a working definition of what it means for an AI-system to be designed and deployed in the public interest. Secondly, our research group develops AI projects that follow this goal. Thirdly, we want to provide evidence based insights on how the idea of Public Interest AI is being realised in practice around the world, and how understanding of the concept differs across the field. There is a lack of accumulated and detailed data on Public Interest AI projects, including their specific objectives, methods, and frameworks. That is the reason for this survey.</p>
             <h2>How will the data set be used?</h2>
             <p>The information gathered from the survey is transmitted to and displayed on the interactive Public Interest AI Project Map. Additionally, the survey results will help foster research on Public Interest AI projects, demonstrate their self-understanding, and provide publicly accessible data about them to the broader public.</p>`,
-          contentSimple: `<p>Please be patient with us while we simplify! Come back in a while, our next version will include simplified texts.</p>`,
+          contentSimple: `<p>This is a map which shows public interest AI projects. We hope to help people to research on this topic further. Also, we want to show how many good AI projects already exist.</p>
+          <p>We created the survey because there is no information on public interest AI projects yet. We wanted to find out how they work and which problems they have.</p>
+          <p>If you are part of a project, feel free to fill out our survey.</p>
+          <h2>About the Public Interest AI data set</h2>
+          <p>The goal of this survey is to give an answer to the question of what people understand as public interest.</p>
+          <h2>Who is behind this project?</h2>
+          <p>The project is made by the <a href="https://www.hiig.de/en/project/public-interest-ai/" rel="nofollow noreferrer" target="_blank">Public Interest AI Research Group</a> at the Alexander von Humboldt Institute for Internet and Society (HIIG).</p>
+          <h2>What is it about?</h2>
+          <p>The research group focuses on public interest AI. It has three goals: 1. Answer the question “What is public interest AI?” 2. Make AI that is in the public interest. 3. Find out how public interest AI is made around the world.</p>
+          <h2>How will the data set be used?</h2>
+          <p>The data from the survey is shown on the map that you can see on the website. We hope that the survey results will be used to research public interest AI projects.
+          </p>`,
 
           cta: {
             title: "Contribute",

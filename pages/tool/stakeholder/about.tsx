@@ -42,7 +42,7 @@ const About = ({
           content:
             "<p>This index gathers information about organisations and institutions involved in the discourse around Public Interest AI. Their involvement may take various forms – from giving funding to NGO work around the issue. This collection is based on the work of the PIAI research group and should be seen as a starting point for mapping the field of stakeholders.</p><p>We hope this overview shows the broad interest in the Public Interest AI field, its influences from many sides and allows new projects to get an overview of the landscape of funders and existing stakeholders. </p>",
           contentSimple:
-            "<p>Please be patient with us while we simplify! Come back in a while, our next version will include simplified texts.</p>",
+            "<p>This is a list of organisations that are important for public interest AI.</p><p>If you know an organisation who should be on this list, please let us know.</p><p>We collect information with this list. Because so many organisations exist that deal with AI, it is sometimes difficult to find important public interest AI organisations. We collected them here to help people get an overview.</p>",
           cta: {
             title: "Who is missing?",
             text: "This is a living document. Let us know who else is involved in the dialogue and what their role is.",

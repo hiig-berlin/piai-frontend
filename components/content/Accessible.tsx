@@ -6,6 +6,8 @@ import SafeHtmlSpan from "../ui/SafeHtmlSpan";
 
 const AccessibleText = styled.div<{ simple?: boolean }>`
   font-weight: ${({ simple }) => (simple ? "400" : "inherit")};
+  font-size: ${({ simple }) => (simple ? "1.1em" : "inherit")};
+  line-height: ${({ simple }) => (simple ? "1.4em" : "inherit")};
   color: ${({ simple }) => (simple ? "#000" : "inherit")};
   padding-right: 0em;
 
