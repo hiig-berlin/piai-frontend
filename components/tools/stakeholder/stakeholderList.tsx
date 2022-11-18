@@ -1,5 +1,35 @@
 import React from "react";
 
+// SYNTAX (array of objects)
+// =========================
+
+// Object structure per stakeholder:
+// 
+// {
+//   name: String,
+//   tags: Array of Strings,
+//   link: String (absolute link),
+//   location: String (City, Country),
+//   description: String
+//   fundingFor?: Array of Objects (title: String, url: String)
+// }
+//
+// ADDING FUNDED PROJECTS
+// ======================
+// 
+//   …
+//   description: "Some description",
+//   fundingFor: [
+//     { 
+//       title: "Adams and Sons", 
+//       url: "/tool/map/project/adams-and-sons" 
+//     },{
+//       title: "Bechtelar, Heathcote and Bogan", 
+//       url: "/tool/map/project/bechtelar-heathcote-and-bogan"
+//     }
+//   ]
+// }
+//
 // REGEX Patters to transform csv to json
 // ======================================
 //
@@ -12,8 +42,6 @@ import React from "react";
 // Add enter after last entry to replace it!
 //
 // Replace ""(.*?)"" by “$1”
-// 
-//
 
 export const stakeholderList = [
   {
