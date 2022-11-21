@@ -192,7 +192,7 @@ export const stakeholderList = [
     description: "The EU Commission has, among others, an initiative on trustworthy AI. This focuses on three areas: 1) a European legal framework for AI that addresses fundamental rights and the specific safety risks of AI systems; 2) EU rules to address liability issues related to new technologies, including AI systems; 3) a revision of sectoral safety legislation (e.g., Machinery Regulation, General Product Safety Directive)."
   },
   {
-    name: "Federal Ministry for Family Affairs",
+    name: "Federal Ministry for Family Affairs, Senior Citizens, Women and Youth (BMFSFJ)",
     tags: ["Funding", "Politics"],
     link: "https://www.bmfsfj.de/bmfsfj/meta/en",
     location: "Berlin,Germany",
@@ -206,11 +206,24 @@ export const stakeholderList = [
     description: "The BMAS promotes AI projects in particular via the Digital Work Society think tank set up by the BMAS. For example, as part of the New Quality of Work initiative, learning and experimentation spaces for AI applications should be created. On the other hand, more research-oriented projects such as “KITQAR” for the development of quality standards are also funded."
   },
   {
-    name: "Federal Ministry for the Environment",
+    name: "Federal Ministry for the Environment, Nature Conservation, Nuclear Safety and Consumer Protection (BMUV)",
     tags: ["Funding", "Politics"],
     link: "https://www.bmuv.de/en/",
     location: "Berlin,Germany",
     description: "For example, under the “AI Lighthouses for Environment, Climate, Nature and Resources,” the BMUV funded AI projects that seek to address environmental challenges through the means of AI."
+  },
+  {
+    name: "Federal Ministry of Education and Research (BMBF)",
+    tags: ["Funding", "Politics"],
+    link: "https://www.bmbf.de/bmbf/de/forschung/digitale-wirtschaft-und-gesellschaft/kuenstliche-intelligenz/kuenstliche-intelligenz_node.html",
+    location: "Berlin, Germany",
+    description: "The BMBF has special funding programmes for AI. It especially supports research on AI. It also funds six AI competence centers which include the BIFOLD and the DFKI.",
+    fundingFor: [
+      {
+        title: "VFRAME",
+        url: "/tool/map/project/vframe"
+      }
+    ]
   },
   {
     name: "Ford Foundation",
@@ -329,7 +342,13 @@ export const stakeholderList = [
     tags: ["Research", "Politics", "Think tanks/NGOs"],
     link: "https://prototypefund.de/en/",
     location: "Berlin, Germany",
-    description: "Prototypefund supports software projects that serve the common good. There is no specific focus on AI, but many AI projects are funded."
+    description: "Prototypefund supports software projects that serve the common good. There is no specific focus on AI, but many AI projects are funded.",
+    fundingFor: [
+      {
+        title: "VFRAME",
+        url: "/tool/map/project/vframe"
+      }
+    ]
   },
   {
     name: "Responsible AI Learning Lab",
@@ -378,7 +397,13 @@ export const stakeholderList = [
     tags: ["AI Practice"],
     link: "https://www.giz.de/en/workingwithgiz/93909.html",
     location: "Bonn and Eschborn, Germany",
-    description: "The German Society for International Cooperation is committed to sustainable development and educational work worldwide. Among other things, it also uses AI methods, such as in the projects of “Digital Umuganda” and “Common Voice”, but also carries out educational work in this area. The GIZ formulates the following goals with regard to AI: “Building local competence in AI in Africa and Asia, access to training data and AI technology for local AI companies, political framework conditions for value-based AI and better data protection.”"
+    description: "The German Society for International Cooperation is committed to sustainable development and educational work worldwide. Among other things, it also uses AI methods, such as in the projects of “Digital Umuganda” and “Common Voice”, but also carries out educational work in this area. The GIZ formulates the following goals with regard to AI: “Building local competence in AI in Africa and Asia, access to training data and AI technology for local AI companies, political framework conditions for value-based AI and better data protection.”",
+    fundingFor: [
+      {
+        title: "Radiant MLHub",
+        url: "/tool/map/project/radiant-mlhub"
+      }
+    ]
   },
   {
     name: "The Policy Lab",
@@ -428,5 +453,30 @@ export const stakeholderList = [
     link: "https://zindi.africa/",
     location: "Ebène, Mauritius",
     description: "The Zindi platform does networking work by connecting Data Scientists with organizations through competitions. According to its own information, Zindi is home to the largest community of data scientists in African countries. It offers learning and communication opportunities, but most importantly, competitions to solve specific existing problems in a fixed time frame using AI, such as the Microsoft Rice Disease Classification Challenge. The first places receive prize money."
+  },
+  {
+    name: "Zukunft – Umwelt – Gesellschaft (ZUG) gGmbH",
+    tags: ["Funding"],
+    link: "https://www.z-u-g.org/aufgaben/ki-leuchttuerme/",
+    location: "Berlin, Germany",
+    description: "The ZUG supports the BMUV in achieving its funding policy goals. It is a fully federally owned company. The ZUG bundles non-ministerial tasks in a flexible organizational form and supports the ministry as a service provider in terms of content and administration in the implementation of funding programs and projects. It has a special funding programme for AI for climate, environment and resources.",
+    fundingFor: [
+      {
+        title: "AI4Grids",
+        url: "/tool/map/project/ai4grids"
+      },{
+        title: "Green Consumption Assistant",
+        url: "/tool/map/project/green-consumption-assistant"
+      },{
+        title: "IsoSens",
+        url: "/tool/map/project/isosens"
+      },{
+        title: "KI:STE",
+        url: "/tool/map/project/kiste"
+      },{
+        title: "Smart Recycling-UP",
+        url: "/tool/map/project/smartrecycling-up"
+      }
+    ]
   }  
 ];
