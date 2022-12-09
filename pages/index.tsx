@@ -14,6 +14,7 @@ import { Tiles } from "~/components/content/Tiles";
 import { TextSection } from "~/components/content/TextSection";
 import { About } from "~/components/content/About";
 import { Accordion } from "~/components/content/Accordion";
+import { Video } from "~/components/content/Video";
 
 const Home = ({ data }: { data: any }) => {
   
@@ -42,7 +43,7 @@ const Home = ({ data }: { data: any }) => {
         <Intro data={data} />
         <Tiles data={data} />
 
-        {/* <Video></Video> */} 
+        <Video embedUrl="https://www.youtube-nocookie.com/embed/U4uIFi5prsU" />
 
         <TextSection data={data} id="more"/>
 

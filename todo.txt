@@ -9,6 +9,12 @@ All done! :-)
 - Support LW to move/resize menu button if needed.
   > Increase size ...
 
+- Map: Counter doesn't update 
+  when navigating back from a project detail page 
+  (shows Total 0/0 and in view from previous state)
+
+
+
 +++++++++++++++++++++++++++++++++++++++++++++
 +++++ TODO: LW ++++++++++++++++++++++++++++++
 +++++++++++++++++++++++++++++++++++++++++++++
