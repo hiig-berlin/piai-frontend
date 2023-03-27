@@ -87,6 +87,27 @@ export const stakeholderList = [
     description: "The AI for Good Foundations' goal is to use AI to accelerate and measure impact on the United Nations SDGs. To achieve this goal, the AI for Good Foundation works, for example, with governments, think tanks or non-profit organizations to help develop AI frameworks, provides digital infrastructure or is involved in specific projects such as the “SDG Trand Scanner”."
   },
   {
+    name: "AI for Peace",
+    tags: ["Think tanks/NGOs", "Research"],
+    link: "https://www.aiforpeace.org",
+    location: "San Francisco, CA, USA",
+    description: "AI for Peace is a Nonprofit/NGO organization focused on creating a future in which AI benefits peace, security and sustainable development and where diverse voices influence creation of AI and related technologies."
+  },
+  {
+    name: "AI Forum New Zealand",
+    tags: ["Think Tanks/NGO", "Funding"],
+    link: "https://aiforum.org.nz",
+    location: "Northshore, New Zealand",
+    description: "The AI Forum brings together New Zealand’s community of artificial intelligence technology innovators, end users, investor groups, regulators, researchers, educators, entrepreneurs and interested public to work together to find ways to use AI to help enable a prosperous, inclusive and thriving future for our nation."
+  },
+  {
+    name: "AI Now Institute",
+    tags: ["Research"],
+    link: "https://ainowinstitute.org",
+    location: "New York, NY, USA",
+    description: "The AI Now Institute at New York University aims to produce interdisciplinary research and public engagement to help ensure that AI systems are accountable to the communities and contexts in which they're applied."
+  },
+  {
     name: "AI.Hamburg",
     tags: ["Politics"],
     link: "https://ai.hamburg/en/",
@@ -101,11 +122,116 @@ export const stakeholderList = [
     description: "The non-profit organization “AlgorithmWatch” has set itself the goal of observing and classifying processes of algorithmic decision-making that have social relevance. Those processes are defined as processes that either predict or predetermine human decisions, or make decisions automatically. In this context, AlgorithmWatch naturally also deals with AI and ADM."
   },
   {
+    name: "Algorithmic Fairness and Openness Group, UC Berkeley",
+    tags: ["Research"],
+    link: "https://afog.berkeley.edu",
+    location: "Berkeley, CA, USA",
+    description: "The Algorithmic Fairness and Opacity Group (AFOG) is an interdisciplinary research group housed at the UC Berkeley School of Information, bringing together faculty, postdocs, and graduate students from Information Studies, Sociology, Law, Communication, Media Studies, Computer Science, and the Humanities, among others. We conduct research, education, develop policy, build systems, bring theory into practice, and bridge disciplinary boundaries. Throughout our efforts, we center human values in the design and use of technical systems to support more equitable and just societies."
+  },
+  {
     name: "Artificial Intelligence Center Hamburg e.V. (ARIC)",
     tags: ["Politics"],
     link: "https://aric-hamburg.de/?lang=en",
     location: "Hamburg, Germany",
     description: "The ARIC is intended to act as a link between application-oriented research and practice-oriented application in order to specifically advance the Hamburg metropolitan region with regard to the topic of AI. To this end, perspectives from the sciences, society, business and entrepreneurship are linked at the center."
+  },
+  {
+    name: "Berkman Klein Center for Internet & Society, Harvard University",
+    tags: ["Research"],
+    link: "https://cyber.harvard.edu",
+    location: "Cambridge, MA, USA",
+    description: "The Berkman Klein Center for Internet & Society at Harvard University is dedicated to exploring, understanding, and shaping the way we use technology."
+  },
+  {
+    name: "Block Center for Technology and Society, Carnegie Mellon University",
+    tags: ["Research"],
+    link: "https://www.cmu.edu/block-center/",
+    location: "Pittsburgh, PA, USA",
+    description: "The Block Center focuses on how emerging technologies will alter the future of work, how AI and analytics can be harnessed for social good, and how innovation in these spaces can be more inclusive and generate targeted, relevant solutions that reduce inequality and improve quality of life."
+  },
+  {
+    name: "Center for Advancing Safety of Machine Intelligence (CASMI), Northwestern University",
+    tags: ["Research"],
+    link: "https://casmi.northwestern.edu",
+    location: "Evanston, IL, USA",
+    description: "The Center for Advancing Safety of Machine Intelligence (CASMI) leads a research vision and dynamic research network that is establishing best practices for the evaluation, design, and development of machine intelligence that is safe, equitable, and beneficial. CASMI is a collaboration with the UL Research Institutes' Digital Safety Research Institute, building on UL’s 128-year mission to create a safer, more secure, and sustainable future."
+  },
+  {
+    name: "Center for Applied Data Ethics, University of San Francisco",
+    tags: ["Research"],
+    link: "https://www.usfca.edu/data-institute/initiatives/center-applied-data-ethics",
+    location: "San Francisco, CA, USA",
+    description: "At the Center for Applied Data Ethics (CADE), we are working to address ethical issues such as the magnification of unjust bias, increased surveillance, spread of disinformation, alarming uses of predictive policing, a lack of accountability for tech companies, and more. Our focus is on having a direct, practical impact. Our inaugural year is funded by a generous donation from Craig Newmark (founder of Craigslist). Our work includes a mix of education, research, public policy, and civil advocacy."
+  },
+  {
+    name: "Center for Critical Internet Inquiry, UC Los Angeles",
+    tags: ["Research"],
+    link: "https://www.c2i2.ucla.edu/home/",
+    location: "Los Angeles, CA, USA",
+    description: "UCLA Center for Critical Internet Inquiry (C2i2) is an intersectional research community committed to reimagining technology, championing racial justice, and strengthening democracy through a mix of research, culture, and policy."
+  },
+  {
+    name: "Center for Data Ethics and Justice, University of Virginia",
+    tags: ["Research"],
+    link: "https://datascience.virginia.edu/center-data-ethics-and-justice",
+    location: "Charlottesville, VA, USA",
+    description: "Centering ethics and justice at the core of data science The Center for Data Ethics and Justice equips researchers, faculty and students at the University of Virginia to address relevant ethical, social and political issues that intersect with data science."
+  },
+  {
+    name: "Center for Ethics - Ethics of AI Lab, University of Toronto",
+    tags: ["Research"],
+    link: "https://ethics.utoronto.ca/ethics-of-ai-in-context-eaic4e/",
+    location: "Toronto, Canada",
+    description: "Since 2017, the Ethics of AI Lab at the University of Toronto’s Centre for Ethics has fostered academic and public dialogue about Ethics of AI in Context—the normative dimensions of artificial intelligence and related phenomena in all aspects of private, public, and political life."
+  },
+  {
+    name: "Center for Ethics, Society, and Computing, University of Michigan",
+    tags: ["Research"],
+    link: "https://esc.umich.edu",
+    location: "Ann Arbor, MI, USA",
+    description: "The ESC key was added to the computer keyboard to interrupt a program when it produced unwanted results, allowing the system to be critically examined. In the same way, the Center for Ethics, Society, and Computing (ESC – pronounced “escape”) is dedicated to intervening when digital media and computing technologies reproduce inequality, exclusion, corruption, deception, racism, or sexism. ESC is a research center and a collective of scholars committed to feminist, justice-focused, inclusive, and interdisciplinary approaches to computing. We are invested in the social, cultural, and political dimensions of digital technologies. We intercede in structures of power and inequality. We work with educators, workers, industrial practitioners, and policymakers."
+  },
+  {
+    name: "Center for Human-Compatible AI, UC Berkeley",
+    tags: ["Research"],
+    link: "https://humancompatible.ai",
+    location: "Berkeley, CA, USA",
+    description: "The goal is to develop the conceptual and technical wherewithal to reorient the general thrust of AI research towards provably beneficial systems."
+  },
+  {
+    name: "Center for Information Technology and Policy, Princeton University",
+    tags: ["Research"],
+    link: "https://citp.princeton.edu",
+    location: "Princeton, NJ, USA",
+    description: "CITP is an interdisciplinary center at Princeton University. The center is a nexus of expertise in technology, engineering, public policy, and the social sciences on campus. In keeping with the strong University tradition of service, the center’s research, teaching, and events address digital technologies as they interact with society."
+  },
+  {
+    name: "Center for Information Technology Research in the Interest of Society Policy Lab",
+    tags: ["Research", "Politics"],
+    link: "https://citrispolicylab.org",
+    location: "Pittsburgh, PA, USA",
+    description: "The CITRIS Policy Lab supports interdisciplinary technology policy research and engagement to better ensure development and deployment of technology in the interest of society to address core questions regarding the role of formal and informal regulation in promoting innovation and amplifying its positive effects on society. For nearly 20 years, CITRIS and the Banatao Institute have brought together leading researchers at UC Berkeley, UC Davis, UC Merced, and UC Santa Cruz to advance information technology development and application for the public good in such areas as sustainable energy; water and transportation systems; robotics and artificial intelligence; civic engagement; and health care."
+  },
+  {
+    name: "Center for Law, Science, and Innovation, Arizona State University",
+    tags: ["AI Practice"],
+    link: "https://law.asu.edu/centers/law-science-innovation",
+    location: "Tempe, AZ, USA",
+    description: "As science and technology assume central roles in our lives, economy, and legal system, the Center for Law, Science and Innovation is uniquely positioned as an innovator in teaching and applying science, technology and law. From robotics to genetics, neuroscience to nanotech, LSI’s innovative projects and programs constantly evolve to address challenging governance and policy issues through cutting-edge curriculum, practical experience, conferences and workshops, research projects, and scholarship."
+  },
+  {
+    name: "Center for Responsible AI, New York University",
+    tags: ["Research"],
+    link: "https://airesponsibly.net/",
+    location: "New York, NY, USA",
+    description: "We build the future in which responsible AI is the only AI.The Center for Responsible AI (R/AI) is making AI work for everyone. We catalyze policy and industry impact, foster interdisciplinary research and education, and build an equitable and socially sustainable ecosystem of AI innovation."
+  },
+  {
+    name: "Center for Technology, Society & Policy, UC Berkeley",
+    tags: ["Research"],
+    link: "https://ctsp.berkeley.edu",
+    location: "Berkeley, CA, USA",
+    description: "The Center for Technology, Society & Policy is a multidisciplinary research and design/build center focusing on the emergent social and policy issues arising from the development and adoption of technology."
   },
   {
     name: "Charité Lab for Artificial Intelligence in Medicine (CLAIM) ",
@@ -136,6 +262,13 @@ export const stakeholderList = [
     description: "Climate Change AI has an international focus and is research oriented. A summer school is also planned for the summer of 2022, bringing together people with sustainability skills with people from the AI sector to explore how ML can be used for sustainability and possibly foster practical collaborations."
   },
   {
+    name: "CodingRights",
+    tags: ["Think Tanks/NGOs"],
+    link: "https://codingrights.org",
+    location: "Brazil",
+    description: "Coding Rights is a Brazilian-based think tank that aims to advance the enforcement of human rights in the digital world. Its goal is to ensure that policy-making affecting technological development and digital rights is informed by actual technological knowledge, and that technological development is guided by fundamental human rights."
+  },
+  {
     name: "Competence Center Machine Learning Rhine-Ruhr (ML2R) by Fraunhofer IAIS",
     tags: ["Research"],
     link: "https://www.ml2r.de/en/landingpage/",
@@ -157,11 +290,25 @@ export const stakeholderList = [
     description: "DataEthics has focused on building a knowledge base and network for an ethical approach to data economics and policy. It does this by mapping and promoting alternative privacy technologies, human-centered and ethical data-driven solutions, through conferences, representation in various EU and global initiatives/conferences, and content production. The focus is not only on data, but also on AI. This is done, for example, in a recent book on responsible AI."
   },
   {
+    name: "Data Science for Good, Boston University",
+    tags: ["Research"],
+    link: "https://www.bu.edu/cds-faculty/research-impact/ds4g/",
+    location: "Boston, MA, USA",
+    description: "The goal of the DS4G Initiative at BU is to provide the infrastructure and visibility needed to expand BU’s research, programs and curricula around civic-minded technology. As the convener and accelerator of the PIT work of BU faculty and students, DS4G leverages the expertise of BU’s 17 schools and colleges."
+  },
+  {
     name: "Denklabor und Kollaborationsplattform für Gesellschaft & Digitalisierung e.V. (Co:Lab)",
     tags: ["Research", "Politics", "Think tanks/NGOs"],
     link: "https://colab-digital.de/initiativen/koki/",
     location: "Berlin, Germany",
     description: "Co:Lab offers a network of experts, e.g. in the form of the project “AI in the municipalities” which aims to explore the arising possibilities and usecases of AI for municipalities. Co:Lab does not work exclusively on AI, but also deals with other types of software."
+  },
+  {
+    name: "Digital Life Initiative, Cornell Tech",
+    tags: ["Research"],
+    link: "https://www.dli.tech.cornell.edu",
+    location: "New York, NY, USA",
+    description: "We explore societal perspectives surrounding the development and application of digital technology, focusing on ethics, policy, politics, and quality of life. Embedded within the progressive teaching mission of Cornell Tech on Roosevelt Island, the Digital Life Initiative (DLI) was launched in 2017 to analyze the societal tensions arising from existing and emergent digital technologies. Inspired by the core values of justice, democracy, privacy, responsibility, security, and freedom, we support collaborative research projects that explore ethics, policy, politics and quality of life within prevailing socio-technical systems."
   },
   {
     name: "Distributed Artificial Intelligence Research Institute (DAIR Institute)",
@@ -282,11 +429,39 @@ export const stakeholderList = [
     description: "Helsinki uses various AI applications to facilitate citizen services, such as a material management system or a health center chatbot. What is special about all these city systems is that detailed information can be obtained and feedback can be given on the applications. In this way, the applications are to be developed in a more user- and community-friendly way."
   },
   {
-    name: "Hugging Face ",
+    name: "Hugging Face",
     tags: ["AI Practice"],
     link: "https://huggingface.co/",
     location: "Paris, France",
     description: "Hugging Face is an NLP startup with a focus on chatbots. They are also known as a platform for pre-trained Deep Learning models. Hugging Face does not produce the models themselves, but offers a platform that is also used by Facebook, Google, etc. to provide pre-trained models."
+  },
+  {
+    name: "IBM, Tech Ethics Center & Lab, University of Notre Dame",
+    tags: ["Research"],
+    link: "https://techethicslab.nd.edu",
+    location: "Notre Dame, IN, USA",
+    description: "Dedicated to interdisciplinary research on the impact of technology on humanity. The Technology Ethics Center at the University of Notre Dame convenes global thought leaders in academia, industry, non-profit organizations, and governmental agencies to develop ethical and legal frameworks that keep pace with technological development.” At the Tech Ethics Lab (“Turning Theory Into Practice”), “we promote human values in technology through tangible, applied, and interdisciplinary research that addresses core ethical questions."
+  },
+  {
+    name: "Institute for Advanced Technology and Public Policy, California Polytechnic State University",
+    tags: ["Research"],
+    link: "https://iatpp.calpoly.edu",
+    location: "San Luis Obispo, CA, USA",
+    description: "At the Institute for Advanced Technology and Public Policy, we explore today's most complex challenges in arenas such as energy, the environment, agriculture and government transparency. We identify and develop ways to use emerging technology to influence related public policy, and we partner with industry and government leaders to craft effective, real-world solutions ripe for implementation. Led by Founding Director and former State Senator Sam Blakeslee, the Institute's integrated approach to solving society's toughest problems engages the best and brightest students and faculty at Cal Poly, steeped in the University's Learn by Doing tradition and motivated to make a real and tangible difference in the world."
+  },
+  {
+    name: "Institute for Human-Centered AI (HAI), Stanford University",
+    tags: ["Research"],
+    link: "https://hai.stanford.edu",
+    location: "Stanford, CA, USA",
+    description: "The mission of HAI is to advance AI research, education, policy and practice to improve the human condition. Led by faculty from multiple departments across Stanford, research focuses on developing AI technologies inspired by human intelligence; studying, forecasting and guiding the human and societal impact of AI; and designing and creating AI applications that augment human capabilities. What’s unique about HAI is that it balances diverse expertise and integration of AI across human-centered systems and applications in a setting that could only be offered by Stanford University. Stanford’s seven leading schools on the same campus, including a world-renown computer science department, offer HAI access to multidisciplinary research from top scholars."
+  },
+  {
+    name: "Institute for Technology, Law & Policy, UC Los Angeles",
+    tags: ["Research"],
+    link: "https://law.ucla.edu/academics/centers/institute-technology-law-policy",
+    location: "Los Angeles, CA, USA",
+    description: "The Institute for Technology, Law & Policy undertakes cross-disciplinary research to learn how both established and emerging technologies influence society, privacy, law and public policy."
   },
   {
     name: "iRights.Lab",
@@ -338,6 +513,13 @@ export const stakeholderList = [
     description: "Open Data Berlin is not a direct funding agency, but it makes data available and provides a platform to publish its own applications. For example, Open Data Berlin hosts a program created by civilians that documents Berlin sidewalk work. Open Data Berlin is not focused on AI, however AI applications benefit because data is made available."
   },
   {
+    name: "PIT Policy Lab",
+    tags: ["Think tanks/NGOs"],
+    link: "https://www.policylab.tech",
+    location: "Mexico City, Mexico",
+    description: "We enable cross-sector collaborations towards an understanding of Public Interest Technology through practical research, policy insights, and the drafting of proofs of concept in the field."
+  },
+  {
     name: "Prototype Fund",
     tags: ["Research", "Politics", "Think tanks/NGOs"],
     link: "https://prototypefund.de/en/",
@@ -349,6 +531,20 @@ export const stakeholderList = [
         url: "/tool/map/project/vframe"
       }
     ]
+  },
+  {
+    name: "Public Interest Technology Lab, Harvard University",
+    tags: ["Research"],
+    link: "https://techlab.org",
+    location: "Cambridge, MA, USA",
+    description: "We help shape the future of technology and society to advance equity, expand opportunity and protect basic rights and liberties.The Public Interest Tech Lab at Harvard provides Harvard students and faculty with access to technological infrastructures, gadgets, algorithms, know-how and key resources to better understand how technology can either worsen or address society’s greatest challenges."
+  },
+  {
+    name: "Responsible AI Institute (RAI)",
+    tags: ["Think tanks/NGOs"],
+    link: "https://www.responsible.ai",
+    location: "Austin, TX, USA",
+    description: "RAI is a non-profit organization building tangible governance tools for trustworthy, safe and fair Artificial Intelligence (AI)."
   },
   {
     name: "Responsible AI Learning Lab",
@@ -370,6 +566,27 @@ export const stakeholderList = [
     link: "https://sustainable-ai.eu/",
     location: "Bonn, Germany",
     description: "The Sustainable AI Lab creates a space where a group of researchers from different fields can collaborate and share ideas on the environmental, social, and economic costs of designing, developing, and using AI in society."
+  },
+  {
+    name: "Tech Equity Collaborative",
+    tags: ["Think Tanks/NGOs"],
+    link: "https://techequitycollaborative.org",
+    location: "California, USA",
+    description: "We envision a world where the growth of the tech industry creates economic prosperity for everyone, and where tech sector employees and companies are engaged and active participants in making our economy equitable. Our mission is to mobilize tech workers and companies to advance structural change that addresses economic inequity at its roots. We educate the tech community on economic justice, advocate for bold public policy, and develop equitable corporate practices that build equity and opportunity in the broader economy."
+  },
+  {
+    name: "Tech for Social Good",
+    tags: ["Think Tanks/NGOs"],
+    link: "https://www.techforsocialgood.org",
+    location: "Sydney, Australia",
+    description: "Tech for Social Good is Australia's first nonprofit for young Australians interested in responsible tech. We work with leaders in tech, government and the private sector to deliver initiatives such as fellowships and community events, and are home to a diverse and interdisciplinary community of young Australians."
+  },
+  {
+    name: "Tech4Humanity Lab, Virginia Tech",
+    tags: ["Research"],
+    link: "https://tech4humanitylab.org",
+    location: "Blacksburg, VA, USA",
+    description: "The Tech4Humanity Lab is a transdisciplinary laboratory at Virginia Tech, focusing on the impact of technology on the human condition. Our lab emphasizes  issues of human security broadly constituting political, medical, social, economic and environmental securities. The lab utilizes transdisciplinary research, combining practices from political science, law, computer science, humanities, engineering, business, biology, public health, and area studies."
   },
   {
     name: "Technology Foundation Berlin (TSB)",
@@ -448,6 +665,13 @@ export const stakeholderList = [
     description: "At the Weizenbaum Institute, among others, a research group is working on “Criticality of AI-based Systems”. The focus is on the interplay between the consideration of AI as technology and cultural artifact. On the one hand, it is to be investigated at which technical level AI applications are, and on the other hand, the idea of the culturally made nature of this technology is to be maintained within the framework of an investigation of discourses and symbolic charges. In addition, the “horizon of the current state of user-oriented AI, AI for the common good, and inclusive AI” will be expanded."
   },
   {
+    name: "Young and Resilient Research Centre, Western Sydney University",
+    tags: ["Research"],
+    link: "https://westernsydney.edu.au/young-and-resilient",
+    location: "Sydney, Australia",
+    description: "The Young and Resilient Research Centre enables young people and their communities to address some of the critical challenges of contemporary life, and enhance wellbeing locally, nationally and internationally. We work with children and young people all over the planet, researching the role of technology to inform policies, programs and interventions that can minimise the risks and maximise the benefits of the digital age. Our research deploys youth-centred, participatory co-research and co-design methods across four key research programs, underpinned by a Living Lab."
+  },
+  {
     name: "Zindi",
     tags: ["AI Practice"],
     link: "https://zindi.africa/",
@@ -478,5 +702,12 @@ export const stakeholderList = [
         url: "/tool/map/project/smartrecycling-up"
       }
     ]
-  }  
+  }, 
+  {
+    name: "4TU Centre for Ethics and Technology",
+    tags: ["Research", "Think tanks/NGOs"],
+    link: "https://ethicsandtechnology.eu/",
+    location: "Wageningen, Netherlands",
+    description: "4TU.Ethics envisions a world in which technology is developed and used for benefit of humanity and the preservation of our planet. It is a world in which ethical considerations concerning human rights, well-being, global and inter-generational justice, the social good etc. are systematically included in practices of technology and engineering."
+  }
 ];
