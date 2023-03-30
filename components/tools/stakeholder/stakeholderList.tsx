@@ -59,6 +59,13 @@ export const stakeholderList = [
     description: "CAHAI is a group examining the feasibility and potential elements of a legal framework for the development, design, and application of artificial intelligence based on the Council of Europe's standards for human rights, democracy, and the rule of law, based on extensive consultations with various stakeholders."
   },
   {
+    name: "Ada Lovelace Institute",
+    tags: ["Research", "Think Tanks/NGOs"],
+    link: "https://www.adalovelaceinstitute.org/",
+    location: "London, UK",
+    description: "Through research, policy and practice, we aim to ensure that the transformative power of data and AI is used and harnessed in ways that maximise social wellbeing and put technology at the service of humanity."
+  },
+  {
     name: "AI & Society Lab (HIIG) ",
     tags: ["Research"],
     link: "https://www.hiig.de/en/research/ai-and-society-lab/",
@@ -108,11 +115,25 @@ export const stakeholderList = [
     description: "The AI Now Institute at New York University aims to produce interdisciplinary research and public engagement to help ensure that AI systems are accountable to the communities and contexts in which they're applied."
   },
   {
+    name: "AI4media",
+    tags: ["Research", "Thinks Tanks/NGOs"],
+    link: "https://www.ai4media.eu/",
+    location: "Europe",
+    description: "AI4Media is a 4-year-long project funded under the European Union’s Horizon 2020 research and innovation programme, the project aspires to become a Centre of Excellence engaging a wide network of researchers across Europe and beyond, focusing on delivering the next generation of core AI advances and training to serve the Media sector, while ensuring that the European values of ethical and trustworthy AI are embedded in future AI deployments."
+  },
+  {
     name: "AI.Hamburg",
     tags: ["Politics"],
     link: "https://ai.hamburg/en/",
     location: "Hamburg, Germany",
     description: "The AI for Hamburg initiative is a joint project of private individuals, Hamburg@work, TUTECH, Hamburg universities and municipal partners. As its main task, it describes the mediation and exchange e.g. in the form of workshops, in particular further training offers for company employees, networking with other initiatives and the expansion of an ecosystem for AI."
+  },
+  {
+    name: "Alan Turing Institute",
+    tags: ["Research"],
+    link: "https://www.turing.ac.uk/",
+    location: "London, UK",
+    description: "We are the national institute for data science and artificial intelligence. We believe data science and artificial intelligence will change the world. We are pioneers; training the next generation of leaders, shaping the public conversation, and pushing the boundaries of these sciences for the public good."
   },
   {
     name: "Algorithm Watch",
@@ -129,11 +150,60 @@ export const stakeholderList = [
     description: "The Algorithmic Fairness and Opacity Group (AFOG) is an interdisciplinary research group housed at the UC Berkeley School of Information, bringing together faculty, postdocs, and graduate students from Information Studies, Sociology, Law, Communication, Media Studies, Computer Science, and the Humanities, among others. We conduct research, education, develop policy, build systems, bring theory into practice, and bridge disciplinary boundaries. Throughout our efforts, we center human values in the design and use of technical systems to support more equitable and just societies."
   },
   {
+    name: "Algorithmic Governance Research Network",
+    tags: ["Research"],
+    link: "https://www.algorithmic-governance.com/",
+    location: "Oslo, Norway",
+    description: "Algorithmic Governance is an interdisciplinary research network dedicated to understanding the social implications of artificial intelligence, big data, platform capitalism, datafied knowledge, and automated decision-making on society."
+  },
+  {
+    name: "All Tech Is Human (ATIH)",
+    tags: ["Think Tanks/NGOs"],
+    link: "https://alltechishuman.org/",
+    location: "New York, NY, USA",
+    description: "All Tech Is Human is a non-profit committed to connecting and expanding the Responsible Tech ecosystem so we can co-create a better tech future. We do this through a variety of activities focused around three key areas: multi-stakeholder convenings & community-building, multidisciplinary education, and diversifying the pipeline with more backgrounds and lived experiences. Our organization has a large community Slack group, regular summits & mixers, a mentorship program, university ambassadors program, open working groups that develop reports, office hours, a job board, and our Responsible Tech Guide."
+  },
+  {
+    name: "ALLAI",
+    tags: ["Politics"],
+    link: "https://allai.nl/",
+    location: "Amsterdam, Netherlands",
+    description: "ALLAI is an independent organization dedicated to drive and foster Responsible AI. ALLAI is an initiative of Catelijne Muller, Virginia Dignum and Aimee van Wynsberghe, the three Dutch members of the EU High Level Expert Group on Artificial Intelligence."
+  },
+  {
+    name: "Allen Institute for Artificial Intelligence",
+    tags: ["Research", "Think Tanks/NGOs"],
+    link: "https://allenai.org/",
+    location: "Washington, D.C., USA",
+    description: "AI2 is a non-profit research institute founded in 2014 with the mission of conducting high-impact AI research and engineering in service of the common good. AI2 is the creation of the late Paul Allen, philanthropist and Microsoft co-founder, and is led by Dr. Oren Etzioni, a leading AI researcher."
+  },
+  {
     name: "Artificial Intelligence Center Hamburg e.V. (ARIC)",
     tags: ["Politics"],
     link: "https://aric-hamburg.de/?lang=en",
     location: "Hamburg, Germany",
     description: "The ARIC is intended to act as a link between application-oriented research and practice-oriented application in order to specifically advance the Hamburg metropolitan region with regard to the topic of AI. To this end, perspectives from the sciences, society, business and entrepreneurship are linked at the center."
+  },
+  {
+    name: "Aspen Institute",
+    tags: ["Think Tanks/NGOs", "Research"],
+    link: "https://www.aspeninstitute.org/",
+    location: "Washington, D.C., USA",
+    description: "We empower policymakers civic organizations, companies, and the public to be responsible stewards of technology and digital media in the service of a more just and equitable world."
+  },
+  {
+    name: "Atomium European Institute for Science, Media & Democracy",
+    tags: ["Politics", "Research"],
+    link: "https://www.eismd.eu/",
+    location: "Brussels, Belgium",
+    description: "Starting from the '7 Key Requirements for a Trustworthy AI' published by the European Commission in April 2019, AI4People’s Committees members have assessed the impact of these requirements on 7 business sectors (Automotive, Banking and Finance, Energy, Healthcare, Insurance, Legal Services Industry and Media and Technology) whilst having suggested some practical steps that businesses operating within these industries must undertake to be compliant with the Requirements."
+  },
+  {
+    name: "Berggruen China Center, Berggruen Institute",
+    tags: ["Research"],
+    link: "https://www.berggruen.org/work/berggruen-china-center/",
+    location: "China",
+    description: "The Berggruen China Center is a hub for East-West research and dialogue dedicated to the cross-cultural and interdisciplinary study of the transformations affecting humanity. Intellectual themes for researchers and visiting scholars focus on frontier technologies and society—specifically in artificial intelligence, the microbiome, and gene editing as well as issues involving global governance and globalization."
   },
   {
     name: "Berkman Klein Center for Internet & Society, Harvard University",
@@ -148,6 +218,13 @@ export const stakeholderList = [
     link: "https://www.cmu.edu/block-center/",
     location: "Pittsburgh, PA, USA",
     description: "The Block Center focuses on how emerging technologies will alter the future of work, how AI and analytics can be harnessed for social good, and how innovation in these spaces can be more inclusive and generate targeted, relevant solutions that reduce inequality and improve quality of life."
+  },
+  {
+    name: "C Minds",
+    tags: ["Think Tanks/NGOs", "AI Practice", "Research"],
+    link: "https://www.cminds.co/",
+    location: "Mexcio City, Mexico",
+    description: "C Minds is a women-led action tank that promotes the responsible development, use, and research of pioneer technology for impact in Latin America. We achieve our purpose by designing digital policies and ethical frameworks and deploying initiatives that harness new technologies, such as AI &VR/AR, to advance Sustainable Development Goals (SDGs). We are both strategists and implementers. We believe in the power of multisector collaborations and multidisciplinary approaches. We are proud to be one of the leading organizations in Latin America that have driven change, together with our partners, in the tech for good field for the last 10 years."
   },
   {
     name: "Center for Advancing Safety of Machine Intelligence (CASMI), Northwestern University",
@@ -297,6 +374,20 @@ export const stakeholderList = [
     description: "The goal of the DS4G Initiative at BU is to provide the infrastructure and visibility needed to expand BU’s research, programs and curricula around civic-minded technology. As the convener and accelerator of the PIT work of BU faculty and students, DS4G leverages the expertise of BU’s 17 schools and colleges."
   },
   {
+    name: "Data Science for Social Impact, University of Pretoria",
+    tags: ["Research", "AI Practice"],
+    link: "https://dsfsi.github.io/",
+    location: "Tshwane, South Africa",
+    description: "Our general areas of work straddle Data Science for Society as well as Local Language Natural Language Processing. These two strands are complementary. Our work in Data Science and Society has allowed us to have a more nuanced approach to understanding the systematic challenges that face being able to do excellent science with local languages. Through Data Science for Society, we have to understand how when one carries through Data Science research, we situate how the users are part of the process. We find that we need to adjust our research to take care of these challenges and innovate in ways we gather direct data or alternative data."
+  },
+  {
+    name: "DataDotOrg",
+    tags: ["Think Tanks/NGOs", "AI Practice"],
+    link: "https://data.org/",
+    location: "New York, NY, USA",
+    description: "data.org is a platform for partnerships to build the field of data for social impact. We work with organizations from all over the world to increase the use of data in order to improve the lives of millions of people."
+  },
+  {
     name: "Denklabor und Kollaborationsplattform für Gesellschaft & Digitalisierung e.V. (Co:Lab)",
     tags: ["Research", "Politics", "Think tanks/NGOs"],
     link: "https://colab-digital.de/initiativen/koki/",
@@ -314,8 +405,15 @@ export const stakeholderList = [
     name: "Distributed Artificial Intelligence Research Institute (DAIR Institute)",
     tags: ["Research"],
     link: "https://www.dair-institute.org/",
-    location: "Worldwide, ",
-    description: "Founded by Timnit Gebru in December 2021, the globally active DAIR has set itself the goal of investigating AI in an interdisciplinary manner and not as an alternative. One focus will be on participatory research priorities and on good communication of research priorities to affected communities. For example, the institute's research will address AI in resource-poor environments or language technology for maginalized communities. "
+    location: "Worldwide",
+    description: "Founded by Timnit Gebru in December 2021, the globally active DAIR has set itself the goal of investigating AI in an interdisciplinary manner and not as an alternative. One focus will be on participatory research priorities and on good communication of research priorities to affected communities. For example, the institute's research will address AI in resource-poor environments or language technology for maginalized communities."
+  },
+  {
+    name: "DQ Institute",
+    tags: ["Think Tanks/NGOs", "Politics", "Research"],
+    link: "https://www.dqinstitute.org/",
+    location: "Singapore",
+    description: "The DQ Institute is an international think-tank that is dedicated to setting global standards for digital intelligence that ensures safety, empowerment, and well-being of individuals, organizations, and nations in the digital age."
   },
   {
     name: "Einstein Center for digital Future",
@@ -330,6 +428,13 @@ export const stakeholderList = [
     link: "https://europeanaifund.org/",
     location: "Brussels, Belgium",
     description: "The European AI Fund aims to build civil society organizations with AI expertise and enable them to build strategic capacity in advocacy and policy to shape Europe's digital future in the medium and long term. It also aims to network stakeholders."
+  },
+  {
+    name: "European Centre for Algorithmic Transparency (European Comission)",
+    tags: ["Politics", "Research"],
+    link: "https://algorithmic-transparency.ec.europa.eu/index_en",
+    location: "Seville, Spain",
+    description: "The ECAT contributes with scientific and technical expertise to the European Commission's exclusive supervisory and enforcement role of the systemic obligations on Very Large Online Platforms (VLOPs) and Very Large Online Search Engines (VLOSEs) provided for under the DSA. Scientists and experts working at the ECAT will cooperate with industry representatives, academia, and civil society organisations to improve our understanding of how algorithms work: they will analyse transparency, assess risks, and propose new transparent approaches and best practices. The ECAT is part of the European Commission, hosted by the Joint Research Centre (JRC) - the Commission’s in-house science and knowledge service - in close cooperation with the Directorate General Communications Networks, Content and Technology (DG CONNECT)."
   },
   {
     name: "European Comission",
@@ -408,6 +513,20 @@ export const stakeholderList = [
     description: "The Gesellschaft für Informatik has, among others, a project on AI Testing & Auditing and a project on Educational Concepts for Data Literacy and Artificial Intelligence (AI) Competencies to embed this into teacher and school education."
   },
   {
+    name: "Global AI Ethics Consortium, TUM Munich",
+    tags: ["Research"],
+    link: "https://www.ieai.sot.tum.de/global-ai-ethics-consortium/",
+    location: "Munich, Germany",
+    description: "The GAIEC’s goal to coordinate and promote independent academic research focused on designing and implementing frameworks and guidelines for the ethical development and use of AI-based technologies. The consortium has since grown to include over 34 members from six contenents and continues to expand in terms of members and activities."
+  },
+  {
+    name: "Global AI Ethics Institute",
+    tags: ["Research"],
+    link: "https://globalethics.ai/",
+    location: "Paris, France",
+    description: "The Global AI Ethics Institute is the only global think tank addressing ethics applied to AI through cultural lenses."
+  },
+  {
     name: "Google.org",
     tags: ["Funding"],
     link: "https://www.google.org/",
@@ -434,6 +553,20 @@ export const stakeholderList = [
     link: "https://huggingface.co/",
     location: "Paris, France",
     description: "Hugging Face is an NLP startup with a focus on chatbots. They are also known as a platform for pre-trained Deep Learning models. Hugging Face does not produce the models themselves, but offers a platform that is also used by Facebook, Google, etc. to provide pre-trained models."
+  },
+  {
+    name: "Human Rights Data Analysis Group (HRDAG)",
+    tags: ["Research", "Think Tanks/NGOs"],
+    link: "https://hrdag.org/knowledge-base/",
+    location: "San Francisco, CA, USA",
+    description: "The Human Rights Data Analysis Group is a non-profit, non-partisan organization that applies rigorous science to the analysis of human rights violations around the world."
+  },
+  {
+    name: "Hybrid Intelligence Centre",
+    tags: ["Research"],
+    link: "https://www.hybrid-intelligence-centre.nl/#",
+    location: "Amsterdam, Netherlands",
+    description: "Hybrid Intelligence (HI) is the combination of human and machine intelligence, expanding human intellect instead of replacing it. HI takes human expertise and intentionality into account when making meaningful decisions and perform appropriate actions, together with ethical, legal and societal values. Our goal is to design Hybrid Intelligent systems, an approach to Artificial Intelligence that puts humans at the centre, changing the course of the ongoing AI revolution."
   },
   {
     name: "IBM, Tech Ethics Center & Lab, University of Notre Dame",
@@ -471,11 +604,25 @@ export const stakeholderList = [
     description: "The iRights Lab has set itself the goal of developing strategies and practical solutions to profitably manage the changes emerging with digitalization for society as a whole. Their engagement with AI includes, for example, a study on AI in government and the project DaSKITA - Data Sovereignty through AI-based Transparency and Information. The goal of this three-year project is the development and prototypical testing of AI-based concepts, mechanisms, and tools that provide consumers with a higher degree of information and self-determination in the context of digital services."
   },
   {
+    name: "Lakuna Fund",
+    tags: ["Funding"],
+    link: "https://lacunafund.org/",
+    location: "South Africa and Germany",
+    description: "Guided by machine learning professionals worldwide, Lacuna Fund will provide data scientists, researchers, and social entrepreneurs with the resources they need to either produce new labeled datasets to address an underserved population or problem, augment existing datasets to be more representative, or update old datasets to be more sustainable."
+  },
+  {
     name: "Luminate",
     tags: ["Funding"],
     link: "https://luminategroup.com/investee/ethics-governance-of-ai-fund",
     location: "Washington D.C. and London, USA and UK",
     description: "Founded in 2018, Luminate is a global philanthropic organization with a mission to empower people and institutions to work together to build a just and fair society. It does this by funding and supporting nonprofit and for-profit organizations, and by advocating for policies and actions that help people participate in and shape the issues that affect their lives, and that make those in power more transparent, responsive, and accountable. Luminate focuses on creating impact in four interconnected areas: Citizen Participation, Data and Digital Rights, Financial Transparency, and Independent Media. In the area of AI, Luminate promotes the AI Ethics and Governance Initiative, led by MIT and the Berkmann Klein Center, which targets public interest AI."
+  },
+  {
+    name: "Masakhane",
+    tags: ["Research", "Think Tanks/NGOs", "AI Practice"],
+    link: "https://www.masakhane.io/",
+    location: "Africa",
+    description: "Masakhane is a grassroots organisation whose mission is to strengthen and spur NLP research in African languages, for Africans, by Africans. Despite the fact that 2000 of the world’s languages are African, African languages are barely represented in technology. The tragic past of colonialism has been devastating for African languages in terms of their support, preservation and integration. This has resulted in technological space that does not understand our names, our cultures, our places, our history."
   },
   {
     name: "Mercator Stiftung",
@@ -511,6 +658,13 @@ export const stakeholderList = [
     link: "https://daten.berlin.de/",
     location: "Berlin, Germany",
     description: "Open Data Berlin is not a direct funding agency, but it makes data available and provides a platform to publish its own applications. For example, Open Data Berlin hosts a program created by civilians that documents Berlin sidewalk work. Open Data Berlin is not focused on AI, however AI applications benefit because data is made available."
+  },
+  {
+    name: "Open Data Institute",
+    tags: ["Research", "Think Tanks/NGOs"],
+    link: "https://www.theodi.org/",
+    location: "London, UK",
+    description: "At the ODI, our mission is to work with companies and governments to build an open, trustworthy data ecosystem. We want a world where data works for everyone. This means getting data to those who need it, particularly in response to the UN Sustainable Development Goals."
   },
   {
     name: "PIT Policy Lab",
@@ -623,11 +777,25 @@ export const stakeholderList = [
     ]
   },
   {
+    name: "The Institute for Ethical AI and Machine Learning",
+    tags: ["Research", "AI Practice"],
+    link: "https://ethical.institute/",
+    location: "London, UK",
+    description: "The Institute for Ethical AI & Machine Learning is a UK-based research centre that develops frameworks that support the responsible development, deployment and operation of machine learning systems."
+  },
+  {
     name: "The Policy Lab",
     tags: ["Research", "Think tanks/NGOs", "Politics"],
     link: "https://www.denkfabrik-bmas.de/en/topics/artificial-intelligence",
     location: "Berlin, Germany",
-    description: "The Artificial Intelligence in Labor and Social Administration Network of the BMAS exchanges views on how artificial intelligence (AI) can be used in administration. The aim is to develop self-committed guidelines for practice that ensure responsible handling of AI. "
+    description: "The Artificial Intelligence in Labor and Social Administration Network of the BMAS exchanges views on how artificial intelligence (AI) can be used in administration. The aim is to develop self-committed guidelines for practice that ensure responsible handling of AI."
+  },
+  {
+    name: "The Teaching Responsible Computing Community (Mozilla Foundation)",
+    tags: ["Think tanks/NGOs"],
+    link: "https://foundation.mozilla.org/en/what-we-fund/awards/responsible-computer-science-challenge/",
+    location: "San Francisco, CA, USA",
+    description: "A curated and supported global community working towards integrating social responsibility and ethics into computing curricula, with a focus on teaching methods. This community of practice has a specific focus on pedagogy and teaching, with the aim to support a cross disciplinary group of people. The community includes disciplines outside of computing that are critical for computing. The aim is to support cross-disciplinary practitioners and faculty, along with academics, industry practitioners, Computer Science education researchers, and teaching and learning experts in their work. The community includes teaching teams across colleges and universities who are part of the Responsible Computer Science Challenge which is funded by Omidyar Network, Mozilla, Schmidt Futures, and Craig Newmark Philanthropies. It also includes those working broadly with computing, social responsibility, and ethics curricula, along with the 30+ collaborators on the Teaching Responsible Computing Playbook. The community of practice offers opportunities for collaboration, peer learning exchange, and periodic presentations and events."
   },
   {
     name: "TU Darmstadt",
@@ -644,6 +812,13 @@ export const stakeholderList = [
     description: "In particular, the Tübingen AI Center carries out outreach and educational work through offerings such as the Federal Artificial Intelligence Competition, an online course on artificial intelligence, and support for initiatives such as IT4Kids and KI macht Schule."
   },
   {
+    name: "Urban AI",
+    tags: ["Think Tanks/NGOs", "Research"],
+    link: "https://urbanai.fr/",
+    location: "Paris, France",
+    description: "Urban AI is a Paris-based think tank dedicated to the emerging field of “Urban Artificial Intelligence.” Given the highly complex and human-centered nature of urban systems, scholarship and practical implementation of artificial intelligence technologies in cities requires a uniquely multidisciplinary lens. For this reason, Urban AI seeks to generate a holistic body of knowledge on urban artificial intelligence by federating and collaborating with a growing, global community of researchers, public servants, start-ups, and urban subject matter experts, who work at the intersection of cities and technology. Together, we carry out multidisciplinary projects to better understand and assess the impacts of artificial intelligence on urban life and vice versa. Urban AI’s work follows three primary streams: research, events & content, and education."
+  },
+  {
     name: "Vodafone Institute for Society and Communications",
     tags: ["Think tanks/NGOs"],
     link: "https://www.vodafone-institut.de/studies/artificial-intelligence-and-climate-change-13-policy-recommendations-to-meet-current-challenges/",
@@ -655,7 +830,14 @@ export const stakeholderList = [
     tags: ["Funding"],
     link: "https://www.volkswagenstiftung.de/en/funding/our-funding-portfolio-at-a-glance/artificial-intelligence-and-the-society-of-the-future",
     location: "Hannover, Germany",
-    description: "In addition to funding AlgorithmWatch, the Volkswagen Foundation also has an initiative called “Artificial Intelligence - Its Impact on Tomorrow's Society.” At its core, the initiative aims to promote joint, integrative research approaches between the social sciences and engineering. Against the backdrop of the current and emerging developments taking place under the term “artificial intelligence,” the aim is to enable new perspectives and insights with a view to shaping the future of society as well as technology, based on present-day diagnoses. "
+    description: "In addition to funding AlgorithmWatch, the Volkswagen Foundation also has an initiative called “Artificial Intelligence - Its Impact on Tomorrow's Society.” At its core, the initiative aims to promote joint, integrative research approaches between the social sciences and engineering. Against the backdrop of the current and emerging developments taking place under the term “artificial intelligence,” the aim is to enable new perspectives and insights with a view to shaping the future of society as well as technology, based on present-day diagnoses."
+  },
+  {
+    name: "We and AI",
+    tags: ["Think Tanks/NGOs"],
+    link: "https://weandai.org/",
+    location: "London, UK",
+    description: "We and AI is a non-profit-organisation acttivating diverse communities to make AI work for everyone."
   },
   {
     name: "Weizenbaum Institute",
