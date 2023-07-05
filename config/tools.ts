@@ -86,22 +86,22 @@ export const tools: PiAiTool[] = [
       },
     ],
   },
-  // {
-  //   slug: "simba",
-  //   name: "Simba – Text assistant",
-  //   description: "A browser plugin to highlights and summarise a website’s text.",
-  //   colorBase: "var(--color-piai-simba)",
-  //   colorHighlight: "var(--color-piai-simba)",
-  //   iconShort: "Si",
-  //   iconLong: "Simba text assistant",
-  //   menu: [
-  //     {
-  //       name: "Overview",
-  //     },
-  //     {
-  //       slug: "about",
-  //       name: "About the tool",
-  //     },
-  //   ],
-  // },
+  {
+    slug: "simba",
+    name: "Simba – Text assistant",
+    description: "A browser plugin to highlights and summarise a website’s text.",
+    colorBase: "var(--color-piai-simba)",
+    colorHighlight: "var(--color-piai-simba)",
+    iconShort: "Si",
+    iconLong: "Simba text assistant",
+    menu: [
+      {
+        name: "Overview",
+      },
+      {
+        slug: "about",
+        name: "About the tool",
+      },
+    ],
+  },
 ];
