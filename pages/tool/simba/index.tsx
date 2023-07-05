@@ -287,10 +287,12 @@ const BoxHighlight = styled(Box)`
 // END STYLES
 // =================================================
 
-const adjustHeight = ({ el }: { el: any }) => {
-  el.style.height =
-    el.scrollHeight > el.clientHeight ? el.scrollHeight + "px" : "60px";
-};
+// onKeyUp={(e) => adjustHeight(e)}
+
+// const adjustHeight = ({ el }: { el: any }) => {
+//   el.style.height =
+//     el.scrollHeight > el.clientHeight ? el.scrollHeight + "px" : "60px";
+// };
 
 const Index = ({
   frontendSettings,
@@ -315,7 +317,6 @@ const Index = ({
   if (currentExample === "Custom text") {
     exampleText = (
       <textarea
-        onKeyUp={(e) => adjustHeight(e)}
         placeholder="Type text to be highlighted"
       ></textarea>
     );
