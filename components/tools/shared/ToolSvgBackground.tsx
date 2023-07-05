@@ -21,6 +21,8 @@ import Svgtransgender from "~/components/svgs/Svgtransgender";
 import SvgarrowsExpand from "~/components/svgs/SvgarrowsExpand";
 import SvgarrowsCollapse from "~/components/svgs/SvgarrowsCollapse";
 import SvgClose from "~/components/svgs/SvgCloseNeg";
+
+// Energy
 import SvgCPU from "~/components/svgs/SvgCPU";
 import SvgGPU from "~/components/svgs/SvgGPU";
 import Svgfan from "~/components/svgs/Svgfan";
@@ -38,6 +40,12 @@ import SvgboxSmall from "~/components/svgs/SvgboxSmall";
 import SvgboxLarge from "~/components/svgs/SvgboxLarge";
 import Svgscreen from "~/components/svgs/Svgscreen";
 import Svgscribble from "~/components/svgs/Svgscribble";
+
+// Simba
+import Svgfirefox from "~/components/svgs/Svgfirefox";
+import Svgchrome from "~/components/svgs/Svgchrome";
+import SvgsimbaLogo from "~/components/svgs/SvgsimbaLogo";
+import SvgSimbaScreenshot from "~/components/svgs/SvgSimbaScreenshot";
 
 // use https://jakearchibald.github.io/svgomg/
 // use https://yoksel.github.io/url-encoder/
@@ -216,6 +224,22 @@ export const ToolSvgBackground = ({
 
     case "scribble":
       activeSvg = Svgscribble;
+      break;
+
+    case "firefox":
+      activeSvg = Svgfirefox;
+      break;
+
+    case "chrome":
+      activeSvg = Svgchrome;
+      break;
+
+    case "simba":
+      activeSvg = SvgsimbaLogo;
+      break;
+
+    case "screenshot":
+      activeSvg = SvgSimbaScreenshot;
       break;
   }
   return (

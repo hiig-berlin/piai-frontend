@@ -43,34 +43,11 @@ const StakeholderWrapper = styled.div`
     margin-top: 0 !important;
   }
 
-  & .GPU.script h2,
-  & .GPU.statistic h2 {
-    color: ${({ theme }) => theme.colors.piaiEnergy};
-  }
-
   h3 {
     font-size: 12px;
     font-weight: 300;
     line-height: 1em;
     margin-bottom: calc(0px - var(--size-2));
-  }
-
-  // ul li::marker {
-  //   content: "— ";
-  //   position: absolute;
-  // }
-
-  .GPU.script button,
-  .GPU.CO2 button {
-    font-size: calc(var(--text-body-font-size-tool) * 0.85);
-    align-self: start;
-    margin: 0;
-    margin-bottom: var(--size-1);
-    color: ${({ theme }) => theme.colors.piaiEnergy};
-
-    &:hover {
-      margin-left: -0.3em;
-    }
   }
 `;
 
