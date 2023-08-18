@@ -876,7 +876,7 @@ export const stakeholderList = [
   },
   {
     name: "The Policy Lab",
-    tags: ["Research", "Think tanks/NGOs", "Politics"],
+    tags: ["Research", "Think Tank/NGO", "Politics"],
     link: "https://www.denkfabrik-bmas.de/en/topics/artificial-intelligence",
     location: "Berlin, Germany",
     description: "The Artificial Intelligence in Labor and Social Administration Network of the BMAS exchanges views on how artificial intelligence (AI) can be used in administration. The aim is to develop self-committed guidelines for practice that ensure responsible handling of AI."
