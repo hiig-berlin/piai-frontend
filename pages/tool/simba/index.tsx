@@ -378,7 +378,7 @@ const Index = ({
               type="repo"
               className="textLink"
               aria-label="Go to github repository"
-              url="https://github.com/hiig-berlin/energy-log"
+              url="https://github.com/fhewett/simba"
             >
               <span>GitHub</span>
             </Icon>
