@@ -433,7 +433,7 @@ const Placeholder = styled.p`
 // };
 
 const getSummary = async (input: string) => {
-  const data = { details: input };
+  const data = { text: input, browser_id: "piai-simba_demo" };
 
   try {
     const response = await fetch(process.env.NEXT_PUBLIC_SIMBA_API as string, {
@@ -525,7 +525,7 @@ const Index = ({
       setLoading(true);
       setCurrentOutput(`Generating the summary for a ${currentExample.toLowerCase()}…`);
 
-      getSummary(currentExample)
+      getSummary(input.filter((e) => e.example === currentExample)[0].text)
         .then((result) => {
           setCurrentOutput(result.output);
         })
