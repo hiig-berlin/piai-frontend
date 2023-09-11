@@ -1,4 +1,4 @@
-import { ReactElement, useState } from "react";
+import { ReactElement, useState, useEffect } from "react";
 import type { GetStaticProps } from "next";
 import NextHeadSeo from "next-head-seo";
 
@@ -10,15 +10,16 @@ import { LabElement } from "~/components/ui/LabElement";
 import { Icon } from "~/components/tools/shared/ui/Icon";
 import styled, { css } from "styled-components";
 import { Box } from "~/components/tools/shared/ui/Box";
-import { Button } from "~/components/styled/Button";
+import { Button, LinkButtonAnimated } from "~/components/styled/Button";
 import { ToolSvgBackground } from "~/components/tools/shared/ToolSvgBackground";
 import {
   useCssVarsStateIsDesktopAndUpState,
   useCssVarsStateIsTabletAndUpState,
 } from "~/components/state/CssVarsState";
 import { ButtonNormalized } from "~/components/styled/Button";
-import { highlightedText } from "~/components/tools/simba/highlightedText";
+import { input } from "~/components/tools/simba/simbaInput";
 import { AnyMxRecord } from "dns";
+import { Any } from "@react-spring/types";
 
 // Wrapper + General tool styles
 // =================================================
@@ -49,13 +50,30 @@ const SimbaWrapper = styled.div`
     font-size: 12px;
     font-weight: 300;
     line-height: 1em;
-    margin-bottom: calc(0px - var(--size-2));
+    // margin: var(--size-4) 0 calc(0px - var(--size-3));
   }
 
   ul li::marker {
     content: "— ";
     position: absolute;
   }
+
+  textarea {
+    background: transparent;
+    boder: 1px solid white;
+    color: white;
+    font-size: 0.8em;
+    padding: var(--size-2);
+    border-radius: var(--size-1);
+    height: fit-content;
+    min-height: 10em;
+    width: 100%;
+  }
+
+  // .hightlight {
+  //   background: ${({ theme }) => theme.color("piaiSimba", 0.8)};
+  //   text-shadow: 0px 1px 3px black;
+  // }
 `;
 
 // Grid and subgrid layouts
@@ -63,13 +81,11 @@ const SimbaWrapper = styled.div`
 const Grid = styled.div`
   display: grid;
   gap: var(--size-3);
-  // align-content: space-between;
-  // grid-template-rows: auto;
   grid-template-areas:
     "about"
-    "test"
     "ff"
-    "chrome";
+    "chrome"
+    "test";
 
   // ${({ theme }) => theme.breakpoints.tablet} {
   //   grid-template-areas:
@@ -79,11 +95,12 @@ const Grid = styled.div`
   // }
 
   ${({ theme }) => theme.breakpoints.tabletLandscape} {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas:
-      "about about test test"
-      "ff chrome test test"
-      "blank blank test test";
+      "about about ff"
+      " about about chrome"
+      " about about blank"
+      "test test test";
   }
 
   // ${({ theme }) => theme.breakpoints.desktop} {
@@ -93,44 +110,99 @@ const Grid = styled.div`
   //     "script script stats2 stats2 stats2";
   // }
 
-  & .download.firefox {
-    grid-area: ff;
-  }
+  & .download{
+    a{
+      align-self: start;
+      margin-left: 0;
 
-  & .download.chrome {
-    grid-area: chrome;
+      &:hover{
+        margin-left: -0.3em;
+      }
+    }
+
+    &.firefox {
+      grid-area: ff;
+    }
+
+    &.chrome {
+      grid-area: chrome;
+    }
   }
+  
 
   & .about {
     grid-area: about;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "title"
+      "copy"
+      "image"
+      "subline";
+  
+
+    ${({ theme }) => theme.breakpoints.tabletLandscape} {
+      grid-template-columns: 1fr 2fr;
+      grid-template-areas:
+        "title title"
+        "copy screenshot"
+        "subline screenshot";
+      }
+      align-items: center;
+    }
 
     .svg {
       min-height: 50px;
-      max-width: 270px;
+      // max-width: 270px;
+    }
+
+    .title{
+      grid-area: title;
+      background-position: left center !important;
+    }
+
+    .copy{
+      grid-area: copy;
     }
 
     .screenshot {
+      grid-area: screenshot;
       min-height: 330px;
+    }
+
+    .subline{
+      grid-area: subline;
     }
   }
 
   & .test {
     grid-area: test;
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "title"
+      "filter"
+      "input"
+      "output";
 
-    textarea {
-      background: transparent;
-      boder: 1px solid white;
-      color: white;
-      font-size: 0.8em;
-      padding: var(--size-2);
-      border-radius: var(--size-1);
-      height: fit-content;
+    ${({ theme }) => theme.breakpoints.tabletLandscape} {
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas:
+        "title title"
+        "filter filter"
+        "input output";
+      }
+    }
+  }
+    .intro  { grid-area: title;   }
+    .input  { grid-area: input    }
+    .output { 
+      grid-area: output;
+      font-family: var(--font-family-monospace);
+      font-size: 0.9em;
     }
 
-    .hightlight{
-      background: ${({ theme }) => theme.color("piaiSimba", 0.8)};
-      text-shadow: 0px 1px 3px black;
-    }
   }
 `;
 
@@ -236,6 +308,7 @@ const Tag = styled(ButtonNormalized)<{ isActive: boolean }>`
   color: var(--color-piai-simba);
   border: 1px solid var(--color-piai-simba);
   border-radius: 4px;
+  cursor: ${({ isActive, theme }) => (isActive ? "inherit" : "pointer")};
 
   & .svg {
     filter: invert(58%) sepia(83%) saturate(375%) hue-rotate(131deg)
@@ -284,6 +357,71 @@ const BoxHighlight = styled(Box)`
   background: ${({ theme }) => theme.colors.piaiSimba};
 `;
 
+const Input = styled.div`
+  p{
+    h1,
+  h2,
+  h3 {
+    text-transform: none;
+    font-weight: bold;
+    margin: 2em 0 1em;
+    
+    &:first-child{
+      margin-top: 0;
+    }
+  }
+`;
+
+const Placeholder = styled.p`
+  color: var(--color-piai-simba);
+  position: relative;
+  animation: loading 4s ease-in-out infinite;
+  transform-origin: left bottom;
+  padding-bottom: 0.3em;
+
+  &:after {
+    content: "";
+    width: 100%;
+    height: 2px;
+    position: absolute;
+    display: block;
+    top: 100%;
+
+    animation: loadingBar 2s linear infinite alternate;
+    background: linear-gradient(
+      90deg,
+      transparent 25%,
+      var(--color-piai-simba) 50%,
+      transparent 75%
+    );
+    background-size: 200% 100%;
+    background-position: 0%;
+  }
+
+  @keyframes loading {
+    0%,
+    100% {
+      opacity: 0.6;
+      transform: scale(0.995);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes loadingBar {
+    0% {
+      opacity: 0.6;
+      background-position: 0%;
+    }
+    100% {
+      opacity: 1;
+      background-position: 100%;
+    }
+  }
+`;
+
 // END STYLES
 // =================================================
 
@@ -293,6 +431,32 @@ const BoxHighlight = styled(Box)`
 //   el.style.height =
 //     el.scrollHeight > el.clientHeight ? el.scrollHeight + "px" : "60px";
 // };
+
+const getSummary = async (input: string) => {
+  const data = { details: input };
+
+  try {
+    const response = await fetch(process.env.NEXT_PUBLIC_SIMBA_API as string, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (response.status === 200) {
+      const responseData = await response.json();
+      console.log("API:", responseData);
+      return responseData;
+    } else {
+      console.error("API Error:", response.status, response.statusText);
+      throw new Error("API Error");
+    }
+  } catch (error) {
+    console.error("Fetch Error:", error);
+    throw error;
+  }
+};
 
 const Index = ({
   frontendSettings,
@@ -306,30 +470,99 @@ const Index = ({
 
   const currentTool = appConfig.tools?.find((t) => t.slug === "simba");
 
-  const [currentExample, setCurrentExample] = useState("Newspaper article");
+  const [currentExample, setCurrentExample] = useState("Newspaper article"); // Current selected Tag
+  const [currentOutput, setCurrentOutput] = useState(""); 
+  const [loading, setLoading] = useState(false); // True while loading summary
+  const [customText, setCustomText] = useState(''); // State to store textarea value
+
   let examples = [
     "Newspaper article",
     "Wikipedia page",
     "Suggestion 3",
     "Custom text",
   ];
-  let exampleText: any;
-  if (currentExample === "Custom text") {
-    exampleText = (
-      <textarea
-        placeholder="Type text to be highlighted"
-      ></textarea>
-    );
-  } else {
-    exampleText = (
+
+  const renderInput = () => {
+    if (currentExample === "Custom text") {
+      return (
+        <textarea
+          placeholder="Type text to be highlighted"
+          onBlur={handleCustomTextBlur}
+          value={customText}
+          onChange={(event) => setCustomText(event.target.value)} // Update customText state
+        />
+      );
+    } else {
+      // Render the other input options based on currentExample
+      return (
+        <p
+          dangerouslySetInnerHTML={{
+            __html: input.filter((e) => e.example === currentExample)[0].text,
+          }}
+        />
+      );
+    }
+  };
+
+  const renderOutput = () =>
+    loading ? (
+      <Placeholder
+        dangerouslySetInnerHTML={{
+          __html: currentOutput,
+        }}
+      />
+    ) : (
       <p
         dangerouslySetInnerHTML={{
-          __html: highlightedText.filter((e) => e.example === currentExample)[0]
-            .text,
+          __html: currentOutput,
         }}
       />
     );
-  }
+
+  useEffect(() => {
+    setLoading(false);
+    if (currentExample !== "Custom text") {
+      setLoading(true);
+      setCurrentOutput(`Generating the summary for a ${currentExample.toLowerCase()}…`);
+
+      getSummary(currentExample)
+        .then((result) => {
+          setCurrentOutput(result.output);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    } else {
+      setCurrentOutput(
+        "Insert the text on the left, that you want to be summarised."
+      );
+    }
+  }, [currentExample]);
+
+  const handleCustomTextBlur = async () => {
+    if (customText.trim() === "") {
+      console.log("Textarea is empty…")
+      setCurrentOutput(
+        "Insert the text on the left, that you want to be summarised."
+      );
+    } else {
+      console.log("Textarea is not empty…")
+      setLoading(true);
+      setCurrentOutput("Generating the summary for your custom text…");
+
+      try {
+        const result = await getSummary(customText);
+        setCurrentOutput(result.output);
+      } catch (error) {
+        console.error("Error:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
 
   return (
     <SimbaWrapper>
@@ -396,6 +629,7 @@ const Index = ({
             training and inference the GPU energy usage often surpasses that of
             the CPU.
           </Blurb>
+          <LinkButtonAnimated>Install Firefox Add-on</LinkButtonAnimated>
         </BoxHighlight>
         <BoxHighlight className="download chrome">
           <h2>Downnload plugin</h2>
@@ -405,18 +639,19 @@ const Index = ({
             training and inference the GPU energy usage often surpasses that of
             the CPU.
           </Blurb>
+          <LinkButtonAnimated>Install Chrome Extension</LinkButtonAnimated>
         </BoxHighlight>
 
         {/* ------------------- About ------------------- */}
         <Box className="about">
-          <ToolSvgBackground type="simba" />
-          <p>
+          <ToolSvgBackground type="simba" className="title" />
+          <p className="copy">
             The script is based on python and runs as cron background tab on the
             server that executes your AI training. Your GPU power values are
             stored in regular intervals into a .csv log file.
           </p>
           <ToolSvgBackground type="screenshot" className="screenshot" />
-          <Meta col={1}>
+          <Meta col={1} className="subline">
             See for yourself how the highlighting (extractive summary) works by
             selecting on oft the input sources or by entering your text
             paragraph.
@@ -425,33 +660,41 @@ const Index = ({
 
         {/* ------------------- Test ------------------- */}
         <Box className="test">
-          <h2>Try it out yourself</h2>
-          <Meta col={1}>
-            See for yourself how the highlighting (extractive summary) works by
-            selecting on oft the input sources or by entering your text
-            paragraph.
-          </Meta>
-
-          <h3>Pick an example</h3>
-          <Tags className="filter">
-            {examples.map((example: any, j: number) => {
-              const isActive = currentExample === example;
-              return (
-                <Tag
-                  onClick={() =>
-                    isActive
-                      ? setCurrentExample("")
-                      : setCurrentExample(example)
-                  }
-                  key={`tag-filter-${j}`}
-                  isActive={isActive}
-                >
-                  {example}
-                </Tag>
-              );
-            })}
-          </Tags>
-          {exampleText}
+          <div className="intro">
+            <h2>Try it out yourself</h2>
+            <Meta col={1}>
+              See for yourself how the highlighting (extractive summary) works
+              by selecting on oft the input sources or by entering your text
+              paragraph.
+            </Meta>
+          </div>
+          <div className="filter">
+            <h3>Pick an example</h3>
+            <Tags>
+              {examples.map((example: any, j: number) => {
+                const isActive = currentExample === example;
+                return (
+                  <Tag
+                    onClick={() => {
+                      if (!isActive) setCurrentExample(example);
+                    }}
+                    key={`tag-filter-${j}`}
+                    isActive={isActive}
+                  >
+                    {example}
+                  </Tag>
+                );
+              })}
+            </Tags>
+          </div>
+          <Input className="input">
+            <h3>Input</h3>
+            {renderInput()}
+          </Input>
+          <div className="output">
+            <h3>Output</h3>
+            {renderOutput()}
+          </div>
         </Box>
       </Grid>
     </SimbaWrapper>
