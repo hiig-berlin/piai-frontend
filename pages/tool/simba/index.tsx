@@ -531,6 +531,7 @@ const Index = ({
         })
         .catch((error) => {
           console.error("Error:", error);
+          setCurrentOutput("Summary can't be generated. We're aplogising for potentially buggy behaviour. Contact us, if this error persists.");
         })
         .finally(() => {
           setLoading(false);
