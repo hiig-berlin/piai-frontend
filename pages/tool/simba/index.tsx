@@ -18,8 +18,6 @@ import {
 } from "~/components/state/CssVarsState";
 import { ButtonNormalized } from "~/components/styled/Button";
 import { input } from "~/components/tools/simba/simbaInput";
-import { AnyMxRecord } from "dns";
-import { Any } from "@react-spring/types";
 
 // Wrapper + General tool styles
 // =================================================
@@ -425,15 +423,11 @@ const Placeholder = styled.p`
 // END STYLES
 // =================================================
 
-// onKeyUp={(e) => adjustHeight(e)}
-
-// const adjustHeight = ({ el }: { el: any }) => {
-//   el.style.height =
-//     el.scrollHeight > el.clientHeight ? el.scrollHeight + "px" : "60px";
-// };
-
 const getSummary = async (input: string) => {
-  const data = { text: input, browser_id: "piai-simba_demo" };
+  const regex = /(<([^>]+)>)/gi;
+  const strippedText = input.replace(regex, " ");
+  const data = { text: strippedText, browser_id: "piai-simba_demo" };
+  console.log("data to be sent to API: ", data)
 
   try {
     const response = await fetch(process.env.NEXT_PUBLIC_SIMBA_API as string, {
