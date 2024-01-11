@@ -18,6 +18,7 @@ import {
 } from "~/components/state/CssVarsState";
 import { ButtonNormalized } from "~/components/styled/Button";
 import { input } from "~/components/tools/simba/simbaInput";
+import { preGeneratedText } from "~/components/tools/simba/simbaInput";
 
 // Wrapper + General tool styles
 // =================================================
@@ -135,22 +136,38 @@ const Grid = styled.div`
     grid-template-areas:
       "title"
       "copy"
-      "image"
+      "screenshot"
       "subline";
-  
+      
+    align-items: center;
 
     ${({ theme }) => theme.breakpoints.tabletLandscape} {
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas:
+        "title title"
+        "copy screenshot"
+        "subline subline";
+    }
+
+    ${({ theme }) => theme.breakpoints.desktop} {
       grid-template-columns: 1fr 2fr;
       grid-template-areas:
         "title title"
         "copy screenshot"
+        "subline subline";
+    }
+
+    ${({ theme }) => theme.breakpoints.screen} {
+      grid-template-columns: 1fr 3fr;
+      grid-template-areas:
+        "title title"
+        "copy screenshot"
         "subline screenshot";
-      }
-      align-items: center;
     }
 
     .svg {
       min-height: 50px;
+      // width: 100%;
       // max-width: 270px;
     }
 
@@ -182,14 +199,16 @@ const Grid = styled.div`
       "title"
       "filter"
       "input"
-      "output";
+      "output"
+      "footnote";
 
     ${({ theme }) => theme.breakpoints.tabletLandscape} {
       grid-template-columns: 1fr 1fr;
       grid-template-areas:
         "title title"
         "filter filter"
-        "input output";
+        "input output"
+        "footnote footnote";
       }
     }
   }
@@ -200,6 +219,8 @@ const Grid = styled.div`
       font-family: var(--font-family-monospace);
       font-size: 0.9em;
     }
+
+    .footnote  { grid-area: footnote;   }
 
   }
 `;
@@ -472,7 +493,7 @@ const Index = ({
   let examples = [
     "Newspaper article",
     "Wikipedia page",
-    "Suggestion 3",
+    "App description",
     "Custom text",
   ];
 
@@ -489,7 +510,7 @@ const Index = ({
     } else {
       // Render the other input options based on currentExample
       return (
-        <p
+        <div
           dangerouslySetInnerHTML={{
             __html: input.filter((e) => e.example === currentExample)[0].text,
           }}
@@ -519,17 +540,20 @@ const Index = ({
       setLoading(true);
       setCurrentOutput(`Generating the summary for a ${currentExample.toLowerCase()}…`);
 
-      getSummary(input.filter((e) => e.example === currentExample)[0].text)
-        .then((result) => {
-          setCurrentOutput(result.output);
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-          setCurrentOutput("Summary can't be generated. We're aplogising for potentially buggy behaviour. Contact us, if this error persists.");
-        })
-        .finally(() => {
-          setLoading(false);
-        });
+      // getSummary(input.filter((e) => e.example === currentExample)[0].text)
+      //   .then((result) => {
+      //     setCurrentOutput(result.output);
+      //   })
+      //   .catch((error) => {
+      //     console.error("Error:", error);
+      //     setCurrentOutput("Summary can't be generated. We're aplogising for potentially buggy behaviour. Contact us, if this error persists.");
+      //   })
+      //   .finally(() => {
+      //     setLoading(false);
+      //   });
+
+      setCurrentOutput(preGeneratedText.filter((e) => e.example === currentExample)[0].text)
+      setLoading(false);
     } else {
       setCurrentOutput(
         "Insert the text on the left, that you want to be summarised."
@@ -585,10 +609,9 @@ const Index = ({
           />
         )}
         <div>
-          <h1>Simba – Text assistant</h1>
+          <h1>Simba Text assistant</h1>
           <p>
-            Browser plugin… Metus vulputate eu scelerisque felis imperdiet. Eget
-            sit amet tellus cras. Urna condimentum mattis pellentesque id.
+          The Simba Text Assistant is a browser plug-in that produces summaries of German-language text on web pages.
           </p>
         </div>
         {isDesktopAndUp && (
@@ -620,9 +643,7 @@ const Index = ({
           <h2>Downnload plugin</h2>
           <Blurb>
             <ToolSvgBackground type="firefox" />
-            Graphics Processing Units (GPU) speed up machine learning. For
-            training and inference the GPU energy usage often surpasses that of
-            the CPU.
+            Download Simba to use with either Firefox or Chrome.
           </Blurb>
           <LinkButtonAnimated>Install Firefox Add-on</LinkButtonAnimated>
         </BoxHighlight>
@@ -630,9 +651,7 @@ const Index = ({
           <h2>Downnload plugin</h2>
           <Blurb>
             <ToolSvgBackground type="chrome" />
-            Graphics Processing Units (GPU) speed up machine learning. For
-            training and inference the GPU energy usage often surpasses that of
-            the CPU.
+            Download Simba to use with either Firefox or Chrome
           </Blurb>
           <LinkButtonAnimated>Install Chrome Extension</LinkButtonAnimated>
         </BoxHighlight>
@@ -641,15 +660,14 @@ const Index = ({
         <Box className="about">
           <ToolSvgBackground type="simba" className="title" />
           <p className="copy">
-            The script is based on python and runs as cron background tab on the
-            server that executes your AI training. Your GPU power values are
-            stored in regular intervals into a .csv log file.
+          The Simba Text Assistant is a browser plug-in that produces summaries of German-language text on web pages. It is designed to additionally simplify the summaries, by shortening the sentences and providing explanations for words. We have also integrated the Hurraki dictionary; a Wiki-based dictionary with entries in Leichte Sprache (Easy German Language). You can choose to highlight words found in the dictionary and in the online text, and be shown their definition in Easy Language.
+
+
           </p>
           <ToolSvgBackground type="screenshot" className="screenshot" />
           <Meta col={1} className="subline">
-            See for yourself how the highlighting (extractive summary) works by
-            selecting on oft the input sources or by entering your text
-            paragraph.
+          We trained and evaluated the model that provides these simplifications with news articles; that is why it works better for these types of web content. The plug-in also offers the opportunity to submit your feedback on the summary that Simba produces.
+
           </Meta>
         </Box>
 
@@ -658,9 +676,7 @@ const Index = ({
           <div className="intro">
             <h2>Try it out yourself</h2>
             <Meta col={1}>
-              See for yourself how the highlighting (extractive summary) works
-              by selecting on oft the input sources or by entering your text
-              paragraph.
+            See for yourself how the model behind Simba works by selecting one of the input sources or by entering your text (coming soon!)
             </Meta>
           </div>
           <div className="filter">
@@ -690,6 +706,9 @@ const Index = ({
             <h3>Output</h3>
             {renderOutput()}
           </div>
+          {(currentExample == "Custom text") &&
+            <Meta col={1} className="footnote">Please note: our trained Simba model is not yet online – in the meantime we are using a default summarization model from Huggingface to produce the summaries of these custom texts.</Meta>
+          }
         </Box>
       </Grid>
     </SimbaWrapper>
