@@ -556,7 +556,7 @@ const Index = ({
       setLoading(false);
     } else {
       setCurrentOutput(
-        "Insert the text on the left, that you want to be summarised."
+        "Insert the text on the left that you want to be summarised."
       );
     }
   }, [currentExample]);
@@ -565,7 +565,7 @@ const Index = ({
     if (customText.trim() === "") {
       console.log("Textarea is empty…")
       setCurrentOutput(
-        "Insert the text on the left, that you want to be summarised."
+        "Insert the text on the left that you want to be summarised."
       );
     } else {
       console.log("Textarea is not empty…")
@@ -643,17 +643,16 @@ const Index = ({
           <h2>Downnload plugin</h2>
           <Blurb>
             <ToolSvgBackground type="firefox" />
-            Download Simba to use with either Firefox or Chrome.
+            Download Simba as a browser add-on for Firefox and start summarizing webpages. 
           </Blurb>
-          <LinkButtonAnimated>Install Firefox Add-on</LinkButtonAnimated>
-        </BoxHighlight>
-        <BoxHighlight className="download chrome">
-          <h2>Downnload plugin</h2>
+          
+          <LinkButtonAnimated href="https://addons.mozilla.org/en-US/firefox/addon/simba-text-assistant/" target="_blank">Install Firefox Add-on</LinkButtonAnimated>
           <Blurb>
             <ToolSvgBackground type="chrome" />
-            Download Simba to use with either Firefox or Chrome
+            Download Simba as a browser extension from the Chrome web store and start summarizing webpages. 
           </Blurb>
           <LinkButtonAnimated>Install Chrome Extension</LinkButtonAnimated>
+          <p>Let us know what you think and help us improve Simba.</p>
         </BoxHighlight>
 
         {/* ------------------- About ------------------- */}
@@ -707,7 +706,7 @@ const Index = ({
             {renderOutput()}
           </div>
           {(currentExample == "Custom text") &&
-            <Meta col={1} className="footnote">Please note: our trained Simba model is not yet online – in the meantime we are using a default summarization model from Huggingface to produce the summaries of these custom texts.</Meta>
+            <Meta col={1} className="footnote">Please note: our trained Simba model is not yet online – in the meantime we are using a default summarisation model from Huggingface to produce the summaries of these custom texts.</Meta>
           }
         </Box>
       </Grid>
