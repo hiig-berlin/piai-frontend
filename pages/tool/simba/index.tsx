@@ -182,7 +182,11 @@ const Grid = styled.div`
 
     .screenshot {
       grid-area: screenshot;
-      min-height: 330px;
+      min-height: calc(100vw / 1.4 - 80px);
+
+      ${({ theme }) => theme.breakpoints.tabletLandscape} {
+        min-height: 330px;
+      }
     }
 
     .subline{
@@ -286,6 +290,7 @@ const Meta = styled.ul<{ col: number }>`
   }
 
   ${narrow}
+  letter-spacing: 0.02em;
 
   .svg {
     min-height: 0.8em !important;
@@ -293,13 +298,6 @@ const Meta = styled.ul<{ col: number }>`
     max-height: 0.8em;
     max-width: 0.8em;
     align-self: center;
-  }
-
-  &.scribble .svg {
-    min-height: 2.5em !important;
-    min-width: 2.5em !important;
-    max-height: 2.5em;
-    max-width: 2.5em;
   }
 `;
 
@@ -643,15 +641,15 @@ const Index = ({
           <h2>Downnload plugin</h2>
           <Blurb>
             <ToolSvgBackground type="firefox" />
-            Download Simba as a browser add-on for Firefox and start summarizing webpages. 
+            Download Simba as a browser add-on for Firefox and start summarising webpages. 
           </Blurb>
           
           <LinkButtonAnimated href="https://addons.mozilla.org/en-US/firefox/addon/simba-text-assistant/" target="_blank">Install Firefox Add-on</LinkButtonAnimated>
           <Blurb>
             <ToolSvgBackground type="chrome" />
-            Download Simba as a browser extension from the Chrome web store and start summarizing webpages. 
+            Download Simba as a browser extension from the Chrome web store and start summarising webpages. 
           </Blurb>
-          <LinkButtonAnimated>Install Chrome Extension</LinkButtonAnimated>
+          <LinkButtonAnimated href="https://github.com/fhewett/simba/tree/main/highlighter-plugin-chrome" target="_blank">Install Chrome Extension</LinkButtonAnimated>
           <p>Let us know what you think and help us improve Simba.</p>
         </BoxHighlight>
 
