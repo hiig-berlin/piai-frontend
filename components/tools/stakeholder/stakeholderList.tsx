@@ -227,6 +227,13 @@ export const stakeholderList = [
     description: "The Block Center focuses on how emerging technologies will alter the future of work, how AI and analytics can be harnessed for social good, and how innovation in these spaces can be more inclusive and generate targeted, relevant solutions that reduce inequality and improve quality of life."
   },
   {
+    name: "Bristol Digital Futures Institute, Universtiy of Bristol",
+    tags: ["Research"],
+    link: "https://bristol.ac.uk/fssl/research/sociodigital-futures/about/",
+    location: "Bristol, United Kingdom",
+    description: "The Centre for Sociodigital Futures is a £10m flagship investment from the Economic and Social Research Council (ESRC) to establish an international centre of excellence for sociodigital futures research and collaboration (to run for an initial five years from 2022 to 2027). It brings together world leading expertise in the Social Sciences, Engineering and the Arts, led from the University of Bristol in collaboration with the Universities of Birmingham, Edinburgh, Goldsmiths (University of London), the Institute of the Arts (University of London) and Lancaster."
+  },
+  {
     name: "C Minds",
     tags: ["Think Tank/NGO", "AI Practice", "Research"],
     link: "https://www.cminds.co/",
@@ -331,12 +338,19 @@ export const stakeholderList = [
     location: "Berkeley, CA, USA",
     description: "The Center for Technology, Society & Policy is a multidisciplinary research and design/build center focusing on the emergent social and policy issues arising from the development and adoption of technology."
   },
-    {
+  {
     name: "Center for trustworthy AI (ZVKI)",
     tags: ["Research", "Think Tank/NGO"],
     link: "https://www.zvki.de/en",
     location: "Berlin, Germany",
     description: "The Center situates itself at the intersection of Science, Politics, Civic Society and Economy and wants to inform via public discussions and the development of tool to evaluate and certify AI regarding Trustworthiness. The ZVKI envisions itself as a place for debate on the future of AI regarding societal questions. "
+  },
+  {
+    name: "Centre for AI Innovation (CEAI)",
+    tags: ["AI Practice"],
+    link: "https://ceaiglobal.com",
+    location: "Singapore",
+    description: "CEAI is primarily formed as an effort by MyFinB Group with the objective to support society at large, people and industries with AI solutions aligned with the SDG17 goals of the United Nations. At CEAI, we believe AI can help drive positive impact by solving some of the world’s most pressing challenges. While the prime advantage of AI is to enhance business and the economy, AI for Positive Impact focuses on the aspect of artificial intelligence applied for helping people and the environment. By using AI for positive impact, CEAI supports social innovation projects in many SDG sectors such as Education, Health and Wellbeing, Clean energy, Industry innovation and infrastructure, responsible consumption and production to name a few."
   },
   {
     name: "Charité Lab for Artificial Intelligence in Medicine (CLAIM) ",
@@ -352,19 +366,26 @@ export const stakeholderList = [
     location: "Berlin, Germany",
     description: "CityLab describes itself as a public experimental laboratory for the city of the future. To this end, startups, administration, civil society and science work together on projects to address the four topics of “Open Data, Open Cities,” “Smart Cities for All,” “Innovative Administration” and “Energy and Sustainability.” One example is the “QTrees” project, which seeks to sustainably counteract urban tree mortality by developing an artificial intelligence (AI)-based forecasting system that incorporates diverse data sets to identify urban trees at risk from drought at an early stage. "
   },
-   {
+  {
     name: "Civic Coding",
     tags: ["Network", "Politics"],
     link: "https://www.civic-coding.de/",
     location: "Berlin, Germany",
-    description: "The Initiative Civic Coding is aiming at unifying forces to connect communities, enhance infrastructures and bring together already existing projects to help forming a living network for public interest oriented AI projects. "
+    description: "The Initiative Civic Coding is aiming at unifying forces to connect communities, enhance infrastructures and bring together already existing projects to help forming a living network for public interest oriented AI projects."
+  },
+  {
+    name: "Coding It Forward",
+    tags: ["Think Tank/NGO"],
+    link: "https://www.codingitforward.com/about/#mission-and-story",
+    location: "Washington, DC, USA",
+    description: "Nonprofit for early-career technologists creating new pathways into public interest technology."
   },
   {
     name: "Cyber Valley",
     tags: ["Network", "Funding"],
     link: "https://cyber-valley.de/",
     location: "Stuttgart & Tübingen, Germany",
-    description: "The Network is a large research cooperation in the field of AI and aims at bringing academic and private sector partners together to bridge gaps between academic basic research and applied research. "
+    description: "The Network is a large research cooperation in the field of AI and aims at bringing academic and private sector partners together to bridge gaps between academic basic research and applied research."
   },
   {
     name: "Claire AI",
@@ -451,6 +472,13 @@ export const stakeholderList = [
     description: "Founded by Timnit Gebru in December 2021, the globally active DAIR has set itself the goal of investigating AI in an interdisciplinary manner and not as an alternative. One focus will be on participatory research priorities and on good communication of research priorities to affected communities. For example, the institute's research will address AI in resource-poor environments or language technology for maginalized communities."
   },
   {
+    name: "DrivenData Inc.",
+    tags: ["Think Tank/NGO", "Research", "AI Practice"],
+    link: "https://www.drivendata.org",
+    location: "Denver, CO, USA",
+    description: "DrivenData works on projects at the intersection of data science and social impact, in areas like international development, health, education, research and conservation, and public services. We want to give more organizations access to the capabilities of data science, and engage more data scientists with social challenges where their skills can make a difference. In pursuit of these goals, DrivenData runs online machine learning competitions with social impact and works directly with mission-driven organizations to drive change through data science and engineering. We also maintain a number of popular open-source projects for the data science community, and have shared the prize-winning solutions from past competitions openly on GitHub for anyone to learn and build from."
+  },
+  {
     name: "DQ Institute",
     tags: ["Think Tank/NGO", "Politics", "Research"],
     link: "https://www.dqinstitute.org/",
@@ -491,6 +519,13 @@ export const stakeholderList = [
     link: "https://digital-strategy.ec.europa.eu/en/policies/european-approach-artificial-intelligence",
     location: "Brussels, Belgium",
     description: "The EU Commission has, among others, an initiative on trustworthy AI. This focuses on three areas: 1) a European legal framework for AI that addresses fundamental rights and the specific safety risks of AI systems; 2) EU rules to address liability issues related to new technologies, including AI systems; 3) a revision of sectoral safety legislation (e.g., Machinery Regulation, General Product Safety Directive)."
+  },
+  {
+    name: "Fairwork",
+    tags: ["Research", "Think Tank/NGO"],
+    link: "https://fair.work/en/fw/homepage/",
+    location: "Oxford, UK",
+    description: "Fairwork, at its essence, is a way of imagining a different, and fairer, platform economy than the one we have today. By evaluating platforms against measures of fairness, we hope to not just show what the platform economy is, but also what it can be. The Fairwork project is run out of the Oxford Internet Institute, University of Oxford, and the Berlin Social Science Center. Through our global network of researchers, we evaluate the working conditions of digital labour platforms and score them against five principles of fair work."
   },
   {
     name: "Federal Ministry for Family Affairs, Senior Citizens, Women and Youth (BMFSFJ)",
@@ -646,6 +681,13 @@ export const stakeholderList = [
     description: "At the Institute for Advanced Technology and Public Policy, we explore today's most complex challenges in arenas such as energy, the environment, agriculture and government transparency. We identify and develop ways to use emerging technology to influence related public policy, and we partner with industry and government leaders to craft effective, real-world solutions ripe for implementation. Led by Founding Director and former State Senator Sam Blakeslee, the Institute's integrated approach to solving society's toughest problems engages the best and brightest students and faculty at Cal Poly, steeped in the University's Learn by Doing tradition and motivated to make a real and tangible difference in the world."
   },
   {
+    name: "Institute for Ethics in AI, University of Oxford",
+    tags: ["Research"],
+    link: "https://www.oxford-aiethics.ox.ac.uk",
+    location: "Oxford, UK",
+    description: "The Institute for Ethics in AI will bring together world-leading philosophers and other experts in the humanities with the technical developers and users of AI in academia, business and government. The ethics and governance of AI is an exceptionally vibrant area of research at Oxford and the Institute is an opportunity to take a bold leap forward from this platform."
+  },
+  {
     name: "Institute for Human-Centered AI (HAI), Stanford University",
     tags: ["Research"],
     link: "https://hai.stanford.edu",
@@ -658,6 +700,13 @@ export const stakeholderList = [
     link: "https://law.ucla.edu/academics/centers/institute-technology-law-policy",
     location: "Los Angeles, CA, USA",
     description: "The Institute for Technology, Law & Policy undertakes cross-disciplinary research to learn how both established and emerging technologies influence society, privacy, law and public policy."
+  },
+  {
+    name: "Institute for the Internet and the Just Society",
+    tags: ["Research"],
+    link: "https://www.internetjustsociety.org",
+    location: "Berlin, Germany",
+    description: "We pioneer an open platform that connects civic engagement with interdisciplinary research focused on fair artificial intelligence, inclusive digital governance and human rights law in digital spheres."
   },
   {
     name: "iRights.Lab",
@@ -716,6 +765,13 @@ export const stakeholderList = [
     description: "The Mozilla Foundation has a project on trustworthy AI that takes several approaches. Among them, for example, is #YouTubeRegrets, a project in which civilians can report when they have seen disturbing suggestions displayed on YouTube (https://foundation.mozilla.org/de/youtube/regrets/)."
   },
   {
+    name: "My Data Rights Africa",
+    tags: ["AI Practice", "Think Tank/NGO"],
+    link: "https://mydatarights.africa/",
+    location: "South Africa",
+    description: "Through the eyes of a feminist, the intersections of Artificial intelligence, privacy and data protection are explored in the context of South Africa.The context of gendered marginalisation of women, gender diverse people and sexual minorities forms the basis of understanding the data concerns.  AI and gender; feminist methodology and policy are assessed from a feminist perspective to develop recommendations for gender responsive policy and regulations and action from the civil society for engagement on data rights."
+  },
+  {
     name: "Observatory on Artificial Intelligence in Work and Society",
     tags: ["Politics", "Research"],
     link: "https://www.ki-observatorium.de/en/",
@@ -737,7 +793,7 @@ export const stakeholderList = [
     description: "At the ODI, our mission is to work with companies and governments to build an open, trustworthy data ecosystem. We want a world where data works for everyone. This means getting data to those who need it, particularly in response to the UN Sustainable Development Goals."
   },
   {
-    name: "Oxford Internet Institute",
+    name: "Oxford Internet Institute (OII)",
     tags: ["Research"],
     link: "https://www.oii.ox.ac.uk/",
     location: "Oxford, UK",
@@ -834,11 +890,18 @@ export const stakeholderList = [
     description: "The Tech4Humanity Lab is a transdisciplinary laboratory at Virginia Tech, focusing on the impact of technology on the human condition. Our lab emphasizes  issues of human security broadly constituting political, medical, social, economic and environmental securities. The lab utilizes transdisciplinary research, combining practices from political science, law, computer science, humanities, engineering, business, biology, public health, and area studies."
   },
   {
-    name: "Technology Foundation Berlin (TSB)",
-    tags: ["AI Practice", "Funding"],
-    link: "https://www.technologiestiftung-berlin.de/",
-    location: "Berlin, Germany",
-    description: "The Technology Foundation supports technology projects. It does not focus specifically on AI, but AI projects can also be funded. It is the umbrella organization for programs such as City Lab, KulturBDigital or COMo for CO2 monitoring in indoor spaces."
+    name: "Tech for Social Good",
+    tags: ["Think Tank/NGO"],
+    link: "https://www.techforsocialgood.org",
+    location: "Sydney, Australia",
+    description: "Tech for Social Good is Australia's first nonprofit for young Australians interested in responsible tech. We work with leaders in tech, government and the private sector to deliver initiatives such as fellowships and community events, and are home to a diverse and interdisciplinary community of young Australians."
+  },
+  {
+    name: "Technology and Society Program, Ford Foundation",
+    tags: ["Funding"],
+    link: "https://www.fordfoundation.org/work/challenging-inequality/technology-and-society/strategy/",
+    location: "New York, NY, USA",
+    description: "While technology and the internet have transformed how we learn, connect, create and engage with the world around us, they have increased divisions across society and exacerbated inequality. The Technology and Society program believes that the internet must be designed and governed as a vital public good that ensures equitable access and the strongest protections of fundamental rights."
   },
   {
     name: "The Berlin Institute for the Foundations of Learning and Data (BIFOLD)",
@@ -853,6 +916,13 @@ export const stakeholderList = [
     link: "https://www.bertelsmann-stiftung.de/en/our-projects/ethics-of-algorithms",
     location: "Gütersloh, Germany",
     description: "The project “Ethics of Algorithms” deals with the social consequences of algorithmic decision making. The aim is to contribute to a design of algorithmic systems that leads to more participation. "
+  },
+  {
+    name: "The Digital Public Lab",
+    tags: ["Research", "Think Tank/NGO"],
+    link: "https://thedigitalpubliclab.com/?utm_source=aapti-website&utm_medium=menu-redirect&utm_campaign=redirect",
+    location: "Bengalore, India",
+    description: "The Digital Public Lab is an initiative of the Aapti Institute and intends to work closely with the Data Economy Lab, another Aapti initiative. Aapti is a public strategic research institution that generates policy-relevant, actionable, and accessible knowledge from the frontiers of tech and society, about our networked lives, to support the creation of a fair, free, and equitable society."
   },
   {
     name: "The German Agency for International Cooperation (GIZ)",
