@@ -71,7 +71,7 @@ const About = ({
             <p>The “Simba Text Assistant” is a tool that can be used when using the internet. It creates a summary of the web page you are looking at. The tool also simplifies the summary by shortening the sentences and explaining some words. The summary is created automatically and is not checked by a human.
             You can also have words highlighted that are in the Hurraki dictionary. These words are then explained using the dictionary.
             
-            <h3>You can help us make the “Simba Text Assistant” better!</h3>
+            <h3>You can help us make the Simba Text Assistant better!</h3>
             <p>We are still working on the tool and making it better. There is an option on the tool where you can send us your feedback. 
             The code used to create the tool can be looked at. This means that other people can see exactly how the tool was made. It also means that other people can use the code to make other tools.
             </p>`,
