@@ -52,6 +52,13 @@ export const stakeholderList = [
     description: "Access Now seeks to serve, guide, and influence decision makers in all sectors through human rights-focused thought leadership and innovative, evidence-based policy analysis. They strategically advocate for courts and legal processes to hold governments and corporations accountable and uphold fundamental rights in the digital age. They provide flexible and grant-focused funding to grassroots movements and activist groups working with users and communities most at risk of digital rights violations, and have published opinions on AI regulations with AlgorithmWatch, for example."
   },
   {
+    name: "Accountable Tech",
+    tags: ["Politics", "Research"],
+    link: "https://accountabletech.org/about/",
+    location: "Washington, DC, USA",
+    description: "An advocate for social media companies to strengthen the integrity of their platforms and democracy."
+  },
+  {
     name: "Ad hoc Committee on Artificial Intelligence (CAHAI)",
     tags: ["Politics"],
     link: "https://www.coe.int/en/web/artificial-intelligence/cahai",
@@ -99,6 +106,20 @@ export const stakeholderList = [
     link: "https://www.aiforpeace.org",
     location: "San Francisco, CA, USA",
     description: "AI for Peace is a Nonprofit/NGO organization focused on creating a future in which AI benefits peace, security and sustainable development and where diverse voices influence creation of AI and related technologies."
+  },
+  {
+    name: "AI for People",
+    tags: ["Research"],
+    link: "https://www.aiforpeople.org/",
+    location: "Bologna, Italy",
+    description: "Shaping Artificial Intelligent technology around human and societal needs."
+  },
+  {
+    name: "AI for Social Good (AI4SG)",
+    tags: ["Research", "AI Practice"],
+    link: "https://www.aiforsocialgood.org/",
+    location: "San Jose, CA, USA",
+    description: "The AI For Social Good (AI4SG) project offers curriculum that engages students from all disciplines to propose or develop AI powered solutions that address social issues in their communities. It was founded 2018 at San José State university and 2021 joined by further universities."
   },
   {
     name: "AI Forum New Zealand",
@@ -157,11 +178,18 @@ export const stakeholderList = [
     description: "Algorithmic Governance is an interdisciplinary research network dedicated to understanding the social implications of artificial intelligence, big data, platform capitalism, datafied knowledge, and automated decision-making on society."
   },
   {
-    name: "Algorithmic Impact Methods Lab (AIMLab",
+    name: "Algorithmic Impact Methods Lab (AIMLab)",
     tags: ["Research"],
     link: "https://datasociety.net/algorithmic-impact-methods-lab/",
     location: "New York, USA",
     description: "The Algorithmic Impact Methods Lab (AIMLab) will develop robust public interest methodologies to evaluate how increasingly ubiquitous automated decision-making systems impact people’s lives and society at large. It will do so through collaborative, experimental work, to demonstrate not only that measuring these impacts is possible, but how and why it can be done in the public interest."
+  },
+  {
+    name: "Algorithmic Justice League",
+    tags: ["Politics", "Research"],
+    link: "https://www.ajl.org/",
+    location: "Cambridge, MA, USA",
+    description: "The Algorithmic Justice League’s mission is to raise awareness about the impacts of AI, equip advocates with empirical research, build the voice and choice of the most impacted communities, and galvanize researchers, policy makers, and industry practitioners to mitigate AI harms and biases."
   },
   {
     name: "All Tech Is Human (ATIH)",
@@ -423,6 +451,13 @@ export const stakeholderList = [
     description: "CorrelAid brings socially minded Data Scientists together with social organizations and thus initiates joint projects. The work therefore mainly consists of networking Data Scientists and non-profit organizations and further education programs for the latter."
   },
   {
+    name: "Data and AI for Social Impact (IBM)",
+    tags: ["Funding"],
+    link: "https://www.ibm.com/watson/social-impact",
+    location: "Armonk, NY, USA",
+    description: "IBM launched this initiative to help nonprofit organizations achieve a greater impact on individuals and society. This data-driven approach which is guided by IBM aims at helping NGOs reach their goals."
+  },
+  {
     name: "Data Ethics",
     tags: ["Research", "Think Tank/NGO"],
     link: "https://dataethics.eu/",
@@ -451,6 +486,13 @@ export const stakeholderList = [
     description: "data.org is a platform for partnerships to build the field of data for social impact. We work with organizations from all over the world to increase the use of data in order to improve the lives of millions of people."
   },
   {
+    name: "Deepmind",
+    tags: ["Research", "AI Practice"],
+    link: "https://www.deepmind.com/about",
+    location: "London, England",
+    description: "Team of scientists, engineers, ethicists and more, committed to solving intelligence, to advance science and benefit humanity."
+  },
+  {
     name: "Denklabor und Kollaborationsplattform für Gesellschaft & Digitalisierung e.V. (Co:Lab)",
     tags: ["Research", "Politics", "Think Tank/NGO"],
     link: "https://colab-digital.de/initiativen/koki/",
@@ -470,6 +512,13 @@ export const stakeholderList = [
     link: "https://www.dair-institute.org/",
     location: "Worldwide",
     description: "Founded by Timnit Gebru in December 2021, the globally active DAIR has set itself the goal of investigating AI in an interdisciplinary manner and not as an alternative. One focus will be on participatory research priorities and on good communication of research priorities to affected communities. For example, the institute's research will address AI in resource-poor environments or language technology for maginalized communities."
+  },
+  {
+    name: "Draper Laboratory",
+    tags: ["Research"],
+    link: "https://www.draper.com/how-we-work",
+    location: "Cambridge, MA, USA",
+    description: "Draper is a leader in the design, development, integration and test of algorithms and software for autonomous systems."
   },
   {
     name: "DrivenData Inc.",
@@ -528,6 +577,13 @@ export const stakeholderList = [
     description: "Fairwork, at its essence, is a way of imagining a different, and fairer, platform economy than the one we have today. By evaluating platforms against measures of fairness, we hope to not just show what the platform economy is, but also what it can be. The Fairwork project is run out of the Oxford Internet Institute, University of Oxford, and the Berlin Social Science Center. Through our global network of researchers, we evaluate the working conditions of digital labour platforms and score them against five principles of fair work."
   },
   {
+    name: "FARI",
+    tags: ["Research", "AI Practice"],
+    link: "https://www.fari.brussels/",
+    location: "Brussels, Belgium",
+    description: "FARI is an independent, not-for-profit Artificial Intelligence initiative led by the Vrije Universiteit Brussel (VUB) and the Université libre de Bruxelles (ULB). The aim of the research institute is to enable, promote and perform excellent cross-disciplinary research on  Artificial Intelligence in Brussels, inspired by the values of freedom, equality and solidarity."
+  },
+  {
     name: "Federal Ministry for Family Affairs, Senior Citizens, Women and Youth (BMFSFJ)",
     tags: ["Funding", "Politics"],
     link: "https://www.bmfsfj.de/bmfsfj/meta/en",
@@ -567,6 +623,13 @@ export const stakeholderList = [
     link: "https://www.fordfoundation.org/campaigns/public-interest-technology/",
     location: "New York, USA",
     description: "The Ford Foundation funds public interest tech, which includes public benefit-oriented AI. "
+  },
+  {
+    name: "GENIA",
+    tags: ["Research"],
+    link: "https://www.genia.ai/",
+    location: "Brazil",
+    description: "GENIA researchs and develops machine learning to ensure that artificial intelligence, which influences the future of Latin America, is developed fairly."
   },
   {
     name: "German AI Association",
@@ -744,6 +807,13 @@ export const stakeholderList = [
     description: "Masakhane is a grassroots organisation whose mission is to strengthen and spur NLP research in African languages, for Africans, by Africans. Despite the fact that 2000 of the world’s languages are African, African languages are barely represented in technology. The tragic past of colonialism has been devastating for African languages in terms of their support, preservation and integration. This has resulted in technological space that does not understand our names, our cultures, our places, our history."
   },
   {
+    name: "Max Planck Institute for Intelligent Systems",
+    tags: ["Research"],
+    link: "https://is.mpg.de/abouts/institute",
+    location: "Tübingen, Germany",
+    description: "The goal of the Max Planck Institute for Intelligent Systems is to investigate and understand the organizing principles of intelligent systems and the underlying perception-action-learning loop. The Tübingen campus of the institute focuses on theory and algorithms as well as human-scale systems covering topics such as machine learning, computer vision, control, and the theory of intelligence."
+  },
+  {
     name: "Mercator Stiftung",
     tags: ["Funding"],
     link: "https://www.stiftung-mercator.de/en/what-we-work-on/projects/",
@@ -756,6 +826,34 @@ export const stakeholderList = [
     link: "https://www.microsoft.com/de-de/ai/ai-for-good",
     location: "Redmont, USA",
     description: "Microsoft AI for Good supports AI projects in the programs “AI for Earth”, “Health”, “Accessibility” and “Humanitarian Action”. Microsoft is headquartered in the USA, but projects are funded internationally, including in Germany. Some of the case studies listed, for example, receive or received funding."
+  },
+  {
+    name: "Mila",
+    tags: ["Research", "AI Practice"],
+    link: "https://mila.quebec/en/",
+    location: "Montreal, Quebec, Canada",
+    description: "Located in the heart of Quebec’s AI ecosystem, Mila is a community of more than 1,200 researchers specializing in machine learning and dedicated to scientific excellence and innovation. As a nonprofit organisation, Mila claims to put social responsibility first and focus not only on technical ML research, but also on AI for Humanity. Selected projects, education on the effects of AI systems and research into that field are ways how Mila adresses this responsibility."
+  },
+  {
+    name: "Microsoft: AI for Good",
+    tags: ["Funding"],
+    link: "https://www.microsoft.com/en-us/ai/ai-for-good",
+    location: "Redmond, USA",
+    description: "Microsofts AI for Good Initiative is providing technology and resources to empower organizations working to solve global challenges to the environment, humanitarian issues, accessibility, health, and cultural heritage."
+  },
+  {
+    name: "MIT Lincoln Laboratory",
+    tags: ["Research"],
+    link: "https://www.ll.mit.edu/r-d",
+    location: "Lexington, MA, USA",
+    description: "MIT Lincoln Laboratory is a federally funded research and development center. Although focused significantly on national security/defence, many projects listed have clear overlapping interest in advanced technology in the public interest (not exclusive to the USA)."
+  },
+  {
+    name: "MITRE",
+    tags: ["Research"],
+    link: "https://www.mitre.org/who-we-are",
+    location: "McClean, VA, USA",
+    description: "MITRE was established to advance national security in new ways and serve the public interest as an independent adviser. MITRE works in areas such as defense, cybersecurity, healthcare, homeland security, the judiciary and transportation."
   },
   {
     name: "Mozilla Foundation",
@@ -777,6 +875,13 @@ export const stakeholderList = [
     link: "https://www.ki-observatorium.de/en/",
     location: "Berlin, Germany",
     description: "This initiative of the Federal Ministry of Labour and Social Affairs analyses, develops and evaluates AI systems and AI Literacy in the work context."
+  },
+  {
+    name: "Omidyar Network",
+    tags: ["Funding"],
+    link: "https://omidyar.com/responsible-technology-2/",
+    location: "Redwood City, USA",
+    description: "Omidyar Network makes strategic investments and promotes ideas, technologies, and policies that help ensure a digital world that is safe, fair, and compassionate."
   },
   {
     name: "Open Data Berlin",
@@ -846,6 +951,27 @@ export const stakeholderList = [
     link: "https://www.cerri.iao.fraunhofer.de/de/projekte/railearninglab.html",
     location: "Berlin, Germany",
     description: "In free workshops, stakeholders from business, administration and politics are provided with assistance for the responsible use of AI. The program also plans to reflect on the experiences gained from these workshops and to develop proposals for action for political decision-makers."
+  },
+  {
+    name: "Responsible Technology Hub",
+    tags: ["Think Tank/NGO"],
+    link: "https://www.responsibletechhub.com/about",
+    location: "Munich, Germany",
+    description: "The Responsible Technology Hub is a youth and young professionals led Non-Profit focusing on bringing the attention to making technology more responsible. RTH strengthens the voices of young people and connects stakeholders beyond their silos, to ensure that young generations are heard in debating the future development of technology. "
+  },
+  {
+    name: "Scottish AI Alliance",
+    tags: ["Politics", "Research"],
+    link: "https://thedatalab.com/about-us/",
+    location: "Edinburgh, Scotland",
+    description: "The Scottish AI Alliance is a partnership between The Data Lab and the Scottish Government with the vision for Scotland to become a world leader in the development and use of trustworthy, ethical and inclusive AI."
+  },
+  {
+    name: "SRI International",
+    tags: ["Research"],
+    link: "https://www.sri.com/about-us/",
+    location: "Menlo Park, CA, USA",
+    description: "SRI International is an independent, nonprofit research institute, focus areas include biomedical sciences, chemistry and materials, computing, Earth and space systems, economic development, education and learning, energy and environmental technology, security and national defense."
   },
   {
     name: "Stiftung Neue Verantwortung (SNV)",
@@ -918,6 +1044,13 @@ export const stakeholderList = [
     description: "The project “Ethics of Algorithms” deals with the social consequences of algorithmic decision making. The aim is to contribute to a design of algorithmic systems that leads to more participation. "
   },
   {
+    name: "The Center for AI and Digital Policy",
+    tags: ["Politics", "Research"],
+    link: "https://www.caidp.org/about-2/",
+    location: "Washington, DC, USA",
+    description: "As an independent non-profit research organization, the Center for AI and Digital Policy assesses national AI policies and practices, trains AI policy leaders, and promotes democratic values for AI."
+  },
+  {
     name: "The Digital Public Lab",
     tags: ["Research", "Think Tank/NGO"],
     link: "https://thedigitalpubliclab.com/?utm_source=aapti-website&utm_medium=menu-redirect&utm_campaign=redirect",
@@ -959,6 +1092,13 @@ export const stakeholderList = [
     description: "A curated and supported global community working towards integrating social responsibility and ethics into computing curricula, with a focus on teaching methods. This community of practice has a specific focus on pedagogy and teaching, with the aim to support a cross disciplinary group of people. The community includes disciplines outside of computing that are critical for computing. The aim is to support cross-disciplinary practitioners and faculty, along with academics, industry practitioners, Computer Science education researchers, and teaching and learning experts in their work. The community includes teaching teams across colleges and universities who are part of the Responsible Computer Science Challenge which is funded by Omidyar Network, Mozilla, Schmidt Futures, and Craig Newmark Philanthropies. It also includes those working broadly with computing, social responsibility, and ethics curricula, along with the 30+ collaborators on the Teaching Responsible Computing Playbook. The community of practice offers opportunities for collaboration, peer learning exchange, and periodic presentations and events."
   },
   {
+    name: "Think-it",
+    tags: ["Think Tank/NGO", "AI Practice],
+    link: "https://www.think-it.io/about-us/",
+    location: "Tunis, Tunesia",
+    description: "The software engineering collective is on a mission to leverage technology to regenerate our planet and advance human potential. The global team helps organizations around the world build digital solutions for a sustainable future."
+  },
+  {
     name: "TU Darmstadt",
     tags: ["Research"],
     link: "https://www.tu-darmstadt.de/nachhaltigkeit/news_nachhaltigkeit_details_345088.de.jsp",
@@ -992,6 +1132,13 @@ export const stakeholderList = [
     link: "https://www.volkswagenstiftung.de/en/funding/our-funding-portfolio-at-a-glance/artificial-intelligence-and-the-society-of-the-future",
     location: "Hannover, Germany",
     description: "In addition to funding AlgorithmWatch, the Volkswagen Foundation also has an initiative called “Artificial Intelligence - Its Impact on Tomorrow's Society.” At its core, the initiative aims to promote joint, integrative research approaches between the social sciences and engineering. Against the backdrop of the current and emerging developments taking place under the term “artificial intelligence,” the aim is to enable new perspectives and insights with a view to shaping the future of society as well as technology, based on present-day diagnoses."
+  },
+  {
+    name: "Wadhwani Institute for Artificial Intelligence",
+    tags: ["AI Practice", "Research"],
+    link: "https://www.wadhwaniai.org/",
+    location: "New Dehli, India",
+    description: "Wadhwani Institute is an independent nonprofit institute developing AI-based solutions for underserved communities in developing countries, focusing on applications regarding health and agriculture."
   },
   {
     name: "We and AI",
