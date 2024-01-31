@@ -1093,7 +1093,7 @@ export const stakeholderList = [
   },
   {
     name: "Think-it",
-    tags: ["Think Tank/NGO", "AI Practice],
+    tags: ["Think Tank/NGO", "AI Practice"],
     link: "https://www.think-it.io/about-us/",
     location: "Tunis, Tunesia",
     description: "The software engineering collective is on a mission to leverage technology to regenerate our planet and advance human potential. The global team helps organizations around the world build digital solutions for a sustainable future."
