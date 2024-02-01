@@ -1,27 +1,24 @@
-import "../styles/global.scss";
-
-import { ReactNode } from "react";
-import type { AppProps } from "next/app";
+import { deviceType, primaryInput } from "detect-it";
 import type { NextPage } from "next";
+import type { AppProps } from "next/app";
 import dynamic from "next/dynamic";
-import { primaryInput, deviceType } from "detect-it";
-
-import { theme } from "~/theme/theme";
+import { ReactNode } from "react";
 import { ThemeProvider } from "styled-components";
 
+import { AccessibiliyHelpers } from "~/components/app/AccessibiliyHelpers";
+import { AppDefaultHead } from "~/components/app/AppDefaultHead";
+import { ErrorLock } from "~/components/app/ErrorLock";
+import { withPasswordProtect } from "~/components/app/PasswordProtect";
+import { CssVarsStateController } from "~/components/state/CssVarsState";
+import { PageStateController } from "~/components/state/PageState";
+import { DevInfo } from "~/components/ui/DevInfo";
+import { appConfig } from "~/config";
 import { ConfigContextProvider } from "~/providers/ConfigContextProvider";
 import { SettingsContextProvider } from "~/providers/SettingsContextProvider";
-
 import { GlobalStyle } from "~/theme/globalstyle";
+import { theme } from "~/theme/theme";
 
-import { AccessibiliyHelpers } from "~/components/app/AccessibiliyHelpers";
-import { withPasswordProtect } from "~/components/app/PasswordProtect";
-import { AppDefaultHead } from "~/components/app/AppDefaultHead";
-import { CssVarsStateController } from "~/components/state/CssVarsState";
-import { appConfig } from "~/config";
-import { ErrorLock } from "~/components/app/ErrorLock";
-import { DevInfo } from "~/components/ui/DevInfo";
-import { PageStateController } from "~/components/state/PageState";
+import "../styles/global.scss";
 
 const SmoothScroll = dynamic(() => import("~/components/ui/SmoothScroll"));
 
