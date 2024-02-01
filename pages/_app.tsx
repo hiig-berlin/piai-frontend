@@ -1,6 +1,6 @@
 import "../styles/global.scss";
 
-import { ReactElement, ReactNode } from "react";
+import { ReactNode } from "react";
 import type { AppProps } from "next/app";
 import type { NextPage } from "next";
 import dynamic from "next/dynamic";
@@ -25,15 +25,21 @@ import { PageStateController } from "~/components/state/PageState";
 
 const SmoothScroll = dynamic(() => import("~/components/ui/SmoothScroll"));
 
-type GetLayoutType = (page: ReactElement) => ReactNode;
-type GetLayoutWithPropsType = (page: ReactElement, props: any) => ReactNode;
+type GetLayoutType = (page: ReactNode) => ReactNode;
+type GetLayoutWithPropsType = (page: ReactNode, props: any) => ReactNode;
 
-type NextPageWithLayout = NextPage & {
+type MyAppPageProps = {
+  children: React.ReactNode;
+  frontendSettings: any;
+  themeColorMode: typeof theme.colorMode;
+};
+
+type Page<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: GetLayoutType | GetLayoutWithPropsType;
 };
 
-type AppPropsWithLayout = AppProps & {
-  Component: NextPageWithLayout;
+type MyAppProps<P = {}> = AppProps<P> & {
+  Component: Page<P>;
 };
 
 const CustomErrorHandler = (
@@ -63,8 +69,9 @@ const CustomErrorHandler = (
   }
 };
 
-function MyApp({ Component, pageProps }: any) {
-  const getLayout = Component.getLayout ?? ((page: ReactElement) => page);
+function MyApp({ Component, pageProps }: MyAppProps<MyAppPageProps>): JSX.Element {
+
+  const getLayout = Component.getLayout ?? ((page: ReactNode) => page);
 
   return (
     <>
@@ -80,7 +87,7 @@ function MyApp({ Component, pageProps }: any) {
             frontendSettings={pageProps.frontendSettings}
           >
             <GlobalStyle />
-            
+
             <CssVarsStateController />
             <PageStateController />
 
