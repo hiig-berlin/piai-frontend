@@ -63,7 +63,7 @@ const CustomErrorHandler = (
   }
 };
 
-function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+function MyApp({ Component, pageProps }: any) {
   const getLayout = Component.getLayout ?? ((page: ReactElement) => page);
 
   return (
