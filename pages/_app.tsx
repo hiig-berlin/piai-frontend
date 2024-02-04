@@ -1,39 +1,42 @@
-import "../styles/global.scss";
-
-import { ReactElement, ReactNode } from "react";
-import type { AppProps } from "next/app";
+import { deviceType, primaryInput } from "detect-it";
 import type { NextPage } from "next";
+import type { AppProps } from "next/app";
 import dynamic from "next/dynamic";
-import { primaryInput, deviceType } from "detect-it";
-
-import { theme } from "~/theme/theme";
+import { ReactNode } from "react";
 import { ThemeProvider } from "styled-components";
 
+import { AccessibiliyHelpers } from "~/components/app/AccessibiliyHelpers";
+import { AppDefaultHead } from "~/components/app/AppDefaultHead";
+import { ErrorLock } from "~/components/app/ErrorLock";
+import { withPasswordProtect } from "~/components/app/PasswordProtect";
+import { CssVarsStateController } from "~/components/state/CssVarsState";
+import { PageStateController } from "~/components/state/PageState";
+import { DevInfo } from "~/components/ui/DevInfo";
+import { appConfig } from "~/config";
 import { ConfigContextProvider } from "~/providers/ConfigContextProvider";
 import { SettingsContextProvider } from "~/providers/SettingsContextProvider";
-
 import { GlobalStyle } from "~/theme/globalstyle";
+import { theme } from "~/theme/theme";
 
-import { AccessibiliyHelpers } from "~/components/app/AccessibiliyHelpers";
-import { withPasswordProtect } from "~/components/app/PasswordProtect";
-import { AppDefaultHead } from "~/components/app/AppDefaultHead";
-import { CssVarsStateController } from "~/components/state/CssVarsState";
-import { appConfig } from "~/config";
-import { ErrorLock } from "~/components/app/ErrorLock";
-import { DevInfo } from "~/components/ui/DevInfo";
-import { PageStateController } from "~/components/state/PageState";
+import "../styles/global.scss";
 
 const SmoothScroll = dynamic(() => import("~/components/ui/SmoothScroll"));
 
-type GetLayoutType = (page: ReactElement) => ReactNode;
-type GetLayoutWithPropsType = (page: ReactElement, props: any) => ReactNode;
+type GetLayoutType = (page: ReactNode) => ReactNode;
+type GetLayoutWithPropsType = (page: ReactNode, props: any) => ReactNode;
 
-type NextPageWithLayout = NextPage & {
+type MyAppPageProps = {
+  children: React.ReactNode;
+  frontendSettings: any;
+  themeColorMode: typeof theme.colorMode;
+};
+
+type Page<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: GetLayoutType | GetLayoutWithPropsType;
 };
 
-type AppPropsWithLayout = AppProps & {
-  Component: NextPageWithLayout;
+type MyAppProps<P = {}> = AppProps<P> & {
+  Component: Page<P>;
 };
 
 const CustomErrorHandler = (
@@ -63,8 +66,9 @@ const CustomErrorHandler = (
   }
 };
 
-function MyApp({ Component, pageProps }: AppPropsWithLayout) {
-  const getLayout = Component.getLayout ?? ((page: ReactElement) => page);
+function MyApp({ Component, pageProps }: MyAppProps<MyAppPageProps>): JSX.Element {
+
+  const getLayout = Component.getLayout ?? ((page: ReactNode) => page);
 
   return (
     <>
@@ -80,7 +84,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
             frontendSettings={pageProps.frontendSettings}
           >
             <GlobalStyle />
-            
+
             <CssVarsStateController />
             <PageStateController />
 

@@ -1,6 +1,6 @@
 import type { MapController } from "../map/MapController";
 import { GeoJson } from "../map/types";
-import create from "zustand";
+import { create } from "zustand";
 import { createCompareQueryFromState } from "../map/utils";
 
 export type MapState = {

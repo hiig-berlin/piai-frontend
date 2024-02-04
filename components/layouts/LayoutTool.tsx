@@ -27,6 +27,21 @@ const ContentContainer = styled.div`
     background: #fff !important;
     color: #000 !important;
   }
+
+  .column.about p a,
+  .column.about .cta p a,
+  .column.details p a {
+    text-decoration: underline dotted 0.5px;
+    text-decoration-color: inherit;
+    text-underline-offset: 3px;
+    transition: all ease-out 0.5s;
+
+    &:hover{
+      text-decoration: underline solid 2px;
+      text-underline-offset: 2px;
+      margin-right: 0;
+    }
+  }
 `;
 
 export const LayoutTool = ({

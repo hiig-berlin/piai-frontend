@@ -53,7 +53,7 @@ export const ToolSvgBackground = ({
   type,
   width = "100%",
   height = "100%",
-  className = "svg",
+  className,
   size = "contain",
   position = "center center",
   style,
@@ -244,7 +244,7 @@ export const ToolSvgBackground = ({
   }
   return (
     <span
-      className={className}
+      className={`${className} svg`}
       style={{
         ...style,
         display: "block",

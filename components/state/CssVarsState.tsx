@@ -4,7 +4,7 @@ import React, {
   useRef,
   startTransition,
 } from "react";
-import create from "zustand";
+import { create } from "zustand";
 
 import useIsMounted from "~/hooks/useIsMounted";
 import { breakpointEMs } from "~/theme/theme";
