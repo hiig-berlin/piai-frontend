@@ -1,5 +1,5 @@
 import { startTransition, useCallback } from "react";
-import create from "zustand";
+import { create } from "zustand";
 
 export type HeaderState = {
   observeScroll: boolean;
