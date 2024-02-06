@@ -703,9 +703,6 @@ const Index = ({
             <h3>Output</h3>
             {renderOutput()}
           </div>
-          {(currentExample == "Custom text") &&
-            <Meta col={1} className="footnote">Please note: our trained Simba model is not yet online – in the meantime we are using a default summarisation model from Huggingface to produce the summaries of these custom texts.</Meta>
-          }
         </Box>
       </Grid>
     </SimbaWrapper>
