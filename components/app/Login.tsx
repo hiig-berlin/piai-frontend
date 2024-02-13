@@ -66,6 +66,7 @@ const LoginButton = styled(Button)`
   transform: translateY(-50%);
   opacity: 1;
   transition: opacity 0.3s;
+  color: black;
 
   width: var(--size-5);
   height: var(--size-5);
@@ -115,12 +116,7 @@ export const Login = () => {
                   onChange={() => setIsError(false)}
                 />
                 <LoginButton>
-                  <SvgBackground
-                    type="arrow"
-                    position="center center"
-                    width="100%"
-                    height="100%"
-                  />
+                  LOGIN
                 </LoginButton>
               </LoginWrapper>
             </LoginContainer>
