@@ -638,7 +638,7 @@ const Index = ({
       {/* =================== GRID =================== */}
       <Grid>
         <BoxHighlight className="download firefox">
-          <h2>Downnload plugin</h2>
+          <h2>Download plugin</h2>
           <Blurb>
             <ToolSvgBackground type="firefox" />
             Download Simba as a browser add-on for Firefox and start summarising webpages. 
