@@ -46,6 +46,9 @@ import Svgfirefox from "~/components/svgs/Svgfirefox";
 import Svgchrome from "~/components/svgs/Svgchrome";
 import SvgsimbaLogo from "~/components/svgs/SvgsimbaLogo";
 import SvgSimbaScreenshot from "~/components/svgs/SvgSimbaScreenshot";
+import SvgsimbaSignet from "~/components/svgs/SvgsimbaSignet";
+import SvgthumbsUp from "~/components/svgs/SvgthumbsUp";
+import SvgthumbsDown from "~/components/svgs/SvgthumbsDown";
 
 // use https://jakearchibald.github.io/svgomg/
 // use https://yoksel.github.io/url-encoder/
@@ -237,10 +240,23 @@ export const ToolSvgBackground = ({
     case "simba":
       activeSvg = SvgsimbaLogo;
       break;
+    
+    case "lion":
+      activeSvg = SvgsimbaSignet;
+      break;
 
     case "screenshot":
       activeSvg = SvgSimbaScreenshot;
       break;
+
+    case "thumbsUp":
+      activeSvg = SvgthumbsUp;
+      break;
+
+    case "thumbsDown":
+      activeSvg = SvgthumbsDown;
+      break;
+
   }
   return (
     <span
