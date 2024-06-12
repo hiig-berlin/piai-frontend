@@ -1,9 +1,19 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { isNullOrUndefined } from "util";
 import DisplayAbove from "~/components/styled/DisplayAbove";
 
-export const Meta = styled.ul<{ col: number, inline?: boolean, nowrap?: boolean}>`
+export const narrow = css`
+  font-size: 0.9em;
+  font-family: var(--font-family-narrow);
+  letter-spacing: 0.02em;
+`;
+
+export const Meta = styled.ul<{
+  col: number;
+  inline?: boolean;
+  nowrap?: boolean;
+}>`
   // ul, li reset
   padding: 0;
   margin: 0;
@@ -12,22 +22,26 @@ export const Meta = styled.ul<{ col: number, inline?: boolean, nowrap?: boolean}
     padding: 0;
   }
 
-  ${({ inline }) => inline ? `
+  ${({ inline }) =>
+    inline
+      ? `
   display: flex;
   gap: var(--size-3);
-  ` : `
+  `
+      : `
   display: grid;
   gap: var(--size-1);
   `}
 
-  
   grid-template-columns: repeat(${({ col }) => (col > 1 ? 2 : 1)}, 1fr);
 
   ${({ theme }) => theme.breakpoints.mobileLandscape} {
     grid-template-columns: repeat(${({ col }) => col}, 1fr);
-  }  
+  }
 
-  ${({ nowrap }) => nowrap ? `
+  ${({ nowrap }) =>
+    nowrap
+      ? `
 
     li {
       max-width: 90%;
@@ -42,12 +56,12 @@ export const Meta = styled.ul<{ col: number, inline?: boolean, nowrap?: boolean}
       overflow: hidden;
     }
     }
-    ` : `
+    `
+      : `
 
   `}
-
-  font-size: 14px;
-  font-family: var(--font-family-narrow);
+  
+  ${narrow}
 
   .svg {
     min-height: 0.8em !important;
@@ -58,10 +72,6 @@ export const Meta = styled.ul<{ col: number, inline?: boolean, nowrap?: boolean}
     top: 5px;
     align-self: flex-start;
   }
-
-
-
-
 `;
 
 export const Label = styled.h3`

@@ -1,26 +1,22 @@
 import { ReactElement, useState } from "react";
 import type { GetStaticProps } from "next";
 import NextHeadSeo from "next-head-seo";
-
+import styled from "styled-components";
+import { Box } from "~/components/tools/shared/ui/Box";
+import { ButtonNormalized } from "~/components/styled/Button";
+import { useCssVarsStateIsTabletAndUpState, useCssVarsStateIsDesktopAndUpState } from "~/components/state/CssVarsState";
+import { stakeholderList } from "~/components/tools/stakeholder/stakeholderList";
+import safeHtml from "~/utils/sanitize";
+import { Meta } from "~/components/tools/map/Styled";
+import { narrow } from "~/components/tools/map/Styled";
 import { appConfig } from "~/config";
 import LayoutTool from "~/components/layouts/LayoutTool";
 import { restApiGetSettings } from "~/utils/restApi";
 import { PiAiTool } from "~/types";
 import { LabElement } from "~/components/ui/LabElement";
 import { Icon } from "~/components/tools/shared/ui/Icon";
-import styled, { css } from "styled-components";
-import { Box } from "~/components/tools/shared/ui/Box";
-import { ButtonNormalized } from "~/components/styled/Button";
-import {
-  useCssVarsStateIsDesktopAndUpState,
-  useCssVarsStateIsTabletAndUpState,
-} from "~/components/state/CssVarsState";
-import { stakeholderList } from "~/components/tools/stakeholder/stakeholderList";
-import safeHtml from "~/utils/sanitize";
 
 // Wrapper + General tool styles
-// =================================================
-
 const StakeholderWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -52,11 +48,9 @@ const StakeholderWrapper = styled.div`
 `;
 
 // Grid and subgrid layouts
-// =================================================
 const Grid = styled.div`
   display: grid;
   gap: var(--size-3);
-  // align-content: space-between;
 
   ${({ theme }) => theme.breakpoints.tablet} {
     grid-template-columns: repeat(2, 1fr);
@@ -67,36 +61,6 @@ const Grid = styled.div`
   }
 `;
 
-// Repeating elements
-// =================================================
-
-const narrow = css`
-  font-size: var--(--text-small-font-size);
-  font-family: var(--font-family-narrow);
-  line-height: 18px;
-`;
-
-// Meta columns with icon and narrow text
-const Meta = styled.ul<{ col: number }>`
-  // ul, li reset
-  padding: 0;
-  margin: 0;
-  & li {
-    margin: 0;
-    padding: 0;
-  }
-
-  display: grid;
-  gap: var(--size-1);
-  grid-template-columns: repeat(${({ col }) => (col > 2 ? 2 : 1)}, 1fr);
-
-  ${({ theme }) => theme.breakpoints.tablet} {
-    grid-template-columns: repeat(${({ col }) => col}, 1fr);
-  }
-
-  ${narrow}
-`;
-
 const Label = styled.h3`
   ${({ theme }) => theme.applyMixin("uppercase")};
   font-weight: 300;
@@ -104,13 +68,10 @@ const Label = styled.h3`
 `;
 
 // Individual elements
-// =================================================
-
 const Header = styled.header`
   display: flex;
   flex-direction: row;
   gap: var(--size-3);
-
   margin-top: 100px;
 
   ${({ theme }) => theme.breakpoints.tablet} {
@@ -138,8 +99,8 @@ const Header = styled.header`
 
   button,
   li {
-    max-height: 1.5em;
-    margin-top: 13px;
+    max-height: 1.0em;
+    margin-top: 16px;
     font-size: calc(var(--text-body-font-size-tool) * 0.85);
     line-height: 1em;
   }
@@ -155,13 +116,8 @@ const Entry = styled(Box)<{ isExpanded: boolean }>`
 
   & h1 {
     text-transform: none;
-    // font-size: var(--text-h1-font-size);
     font-size: 18px;
     font-weight: bold;
-  }
-
-  & .link {
-    ${narrow}
   }
 
   .svg {
@@ -170,6 +126,7 @@ const Entry = styled(Box)<{ isExpanded: boolean }>`
     max-height: 0.8em;
     max-width: 0.8em;
     align-self: center;
+    top: 0;
   }
 `;
 
@@ -218,9 +175,6 @@ const ProjectLinks = styled.ul`
   }
 `;
 
-// END STYLES
-// =================================================
-
 const Index = ({
   frontendSettings,
   tool,
@@ -251,7 +205,6 @@ const Index = ({
       }
     });
   });
-  // console.log("Tags: ", allTags);
 
   return (
     <StakeholderWrapper>
@@ -289,7 +242,7 @@ const Index = ({
           <p>
             We have started to identify organisations and institutions that can
             play an important role in the development of the field or Public
-            Interst AI (PIAI). Are you missing a stakeholder? Let us know and
+            Interest AI (PIAI). Are you missing a stakeholder? Let us know and
             we’ll be happy to add it!
           </p>
         </div>
