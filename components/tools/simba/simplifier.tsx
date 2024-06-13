@@ -23,7 +23,7 @@ const getSummary = async (input: string, clientIP: string) => {
   };
   console.log(
     "data to be sent to API: ",
-    process.env.NEXT_PUBLIC_SIMBA_API_URL,
+    // process.env.NEXT_PUBLIC_SIMBA_API_URL,
     data
   );
 
