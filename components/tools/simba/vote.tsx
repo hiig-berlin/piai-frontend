@@ -129,6 +129,7 @@ const Vote = ({
           <textarea
             placeholder="Please provide a reason for your downvote."
             value={comment}
+            className="feebackNotes"
             onChange={(event) => setComment(event.target.value)}
           />
           <Button name="submit" onClick={handleDownvote} disabled={voted}>
@@ -178,11 +179,15 @@ const VoteWrapper = styled.div`
     margin: 0 var(--size-2);
   }
 
-  textarea {
+  textarea.feebackNotes {
     width: 100%;
     max-height: 2.8em;
     min-height: unset;
     padding: var(--size-1) var(--size-2);
     border-radius: 5px;
+
+    &::placeholder {
+      font-size: 0.9em;
+    }
   }
 `;
