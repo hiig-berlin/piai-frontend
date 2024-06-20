@@ -92,8 +92,10 @@ const Index = ({
         <div>
           <h1>Simba Text assistant</h1>
           <p>
-            The Simba Text Assistant is a browser extension and application that
-            produces summaries of German-language texts.
+            The Simba Text Assistant is a web-based tool and browser extension
+            that produces summaries of German-language texts. It is designed to
+            improve your online reading experience or support you on your
+            language learning journey.
           </p>
         </div>
         {isDesktopAndUp && (

@@ -64,7 +64,6 @@ const Simplifier = () => {
   const [clientIP, setClientIP] = useState("");
   const [currentUUID, setCurrentUUID] = useState<string>("");
   const [showVote, setShowVote] = useState<boolean>(false);
-  
 
   // Effect to update local storage when termsAccepted changes
   useEffect(() => {
@@ -143,9 +142,15 @@ const Simplifier = () => {
           onChange={(event) => setCustomText(event.target.value)}
         />
         {!termsAccepted && (
-          <Button name="terms" onClick={() => setTermsAccepted(true)}>
-            I understood and agree to the terms.
-          </Button>
+          <>
+            <p>
+              Simba is a research project on text simplification in German.
+              Please read carefully the terms below before submitting your data.
+            </p>
+            <Button name="terms" onClick={() => setTermsAccepted(true)}>
+              I understood and agree to the terms.
+            </Button>
+          </>
         )}
       </>
     );
@@ -168,17 +173,14 @@ const Simplifier = () => {
     </>
   );
 
-  
-  
-
   return (
     <SimplifyWrapper>
       <div className="intro">
         <ToolSvgBackground type="lion" />
         <h2>Simba simplifier</h2>
         <Meta col={1}>
-          Simba is a research project on text simplification in German. Please
-          read carefully the terms below before submitting your data.
+          Insert text on the left to get a summary on the right. The tool
+          shortens and simplifies German text based on an AI model.
         </Meta>
       </div>
 
@@ -187,7 +189,9 @@ const Simplifier = () => {
         {renderInput()}
       </div>
 
-      <div className="output" tabIndex={0}>{renderOutput()}</div>
+      <div className="output" tabIndex={0}>
+        {renderOutput()}
+      </div>
 
       <div className="termsEN">
         <h3>Terms</h3>
@@ -260,7 +264,7 @@ const SimplifyWrapper = styled(Box)`
       // on hover make .svg shake its head with a slight turn animation
       &:hover {
         animation: turn 0.5s ease-in-out;
-      } 
+      }
     }
 
     h2 {
@@ -283,7 +287,7 @@ const SimplifyWrapper = styled(Box)`
     display: flex;
     flex-direction: column;
 
-    // Make tabindex invisible  
+    // Make tabindex invisible
     &:focus {
       outline: none;
     }
