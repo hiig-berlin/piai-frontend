@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Box } from "~/components/tools/shared/ui/Box";
-import { Button } from "~/components/styled/Button";
+import { Button, ButtonNormalized, LinkButton } from "~/components/styled/Button";
 import SafeHtmlDiv from "~/components/ui/SafeHtmlDiv";
 import safeHtml from "~/utils/sanitize";
 import { getClientIp } from "~/utils/getClientIP";
@@ -10,6 +10,57 @@ import Vote from "./vote";
 import { Placeholder } from "../shared/Styled";
 import { Icon } from "../shared/ui/Icon";
 import { ToolSvgBackground } from "../shared/ToolSvgBackground";
+import { title } from "process";
+
+// Create variable with all static text blurbs for the tool
+const textBits = {
+  en: {
+    title: "Simba simplifier",
+    subtitle: `Insert text on the left to get a summary on the right. The tool shortens and simplifies German text based on an AI model.`,
+    input: `Input`,
+    promptText: `Simba is a research project on text simplification in German. Please read carefully the terms before submitting your data.`,
+    promptButton: `I understood and agree to the terms.`,
+    placeholderPromt: `Please accept the terms to continue.`,
+    placeholderInput: `Type or paste text to be summarised.`,
+    placeholderOutput: `Insert the text on the left that you want to be summarised.`,
+    loading: `Generating the summary for your custom text…`,
+    error: `An error occurred while generating the summary.`,
+    output: `Output`,
+    feedback: `Feedback`,
+    feedbackText: `Please provide feedback on the summary.`,
+    feedbackButton: `Submit feedback`,
+    feedbackLoading: `Submitting feedback…`,
+    feedbackError: `An error occurred while submitting feedback.`,
+    termsTitle: `Terms`,
+    terms: [
+      `Simba is an ongoing research project. All texts will be collected for further research, please do not submit any personal data.`,
+      `Simba is in beta stage and may produce incorrect results, please verify important details.`,
+    ],
+  },
+  de: {
+    title: "Simba Textvereinfacher",
+    subtitle: `Fügen Sie einen Text ein, um eine Zusammenfassung zu erhalten. Das Tool kürzt und vereinfacht deutschen Text basierend auf einem KI-Modell.`,
+    input: `Eingabe`,
+    promptText: `Simba ist ein Forschungsprojekt zur Textvereinfachung. Bitte lesen Sie die Bedingungen sorgfältig durch, bevor Sie Daten senden.`,
+    promptButton: `Ich habe verstanden und stimme den Bedingungen zu.`,
+    placeholderPromt: `Bitte akzeptieren Sie die Bedingungen, um fortzufahren.`,
+    placeholderInput: `Geben Sie den zu vereinfachenden Text ein.`,
+    placeholderOutput: `Fügen Sie Text ein, der zusammengefasst werden soll.`,
+    loading: `Zusammenfassung wird generiert…`,
+    error: `Beim Erstellen der Zusammenfassung ist ein Fehler aufgetreten.`,
+    output: `Ergebnis`,
+    feedback: `Feedback`,
+    feedbackText: `Bitte geben Sie Feedback zur Zusammenfassung.`,
+    feedbackButton: `Feedback senden`,
+    feedbackLoading: `Feedback wird gesendet…`,
+    feedbackError: `Beim Senden des Feedbacks ist ein Fehler aufgetreten.`,
+    termsTitle: `Nutzungsbedingungen`,
+    terms: [
+      `Simba ist ein laufendes Forschungsprojekt. Alle Texte werden für weitere Forschungszwecke gesammelt, bitte keine persönlichen Daten übermitteln.`,
+      `Simba befindet sich in der Beta-Phase und kann fehlerhafte Ergebnisse liefern, bitte wichtige Details überprüfen.`,
+    ],
+  },
+};
 
 // Function to fetch summary from API
 const getSummary = async (input: string, clientIP: string) => {
@@ -21,11 +72,7 @@ const getSummary = async (input: string, clientIP: string) => {
     url: window.location.href,
     meta_ip: clientIP,
   };
-  console.log(
-    "data to be sent to API: ",
-    // process.env.NEXT_PUBLIC_SIMBA_API_SUM,
-    data
-  );
+  console.log("data to be sent to API: ", data);
 
   try {
     const response = await fetch(
@@ -55,8 +102,33 @@ const getSummary = async (input: string, clientIP: string) => {
 
 const Simplifier = () => {
   // State variables
+  const [strings, setStrings] = useState<
+    | {
+        title: string;
+        subtitle: string;
+        input: string;
+        promptText: string;
+        promptButton: string;
+        placeholderPromt: string;
+        placeholderInput: string;
+        placeholderOutput: string;
+        loading: string;
+        error: string;
+        output: string;
+        feedback: string;
+        feedbackText: string;
+        feedbackButton: string;
+        feedbackLoading: string;
+        feedbackError: string;
+        termsTitle: string;
+        terms: string[];
+      }
+    | undefined
+  >();
   const [currentOutput, setCurrentOutput] = useState<string>(
-    "Insert the text on the left that you want to be summarised."
+    strings?.placeholderOutput ||
+          "Insert the text on the left that you want to be summarised."
+
   );
   const [loading, setLoading] = useState<boolean>(false);
   const [customText, setCustomText] = useState<string>("");
@@ -64,6 +136,18 @@ const Simplifier = () => {
   const [clientIP, setClientIP] = useState("");
   const [currentUUID, setCurrentUUID] = useState<string>("");
   const [showVote, setShowVote] = useState<boolean>(false);
+  const [language, setLanguage] = useState<string>("en");
+  
+
+  // update strings variable to the selected language
+  useEffect(() => {
+    if (language === "en") {
+      setStrings(textBits.en);
+    } else if (language === "de") {
+      setStrings(textBits.de);
+    }
+    strings && setCurrentOutput(strings.placeholderOutput)
+  }, [language, strings, currentOutput]);
 
   // Effect to update local storage when termsAccepted changes
   useEffect(() => {
@@ -106,11 +190,14 @@ const Simplifier = () => {
   const handleCustomTextBlur = async () => {
     if (customText.trim() === "") {
       setCurrentOutput(
-        "Insert the text on the left that you want to be summarised."
+        strings?.placeholderOutput ||
+          "Insert the text on the left that you want to be summarised."
       );
     } else {
       setLoading(true);
-      setCurrentOutput("Generating the summary for your custom text…");
+      setCurrentOutput(
+        strings?.loading || "Generating the summary for your custom text…"
+      );
 
       try {
         const result = await getSummary(customText, clientIP);
@@ -133,8 +220,10 @@ const Simplifier = () => {
         <textarea
           placeholder={
             termsAccepted
-              ? "Type or paste text to be summarised."
-              : "Please accept the terms to continue."
+              ? strings?.placeholderInput ||
+                "Type or paste text to be summarised."
+              : strings?.placeholderPromt ||
+                "Please accept the terms to continue."
           }
           onBlur={handleCustomTextBlur}
           value={customText}
@@ -142,15 +231,16 @@ const Simplifier = () => {
           onChange={(event) => setCustomText(event.target.value)}
         />
         {!termsAccepted && (
-          <>
-            <p>
-              Simba is a research project on text simplification in German.
-              Please read carefully the terms below before submitting your data.
-            </p>
+          <div className="prompt">
+            <Meta col={1}>
+              {strings?.promptText ||
+                `Simba is a research project on text simplification in German.
+              Please read carefully the terms below before submitting your data.`}
+            </Meta>
             <Button name="terms" onClick={() => setTermsAccepted(true)}>
-              I understood and agree to the terms.
+              {strings?.promptButton || "I understood and agree to the terms."}
             </Button>
-          </>
+          </div>
         )}
       </>
     );
@@ -175,13 +265,33 @@ const Simplifier = () => {
 
   return (
     <SimplifyWrapper>
+      {/* Title */}
       <div className="intro">
         <ToolSvgBackground type="lion" />
-        <h2>Simba simplifier</h2>
+        <h2>{strings?.title || "Simba simplifier"}</h2>
         <Meta col={1}>
-          Insert text on the left to get a summary on the right. The tool
-          shortens and simplifies German text based on an AI model.
+          {strings?.subtitle ||
+            `Insert text on the left to get a summary on the right. The tool
+          shortens and simplifies German text based on an AI model.`}
         </Meta>
+      </div>
+
+      {/* Language selection */}
+      <div className="lang">
+        <LanguageButton
+          title="en"
+          onClick={() => setLanguage("en")}
+          active={language === "en"}
+        >
+          EN
+        </LanguageButton>
+        <LanguageButton
+          title="de"
+          onClick={() => setLanguage("de")}
+          active={language === "de"}
+        >
+          DE
+        </LanguageButton>
       </div>
 
       <div className="input">
@@ -193,31 +303,12 @@ const Simplifier = () => {
         {renderOutput()}
       </div>
 
-      <div className="termsEN">
-        <h3>Terms</h3>
+      <div className="terms">
+        <h3>{strings?.termsTitle || "Terms"}</h3>
         <ul>
-          <li>
-            Simba is an ongoing research project. All texts will be collected
-            for further research, please do not submit any personal data.
-          </li>
-          <li>
-            Simba is in beta stage and may produce incorrect results, please
-            verify important details.
-          </li>
-        </ul>
-      </div>
-      <div className="termsDE">
-        <h3>Nutzungsbedingungen</h3>
-        <ul>
-          <li>
-            Simba ist ein Forschungsprojekt zur Textvereinfachung. Alle Texte
-            werden für die weitere Forschung gesammelt, bitte keine persönlichen
-            Daten übermitteln.
-          </li>
-          <li>
-            Simba befindet sich in der Beta-Phase und kann fehlerhafte
-            Ergebnisse liefern, bitte wichtige Details überprüfen.
-          </li>
+        {strings?.terms?.map((term, index) => (
+          <li key={index}>{term}</li>
+        ))}
         </ul>
       </div>
     </SimplifyWrapper>
@@ -232,18 +323,18 @@ const SimplifyWrapper = styled(Box)`
   gap: var(--size-4);
   grid-template-columns: 1fr;
   grid-template-areas:
-    "title"
-    "termsEN"
-    "termsDE"
-    "input"
-    "output";
+    "title lang"
+    "terms terms"
+    "input input"
+    "output output";
+
 
   ${({ theme }) => theme.breakpoints.tabletLandscape} {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-areas:
-      "title title"
-      "input output"
-      "termsEN termsDE";
+      "title title title lang"
+      "input input output output"
+      "terms terms terms terms";
   }
 
   .intro {
@@ -276,6 +367,16 @@ const SimplifyWrapper = styled(Box)`
     }
   }
 
+  .lang{
+    grid-area: lang;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: var(--size-4);
+
+    button {
+      margin-left: var(--size-2);
+    }
+  }
   .input {
     grid-area: input;
   }
@@ -293,13 +394,8 @@ const SimplifyWrapper = styled(Box)`
     }
   }
 
-  .termsEN {
-    grid-area: termsEN;
-  }
-
-  .termsDE {
-    grid-area: termsDE;
-    opacity: 0.6;
+  .terms {
+    grid-area: terms;
   }
 
   .intro p {
@@ -320,12 +416,39 @@ const SimplifyWrapper = styled(Box)`
     }
 
     /* Floating button centered over textarea to accept terms and continue with cursor pointer */
-    button {
+    .prompt {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       cursor: pointer; /* Set cursor property explicitly */
+      width: 70%;
+
+      button {
+        margin-left: 0;
+        margin-bottom: 0;
+      }
     }
+  }
+`;
+
+const LanguageButton = styled(ButtonNormalized)<{ active: boolean }>`
+  background: none;
+  color: inherit;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  // margin: 0;
+  // position: relative;
+  // appearance: none;
+  // user-select: none;
+  font-weight: ${({ theme, active }) =>
+    active ? "bold" : "normal"};
+  // font-size: 1em;
+  transition: all ease 0.2s;
+
+  &:hover {
+    color: ${({ theme }) => theme.color("piai-simba", 1)};
+    font-weight: bold;
   }
 `;
