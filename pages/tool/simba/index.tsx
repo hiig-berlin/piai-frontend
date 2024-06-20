@@ -41,11 +41,7 @@ const Index = ({
   const [loading, setLoading] = useState(false); // True while loading summary
   const [customText, setCustomText] = useState(""); // State to store textarea value
 
-  let examples = [
-    "Newspaper article",
-    "Wikipedia page",
-    "App description"
-  ];
+  let examples = ["Newspaper article", "Wikipedia page", "App description"];
 
   const renderInput = () => {
     return (
@@ -55,21 +51,19 @@ const Index = ({
     );
   };
 
-  const renderOutput = () =>
-    <SafeHtmlDiv html={currentOutput} />;
+  const renderOutput = () => <SafeHtmlDiv html={currentOutput} />;
 
   useEffect(() => {
-      setLoading(true);
-      setCurrentOutput(
-        `Generating the summary for a ${currentExample.toLowerCase()}…`
-      );
-      setCurrentOutput(
-        preGeneratedText.filter((e) => e.example === currentExample)[0].text
-      );
-      setLoading(false);
+    setLoading(true);
+    setCurrentOutput(
+      `Generating the summary for a ${currentExample.toLowerCase()}…`
+    );
+    setCurrentOutput(
+      preGeneratedText.filter((e) => e.example === currentExample)[0].text
+    );
+    setLoading(false);
   }, [currentExample]);
 
-  
   return (
     <SimbaWrapper>
       <NextHeadSeo
@@ -98,8 +92,8 @@ const Index = ({
         <div>
           <h1>Simba Text assistant</h1>
           <p>
-            The Simba Text Assistant is a browser plug-in and application that
-            produces summaries of German-language text on web pages.
+            The Simba Text Assistant is a browser extension and application that
+            produces summaries of German-language texts.
           </p>
         </div>
         {isDesktopAndUp && (
@@ -130,7 +124,6 @@ const Index = ({
             >
               <span>GitHub</span>
             </Icon>
-            
           </ul>
         )}
       </Header>
@@ -140,11 +133,11 @@ const Index = ({
       {/* =================== GRID =================== */}
       <Grid>
         <BoxHighlight className="download firefox">
-          <h2>Download plugin</h2>
+          <h2>Download Firefox Add-on</h2>
           <Blurb>
             <ToolSvgBackground type="firefox" />
             Download Simba as a browser add-on for Firefox and start summarising
-            webpages.
+            webpages as you browse.
           </Blurb>
 
           <LinkButtonAnimated
@@ -153,39 +146,47 @@ const Index = ({
           >
             Install Firefox Add-on
           </LinkButtonAnimated>
+        </BoxHighlight>
+        <BoxHighlight className="download chrome">
+          <h2>Download Chrome extension</h2>
           <Blurb>
+            {" "}
             <ToolSvgBackground type="chrome" />
             Download Simba as a browser extension from the Chrome web store and
-            start summarising webpages.
+            start summarising webpagesx.
           </Blurb>
           <LinkButtonAnimated
-            href="https://github.com/fhewett/simba/tree/main/highlighter-plugin-chrome"
+            href="https://chromewebstore.google.com/detail/simba-text-assistant/lllfbelghpclobblmackbkheabbhfdhf"
             target="_blank"
           >
             Install Chrome Extension
           </LinkButtonAnimated>
-          <p>Let us know what you think and help us improve Simba.</p>
         </BoxHighlight>
 
         {/* ------------------- About ------------------- */}
         <Box className="about">
-          <ToolSvgBackground type="simba" className="title" />
+          <div className="title">
+            <ToolSvgBackground type="lion" />
+            <h2>Simba browser extension</h2>
+            <Meta col={1}>
+              The Simba Text Assistant is a browser extension that produces
+              summaries of German-language text on web pages
+            </Meta>
+          </div>
+
           <p className="copy">
-            The Simba Text Assistant is a browser plug-in that produces
+            The Simba Text Assistant is a browser extension that produces
             summaries of German-language text on web pages. It is designed to
             additionally simplify the summaries, by shortening the sentences and
-            providing explanations for words. We have also integrated the
-            Hurraki dictionary; a Wiki-based dictionary with entries in Leichte
-            Sprache (Easy German Language). You can choose to highlight words
-            found in the dictionary and in the online text, and be shown their
-            definition in Easy Language.
+            providing explanations for words.
           </p>
           <ToolSvgBackground type="screenshot" className="screenshot" />
           <Meta col={1} className="subline">
             We trained and evaluated the model that provides these
             simplifications with news articles; that is why it works better for
-            these types of web content. The plug-in also offers the opportunity
-            to submit your feedback on the summary that Simba produces.
+            these types of web content. The browser extension also offers the
+            opportunity to submit your feedback on the summary that Simba
+            produces.
           </Meta>
         </Box>
 
@@ -259,7 +260,6 @@ Index.getLayout = function getLayout(page: ReactElement, props: any) {
 };
 
 export default Index;
-
 
 // Wrapper + General tool styles
 // =================================================
@@ -371,7 +371,7 @@ const Grid = styled.div`
       grid-template-areas:
         "title title"
         "copy screenshot"
-        "subline subline";
+        "subline screenshot";
     }
 
     ${({ theme }) => theme.breakpoints.desktop} {
@@ -379,7 +379,7 @@ const Grid = styled.div`
       grid-template-areas:
         "title title"
         "copy screenshot"
-        "subline subline";
+        "subline screenshot";
     }
 
     ${({ theme }) => theme.breakpoints.screen} {
@@ -396,9 +396,34 @@ const Grid = styled.div`
       // max-width: 270px;
     }
 
-    .title{
+    .title {
       grid-area: title;
-      background-position: left center !important;
+      // display the icon to the left and title and p next to it underneath each other
+      // the icon spans the full height of the grid
+      display: grid;
+      grid-template-rows: auto auto;
+      grid-template-columns: 4em auto;
+      align-items: center;
+  
+      // Icon spanning both rows
+      .svg {
+        grid-row: 1 / -1; //
+        font-size: 3em;
+        width: 1em !important;
+  
+        // on hover make .svg shake its head with a slight turn animation
+        &:hover {
+          animation: turn 0.5s ease-in-out;
+        } 
+      }
+  
+      h2 {
+        grid-row: 1;
+      }
+  
+      p {
+        grid-row: 2;
+      }
     }
 
     .copy{
@@ -550,14 +575,14 @@ const Header = styled.header`
     margin-top: var(--size-1);
   }
 
-  ul{
+  ul {
     display: flex;
     margin-left: auto;
     padding-top: 15px;
     gap: var(--size-3);
 
-    li:nth-child(2){
-      .svg{
+    li:nth-child(2) {
+      .svg {
         display: none !important;
       }
     }

@@ -23,13 +23,13 @@ const getSummary = async (input: string, clientIP: string) => {
   };
   console.log(
     "data to be sent to API: ",
-    // process.env.NEXT_PUBLIC_SIMBA_API_URL,
+    // process.env.NEXT_PUBLIC_SIMBA_API_SUM,
     data
   );
 
   try {
     const response = await fetch(
-      process.env.NEXT_PUBLIC_SIMBA_API_URL as string,
+      process.env.NEXT_PUBLIC_SIMBA_API_SUM as string,
       {
         method: "POST",
         headers: {

@@ -27,7 +27,7 @@ const Vote = ({
     setLoading(true);
     try {
       const response = await fetch(
-        process.env.NEXT_PUBLIC_SIMBA_API_URL as string,
+        process.env.NEXT_PUBLIC_SIMBA_API_FEEDBACK as string,
         {
           method: "POST",
           headers: {
