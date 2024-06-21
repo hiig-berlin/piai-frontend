@@ -26,11 +26,11 @@ const textBits = {
     loading: `Generating the summary for your custom text…`,
     error: `An error occurred while generating the summary.`,
     output: `Output`,
-    feedback: `Feedback`,
-    feedbackText: `Please provide feedback on the summary.`,
-    feedbackButton: `Submit feedback`,
+    feedback: `Leave us feedback:`,
+    feedbackText: `Please provide a reason for your downvote.`,
+    feedbackButton: `Submit`,
     feedbackLoading: `Submitting feedback…`,
-    feedbackError: `An error occurred while submitting feedback.`,
+    feedbackSuccess: `Thank you for your feedback.`,
     termsTitle: `Terms`,
     terms: [
       `Simba is an ongoing research project. All texts will be collected for further research, please do not submit any personal data.`,
@@ -49,11 +49,11 @@ const textBits = {
     loading: `Zusammenfassung wird generiert…`,
     error: `Beim Erstellen der Zusammenfassung ist ein Fehler aufgetreten.`,
     output: `Ergebnis`,
-    feedback: `Feedback`,
-    feedbackText: `Bitte geben Sie Feedback zur Zusammenfassung.`,
-    feedbackButton: `Feedback senden`,
+    feedback: `Geben Sie uns Feedback:`,
+    feedbackText: `Bitte nennen Sie uns einen Grund.`,
+    feedbackButton: `Senden`,
     feedbackLoading: `Feedback wird gesendet…`,
-    feedbackError: `Beim Senden des Feedbacks ist ein Fehler aufgetreten.`,
+    feedbackSuccess: `Vielen Dank für Ihre Rückmeldung.`,
     termsTitle: `Nutzungsbedingungen`,
     terms: [
       `Simba ist ein laufendes Forschungsprojekt. Alle Texte werden für weitere Forschungszwecke gesammelt, bitte keine persönlichen Daten übermitteln.`,
@@ -147,7 +147,7 @@ const Simplifier = () => {
       setStrings(textBits.de);
     }
     strings && setCurrentOutput(strings.placeholderOutput)
-  }, [language, strings, currentOutput]);
+  }, [language, strings]);
 
   // Effect to update local storage when termsAccepted changes
   useEffect(() => {
@@ -193,6 +193,7 @@ const Simplifier = () => {
         strings?.placeholderOutput ||
           "Insert the text on the left that you want to be summarised."
       );
+      setShowVote(false);
     } else {
       setLoading(true);
       setCurrentOutput(
@@ -257,7 +258,7 @@ const Simplifier = () => {
       ) : (
         <>
           <SafeHtmlDiv html={currentOutput} />
-          {showVote && <Vote clientIP={clientIP} currentUUID={currentUUID} />}
+          {showVote && <Vote clientIP={clientIP} currentUUID={currentUUID} strings={strings} />}
         </>
       )}
     </>

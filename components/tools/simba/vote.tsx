@@ -9,9 +9,11 @@ import { Icon } from "../shared/ui/Icon";
 const Vote = ({
   clientIP,
   currentUUID,
+  strings,
 }: {
   clientIP: string;
   currentUUID: string;
+  strings: any;
 }) => {
   const [comment, setComment] = useState<string>("");
   const [showComment, setShowComment] = useState<boolean>(false);
@@ -101,13 +103,15 @@ const Vote = ({
   // Return the component if !voted otherwise return an thank you message
   return (
     <VoteWrapper>
-      <h3>Leave us feedback:</h3>
+      <h3>{strings?.feedback || "Leave us feedback:"}</h3>
 
       {voted || loading ? (
         loading ? (
-          <Placeholder>Sending feedback…</Placeholder>
+          <Placeholder>
+            {strings?.feedbackLoading || "Sending feedback…"}
+          </Placeholder>
         ) : (
-          <p>Thank you for your feedback.</p>
+          <p>{strings?.feedbackSuccess || "Thank you for your feedback."}</p>
         )
       ) : !showComment ? (
         <>
@@ -127,13 +131,17 @@ const Vote = ({
       ) : (
         <>
           <textarea
-            placeholder="Please provide a reason for your downvote."
+            placeholder={
+              strings?.feedbackText ||
+              "Please provide a reason for your downvote."
+            }
             value={comment}
             className="feebackNotes"
             onChange={(event) => setComment(event.target.value)}
           />
           <Button name="submit" onClick={handleDownvote} disabled={voted}>
-            Submit
+            {strings?.feedbackButton || "Submit"}
+            
           </Button>
         </>
       )}
