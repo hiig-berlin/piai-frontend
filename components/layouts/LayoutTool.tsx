@@ -7,6 +7,7 @@ import { MenuButton } from "../app/MenuButton";
 import { Sidebar } from "../tools/shared/Sidebar";
 import styled from "styled-components";
 import { usePageStateIsLoadingState } from "../state/PageState";
+import { Submenu } from "../tools/shared/Submenu";
 
 const ToolContainer = styled.div`
   display: flex;
@@ -46,7 +47,7 @@ const ContentContainer = styled.div`
 
 export const LayoutTool = ({
   children,
-  props,
+  props
 }: {
   children: React.ReactNode;
   props: any;
@@ -75,7 +76,14 @@ export const LayoutTool = ({
       <MenuButton />
 
       <ToolContainer>
-        <Sidebar tool={props.tool.slug} />
+        {/* // pass Submenu as component from Layout call in page and render here if it exists
+        // pass props.tool.slug to submenu */}
+
+        <Sidebar tool={props.tool.slug}>
+          {props.tool.submenu && 
+          <Submenu menu={props.tool.submenu} tool={props.tool.slug} />   }
+        </Sidebar>
+        {/* <Sidebar tool={props.tool.slug} /> */}
         <ContentContainer>{children}</ContentContainer>
       </ToolContainer>
       <Menu />

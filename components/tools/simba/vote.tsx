@@ -184,7 +184,7 @@ const VoteWrapper = styled.div`
   }
 
   button {
-    margin: 0 var(--size-2);
+    margin: 0 var(--size-2)  !important;
   }
 
   textarea.feebackNotes {

@@ -103,5 +103,21 @@ export const tools: PiAiTool[] = [
         name: "About the tool",
       },
     ],
+    submenu: [
+      {
+        name: "Simplifier",
+        icon: "info"
+      },
+      {
+        slug: "extension",
+        name: "Extension",
+        icon: "info"
+      },
+      {
+        slug: "about",
+        name: "About",
+        icon: "info"
+      },
+    ],
   },
 ];

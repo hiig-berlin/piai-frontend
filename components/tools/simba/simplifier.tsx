@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Box } from "~/components/tools/shared/ui/Box";
-import { Button, ButtonNormalized, LinkButton } from "~/components/styled/Button";
+import {
+  Button,
+  ButtonNormalized,
+  LinkButton,
+} from "~/components/styled/Button";
 import SafeHtmlDiv from "~/components/ui/SafeHtmlDiv";
 import safeHtml from "~/utils/sanitize";
 import { getClientIp } from "~/utils/getClientIP";
@@ -23,6 +27,7 @@ const textBits = {
     placeholderPromt: `Please accept the terms to continue.`,
     placeholderInput: `Type or paste text to be summarised.`,
     placeholderOutput: `Insert the text on the left that you want to be summarised.`,
+    submit: `Generate summary`,
     loading: `Generating the summary for your custom text…`,
     error: `An error occurred while generating the summary.`,
     output: `Output`,
@@ -46,6 +51,7 @@ const textBits = {
     placeholderPromt: `Bitte akzeptieren Sie die Bedingungen, um fortzufahren.`,
     placeholderInput: `Geben Sie den zu vereinfachenden Text ein.`,
     placeholderOutput: `Fügen Sie Text ein, der zusammengefasst werden soll.`,
+    submit: `Zusammenfassung generieren`,
     loading: `Zusammenfassung wird generiert…`,
     error: `Beim Erstellen der Zusammenfassung ist ein Fehler aufgetreten.`,
     output: `Ergebnis`,
@@ -112,6 +118,7 @@ const Simplifier = () => {
         placeholderPromt: string;
         placeholderInput: string;
         placeholderOutput: string;
+        submit: string;
         loading: string;
         error: string;
         output: string;
@@ -119,7 +126,7 @@ const Simplifier = () => {
         feedbackText: string;
         feedbackButton: string;
         feedbackLoading: string;
-        feedbackError: string;
+        feedbackSuccess: string;
         termsTitle: string;
         terms: string[];
       }
@@ -127,8 +134,7 @@ const Simplifier = () => {
   >();
   const [currentOutput, setCurrentOutput] = useState<string>(
     strings?.placeholderOutput ||
-          "Insert the text on the left that you want to be summarised."
-
+      "Insert the text on the left that you want to be summarised."
   );
   const [loading, setLoading] = useState<boolean>(false);
   const [customText, setCustomText] = useState<string>("");
@@ -137,7 +143,6 @@ const Simplifier = () => {
   const [currentUUID, setCurrentUUID] = useState<string>("");
   const [showVote, setShowVote] = useState<boolean>(false);
   const [language, setLanguage] = useState<string>("en");
-  
 
   // update strings variable to the selected language
   useEffect(() => {
@@ -146,7 +151,7 @@ const Simplifier = () => {
     } else if (language === "de") {
       setStrings(textBits.de);
     }
-    strings && setCurrentOutput(strings.placeholderOutput)
+    strings && setCurrentOutput(strings.placeholderOutput);
   }, [language, strings]);
 
   // Effect to update local storage when termsAccepted changes
@@ -258,7 +263,23 @@ const Simplifier = () => {
       ) : (
         <>
           <SafeHtmlDiv html={currentOutput} />
-          {showVote && <Vote clientIP={clientIP} currentUUID={currentUUID} strings={strings} />}
+          {showVote ? (
+            <Vote
+              clientIP={clientIP}
+              currentUUID={currentUUID}
+              strings={strings}
+            />
+          ) : (
+            <></>
+            // <Button
+            //   name="generate"
+            //   onClick={handleCustomTextBlur}
+            //   disabled={true}
+            //   // disabled={termsAccepted ? false : true}
+            // >
+            //   {strings?.submit || "Generate summary"}
+            // </Button>
+          )}
         </>
       )}
     </>
@@ -270,11 +291,11 @@ const Simplifier = () => {
       <div className="intro">
         <ToolSvgBackground type="lion" />
         <h2>{strings?.title || "Simba simplifier"}</h2>
-        <Meta col={1}>
+        <p>
           {strings?.subtitle ||
             `Insert text on the left to get a summary on the right. The tool
           shortens and simplifies German text based on an AI model.`}
-        </Meta>
+        </p>
       </div>
 
       {/* Language selection */}
@@ -300,16 +321,16 @@ const Simplifier = () => {
         {renderInput()}
       </div>
 
-      <div className="output" tabIndex={0}>
+      <div className={termsAccepted ? "output" : "output disabled"} tabIndex={0}>
         {renderOutput()}
       </div>
 
       <div className="terms">
         <h3>{strings?.termsTitle || "Terms"}</h3>
         <ul>
-        {strings?.terms?.map((term, index) => (
-          <li key={index}>{term}</li>
-        ))}
+          {strings?.terms?.map((term, index) => (
+            <li key={index}>{term}</li>
+          ))}
         </ul>
       </div>
     </SimplifyWrapper>
@@ -329,13 +350,15 @@ const SimplifyWrapper = styled(Box)`
     "input input"
     "output output";
 
-
   ${({ theme }) => theme.breakpoints.tabletLandscape} {
     grid-template-columns: 1fr 1fr 1fr 1fr;
+    // span input row to take max width
+    grid-template-rows: auto 1fr auto;
     grid-template-areas:
       "title title title lang"
       "input input output output"
       "terms terms terms terms";
+    flex: 100% 1 1;
   }
 
   .intro {
@@ -365,10 +388,11 @@ const SimplifyWrapper = styled(Box)`
 
     p {
       grid-row: 2;
+      max-width: unset;
     }
   }
 
-  .lang{
+  .lang {
     grid-area: lang;
     display: flex;
     justify-content: flex-end;
@@ -378,36 +402,19 @@ const SimplifyWrapper = styled(Box)`
       margin-left: var(--size-2);
     }
   }
+
   .input {
     grid-area: input;
-  }
-
-  .output {
-    grid-area: output;
-    font-family: var(--font-family-monospace);
-    font-size: 0.9em;
-    display: flex;
-    flex-direction: column;
-
-    // Make tabindex invisible
-    &:focus {
-      outline: none;
-    }
-  }
-
-  .terms {
-    grid-area: terms;
-  }
-
-  .intro p {
-    max-width: unset;
-  }
-
-  .input {
     position: relative;
 
     textarea {
       min-height: 300px;
+
+      ${({ theme }) => theme.breakpoints.tabletLandscape} {
+        box-sizing: border-box;
+        height: calc(100% - 12px - 5px - var(--text-h3-margin-bottom));
+        // min-height: max(300px, );
+      }
 
       /* Fade textarea and convert mouse pointer if not accepted terms */
       &.disabled {
@@ -431,6 +438,32 @@ const SimplifyWrapper = styled(Box)`
       }
     }
   }
+
+  .output {
+    grid-area: output;
+    font-family: var(--font-family-monospace);
+    font-size: 0.9em;
+    display: flex;
+    flex-direction: column;
+
+    // Make tabindex invisible
+    &:focus {
+      outline: none;
+    }
+
+    button {
+      margin: auto 0 0 auto;
+    }
+
+    &.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  .terms {
+    grid-area: terms;
+  }
 `;
 
 const LanguageButton = styled(ButtonNormalized)<{ active: boolean }>`
@@ -443,8 +476,7 @@ const LanguageButton = styled(ButtonNormalized)<{ active: boolean }>`
   // position: relative;
   // appearance: none;
   // user-select: none;
-  font-weight: ${({ theme, active }) =>
-    active ? "bold" : "normal"};
+  font-weight: ${({ theme, active }) => (active ? "bold" : "normal")};
   // font-size: 1em;
   transition: all ease 0.2s;
 
