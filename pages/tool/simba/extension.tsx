@@ -25,7 +25,7 @@ import Simplifier from "~/components/tools/simba/simplifier";
 import { findLastIndex } from "lodash";
 import SimbaHeader from "~/components/tools/simba/header";
 import { SimbaWrapper } from "~/components/tools/simba/Styled";
- 
+
 const Index = ({
   frontendSettings,
   tool,
@@ -81,11 +81,7 @@ const Index = ({
       />
 
       {/* =================== HEADER =================== */}
-      <SimbaHeader
-        tool={tool}
-      ></SimbaHeader>
-
-   
+      <SimbaHeader tool={tool}></SimbaHeader>
 
       {/* =================== GRID =================== */}
       <Grid>
@@ -125,10 +121,9 @@ const Index = ({
           <div className="title">
             <ToolSvgBackground type="lion" />
             <h2>Simba browser extension</h2>
-            <Meta col={1}>
-              The Simba Text Assistant is a browser extension that produces
-              summaries of German-language text on web pages
-            </Meta>
+            <p>
+              Get summaries of German-language text on web pages as you browse
+            </p>
           </div>
 
           <p className="copy">
@@ -457,8 +452,6 @@ const Tag = styled(ButtonNormalized)<{ isActive: boolean }>`
 
 // Individual elements
 // =================================================
-
-
 
 const BoxHighlight = styled(Box)`
   background: ${({ theme }) => theme.colors.piaiSimba};
