@@ -106,12 +106,12 @@ export const tools: PiAiTool[] = [
     submenu: [
       {
         name: "Simplifier",
-        icon: "info"
+        icon: "simplifier"
       },
       {
         slug: "extension",
         name: "Extension",
-        icon: "info"
+        icon: "plugin"
       },
       {
         slug: "about",

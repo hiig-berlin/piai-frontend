@@ -49,6 +49,8 @@ import SvgSimbaScreenshot from "~/components/svgs/SvgSimbaScreenshot";
 import SvgsimbaSignet from "~/components/svgs/SvgsimbaSignet";
 import SvgthumbsUp from "~/components/svgs/SvgthumbsUp";
 import SvgthumbsDown from "~/components/svgs/SvgthumbsDown";
+import Svgsimplifier from "~/components/svgs/Svgsimplifier";
+import Svgplugin from "~/components/svgs/Svgplugin";
 
 // use https://jakearchibald.github.io/svgomg/
 // use https://yoksel.github.io/url-encoder/
@@ -255,6 +257,14 @@ export const ToolSvgBackground = ({
 
     case "thumbsDown":
       activeSvg = SvgthumbsDown;
+      break;
+
+    case "simplifier":
+      activeSvg = Svgsimplifier;
+      break;
+
+    case "plugin":
+      activeSvg = Svgplugin;
       break;
 
   }
