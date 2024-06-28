@@ -89,11 +89,11 @@ export const tools: PiAiTool[] = [
   {
     slug: "simba",
     name: "Simba – Text assistant",
-    description: "Browser plug-in to summarise and simplify online texts",
+    description: "Browser extension to summarise and simplify online texts",
     colorBase: "var(--color-piai-simba)",
     colorHighlight: "var(--color-piai-simba)",
     iconShort: "Si",
-    iconLong: "Simba text assistant",
+    iconLong: "Simba Text Assistant",
     menu: [
       {
         name: "Overview",
@@ -101,6 +101,22 @@ export const tools: PiAiTool[] = [
       {
         slug: "about",
         name: "About the tool",
+      },
+    ],
+    submenu: [
+      {
+        name: "Simplifier",
+        icon: "simplifier"
+      },
+      {
+        slug: "extension",
+        name: "Extension",
+        icon: "plugin"
+      },
+      {
+        slug: "about",
+        name: "About",
+        icon: "info"
       },
     ],
   },

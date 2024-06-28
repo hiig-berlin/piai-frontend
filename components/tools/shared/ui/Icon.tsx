@@ -20,7 +20,7 @@ const baseStyling = css<{ spaceBefore?: boolean; hideOnPrint?: boolean }>`
   display: flex;
   gap: var(--size-1);
   color: #fff;
-  font-family: var(--font-family-sans-serif);
+  // font-family: var(--font-family-sans-serif);
 
   .svg {
     min-height: 1.2em;
@@ -123,6 +123,8 @@ export const Icon = ({
   url,
   hideOnPrint,
   active = false,
+  disabled = false,
+  name,
 }: {
   type: string;
   spaceBefore?: boolean;
@@ -135,6 +137,8 @@ export const Icon = ({
   nonMuted?: boolean;
   url?: string;
   active?: boolean;
+  disabled?: boolean;
+  name?: string;
 }) => {
   if (inline) {
     return (
@@ -198,6 +202,8 @@ export const Icon = ({
         className={className}
         nonMuted={nonMuted}
         active={active}
+        disabled={disabled}
+        name={name}
       >
         <ToolSvgBackground type={type} />
         {children && <span>{children}</span>}

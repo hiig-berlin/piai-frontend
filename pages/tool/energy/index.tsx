@@ -157,9 +157,11 @@ const Grid = styled.div`
 // =================================================
 
 const narrow = css`
+  // TODO: Check font size for readability
   font-size: 14px;
   font-family: var(--font-family-narrow);
   line-height: 18px;
+  letter-spacing: 0.02em;
 `;
 
 // Bigger icon with text on the side
