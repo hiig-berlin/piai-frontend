@@ -94,10 +94,12 @@ const Simplifier = () => {
   
   // State variable for language selection 
   const [language, setLanguage] = useState<string>("en");
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       const urlParams = new URLSearchParams(window.location.search);
+      console.log("URL params:", urlParams);
       const urlLang = urlParams.get("lang");
       if (urlLang) {
         setLanguage(urlLang);
@@ -114,7 +116,10 @@ const Simplifier = () => {
     }
     strings && setCurrentOutput(strings.placeholderOutput);
     // update URL param accordingly
-    window.history.replaceState({}, "", `?lang=${language}`);
+    if (!isInitialLoad) {
+      window.history.replaceState({}, "", `?lang=${language}`);
+    }
+    setIsInitialLoad(false); // After the first update, set to false  
   }, [language, strings]);
 
   // Effect to update local storage when termsAccepted changes
