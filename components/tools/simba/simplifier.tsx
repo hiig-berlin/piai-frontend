@@ -120,7 +120,7 @@ const Simplifier = () => {
       window.history.replaceState({}, "", `?lang=${language}`);
     }
     setIsInitialLoad(false); // After the first update, set to false  
-  }, [language, strings]);
+  }, [language, strings, isInitialLoad]);
 
   // Effect to update local storage when termsAccepted changes
   useEffect(() => {
