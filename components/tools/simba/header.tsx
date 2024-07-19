@@ -29,12 +29,11 @@ function SimbaHeader({tool}: {
           size={2}
         />
       )}
-      <div>
+      <div className="toolIntro">
         <h1>Simba Text assistant</h1>
         <p>
-          The Simba Text Assistant is a web-based tool and browser extension
-          that produces summaries of German-language texts. It is designed to
-          improve your online reading experience or support you on your language
+          This web-based tool and browser extension produces summaries of German-language texts. It is designed to
+          improve your reading experience or support you on your language
           learning journey.
         </p>
       </div>
@@ -86,6 +85,12 @@ const Header = styled.header`
     margin-right: 100px;
   }
 
+  & .toolIntro {
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+  }
+
   h1 {
     font-weight: bold;
     margin-bottom: 0;
@@ -93,7 +98,7 @@ const Header = styled.header`
   }
 
   p {
-    ${narrow}
+    
     margin-bottom: 0;
     margin-top: var(--size-1);
   }

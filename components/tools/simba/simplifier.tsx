@@ -15,58 +15,7 @@ import { Placeholder } from "../shared/Styled";
 import { Icon } from "../shared/ui/Icon";
 import { ToolSvgBackground } from "../shared/ToolSvgBackground";
 import { title } from "process";
-
-// Create variable with all static text blurbs for the tool
-const textBits = {
-  en: {
-    title: "Simba simplifier",
-    subtitle: `Insert text on the left to get a summary on the right. The tool shortens and simplifies German text based on an AI model.`,
-    input: `Input`,
-    promptText: `Simba is a research project on text simplification in German. Please read carefully the terms before submitting your data.`,
-    promptButton: `I understood and agree to the terms.`,
-    placeholderPromt: `Please accept the terms to continue.`,
-    placeholderInput: `Type or paste text to be summarised.`,
-    placeholderOutput: `Insert the text on the left that you want to be summarised.`,
-    submit: `Generate summary`,
-    loading: `Generating the summary for your custom text…`,
-    error: `An error occurred while generating the summary.`,
-    output: `Output`,
-    feedback: `Leave us feedback:`,
-    feedbackText: `Please provide a reason for your downvote.`,
-    feedbackButton: `Submit`,
-    feedbackLoading: `Submitting feedback…`,
-    feedbackSuccess: `Thank you for your feedback.`,
-    termsTitle: `Terms`,
-    terms: [
-      `Simba is an ongoing research project. All texts will be collected for further research, please do not submit any personal data.`,
-      `Simba is in beta stage and may produce incorrect results, please verify important details.`,
-    ],
-  },
-  de: {
-    title: "Simba Textvereinfacher",
-    subtitle: `Fügen Sie einen Text ein, um eine Zusammenfassung zu erhalten. Das Tool kürzt und vereinfacht deutschen Text basierend auf einem KI-Modell.`,
-    input: `Eingabe`,
-    promptText: `Simba ist ein Forschungsprojekt zur Textvereinfachung. Bitte lesen Sie die Bedingungen sorgfältig durch, bevor Sie Daten senden.`,
-    promptButton: `Ich habe verstanden und stimme den Bedingungen zu.`,
-    placeholderPromt: `Bitte akzeptieren Sie die Bedingungen, um fortzufahren.`,
-    placeholderInput: `Geben Sie den zu vereinfachenden Text ein.`,
-    placeholderOutput: `Fügen Sie Text ein, der zusammengefasst werden soll.`,
-    submit: `Zusammenfassung generieren`,
-    loading: `Zusammenfassung wird generiert…`,
-    error: `Beim Erstellen der Zusammenfassung ist ein Fehler aufgetreten.`,
-    output: `Ergebnis`,
-    feedback: `Geben Sie uns Feedback:`,
-    feedbackText: `Bitte nennen Sie uns einen Grund.`,
-    feedbackButton: `Senden`,
-    feedbackLoading: `Feedback wird gesendet…`,
-    feedbackSuccess: `Vielen Dank für Ihre Rückmeldung.`,
-    termsTitle: `Nutzungsbedingungen`,
-    terms: [
-      `Simba ist ein laufendes Forschungsprojekt. Alle Texte werden für weitere Forschungszwecke gesammelt, bitte keine persönlichen Daten übermitteln.`,
-      `Simba befindet sich in der Beta-Phase und kann fehlerhafte Ergebnisse liefern, bitte wichtige Details überprüfen.`,
-    ],
-  },
-};
+import { textBits } from "./textbits";
 
 // Function to fetch summary from API
 const getSummary = async (input: string, clientIP: string) => {
@@ -142,7 +91,21 @@ const Simplifier = () => {
   const [clientIP, setClientIP] = useState("");
   const [currentUUID, setCurrentUUID] = useState<string>("");
   const [showVote, setShowVote] = useState<boolean>(false);
+  
+  // State variable for language selection 
   const [language, setLanguage] = useState<string>("en");
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const urlParams = new URLSearchParams(window.location.search);
+      console.log("URL params:", urlParams);
+      const urlLang = urlParams.get("lang");
+      if (urlLang) {
+        setLanguage(urlLang);
+      }
+    }
+  }, []);
 
   // update strings variable to the selected language
   useEffect(() => {
@@ -152,7 +115,12 @@ const Simplifier = () => {
       setStrings(textBits.de);
     }
     strings && setCurrentOutput(strings.placeholderOutput);
-  }, [language, strings]);
+    // update URL param accordingly
+    if (!isInitialLoad) {
+      window.history.replaceState({}, "", `?lang=${language}`);
+    }
+    setIsInitialLoad(false); // After the first update, set to false  
+  }, [language, strings, isInitialLoad]);
 
   // Effect to update local storage when termsAccepted changes
   useEffect(() => {
@@ -238,11 +206,11 @@ const Simplifier = () => {
         />
         {!termsAccepted && (
           <div className="prompt">
-            <Meta col={1}>
+            <p>
               {strings?.promptText ||
                 `Simba is a research project on text simplification in German.
               Please read carefully the terms below before submitting your data.`}
-            </Meta>
+            </p>
             <Button name="terms" onClick={() => setTermsAccepted(true)}>
               {strings?.promptButton || "I understood and agree to the terms."}
             </Button>
@@ -409,6 +377,7 @@ const SimplifyWrapper = styled(Box)`
 
     textarea {
       min-height: 300px;
+      font-size: 1em;
 
       ${({ theme }) => theme.breakpoints.tabletLandscape} {
         box-sizing: border-box;
@@ -442,7 +411,7 @@ const SimplifyWrapper = styled(Box)`
   .output {
     grid-area: output;
     font-family: var(--font-family-monospace);
-    font-size: 0.9em;
+    font-size: 1em;
     display: flex;
     flex-direction: column;
 

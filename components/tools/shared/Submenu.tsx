@@ -1,3 +1,4 @@
+
 import React from "react";
 import styled from "styled-components";
 import Link from "next/link";
@@ -54,10 +55,9 @@ export const Submenu = ({ tool, menu }: { tool?: string; slug?: string, menu: an
   const isTabletLandscapeAndUp = useCssVarsStateIsTabletLandscapeAndUpState();
   return (
     <ToolSubmenu>
-      {menu.map((item: any) => {
+      {menu.map((item: any, i: number) => {
         return (
-          <div key={item.slug}>
-            <Link passHref href={`/tool/${tool}/${item.slug ?? ""}`}>
+            <Link key={`tool-item-${i}`} passHref href={`/tool/${tool}/${item.slug ?? ""}`}>
               <a
                 className={`subMenuItem ${
                   router.asPath === `/tool/${tool}/${item.slug}` ? "active" : ""
@@ -73,7 +73,6 @@ export const Submenu = ({ tool, menu }: { tool?: string; slug?: string, menu: an
                 {item.name}
               </a>
             </Link>
-          </div>
         );
       }
       )} 

@@ -54,7 +54,7 @@ const SidebarContainer = styled.div<{
   /* background: #0003; */
   background-color: #0009;
   z-index: 3;
-  font-size: 1.1em;
+  font-size: 1.3em;
   width: var(--size-6);
   overflow-y: auto;
 
@@ -86,7 +86,7 @@ const Tools = styled.div`
 `;
 
 const ToolMenuButton = styled(ButtonNormalized)`
-  font-size: 1.1em;
+  font-size: 1.3em;
 `;
 
 const Children = styled.div`

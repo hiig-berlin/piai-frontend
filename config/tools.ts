@@ -96,7 +96,11 @@ export const tools: PiAiTool[] = [
     iconLong: "Simba Text Assistant",
     menu: [
       {
-        name: "Overview",
+        name: "Simplifier",
+      },
+      {
+        slug: "extension",
+        name: "Extension",
       },
       {
         slug: "about",
