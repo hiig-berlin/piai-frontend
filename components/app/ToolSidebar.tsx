@@ -15,7 +15,7 @@ const SidebarWrapper = styled.nav`
   // LARISSA: DON'T KNOW WHAT THIS MEANS? 
   height: 100%;
 
-  font-size: 1.1em;
+  font-size: 1.3em;
 
   display: flex;
   flex-direction: column;
