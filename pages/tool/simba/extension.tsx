@@ -16,15 +16,13 @@ import {
   useCssVarsStateIsDesktopAndUpState,
   useCssVarsStateIsTabletAndUpState,
 } from "~/components/state/CssVarsState";
-import { ButtonNormalized } from "~/components/styled/Button";
 import { input } from "~/components/tools/simba/simbaInput";
 import { preGeneratedText } from "~/components/tools/simba/simbaInput";
 import SafeHtmlDiv from "~/components/ui/SafeHtmlDiv";
 import { narrow, Meta } from "~/components/tools/map/Styled";
-import Simplifier from "~/components/tools/simba/simplifier";
-import { findLastIndex } from "lodash";
 import SimbaHeader from "~/components/tools/simba/header";
-import { SimbaWrapper } from "~/components/tools/simba/Styled";
+import { SimbaWrapper, BoxHighlight } from "~/components/tools/simba/Styled";
+import { Blurb } from "~/components/tools/simba/Styled";
 
 const Index = ({
   frontendSettings,
@@ -142,42 +140,29 @@ const Index = ({
           </Meta>
         </Box>
 
-        {/* ------------------- Test ------------------- */}
-        <Box className="test">
+        <Box className="application">
           <div className="intro">
-            <h2>Explore some examples</h2>
-            <Meta col={1}>
-              See for yourself how the model behind Simba works by selecting one
-              of the input sources.
-            </Meta>
+            <h2>What to use it for</h2>
+            <p>
+              The Simba Browser Extension can be used on a variety of webpages
+              in both Firefox and Chrome browsers.
+            </p>
           </div>
-          <div className="filter">
-            <h3>Pick an example</h3>
-            <Tags>
-              {examples.map((example: any, j: number) => {
-                const isActive = currentExample === example;
-                return (
-                  <Tag
-                    onClick={() => {
-                      if (!isActive) setCurrentExample(example);
-                    }}
-                    key={`tag-filter-${j}`}
-                    isActive={isActive}
-                  >
-                    {example}
-                  </Tag>
-                );
-              })}
-            </Tags>
-          </div>
-          <InputStyling className="input">
-            <h3>Input</h3>
-            {renderInput()}
-          </InputStyling>
-          <div className="output">
-            <h3>Output</h3>
-            {renderOutput()}
-          </div>
+          <Blurb>
+            <ToolSvgBackground type="globe" />
+            <h3>Learning German</h3>
+            <p>Improve your language skills by simplifying online content.</p>
+          </Blurb>
+          <Blurb>
+            <ToolSvgBackground type="clean" />
+            <h3>Creating accessible content</h3>
+            <p>Get suggestions for simplifying your online content.</p>
+          </Blurb>
+          <Blurb>
+            <ToolSvgBackground type="structure" />
+            <h3>Getting quick overviews</h3>
+            <p>Read succinct overviews of longer, complex webpages.</p>
+          </Blurb>
         </Box>
       </Grid>
     </SimbaWrapper>
@@ -222,8 +207,7 @@ const Grid = styled.div`
     "about"
     "ff"
     "chrome"
-    "test";
-
+    "application";
 
   ${({ theme }) => theme.breakpoints.tabletLandscape} {
     grid-template-columns: 1fr 1fr 1fr;
@@ -231,17 +215,15 @@ const Grid = styled.div`
       "about about ff"
       " about about chrome"
       " about about blank"
-      "test test test";
+      "application application application";
   }
 
-
-
-  & .download{
-    a{
+  & .download {
+    a {
       align-self: start;
       margin-left: 0;
 
-      &:hover{
+      &:hover {
         margin-left: -0.3em;
       }
     }
@@ -254,7 +236,6 @@ const Grid = styled.div`
       grid-area: chrome;
     }
   }
-  
 
   & .about {
     grid-area: about;
@@ -265,7 +246,7 @@ const Grid = styled.div`
       "copy"
       "screenshot"
       "subline";
-      
+
     align-items: center;
 
     ${({ theme }) => theme.breakpoints.tabletLandscape} {
@@ -306,29 +287,29 @@ const Grid = styled.div`
       grid-template-rows: auto auto;
       grid-template-columns: 4em auto;
       align-items: center;
-  
+
       // Icon spanning both rows
       .svg {
         grid-row: 1 / -1; //
         font-size: 3em;
         width: 1em !important;
-  
+
         // on hover make .svg shake its head with a slight turn animation
         &:hover {
           animation: turn 0.5s ease-in-out;
-        } 
+        }
       }
-  
+
       h2 {
         grid-row: 1;
       }
-  
+
       p {
         grid-row: 2;
       }
     }
 
-    .copy{
+    .copy {
       grid-area: copy;
     }
 
@@ -341,43 +322,49 @@ const Grid = styled.div`
       }
     }
 
-    .subline{
+    .subline {
       grid-area: subline;
     }
   }
 
-  & .test {
-    grid-area: test;
-    display: grid;
-    gap: var(--size-4);
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "title"
-      "filter"
-      "input"
-      "output"
-      "footnote";
+  & .application {
+    grid-area: application;
 
-    ${({ theme }) => theme.breakpoints.tabletLandscape} {
-      grid-template-columns: 1fr 1fr;
-      grid-template-areas:
-        "title title"
-        "filter filter"
-        "input output"
-        "footnote footnote";
+    display: grid;
+    grid-template-areas: unset;
+    grid-template-columns: auto;
+    gap: var(--size-4);
+
+    ${({ theme }) => theme.breakpoints.tablet} {
+      grid-template-areas: unset;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    ${({ theme }) => theme.breakpoints.desktop} {
+      grid-template-areas: unset;
+      grid-template-columns: 2fr repeat(3, 2fr);
+    }
+
+    & .intro {
+      grid-column: span 1;
+      margin-right: var(--size-3);
+
+      ${({ theme }) => theme.breakpoints.tablet} {
+        grid-column: span 3;
+      }
+
+      ${({ theme }) => theme.breakpoints.desktop} {
+        grid-column: unset;
+      }
+
+      p{
+        margin-bottom: 0;
       }
     }
-  }
-    .intro  { grid-area: title;   }
-    .input  { grid-area: input    }
-    .output { 
-      grid-area: output;
-      font-family: var(--font-family-monospace);
-      font-size: 0.9em;
+
+    & > div {
+      align-self: end;
     }
-
-    .footnote  { grid-area: footnote;   }
-
   }
 `;
 
@@ -385,92 +372,3 @@ const Grid = styled.div`
 // =================================================
 
 // Bigger icon with text on the side
-const Blurb = styled.div`
-  display: grid;
-  color: #fff;
-  height: fit-content;
-  align-self: flex-start;
-  justify-content: flex-start;
-
-  ${narrow}
-
-  grid-template-areas:
-    "icon ."
-    "icon .";
-
-  .svg {
-    grid-area: icon;
-    min-height: 3em;
-    min-width: 3em;
-    max-width: 3em;
-    flex: 1em 0 0;
-    margin-right: var(--size-3);
-
-    ${({ theme }) => theme.breakpoints.tablet} {
-      margin-right: var(--size-2);
-    }
-  }
-
-  p,
-  h3 {
-    margin-bottom: 3px;
-  }
-`;
-
-const Tags = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: var(--size-2);
-
-  &.filter {
-    justify-content: start;
-  }
-`;
-
-const Tag = styled(ButtonNormalized)<{ isActive: boolean }>`
-  display: inline-flex;
-  align-items: center;
-  padding: 3px var(--size-1);
-  gap: var(--size-1);
-  max-width: 100%;
-
-  ${narrow}
-
-  background-color: ${({ isActive, theme }) =>
-    isActive ? theme.color("piai-simba", 0.4) : "transparent"};
-  color: var(--color-piai-simba);
-  border: 1px solid var(--color-piai-simba);
-  border-radius: 4px;
-  cursor: ${({ isActive, theme }) => (isActive ? "inherit" : "pointer")};
-
-  & .svg {
-    filter: invert(58%) sepia(83%) saturate(375%) hue-rotate(131deg)
-      brightness(111%) contrast(101%);
-    max-width: 10px;
-  }
-`;
-
-// Individual elements
-// =================================================
-
-const BoxHighlight = styled(Box)`
-  background: ${({ theme }) => theme.colors.piaiSimba};
-`;
-
-const InputStyling = styled.div`
-  p{
-    h1,
-  h2,
-  h3 {
-    text-transform: none;
-    font-weight: bold;
-    margin: 2em 0 1em;
-    
-    &:first-child{
-      margin-top: 0;
-    }
-  }
-`;
-
-// END STYLES
-// =================================================
