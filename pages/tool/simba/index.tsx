@@ -6,8 +6,7 @@ import { appConfig } from "~/config";
 import LayoutTool from "~/components/layouts/LayoutTool";
 import { restApiGetSettings } from "~/utils/restApi";
 import { PiAiTool } from "~/types";
-import { LabElement } from "~/components/ui/LabElement";
-import { Icon } from "~/components/tools/shared/ui/Icon";
+
 import styled, { css } from "styled-components";
 import { Box } from "~/components/tools/shared/ui/Box";
 import { LinkButtonAnimated } from "~/components/styled/Button";
@@ -16,16 +15,12 @@ import {
   useCssVarsStateIsDesktopAndUpState,
   useCssVarsStateIsTabletAndUpState,
 } from "~/components/state/CssVarsState";
-import { ButtonNormalized } from "~/components/styled/Button";
-import { input } from "~/components/tools/simba/simbaInput";
-import { preGeneratedText } from "~/components/tools/simba/simbaInput";
-import SafeHtmlDiv from "~/components/ui/SafeHtmlDiv";
-import { narrow, Meta } from "~/components/tools/map/Styled";
-import Simplifier from "~/components/tools/simba/simplifier";
-import { findLastIndex } from "lodash";
+
 import SimbaHeader from "~/components/tools/simba/header";
-import { SimbaWrapper } from "~/components/tools/simba/Styled";
- 
+import { BoxHighlight, SimbaWrapper } from "~/components/tools/simba/Styled";
+import { textBits } from "~/components/tools/simba/textbits";
+import Examples from "~/components/tools/simba/examples";
+
 const Index = ({
   frontendSettings,
   tool,
@@ -38,33 +33,7 @@ const Index = ({
 
   const currentTool = appConfig.tools?.find((t) => t.slug === "simba");
 
-  const [currentExample, setCurrentExample] = useState("Newspaper article"); // Current selected Tag
-  const [currentOutput, setCurrentOutput] = useState("");
-  const [loading, setLoading] = useState(false); // True while loading summary
-  const [customText, setCustomText] = useState(""); // State to store textarea value
-
-  let examples = ["Newspaper article", "Wikipedia page", "App description"];
-
-  const renderInput = () => {
-    return (
-      <SafeHtmlDiv
-        html={input.filter((e) => e.example === currentExample)[0].text}
-      />
-    );
-  };
-
-  const renderOutput = () => <SafeHtmlDiv html={currentOutput} />;
-
-  useEffect(() => {
-    setLoading(true);
-    setCurrentOutput(
-      `Generating the summary for a ${currentExample.toLowerCase()}…`
-    );
-    setCurrentOutput(
-      preGeneratedText.filter((e) => e.example === currentExample)[0].text
-    );
-    setLoading(false);
-  }, [currentExample]);
+  const strings = textBits.en;
 
   return (
     <SimbaWrapper>
@@ -79,15 +48,46 @@ const Index = ({
           card: "summary_large_image",
         }}
       />
-
       {/* =================== HEADER =================== */}
-      <SimbaHeader
-        tool={tool}
-      ></SimbaHeader>
+      <SimbaHeader tool={tool}></SimbaHeader>
+      {/* =================== MAIN =================== */}
 
-      <Simplifier />
+      <Grid>
+        <About>
+          <ToolSvgBackground type="lion" />
+          <h2 className="title">{strings.about.title}</h2>
+          <p className="subtitle">{strings.about.subtitle}</p>
+          <p className="description">{strings.about.description}</p>
+        </About>
 
-      
+        <Team>
+          <h2 className="title">{strings.team.title}</h2>
+          <p>{strings.team.text}</p>
+          <LinkButtonAnimated href={strings.team.button.url} className="button">
+            {strings.team.button.label}
+          </LinkButtonAnimated>
+        </Team>
+
+        <Tool className="extension">
+          <h2>{strings.plugin.title}</h2>
+          <p>{strings.plugin.subtitle}</p>
+          <p className="copy">{strings.plugin.description}</p>
+          <ToolSvgBackground type="screenshot" className="screenshot" />
+        </Tool>
+
+        <Tool className="simplifier">
+            <h2>{strings.simplifier.title}</h2>
+            <p>{strings.simplifier.subtitle}</p>
+
+          <p className="copy">{strings.simplifier.description}</p>
+          <ToolSvgBackground
+            type="simplifier"
+            className="screenshot"
+          />
+        </Tool>
+
+        <Examples />
+      </Grid>
     </SimbaWrapper>
   );
 };
@@ -120,3 +120,108 @@ Index.getLayout = function getLayout(page: ReactElement, props: any) {
 };
 
 export default Index;
+
+// Styled components for About, Team, and Tool
+// =================================================
+
+const Grid = styled.div`
+  display: grid;
+  gap: var(--size-3);
+
+  grid-template-areas:
+    "about"
+    "team"
+    "tool"
+    "test";
+  grid-template-columns: 1fr;
+
+  ${({ theme }) => theme.breakpoints.tablet} {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas:
+      "about about team"
+      "tool1 tool1 tool1"
+      "tool2 tool2 tool2"
+      "test test test";
+  }
+
+  ${({ theme }) => theme.breakpoints.desktop} {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+      "about about about team"
+      "tool1 tool1 tool2 tool2"
+      "test test test test";
+  }
+
+  & > div:last-child {
+    grid-area: test;
+  }
+`;
+
+const About = styled(Box)`
+  grid-area: about;
+
+    display: grid;
+    grid-template-rows: auto auto auto;
+    grid-template-columns: 3em auto;
+    align-items: center;
+    grid-row-gap: 0;
+
+    // Icon spanning both rows
+    .svg {
+      grid-row: 1 / -2; //
+      font-size: 3em;
+      width: 1em !important;
+
+      // on hover make .svg shake its head with a slight turn animation
+      &:hover {
+        animation: turn 0.5s ease-in-out;
+      }
+    }
+
+    h2 {
+      grid-row: 1;
+    }
+
+    .subtitle {
+      grid-row: 2;
+      max-width: unset;
+    }
+
+    // description spans the full width
+    .description{
+      grid-column: 1 / -1;
+      grid-row: 3;
+      max-width: unset;
+      margin-top: var(--size-3);
+    }
+
+  }
+`;
+
+const Team = styled(BoxHighlight)`
+  grid-area: team;
+  gap: var(--size-3);
+  .button {
+    margin: 0;
+  }
+`;
+
+const Tool = styled(Box)`
+
+  .screenshot {
+    grid-area: screenshot;
+    width: 100%;
+    min-height: calc((100vw - var(--size-6) - 5* var(--size-3))/2/1.4);
+
+    ${({ theme }) => theme.breakpoints.tabletLandscape} {
+    }
+  }
+
+  &.extension {
+    grid-area: tool1;
+  }
+
+  &.simplifier {
+    grid-area: tool2;
+  }
+`;

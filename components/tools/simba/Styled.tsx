@@ -1,4 +1,7 @@
 import styled from "styled-components";
+import { ButtonNormalized } from "~/components/styled/Button";
+import { narrow } from "~/components/tools/map/Styled";
+import { Box } from "~/components/tools/shared/ui/Box";
 
 export const SimbaWrapper = styled.div`
   display: flex;
@@ -46,5 +49,58 @@ export const SimbaWrapper = styled.div`
     height: fit-content;
     min-height: 10em;
     width: 100%;
+  }
+`;
+
+export const Tags = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: var(--size-2);
+
+  &.filter {
+    justify-content: start;
+  }
+`;
+
+export const Tag = styled(ButtonNormalized)<{ isActive: boolean }>`
+  display: inline-flex;
+  align-items: center;
+  padding: 3px var(--size-1);
+  gap: var(--size-1);
+  max-width: 100%;
+
+  ${narrow}
+
+  background-color: ${({ isActive, theme }) =>
+    isActive ? theme.color("piai-simba", 0.4) : "transparent"};
+  color: var(--color-piai-simba);
+  border: 1px solid var(--color-piai-simba);
+  border-radius: 4px;
+  cursor: ${({ isActive, theme }) => (isActive ? "inherit" : "pointer")};
+
+  & .svg {
+    filter: invert(58%) sepia(83%) saturate(375%) hue-rotate(131deg)
+      brightness(111%) contrast(101%);
+    max-width: 10px;
+  }
+`;
+
+export const BoxHighlight = styled(Box)`
+  background: ${({ theme }) => theme.colors.piaiSimba};
+`;
+
+
+export const InputStyling = styled.div`
+  p{
+    h1,
+  h2,
+  h3 {
+    text-transform: none;
+    font-weight: bold;
+    margin: 2em 0 1em;
+    
+    &:first-child{
+      margin-top: 0;
+    }
   }
 `;

@@ -24,7 +24,7 @@ import { narrow, Meta } from "~/components/tools/map/Styled";
 import Simplifier from "~/components/tools/simba/simplifier";
 import { findLastIndex } from "lodash";
 import SimbaHeader from "~/components/tools/simba/header";
-import { SimbaWrapper } from "~/components/tools/simba/Styled";
+import { SimbaWrapper, BoxHighlight } from "~/components/tools/simba/Styled";
 
 const Index = ({
   frontendSettings,
@@ -142,43 +142,7 @@ const Index = ({
           </Meta>
         </Box>
 
-        {/* ------------------- Test ------------------- */}
-        <Box className="test">
-          <div className="intro">
-            <h2>Explore some examples</h2>
-            <Meta col={1}>
-              See for yourself how the model behind Simba works by selecting one
-              of the input sources.
-            </Meta>
-          </div>
-          <div className="filter">
-            <h3>Pick an example</h3>
-            <Tags>
-              {examples.map((example: any, j: number) => {
-                const isActive = currentExample === example;
-                return (
-                  <Tag
-                    onClick={() => {
-                      if (!isActive) setCurrentExample(example);
-                    }}
-                    key={`tag-filter-${j}`}
-                    isActive={isActive}
-                  >
-                    {example}
-                  </Tag>
-                );
-              })}
-            </Tags>
-          </div>
-          <InputStyling className="input">
-            <h3>Input</h3>
-            {renderInput()}
-          </InputStyling>
-          <div className="output">
-            <h3>Output</h3>
-            {renderOutput()}
-          </div>
-        </Box>
+        
       </Grid>
     </SimbaWrapper>
   );
@@ -346,39 +310,7 @@ const Grid = styled.div`
     }
   }
 
-  & .test {
-    grid-area: test;
-    display: grid;
-    gap: var(--size-4);
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "title"
-      "filter"
-      "input"
-      "output"
-      "footnote";
-
-    ${({ theme }) => theme.breakpoints.tabletLandscape} {
-      grid-template-columns: 1fr 1fr;
-      grid-template-areas:
-        "title title"
-        "filter filter"
-        "input output"
-        "footnote footnote";
-      }
-    }
-  }
-    .intro  { grid-area: title;   }
-    .input  { grid-area: input    }
-    .output { 
-      grid-area: output;
-      font-family: var(--font-family-monospace);
-      font-size: 0.9em;
-    }
-
-    .footnote  { grid-area: footnote;   }
-
-  }
+  
 `;
 
 // Repeating elements
@@ -417,60 +349,3 @@ const Blurb = styled.div`
   }
 `;
 
-const Tags = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: var(--size-2);
-
-  &.filter {
-    justify-content: start;
-  }
-`;
-
-const Tag = styled(ButtonNormalized)<{ isActive: boolean }>`
-  display: inline-flex;
-  align-items: center;
-  padding: 3px var(--size-1);
-  gap: var(--size-1);
-  max-width: 100%;
-
-  ${narrow}
-
-  background-color: ${({ isActive, theme }) =>
-    isActive ? theme.color("piai-simba", 0.4) : "transparent"};
-  color: var(--color-piai-simba);
-  border: 1px solid var(--color-piai-simba);
-  border-radius: 4px;
-  cursor: ${({ isActive, theme }) => (isActive ? "inherit" : "pointer")};
-
-  & .svg {
-    filter: invert(58%) sepia(83%) saturate(375%) hue-rotate(131deg)
-      brightness(111%) contrast(101%);
-    max-width: 10px;
-  }
-`;
-
-// Individual elements
-// =================================================
-
-const BoxHighlight = styled(Box)`
-  background: ${({ theme }) => theme.colors.piaiSimba};
-`;
-
-const InputStyling = styled.div`
-  p{
-    h1,
-  h2,
-  h3 {
-    text-transform: none;
-    font-weight: bold;
-    margin: 2em 0 1em;
-    
-    &:first-child{
-      margin-top: 0;
-    }
-  }
-`;
-
-// END STYLES
-// =================================================

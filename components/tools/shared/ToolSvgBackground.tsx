@@ -267,6 +267,8 @@ export const ToolSvgBackground = ({
       activeSvg = Svgplugin;
       break;
 
+    case "sc"
+
   }
   return (
     <span
