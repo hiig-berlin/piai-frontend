@@ -18,7 +18,7 @@ import { input, preGeneratedText } from "~/components/tools/simba/simbaInput";
 import SafeHtmlDiv from "~/components/ui/SafeHtmlDiv";
 import { Meta } from "~/components/tools/map/Styled";
 import SimbaHeader from "~/components/tools/simba/header";
-import { SimbaWrapper, BoxHighlight, Blurb } from "~/components/tools/simba/styled";
+import { SimbaWrapper, BoxHighlight, Blurb } from "~/components/tools/simba/Styled";
 
 const Index = ({
   frontendSettings,
