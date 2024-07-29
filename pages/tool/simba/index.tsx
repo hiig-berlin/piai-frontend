@@ -64,7 +64,7 @@ const Index = ({
         <Team>
           <h2 className="title">{strings.team.title}</h2>
           <p>{strings.team.text}</p>
-          <LinkButtonAnimated href={strings.team.button.url} className="button">
+          <LinkButtonAnimated href={strings.team.button.url} className="button" target="_blank" rel="noreferrer nofollow">
             {strings.team.button.label}
           </LinkButtonAnimated>
         </Team>
@@ -210,6 +210,7 @@ const About = styled(Box)`
     .subtitle {
       grid-row: 2;
       max-width: unset;
+      margin-bottom: 0;
     }
 
     // description spans the full width
@@ -239,6 +240,7 @@ const Tool = styled(Box)`
 
   .subtitle{
     ${narrow}
+    margin-bottom: 0;
   }
 
   .screenshot {
