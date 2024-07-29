@@ -16,15 +16,13 @@ import {
   useCssVarsStateIsDesktopAndUpState,
   useCssVarsStateIsTabletAndUpState,
 } from "~/components/state/CssVarsState";
-import { ButtonNormalized } from "~/components/styled/Button";
 import { input } from "~/components/tools/simba/simbaInput";
 import { preGeneratedText } from "~/components/tools/simba/simbaInput";
 import SafeHtmlDiv from "~/components/ui/SafeHtmlDiv";
 import { narrow, Meta } from "~/components/tools/map/Styled";
-import Simplifier from "~/components/tools/simba/simplifier";
-import { findLastIndex } from "lodash";
 import SimbaHeader from "~/components/tools/simba/header";
 import { SimbaWrapper, BoxHighlight } from "~/components/tools/simba/Styled";
+import { Blurb } from "~/components/tools/simba/Styled";
 
 const Index = ({
   frontendSettings,
@@ -142,7 +140,30 @@ const Index = ({
           </Meta>
         </Box>
 
-        
+        <Box className="application">
+          <div className="intro">
+            <h2>What to use it for</h2>
+            <p>
+              The Simba Browser Extension can be used on a variety of webpages
+              in both Firefox and Chrome browsers.
+            </p>
+          </div>
+          <Blurb>
+            <ToolSvgBackground type="globe" />
+            <h3>Learning German</h3>
+            <p>Improve your language skills by simplifying online content.</p>
+          </Blurb>
+          <Blurb>
+            <ToolSvgBackground type="clean" />
+            <h3>Creating accessible content</h3>
+            <p>Get suggestions for simplifying your online content.</p>
+          </Blurb>
+          <Blurb>
+            <ToolSvgBackground type="structure" />
+            <h3>Getting quick overviews</h3>
+            <p>Read succinct overviews of longer, complex webpages.</p>
+          </Blurb>
+        </Box>
       </Grid>
     </SimbaWrapper>
   );
@@ -186,8 +207,7 @@ const Grid = styled.div`
     "about"
     "ff"
     "chrome"
-    "test";
-
+    "application";
 
   ${({ theme }) => theme.breakpoints.tabletLandscape} {
     grid-template-columns: 1fr 1fr 1fr;
@@ -195,17 +215,15 @@ const Grid = styled.div`
       "about about ff"
       " about about chrome"
       " about about blank"
-      "test test test";
+      "application application application";
   }
 
-
-
-  & .download{
-    a{
+  & .download {
+    a {
       align-self: start;
       margin-left: 0;
 
-      &:hover{
+      &:hover {
         margin-left: -0.3em;
       }
     }
@@ -218,7 +236,6 @@ const Grid = styled.div`
       grid-area: chrome;
     }
   }
-  
 
   & .about {
     grid-area: about;
@@ -229,7 +246,7 @@ const Grid = styled.div`
       "copy"
       "screenshot"
       "subline";
-      
+
     align-items: center;
 
     ${({ theme }) => theme.breakpoints.tabletLandscape} {
@@ -270,29 +287,29 @@ const Grid = styled.div`
       grid-template-rows: auto auto;
       grid-template-columns: 4em auto;
       align-items: center;
-  
+
       // Icon spanning both rows
       .svg {
         grid-row: 1 / -1; //
         font-size: 3em;
         width: 1em !important;
-  
+
         // on hover make .svg shake its head with a slight turn animation
         &:hover {
           animation: turn 0.5s ease-in-out;
-        } 
+        }
       }
-  
+
       h2 {
         grid-row: 1;
       }
-  
+
       p {
         grid-row: 2;
       }
     }
 
-    .copy{
+    .copy {
       grid-area: copy;
     }
 
@@ -305,47 +322,53 @@ const Grid = styled.div`
       }
     }
 
-    .subline{
+    .subline {
       grid-area: subline;
     }
   }
 
-  
+  & .application {
+    grid-area: application;
+
+    display: grid;
+    grid-template-areas: unset;
+    grid-template-columns: auto;
+    gap: var(--size-4);
+
+    ${({ theme }) => theme.breakpoints.tablet} {
+      grid-template-areas: unset;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    ${({ theme }) => theme.breakpoints.desktop} {
+      grid-template-areas: unset;
+      grid-template-columns: 2fr repeat(3, 2fr);
+    }
+
+    & .intro {
+      grid-column: span 1;
+      margin-right: var(--size-3);
+
+      ${({ theme }) => theme.breakpoints.tablet} {
+        grid-column: span 3;
+      }
+
+      ${({ theme }) => theme.breakpoints.desktop} {
+        grid-column: unset;
+      }
+
+      p{
+        margin-bottom: 0;
+      }
+    }
+
+    & > div {
+      align-self: end;
+    }
+  }
 `;
 
 // Repeating elements
 // =================================================
 
 // Bigger icon with text on the side
-const Blurb = styled.div`
-  display: grid;
-  color: #fff;
-  height: fit-content;
-  align-self: flex-start;
-  justify-content: flex-start;
-
-  ${narrow}
-
-  grid-template-areas:
-    "icon ."
-    "icon .";
-
-  .svg {
-    grid-area: icon;
-    min-height: 3em;
-    min-width: 3em;
-    max-width: 3em;
-    flex: 1em 0 0;
-    margin-right: var(--size-3);
-
-    ${({ theme }) => theme.breakpoints.tablet} {
-      margin-right: var(--size-2);
-    }
-  }
-
-  p,
-  h3 {
-    margin-bottom: 3px;
-  }
-`;
-

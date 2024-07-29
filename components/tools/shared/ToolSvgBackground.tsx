@@ -21,6 +21,8 @@ import Svgtransgender from "~/components/svgs/Svgtransgender";
 import SvgarrowsExpand from "~/components/svgs/SvgarrowsExpand";
 import SvgarrowsCollapse from "~/components/svgs/SvgarrowsCollapse";
 import SvgClose from "~/components/svgs/SvgCloseNeg";
+import Svgclean from "~/components/svgs/Svgclean";
+import Svgstructure from "~/components/svgs/Svgstructure";
 
 // Energy
 import SvgCPU from "~/components/svgs/SvgCPU";
@@ -232,6 +234,8 @@ export const ToolSvgBackground = ({
       activeSvg = Svgscribble;
       break;
 
+    // Simba 
+    
     case "firefox":
       activeSvg = Svgfirefox;
       break;
@@ -270,6 +274,14 @@ export const ToolSvgBackground = ({
 
     case "screenshotSimplifier":
       activeSvg = SvgSimplifierScreenshot;
+      break;
+
+    case "clean":
+      activeSvg = Svgclean;
+      break;
+    
+    case "structure":
+      activeSvg = Svgstructure;
       break;
 
   }

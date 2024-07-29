@@ -104,3 +104,35 @@ export const InputStyling = styled.div`
     }
   }
 `;
+
+export const Blurb = styled.div`
+  display: grid;
+  color: #fff;
+  height: fit-content;
+  align-self: flex-start;
+  justify-content: flex-start;
+
+  ${narrow}
+
+  grid-template-areas:
+    "icon ."
+    "icon .";
+
+  .svg {
+    grid-area: icon;
+    min-height: 3em;
+    min-width: 3em;
+    max-width: 3em;
+    flex: 1em 0 0;
+    margin-right: var(--size-3);
+
+    ${({ theme }) => theme.breakpoints.tablet} {
+      margin-right: var(--size-2);
+    }
+  }
+
+  p,
+  h3 {
+    margin-bottom: 3px;
+  }
+`;
