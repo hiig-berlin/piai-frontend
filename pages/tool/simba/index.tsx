@@ -20,6 +20,7 @@ import SimbaHeader from "~/components/tools/simba/header";
 import { BoxHighlight, SimbaWrapper } from "~/components/tools/simba/Styled";
 import { textBits } from "~/components/tools/simba/textbits";
 import Examples from "~/components/tools/simba/examples";
+import { narrow } from "~/components/tools/map/Styled";
 
 const Index = ({
   frontendSettings,
@@ -69,21 +70,36 @@ const Index = ({
         </Team>
 
         <Tool className="extension">
-          <h2>{strings.plugin.title}</h2>
-          <p>{strings.plugin.subtitle}</p>
+          <div>
+            <h2>{strings.plugin.title}</h2>
+            <p className="subtitle">{strings.plugin.subtitle}</p>
+          </div>
           <p className="copy">{strings.plugin.description}</p>
           <ToolSvgBackground type="screenshot" className="screenshot" />
+          <LinkButtonAnimated
+            href={strings.plugin.button.url}
+            className="button"
+          >
+            {strings.plugin.button.label}
+          </LinkButtonAnimated>
         </Tool>
 
         <Tool className="simplifier">
+          <div>
             <h2>{strings.simplifier.title}</h2>
-            <p>{strings.simplifier.subtitle}</p>
-
+            <p className="subtitle">{strings.simplifier.subtitle}</p>
+          </div>
           <p className="copy">{strings.simplifier.description}</p>
           <ToolSvgBackground
-            type="simplifier"
+            type="screenshotSimplifier"
             className="screenshot"
           />
+          <LinkButtonAnimated
+            href={strings.simplifier.button.url}
+            className="button"
+          >
+            {strings.simplifier.button.label}
+          </LinkButtonAnimated>
         </Tool>
 
         <Examples />
@@ -155,6 +171,15 @@ const Grid = styled.div`
   & > div:last-child {
     grid-area: test;
   }
+
+  a {
+    align-self: start;
+    margin-left: 0;
+
+    &:hover {
+      margin-left: -0.3em;
+    }
+  }
 `;
 
 const About = styled(Box)`
@@ -208,12 +233,22 @@ const Team = styled(BoxHighlight)`
 
 const Tool = styled(Box)`
 
+  h2{
+    margin: 0;
+  }
+
+  .subtitle{
+    ${narrow}
+  }
+
   .screenshot {
     grid-area: screenshot;
     width: 100%;
-    min-height: calc((100vw - var(--size-6) - 5* var(--size-3))/2/1.4);
+
+    min-height: 300px;
 
     ${({ theme }) => theme.breakpoints.tabletLandscape} {
+      min-height: calc((100vw - var(--size-6) - 9 * var(--size-3)) / 2 / 1.75);
     }
   }
 

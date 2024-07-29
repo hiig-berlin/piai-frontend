@@ -43,12 +43,20 @@ export const textBits = {
       title: "Simba browser extension",
       subtitle: `Get summaries as you browse`,
       description: `Simba is available as a browser extension for Chrome and Firefox browsers. The extension runs in the browser and produces summaries of German-language text on web pages. The browser extension also offers the opportunity to submit your feedback on the summary that Simba produces.`,
+      button: {
+        url: "simba/extension",
+        label: "Learn more about the plugin",
+      }
     },
     simplifier: {
       title: "Simba simplifier",
       subtitle: `Simplify the texts you need`,
       description: `The Simba Simplifier is a text-box based tool – insert your text on the left to get a summary on the right. The tool shortens and simplifies German text based on an AI model. Simply copy and paste the text you would like to have simplified and our tool will produce an output instantly.
       .`,
+      button: {
+        url: "simba/simplifier",
+        label: "Go to simplifier",
+      }
     },
   },
   de: {

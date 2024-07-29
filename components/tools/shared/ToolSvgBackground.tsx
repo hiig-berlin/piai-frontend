@@ -51,6 +51,7 @@ import SvgthumbsUp from "~/components/svgs/SvgthumbsUp";
 import SvgthumbsDown from "~/components/svgs/SvgthumbsDown";
 import Svgsimplifier from "~/components/svgs/Svgsimplifier";
 import Svgplugin from "~/components/svgs/Svgplugin";
+import SvgSimplifierScreenshot from "~/components/svgs/SvgSimplifierScreenshot";
 
 // use https://jakearchibald.github.io/svgomg/
 // use https://yoksel.github.io/url-encoder/
@@ -267,7 +268,9 @@ export const ToolSvgBackground = ({
       activeSvg = Svgplugin;
       break;
 
-    case "sc"
+    case "screenshotSimplifier":
+      activeSvg = SvgSimplifierScreenshot;
+      break;
 
   }
   return (
