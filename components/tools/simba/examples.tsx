@@ -4,8 +4,8 @@
 import styled from "styled-components";
 import { Box } from "~/components/tools/shared/ui/Box";
 import { Meta } from "~/components/tools/map/Styled";
-import { Tags, Tag } from "~/components/tools/simba/Styled";
-import { InputStyling } from "~/components/tools/simba/Styled";
+import { Tags, Tag } from "~/components/tools/simba/styled";
+import { InputStyling } from "~/components/tools/simba/styled";
 import { input } from "~/components/tools/simba/simbaInput";
 import { preGeneratedText } from "~/components/tools/simba/simbaInput";
 import React, { useState, useEffect } from "react";

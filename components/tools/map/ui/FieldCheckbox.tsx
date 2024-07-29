@@ -50,7 +50,7 @@ export const FieldCheckbox = ({
   indent = 0,
 }: {
   name: string;
-  label: string;x1
+  label: string;
   value: string | number;
   isChecked?: boolean;
   defaultChecked?: boolean;

@@ -17,7 +17,7 @@ import {
 } from "~/components/state/CssVarsState";
 
 import SimbaHeader from "~/components/tools/simba/header";
-import { BoxHighlight, SimbaWrapper } from "~/components/tools/simba/Styled";
+import { BoxHighlight, SimbaWrapper } from "~/components/tools/simba/styled";
 import { textBits } from "~/components/tools/simba/textbits";
 import Examples from "~/components/tools/simba/examples";
 import { narrow } from "~/components/tools/map/Styled";

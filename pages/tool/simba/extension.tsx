@@ -6,8 +6,6 @@ import { appConfig } from "~/config";
 import LayoutTool from "~/components/layouts/LayoutTool";
 import { restApiGetSettings } from "~/utils/restApi";
 import { PiAiTool } from "~/types";
-import { LabElement } from "~/components/ui/LabElement";
-import { Icon } from "~/components/tools/shared/ui/Icon";
 import styled, { css } from "styled-components";
 import { Box } from "~/components/tools/shared/ui/Box";
 import { LinkButtonAnimated } from "~/components/styled/Button";
@@ -16,13 +14,11 @@ import {
   useCssVarsStateIsDesktopAndUpState,
   useCssVarsStateIsTabletAndUpState,
 } from "~/components/state/CssVarsState";
-import { input } from "~/components/tools/simba/simbaInput";
-import { preGeneratedText } from "~/components/tools/simba/simbaInput";
+import { input, preGeneratedText } from "~/components/tools/simba/simbaInput";
 import SafeHtmlDiv from "~/components/ui/SafeHtmlDiv";
-import { narrow, Meta } from "~/components/tools/map/Styled";
+import { Meta } from "~/components/tools/map/Styled";
 import SimbaHeader from "~/components/tools/simba/header";
-import { SimbaWrapper, BoxHighlight } from "~/components/tools/simba/Styled";
-import { Blurb } from "~/components/tools/simba/Styled";
+import { SimbaWrapper, BoxHighlight, Blurb } from "~/components/tools/simba/styled";
 
 const Index = ({
   frontendSettings,

@@ -4,17 +4,12 @@ import { Box } from "~/components/tools/shared/ui/Box";
 import {
   Button,
   ButtonNormalized,
-  LinkButton,
 } from "~/components/styled/Button";
 import SafeHtmlDiv from "~/components/ui/SafeHtmlDiv";
 import safeHtml from "~/utils/sanitize";
-import { getClientIp } from "~/utils/getClientIP";
-import { Meta } from "../map/Styled";
 import Vote from "./vote";
 import { Placeholder } from "../shared/Styled";
-import { Icon } from "../shared/ui/Icon";
 import { ToolSvgBackground } from "../shared/ToolSvgBackground";
-import { title } from "process";
 import { textBits } from "./textbits";
 
 // Function to fetch summary from API

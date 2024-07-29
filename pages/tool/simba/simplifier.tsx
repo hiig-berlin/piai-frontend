@@ -24,7 +24,7 @@ import { narrow, Meta } from "~/components/tools/map/Styled";
 import Simplifier from "~/components/tools/simba/simplifier";
 import { findLastIndex } from "lodash";
 import SimbaHeader from "~/components/tools/simba/header";
-import { SimbaWrapper } from "~/components/tools/simba/Styled";
+import { SimbaWrapper } from "~/components/tools/simba/styled";
  
 const SimplifierPage = ({
   frontendSettings,
