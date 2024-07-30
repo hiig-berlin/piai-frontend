@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import debounce from "lodash/debounce";
-import FocusLock from "react-focus-lock";
+import dynamic from "next/dynamic";
 
 import { useMainMenuStateIsOpenState, useMainMenuActions } from "~/components/state/MainMenuState";
 import { MenuFooter } from "./Menus/MenuFooter";
@@ -25,7 +25,7 @@ type MenuContainerStyledProps = {
 const MenuContainer = styled.div.attrs((props: MenuContainerStyledProps) => ({
   style: {
     // as the menu transition was visible on page load, the transform has to be set as style attribute
-    // apparently classes are set dynamically and do not reliably intitialize elements
+    // apparently classes are set dynamically and do not reliably initialize elements
     transform: props.isOpen || props.isAnimating ? `none` : "translateX(-105%)",
     opacity: props.isOpen ? 1 : 0,
     pointerEvents: !props.isOpen ? "none" : undefined,
@@ -200,6 +200,10 @@ const Column = styled.div<{ stretch?: boolean }>`
     }
   }
 `;
+
+// Dynamically import FocusLock to avoid server-side rendering issues
+const FocusLock = dynamic(() => import("react-focus-lock"), { ssr: false });
+
 export const Menu = () => {
   const config = useConfigContext();
 
@@ -250,7 +254,7 @@ export const Menu = () => {
     if (isAnimatingTimeoutRef.current)
       clearTimeout(isAnimatingTimeoutRef.current);
 
-    // as the useState function get's only called on the next render
+    // as the useState function gets only called on the next render
     // a short delay lets the navigation flicker on open
     // using a ref does avoid this.
     isAnimatingRef.current = true;

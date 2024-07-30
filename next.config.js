@@ -37,18 +37,23 @@ const nextConfig = {
   experimental: {
     scrollRestoration: true,
   },
-  // Make next14 compatible
-  webpack(config) 
-  
   webpack(config) {
+    // Find the rule that handles SVGs
     const fileLoaderRule = config.module.rules.find(
-      (rule) => rule.test && rule.test.test('.svg'),
+      (rule) => rule.test && rule.test.toString().includes('svg')
     );
-    fileLoaderRule.exclude = /\.svg$/;
+
+    // Exclude SVGs from file loader
+    if (fileLoaderRule) {
+      fileLoaderRule.exclude = /\.svg$/;
+    }
+
+    // Add SVGR loader for handling SVGs
     config.module.rules.push({
       test: /\.svg$/,
-      loader: require.resolve('@svgr/webpack'),
+      use: ['@svgr/webpack'],
     });
+
     return config;
   },
 };
