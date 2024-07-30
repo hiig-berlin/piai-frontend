@@ -42,7 +42,7 @@ export const Logo = ({
 
   return (
     <div className="logo">
-      <Link href={`${config?.baseUrl}/`} passHref>
+      <Link href={`${config?.baseUrl}/`} passHref legacyBehavior>
         <LogoLink
           direction={direction}
           title="Go to homepage"

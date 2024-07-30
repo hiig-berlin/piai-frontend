@@ -85,7 +85,7 @@ export const Contribute = ({ position }: { position?: String }) => {
       <SafeHtmlDiv html={cta.text} />
 
       {cta?.url && cta?.linkTitle && (
-        <Link href={cta?.url} passHref>
+        <Link href={cta?.url} passHref legacyBehavior>
           <LinkButtonAnimated>{cta?.linkTitle}</LinkButtonAnimated>
         </Link>
       )}

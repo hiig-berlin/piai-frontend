@@ -232,85 +232,83 @@ const Grid = styled.div<{ col: number }>`
 export const About = ({ data }: { data: any }) => {
   const config = useConfigContext();
 
-  return (
-    <>
-      <AboutContainer
-        bgColor="var(--color-piai-interface)"
-        spaceTop={6}
-        spaceBottom={6}
-      >
-        <Grid col={2}>
-          <div>
-            <h2>
-              <SafeHtmlSpan html={data?.acf?.footerAbout.title} />
-            </h2>
-            <SafeHtmlDiv html={data?.acf?.footerAbout.text} />
-            {data?.acf?.footerAbout.linkLabel &&
-              data?.acf?.footerAbout.linkLabel.trim() &&
-              data?.acf?.footerAbout.linkUrl && (
-                <LinkButton
-                  href={data?.acf?.footerAbout.linkUrl}
-                  target="_blank"
-                  rel="norefferer"
-                  className="button"
-                >
-                  {data?.acf?.footerAbout.linkLabel}
-                </LinkButton>
-              )}
-          </div>
-          <div>
-            <h2>
-              <SafeHtmlSpan html={data?.acf?.footerTools.title} />
-            </h2>
-            <SafeHtmlDiv html={data?.acf?.footerTools.text} />
-            {config?.tools?.length > 0 && (
-              <Grid col={2} className="tools">
-                {config?.tools.map((tool: any, index: number) => {
-                  return (
-                    <Link
-                      passHref
-                      href={`/tool/${tool.slug}`}
-                      key={`tool-${index}`}
-                    >
-                      <a>
-                        <LabElement
-                          shortHandle={tool.iconShort}
-                          longText={tool.iconLong}
-                          color="white"
-                          hoverColor="#ffffffaa"
-                          size={1.6}
-                        />
-                        <span>{tool.description}</span>
-                      </a>
-                    </Link>
-                  );
-                })}
-              </Grid>
+  return <>
+    <AboutContainer
+      bgColor="var(--color-piai-interface)"
+      spaceTop={6}
+      spaceBottom={6}
+    >
+      <Grid col={2}>
+        <div>
+          <h2>
+            <SafeHtmlSpan html={data?.acf?.footerAbout.title} />
+          </h2>
+          <SafeHtmlDiv html={data?.acf?.footerAbout.text} />
+          {data?.acf?.footerAbout.linkLabel &&
+            data?.acf?.footerAbout.linkLabel.trim() &&
+            data?.acf?.footerAbout.linkUrl && (
+              <LinkButton
+                href={data?.acf?.footerAbout.linkUrl}
+                target="_blank"
+                rel="norefferer"
+                className="button"
+              >
+                {data?.acf?.footerAbout.linkLabel}
+              </LinkButton>
             )}
-          </div>
-        </Grid>
-      </AboutContainer>
-      <InfoboxesContainer
-        bgColor="var(--color-light-grey)"
-        spaceTop={6}
-        spaceBottom={6}
-      >
-        {data?.acf?.boxes?.length > 0 && <Grid col={data.acf.boxes.length} className="infoboxes">
-          {data.acf.boxes.map((box: any, index: number) => {
-            return (
-              <Infobox key={`box-${index}`}>
-                {/* <SvgBackground type={`square1`} /> */}
-                <BoxSvgs i={index + 1} />
-                <h3>{box.title}</h3>
-                <p>{box.text}</p>
-                <a href={box.linkUrl} rel="noreferrer nofollow" target="_blank">
-                  <Chevron /> {box.linkLabel}
-                </a>
-              </Infobox>
-            );
-          })}
-        </Grid>}
-      </InfoboxesContainer>
-    </>
-  );
+        </div>
+        <div>
+          <h2>
+            <SafeHtmlSpan html={data?.acf?.footerTools.title} />
+          </h2>
+          <SafeHtmlDiv html={data?.acf?.footerTools.text} />
+          {config?.tools?.length > 0 && (
+            <Grid col={2} className="tools">
+              {config?.tools.map((tool: any, index: number) => {
+                return (
+                  (<Link
+                    passHref
+                    href={`/tool/${tool.slug}`}
+                    key={`tool-${index}`}
+                  >
+
+                    <LabElement
+                      shortHandle={tool.iconShort}
+                      longText={tool.iconLong}
+                      color="white"
+                      hoverColor="#ffffffaa"
+                      size={1.6}
+                    />
+                    <span>{tool.description}</span>
+
+                  </Link>)
+                );
+              })}
+            </Grid>
+          )}
+        </div>
+      </Grid>
+    </AboutContainer>
+    <InfoboxesContainer
+      bgColor="var(--color-light-grey)"
+      spaceTop={6}
+      spaceBottom={6}
+    >
+      {data?.acf?.boxes?.length > 0 && <Grid col={data.acf.boxes.length} className="infoboxes">
+        {data.acf.boxes.map((box: any, index: number) => {
+          return (
+            <Infobox key={`box-${index}`}>
+              {/* <SvgBackground type={`square1`} /> */}
+              <BoxSvgs i={index + 1} />
+              <h3>{box.title}</h3>
+              <p>{box.text}</p>
+              <a href={box.linkUrl} rel="noreferrer nofollow" target="_blank">
+                <Chevron /> {box.linkLabel}
+              </a>
+            </Infobox>
+          );
+        })}
+      </Grid>}
+    </InfoboxesContainer>
+  </>;
 };

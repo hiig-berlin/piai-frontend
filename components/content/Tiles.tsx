@@ -53,9 +53,8 @@ const createButtons = (links: any, scope: string, id: string) => {
         <Link
           href={link.url}
           passHref
-          
           key={`tile-tile-button-${scope}-${id}-${index}`}
-        >
+          legacyBehavior>
           <LinkButtonAnimated {...{ rel, target, onClick }}>
             {link.label}
           </LinkButtonAnimated>

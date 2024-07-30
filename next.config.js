@@ -37,7 +37,9 @@ const nextConfig = {
   experimental: {
     scrollRestoration: true,
   },
-
+  // Make next14 compatible
+  webpack(config) 
+  
   webpack(config) {
     const fileLoaderRule = config.module.rules.find(
       (rule) => rule.test && rule.test.test('.svg'),

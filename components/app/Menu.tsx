@@ -298,16 +298,16 @@ export const Menu = () => {
                   return (
                     <section key={`tool-${index}`} className="tool">
                       <Link href={`/tool/${tool.slug}`} key={`tool-${index}`}>
-                        <a>
-                          <LabElement
-                            shortHandle={tool.iconShort}
-                            longText={tool.iconLong}
-                            color="#fff"
-                            hoverColor={tool.colorHighlight}
-                            size={1.6}
-                          />
-                          <span>{tool.name}</span>
-                        </a>
+
+                        <LabElement
+                          shortHandle={tool.iconShort}
+                          longText={tool.iconLong}
+                          color="#fff"
+                          hoverColor={tool.colorHighlight}
+                          size={1.6}
+                        />
+                        <span>{tool.name}</span>
+
                       </Link>
                       <nav>
                         {tool.menu.map((menuItem: any, i: number) => {
@@ -327,7 +327,7 @@ export const Menu = () => {
                             <Link
                               key={`tool-${index}-menu-${i}`}
                               href={`/tool/${tool.slug}/${menuItem.slug ?? ""}`}
-                            >
+                              legacyBehavior>
                               {menuItem.name}
                             </Link>
                           );

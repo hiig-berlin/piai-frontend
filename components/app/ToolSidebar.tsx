@@ -65,46 +65,44 @@ export const ToolSidebar = () => {
       {config?.tools?.length > 0 &&
         config?.tools.map((tool: any, index: number) => {
           tool.menu = tool.menu.filter((menuItem: any) => menuItem.includeInSidebar);
-          return (
-            <>
-              <Link passHref href={`/tool/${tool.slug}`} key={`tool-${index}`}>
-                <a>
-                  <LabElement
-                    shortHandle={tool.iconShort}
-                    longText={tool.iconLong}
-                    color={tool.colorBase}
-                    hoverColor="white"
-                  />
-                </a>
-              </Link>
-              {(router.pathname === `/tool/${tool.slug}` && tool.menu.length > 0) &&(
-                <ToolSubmenu>
-                  {tool.menu.map((menuItem: any, i: number) => {
-                    if (menuItem.includeInSidebar) {
-                      return (
-                        <Link
-                          passHref
-                          href={`/${menuItem.slug}`}
-                          key={`tool-menu-${i}`}
-                        >
-                          <a className="subMenuItem">
-                            <SvgBackground
-                              className="svg icon"
-                              type={menuItem.icon}
-                              position="left center"
-                              height="2em"
-                              width="2em"
-                            />
-                            {menuItem.name}
-                          </a>
-                        </Link>
-                      );
-                    }
-                  })}
-                </ToolSubmenu>
-              )}
-            </>
-          );
+          return <>
+            <Link passHref href={`/tool/${tool.slug}`} key={`tool-${index}`}>
+
+              <LabElement
+                shortHandle={tool.iconShort}
+                longText={tool.iconLong}
+                color={tool.colorBase}
+                hoverColor="white"
+              />
+
+            </Link>
+            {(router.pathname === `/tool/${tool.slug}` && tool.menu.length > 0) &&(
+              <ToolSubmenu>
+                {tool.menu.map((menuItem: any, i: number) => {
+                  if (menuItem.includeInSidebar) {
+                    return (
+                      (<Link
+                        passHref
+                        href={`/${menuItem.slug}`}
+                        key={`tool-menu-${i}`}
+                        className="subMenuItem">
+
+                        <SvgBackground
+                          className="svg icon"
+                          type={menuItem.icon}
+                          position="left center"
+                          height="2em"
+                          width="2em"
+                        />
+                        {menuItem.name}
+
+                      </Link>)
+                    );
+                  }
+                })}
+              </ToolSubmenu>
+            )}
+          </>;
         })}
     </SidebarWrapper>
   );

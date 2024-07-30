@@ -51,7 +51,7 @@ export const IconLink = ({
       );
     } else {
       return (
-        <Link href={url} passHref>
+        <Link href={url} passHref legacyBehavior>
           <A
             title={title}
             target={target ?? undefined}
