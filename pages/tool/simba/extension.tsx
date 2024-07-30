@@ -1,4 +1,4 @@
-import { ReactElement, useState, useEffect } from "react";
+import { ReactElement} from "react";
 import type { GetStaticProps } from "next";
 import NextHeadSeo from "next-head-seo";
 
@@ -6,59 +6,23 @@ import { appConfig } from "~/config";
 import LayoutTool from "~/components/layouts/LayoutTool";
 import { restApiGetSettings } from "~/utils/restApi";
 import { PiAiTool } from "~/types";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { Box } from "~/components/tools/shared/ui/Box";
 import { LinkButtonAnimated } from "~/components/styled/Button";
 import { ToolSvgBackground } from "~/components/tools/shared/ToolSvgBackground";
-import {
-  useCssVarsStateIsDesktopAndUpState,
-  useCssVarsStateIsTabletAndUpState,
-} from "~/components/state/CssVarsState";
-import { input, preGeneratedText } from "~/components/tools/simba/simbaInput";
-import SafeHtmlDiv from "~/components/ui/SafeHtmlDiv";
+
 import { Meta } from "~/components/tools/map/Styled";
 import SimbaHeader from "~/components/tools/simba/header";
 import { SimbaWrapper, BoxHighlight, Blurb } from "~/components/tools/simba/Styled";
 
 const Index = ({
-  frontendSettings,
   tool,
 }: {
-  frontendSettings: any;
   tool: PiAiTool;
 }) => {
-  const isTabletAndUp = useCssVarsStateIsTabletAndUpState();
-  const isDesktopAndUp = useCssVarsStateIsDesktopAndUpState();
+
 
   const currentTool = appConfig.tools?.find((t) => t.slug === "simba");
-
-  const [currentExample, setCurrentExample] = useState("Newspaper article"); // Current selected Tag
-  const [currentOutput, setCurrentOutput] = useState("");
-  const [loading, setLoading] = useState(false); // True while loading summary
-  const [customText, setCustomText] = useState(""); // State to store textarea value
-
-  let examples = ["Newspaper article", "Wikipedia page", "App description"];
-
-  const renderInput = () => {
-    return (
-      <SafeHtmlDiv
-        html={input.filter((e) => e.example === currentExample)[0].text}
-      />
-    );
-  };
-
-  const renderOutput = () => <SafeHtmlDiv html={currentOutput} />;
-
-  useEffect(() => {
-    setLoading(true);
-    setCurrentOutput(
-      `Generating the summary for a ${currentExample.toLowerCase()}…`
-    );
-    setCurrentOutput(
-      preGeneratedText.filter((e) => e.example === currentExample)[0].text
-    );
-    setLoading(false);
-  }, [currentExample]);
 
   return (
     <SimbaWrapper>
@@ -366,5 +330,3 @@ const Grid = styled.div`
 
 // Repeating elements
 // =================================================
-
-// Bigger icon with text on the side

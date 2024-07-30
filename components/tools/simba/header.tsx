@@ -2,7 +2,6 @@
 import React from "react";
 import styled from "styled-components";
 import { Icon } from "~/components/tools/shared/ui/Icon";
-import { narrow } from "~/components/tools/map/Styled";
 import { LabElement } from "~/components/ui/LabElement";
 import { useCssVarsStateIsDesktopAndUpState,
   useCssVarsStateIsTabletAndUpState } from "~/components/state/CssVarsState";

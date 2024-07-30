@@ -11,10 +11,7 @@ import styled, { css } from "styled-components";
 import { Box } from "~/components/tools/shared/ui/Box";
 import { LinkButtonAnimated } from "~/components/styled/Button";
 import { ToolSvgBackground } from "~/components/tools/shared/ToolSvgBackground";
-import {
-  useCssVarsStateIsDesktopAndUpState,
-  useCssVarsStateIsTabletAndUpState,
-} from "~/components/state/CssVarsState";
+
 
 import SimbaHeader from "~/components/tools/simba/header";
 import { BoxHighlight, SimbaWrapper } from "~/components/tools/simba/Styled";
@@ -23,14 +20,10 @@ import Examples from "~/components/tools/simba/examples";
 import { narrow } from "~/components/tools/map/Styled";
 
 const Index = ({
-  frontendSettings,
   tool,
 }: {
-  frontendSettings: any;
   tool: PiAiTool;
 }) => {
-  const isTabletAndUp = useCssVarsStateIsTabletAndUpState();
-  const isDesktopAndUp = useCssVarsStateIsDesktopAndUpState();
 
   const currentTool = appConfig.tools?.find((t) => t.slug === "simba");
 

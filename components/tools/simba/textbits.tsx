@@ -1,4 +1,3 @@
-import { a } from "react-spring";
 
 // Create variable with all static text blurbs for the tool
 export const textBits = {

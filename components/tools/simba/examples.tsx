@@ -14,7 +14,6 @@ import SafeHtmlDiv from "~/components/ui/SafeHtmlDiv";
 const Examples = () => {
   const [currentExample, setCurrentExample] = useState("Newspaper article"); // Current selected Tag
   const [currentOutput, setCurrentOutput] = useState("");
-  const [loading, setLoading] = useState(false); // True while loading summary
 
   let examples = ["Newspaper article", "Wikipedia page", "App description"];
 
@@ -29,14 +28,9 @@ const Examples = () => {
   const renderOutput = () => <SafeHtmlDiv html={currentOutput} />;
 
   useEffect(() => {
-    setLoading(true);
-    setCurrentOutput(
-      `Generating the summary for a ${currentExample.toLowerCase()}…`
-    );
     setCurrentOutput(
       preGeneratedText.filter((e) => e.example === currentExample)[0].text
     );
-    setLoading(false);
   }, [currentExample]);
 
   return (
