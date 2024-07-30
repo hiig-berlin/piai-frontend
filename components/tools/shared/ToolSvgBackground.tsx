@@ -21,6 +21,8 @@ import Svgtransgender from "~/components/svgs/Svgtransgender";
 import SvgarrowsExpand from "~/components/svgs/SvgarrowsExpand";
 import SvgarrowsCollapse from "~/components/svgs/SvgarrowsCollapse";
 import SvgClose from "~/components/svgs/SvgCloseNeg";
+import Svgclean from "~/components/svgs/Svgclean";
+import Svgstructure from "~/components/svgs/Svgstructure";
 
 // Energy
 import SvgCPU from "~/components/svgs/SvgCPU";
@@ -51,6 +53,7 @@ import SvgthumbsUp from "~/components/svgs/SvgthumbsUp";
 import SvgthumbsDown from "~/components/svgs/SvgthumbsDown";
 import Svgsimplifier from "~/components/svgs/Svgsimplifier";
 import Svgplugin from "~/components/svgs/Svgplugin";
+import SvgSimplifierScreenshot from "~/components/svgs/SvgSimplifierScreenshot";
 
 // use https://jakearchibald.github.io/svgomg/
 // use https://yoksel.github.io/url-encoder/
@@ -231,6 +234,8 @@ export const ToolSvgBackground = ({
       activeSvg = Svgscribble;
       break;
 
+    // Simba 
+    
     case "firefox":
       activeSvg = Svgfirefox;
       break;
@@ -265,6 +270,18 @@ export const ToolSvgBackground = ({
 
     case "plugin":
       activeSvg = Svgplugin;
+      break;
+
+    case "screenshotSimplifier":
+      activeSvg = SvgSimplifierScreenshot;
+      break;
+
+    case "clean":
+      activeSvg = Svgclean;
+      break;
+    
+    case "structure":
+      activeSvg = Svgstructure;
       break;
 
   }

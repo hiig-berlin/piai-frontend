@@ -109,6 +109,7 @@ export const tools: PiAiTool[] = [
     ],
     submenu: [
       {
+        slug: "simplifier",
         name: "Simplifier",
         icon: "simplifier"
       },

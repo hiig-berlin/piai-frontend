@@ -57,22 +57,24 @@ export const Submenu = ({ tool, menu }: { tool?: string; slug?: string, menu: an
     <ToolSubmenu>
       {menu.map((item: any, i: number) => {
         return (
-            <Link key={`tool-item-${i}`} passHref href={`/tool/${tool}/${item.slug ?? ""}`}>
-              <a
-                className={`subMenuItem ${
-                  router.asPath === `/tool/${tool}/${item.slug}` ? "active" : ""
-                }`}
-              >
-                <ToolSvgBackground
-                  className="svg icon"
-                  type={item.icon}
-                  position="center"
-                  height="2em"
-                  width="2em"
-                />
-                {item.name}
-              </a>
-            </Link>
+          (<Link
+            key={`tool-item-${i}`}
+            passHref
+            href={`/tool/${tool}/${item.slug ?? ""}`}
+            className={`subMenuItem ${
+              router.asPath === `/tool/${tool}/${item.slug}` ? "active" : ""
+            }`}>
+
+            <ToolSvgBackground
+              className="svg icon"
+              type={item.icon}
+              position="center"
+              height="2em"
+              width="2em"
+            />
+            {item.name}
+
+          </Link>)
         );
       }
       )} 

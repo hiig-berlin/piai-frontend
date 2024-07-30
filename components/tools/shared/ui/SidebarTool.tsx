@@ -74,15 +74,15 @@ export const SidebarTool = ({
   return (
     <Tool isActive={isActive}>
       <Link href={`/tool/${tool.slug}`}>
-        <a>
-          <LabElement
-            shortHandle={tool.iconShort}
-            longText={tool.iconLong}
-            color={tool.colorBase}
-            hoverColor="white"
-            size={1}
-          />
-        </a>
+
+        <LabElement
+          shortHandle={tool.iconShort}
+          longText={tool.iconLong}
+          color={tool.colorBase}
+          hoverColor="white"
+          size={1}
+        />
+
       </Link>
       {isActive && children && (
         <Children padding={padding} ref={childrenRef}>

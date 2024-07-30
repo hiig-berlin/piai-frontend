@@ -8,10 +8,8 @@ import { restApiGetSettings } from "~/utils/restApi";
 import { AboutPage } from "~/components/tools/shared/AboutPage";
 
 const About = ({
-  frontendSettings,
   tool,
 }: {
-  frontendSettings: any;
   tool: PiAiTool;
 }) => {
   const currentTool = appConfig.tools?.find((t) => t.slug === "simba");

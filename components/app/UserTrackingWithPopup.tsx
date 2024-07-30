@@ -130,56 +130,54 @@ export const UserTracking = () => {
     }
   }, [setShowPopup]);
 
-  return (
-    <>
-      {config.matomoTrackingUrl && (
-        <>
-          <Script
-            strategy="afterInteractive"
-            src={`https://www.googletagmanager.com/gtag/js?id=${config.matomoTrackingUrl}`}
-          />
-          <Script id="google-ga4-tag" strategy="afterInteractive">
-            {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${config.matomoTrackingUrl}', {});
-          `}
-          </Script>
-        </>
-      )}
+  return <>
+    {config.matomoTrackingUrl && (
+      <>
+        <Script
+          strategy="afterInteractive"
+          src={`https://www.googletagmanager.com/gtag/js?id=${config.matomoTrackingUrl}`}
+        />
+        <Script id="google-ga4-tag" strategy="afterInteractive">
+          {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${config.matomoTrackingUrl}', {});
+        `}
+        </Script>
+      </>
+    )}
 
-      {config.matomoTrackingUrl && showPopup && (
-        <Aside
-          role="alertdialog"
-          aria-modal="true"
-          aria-labelledby="cpopup_label"
-          aria-describedby="cpopup_desc"
-          opacity={fadingOut ? 0 : 1}
+    {config.matomoTrackingUrl && showPopup && (
+      <Aside
+        role="alertdialog"
+        aria-modal="true"
+        aria-labelledby="cpopup_label"
+        aria-describedby="cpopup_desc"
+        opacity={fadingOut ? 0 : 1}
+      >
+        <div>
+          This site uses cookies.
+          <br />
+          Find out more in our{" "}
+          <Link href="/privacy-policy" passHref>
+            privacy policy
+          </Link>
+          .
+        </div>
+        <CloseButton
+          onClick={() => {
+            try {
+              Cookies.set(COOKIE_NAME, "yes", { expires: 365 });
+            } catch (e) {
+              // don't do anything ...
+            }
+            fadeOut();
+          }}
         >
-          <div>
-            This site uses cookies.
-            <br />
-            Find out more in our{" "}
-            <Link href="/privacy-policy" passHref>
-              <a>privacy policy</a>
-            </Link>
-            .
-          </div>
-          <CloseButton
-            onClick={() => {
-              try {
-                Cookies.set(COOKIE_NAME, "yes", { expires: 365 });
-              } catch (e) {
-                // don't do anything ...
-              }
-              fadeOut();
-            }}
-          >
-            Close
-          </CloseButton>
-        </Aside>
-      )}
-    </>
-  );
+          Close
+        </CloseButton>
+      </Aside>
+    )}
+  </>;
 };

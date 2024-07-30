@@ -226,7 +226,7 @@ export const ProjectQuickView = ({
         </QVScroller>
         <Footer>
           <ViewMore>
-            <Link href={`/tool/map/project/${data?.data?.slug}`} passHref>
+            <Link href={`/tool/map/project/${data?.data?.slug}`} passHref legacyBehavior>
               <LinkButtonAnimated>View full project profile</LinkButtonAnimated>
             </Link>
           </ViewMore>

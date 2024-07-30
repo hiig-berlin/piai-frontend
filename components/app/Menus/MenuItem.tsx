@@ -21,7 +21,7 @@ export const MenuItem = ({
 }) => {
   return (
     <span>
-      <Link href={item?.url ?? ""} passHref>
+      <Link href={item?.url ?? ""} passHref legacyBehavior>
         <A
           title={
             item?.attr_title !== item?.title ? item?.attr_title : undefined

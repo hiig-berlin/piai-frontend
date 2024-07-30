@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "~/components/styled/Button";
 import styled from "styled-components";
-import { set } from "lodash";
 import { Placeholder } from "../shared/Styled";
 import { Icon } from "../shared/ui/Icon";
 
@@ -141,7 +140,6 @@ const Vote = ({
           />
           <Button name="submit" onClick={handleDownvote} disabled={voted}>
             {strings?.feedbackButton || "Submit"}
-            
           </Button>
         </>
       )}
@@ -184,7 +182,7 @@ const VoteWrapper = styled.div`
   }
 
   button {
-    margin: 0 var(--size-2)  !important;
+    margin: 0 var(--size-2) !important;
   }
 
   textarea.feebackNotes {

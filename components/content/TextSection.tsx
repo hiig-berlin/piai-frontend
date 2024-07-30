@@ -13,18 +13,15 @@ import { JumpAnchor } from "../ui/JumpAnchor";
 const Grid = styled.div`
   display: grid;
 
-  // auf mobiles stacken wir dir columns
   grid-template-rows: auto auto;
   gap: var(
     --size-gutter-width
-  ); // <-- immer gut etwas luft zischen den spalten/reihen zu haben
+  ); 
 
   margin: 0 0 var(--size-6);
   position: relative;
 
-  // ab tablets gibt es dann genug platz um die spalten
   ${({ theme }) => theme.breakpoints.tablet} {
-    // <!-- so kann man breakpoints innerhalb einer styled component verwenden. Alles in den klammern wird nur ab dieser größe dargestellt.
     grid-template-rows: auto;
     grid-template-columns: 1fr 2fr;
   }

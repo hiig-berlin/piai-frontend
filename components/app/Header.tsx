@@ -272,58 +272,56 @@ export const Header = ({
     300
   );
 
-  return (
-    <>
-      <MenuButton />
-      <StyledHeader
-        ref={headerRef}
-        headerTransform={headerTuckUpTransform ?? "translateZ(0)"}
-        headerPosition="sticky"
-        headerColor="#ffffff"
-        style={{
-          width: isMainMenuOpen ? `calc(100vw - var(--sbw, 0))` : undefined,
-        }}
-        isHidden={headerState.fadeOut || isHidden}
-        className="header"
-      >
-        <SkipToLink id="content">skip to content</SkipToLink>
-        {showLogo && (
-          <Logo
-            color="var(--color-text)"
-            hoverColor="var(--color-ailab-red)"
-            size={1.3}
-          />
-        )}
+  return <>
+    <MenuButton />
+    <StyledHeader
+      ref={headerRef}
+      headerTransform={headerTuckUpTransform ?? "translateZ(0)"}
+      headerPosition="sticky"
+      headerColor="#ffffff"
+      style={{
+        width: isMainMenuOpen ? `calc(100vw - var(--sbw, 0))` : undefined,
+      }}
+      isHidden={headerState.fadeOut || isHidden}
+      className="header"
+    >
+      <SkipToLink id="content">skip to content</SkipToLink>
+      {showLogo && (
+        <Logo
+          color="var(--color-text)"
+          hoverColor="var(--color-ailab-red)"
+          size={1.3}
+        />
+      )}
 
-        <MainNav ref={mainRef}>
-          <HeaderNav>
-            <HeaderNavLinks
-              style={{
-                transform: "translateZ(0)",
-                display: isTabletLandscapeAndUp ? "flex" : "none",
-              }}
-            >
-              {config?.tools?.length > 0 &&
-                config?.tools.map((tool: any, index: number) => {
-                  return (
-                    <Link href={`/tool/${tool.slug}`} key={`tool-${index}`}>
-                      <a>
-                        <LabElement
-                          shortHandle={tool.iconShort}
-                          longText={tool.iconLong}
-                          color="var(--color-grey)"
-                          hoverColor={tool.colorBase}
-                          size={1.3}
-                        />
-                      </a>
-                    </Link>
-                  );
-                })}
-            </HeaderNavLinks>
-          </HeaderNav>
-        </MainNav>
-        {children}
-      </StyledHeader>
-    </>
-  );
+      <MainNav ref={mainRef}>
+        <HeaderNav>
+          <HeaderNavLinks
+            style={{
+              transform: "translateZ(0)",
+              display: isTabletLandscapeAndUp ? "flex" : "none",
+            }}
+          >
+            {config?.tools?.length > 0 &&
+              config?.tools.map((tool: any, index: number) => {
+                return (
+                  (<Link href={`/tool/${tool.slug}`} key={`tool-${index}`}>
+
+                    <LabElement
+                      shortHandle={tool.iconShort}
+                      longText={tool.iconLong}
+                      color="var(--color-grey)"
+                      hoverColor={tool.colorBase}
+                      size={1.3}
+                    />
+
+                  </Link>)
+                );
+              })}
+          </HeaderNavLinks>
+        </HeaderNav>
+      </MainNav>
+      {children}
+    </StyledHeader>
+  </>;
 };

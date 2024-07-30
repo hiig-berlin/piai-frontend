@@ -76,50 +76,49 @@ export const Submenu = ({ tool, slug }: { tool?: string; slug?: string }) => {
   return (
     <ToolSubmenu>
       <div>
-        <Link passHref href={`/tool/map`}>
-          <a
-            className="subMenuItem"
-            onClick={(e) => {
-              e.preventDefault();
+        <Link
+          passHref
+          href={`/tool/map`}
+          className="subMenuItem"
+          onClick={(e) => {
+            e.preventDefault();
 
-              updateFilterState({
-                isFilterOpen: isTabletLandscapeAndUp,
-                isSearchOpen: false,
-                countries: {},
-                regions: {},
-                quickViewProjectId: null,
-              });
-              router.push(
-                {
-                  pathname: "/tool/map",
-                  search: createQueryFromState(
-                    {
-                      ...filterState,
-                      countries: {},
-                      regions: {},
-                      isFilterOpen: true,
-                      isSearchOpen: false,
-                    },
-                    null,
-                    ["filter", "search", "keyword", "empty"]
-                  ),
-                },
-                undefined,
-                {
-                  shallow: true,
-                }
-              );
-            }}
-          >
-            <ToolSvgBackground
-              className="svg icon"
-              type="map"
-              position="left center"
-              height="2em"
-              width="2em"
-            />
-            Map view
-          </a>
+            updateFilterState({
+              isFilterOpen: isTabletLandscapeAndUp,
+              isSearchOpen: false,
+              countries: {},
+              regions: {},
+              quickViewProjectId: null,
+            });
+            router.push(
+              {
+                pathname: "/tool/map",
+                search: createQueryFromState(
+                  {
+                    ...filterState,
+                    countries: {},
+                    regions: {},
+                    isFilterOpen: true,
+                    isSearchOpen: false,
+                  },
+                  null,
+                  ["filter", "search", "keyword", "empty"]
+                ),
+              },
+              undefined,
+              {
+                shallow: true,
+              }
+            );
+          }}>
+
+          <ToolSvgBackground
+            className="svg icon"
+            type="map"
+            position="left center"
+            height="2em"
+            width="2em"
+          />Map view
         </Link>
         {slug === "index" && (
           <ActionItems>
@@ -179,47 +178,46 @@ export const Submenu = ({ tool, slug }: { tool?: string; slug?: string }) => {
         )}
       </div>
       <div className="actionItems">
-        <Link passHref href={`/tool/map/directory`}>
-          <a
-            className="subMenuItem"
-            onClick={(e) => {
-              e.preventDefault();
+        <Link
+          passHref
+          href={`/tool/map/directory`}
+          className="subMenuItem"
+          onClick={(e) => {
+            e.preventDefault();
 
-              updateFilterState({
-                isFilterOpen: isTabletLandscapeAndUp,
-                isSearchOpen: false,
-                keyword: "",
-                quickViewProjectId: null,
-              });
-              router.push(
-                {
-                  pathname: "/tool/map/directory",
-                  search: createQueryFromState(
-                    {
-                      ...filterState,
-                      isFilterOpen: true,
-                      isSearchOpen: false,
-                    },
-                    null,
-                    ["filter", "search", "keyword", "empty"]
-                  ),
-                },
-                undefined,
-                {
-                  shallow: true,
-                }
-              );
-            }}
-          >
-            <ToolSvgBackground
-              className="svg icon"
-              type="list"
-              position="left center"
-              height="2em"
-              width="2em"
-            />
-            Directory
-          </a>
+            updateFilterState({
+              isFilterOpen: isTabletLandscapeAndUp,
+              isSearchOpen: false,
+              keyword: "",
+              quickViewProjectId: null,
+            });
+            router.push(
+              {
+                pathname: "/tool/map/directory",
+                search: createQueryFromState(
+                  {
+                    ...filterState,
+                    isFilterOpen: true,
+                    isSearchOpen: false,
+                  },
+                  null,
+                  ["filter", "search", "keyword", "empty"]
+                ),
+              },
+              undefined,
+              {
+                shallow: true,
+              }
+            );
+          }}>
+
+          <ToolSvgBackground
+            className="svg icon"
+            type="list"
+            position="left center"
+            height="2em"
+            width="2em"
+          />Directory
         </Link>
         {slug === "directory" && (
           <ActionItems>
@@ -279,17 +277,15 @@ export const Submenu = ({ tool, slug }: { tool?: string; slug?: string }) => {
         )}
       </div>
       <div>
-        <Link passHref href="/tool/map/about">
-          <a className="subMenuItem">
-            <ToolSvgBackground
-              className="svg icon"
-              type="info"
-              position="center center"
-              height="2em"
-              width="2em"
-            />
-            About
-          </a>
+        <Link passHref href="/tool/map/about" className="subMenuItem">
+
+          <ToolSvgBackground
+            className="svg icon"
+            type="info"
+            position="center center"
+            height="2em"
+            width="2em"
+          />About
         </Link>
       </div>
     </ToolSubmenu>
