@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement, useState, useEffect } from "react";
 import type { GetStaticProps } from "next";
 import NextHeadSeo from "next-head-seo";
 
@@ -9,14 +9,48 @@ import { PiAiTool } from "~/types";
 import Simplifier from "~/components/tools/simba/simplifier";
 import SimbaHeader from "~/components/tools/simba/header";
 import { SimbaWrapper } from "~/components/tools/simba/Styled";
- 
-const SimplifierPage = ({  tool,
-}: {  tool: PiAiTool;
-}) => {
+import { textBits } from "~/components/tools/simba/textbits";
 
-
+const SimplifierPage = ({ tool }: { tool: PiAiTool }) => {
   const currentTool = appConfig.tools?.find((t) => t.slug === "simba");
 
+  // State variables
+  const [strings, setStrings] = useState<
+    | {
+        header: any;
+        simplifier: any;
+      }
+    | undefined
+  >();
+
+  // State variable for language selection
+  const [language, setLanguage] = useState<string>("en");
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const urlParams = new URLSearchParams(window.location.search);
+      console.log("URL params:", urlParams);
+      const urlLang = urlParams.get("lang");
+      if (urlLang) {
+        setLanguage(urlLang);
+      }
+    }
+  }, []);
+
+  // update strings variable to the selected language
+  useEffect(() => {
+    if (language === "en") {
+      setStrings(textBits.en);
+    } else if (language === "de") {
+      setStrings(textBits.de);
+    }
+    // update URL param accordingly
+    if (!isInitialLoad) {
+      window.history.replaceState({}, "", `?lang=${language}`);
+    }
+    setIsInitialLoad(false); // After the first update, set to false
+  }, [language, strings, isInitialLoad]);
 
   return (
     <SimbaWrapper>
@@ -34,12 +68,13 @@ const SimplifierPage = ({  tool,
 
       {/* =================== HEADER =================== */}
       <SimbaHeader
+        strings={strings?.header}
         tool={tool}
+        language={language}
+        setLanguage={setLanguage}
       ></SimbaHeader>
 
-      <Simplifier />
-
-      
+      <Simplifier strings={strings?.simplifier} />
     </SimbaWrapper>
   );
 };

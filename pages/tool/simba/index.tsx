@@ -27,7 +27,7 @@ const Index = ({
 
   const currentTool = appConfig.tools?.find((t) => t.slug === "simba");
 
-  const strings = textBits.en;
+  const strings = textBits.en.index;
 
   return (
     <SimbaWrapper>
