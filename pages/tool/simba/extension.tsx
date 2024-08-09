@@ -1,4 +1,4 @@
-import { ReactElement} from "react";
+import { ReactElement } from "react";
 import type { GetStaticProps } from "next";
 import NextHeadSeo from "next-head-seo";
 
@@ -13,15 +13,13 @@ import { ToolSvgBackground } from "~/components/tools/shared/ToolSvgBackground";
 
 import { Meta } from "~/components/tools/map/Styled";
 import SimbaHeader from "~/components/tools/simba/header";
-import { SimbaWrapper, BoxHighlight, Blurb } from "~/components/tools/simba/Styled";
+import {
+  SimbaWrapper,
+  BoxHighlight,
+  Blurb,
+} from "~/components/tools/simba/Styled";
 
-const Index = ({
-  tool,
-}: {
-  tool: PiAiTool;
-}) => {
-
-
+const Index = ({ tool }: { tool: PiAiTool }) => {
   const currentTool = appConfig.tools?.find((t) => t.slug === "simba");
 
   return (
@@ -44,7 +42,7 @@ const Index = ({
       {/* =================== GRID =================== */}
       <Grid>
         <BoxHighlight className="download firefox">
-          <h2>Download Firefox Add-on</h2>
+          <h2>Download for Firefox</h2>
           <Blurb>
             <ToolSvgBackground type="firefox" />
             Download Simba as a browser add-on for Firefox and start summarising
@@ -59,7 +57,7 @@ const Index = ({
           </LinkButtonAnimated>
         </BoxHighlight>
         <BoxHighlight className="download chrome">
-          <h2>Download Chrome extension</h2>
+          <h2>Download for Chrome</h2>
           <Blurb>
             {" "}
             <ToolSvgBackground type="chrome" />
@@ -92,11 +90,11 @@ const Index = ({
           </p>
           <ToolSvgBackground type="screenshot" className="screenshot" />
           <Meta col={1} className="subline">
-            We trained and evaluated the model that provides these
-            simplifications with news articles; that is why it works better for
-            these types of web content. The browser extension also offers the
-            opportunity to submit your feedback on the summary that Simba
-            produces.
+            The browser extension, also known as a plugin or add-on, is
+            installed through the browser. An icon in the status bar of the
+            browser will then provide you with additional features. The browser
+            extension also allows you to to give your feedback on the summary
+            that Simba produces.
           </Meta>
         </Box>
 
@@ -284,6 +282,7 @@ const Grid = styled.div`
 
     .subline {
       grid-area: subline;
+      font-size: 1rem;
     }
   }
 
@@ -317,7 +316,7 @@ const Grid = styled.div`
         grid-column: unset;
       }
 
-      p{
+      p {
         margin-bottom: 0;
       }
     }

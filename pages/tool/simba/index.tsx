@@ -62,12 +62,32 @@ const Index = ({
           </LinkButtonAnimated>
         </Team>
 
+        <Tool className="simplifier">
+          <div>
+            <h2>{strings.simplifier.title}</h2>
+            <p className="subtitle">{strings.simplifier.subtitle}</p>
+          </div>
+          <p className="copy">{strings.simplifier.description}</p>
+         
+          <ToolSvgBackground
+            type="screenshotSimplifier"
+            className="screenshot"
+          />
+           <LinkButtonAnimated
+            href={strings.simplifier.button.url}
+            className="button"
+          >
+            {strings.simplifier.button.label}
+          </LinkButtonAnimated>
+        </Tool>
+
         <Tool className="extension">
           <div>
             <h2>{strings.plugin.title}</h2>
             <p className="subtitle">{strings.plugin.subtitle}</p>
           </div>
           <p className="copy">{strings.plugin.description}</p>
+          
           <ToolSvgBackground type="screenshot" className="screenshot" />
           <LinkButtonAnimated
             href={strings.plugin.button.url}
@@ -77,23 +97,7 @@ const Index = ({
           </LinkButtonAnimated>
         </Tool>
 
-        <Tool className="simplifier">
-          <div>
-            <h2>{strings.simplifier.title}</h2>
-            <p className="subtitle">{strings.simplifier.subtitle}</p>
-          </div>
-          <p className="copy">{strings.simplifier.description}</p>
-          <ToolSvgBackground
-            type="screenshotSimplifier"
-            className="screenshot"
-          />
-          <LinkButtonAnimated
-            href={strings.simplifier.button.url}
-            className="button"
-          >
-            {strings.simplifier.button.label}
-          </LinkButtonAnimated>
-        </Tool>
+        
 
         <Examples />
       </Grid>
@@ -147,17 +151,17 @@ const Grid = styled.div`
   ${({ theme }) => theme.breakpoints.tablet} {
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas:
-      "about about team"
       "tool1 tool1 tool1"
       "tool2 tool2 tool2"
+      "about about team"
       "test test test";
   }
 
   ${({ theme }) => theme.breakpoints.desktop} {
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-areas:
-      "about about about team"
       "tool1 tool1 tool2 tool2"
+      "about about about team"
       "test test test test";
   }
 
@@ -248,10 +252,10 @@ const Tool = styled(Box)`
   }
 
   &.extension {
-    grid-area: tool1;
+    grid-area: tool2;
   }
 
   &.simplifier {
-    grid-area: tool2;
+    grid-area: tool1;
   }
 `;
