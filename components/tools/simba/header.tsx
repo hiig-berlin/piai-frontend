@@ -144,7 +144,7 @@ const Header = styled.header`
       font-size: calc(var(--text-body-font-size-tool) * 0.85);
       line-height: 1em;
       &::marker {
-        content: "";
+        content: "" !important;
       }
     }
 
