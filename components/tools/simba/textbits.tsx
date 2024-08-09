@@ -50,8 +50,7 @@ export const textBits = {
     simplifier: {
       title: "Simba simplifier",
       subtitle: `Simplify the texts you need`,
-      description: `The Simba Simplifier is a text-box based tool – insert your text on the left to get a summary on the right. The tool shortens and simplifies German text based on an AI model. Simply copy and paste the text you would like to have simplified and our tool will produce an output instantly.
-      .`,
+      description: `The Simba Simplifier is a text-box based tool – insert your text on the left to get a summary on the right. The tool shortens and simplifies German text based on an AI model. Simply copy and paste the text you would like to have simplified and our tool will produce an output instantly.`,
       button: {
         url: "simba/simplifier",
         label: "Go to simplifier",

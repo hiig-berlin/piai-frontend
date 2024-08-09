@@ -223,14 +223,8 @@ const Simplifier = () => {
       ) : (
         <>
           <SafeHtmlDiv html={currentOutput} />
-          {showVote && (
-            <Vote
-              clientIP={clientIP}
-              currentUUID={currentUUID}
-              strings={strings}
-            />  
-          )}
-          {(!showVote && customText.trim() != "" && termsAccepted) && (
+          
+          {(customText.trim() != "" && termsAccepted) && (
              
             <Button
               name="generate"
@@ -240,6 +234,13 @@ const Simplifier = () => {
             >
               {strings?.submit || "Generate summary"}
             </Button>
+          )}
+          {showVote && (
+            <Vote
+              clientIP={clientIP}
+              currentUUID={currentUUID}
+              strings={strings}
+            />  
           )}
         </>
       )}
@@ -410,7 +411,7 @@ const SimplifyWrapper = styled(Box)`
     font-size: 1em;
     display: flex;
     flex-direction: column;
-
+    
     // Make tabindex invisible
     &:focus {
       outline: none;
