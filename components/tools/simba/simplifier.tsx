@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Box } from "~/components/tools/shared/ui/Box";
-import {
-  Button,
-  ButtonNormalized,
-} from "~/components/styled/Button";
+import { Button, ButtonNormalized } from "~/components/styled/Button";
 import SafeHtmlDiv from "~/components/ui/SafeHtmlDiv";
 import safeHtml from "~/utils/sanitize";
 import Vote from "./vote";
@@ -86,8 +83,8 @@ const Simplifier = () => {
   const [clientIP, setClientIP] = useState("");
   const [currentUUID, setCurrentUUID] = useState<string>("");
   const [showVote, setShowVote] = useState<boolean>(false);
-  
-  // State variable for language selection 
+
+  // State variable for language selection
   const [language, setLanguage] = useState<string>("en");
   const [isInitialLoad, setIsInitialLoad] = useState(true);
 
@@ -114,7 +111,7 @@ const Simplifier = () => {
     if (!isInitialLoad) {
       window.history.replaceState({}, "", `?lang=${language}`);
     }
-    setIsInitialLoad(false); // After the first update, set to false  
+    setIsInitialLoad(false); // After the first update, set to false
   }, [language, strings, isInitialLoad]);
 
   // Effect to update local storage when termsAccepted changes
@@ -226,22 +223,23 @@ const Simplifier = () => {
       ) : (
         <>
           <SafeHtmlDiv html={currentOutput} />
-          {showVote ? (
+          {showVote && (
             <Vote
               clientIP={clientIP}
               currentUUID={currentUUID}
               strings={strings}
-            />
-          ) : (
-            <></>
-            // <Button
-            //   name="generate"
-            //   onClick={handleCustomTextBlur}
-            //   disabled={true}
-            //   // disabled={termsAccepted ? false : true}
-            // >
-            //   {strings?.submit || "Generate summary"}
-            // </Button>
+            />  
+          )}
+          {(!showVote && customText.trim() != "" && termsAccepted) && (
+             
+            <Button
+              name="generate"
+              onClick={handleCustomTextBlur}
+              disabled={true}
+              // disabled={termsAccepted ? false : true}
+            >
+              {strings?.submit || "Generate summary"}
+            </Button>
           )}
         </>
       )}
@@ -284,7 +282,10 @@ const Simplifier = () => {
         {renderInput()}
       </div>
 
-      <div className={termsAccepted ? "output" : "output disabled"} tabIndex={0}>
+      <div
+        className={termsAccepted ? "output" : "output disabled"}
+        tabIndex={0}
+      >
         {renderOutput()}
       </div>
 
