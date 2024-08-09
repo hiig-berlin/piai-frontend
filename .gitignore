@@ -42,3 +42,4 @@ yarn-error.log*
 .netlify
 netlify.toml
 _netlify.toml
+assets/test-data/*
