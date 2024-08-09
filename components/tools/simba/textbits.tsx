@@ -66,7 +66,7 @@ export const textBits = {
     placeholderPromt: `Bitte akzeptieren Sie die Bedingungen, um fortzufahren.`,
     placeholderInput: `Geben Sie den zu vereinfachenden Text ein.`,
     placeholderOutput: `Fügen Sie Text ein, der zusammengefasst werden soll.`,
-    submit: `Zusammenfassung generieren`,
+    submit: `Zusammenfassung erstellen`,
     loading: `Zusammenfassung wird generiert…`,
     error: `Beim Erstellen der Zusammenfassung ist ein Fehler aufgetreten.`,
     output: `Ergebnis`,
