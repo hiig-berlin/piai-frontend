@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="51.296" height="38.296" viewBox="0 0 51.296 38.296">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="51.296" height="38.296" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Burger" clip-path="url(#clip-path)">
+    <g transform="translate(-1747.352 -79.352)">
+      <line id="Line_4" data-name="Line 4" x2="45" transform="translate(1750.5 82.5)" fill="none" stroke="#666" stroke-linecap="round" stroke-width="6"/>
+    </g>
+    <g transform="translate(-1747.352 -63.352)">
+      <line id="Line_4-2" data-name="Line 4" x2="45" transform="translate(1750.5 82.5)" fill="none" stroke="#666" stroke-linecap="round" stroke-width="6"/>
+    </g>
+    <g transform="translate(-1747.352 -47.352)">
+      <line id="Line_4-3" data-name="Line 4" x2="45" transform="translate(1750.5 82.5)" fill="none" stroke="#666" stroke-linecap="round" stroke-width="6"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,120 @@
+import React from "react";
+import styled from "styled-components";
+import { useCssVarsStateIsTabletAndUpState } from "~/components/state/CssVarsState";
+import DisplayAbove from "../styled/DisplayAbove";
+import DisplayBelow from "../styled/DisplayBelow";
+import { Heading } from "../ui/Heading";
+import PageMargins from "../ui/PageMargins";
+import { Wizard } from "./Wizard";
+import { Accessible } from "./Accessible";
+import SafeHtmlSpan from "../ui/SafeHtmlSpan";
+import { JumpAnchor } from "../ui/JumpAnchor";
+
+const Grid = styled.div`
+  display: grid;
+
+  grid-template-rows: auto auto;
+  gap: var(
+    --size-gutter-width
+  ); 
+
+  margin: 0 0 var(--size-6);
+  position: relative;
+
+  ${({ theme }) => theme.breakpoints.tablet} {
+    grid-template-rows: auto;
+    grid-template-columns: 1fr 2fr;
+  }
+`;
+
+const SectionHeading = styled(Heading)`
+  margin: var(--size-7) var(--size-2);
+  text-align: center;
+  font-weight: bold;
+
+  ${({ theme }) => theme.breakpoints.tablet} {
+    margin: var(--size-6);
+  }
+`;
+
+const GridLeftColumn = styled.div`
+  ${({ theme }) => theme.breakpoints.tablet} {
+    overflow: hidden;
+    padding-bottom: 100px;
+    align-self: stretch;
+  }
+`;
+
+export const TextSection = ({ data, id }: { data: any; id: string }) => {
+  const isTabletAndUp = useCssVarsStateIsTabletAndUpState();
+
+  return (
+    <>
+      <JumpAnchor id={id} />
+      <PageMargins spaceBottom={7} spaceTop={4}>
+        <SectionHeading asTag="h2" heading="h2">
+          <SafeHtmlSpan html={data?.acf?.textSectionsTitle} />
+        </SectionHeading>
+
+        {data?.acf?.textSections?.length > 0 &&
+          data?.acf?.textSections.map((row: any, index: number) => {
+            return (
+              <Grid key={`textrow-${index}`}>
+                <GridLeftColumn>
+                  <h3>
+                    <SafeHtmlSpan html={row.title} />
+                  </h3>
+                  {isTabletAndUp && row?.wizzard && row.wizzard.trim() !== "" && (
+                    <Wizard
+                      bend="up right"
+                      left="0%"
+                      top="100px"
+                      bottom="auto"
+                      width="80%"
+                      position="relative"
+                      inView
+                      inViewDelay={1}
+                    >
+                      <SafeHtmlSpan html={row.wizzard} />
+                    </Wizard>
+                  )}
+                </GridLeftColumn>
+                <div>
+                  <Accessible simple={row.textSimple}>{row.text}</Accessible>
+                </div>
+              </Grid>
+            );
+          })}
+        <DisplayAbove breakpoint="tablet">
+          <Wizard
+            bend="down right"
+            left="0%"
+            bottom="0px"
+            width="20%"
+            inView
+            inViewDelay={1}
+          >
+            Select one of the 6 conditions to find out more.
+          </Wizard>
+        </DisplayAbove>
+        <DisplayBelow
+          breakpoint="tablet"
+          style={{
+            marginBottom: "var(--size-8)",
+          }}
+        >
+          <Wizard
+            bend="down below"
+            left="0%"
+            bottom="0px"
+            width="80%"
+            inView
+            inViewDelay={1}
+          >
+            Select one of the 6 conditions to find out more.
+          </Wizard>
+        </DisplayBelow>
+      </PageMargins>
+    </>
+  );
+};

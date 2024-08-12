@@ -1,0 +1,36 @@
++++++++++++++++++++++++++++++++++++++++++++++
++++++ DISCUSS: VVU + LW +++++++++++++++++++++
++++++++++++++++++++++++++++++++++++++++++++++
+All done! :-)
+
++++++++++++++++++++++++++++++++++++++++++++++
++++++ TODO: VVU +++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++++++++++++++
+- Support LW to move/resize menu button if needed.
+  > Increase size ...
+
+- Map: Counter doesn't update 
+  when navigating back from a project detail page 
+  (shows Total 0/0 and in view from previous state)
+
+
+
++++++++++++++++++++++++++++++++++++++++++++++
++++++ TODO: LW ++++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++++++++++++++
+
+- Menu button. The button is actually of a good size. But the SVG is funny. 
+Could you double check, that the artboard is closely fitting and best a square
+(for the rounded and neg version)
+
+- Confirm that Matomo tracks referral correctly
+  
+- Use local google fonts? Add TypeKit into imprint
+
+- Check TODOs: in other files I've got some questions ...
+
+- VVU: I added new JumpAnchor component (it's in use in TextSection). 
+  > The "id" is the jump anchor. 
+  > If you load a page with a hash bang "#!" after page transition the site will soft scroll to the location
+    e.g http://localhost:3000/#!more
+  > I've changed the #textSection to #more (also in the CMS)

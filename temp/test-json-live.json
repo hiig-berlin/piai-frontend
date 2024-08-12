@@ -1,0 +1,2983 @@
+{
+  "eventId": "ae4fed12-d35e-4825-bfec-9f252a4cf004",
+  "createdAt": "2022-10-15T11:26:09.248Z",
+  "data": {
+    "responseId": "mJ8olz",
+    "submissionId": "mJ8olz",
+    "respondentId": "nrEDXL",
+    "formId": "w79g0m",
+    "formName": "Add your project to the data set",
+    "createdAt": "2022-02-22T22:45:49.000Z",
+    "fields": [
+      {
+        "key": "question_3XrPZP",
+        "label": "Do you agree to the terms of use?",
+        "type": "CHECKBOXES",
+        "value": [
+          "a7c4d85a-124d-4dfe-8f9f-cdaed95e57cd"
+        ],
+        "options": [
+          {
+            "id": "a7c4d85a-124d-4dfe-8f9f-cdaed95e57cd",
+            "text": "I agree"
+          }
+        ]
+      },
+      {
+        "key": "question_3XrPZP_a7c4d85a-124d-4dfe-8f9f-cdaed95e57cd",
+        "label": "Do you agree to the terms of use? (I agree)",
+        "type": "CHECKBOXES",
+        "value": true
+      },
+      {
+        "key": "question_wkl8zo",
+        "label": "What is the name of your project?",
+        "type": "INPUT_TEXT",
+        "value": "Test"
+      },
+      {
+        "key": "question_wLKepz",
+        "label": "Please describe your project briefly",
+        "type": "TEXTAREA",
+        "value": "sdasödj s<dkfn adökfgn ,msndf skdjf s.,dmfn ,mdn.s.dkn söih sdn ,nkjdsf   ksfsdhfm skj sdfj ,smdn ksjhf ksjhf sknf ksjf skjn skjfn aksjdhf as,mndf -sdnf kasjnf lksjfn s,mdnv kljshdf m,sadnf jksn fjsdhf smdnf askfnösakdfjsfsdfsdfn ksjn fkjsf"
+      },
+      {
+        "key": "question_mBplq1",
+        "label": "Who is mainly responsible for the project?",
+        "type": "INPUT_TEXT",
+        "value": null
+      },
+      {
+        "key": "question_wvM8zl",
+        "label": "In what city is your project primarily located? (If multiple, please select most important.)",
+        "type": "INPUT_TEXT",
+        "value": "Berlin"
+      },
+      {
+        "key": "question_waeqbX",
+        "label": "Please enter your ZIP-Code",
+        "type": "INPUT_TEXT",
+        "value": "10117"
+      },
+      {
+        "key": "question_wvDlYX",
+        "label": "Please select the country/area your project is primarily located",
+        "type": "DROPDOWN",
+        "value": "6b662361-82e0-40ad-9e67-8597c312e8c1",
+        "options": [
+          {
+            "id": "bfae15ed-5d7a-4431-a8de-a8c88e538a6b",
+            "text": "Afghanistan"
+          },
+          {
+            "id": "1ce1a5c9-9627-4fd3-b6fb-c8ea0c998e4c",
+            "text": "Albania"
+          },
+          {
+            "id": "3720e4f4-fea4-42ea-bae8-ee92ec484107",
+            "text": "Algeria"
+          },
+          {
+            "id": "387e49f6-71f6-4e4a-85f1-0446bb4e9ecd",
+            "text": "Andorra"
+          },
+          {
+            "id": "b65492fa-d2b2-41b6-bcd4-af3efd3133bb",
+            "text": "Angola"
+          },
+          {
+            "id": "85bb7908-c9d7-4396-b36c-f32490f4e826",
+            "text": "Antigua and Barbuda"
+          },
+          {
+            "id": "6e749db9-3262-4c3b-b40f-5333ede9ab95",
+            "text": "Argentina"
+          },
+          {
+            "id": "da3194bd-9916-464d-b4ab-41e98a62b122",
+            "text": "Armenia"
+          },
+          {
+            "id": "b4ebabc7-269f-4a10-afca-10a88b5823a4",
+            "text": "Australia"
+          },
+          {
+            "id": "35f4b854-020a-4b9b-bbfa-f62bac6c58a3",
+            "text": "Austria"
+          },
+          {
+            "id": "19c54f7d-8ff3-408e-aebf-d1ea3617e7de",
+            "text": "Azerbaijan"
+          },
+          {
+            "id": "a87ff675-66bd-413c-9760-bac7af005628",
+            "text": "Bahamas"
+          },
+          {
+            "id": "8c044387-7dfc-481c-8452-6f37e61565c4",
+            "text": "Bahrain"
+          },
+          {
+            "id": "ee38c083-2c80-4f29-9621-bcfe6ea328b9",
+            "text": "Bangladesh"
+          },
+          {
+            "id": "e98a9ff8-67fc-4aba-81c9-c43b4238c681",
+            "text": "Barbados"
+          },
+          {
+            "id": "5a8a8c1f-b200-4a32-af3e-76e6422ae795",
+            "text": "Belarus"
+          },
+          {
+            "id": "7dacc900-84d2-4411-92a1-71a29205ee5d",
+            "text": "Belgium"
+          },
+          {
+            "id": "c7af6e71-0bdf-4e04-8868-a7c12bcd04fd",
+            "text": "Belize"
+          },
+          {
+            "id": "da68c80f-2842-415a-bc76-56239635ba8f",
+            "text": "Benin"
+          },
+          {
+            "id": "8512c775-fda9-41e7-9021-f31590db0410",
+            "text": "Bhutan"
+          },
+          {
+            "id": "74d13995-7038-444c-87bf-2471e60718c8",
+            "text": "Bolivia "
+          },
+          {
+            "id": "a1e5498d-59d6-4a11-9314-fbe3de694e63",
+            "text": "Bosnia and Herzegovina"
+          },
+          {
+            "id": "3442921c-81cd-4e18-9882-76b3ab0b773d",
+            "text": "Botswana"
+          },
+          {
+            "id": "e08e5919-446f-4201-afc0-140e5a153704",
+            "text": "Brazil"
+          },
+          {
+            "id": "e43a4786-844a-48c0-8526-d9f832b59502",
+            "text": "Brunei"
+          },
+          {
+            "id": "abf77d55-3f1b-41ca-af67-5e2df2e69b01",
+            "text": "Bulgaria"
+          },
+          {
+            "id": "b47595c6-e8a1-455a-b351-c5bf0a1d2f28",
+            "text": "Burkina Faso"
+          },
+          {
+            "id": "1289db15-ea4d-4a91-ad26-bbe2af5bc4b3",
+            "text": "Burundi"
+          },
+          {
+            "id": "4feb4873-b3c2-43f3-b977-d586f49dcccc",
+            "text": "Côte d'Ivoire"
+          },
+          {
+            "id": "5ba182f6-a94f-4bec-a2be-e1951a208bdd",
+            "text": "Cabo Verde"
+          },
+          {
+            "id": "2321a08b-721e-4022-8d29-92cba2e965de",
+            "text": "Cambodia"
+          },
+          {
+            "id": "b2a14067-ef1d-4f2a-a9ae-e015b0a3472d",
+            "text": "Cameroon"
+          },
+          {
+            "id": "d8feb8b7-d56b-4d9b-8388-5a7008200160",
+            "text": "Canada"
+          },
+          {
+            "id": "98c14f27-4151-4b78-b68b-bda35a90211f",
+            "text": "Central African Republic"
+          },
+          {
+            "id": "585612a0-efe5-48fb-b0a8-c413ceb70d4a",
+            "text": "Chad"
+          },
+          {
+            "id": "5c72b5a5-cda8-4c31-8da9-c60b11f64fe9",
+            "text": "Chile"
+          },
+          {
+            "id": "7d56ffb3-62f2-4a66-844e-58b4c04cac76",
+            "text": "China"
+          },
+          {
+            "id": "688e546d-0c47-41ee-87d0-1f10a7afb04a",
+            "text": "Colombia"
+          },
+          {
+            "id": "22c48c01-fe99-4d7d-9796-738b323ea4aa",
+            "text": "Comoros"
+          },
+          {
+            "id": "7b5ee9cf-3817-4e8c-b914-a30f835293de",
+            "text": "Congo"
+          },
+          {
+            "id": "d4e63a05-0213-43c4-8cce-24aa1b0e52ea",
+            "text": "Costa Rica"
+          },
+          {
+            "id": "d37870f7-70d3-4098-a428-c965c62f4481",
+            "text": "Croatia"
+          },
+          {
+            "id": "52ddf5c8-4114-44e2-b337-0447571615b9",
+            "text": "Cuba"
+          },
+          {
+            "id": "845e241b-238f-4ff9-9203-4626fed36a85",
+            "text": "Cyprus"
+          },
+          {
+            "id": "38c5d997-f0a5-48a1-b091-9d4c1980956f",
+            "text": "Czech Republic"
+          },
+          {
+            "id": "d2aec628-a5c3-4df8-b85a-b804e648cfb8",
+            "text": "Democratic Republic of Congo"
+          },
+          {
+            "id": "23366abb-43cb-4241-bc5c-c5c2121077f8",
+            "text": "Denmark"
+          },
+          {
+            "id": "1bdbdc18-8607-46e9-a560-cfc8ddeb4029",
+            "text": "Djibouti"
+          },
+          {
+            "id": "c57f3cc0-f63d-4afc-840b-60d68c7139ac",
+            "text": "Dominican Republic"
+          },
+          {
+            "id": "33fac861-b13c-4fb1-9f99-e2b359866866",
+            "text": "Ecuador"
+          },
+          {
+            "id": "42d15502-4fd4-4061-a10e-5015e688e771",
+            "text": "Egypt"
+          },
+          {
+            "id": "2ebc0069-2b04-4478-be65-45dc9599cba0",
+            "text": "El Salvador"
+          },
+          {
+            "id": "64797dfe-d764-4fc2-b9c1-8b3c5d45f8c6",
+            "text": "Equatorial Guinea"
+          },
+          {
+            "id": "3b586cee-8668-46b6-8141-3165dda6642f",
+            "text": "Eritrea"
+          },
+          {
+            "id": "862d16fe-7b70-4944-b3ce-00eb12be5951",
+            "text": "Estonia"
+          },
+          {
+            "id": "040607f3-c46b-4451-870f-79042c2fd03a",
+            "text": "Ethiopia"
+          },
+          {
+            "id": "d9ac2f6a-5c7f-404f-bb8e-5fdb2d3b648b",
+            "text": "Fiji"
+          },
+          {
+            "id": "fd358574-cf0f-4a90-aa7e-ae8b2a209e43",
+            "text": "Finland"
+          },
+          {
+            "id": "3f9c9a2a-2136-470d-af4e-35e40b29be0a",
+            "text": "France"
+          },
+          {
+            "id": "a2211f56-3c82-4a99-90e1-68b6ddd5e989",
+            "text": "Gabon "
+          },
+          {
+            "id": "143c4637-57f6-4ce9-a06b-21a4c393623a",
+            "text": "Gambia"
+          },
+          {
+            "id": "ea4a6f53-5631-4604-befd-175421ae7b15",
+            "text": "Georgia"
+          },
+          {
+            "id": "6b662361-82e0-40ad-9e67-8597c312e8c1",
+            "text": "Germany"
+          },
+          {
+            "id": "3fd4c548-0c73-4289-a920-31179950e2e2",
+            "text": "Ghana"
+          },
+          {
+            "id": "9f67c1e4-ac1d-4170-8bbb-18a315790d53",
+            "text": "Greece"
+          },
+          {
+            "id": "88929575-843a-4066-9487-8a21c8728bb8",
+            "text": "Grenada"
+          },
+          {
+            "id": "d726fb45-9182-4fbe-ac98-1e4c1c0c8e52",
+            "text": "Guatemala"
+          },
+          {
+            "id": "388c016a-7143-438c-8506-e27414ceae43",
+            "text": "Guinea"
+          },
+          {
+            "id": "6c6abe88-d2a4-46d9-a794-dff93b534ee8",
+            "text": "Guyana"
+          },
+          {
+            "id": "c3a391dd-0313-464e-9f11-7b20db1a05e1",
+            "text": "Haiti"
+          },
+          {
+            "id": "b83d112a-bc1a-417c-a742-7209ac110a6d",
+            "text": "Holy See"
+          },
+          {
+            "id": "9af76e47-3072-48ec-b69f-eb3e95950a85",
+            "text": "Honduras"
+          },
+          {
+            "id": "cd4b6d95-8690-4a38-85cb-b270b65ef97b",
+            "text": "Hungary"
+          },
+          {
+            "id": "b7f9a15f-04d7-4c05-9620-55e6e9424540",
+            "text": "Iceland"
+          },
+          {
+            "id": "d4a632de-b58d-40b8-a280-f482fcd16fea",
+            "text": "India"
+          },
+          {
+            "id": "0c80903f-075c-43ac-aae9-d532f8115c7d",
+            "text": "Indonesia"
+          },
+          {
+            "id": "8934918e-01d0-4948-aa79-55d787633524",
+            "text": "Iran"
+          },
+          {
+            "id": "2128e64a-40af-43b7-bb04-9038b087bf78",
+            "text": "Iraq"
+          },
+          {
+            "id": "eb8700ed-78c7-413f-b64c-d4ebe4df3855",
+            "text": "Ireland"
+          },
+          {
+            "id": "cf4b0d8a-1ec1-4c3b-8b47-afa34a00176f",
+            "text": "Israel"
+          },
+          {
+            "id": "3bae1b55-69dc-4e8b-b340-d62a85f19be3",
+            "text": "Italy"
+          },
+          {
+            "id": "e937a522-7b75-4a51-a646-212d4c3e2b32",
+            "text": "Jamaica"
+          },
+          {
+            "id": "9c32c328-5466-48ef-977c-40619a4fe405",
+            "text": "Japan"
+          },
+          {
+            "id": "39703a6d-a4ad-433c-8c2b-e0b0c51924da",
+            "text": "Jordan"
+          },
+          {
+            "id": "4371e21b-32ec-411c-a312-c7905298cb58",
+            "text": "Kazakhstan"
+          },
+          {
+            "id": "ec737228-e6e4-47bc-8827-222110116129",
+            "text": "Kenya"
+          },
+          {
+            "id": "9377a856-1868-49b7-9039-a15ce726994a",
+            "text": "Kiribati"
+          },
+          {
+            "id": "6646db4e-c8da-45a3-af98-03bf862198fd",
+            "text": "Kuwait"
+          },
+          {
+            "id": "6e76ba50-1d33-4394-ab01-c0bde1224800",
+            "text": "Kyrgyzstan"
+          },
+          {
+            "id": "6969218b-c94a-413d-a6ec-dceab015bdbf",
+            "text": "Laos"
+          },
+          {
+            "id": "04414f1d-1f18-425d-b66a-dd4c483b2522",
+            "text": "Latvia"
+          },
+          {
+            "id": "404a7e3c-22c0-455d-ba6d-bb80c95804c0",
+            "text": "Lebanon"
+          },
+          {
+            "id": "b222fc13-bdc4-4172-9da9-892d44cbb35c",
+            "text": "Lesotho"
+          },
+          {
+            "id": "c6dd4560-ed8f-4ffe-8871-56b380d276bf",
+            "text": "Liberia"
+          },
+          {
+            "id": "25fac320-1009-44dc-9924-993a5ad4bfc3",
+            "text": "Libya"
+          },
+          {
+            "id": "a37126db-2d86-4b9a-bf24-243c83e3b620",
+            "text": "Liechtenstein"
+          },
+          {
+            "id": "223c97bf-66c2-4f98-b310-acfd68b3da2d",
+            "text": "Lithuania"
+          },
+          {
+            "id": "7725c5da-4905-49c2-b428-077ca81e3dae",
+            "text": "Luxembourg"
+          },
+          {
+            "id": "48701d6b-42de-4eb2-a060-f397430b4968",
+            "text": "Madagascar"
+          },
+          {
+            "id": "9ddb66b1-465d-431c-9809-6cc0a649063b",
+            "text": "Malawi"
+          },
+          {
+            "id": "484957c7-4c7e-480e-8d6d-d7f35c3c5f54",
+            "text": "Malaysia"
+          },
+          {
+            "id": "243e9eb0-2bdc-464a-a810-dad52f9d8785",
+            "text": "Maldives"
+          },
+          {
+            "id": "2f798800-4557-43fe-b055-a292e9168c0c",
+            "text": "Mali"
+          },
+          {
+            "id": "fb0c4313-ce4f-4f46-bbd1-bd0a14d3a753",
+            "text": "Malta"
+          },
+          {
+            "id": "b8251452-2847-4ad5-9562-fb52e35e2ce4",
+            "text": "Marshall Islands"
+          },
+          {
+            "id": "c7237b55-90a9-433f-ba56-44d0c69173e0",
+            "text": "Mauritania"
+          },
+          {
+            "id": "4f72b0a4-8307-474c-a8b4-f54da66f8ddb",
+            "text": "Mauritius"
+          },
+          {
+            "id": "6d667efa-4975-45d5-8d64-59271a067b6f",
+            "text": "Mexico"
+          },
+          {
+            "id": "eae3a561-294f-45b3-975e-555712fdfb9f",
+            "text": "Micronesia"
+          },
+          {
+            "id": "dac78ac7-2ca4-4a47-959a-07cdafb1ecc0",
+            "text": "Moldova"
+          },
+          {
+            "id": "530e162d-5be9-448f-84c9-8986ac72b6bf",
+            "text": "Monaco"
+          },
+          {
+            "id": "5e56c0f4-d608-4fd8-a13e-86fd51e2dfdb",
+            "text": "Mongolia"
+          },
+          {
+            "id": "e4a4b275-5473-41a9-a5b1-61c872bbaa51",
+            "text": "Montenegro"
+          },
+          {
+            "id": "515db81d-e7f1-4b5f-b3a4-4d40a9f542bc",
+            "text": "Morocco"
+          },
+          {
+            "id": "c0815157-5e64-4ce1-8821-20244ef3ee1a",
+            "text": "Mozambique"
+          },
+          {
+            "id": "6c766ccc-07eb-44ec-835e-9da862ed14be",
+            "text": "Myanmar"
+          },
+          {
+            "id": "5f9706a0-27e6-4a83-af02-d53390237fe8",
+            "text": "Namibia"
+          },
+          {
+            "id": "2e2a2462-7ea1-4107-9b20-20098f71a01d",
+            "text": "Nauru"
+          },
+          {
+            "id": "d839bebf-2c93-4cc9-b064-0a4ddafa5b6a",
+            "text": "Nepal"
+          },
+          {
+            "id": "f8c0f8c6-349e-4fd2-be81-02b1d78e5dee",
+            "text": "Netherlands"
+          },
+          {
+            "id": "6b5ecac4-83f3-48c0-985b-e26e72021159",
+            "text": "New Zealand"
+          },
+          {
+            "id": "53f33a5a-3f85-4fdf-a85d-e338881a5a75",
+            "text": "Nicaragua"
+          },
+          {
+            "id": "231b0429-a45e-4f32-b2f6-5c9b8d38c230",
+            "text": "Niger"
+          },
+          {
+            "id": "36b8990e-6ce3-4e30-87ce-4c44355590e8",
+            "text": "Nigeria"
+          },
+          {
+            "id": "6c300477-656a-4044-bcd8-29bb9e06ccdc",
+            "text": "North Korea"
+          },
+          {
+            "id": "166b6976-72bd-41f0-b079-562a8e432f92",
+            "text": "North Macedonia"
+          },
+          {
+            "id": "1e4980cb-00bf-4727-87b2-1552983ec61b",
+            "text": "Norway"
+          },
+          {
+            "id": "e3ee833f-6dc0-4243-968e-e7c50fb21b5d",
+            "text": "Oman"
+          },
+          {
+            "id": "71b14034-64a0-4ea6-b0b9-ec60c1cf5563",
+            "text": "Pakistan"
+          },
+          {
+            "id": "9d334279-f13d-4dcc-b985-13d4bc238c03",
+            "text": "Palau"
+          },
+          {
+            "id": "6b8d07f2-0b4d-4a2f-920e-3e36a02b8396",
+            "text": "Palestine"
+          },
+          {
+            "id": "7dfee3b6-8150-4f6b-95ed-44a1c890bce7",
+            "text": "Panama"
+          },
+          {
+            "id": "f9ff5893-120e-4292-8cbf-9b5cd684980f",
+            "text": "Papua New Guinea"
+          },
+          {
+            "id": "e60578ed-5cbf-44e0-8307-e16cfdf92343",
+            "text": "Paraguay"
+          },
+          {
+            "id": "b26dbc41-968f-435d-8617-35b226d320f1",
+            "text": "Peru"
+          },
+          {
+            "id": "931bb529-a23a-45a0-b14e-4402aa2bec58",
+            "text": "Philippines"
+          },
+          {
+            "id": "88898838-deb2-4375-a3db-53f439416fd7",
+            "text": "Poland"
+          },
+          {
+            "id": "e311525a-85a3-403d-9b5b-eb51322de128",
+            "text": "Portugal"
+          },
+          {
+            "id": "f1639b43-266a-4548-9d25-92dc76f5d4e0",
+            "text": "Qatar"
+          },
+          {
+            "id": "1757f4f1-158e-4175-9462-85ee44ae5b06",
+            "text": "Romania"
+          },
+          {
+            "id": "5ae28f72-718d-4288-af99-09c6ad250420",
+            "text": "Russia"
+          },
+          {
+            "id": "dcbf9f5a-b7b9-432f-93e7-138340a67da6",
+            "text": "Rwanda"
+          },
+          {
+            "id": "5f7d7d38-b77b-4ac1-9150-4c80153a91ea",
+            "text": "Saint Kitts and Nevis"
+          },
+          {
+            "id": "f11b833a-c767-4503-aa3b-6ae9d5bbf245",
+            "text": "Saint Lucia"
+          },
+          {
+            "id": "e65e46e3-8e1d-49e7-863a-092ee2f77c06",
+            "text": "Saint Vincent and the Grenadines"
+          },
+          {
+            "id": "31124028-fc4d-4f03-865c-cdf6c2eb65bb",
+            "text": "Samoa"
+          },
+          {
+            "id": "653f0f90-dc61-4b30-aab7-9ad30caddc0d",
+            "text": "San Marino"
+          },
+          {
+            "id": "b418eb21-14cd-4d3e-a6c1-77e8066a7559",
+            "text": "Sao Tome and Principe"
+          },
+          {
+            "id": "c24cee38-d61e-4bbf-b993-ff05ba62a6b5",
+            "text": "Saudi Arabia"
+          },
+          {
+            "id": "da147ef6-25aa-46a1-bf34-10c10c999b20",
+            "text": "Senegal"
+          },
+          {
+            "id": "912798b1-8b4f-4ef9-a521-94939ab50315",
+            "text": "Serbia"
+          },
+          {
+            "id": "2daf68d5-b5fa-4f3d-97f0-4e5be1f123a9",
+            "text": "Seychelles"
+          },
+          {
+            "id": "350971ef-1686-44e2-a70a-56f19c70f46b",
+            "text": "Sierra Leone"
+          },
+          {
+            "id": "2e4ee0f2-954c-423d-91fa-e004b74f85c0",
+            "text": "Singapore"
+          },
+          {
+            "id": "a2cd5990-8206-422d-b569-63b7e07f137b",
+            "text": "Slovakia"
+          },
+          {
+            "id": "de1dd875-7dd5-4fd7-becd-bf43ff100ba2",
+            "text": "Slovenia"
+          },
+          {
+            "id": "b665c5dc-381d-4a77-b83c-2a3af962edca",
+            "text": "Solomon Islands"
+          },
+          {
+            "id": "9ceefb3d-852e-452e-894b-67359add6e73",
+            "text": "Somalia"
+          },
+          {
+            "id": "f0c245b8-a635-478f-88a8-848892155d39",
+            "text": "South Africa"
+          },
+          {
+            "id": "8c3a146a-0f36-40a0-a49f-ad4ea3d35a62",
+            "text": "South Korea"
+          },
+          {
+            "id": "6fe0c4ac-d042-4a7c-bf02-3aaa399b7ebb",
+            "text": "South Sudan"
+          },
+          {
+            "id": "28d77135-9aaa-458b-a451-6a5f7f5d8aef",
+            "text": "Spain"
+          },
+          {
+            "id": "9f3abe20-69c6-47da-8eea-1ddf881f39ce",
+            "text": "Sri Lanka"
+          },
+          {
+            "id": "06979e0b-68bc-45a4-af1f-da032ebc705d",
+            "text": "Sudan"
+          },
+          {
+            "id": "b50b2dbf-a30b-4366-bc2f-7f8ee6a2c24f",
+            "text": "Suriname"
+          },
+          {
+            "id": "e72926ba-c1b8-4868-adcf-d295108deb20",
+            "text": "Sweden"
+          },
+          {
+            "id": "087458db-4648-4519-9c71-c01ab4b7a5da",
+            "text": "Switzerland"
+          },
+          {
+            "id": "8f6d7815-86b5-407b-865d-081b9672794b",
+            "text": "Syria"
+          },
+          {
+            "id": "b20e1540-93d7-48e7-8334-75b0011854af",
+            "text": "Tajikistan"
+          },
+          {
+            "id": "870606a4-6530-4c57-a611-aa966bfe296b",
+            "text": "Tanzania"
+          },
+          {
+            "id": "e961ea49-a0c2-4bac-b06f-68aea3bc98dc",
+            "text": "Thailand"
+          },
+          {
+            "id": "e128612f-d8c6-477b-be6c-05cc03df6a7a",
+            "text": "Timor-Leste"
+          },
+          {
+            "id": "1fb75871-8b18-4511-bb91-96b1e35fe4f9",
+            "text": "Togo"
+          },
+          {
+            "id": "bb7f067d-adeb-46d0-805f-a0f356a9307a",
+            "text": "Tonga"
+          },
+          {
+            "id": "4edd67ad-fff4-4b69-8ef4-c73a5ba25fe2",
+            "text": "Trinidad and Tobago"
+          },
+          {
+            "id": "67b1bdc3-c0d2-4de6-be8f-0fafef93ebb2",
+            "text": "Tunisia"
+          },
+          {
+            "id": "0cb77627-9d7c-429c-867e-cf941fefc35e",
+            "text": "Turkey"
+          },
+          {
+            "id": "2be93d03-12c4-41a4-bb91-6c0050613aa7",
+            "text": "Turkmenistan"
+          },
+          {
+            "id": "27f6009f-c50e-4162-8207-3ede92e822e5",
+            "text": "Tuvalu"
+          },
+          {
+            "id": "c696e7dd-d662-4256-afeb-eedbebbe49de",
+            "text": "Uganda"
+          },
+          {
+            "id": "50e65236-e81e-476b-a1cf-0bdf43527f59",
+            "text": "Ukraine"
+          },
+          {
+            "id": "d9513c4d-d78b-45be-bfee-c21597f17111",
+            "text": "United Arab Emirates"
+          },
+          {
+            "id": "4b63b7d1-e7aa-4ecf-b2bd-f513209717fd",
+            "text": "United Kingdom"
+          },
+          {
+            "id": "769e6189-33f9-441a-920e-115e2ab2929b",
+            "text": "United States of America"
+          },
+          {
+            "id": "957e7a2a-52dc-4dad-99ff-da107593ba3f",
+            "text": "Uruguay"
+          },
+          {
+            "id": "cff21a45-8bd3-4643-bf0d-9db52e9a390a",
+            "text": "Uzbekistan"
+          },
+          {
+            "id": "fe8da95a-e3cd-49ed-8cd2-27388cb3d717",
+            "text": "Vanuatu"
+          },
+          {
+            "id": "afbce9c4-cc36-4483-9e0c-06a5f839c871",
+            "text": "Venezuela"
+          },
+          {
+            "id": "663b8e48-ecee-4445-be35-dd55dd735142",
+            "text": "Vietnam"
+          },
+          {
+            "id": "37500a1c-dd8e-4f58-8b5e-3aa78531797c",
+            "text": "Yemen"
+          },
+          {
+            "id": "60f5335e-b143-4716-8707-9574a4731662",
+            "text": "Zambia"
+          },
+          {
+            "id": "0d6072a1-3968-4db0-8ec0-f4c498ded378",
+            "text": "Zimbabwe"
+          },
+          {
+            "id": "711bcbb1-1f1e-4e9e-8b4f-3cd4f49738b4",
+            "text": "Åland Islands"
+          },
+          {
+            "id": "048f057f-65ea-4b82-a277-2e9eea91d13a",
+            "text": "American Samoa"
+          },
+          {
+            "id": "36dbf8de-7898-47a7-a6c8-a5d29cb33352",
+            "text": "Anguilla"
+          },
+          {
+            "id": "7e03b3af-9433-406c-9057-fd468eb3799b",
+            "text": "Aruba"
+          },
+          {
+            "id": "02f69e2b-4900-4a5d-9fec-b08b3bc75ac2",
+            "text": "Bermuda"
+          },
+          {
+            "id": "e0924114-470d-4648-afec-063e3f36714f",
+            "text": "Bouvet Island"
+          },
+          {
+            "id": "2018c6bd-cf61-4c24-af15-dfbd15c49ec9",
+            "text": "British Indian Ocean Territory"
+          },
+          {
+            "id": "58640a13-4c30-4fc1-add6-3e6221274f7e",
+            "text": "British Virgin Islands"
+          },
+          {
+            "id": "f855d48e-d394-475c-a55b-ab7732fe9b0d",
+            "text": "Caribbean Netherlands"
+          },
+          {
+            "id": "ecda8061-ebaa-4ec0-9771-75bb9ec13648",
+            "text": "Cayman Islands"
+          },
+          {
+            "id": "f86a615c-981c-42e5-8b13-d6a2745a4234",
+            "text": "Christmas Island"
+          },
+          {
+            "id": "6786dfaa-d83b-45b0-9988-8536286320f3",
+            "text": "Cocos (Keeling) Islands"
+          },
+          {
+            "id": "149dc7e8-89cb-43b6-b4ca-11d8670ef09d",
+            "text": "Cook Islands"
+          },
+          {
+            "id": "4731564f-1ab7-4b6d-8d69-fdce3178c748",
+            "text": "Côte d'Ivoire"
+          },
+          {
+            "id": "12e6a3f1-f22e-435c-b582-bca05fafcd1c",
+            "text": "Curaçao"
+          },
+          {
+            "id": "3599a29a-15e0-46f9-9491-e5f04ef24aba",
+            "text": "Dominica"
+          },
+          {
+            "id": "0337168d-bf17-4436-8db2-6019ce69449c",
+            "text": "Eswatini"
+          },
+          {
+            "id": "019e3d62-ee65-4cce-a6e4-9f833e2089d6",
+            "text": "Falkland Islands (Malvinas)"
+          },
+          {
+            "id": "c076fd1b-5f49-459f-815f-8d6b3bbca507",
+            "text": "Faroe Islands"
+          },
+          {
+            "id": "d91bd219-07a5-44fd-98f0-f3917f43807e",
+            "text": "French Guiana"
+          },
+          {
+            "id": "c2893430-9e66-412c-a97e-58e812193491",
+            "text": "French Polynesia"
+          },
+          {
+            "id": "74870488-253a-4300-b7c8-9ff6745ff3e3",
+            "text": "French Southern Territories"
+          },
+          {
+            "id": "675406c3-2a5b-4a55-89fd-c5ea79cd56d2",
+            "text": "Gibraltar"
+          },
+          {
+            "id": "2906974e-e31c-451e-96e0-876147d7790f",
+            "text": "Greenland"
+          },
+          {
+            "id": "52c7c99f-f020-4fef-af11-dece0f23bc6f",
+            "text": "Guadeloupe"
+          },
+          {
+            "id": "b1a5fac7-3240-4fa6-9765-d571c137a416",
+            "text": "Guam"
+          },
+          {
+            "id": "cbe65fc3-66f6-4968-a639-3b3146bac62f",
+            "text": "Guernsey"
+          },
+          {
+            "id": "7a24563c-0e58-45bc-a440-07e763226f66",
+            "text": "Guinea-Bissau"
+          },
+          {
+            "id": "80a8b73b-dcd3-4324-9a86-e5cfed91230f",
+            "text": "Heard Island and McDonald Islands"
+          },
+          {
+            "id": "eef84d8a-a1ea-4210-95ac-1b0ee15dbd26",
+            "text": "Isle of Man"
+          },
+          {
+            "id": "048a6418-3f6b-4db2-9881-284c656941c9",
+            "text": "Jersey"
+          },
+          {
+            "id": "4d9ec5f6-be5c-4585-b56f-169c9fdd6c57",
+            "text": "Martinique"
+          },
+          {
+            "id": "57dd521e-9c54-46b9-984a-c683fae74bfb",
+            "text": "Mayotte"
+          },
+          {
+            "id": "7f522b63-5637-4390-853c-eec80c669604",
+            "text": "Montserrat"
+          },
+          {
+            "id": "8ec94fe9-e504-4d6f-8db0-9389195d514a",
+            "text": "Niue"
+          },
+          {
+            "id": "f3597cfc-8d42-4622-8618-0cbe6cd16724",
+            "text": "Norfolk Island"
+          },
+          {
+            "id": "cb3b7052-62d8-463f-a494-ff7615e814bd",
+            "text": "Northern Mariana Islands"
+          },
+          {
+            "id": "fd8fff07-73f6-4bbd-9648-f4a576b34bb3",
+            "text": "Pitcairn Islands"
+          },
+          {
+            "id": "b9912daf-8b0c-4762-b710-fdb7701ea53d",
+            "text": "Puerto Rico"
+          },
+          {
+            "id": "10e469e0-decb-4122-ac5d-93b06d637e92",
+            "text": "Réunion"
+          },
+          {
+            "id": "aaaafb4a-78e4-4ffb-b0bd-79c0ba78e57b",
+            "text": "Saint Barthélemy"
+          },
+          {
+            "id": "0a905da7-0a1d-4f2e-b985-cdb17518575a",
+            "text": "Saint Helena"
+          },
+          {
+            "id": "3f406e34-09ac-4df1-879d-52917310e274",
+            "text": "Saint Martin (French part)"
+          },
+          {
+            "id": "ec1604c4-cd36-4edd-9c56-910ed3237136",
+            "text": "Saint Pierre and Miquelon"
+          },
+          {
+            "id": "64ab26c4-bb3e-4861-8fbe-337d02a64659",
+            "text": "Sark"
+          },
+          {
+            "id": "adcac71a-a011-4c95-89e0-f20e0441644b",
+            "text": "Sint Maarten (Dutch part)"
+          },
+          {
+            "id": "a336212d-57e0-4d3b-99fb-8ab4c8f3f4ce",
+            "text": "South Georgia and the South Sandwich Islands"
+          },
+          {
+            "id": "588672d2-1649-440c-abd4-f0694fc0d3df",
+            "text": "Svalbard and Jan Mayen Islands"
+          },
+          {
+            "id": "af876079-6003-4602-8cec-32eed026eebb",
+            "text": "Tokelau"
+          },
+          {
+            "id": "56707fec-992f-43b7-982c-c8c778535ecb",
+            "text": "Turks and Caicos Islands"
+          },
+          {
+            "id": "245c4ff0-9c52-48b6-a1c1-57621136125c",
+            "text": "Minor Outlying Islands"
+          },
+          {
+            "id": "bef028ac-9362-4548-9d79-76c42cf3683d",
+            "text": "Virgin Islands"
+          },
+          {
+            "id": "f1c5f0bd-1533-402f-98d2-9a242a9b16dc",
+            "text": "Wallis and Futuna Islands"
+          },
+          {
+            "id": "5cf07474-6e28-40af-9236-e17f48543d91",
+            "text": "Western Sahara"
+          }
+        ]
+      },
+      {
+        "key": "question_wL94Ol",
+        "label": "Since when does your project exist?",
+        "type": "INPUT_DATE",
+        "value": "2022-02-01"
+      },
+      {
+        "key": "question_nprYz8",
+        "label": "In which stage is your project?",
+        "type": "MULTIPLE_CHOICE",
+        "value": "290388c1-20d0-404d-9d09-ecc20b1cc371",
+        "options": [
+          {
+            "id": "290388c1-20d0-404d-9d09-ecc20b1cc371",
+            "text": "Research/planning"
+          },
+          {
+            "id": "85895024-d58d-47ef-a02f-c8c28f87c7bf",
+            "text": "Beta/Testing"
+          },
+          {
+            "id": "4b7a6dc2-6d80-4d12-9aed-47bae5b56c1a",
+            "text": "Implemented/Running Project"
+          }
+        ]
+      },
+      {
+        "key": "question_wMXjVk",
+        "label": "Which organisation/institution is running the project?",
+        "type": "INPUT_TEXT",
+        "value": "HIIG"
+      },
+      {
+        "key": "question_31XQR1",
+        "label": "How is your project funded?",
+        "type": "MULTIPLE_CHOICE",
+        "value": "bcdaa9e4-672f-46af-9e14-79f9659b9326",
+        "options": [
+          {
+            "id": "bcdaa9e4-672f-46af-9e14-79f9659b9326",
+            "text": "Public"
+          },
+          {
+            "id": "c05d8412-fad3-48be-b1eb-dd419dd77fb1",
+            "text": "Private"
+          },
+          {
+            "id": "ba60fa85-ae03-48e4-ab61-e32945749fac",
+            "text": "Other"
+          }
+        ]
+      },
+      {
+        "key": "question_mJqEBK",
+        "label": "Please specify your type of funding",
+        "type": "INPUT_TEXT",
+        "value": "None"
+      },
+      {
+        "key": "question_m6L69J",
+        "label": "How big is the team working on this project?",
+        "type": "INPUT_TEXT",
+        "value": "Huge"
+      },
+      {
+        "key": "question_3yDv54",
+        "label": "What is the gender ratio in your project team?",
+        "type": "INPUT_NUMBER",
+        "value": null
+      },
+      {
+        "key": "question_3XqYP4",
+        "label": "female %",
+        "type": "INPUT_NUMBER",
+        "value": null
+      },
+      {
+        "key": "question_w8e84x",
+        "label": "non-binary %",
+        "type": "INPUT_NUMBER",
+        "value": null
+      },
+      {
+        "key": "question_w7q7eR",
+        "label": "male %",
+        "type": "INPUT_TEXT",
+        "value": "0"
+      },
+      {
+        "key": "question_wbq1DZ",
+        "label": "female %",
+        "type": "INPUT_TEXT",
+        "value": "100"
+      },
+      {
+        "key": "question_wAzM0z",
+        "label": "non-binary %",
+        "type": "INPUT_TEXT",
+        "value": null
+      },
+      {
+        "key": "question_3XL6NL",
+        "label": "In what industrial sector do you consider your project? (Multiple answers are allowed)",
+        "type": "CHECKBOXES",
+        "value": [
+          "6a49210e-cab7-443b-9389-353fa6968428",
+          "1c4387f4-b01d-4f96-b374-509273a5c4fe",
+          "63e6383b-8680-4f3b-b419-95292e636074"
+        ],
+        "options": [
+          {
+            "id": "40d13ce5-565e-4e18-b25d-024479afca11",
+            "text": "Agriculture, forestry and fishing"
+          },
+          {
+            "id": "63e6383b-8680-4f3b-b419-95292e636074",
+            "text": "Mining and quarrying"
+          },
+          {
+            "id": "1a0eaa83-96d8-4192-8c79-8d15a47a467d",
+            "text": "Manufacturing"
+          },
+          {
+            "id": "4ba8fbb5-ec7b-4daf-838c-3851e9e67df2",
+            "text": "Electricity, gas, steam and air conditioning supply"
+          },
+          {
+            "id": "88a6bc20-95aa-4067-b974-0619d142fdbf",
+            "text": "Water supply; sewerage, waste management and remediation activities"
+          },
+          {
+            "id": "6a49210e-cab7-443b-9389-353fa6968428",
+            "text": "Construction"
+          },
+          {
+            "id": "44ec3652-cb33-497c-8665-a674d833994c",
+            "text": "Wholesale and retail trade; repair of motor vehicles and motorcycles"
+          },
+          {
+            "id": "b58e63f9-418a-4981-b611-02f0ae8ada7a",
+            "text": "Transportation and storage"
+          },
+          {
+            "id": "0364e00c-7d4e-418d-9901-ebb8c3c517a6",
+            "text": "Accommodation and food service activities"
+          },
+          {
+            "id": "1eb054b8-f0e7-4f92-aa94-37b38eda8328",
+            "text": "Information and communication"
+          },
+          {
+            "id": "c2815078-7df7-4b45-8404-83d76ed467e8",
+            "text": "Financial and insurance activities"
+          },
+          {
+            "id": "bcc7d100-e28a-483c-9f2d-7719ffcc4ce0",
+            "text": "Real estate activities"
+          },
+          {
+            "id": "f744ef10-b8f5-476c-b6ea-0d68b63fb141",
+            "text": "Professional, scientific and technical activities"
+          },
+          {
+            "id": "3284b125-0611-4913-a099-4d9a09441978",
+            "text": "Administrative and support service activities"
+          },
+          {
+            "id": "bd8d733f-052a-41c2-a9f4-af9f1f056a17",
+            "text": "Public administration and defence; compulsory social security"
+          },
+          {
+            "id": "dfac2700-d888-45b6-9461-acc157873e9e",
+            "text": "Education"
+          },
+          {
+            "id": "0eccc01e-4439-4831-a563-8849640b9f4d",
+            "text": "Human health and social work activities"
+          },
+          {
+            "id": "1c4387f4-b01d-4f96-b374-509273a5c4fe",
+            "text": "Arts, entertainment and recreation"
+          },
+          {
+            "id": "30bf92e1-3117-4dc0-af49-144f8565724c",
+            "text": "Other service activities"
+          },
+          {
+            "id": "74e0dc53-a39a-4dd8-88d6-cc03eee07617",
+            "text": "Activities of households as employers; undifferentiated goods- and services-producing activities of households for own use"
+          },
+          {
+            "id": "e1333e21-53b8-4fef-807b-04f4a559b5dd",
+            "text": "Activities of extraterritorial organizations and bodies"
+          },
+          {
+            "id": "96e89d38-dfeb-402a-a863-4146cffef64a",
+            "text": "Other"
+          }
+        ]
+      },
+      {
+        "key": "question_3XL6NL_40d13ce5-565e-4e18-b25d-024479afca11",
+        "label": "In what industrial sector do you consider your project? (Multiple answers are allowed) (Agriculture, forestry and fishing)",
+        "type": "CHECKBOXES",
+        "value": false
+      },
+      {
+        "key": "question_3XL6NL_63e6383b-8680-4f3b-b419-95292e636074",
+        "label": "In what industrial sector do you consider your project? (Multiple answers are allowed) (Mining and quarrying)",
+        "type": "CHECKBOXES",
+        "value": true
+      },
+      {
+        "key": "question_3XL6NL_1a0eaa83-96d8-4192-8c79-8d15a47a467d",
+        "label": "In what industrial sector do you consider your project? (Multiple answers are allowed) (Manufacturing)",
+        "type": "CHECKBOXES",
+        "value": false
+      },
+      {
+        "key": "question_3XL6NL_4ba8fbb5-ec7b-4daf-838c-3851e9e67df2",
+        "label": "In what industrial sector do you consider your project? (Multiple answers are allowed) (Electricity, gas, steam and air conditioning supply)",
+        "type": "CHECKBOXES",
+        "value": false
+      },
+      {
+        "key": "question_3XL6NL_88a6bc20-95aa-4067-b974-0619d142fdbf",
+        "label": "In what industrial sector do you consider your project? (Multiple answers are allowed) (Water supply; sewerage, waste management and remediation activities)",
+        "type": "CHECKBOXES",
+        "value": false
+      },
+      {
+        "key": "question_3XL6NL_6a49210e-cab7-443b-9389-353fa6968428",
+        "label": "In what industrial sector do you consider your project? (Multiple answers are allowed) (Construction)",
+        "type": "CHECKBOXES",
+        "value": true
+      },
+      {
+        "key": "question_3XL6NL_44ec3652-cb33-497c-8665-a674d833994c",
+        "label": "In what industrial sector do you consider your project? (Multiple answers are allowed) (Wholesale and retail trade; repair of motor vehicles and motorcycles)",
+        "type": "CHECKBOXES",
+        "value": false
+      },
+      {
+        "key": "question_3XL6NL_b58e63f9-418a-4981-b611-02f0ae8ada7a",
+        "label": "In what industrial sector do you consider your project? (Multiple answers are allowed) (Transportation and storage)",
+        "type": "CHECKBOXES",
+        "value": false
+      },
+      {
+        "key": "question_3XL6NL_0364e00c-7d4e-418d-9901-ebb8c3c517a6",
+        "label": "In what industrial sector do you consider your project? (Multiple answers are allowed) (Accommodation and food service activities)",
+        "type": "CHECKBOXES",
+        "value": false
+      },
+      {
+        "key": "question_3XL6NL_1eb054b8-f0e7-4f92-aa94-37b38eda8328",
+        "label": "In what industrial sector do you consider your project? (Multiple answers are allowed) (Information and communication)",
+        "type": "CHECKBOXES",
+        "value": false
+      },
+      {
+        "key": "question_3XL6NL_c2815078-7df7-4b45-8404-83d76ed467e8",
+        "label": "In what industrial sector do you consider your project? (Multiple answers are allowed) (Financial and insurance activities)",
+        "type": "CHECKBOXES",
+        "value": false
+      },
+      {
+        "key": "question_3XL6NL_bcc7d100-e28a-483c-9f2d-7719ffcc4ce0",
+        "label": "In what industrial sector do you consider your project? (Multiple answers are allowed) (Real estate activities)",
+        "type": "CHECKBOXES",
+        "value": false
+      },
+      {
+        "key": "question_3XL6NL_f744ef10-b8f5-476c-b6ea-0d68b63fb141",
+        "label": "In what industrial sector do you consider your project? (Multiple answers are allowed) (Professional, scientific and technical activities)",
+        "type": "CHECKBOXES",
+        "value": false
+      },
+      {
+        "key": "question_3XL6NL_3284b125-0611-4913-a099-4d9a09441978",
+        "label": "In what industrial sector do you consider your project? (Multiple answers are allowed) (Administrative and support service activities)",
+        "type": "CHECKBOXES",
+        "value": false
+      },
+      {
+        "key": "question_3XL6NL_bd8d733f-052a-41c2-a9f4-af9f1f056a17",
+        "label": "In what industrial sector do you consider your project? (Multiple answers are allowed) (Public administration and defence; compulsory social security)",
+        "type": "CHECKBOXES",
+        "value": false
+      },
+      {
+        "key": "question_3XL6NL_dfac2700-d888-45b6-9461-acc157873e9e",
+        "label": "In what industrial sector do you consider your project? (Multiple answers are allowed) (Education)",
+        "type": "CHECKBOXES",
+        "value": false
+      },
+      {
+        "key": "question_3XL6NL_0eccc01e-4439-4831-a563-8849640b9f4d",
+        "label": "In what industrial sector do you consider your project? (Multiple answers are allowed) (Human health and social work activities)",
+        "type": "CHECKBOXES",
+        "value": false
+      },
+      {
+        "key": "question_3XL6NL_1c4387f4-b01d-4f96-b374-509273a5c4fe",
+        "label": "In what industrial sector do you consider your project? (Multiple answers are allowed) (Arts, entertainment and recreation)",
+        "type": "CHECKBOXES",
+        "value": true
+      },
+      {
+        "key": "question_3XL6NL_30bf92e1-3117-4dc0-af49-144f8565724c",
+        "label": "In what industrial sector do you consider your project? (Multiple answers are allowed) (Other service activities)",
+        "type": "CHECKBOXES",
+        "value": false
+      },
+      {
+        "key": "question_3XL6NL_74e0dc53-a39a-4dd8-88d6-cc03eee07617",
+        "label": "In what industrial sector do you consider your project? (Multiple answers are allowed) (Activities of households as employers; undifferentiated goods- and services-producing activities of households for own use)",
+        "type": "CHECKBOXES",
+        "value": false
+      },
+      {
+        "key": "question_3XL6NL_e1333e21-53b8-4fef-807b-04f4a559b5dd",
+        "label": "In what industrial sector do you consider your project? (Multiple answers are allowed) (Activities of extraterritorial organizations and bodies)",
+        "type": "CHECKBOXES",
+        "value": false
+      },
+      {
+        "key": "question_3XL6NL_96e89d38-dfeb-402a-a863-4146cffef64a",
+        "label": "In what industrial sector do you consider your project? (Multiple answers are allowed) (Other)",
+        "type": "CHECKBOXES",
+        "value": false
+      },
+      {
+        "key": "question_w8qbEz",
+        "label": "Please specify the industrial sector",
+        "type": "INPUT_TEXT",
+        "value": null
+      },
+      {
+        "key": "question_n0dqAB",
+        "label": "In which way do you use AI?",
+        "type": "CHECKBOXES",
+        "value": [
+          "3da828ac-0b64-4d39-95f3-2620bc70bfe8",
+          "8c8c1558-ef9f-4083-9b06-4c5d4613d607"
+        ],
+        "options": [
+          {
+            "id": "3da828ac-0b64-4d39-95f3-2620bc70bfe8",
+            "text": "Natural Language Processing"
+          },
+          {
+            "id": "1dd4b761-58a2-4c75-9d60-00c9e4cbbae7",
+            "text": "Computer Vision"
+          },
+          {
+            "id": "9b1613ba-60bd-4afb-8639-d33a170f4750",
+            "text": "Speech and Sound Recognition"
+          },
+          {
+            "id": "3c8aeb42-7770-4750-825b-0f54e1de9d8d",
+            "text": "Data Management and Analysis"
+          },
+          {
+            "id": "8c8c1558-ef9f-4083-9b06-4c5d4613d607",
+            "text": "Robotics"
+          },
+          {
+            "id": "080a1e67-e83b-4820-b37a-38129da59a5c",
+            "text": "Human-Computer Interaction"
+          },
+          {
+            "id": "1f7b79ff-815d-4c5a-a475-44d6a37c62c3",
+            "text": "Information Retrieval"
+          },
+          {
+            "id": "aa327519-ab25-48b6-9138-37ac718d0428",
+            "text": "Generative Models"
+          },
+          {
+            "id": "0aa11310-09e0-4021-adb8-aa1d08916ac2",
+            "text": "Other"
+          }
+        ]
+      },
+      {
+        "key": "question_n0dqAB_3da828ac-0b64-4d39-95f3-2620bc70bfe8",
+        "label": "In which way do you use AI? (Natural Language Processing)",
+        "type": "CHECKBOXES",
+        "value": true
+      },
+      {
+        "key": "question_n0dqAB_1dd4b761-58a2-4c75-9d60-00c9e4cbbae7",
+        "label": "In which way do you use AI? (Computer Vision)",
+        "type": "CHECKBOXES",
+        "value": false
+      },
+      {
+        "key": "question_n0dqAB_9b1613ba-60bd-4afb-8639-d33a170f4750",
+        "label": "In which way do you use AI? (Speech and Sound Recognition)",
+        "type": "CHECKBOXES",
+        "value": false
+      },
+      {
+        "key": "question_n0dqAB_3c8aeb42-7770-4750-825b-0f54e1de9d8d",
+        "label": "In which way do you use AI? (Data Management and Analysis)",
+        "type": "CHECKBOXES",
+        "value": false
+      },
+      {
+        "key": "question_n0dqAB_8c8c1558-ef9f-4083-9b06-4c5d4613d607",
+        "label": "In which way do you use AI? (Robotics)",
+        "type": "CHECKBOXES",
+        "value": true
+      },
+      {
+        "key": "question_n0dqAB_080a1e67-e83b-4820-b37a-38129da59a5c",
+        "label": "In which way do you use AI? (Human-Computer Interaction)",
+        "type": "CHECKBOXES",
+        "value": false
+      },
+      {
+        "key": "question_n0dqAB_1f7b79ff-815d-4c5a-a475-44d6a37c62c3",
+        "label": "In which way do you use AI? (Information Retrieval)",
+        "type": "CHECKBOXES",
+        "value": false
+      },
+      {
+        "key": "question_n0dqAB_aa327519-ab25-48b6-9138-37ac718d0428",
+        "label": "In which way do you use AI? (Generative Models)",
+        "type": "CHECKBOXES",
+        "value": false
+      },
+      {
+        "key": "question_n0dqAB_0aa11310-09e0-4021-adb8-aa1d08916ac2",
+        "label": "In which way do you use AI? (Other)",
+        "type": "CHECKBOXES",
+        "value": false
+      },
+      {
+        "key": "question_wzj8bM",
+        "label": "Please specify your use of AI",
+        "type": "INPUT_TEXT",
+        "value": null
+      },
+      {
+        "key": "question_w5baOZ",
+        "label": "What generation of machine learning models do you deploy?",
+        "type": "CHECKBOXES",
+        "value": [
+          "000869ac-786f-478a-8a2c-7dacbd6ba4a0"
+        ],
+        "options": [
+          {
+            "id": "9a2bf882-1fc9-410e-9d5c-e6e44a09cc2b",
+            "text": "Traditional Machine Learning (Linear Regression, CART, SVM, etc.)"
+          },
+          {
+            "id": "0eb3837b-09b4-40ca-ac0c-f33063784c41",
+            "text": "Deep Learning (CNN, Transformers, etc.)"
+          },
+          {
+            "id": "28fce897-6ecc-44e5-8d8d-128b77c7de93",
+            "text": "I am not sure"
+          },
+          {
+            "id": "000869ac-786f-478a-8a2c-7dacbd6ba4a0",
+            "text": "Other"
+          }
+        ]
+      },
+      {
+        "key": "question_w5baOZ_9a2bf882-1fc9-410e-9d5c-e6e44a09cc2b",
+        "label": "What generation of machine learning models do you deploy? (Traditional Machine Learning (Linear Regression, CART, SVM, etc.))",
+        "type": "CHECKBOXES",
+        "value": false
+      },
+      {
+        "key": "question_w5baOZ_0eb3837b-09b4-40ca-ac0c-f33063784c41",
+        "label": "What generation of machine learning models do you deploy? (Deep Learning (CNN, Transformers, etc.))",
+        "type": "CHECKBOXES",
+        "value": false
+      },
+      {
+        "key": "question_w5baOZ_28fce897-6ecc-44e5-8d8d-128b77c7de93",
+        "label": "What generation of machine learning models do you deploy? (I am not sure)",
+        "type": "CHECKBOXES",
+        "value": false
+      },
+      {
+        "key": "question_w5baOZ_000869ac-786f-478a-8a2c-7dacbd6ba4a0",
+        "label": "What generation of machine learning models do you deploy? (Other)",
+        "type": "CHECKBOXES",
+        "value": true
+      },
+      {
+        "key": "question_wkl8pe",
+        "label": "Please specify the generation of machine learning models that you deploy",
+        "type": "INPUT_TEXT",
+        "value": null
+      },
+      {
+        "key": "question_wdEJRd",
+        "label": "How is the model trained/built?",
+        "type": "CHECKBOXES",
+        "value": [
+          "18506b3c-e764-491b-860b-80f613214a18"
+        ],
+        "options": [
+          {
+            "id": "18506b3c-e764-491b-860b-80f613214a18",
+            "text": "Supervised Learning"
+          },
+          {
+            "id": "dda2e4cb-78f3-4a68-83d7-742dfe66872f",
+            "text": "Semi-supervised Learning"
+          },
+          {
+            "id": "19826975-1031-41f0-8eb4-576371cadc77",
+            "text": "Unsupervised Learning"
+          },
+          {
+            "id": "4efd5fff-5a03-45fa-8656-1a513592bb87",
+            "text": "Reinforcement Learning"
+          },
+          {
+            "id": "ffefce95-230f-4b65-a4b6-b8925e82deb6",
+            "text": "Transfer Learning"
+          },
+          {
+            "id": "4510488d-0702-4093-a272-8ec9b2fad146",
+            "text": "Other"
+          },
+          {
+            "id": "317f09be-47e8-4f57-80b2-3f1d24073754",
+            "text": "I am not sure"
+          }
+        ]
+      },
+      {
+        "key": "question_wdEJRd_18506b3c-e764-491b-860b-80f613214a18",
+        "label": "How is the model trained/built? (Supervised Learning)",
+        "type": "CHECKBOXES",
+        "value": true
+      },
+      {
+        "key": "question_wdEJRd_dda2e4cb-78f3-4a68-83d7-742dfe66872f",
+        "label": "How is the model trained/built? (Semi-supervised Learning)",
+        "type": "CHECKBOXES",
+        "value": false
+      },
+      {
+        "key": "question_wdEJRd_19826975-1031-41f0-8eb4-576371cadc77",
+        "label": "How is the model trained/built? (Unsupervised Learning)",
+        "type": "CHECKBOXES",
+        "value": false
+      },
+      {
+        "key": "question_wdEJRd_4efd5fff-5a03-45fa-8656-1a513592bb87",
+        "label": "How is the model trained/built? (Reinforcement Learning)",
+        "type": "CHECKBOXES",
+        "value": false
+      },
+      {
+        "key": "question_wdEJRd_ffefce95-230f-4b65-a4b6-b8925e82deb6",
+        "label": "How is the model trained/built? (Transfer Learning)",
+        "type": "CHECKBOXES",
+        "value": false
+      },
+      {
+        "key": "question_wdEJRd_4510488d-0702-4093-a272-8ec9b2fad146",
+        "label": "How is the model trained/built? (Other)",
+        "type": "CHECKBOXES",
+        "value": false
+      },
+      {
+        "key": "question_wdEJRd_317f09be-47e8-4f57-80b2-3f1d24073754",
+        "label": "How is the model trained/built? (I am not sure)",
+        "type": "CHECKBOXES",
+        "value": false
+      },
+      {
+        "key": "question_mYP7qW",
+        "label": "Please specify how the model is trained/built",
+        "type": "INPUT_TEXT",
+        "value": null
+      },
+      {
+        "key": "question_mDBRWN",
+        "label": "Did you implement the project in house or did you hire an external developer?",
+        "type": "CHECKBOXES",
+        "value": [
+          "3032fe47-d8b2-45e0-a031-275d3baec77c"
+        ],
+        "options": [
+          {
+            "id": "3032fe47-d8b2-45e0-a031-275d3baec77c",
+            "text": "Inhouse"
+          },
+          {
+            "id": "41263742-7c50-41b4-9293-51df675b5796",
+            "text": "External"
+          },
+          {
+            "id": "d2aa60a2-80e3-47ec-9ff1-f0662bd0fead",
+            "text": "Other"
+          }
+        ]
+      },
+      {
+        "key": "question_mDBRWN_3032fe47-d8b2-45e0-a031-275d3baec77c",
+        "label": "Did you implement the project in house or did you hire an external developer? (Inhouse)",
+        "type": "CHECKBOXES",
+        "value": true
+      },
+      {
+        "key": "question_mDBRWN_41263742-7c50-41b4-9293-51df675b5796",
+        "label": "Did you implement the project in house or did you hire an external developer? (External)",
+        "type": "CHECKBOXES",
+        "value": false
+      },
+      {
+        "key": "question_mDBRWN_d2aa60a2-80e3-47ec-9ff1-f0662bd0fead",
+        "label": "Did you implement the project in house or did you hire an external developer? (Other)",
+        "type": "CHECKBOXES",
+        "value": false
+      },
+      {
+        "key": "question_3lB84N",
+        "label": "Please specify how you project was developed",
+        "type": "INPUT_TEXT",
+        "value": null
+      },
+      {
+        "key": "question_mRxqr4",
+        "label": "Is the project open source?",
+        "type": "MULTIPLE_CHOICE",
+        "value": "20f877bb-39d5-409f-9de4-4323bd379ff7",
+        "options": [
+          {
+            "id": "20f877bb-39d5-409f-9de4-4323bd379ff7",
+            "text": "Yes"
+          },
+          {
+            "id": "d8d5f273-7c6b-4902-a596-fe9543c2c611",
+            "text": "No"
+          }
+        ]
+      },
+      {
+        "key": "question_3xDAYE",
+        "label": "Is there a git, links or other material on the project? ",
+        "type": "INPUT_LINK",
+        "value": "https://www.hiig,de"
+      },
+      {
+        "key": "question_mZOMaA",
+        "label": "Link to your github/gitlab repository (if applicable)",
+        "type": "INPUT_LINK",
+        "value": null
+      },
+      {
+        "key": "question_woE8xO",
+        "label": "Further material (please separate entries with a comma)",
+        "type": "INPUT_TEXT",
+        "value": null
+      },
+      {
+        "key": "question_nG9Grz",
+        "label": "What in your view defines the public interest and how does your project meet this purpose?",
+        "type": "TEXTAREA",
+        "value": null
+      },
+      {
+        "key": "question_mJqEgR",
+        "label": "How did the idea of your project come about?",
+        "type": "CHECKBOXES",
+        "value": null,
+        "options": [
+          {
+            "id": "8631a125-a444-4422-8347-4219ccc240a3",
+            "text": "Internal in our organization"
+          },
+          {
+            "id": "f03f70da-bcc0-42b4-a0e5-ad1387517eb8",
+            "text": "From an outside request"
+          },
+          {
+            "id": "27d11901-3d7f-4fa1-a611-fea7c740f584",
+            "text": "Other"
+          }
+        ]
+      },
+      {
+        "key": "question_mJqEgR_8631a125-a444-4422-8347-4219ccc240a3",
+        "label": "How did the idea of your project come about? (Internal in our organization)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_mJqEgR_f03f70da-bcc0-42b4-a0e5-ad1387517eb8",
+        "label": "How did the idea of your project come about? (From an outside request)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_mJqEgR_27d11901-3d7f-4fa1-a611-fea7c740f584",
+        "label": "How did the idea of your project come about? (Other)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_mVGWxM",
+        "label": "What is the goal of your project in relation to the public interest?",
+        "type": "TEXTAREA",
+        "value": null
+      },
+      {
+        "key": "question_nPpZPB",
+        "label": "Did you follow one or more guidelines for ethical AI, and if yes, which one?",
+        "type": "CHECKBOXES",
+        "value": null,
+        "options": [
+          {
+            "id": "50ad0170-b246-42e4-8c7b-3aa55571381b",
+            "text": "European Union - Ethics Guidelines for Trustworthy AI"
+          },
+          {
+            "id": "47122fa9-d63f-4e2e-8678-eefd422d2c9d",
+            "text": "Council of Europe - Feasibility Study (CAHAI)"
+          },
+          {
+            "id": "cd1fe18b-c977-4e26-b81a-f871ab280593",
+            "text": "Unesco - Recommendation on the ethics of AI"
+          },
+          {
+            "id": "60030b9a-9dac-43dd-af71-42bff74e58bb",
+            "text": "IEEE - Ethically Aligned Design"
+          },
+          {
+            "id": "8e7ba321-47d1-4012-ac7f-254bea7c42a0",
+            "text": "OECD - Principles on AI"
+          },
+          {
+            "id": "de6d0c9b-c7f4-4c72-b0ef-327b2d6b17f1",
+            "text": "AI4People—An Ethical Framework for a Good AI Society: Opportunities, Risks, AI4People EU Principles, and Recommendations"
+          },
+          {
+            "id": "89c38ffe-b0b0-462d-b0d1-9ebbc57e1077",
+            "text": "Université de Montréal - Montréal Declaration: Responsible AI"
+          },
+          {
+            "id": "e9a87c12-31ae-4d46-823c-25a1b6415277",
+            "text": "UK House of Lords - AI in the UK: Ready, Willing and Able?"
+          },
+          {
+            "id": "cf4e6068-e6a6-414c-a4d7-28cbeea15a04",
+            "text": "Information Accountability Foundation - Unified Ethical Frame for Big Data Analysis"
+          },
+          {
+            "id": "70ce302c-be15-40e8-a75b-1cdbd3220b63",
+            "text": "Access Now; Amnesty International - The Toronto Declaration: Protecting the Right to Equality and Non-discrimination in Machine Learning Systems"
+          },
+          {
+            "id": "c726b2cb-efaf-42d6-9088-900a8ce73f4a",
+            "text": "Data & Society - Governing Artificial Intelligence. Upholding Human Rights & Dignity"
+          },
+          {
+            "id": "e4f91e56-5da7-4412-a2fd-cdf26d609b91",
+            "text": "AI Now Institute - The AI Now Report. The Social and Economic Implications of Artificial Intelligence"
+          },
+          {
+            "id": "cf8bd6e6-7ddc-4f74-b885-28e50450e20f",
+            "text": "Accenture UK - Responsible AI and Robotics. An Ethical Framework"
+          },
+          {
+            "id": "3aa38dc9-0905-40dc-bd71-8e71becdd3de",
+            "text": "Google - Our Principles"
+          },
+          {
+            "id": "c9a14a2d-0df9-48fb-b3d5-b187fa8c037c",
+            "text": "Facebook’s five pillars of Responsible AI"
+          },
+          {
+            "id": "f795720f-9085-4239-b1f4-b4ce7553f558",
+            "text": "IBM’s Principles for Trust"
+          },
+          {
+            "id": "80a82258-1bae-42a4-8a37-adad7d84ec74",
+            "text": "Microsoft - AI—Our Approach"
+          },
+          {
+            "id": "453fdf4d-8364-46a1-84d7-83bc15513b22",
+            "text": "OpenAI Charter"
+          },
+          {
+            "id": "d4165f6c-1000-4499-8a53-0e6e9e269e70",
+            "text": "SAP’s Guiding Principles for Artificial Intelligence"
+          },
+          {
+            "id": "a678eb2e-25ca-4bf5-9240-3527c26d94f2",
+            "text": "Sony Group AI Ethics Guidelines"
+          },
+          {
+            "id": "a4d0a0e1-c00f-47f9-a7f1-285ff1cee248",
+            "text": "Other"
+          },
+          {
+            "id": "c334572d-6027-4968-8506-027ade2c5214",
+            "text": "Algo.Rules - iRights.Lab & Bertelsmannstiftung"
+          }
+        ]
+      },
+      {
+        "key": "question_nPpZPB_50ad0170-b246-42e4-8c7b-3aa55571381b",
+        "label": "Did you follow one or more guidelines for ethical AI, and if yes, which one? (European Union - Ethics Guidelines for Trustworthy AI)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_nPpZPB_47122fa9-d63f-4e2e-8678-eefd422d2c9d",
+        "label": "Did you follow one or more guidelines for ethical AI, and if yes, which one? (Council of Europe - Feasibility Study (CAHAI))",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_nPpZPB_cd1fe18b-c977-4e26-b81a-f871ab280593",
+        "label": "Did you follow one or more guidelines for ethical AI, and if yes, which one? (Unesco - Recommendation on the ethics of AI)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_nPpZPB_60030b9a-9dac-43dd-af71-42bff74e58bb",
+        "label": "Did you follow one or more guidelines for ethical AI, and if yes, which one? (IEEE - Ethically Aligned Design)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_nPpZPB_8e7ba321-47d1-4012-ac7f-254bea7c42a0",
+        "label": "Did you follow one or more guidelines for ethical AI, and if yes, which one? (OECD - Principles on AI)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_nPpZPB_de6d0c9b-c7f4-4c72-b0ef-327b2d6b17f1",
+        "label": "Did you follow one or more guidelines for ethical AI, and if yes, which one? (AI4People—An Ethical Framework for a Good AI Society: Opportunities, Risks, AI4People EU Principles, and Recommendations)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_nPpZPB_89c38ffe-b0b0-462d-b0d1-9ebbc57e1077",
+        "label": "Did you follow one or more guidelines for ethical AI, and if yes, which one? (Université de Montréal - Montréal Declaration: Responsible AI)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_nPpZPB_e9a87c12-31ae-4d46-823c-25a1b6415277",
+        "label": "Did you follow one or more guidelines for ethical AI, and if yes, which one? (UK House of Lords - AI in the UK: Ready, Willing and Able?)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_nPpZPB_cf4e6068-e6a6-414c-a4d7-28cbeea15a04",
+        "label": "Did you follow one or more guidelines for ethical AI, and if yes, which one? (Information Accountability Foundation - Unified Ethical Frame for Big Data Analysis)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_nPpZPB_70ce302c-be15-40e8-a75b-1cdbd3220b63",
+        "label": "Did you follow one or more guidelines for ethical AI, and if yes, which one? (Access Now; Amnesty International - The Toronto Declaration: Protecting the Right to Equality and Non-discrimination in Machine Learning Systems)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_nPpZPB_c726b2cb-efaf-42d6-9088-900a8ce73f4a",
+        "label": "Did you follow one or more guidelines for ethical AI, and if yes, which one? (Data & Society - Governing Artificial Intelligence. Upholding Human Rights & Dignity)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_nPpZPB_e4f91e56-5da7-4412-a2fd-cdf26d609b91",
+        "label": "Did you follow one or more guidelines for ethical AI, and if yes, which one? (AI Now Institute - The AI Now Report. The Social and Economic Implications of Artificial Intelligence)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_nPpZPB_cf8bd6e6-7ddc-4f74-b885-28e50450e20f",
+        "label": "Did you follow one or more guidelines for ethical AI, and if yes, which one? (Accenture UK - Responsible AI and Robotics. An Ethical Framework)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_nPpZPB_3aa38dc9-0905-40dc-bd71-8e71becdd3de",
+        "label": "Did you follow one or more guidelines for ethical AI, and if yes, which one? (Google - Our Principles)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_nPpZPB_c9a14a2d-0df9-48fb-b3d5-b187fa8c037c",
+        "label": "Did you follow one or more guidelines for ethical AI, and if yes, which one? (Facebook’s five pillars of Responsible AI)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_nPpZPB_f795720f-9085-4239-b1f4-b4ce7553f558",
+        "label": "Did you follow one or more guidelines for ethical AI, and if yes, which one? (IBM’s Principles for Trust)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_nPpZPB_80a82258-1bae-42a4-8a37-adad7d84ec74",
+        "label": "Did you follow one or more guidelines for ethical AI, and if yes, which one? (Microsoft - AI—Our Approach)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_nPpZPB_453fdf4d-8364-46a1-84d7-83bc15513b22",
+        "label": "Did you follow one or more guidelines for ethical AI, and if yes, which one? (OpenAI Charter)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_nPpZPB_d4165f6c-1000-4499-8a53-0e6e9e269e70",
+        "label": "Did you follow one or more guidelines for ethical AI, and if yes, which one? (SAP’s Guiding Principles for Artificial Intelligence)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_nPpZPB_a678eb2e-25ca-4bf5-9240-3527c26d94f2",
+        "label": "Did you follow one or more guidelines for ethical AI, and if yes, which one? (Sony Group AI Ethics Guidelines)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_nPpZPB_a4d0a0e1-c00f-47f9-a7f1-285ff1cee248",
+        "label": "Did you follow one or more guidelines for ethical AI, and if yes, which one? (Other)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_nPpZPB_c334572d-6027-4968-8506-027ade2c5214",
+        "label": "Did you follow one or more guidelines for ethical AI, and if yes, which one? (Algo.Rules - iRights.Lab & Bertelsmannstiftung)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_3EKoaB",
+        "label": "Please specify what other guideline you followed",
+        "type": "INPUT_TEXT",
+        "value": null
+      },
+      {
+        "key": "question_nr58q2",
+        "label": "Guideline for Ethical AI",
+        "type": "INPUT_TEXT",
+        "value": null
+      },
+      {
+        "key": "question_w4QlGA",
+        "label": "What are your top 5 guiding-values for the project?",
+        "type": "INPUT_TEXT",
+        "value": null
+      },
+      {
+        "key": "question_3jZ8EJ",
+        "label": "What measures do you use to implement this value?",
+        "type": "TEXTAREA",
+        "value": null
+      },
+      {
+        "key": "question_w2X9RD",
+        "label": "Top 2",
+        "type": "INPUT_TEXT",
+        "value": null
+      },
+      {
+        "key": "question_3xr86v",
+        "label": "What measures do you use to implement this value?",
+        "type": "TEXTAREA",
+        "value": null
+      },
+      {
+        "key": "question_mRxqrj",
+        "label": "Top 3",
+        "type": "INPUT_TEXT",
+        "value": null
+      },
+      {
+        "key": "question_woE8xx",
+        "label": "What measures do you use to implement this value?",
+        "type": "TEXTAREA",
+        "value": null
+      },
+      {
+        "key": "question_nG6O7k",
+        "label": "Top 4",
+        "type": "INPUT_TEXT",
+        "value": null
+      },
+      {
+        "key": "question_mOaxVg",
+        "label": "What measures do you use to implement this value?",
+        "type": "TEXTAREA",
+        "value": null
+      },
+      {
+        "key": "question_mVGWxy",
+        "label": "Top 5",
+        "type": "INPUT_TEXT",
+        "value": null
+      },
+      {
+        "key": "question_nPpZPe",
+        "label": "What measures do you use to implement this value?",
+        "type": "TEXTAREA",
+        "value": null
+      },
+      {
+        "key": "question_3EKoar",
+        "label": "Define the type of primary users that interact with the system.",
+        "type": "CHECKBOXES",
+        "value": null,
+        "options": [
+          {
+            "id": "c8eda471-e973-450b-8059-f801dd76f1b3",
+            "text": "Amateur, who has no experience with AI"
+          },
+          {
+            "id": "6497820f-408b-4abc-9e17-91f8c30d8967",
+            "text": "Trained practitioner, who is not an AI expert"
+          },
+          {
+            "id": "31fbea45-f6c0-46e3-8c1a-abe0573645ba",
+            "text": "AI expert (Developer, researcher, etc.)"
+          },
+          {
+            "id": "6b0d1a9d-f6ed-421d-886c-9f43c27b9113",
+            "text": "I am not sure"
+          },
+          {
+            "id": "ff969938-7709-4fbb-81e9-513828bb666f",
+            "text": "Other"
+          }
+        ]
+      },
+      {
+        "key": "question_3EKoar_c8eda471-e973-450b-8059-f801dd76f1b3",
+        "label": "Define the type of primary users that interact with the system. (Amateur, who has no experience with AI)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_3EKoar_6497820f-408b-4abc-9e17-91f8c30d8967",
+        "label": "Define the type of primary users that interact with the system. (Trained practitioner, who is not an AI expert)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_3EKoar_31fbea45-f6c0-46e3-8c1a-abe0573645ba",
+        "label": "Define the type of primary users that interact with the system. (AI expert (Developer, researcher, etc.))",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_3EKoar_6b0d1a9d-f6ed-421d-886c-9f43c27b9113",
+        "label": "Define the type of primary users that interact with the system. (I am not sure)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_3EKoar_ff969938-7709-4fbb-81e9-513828bb666f",
+        "label": "Define the type of primary users that interact with the system. (Other)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_nr58qR",
+        "label": "Please specify the type of primary user",
+        "type": "INPUT_TEXT",
+        "value": null
+      },
+      {
+        "key": "question_wzj8O0",
+        "label": "Which stakeholders were involved in the process of development and implementation of the project?",
+        "type": "CHECKBOXES",
+        "value": null,
+        "options": [
+          {
+            "id": "ddd6c5dd-489d-4336-b630-d9a96f45ec53",
+            "text": "Developer"
+          },
+          {
+            "id": "25aeae41-b158-4e00-84cc-83ee99500e79",
+            "text": "External domain expert"
+          },
+          {
+            "id": "babf56ab-4cb0-4317-8c38-d1f9db067e7e",
+            "text": "Civil society"
+          },
+          {
+            "id": "363818d0-92cc-41f1-bbdc-f89a76deef68",
+            "text": "Public administration"
+          },
+          {
+            "id": "0107bd11-58f1-4148-9512-4acf8be3f641",
+            "text": "Academic researcher"
+          },
+          {
+            "id": "63a26df6-e751-40db-ab08-33e1cf125590",
+            "text": "Industry partners"
+          },
+          {
+            "id": "2375e999-1755-4078-9d8d-f91e2a753793",
+            "text": "Other"
+          }
+        ]
+      },
+      {
+        "key": "question_wzj8O0_ddd6c5dd-489d-4336-b630-d9a96f45ec53",
+        "label": "Which stakeholders were involved in the process of development and implementation of the project? (Developer)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_wzj8O0_25aeae41-b158-4e00-84cc-83ee99500e79",
+        "label": "Which stakeholders were involved in the process of development and implementation of the project? (External domain expert)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_wzj8O0_babf56ab-4cb0-4317-8c38-d1f9db067e7e",
+        "label": "Which stakeholders were involved in the process of development and implementation of the project? (Civil society)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_wzj8O0_363818d0-92cc-41f1-bbdc-f89a76deef68",
+        "label": "Which stakeholders were involved in the process of development and implementation of the project? (Public administration)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_wzj8O0_0107bd11-58f1-4148-9512-4acf8be3f641",
+        "label": "Which stakeholders were involved in the process of development and implementation of the project? (Academic researcher)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_wzj8O0_63a26df6-e751-40db-ab08-33e1cf125590",
+        "label": "Which stakeholders were involved in the process of development and implementation of the project? (Industry partners)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_wzj8O0_2375e999-1755-4078-9d8d-f91e2a753793",
+        "label": "Which stakeholders were involved in the process of development and implementation of the project? (Other)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_wA2AjD",
+        "label": "Please specify the stakeholders",
+        "type": "INPUT_TEXT",
+        "value": null
+      },
+      {
+        "key": "question_mRxqgj",
+        "label": "How did you engage relevant stakeholders?",
+        "type": "CHECKBOXES",
+        "value": null,
+        "options": [
+          {
+            "id": "deb42fde-ad8d-4834-8f6c-c04d3357971c",
+            "text": "Workshops"
+          },
+          {
+            "id": "ad2fc469-dd3f-4f7a-8794-61219f99dbd3",
+            "text": "Oversight board"
+          },
+          {
+            "id": "6107609e-9d8a-499f-b906-8bc771f16cbb",
+            "text": "Survey"
+          },
+          {
+            "id": "4a2c2913-f2f3-46bf-a2b9-15d224e1ecb8",
+            "text": "Interviews"
+          },
+          {
+            "id": "0fbd2c77-b57a-41d0-9e78-37573a00dcb2",
+            "text": "Co-creation process"
+          },
+          {
+            "id": "8845ad30-4331-45bb-b1bb-b1b24866b180",
+            "text": "Other"
+          }
+        ]
+      },
+      {
+        "key": "question_mRxqgj_deb42fde-ad8d-4834-8f6c-c04d3357971c",
+        "label": "How did you engage relevant stakeholders? (Workshops)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_mRxqgj_ad2fc469-dd3f-4f7a-8794-61219f99dbd3",
+        "label": "How did you engage relevant stakeholders? (Oversight board)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_mRxqgj_6107609e-9d8a-499f-b906-8bc771f16cbb",
+        "label": "How did you engage relevant stakeholders? (Survey)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_mRxqgj_4a2c2913-f2f3-46bf-a2b9-15d224e1ecb8",
+        "label": "How did you engage relevant stakeholders? (Interviews)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_mRxqgj_0fbd2c77-b57a-41d0-9e78-37573a00dcb2",
+        "label": "How did you engage relevant stakeholders? (Co-creation process)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_mRxqgj_8845ad30-4331-45bb-b1bb-b1b24866b180",
+        "label": "How did you engage relevant stakeholders? (Other)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_mBdA2Q",
+        "label": "Please specify the type of engagement",
+        "type": "INPUT_TEXT",
+        "value": null
+      },
+      {
+        "key": "question_woE8px",
+        "label": "Did you apply specific methods of participatory design, and if yes, which ones?",
+        "type": "INPUT_TEXT",
+        "value": null
+      },
+      {
+        "key": "question_mOaxgg",
+        "label": "Have the project results been validated by third parties?",
+        "type": "MULTIPLE_CHOICE",
+        "value": null,
+        "options": [
+          {
+            "id": "bfffef92-5581-4981-a1b1-e7071754b665",
+            "text": "Yes"
+          },
+          {
+            "id": "6f9b5444-7b4e-4d3b-9f8c-b5e503f1e8da",
+            "text": "No"
+          }
+        ]
+      },
+      {
+        "key": "question_wkeKkR",
+        "label": "Have the design and the results of the project been made transparent to the public?",
+        "type": "MULTIPLE_CHOICE",
+        "value": null,
+        "options": [
+          {
+            "id": "5903d1bf-95e8-45ff-aa6f-9e6a6601a6cf",
+            "text": "Yes"
+          },
+          {
+            "id": "cd07d471-6b61-47c0-8ed5-f5cc159b68e2",
+            "text": "No"
+          }
+        ]
+      },
+      {
+        "key": "question_wveEd0",
+        "label": "In what way have the design and the results of the project been made transparent to the public?",
+        "type": "CHECKBOXES",
+        "value": null,
+        "options": [
+          {
+            "id": "a5d7cc16-d0af-499d-a158-f018be12b9da",
+            "text": "By third party auditors"
+          },
+          {
+            "id": "1786e587-9ac4-4e7a-8988-03ea6e6f644d",
+            "text": "By a public organization"
+          },
+          {
+            "id": "46f1edaa-b7a1-49c0-a158-1ca1b3b9e46e",
+            "text": "By academic researchers"
+          },
+          {
+            "id": "9d4184d0-c308-476c-9d8e-ed8dde096754",
+            "text": "By the open-source community"
+          },
+          {
+            "id": "93cb2712-9c4d-4187-aa3d-5e921de5ad1e",
+            "text": "Other"
+          }
+        ]
+      },
+      {
+        "key": "question_wveEd0_a5d7cc16-d0af-499d-a158-f018be12b9da",
+        "label": "In what way have the design and the results of the project been made transparent to the public? (By third party auditors)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_wveEd0_1786e587-9ac4-4e7a-8988-03ea6e6f644d",
+        "label": "In what way have the design and the results of the project been made transparent to the public? (By a public organization)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_wveEd0_46f1edaa-b7a1-49c0-a158-1ca1b3b9e46e",
+        "label": "In what way have the design and the results of the project been made transparent to the public? (By academic researchers)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_wveEd0_9d4184d0-c308-476c-9d8e-ed8dde096754",
+        "label": "In what way have the design and the results of the project been made transparent to the public? (By the open-source community)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_wveEd0_93cb2712-9c4d-4187-aa3d-5e921de5ad1e",
+        "label": "In what way have the design and the results of the project been made transparent to the public? (Other)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_mK5va8",
+        "label": "Please specify how the results have been made transparent to the public",
+        "type": "INPUT_TEXT",
+        "value": null
+      },
+      {
+        "key": "question_3Nr2Oj",
+        "label": "Involving the people who will be affected by the project is a necessary part of the project design",
+        "type": "LINEAR_SCALE",
+        "value": null
+      },
+      {
+        "key": "question_wQ1NEG",
+        "label": "Which direct channels for feedback exist?",
+        "type": "TEXTAREA",
+        "value": null
+      },
+      {
+        "key": "question_n9BArV",
+        "label": "How did you verify the accuracy and robustness of your system?",
+        "type": "TEXTAREA",
+        "value": null
+      },
+      {
+        "key": "question_3xr8o5",
+        "label": "Which transparency measures do you use to document your use of data and possible biases or limitations of the data sets?",
+        "type": "CHECKBOXES",
+        "value": null,
+        "options": [
+          {
+            "id": "83c22ec3-49ec-47ac-aae4-95b37686ee3b",
+            "text": "Data sheets"
+          },
+          {
+            "id": "ec6fc1be-c4f9-4f06-bc7a-ce9400af087f",
+            "text": "Model cards"
+          },
+          {
+            "id": "e6d41188-9e76-4c43-8e59-23974ebdf0b6",
+            "text": "Other"
+          }
+        ]
+      },
+      {
+        "key": "question_3xr8o5_83c22ec3-49ec-47ac-aae4-95b37686ee3b",
+        "label": "Which transparency measures do you use to document your use of data and possible biases or limitations of the data sets? (Data sheets)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_3xr8o5_ec6fc1be-c4f9-4f06-bc7a-ce9400af087f",
+        "label": "Which transparency measures do you use to document your use of data and possible biases or limitations of the data sets? (Model cards)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_3xr8o5_e6d41188-9e76-4c43-8e59-23974ebdf0b6",
+        "label": "Which transparency measures do you use to document your use of data and possible biases or limitations of the data sets? (Other)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_mRxqg9",
+        "label": "Please specify your transparency measuresyour project rely partly",
+        "type": "INPUT_TEXT",
+        "value": null
+      },
+      {
+        "key": "question_meMb7q",
+        "label": "What technical and organizational safeguards have you implemented to protect personal data and mitigate possible harms? Choose all that apply",
+        "type": "CHECKBOXES",
+        "value": null,
+        "options": [
+          {
+            "id": "fd79683f-d4ad-4a34-b634-0a4ca412687b",
+            "text": "Data minimization (incl. not gathering personal data)"
+          },
+          {
+            "id": "8a3512f4-6834-43bf-a4cc-babe7f1067fb",
+            "text": "Data aggregation and summarization"
+          },
+          {
+            "id": "fb8f7658-671a-4a06-b915-08308b4097dc",
+            "text": "De-identification (incl. obfuscation)"
+          },
+          {
+            "id": "ecef0758-4971-4fd4-a181-ce89beb7209c",
+            "text": "Encryption"
+          },
+          {
+            "id": "ddb11e5c-a63e-46ab-8c6a-254d2b14f4d7",
+            "text": "Federated learning"
+          },
+          {
+            "id": "f8e2a28f-bddb-433a-8b6a-aefa0a4afb83",
+            "text": "Authentication and access management"
+          },
+          {
+            "id": "8b6f6218-8560-4fd4-b683-4bd7d0dffdb0",
+            "text": "User control (consent, update, retract)"
+          },
+          {
+            "id": "cd63c59a-6837-4fc3-bb4b-e25d1e300a09",
+            "text": "Maintaining an up to date privacy policy"
+          },
+          {
+            "id": "33a42811-40d5-4917-88e7-3a9f0464f43a",
+            "text": "Third-party audit and compliance reporting"
+          },
+          {
+            "id": "1d9caad8-aaae-4d66-ad07-65640c2dcb2f",
+            "text": "Other"
+          }
+        ]
+      },
+      {
+        "key": "question_meMb7q_fd79683f-d4ad-4a34-b634-0a4ca412687b",
+        "label": "What technical and organizational safeguards have you implemented to protect personal data and mitigate possible harms? Choose all that apply (Data minimization (incl. not gathering personal data))",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_meMb7q_8a3512f4-6834-43bf-a4cc-babe7f1067fb",
+        "label": "What technical and organizational safeguards have you implemented to protect personal data and mitigate possible harms? Choose all that apply (Data aggregation and summarization)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_meMb7q_fb8f7658-671a-4a06-b915-08308b4097dc",
+        "label": "What technical and organizational safeguards have you implemented to protect personal data and mitigate possible harms? Choose all that apply (De-identification (incl. obfuscation))",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_meMb7q_ecef0758-4971-4fd4-a181-ce89beb7209c",
+        "label": "What technical and organizational safeguards have you implemented to protect personal data and mitigate possible harms? Choose all that apply (Encryption)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_meMb7q_ddb11e5c-a63e-46ab-8c6a-254d2b14f4d7",
+        "label": "What technical and organizational safeguards have you implemented to protect personal data and mitigate possible harms? Choose all that apply (Federated learning)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_meMb7q_f8e2a28f-bddb-433a-8b6a-aefa0a4afb83",
+        "label": "What technical and organizational safeguards have you implemented to protect personal data and mitigate possible harms? Choose all that apply (Authentication and access management)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_meMb7q_8b6f6218-8560-4fd4-b683-4bd7d0dffdb0",
+        "label": "What technical and organizational safeguards have you implemented to protect personal data and mitigate possible harms? Choose all that apply (User control (consent, update, retract))",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_meMb7q_cd63c59a-6837-4fc3-bb4b-e25d1e300a09",
+        "label": "What technical and organizational safeguards have you implemented to protect personal data and mitigate possible harms? Choose all that apply (Maintaining an up to date privacy policy)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_meMb7q_33a42811-40d5-4917-88e7-3a9f0464f43a",
+        "label": "What technical and organizational safeguards have you implemented to protect personal data and mitigate possible harms? Choose all that apply (Third-party audit and compliance reporting)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_meMb7q_1d9caad8-aaae-4d66-ad07-65640c2dcb2f",
+        "label": "What technical and organizational safeguards have you implemented to protect personal data and mitigate possible harms? Choose all that apply (Other)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_nW2aZv",
+        "label": "Please specify your safeguards",
+        "type": "INPUT_TEXT",
+        "value": null
+      },
+      {
+        "key": "question_wL7v6v",
+        "label": "Do you take measures in regards to ecological sustainability of your project? Please elaborate.",
+        "type": "TEXTAREA",
+        "value": null
+      },
+      {
+        "key": "question_npyRkJ",
+        "label": "Is your project directly or indirectly contributing to solutions for the climate crisis or other UN sustainability goals?",
+        "type": "CHECKBOXES",
+        "value": null,
+        "options": [
+          {
+            "id": "4461dbb8-eeac-4e9f-9e83-8903ae5dd344",
+            "text": "Directly"
+          },
+          {
+            "id": "e408f94d-559e-4ba9-95ca-4d5181416d99",
+            "text": "Indirectly"
+          }
+        ]
+      },
+      {
+        "key": "question_npyRkJ_4461dbb8-eeac-4e9f-9e83-8903ae5dd344",
+        "label": "Is your project directly or indirectly contributing to solutions for the climate crisis or other UN sustainability goals? (Directly)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_npyRkJ_e408f94d-559e-4ba9-95ca-4d5181416d99",
+        "label": "Is your project directly or indirectly contributing to solutions for the climate crisis or other UN sustainability goals? (Indirectly)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_3XJ1zg",
+        "label": "Please elaborate",
+        "type": "TEXTAREA",
+        "value": null
+      },
+      {
+        "key": "question_wMNv7M",
+        "label": "Does your project rely partly or fully on the use of open data and/or publish results in an open data set? Please elaborate.",
+        "type": "TEXTAREA",
+        "value": null
+      },
+      {
+        "key": "question_mBKRaK",
+        "label": "Do you want to revise your answers? Are you sure that your responses do not contain personal information?",
+        "type": "CHECKBOXES",
+        "value": [
+          "5cc36335-c533-4b2b-a7ea-90c8b5d4f31c"
+        ],
+        "options": [
+          {
+            "id": "5cc36335-c533-4b2b-a7ea-90c8b5d4f31c",
+            "text": "I want to submit"
+          }
+        ]
+      },
+      {
+        "key": "question_mBKRaK_5cc36335-c533-4b2b-a7ea-90c8b5d4f31c",
+        "label": "Do you want to revise your answers? Are you sure that your responses do not contain personal information? (I want to submit)",
+        "type": "CHECKBOXES",
+        "value": true
+      },
+      {
+        "key": "question_wbq1gZ",
+        "label": "Is there any question you don't want to be published?",
+        "type": "MULTIPLE_CHOICE",
+        "value": null,
+        "options": [
+          {
+            "id": "6a16ff22-4720-46db-a027-0b18d2e1ffa3",
+            "text": "Yes"
+          },
+          {
+            "id": "3938b1d0-0de2-4b96-a6e7-0e671aa66990",
+            "text": "No"
+          }
+        ]
+      },
+      {
+        "key": "question_wAzMaz",
+        "label": "Please select the relevant questions.",
+        "type": "CHECKBOXES",
+        "value": null,
+        "options": [
+          {
+            "id": "260e87d1-a2ec-46e4-a7fc-3ecf5489f4cc",
+            "text": "What is the name of your project?"
+          },
+          {
+            "id": "a99d438d-64fb-4364-a3a5-5a0e19e896e3",
+            "text": "In what country is your project primarily located?"
+          },
+          {
+            "id": "0641c600-9a5c-4683-bc33-bf68c75a3acf",
+            "text": "In what state is your project primarily located?"
+          },
+          {
+            "id": "d66d4c0d-db98-49de-92ec-aa091ae5dc28",
+            "text": "Since when does the project exist?"
+          },
+          {
+            "id": "cb6ac138-e412-4b1a-9bad-5b57f6bd2b30",
+            "text": "In which stage is your project?"
+          },
+          {
+            "id": "fb7ba5b7-164a-47c8-81a4-664a21601bc6",
+            "text": "Which organization/institution is running the project?"
+          },
+          {
+            "id": "ce865dcf-701f-409b-b4b0-1872b5676f5d",
+            "text": "How is your project funded?"
+          },
+          {
+            "id": "6d8583b3-10d5-4fbf-b30c-1736186188fb",
+            "text": "Please specify your type of funding."
+          },
+          {
+            "id": "0b058285-72ff-4d3b-b029-c42d36ad5bba",
+            "text": "Are there women working in your team?"
+          },
+          {
+            "id": "839b5fa9-2269-476a-b1f8-060f0423ac96",
+            "text": "Are there people with migrant backgrounds working in your project?"
+          },
+          {
+            "id": "4cc8671b-7a8a-4243-abf4-4b350c4d7115",
+            "text": "In what industrial sector do you consider your project?"
+          },
+          {
+            "id": "608da8ac-5aa4-4513-89d1-c1b0e78def5e",
+            "text": "In which way do you use AI?"
+          },
+          {
+            "id": "c5ba7b7d-2575-4ce0-b635-c3066b9247bb",
+            "text": "What generation of machine learning models do you deploy?"
+          },
+          {
+            "id": "5d25361e-45f1-4ee4-b7c8-e95b71b6206f",
+            "text": "How is the model trained/built?"
+          },
+          {
+            "id": "f2044bcc-8c63-4803-96c1-434fc1d0cf3f",
+            "text": "Did you implement the project in house or did you hire an external developer?"
+          },
+          {
+            "id": "f0394af9-142a-4634-b231-814b907ab03b",
+            "text": "Is the project open source?"
+          },
+          {
+            "id": "2641b6ad-9018-45be-ad1b-82c131341636",
+            "text": "Is there a git, links or other material on the project?"
+          },
+          {
+            "id": "1e17b349-2c89-4806-918e-d9ff39ab583f",
+            "text": "How did the idea of your project come about?"
+          },
+          {
+            "id": "c85d8010-83b8-4f0d-a67b-bbd902fc9517",
+            "text": "Who was involved in the initial idea?"
+          },
+          {
+            "id": "61d609f5-ac13-4632-8077-495a07adf0dc",
+            "text": "What is the goal of your project in relation to the public interest?"
+          },
+          {
+            "id": "3dfd22c5-1376-4558-b11b-855d59e3c26e",
+            "text": "Did you follow one or more guidelines for ethical AI, and if yes, which one?"
+          },
+          {
+            "id": "9adeb042-dce8-414b-9547-399dd2a52f04",
+            "text": "What are the top 5 guiding-values for the project?"
+          },
+          {
+            "id": "692cefef-516b-413a-b7f4-960508de91d2",
+            "text": "Define the type of primary users that interact with the system."
+          },
+          {
+            "id": "51befa5a-eb85-4739-bba9-a3d7e7ac109b",
+            "text": "Which stakeholders were involved in the process of development and implementation of the project?"
+          },
+          {
+            "id": "d6ef9890-7ebf-4258-bc8d-c667d3fbb8ae",
+            "text": "How did you engage relevant stakeholders?"
+          },
+          {
+            "id": "22a3cb28-01a9-4596-9726-b7d67bc9dcad",
+            "text": "Validation of the project results by third parties and/or the public is a necessary component of the project design."
+          },
+          {
+            "id": "4215bd2a-cde7-441e-964b-c0c3f328ba70",
+            "text": "Involving the people who will be affected by the project is a necessary part of the project design."
+          },
+          {
+            "id": "5a0dedae-a5be-4966-9cc2-2809d0016d50",
+            "text": "Involving volunteers is a necessary part of the project design."
+          },
+          {
+            "id": "9ec2e2c2-1605-4e7b-9fde-16860c8a8769",
+            "text": "How can stakeholders, the public or other third parties give you feedback about the problems or the progress and benefits of this project?"
+          },
+          {
+            "id": "cf5c31f7-72e8-438f-8832-99846bec0e6b",
+            "text": "How did you verify the accuracy and robustness of your system?"
+          },
+          {
+            "id": "072a42ce-c487-4830-8947-c532b8a3c3d2",
+            "text": "What organisational safeguards have you implemented to protect personal data and mitigate possible harms?"
+          },
+          {
+            "id": "419fa069-b596-4bcd-b959-955efb75ef5d",
+            "text": "What technical safeguards have you implemented to protect personal data and mitigate possible harms?"
+          }
+        ]
+      },
+      {
+        "key": "question_wAzMaz_260e87d1-a2ec-46e4-a7fc-3ecf5489f4cc",
+        "label": "Please select the relevant questions. (What is the name of your project?)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_wAzMaz_a99d438d-64fb-4364-a3a5-5a0e19e896e3",
+        "label": "Please select the relevant questions. (In what country is your project primarily located?)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_wAzMaz_0641c600-9a5c-4683-bc33-bf68c75a3acf",
+        "label": "Please select the relevant questions. (In what state is your project primarily located?)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_wAzMaz_d66d4c0d-db98-49de-92ec-aa091ae5dc28",
+        "label": "Please select the relevant questions. (Since when does the project exist?)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_wAzMaz_cb6ac138-e412-4b1a-9bad-5b57f6bd2b30",
+        "label": "Please select the relevant questions. (In which stage is your project?)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_wAzMaz_fb7ba5b7-164a-47c8-81a4-664a21601bc6",
+        "label": "Please select the relevant questions. (Which organization/institution is running the project?)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_wAzMaz_ce865dcf-701f-409b-b4b0-1872b5676f5d",
+        "label": "Please select the relevant questions. (How is your project funded?)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_wAzMaz_6d8583b3-10d5-4fbf-b30c-1736186188fb",
+        "label": "Please select the relevant questions. (Please specify your type of funding.)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_wAzMaz_0b058285-72ff-4d3b-b029-c42d36ad5bba",
+        "label": "Please select the relevant questions. (Are there women working in your team?)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_wAzMaz_839b5fa9-2269-476a-b1f8-060f0423ac96",
+        "label": "Please select the relevant questions. (Are there people with migrant backgrounds working in your project?)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_wAzMaz_4cc8671b-7a8a-4243-abf4-4b350c4d7115",
+        "label": "Please select the relevant questions. (In what industrial sector do you consider your project?)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_wAzMaz_608da8ac-5aa4-4513-89d1-c1b0e78def5e",
+        "label": "Please select the relevant questions. (In which way do you use AI?)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_wAzMaz_c5ba7b7d-2575-4ce0-b635-c3066b9247bb",
+        "label": "Please select the relevant questions. (What generation of machine learning models do you deploy?)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_wAzMaz_5d25361e-45f1-4ee4-b7c8-e95b71b6206f",
+        "label": "Please select the relevant questions. (How is the model trained/built?)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_wAzMaz_f2044bcc-8c63-4803-96c1-434fc1d0cf3f",
+        "label": "Please select the relevant questions. (Did you implement the project in house or did you hire an external developer?)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_wAzMaz_f0394af9-142a-4634-b231-814b907ab03b",
+        "label": "Please select the relevant questions. (Is the project open source?)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_wAzMaz_2641b6ad-9018-45be-ad1b-82c131341636",
+        "label": "Please select the relevant questions. (Is there a git, links or other material on the project?)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_wAzMaz_1e17b349-2c89-4806-918e-d9ff39ab583f",
+        "label": "Please select the relevant questions. (How did the idea of your project come about?)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_wAzMaz_c85d8010-83b8-4f0d-a67b-bbd902fc9517",
+        "label": "Please select the relevant questions. (Who was involved in the initial idea?)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_wAzMaz_61d609f5-ac13-4632-8077-495a07adf0dc",
+        "label": "Please select the relevant questions. (What is the goal of your project in relation to the public interest?)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_wAzMaz_3dfd22c5-1376-4558-b11b-855d59e3c26e",
+        "label": "Please select the relevant questions. (Did you follow one or more guidelines for ethical AI, and if yes, which one?)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_wAzMaz_9adeb042-dce8-414b-9547-399dd2a52f04",
+        "label": "Please select the relevant questions. (What are the top 5 guiding-values for the project?)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_wAzMaz_692cefef-516b-413a-b7f4-960508de91d2",
+        "label": "Please select the relevant questions. (Define the type of primary users that interact with the system.)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_wAzMaz_51befa5a-eb85-4739-bba9-a3d7e7ac109b",
+        "label": "Please select the relevant questions. (Which stakeholders were involved in the process of development and implementation of the project?)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_wAzMaz_d6ef9890-7ebf-4258-bc8d-c667d3fbb8ae",
+        "label": "Please select the relevant questions. (How did you engage relevant stakeholders?)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_wAzMaz_22a3cb28-01a9-4596-9726-b7d67bc9dcad",
+        "label": "Please select the relevant questions. (Validation of the project results by third parties and/or the public is a necessary component of the project design.)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_wAzMaz_4215bd2a-cde7-441e-964b-c0c3f328ba70",
+        "label": "Please select the relevant questions. (Involving the people who will be affected by the project is a necessary part of the project design.)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_wAzMaz_5a0dedae-a5be-4966-9cc2-2809d0016d50",
+        "label": "Please select the relevant questions. (Involving volunteers is a necessary part of the project design.)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_wAzMaz_9ec2e2c2-1605-4e7b-9fde-16860c8a8769",
+        "label": "Please select the relevant questions. (How can stakeholders, the public or other third parties give you feedback about the problems or the progress and benefits of this project?)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_wAzMaz_cf5c31f7-72e8-438f-8832-99846bec0e6b",
+        "label": "Please select the relevant questions. (How did you verify the accuracy and robustness of your system?)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_wAzMaz_072a42ce-c487-4830-8947-c532b8a3c3d2",
+        "label": "Please select the relevant questions. (What organisational safeguards have you implemented to protect personal data and mitigate possible harms?)",
+        "type": "CHECKBOXES",
+        "value": null
+      },
+      {
+        "key": "question_wAzMaz_419fa069-b596-4bcd-b959-955efb75ef5d",
+        "label": "Please select the relevant questions. (What technical safeguards have you implemented to protect personal data and mitigate possible harms?)",
+        "type": "CHECKBOXES",
+        "value": null
+      }
+    ]
+  }
+}
