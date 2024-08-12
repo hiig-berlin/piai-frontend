@@ -8,7 +8,7 @@ export const textBits = {
       subtitle:
         "A web-based tool and browser extension that generates summaries of German-language texts. It is designed to improve your reading experience or support you on your language learning journey.",
     },
-    
+
     index: {
       about: {
         title: "AI-assisted text simplification",
@@ -75,8 +75,9 @@ export const textBits = {
         description: `The Simba Text Assistant is a browser extension that produces summaries of German-language text on web pages. It is designed to additionally simplify the summaries, by shortening the sentences and providing explanations for words.`,
         subline: `The browser extension, also known as a plugin or add-on, is installed through the browser. An icon in the status bar of the browser will then provide you with additional features. The browser extension also allows you to to give your feedback on the summary that Simba produces.`,
       },
-      download: {
-        firefox: {
+      download: [
+        {
+          slug: "firefox",
           title: "Download for Firefox",
           blurb: `Download Simba as a browser add-on for Firefox and start summarising webpages as you browse.`,
           button: {
@@ -84,7 +85,8 @@ export const textBits = {
             label: "Install Firefox Add-on",
           },
         },
-        chrome: {
+        {
+          slug: "chrome",
           title: "Download for Chrome",
           blurb: `Download Simba as a browser extension from the Chrome web store and start summarising webpages.`,
           button: {
@@ -92,7 +94,7 @@ export const textBits = {
             label: "Install Chrome Extension",
           },
         },
-      },
+      ],
       application: {
         title: "What to use it for",
         subtitle: `The Simba Browser Extension can be used on a variety of webpages
@@ -110,7 +112,7 @@ export const textBits = {
             title: "Getting an overview",
             text: `Read succinct overviews of longer, complex webpages.`,
           },
-        }
+        },
       },
     },
   },
@@ -119,7 +121,7 @@ export const textBits = {
       title: "Simba Text Assistent",
       subtitle: `Eine Anwendung und ein Erweiterung für den Browser fasst für Sie deutsche Texte zusammen. So wird das Lesen einfacher und Sie lernen die Sprache schneller.`,
     },
-    
+
     index: {
       about: {
         title: "Simba – KI-unterstützte Textvereinfachung",
@@ -186,8 +188,9 @@ export const textBits = {
         description: `Der Simba Text Assistant ist eine Browsererweiterung, die Zusammenfassungen deutscher Texte auf Webseiten erstellt. Die Zusammenfassungen werden zusätzlich vereinfacht, indem die Sätze verkürzt und Erklärungen für Wörter bereitgestellt werden.`,
         subline: `Die Browsererweiterung, auch bekannt als Plugin oder Add-on, wird über den Browser installiert. Ein Symbol in der Statusleiste des Browsers bietet Ihnen zusätzliche Funktionen. Die Browsererweiterung bietet auch die Möglichkeit, Ihr Feedback zur Zusammenfassung abzugeben, die Simba erstellt.`,
       },
-      download: {
-        firefox: {
+      download: [
+        {
+          slug: "firefox",
           title: "Download für Firefox",
           blurb: `Laden Sie Simba als Browser-Add-On für Firefox herunter und beginnen Sie, Webseiten zusammenzufassen, während Sie surfen.`,
           button: {
@@ -195,7 +198,8 @@ export const textBits = {
             label: "Firefox Add-On installieren",
           },
         },
-        chrome: {
+        {
+          slug: "chrome",
           title: "Download für Chrome",
           blurb: `Laden Sie Simba als Browsererweiterung aus dem Chrome Web Store herunter und beginnen Sie, Webseiten zusammenzufassen.`,
           button: {
@@ -203,7 +207,7 @@ export const textBits = {
             label: "Chrome Erweiterung installieren",
           },
         },
-      },
+      ],
       application: {
         title: "Wofür Sie es verwenden können",
         subtitle: `Die Simba Browsererweiterung kann auf einer Vielzahl von Webseiten in Firefox- und Chrome-Browsern verwendet werden.`,
@@ -220,7 +224,7 @@ export const textBits = {
             title: "Einen Überblick erhalten",
             text: `Lesen Sie prägnante Übersichten längerer, komplexer Webseiten.`,
           },
-        }
+        },
       },
     },
   },

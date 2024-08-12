@@ -39,89 +39,68 @@ const Index = ({ tool }: { tool: PiAiTool }) => {
       />
 
       {/* =================== HEADER =================== */}
-      <SimbaHeader tool={tool}></SimbaHeader>
+      <SimbaHeader
+        tool={tool}
+        language={language}
+        setLanguage={setLanguage}
+        strings={strings?.header}
+      ></SimbaHeader>
 
       {/* =================== GRID =================== */}
       <Grid>
-        <BoxHighlight className="download firefox">
-          <h2>Download for Firefox</h2>
-          <Blurb>
-            <ToolSvgBackground type="firefox" />
-            Download Simba as a browser add-on for Firefox and start summarising
-            webpages as you browse.
-          </Blurb>
-
-          <LinkButtonAnimated
-            href="https://addons.mozilla.org/en-US/firefox/addon/simba-text-assistant/"
-            target="_blank"
-          >
-            Install Firefox Add-on
-          </LinkButtonAnimated>
-        </BoxHighlight>
-        <BoxHighlight className="download chrome">
-          <h2>Download for Chrome</h2>
-          <Blurb>
-            {" "}
-            <ToolSvgBackground type="chrome" />
-            Download Simba as a browser extension from the Chrome web store and
-            start summarising webpagesx.
-          </Blurb>
-          <LinkButtonAnimated
-            href="https://chromewebstore.google.com/detail/simba-text-assistant/lllfbelghpclobblmackbkheabbhfdhf"
-            target="_blank"
-          >
-            Install Chrome Extension
-          </LinkButtonAnimated>
-        </BoxHighlight>
+        {/* ------------------- Download ------------------- */}
+        {strings?.extension?.download &&
+          strings?.extension?.download.map((browser: any, index: number) => (
+            <BoxHighlight key={index} className={`download ${browser.slug}`}>
+              <h2>{browser.title}</h2>
+              <Blurb>
+                <ToolSvgBackground type={browser.slug} />
+                {browser.blurb}
+              </Blurb>
+              <LinkButtonAnimated href={browser.button?.url} target="_blank">
+                {browser.button?.label}
+              </LinkButtonAnimated>
+            </BoxHighlight>
+          ))}
 
         {/* ------------------- About ------------------- */}
         <Box className="about">
           <div className="title">
             <ToolSvgBackground type="lion" />
-            <h2>Simba browser extension</h2>
-            <p>
-              Get summaries of German-language text on web pages as you browse
-            </p>
+            <h2>{strings?.extension.about.title}</h2>
+            <p>{strings?.extension.about.subtitle} </p>
           </div>
 
           <p className="copy">
-            The Simba Text Assistant is a browser extension that produces
-            summaries of German-language text on web pages. It is designed to
-            additionally simplify the summaries, by shortening the sentences and
-            providing explanations for words.
+          {strings?.extension.about.description} 
           </p>
           <ToolSvgBackground type="screenshot" className="screenshot" />
           <Meta col={1} className="subline">
-            The browser extension, also known as a plugin or add-on, is
-            installed through the browser. An icon in the status bar of the
-            browser will then provide you with additional features. The browser
-            extension also allows you to to give your feedback on the summary
-            that Simba produces.
+          {strings?.extension.about.subline} 
           </Meta>
         </Box>
 
         <Box className="application">
           <div className="intro">
-            <h2>What to use it for</h2>
+            <h2>{strings?.extension.application.title} </h2>
             <p>
-              The Simba Browser Extension can be used on a variety of webpages
-              in both Firefox and Chrome browsers.
+            {strings?.extension.application.subtitle}
             </p>
           </div>
           <Blurb>
             <ToolSvgBackground type="globe" />
-            <h3>Learning German</h3>
-            <p>Improve your language skills by simplifying online content.</p>
+            <h3>{strings?.extension.application.fields.learning.title}</h3>
+            <p>{strings?.extension.application.fields.learning.text}</p>
           </Blurb>
           <Blurb>
             <ToolSvgBackground type="clean" />
-            <h3>Creating accessible content</h3>
-            <p>Get suggestions for simplifying your online content.</p>
+            <h3>{strings?.extension.application.fields.accessibility.title}</h3>
+            <p>{strings?.extension.application.fields.accessibility.text}</p>
           </Blurb>
           <Blurb>
             <ToolSvgBackground type="structure" />
-            <h3>Getting quick overviews</h3>
-            <p>Read succinct overviews of longer, complex webpages.</p>
+            <h3>{strings?.extension.application.fields.overview.title}</h3>
+            <p>{strings?.extension.application.fields.overview.text}</p>
           </Blurb>
         </Box>
       </Grid>
