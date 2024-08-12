@@ -18,9 +18,11 @@ import {
   BoxHighlight,
   Blurb,
 } from "~/components/tools/simba/Styled";
+import useLanguage from "~/hooks/useLanguage";
 
 const Index = ({ tool }: { tool: PiAiTool }) => {
   const currentTool = appConfig.tools?.find((t) => t.slug === "simba");
+  const { strings, language, setLanguage } = useLanguage("simba"); // Use language hook
 
   return (
     <SimbaWrapper>

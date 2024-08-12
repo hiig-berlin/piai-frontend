@@ -12,22 +12,17 @@ import { Box } from "~/components/tools/shared/ui/Box";
 import { LinkButtonAnimated } from "~/components/styled/Button";
 import { ToolSvgBackground } from "~/components/tools/shared/ToolSvgBackground";
 
-
 import SimbaHeader from "~/components/tools/simba/header";
 import { BoxHighlight, SimbaWrapper } from "~/components/tools/simba/Styled";
-import { textBits } from "~/components/tools/simba/textbits";
 import Examples from "~/components/tools/simba/examples";
 import { narrow } from "~/components/tools/map/Styled";
+import useLanguage from "~/hooks/useLanguage";
 
-const Index = ({
-  tool,
-}: {
-  tool: PiAiTool;
-}) => {
-
+const Index = ({ tool }: { tool: PiAiTool }) => {
   const currentTool = appConfig.tools?.find((t) => t.slug === "simba");
+  const { strings, language, setLanguage } = useLanguage("simba"); // Use language hook
 
-  const strings = textBits.en.index;
+  // const strings?.index = textBits.en.index;
 
   return (
     <SimbaWrapper>
@@ -43,61 +38,69 @@ const Index = ({
         }}
       />
       {/* =================== HEADER =================== */}
-      <SimbaHeader tool={tool}></SimbaHeader>
+      <SimbaHeader
+        strings={strings?.header}
+        tool={tool}
+        language={language}
+        setLanguage={setLanguage}
+      ></SimbaHeader>
       {/* =================== MAIN =================== */}
 
       <Grid>
         <About>
           <ToolSvgBackground type="lion" />
-          <h2 className="title">{strings.about.title}</h2>
-          <p className="subtitle">{strings.about.subtitle}</p>
-          <p className="description">{strings.about.description}</p>
+          <h2 className="title">{strings?.index.about.title}</h2>
+          <p className="subtitle">{strings?.index.about.subtitle}</p>
+          <p className="description">{strings?.index.about.description}</p>
         </About>
 
         <Team>
-          <h2 className="title">{strings.team.title}</h2>
-          <p>{strings.team.text}</p>
-          <LinkButtonAnimated href={strings.team.button.url} className="button" target="_blank" rel="noreferrer nofollow">
-            {strings.team.button.label}
+          <h2 className="title">{strings?.index.team.title}</h2>
+          <p>{strings?.index.team.text}</p>
+          <LinkButtonAnimated
+            href={strings?.index.team.button.url}
+            className="button"
+            target="_blank"
+            rel="noreferrer nofollow"
+          >
+            {strings?.index.team.button.label}
           </LinkButtonAnimated>
         </Team>
 
         <Tool className="simplifier">
           <div>
-            <h2>{strings.simplifier.title}</h2>
-            <p className="subtitle">{strings.simplifier.subtitle}</p>
+            <h2>{strings?.index.simplifier.title}</h2>
+            <p className="subtitle">{strings?.index.simplifier.subtitle}</p>
           </div>
-          <p className="copy">{strings.simplifier.description}</p>
-         
+          <p className="copy">{strings?.index.simplifier.description}</p>
+
           <ToolSvgBackground
             type="screenshotSimplifier"
             className="screenshot"
           />
-           <LinkButtonAnimated
-            href={strings.simplifier.button.url}
+          <LinkButtonAnimated
+            href={strings?.index.simplifier.button.url}
             className="button"
           >
-            {strings.simplifier.button.label}
+            {strings?.index.simplifier.button.label}
           </LinkButtonAnimated>
         </Tool>
 
         <Tool className="extension">
           <div>
-            <h2>{strings.plugin.title}</h2>
-            <p className="subtitle">{strings.plugin.subtitle}</p>
+            <h2>{strings?.index.plugin.title}</h2>
+            <p className="subtitle">{strings?.index.plugin.subtitle}</p>
           </div>
-          <p className="copy">{strings.plugin.description}</p>
-          
+          <p className="copy">{strings?.index.plugin.description}</p>
+
           <ToolSvgBackground type="screenshot" className="screenshot" />
           <LinkButtonAnimated
-            href={strings.plugin.button.url}
+            href={strings?.index.plugin.button.url}
             className="button"
           >
-            {strings.plugin.button.label}
+            {strings?.index.plugin.button.label}
           </LinkButtonAnimated>
         </Tool>
-
-        
 
         <Examples />
       </Grid>
@@ -230,12 +233,11 @@ const Team = styled(BoxHighlight)`
 `;
 
 const Tool = styled(Box)`
-
-  h2{
+  h2 {
     margin: 0;
   }
 
-  .subtitle{
+  .subtitle {
     ${narrow}
     margin-bottom: 0;
   }

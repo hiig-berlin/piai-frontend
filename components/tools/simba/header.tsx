@@ -170,12 +170,14 @@ const LanguageButton = styled(ButtonNormalized)<{ active: boolean }>`
   // position: relative;
   // appearance: none;
   // user-select: none;
-  font-weight: ${({ theme, active }) => (active ? "bold" : "normal")};
+  font-weight: ${({ active }) => (active ? "bold" : "normal")};
   // font-size: 1em;
   transition: all ease 0.2s;
 
+  cursor: ${({ active }) => (active ? "default" : "pointer")};
+
   &:hover {
-    color: ${({ theme }) => theme.color("piai-simba", 1)};
+    color: ${({ theme, active }) => (active ? "inherit" : theme.color("piai-simba", 1))};
     font-weight: bold;
   }
 `;

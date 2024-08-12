@@ -8,9 +8,7 @@ import Vote from "./vote";
 import { Placeholder } from "../shared/Styled";
 import { ToolSvgBackground } from "../shared/ToolSvgBackground";
 
-import {
-  useCssVarsStateIsTabletLandscapeAndUpState,
-} from "~/components/state/CssVarsState";
+import { useCssVarsStateIsTabletLandscapeAndUpState } from "~/components/state/CssVarsState";
 
 // Function to fetch summary from API
 const getSummary = async (input: string, clientIP: string) => {
@@ -50,10 +48,9 @@ const getSummary = async (input: string, clientIP: string) => {
   }
 };
 
-const Simplifier = ({strings}: {strings: any}) => {
-
+const Simplifier = ({ strings }: { strings: any }) => {
   const isTabletLandscapeAndUp = useCssVarsStateIsTabletLandscapeAndUpState();
-  
+
   const [currentOutput, setCurrentOutput] = useState<string>(
     strings?.placeholderOutput ||
       "Insert the text on the left that you want to be summarised."
@@ -99,14 +96,14 @@ const Simplifier = ({strings}: {strings: any}) => {
         const response = await fetch("/api/get-client-ip");
         const data = await response.json();
         setClientIP(data.ip);
-        console.log("Client IP:", data);
+        if (process.env.NODE_ENV === "development")
+          console.log("Client IP:", data);
       } catch (error) {
         console.error("Error fetching client IP:", error);
       }
     };
     fetchClientIp();
   }, []);
-
 
   // Handle blur event for custom text input
   const handleCustomTextBlur = async () => {
@@ -153,17 +150,18 @@ const Simplifier = ({strings}: {strings: any}) => {
           className={termsAccepted ? "" : "disabled"}
           onChange={(event) => setCustomText(event.target.value)}
         />
-        {(customText.trim() != "" && termsAccepted && !isTabletLandscapeAndUp) && (
-             
-             <Button
-               name="generate"
-               onClick={handleCustomTextBlur}
-               disabled={true}
-               // disabled={termsAccepted ? false : true}
-             >
-               {strings?.submit || "Generate summary"}
-             </Button>
-           )}
+        {customText.trim() != "" &&
+          termsAccepted &&
+          !isTabletLandscapeAndUp && (
+            <Button
+              name="generate"
+              onClick={handleCustomTextBlur}
+              disabled={true}
+              // disabled={termsAccepted ? false : true}
+            >
+              {strings?.submit || "Generate summary"}
+            </Button>
+          )}
         {!termsAccepted && (
           <div className="prompt">
             <p>
@@ -191,24 +189,25 @@ const Simplifier = ({strings}: {strings: any}) => {
       ) : (
         <>
           <SafeHtmlDiv html={currentOutput} />
-          
-          {(customText.trim() != "" && termsAccepted && isTabletLandscapeAndUp) && (
-             
-            <Button
-              name="generate"
-              onClick={handleCustomTextBlur}
-              disabled={true}
-              // disabled={termsAccepted ? false : true}
-            >
-              {strings?.submit || "Generate summary"}
-            </Button>
-          )}
+
+          {customText.trim() != "" &&
+            termsAccepted &&
+            isTabletLandscapeAndUp && (
+              <Button
+                name="generate"
+                onClick={handleCustomTextBlur}
+                disabled={true}
+                // disabled={termsAccepted ? false : true}
+              >
+                {strings?.submit || "Generate summary"}
+              </Button>
+            )}
           {showVote && (
             <Vote
               clientIP={clientIP}
               currentUUID={currentUUID}
               strings={strings}
-            />  
+            />
           )}
         </>
       )}
@@ -227,8 +226,6 @@ const Simplifier = ({strings}: {strings: any}) => {
           shortens and simplifies German text based on an AI model.`}
         </p>
       </div>
-
-      
 
       <div className="input">
         <h3>Input</h3>
@@ -367,7 +364,7 @@ const SimplifyWrapper = styled(Box)`
     font-size: 1em;
     display: flex;
     flex-direction: column;
-    
+
     // Make tabindex invisible
     &:focus {
       outline: none;
