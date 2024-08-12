@@ -160,7 +160,7 @@ const VoteWrapper = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin-top: auto;
+  margin-top: 0;
   padding-top: var(--size-4);
   opacity: 0.6;
 

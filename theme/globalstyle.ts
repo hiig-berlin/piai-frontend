@@ -33,6 +33,7 @@ export const GlobalStyle = createGlobalStyle`
   p {
     max-width: var(--size-content-max-width);
     margin: 0 0 var(--text-body-margin-bottom) 0;
+    font-weight: ${({ theme }) =>theme.colorMode === "dark" ? "400" : "300"};
   }
 
   a{

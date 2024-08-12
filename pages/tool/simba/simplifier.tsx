@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement, useState, useEffect } from "react";
 import type { GetStaticProps } from "next";
 import NextHeadSeo from "next-head-seo";
 
@@ -9,15 +9,12 @@ import { PiAiTool } from "~/types";
 import Simplifier from "~/components/tools/simba/simplifier";
 import SimbaHeader from "~/components/tools/simba/header";
 import { SimbaWrapper } from "~/components/tools/simba/Styled";
- 
-const SimplifierPage = ({  tool,
-}: {  tool: PiAiTool;
-}) => {
+import useLanguage from "~/hooks/useLanguage";
 
-
+const SimplifierPage = ({ tool }: { tool: PiAiTool }) => {
   const currentTool = appConfig.tools?.find((t) => t.slug === "simba");
-
-
+  const { strings, language, setLanguage } = useLanguage("simba"); // Use language hook
+  
   return (
     <SimbaWrapper>
       <NextHeadSeo
@@ -34,12 +31,13 @@ const SimplifierPage = ({  tool,
 
       {/* =================== HEADER =================== */}
       <SimbaHeader
+        strings={strings?.header}
         tool={tool}
+        language={language}
+        setLanguage={setLanguage}
       ></SimbaHeader>
 
-      <Simplifier />
-
-      
+      <Simplifier strings={strings?.simplifier} />
     </SimbaWrapper>
   );
 };
