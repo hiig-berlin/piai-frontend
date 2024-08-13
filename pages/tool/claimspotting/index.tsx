@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useState, useCallback } from "react";
+import React, { ReactElement, useEffect, useState, useCallback } from "react";
 import type { GetStaticProps } from "next";
 import NextHeadSeo from "next-head-seo";
 import { appConfig } from "~/config";
@@ -15,6 +15,7 @@ import Filter from "~/components/tools/claimspotting/Filter";
 import ClaimTable from "~/components/tools/claimspotting/ClaimTable";
 import { FilterStateProps } from "~/components/tools/claimspotting/ui/types";
 import { ClaimspottingWrapper } from "~/components/tools/claimspotting/Styled";
+import axios from "axios"; // Add axios for making HTTP requests
 
 const Index = ({
   frontendSettings,
@@ -49,15 +50,29 @@ const Index = ({
 
   // Load data asynchronously
   useEffect(() => {
-    const loadDummyClaims = async () => {
-      const { dummyClaims } = await import(
-        "~/assets/test-data/claimspotting/LarissaDummyShort"
-      );
-      setData(dummyClaims);
-      setFilteredData(dummyClaims); // Initialize filteredData with dummyClaims
+    const loadData = async () => {
+      if (process.env.NODE_ENV === "development") {
+        // Load data from a local file in development
+        const { dummyClaims } = await import(
+          "~/assets/test-data/claimspotting/LarissaDummyShort"
+        );
+        setData(dummyClaims);
+        setFilteredData(dummyClaims); // Initialize filteredData with dummyClaims
+      } else {
+        // Load data from an external URL in production
+        try {
+          const response = await axios.get(
+            "https://res.cloudinary.com/dcipqnhka/raw/upload/v1723592731/claimspotting/LarissaDummyShort.tsx"
+          );
+          setData(response.data);
+          setFilteredData(response.data); // Initialize filteredData with the fetched data
+        } catch (error) {
+          console.error("Error loading data:", error);
+        }
+      }
     };
 
-    loadDummyClaims();
+    loadData();
   }, []);
 
   // Memoize filter change handler
@@ -104,8 +119,8 @@ const Index = ({
         onFilterChange={handleFilterChange}
         dataLengthTotal={data.length}
         dataLengthFiltered={filteredData.length}
-        filterState = {filterState}
-        setFilterState = {setFilterState}
+        filterState={filterState}
+        setFilterState={setFilterState}
       />
 
       <ClaimTable data={filteredData} setFilterState={setFilterState} />
@@ -143,4 +158,3 @@ Index.getLayout = function getLayout(page: ReactElement, props: any) {
 };
 
 export default Index;
-
