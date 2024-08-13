@@ -1,21 +1,35 @@
-import { ReactElement } from "react";
+import { ReactElement, useEffect, useState, useCallback } from "react";
 import type { GetStaticProps } from "next";
 import NextHeadSeo from "next-head-seo";
-
 import { appConfig } from "~/config";
 import LayoutTool from "~/components/layouts/LayoutTool";
 import { restApiGetSettings } from "~/utils/restApi";
 import { PiAiTool } from "~/types";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import {
   useCssVarsStateIsDesktopAndUpState,
   useCssVarsStateIsTabletAndUpState,
 } from "~/components/state/CssVarsState";
 import ToolHeader from "~/components/tools/shared/Header";
 import Filter from "~/components/tools/claimspotting/Filter";
-import {dummyClaims} from "~/assets/test-data/claimspotting/LarissaDummyShort";
 import ClaimTable from "~/components/tools/claimspotting/ClaimTable";
 
+// Define the type for the state
+type FilterState = {
+  startDate: string;
+  endDate: string;
+  narrative: string;
+  topics: string[];
+  attributes: {
+    polarising: boolean;
+    sensational: boolean;
+    factual: boolean;
+    highDiffusion: boolean;
+    manyTwins: boolean;
+  };
+  lastWeek: boolean;
+  lastMonth: boolean;
+};
 
 const Index = ({
   frontendSettings,
@@ -28,8 +42,28 @@ const Index = ({
   const isDesktopAndUp = useCssVarsStateIsDesktopAndUpState();
   const currentTool = appConfig.tools?.find((t) => t.slug === "claimspotting");
 
-  const data = dummyClaims
-  
+  const [data, setData] = useState<any[]>([]);
+  const [filteredData, setFilteredData] = useState<any[]>([]);
+
+  const filter
+  // Load data asynchronously
+  useEffect(() => {
+    const loadDummyClaims = async () => {
+      const { dummyClaims } = await import(
+        "~/assets/test-data/claimspotting/LarissaDummyShort"
+      );
+      setData(dummyClaims);
+      setFilteredData(dummyClaims); // Initialize filteredData with dummyClaims
+    };
+
+    loadDummyClaims();
+  }, []);
+
+  // Memoize filter change handler
+  const handleFilterChange = useCallback((filteredData: any[]) => {
+    setFilteredData(filteredData);
+  }, []);
+
   return (
     <ClaimspottingWrapper>
       <NextHeadSeo
@@ -61,13 +95,17 @@ const Index = ({
             ariaLabel: "Go to GitHub repository",
             label: "GitHub",
           },
-        ]} 
+        ]}
       />
 
-      <Filter data={data}/>
+      <Filter
+        data={data}
+        onFilterChange={handleFilterChange}
+        dataLengthTotal={data.length}
+        dataLengthFiltered={filteredData.length}
+      />
 
-      <ClaimTable data={data}/>
-
+      <ClaimTable data={filteredData} />
     </ClaimspottingWrapper>
   );
 };

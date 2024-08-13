@@ -53,3 +53,19 @@ export interface ColumnProps {
   slug: string;
   sortable: boolean;
 }
+
+export interface FilterStateProps {
+  startDate: string;
+  endDate: string;
+  narrative: string;
+  topics: string[];
+  attributes: {
+    polarising: boolean;
+    sensational: boolean;
+    factual: boolean;
+    highDiffusion: boolean;
+    manyTwins: boolean;
+  };
+  lastWeek: boolean;
+  lastMonth: boolean;
+};

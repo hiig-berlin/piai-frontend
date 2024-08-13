@@ -69,6 +69,7 @@ const HeaderCellWrapper = styled.div`
     ${({ theme }) => theme.applyMixin("uppercase")};
     ${narrow}
     letter-spacing: 0.04em;
+    margin: 0;
   }
 
   button {

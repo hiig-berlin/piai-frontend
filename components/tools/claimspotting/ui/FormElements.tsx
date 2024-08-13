@@ -1,0 +1,60 @@
+import styled from "styled-components";
+
+export const InputText = styled.input`
+  padding: var(--size-1) 0;
+  border: solid #fff;
+  border-width: 0 0 1px 0;
+  width: 100%;
+  background: #000;
+  color: #fff;
+`;
+
+export const Checkbox = styled.input`
+  border: 1px solid #fff;
+  background-color: #000;
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  width: var(--size-3);
+  height: var(--size-3);
+  cursor: pointer;
+
+  ${({ theme }) => theme.breakpoints.tablet} {
+    width: var(--size-2);
+    height: var(--size-2);
+  }
+  
+  &:after {
+    position: absolute;
+    content: "";
+    display: block;
+    width: calc(100% - 2px);
+    height: calc(100% - 2px);
+    top: 1px;
+    left: 1px;
+    background-color: #000;
+  }
+
+  &:checked {
+    &:after {
+      background-color: #fff;
+    }
+  }
+`;
+
+
+export const Dropdown = styled.select`
+  width: 100%;
+  padding: var(--size-1) 0;
+
+  // Reset select appearance
+  // black background with white button line
+  // white triangle at the right
+
+  appearance: none;
+  background: #000;
+  border: 1px solid #fff;
+  border-width: 0 0 1px 0;
+  color: #fff;
+`;

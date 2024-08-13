@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Box } from "~/components/tools/shared/ui/Box";
 import { Button } from "~/components/styled/Button";
@@ -12,6 +12,13 @@ const ClaimTable: React.FC<ClaimTableProps> = ({ data }: {data: any;}) => {
   const NUM_ROWS = 50;
   const [rows, setRows] = useState<DataRowProps[]>(data.slice(0, NUM_ROWS));
   const [sort, setSort] = useState<SortState>({ column: "Date", order: "asc" });
+
+  useEffect(() => {
+    // Load initial rows when data is available
+    if (data.length > 0) {
+      setRows(data.slice(0, NUM_ROWS));
+    }
+  }, [data]);
 
   const sortData = (column: string) => {
     const order = (sort.column === column && sort.order === "asc") ? "desc" : "asc";

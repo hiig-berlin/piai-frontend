@@ -21,7 +21,7 @@ export const DataRow: React.FC<DataRowComponentProps> = ({ row }) => {
     text: truncateText(row.Text, 50),
     channel: row.Channel_Name,
     topics: renderTopics(row.Topic),
-    narrative: row.Narratives,
+    narrative: truncateText(row.Narratives, 50),
     attributes: renderAttributes(row.Polarising, row.Sensationalist, 0),
     reach: renderReach(row.Forwards, row.Views, row.Siblings.length),
   };
