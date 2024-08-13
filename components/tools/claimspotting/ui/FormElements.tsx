@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const InputText = styled.input`
-  padding: var(--size-1) 0;
+  padding: 0 0 var(--size-1);
   border: solid #fff;
   border-width: 0 0 1px 0;
   width: 100%;
@@ -24,7 +24,7 @@ export const Checkbox = styled.input`
     width: var(--size-2);
     height: var(--size-2);
   }
-  
+
   &:after {
     position: absolute;
     content: "";
@@ -43,18 +43,13 @@ export const Checkbox = styled.input`
   }
 `;
 
-
 export const Dropdown = styled.select`
   width: 100%;
-  padding: var(--size-1) 0;
-
-  // Reset select appearance
-  // black background with white button line
-  // white triangle at the right
-
+  padding: 0 0 var(--size-1);
   appearance: none;
   background: #000;
   border: 1px solid #fff;
   border-width: 0 0 1px 0;
   color: #fff;
+  font-family: var(--font-family-monospace);
 `;

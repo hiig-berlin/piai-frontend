@@ -26,6 +26,7 @@ export interface DataRowProps {
 
 export interface ClaimTableProps {
   data: DataRowProps[];
+  setFilterState: React.Dispatch<React.SetStateAction<FilterStateProps>>;
 }
 
 export interface SortState {
@@ -46,6 +47,7 @@ export interface SortArrowProps {
 
 export interface DataRowComponentProps {
   row: DataRowProps;
+  setFilterState: React.Dispatch<React.SetStateAction<FilterStateProps>>;
 }
 
 export interface ColumnProps {

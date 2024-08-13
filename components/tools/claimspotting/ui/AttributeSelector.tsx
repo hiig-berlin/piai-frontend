@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import safeHtml from '~/utils/sanitize';
-import { Reveal } from '~/components/ui/Reveal';
-import { Icon } from '../../shared/ui/Icon';
-import { ActiveFilterOption } from './ActiveFilterOption';
-import { FieldCheckbox } from './FieldCheckbox';
-import { ClearAll } from './ClearAll';
+import React, { useState } from "react";
+import styled from "styled-components";
+import safeHtml from "~/utils/sanitize";
+import { Reveal } from "~/components/ui/Reveal";
+import { Icon } from "../../shared/ui/Icon";
+import { ActiveFilterOption } from "./ActiveFilterOption";
+import { FieldCheckbox } from "./FieldCheckbox";
+import { ClearAll } from "./ClearAll";
 
 // Styled components
 const Container = styled.div``;
@@ -42,7 +42,8 @@ const Selected = styled.div`
 
 const Add = styled.div`
   flex-grow: 0;
-
+  margin-top: 7px;
+  
   & .svg {
     min-height: var(--size-2);
   }
@@ -60,9 +61,6 @@ const Dropdown = styled.select`
   border: 1px solid #fff;
   border-width: 0 0 1px 0;
   color: #fff;
-
-
-
 `;
 
 // Component
@@ -88,9 +86,10 @@ export const AttributeSelector = ({
   const [isOpen, setIsOpen] = useState(false);
 
   // Handle option change for multi-select
-  const handleOptionChange = (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    updateState(name, event.target.checked);
-  };
+  const handleOptionChange =
+    (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+      updateState(name, event.target.checked);
+    };
 
   // Handle selection change for single-select
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -99,7 +98,7 @@ export const AttributeSelector = ({
 
   return (
     <Container>
-      <H4>
+      {/* <H4>
         {safeHtml(label)}
         <Add>
           <Icon
@@ -112,13 +111,14 @@ export const AttributeSelector = ({
             {isOpen ? 'Collapse' : 'Select'}
           </Icon>
         </Add>
-      </H4>
+        
+      </H4> */}
 
       <Active>
         <Selected>
           {singleSelect ? (
             <div>
-              {activeTerms && typeof activeTerms === 'string' ? (
+              {activeTerms && typeof activeTerms === "string" ? (
                 <ActiveFilterOption
                   key={activeTerms}
                   onRemove={() => {
@@ -159,15 +159,30 @@ export const AttributeSelector = ({
                   {labelAllShown}
                 </span>
               )}
-              {typeof clearAllOnClick === 'function' && activeTerms.length > 0 && (
-                <ClearAll onClick={clearAllOnClick} />
-              )}
+              {typeof clearAllOnClick === "function" &&
+                activeTerms.length > 0 && (
+                  <ClearAll onClick={clearAllOnClick} />
+                )}
             </>
           )}
         </Selected>
+        <Add>
+          <Icon
+            className="textLink"
+            type={isOpen ? "minus" : "plus"}
+            onClick={() => {
+              setIsOpen(!isOpen);
+            }}
+          ></Icon>
+        </Add>
       </Active>
 
-      <Reveal open={isOpen} id={`${label}-options`} role="region" position="top">
+      <Reveal
+        open={isOpen}
+        id={`${label}-options`}
+        role="region"
+        position="top"
+      >
         <OptionsContainer>
           {singleSelect ? (
             <Dropdown value="{activeTerms || ''}" onChange={handleSelectChange}>

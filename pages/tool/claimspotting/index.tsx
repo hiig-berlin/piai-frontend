@@ -13,23 +13,8 @@ import {
 import ToolHeader from "~/components/tools/shared/Header";
 import Filter from "~/components/tools/claimspotting/Filter";
 import ClaimTable from "~/components/tools/claimspotting/ClaimTable";
-
-// Define the type for the state
-type FilterState = {
-  startDate: string;
-  endDate: string;
-  narrative: string;
-  topics: string[];
-  attributes: {
-    polarising: boolean;
-    sensational: boolean;
-    factual: boolean;
-    highDiffusion: boolean;
-    manyTwins: boolean;
-  };
-  lastWeek: boolean;
-  lastMonth: boolean;
-};
+import { FilterStateProps } from "~/components/tools/claimspotting/ui/types";
+import { ClaimspottingWrapper } from "~/components/tools/claimspotting/Styled";
 
 const Index = ({
   frontendSettings,
@@ -45,7 +30,23 @@ const Index = ({
   const [data, setData] = useState<any[]>([]);
   const [filteredData, setFilteredData] = useState<any[]>([]);
 
-  const filter
+  // Initialize state with explicit type
+  const [filterState, setFilterState] = useState<FilterStateProps>({
+    startDate: "",
+    endDate: "",
+    narrative: "",
+    topics: [],
+    attributes: {
+      polarising: false,
+      sensational: false,
+      factual: false,
+      highDiffusion: false,
+      manyTwins: false,
+    },
+    lastWeek: false,
+    lastMonth: false,
+  });
+
   // Load data asynchronously
   useEffect(() => {
     const loadDummyClaims = async () => {
@@ -103,9 +104,11 @@ const Index = ({
         onFilterChange={handleFilterChange}
         dataLengthTotal={data.length}
         dataLengthFiltered={filteredData.length}
+        filterState = {filterState}
+        setFilterState = {setFilterState}
       />
 
-      <ClaimTable data={filteredData} />
+      <ClaimTable data={filteredData} setFilterState={setFilterState} />
     </ClaimspottingWrapper>
   );
 };
@@ -141,9 +144,3 @@ Index.getLayout = function getLayout(page: ReactElement, props: any) {
 
 export default Index;
 
-const ClaimspottingWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: var(--size-3);
-  padding: var(--size-3);
-`;

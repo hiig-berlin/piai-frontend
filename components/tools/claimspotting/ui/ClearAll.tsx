@@ -19,7 +19,7 @@ const ClearAllContainer = styled.div`
 export const ClearAll = ({ onClick }: { onClick: () => void }) => (
   <ClearAllContainer>
     <Icon type="close" onClick={onClick}>
-      Clear all
+      Clear
     </Icon>
   </ClearAllContainer>
 );

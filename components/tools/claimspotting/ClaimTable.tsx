@@ -7,21 +7,30 @@ import { ClaimTableProps } from "~/components/tools/claimspotting/ui/types";
 import { SortState } from "~/components/tools/claimspotting/ui/types";
 import { HeaderRow } from "~/components/tools/claimspotting/ui/TableHeader";
 import { DataRow } from "~/components/tools/claimspotting/ui/TableData";
+import { FilterStateProps } from "~/components/tools/claimspotting/ui/types";
 
-const ClaimTable: React.FC<ClaimTableProps> = ({ data }: {data: any;}) => {
+const ClaimTable = ({
+  data,
+  setFilterState,
+}: {
+  data: any;
+  setFilterState: React.Dispatch<React.SetStateAction<FilterStateProps>>;
+}) => {
   const NUM_ROWS = 50;
   const [rows, setRows] = useState<DataRowProps[]>(data.slice(0, NUM_ROWS));
   const [sort, setSort] = useState<SortState>({ column: "Date", order: "asc" });
 
   useEffect(() => {
     // Load initial rows when data is available
-    if (data.length > 0) {
-      setRows(data.slice(0, NUM_ROWS));
-    }
+    // if (data.length > 0) {
+    //   setRows(data.slice(0, NUM_ROWS));
+    // }
+    setRows(data.slice(0, NUM_ROWS));
   }, [data]);
 
   const sortData = (column: string) => {
-    const order = (sort.column === column && sort.order === "asc") ? "desc" : "asc";
+    const order =
+      sort.column === column && sort.order === "asc" ? "desc" : "asc";
     setSort({ column, order });
     setRows(
       [...rows].sort((a, b) => {
@@ -42,9 +51,9 @@ const ClaimTable: React.FC<ClaimTableProps> = ({ data }: {data: any;}) => {
     <ClaimTableWrapper>
       <HeaderRow sortData={sortData} sort={sort} />
       {rows.map((row, index) => (
-        <DataRow key={index} row={row} />
+        <DataRow key={index} row={row} setFilterState={setFilterState} />
       ))}
-      <Button onClick={loadMore}>Load more</Button>
+      {rows.length < data.length && <LoadMore onClick={loadMore}>Load more</LoadMore>}
     </ClaimTableWrapper>
   );
 };
@@ -54,4 +63,9 @@ const ClaimTableWrapper = styled(Box)`
   display: flex;
   flex-direction: column;
   width: calc(100vw - 4 * var(--size-3) - 3rem);
+`;
+
+const LoadMore = styled(Button)`
+  margin-top: 1rem;
+  align-self: center;
 `;
