@@ -17,6 +17,34 @@ import { FilterStateProps } from "~/components/tools/claimspotting/ui/types";
 import { ClaimspottingWrapper } from "~/components/tools/claimspotting/Styled";
 import axios from "axios"; // Add axios for making HTTP requests
 
+// Function to load data in development
+const loadLocalData = async () => {
+  const { dummyClaims } = await import(
+    "~/assets/test-data/claimspotting/LarissaDummyShort"
+  );
+  return dummyClaims;
+};
+
+// Function to load data in production
+const loadProductionData = async () => {
+  try {
+    const response = await axios.get("https://res.cloudinary.com/dcipqnhka/raw/upload/v1723592731/claimspotting/LarissaDummyShort.tsx");
+    let data = response.data;
+
+    if (typeof data === "string" && data.startsWith("export const dummyClaims =")) {
+      // Extract the array from the string using eval
+      data = eval(data.replace("export const dummyClaims =", ""));
+    }
+
+    console.log("Data loaded successfully:", data);
+    
+    return data;
+  } catch (error) {
+    console.error("Error loading data:", error);
+    return [];
+  }
+};
+
 const Index = ({
   frontendSettings,
   tool,
@@ -51,25 +79,19 @@ const Index = ({
   // Load data asynchronously
   useEffect(() => {
     const loadData = async () => {
-      if (process.env.NODE_ENV === "development") {
-        // Load data from a local file in development
-        const { dummyClaims } = await import(
-          "~/assets/test-data/claimspotting/LarissaDummyShort"
-        );
-        setData(dummyClaims);
-        setFilteredData(dummyClaims); // Initialize filteredData with dummyClaims
-      } else {
+      // if (process.env.NODE_ENV === "development") {
+      //   // Load data from a local file in development
+      //   const { dummyClaims } = await import(
+      //     "~/assets/test-data/claimspotting/LarissaDummyShort"
+      //   );
+      //   setData(dummyClaims);
+      //   setFilteredData(dummyClaims); // Initialize filteredData with dummyClaims
+      // } else {
         // Load data from an external URL in production
-        try {
-          const response = await axios.get(
-            "https://res.cloudinary.com/dcipqnhka/raw/upload/v1723592731/claimspotting/LarissaDummyShort.tsx"
-          );
-          setData(response.data);
-          setFilteredData(response.data); // Initialize filteredData with the fetched data
-        } catch (error) {
-          console.error("Error loading data:", error);
-        }
-      }
+        const productionData = await loadProductionData();
+        setData(productionData);
+        setFilteredData(productionData);
+      // }
     };
 
     loadData();
