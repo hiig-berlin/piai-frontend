@@ -18,12 +18,12 @@ import { ClaimspottingWrapper } from "~/components/tools/claimspotting/Styled";
 import axios from "axios"; // Add axios for making HTTP requests
 
 // Function to load data in development
-const loadLocalData = async () => {
-  const { dummyClaims } = await import(
-    "~/assets/test-data/claimspotting/LarissaDummyShort"
-  );
-  return dummyClaims;
-};
+// const loadLocalData = async () => {
+//   const { dummyClaims } = await import(
+//     "~/assets/test-data/claimspotting/LarissaDummyShort"
+//   );
+//   return dummyClaims;
+// };
 
 // Function to load data in production
 const loadProductionData = async () => {
@@ -37,7 +37,7 @@ const loadProductionData = async () => {
     }
 
     console.log("Data loaded successfully:", data);
-    
+
     return data;
   } catch (error) {
     console.error("Error loading data:", error);
