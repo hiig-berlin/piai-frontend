@@ -2,7 +2,7 @@ export const scrollToHash = (hash: string) => {
   if (typeof document === undefined) return;
 
   if (hash.indexOf('#') > -1) {
-    let anchor = document.location.hash.replace('#!', "");
+    let anchor = hash.replace('#!', "");
     anchor = anchor.replace("#","");
 
     const target: HTMLElement | null = document.getElementById(anchor);
@@ -14,6 +14,7 @@ export const scrollToHash = (hash: string) => {
     }
 
     if (target) {
+      console.log("Scrolling to:", target.offsetTop + adjust);
       window.scrollTo({
         top: target.offsetTop + adjust,
         behavior: "smooth",
