@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Box } from "~/components/tools/shared/ui/Box";
-import {
-  Button,
-  ButtonNormalized,
-} from "~/components/styled/Button";
+import { Button } from "~/components/styled/Button";
 import SafeHtmlDiv from "~/components/ui/SafeHtmlDiv";
 import safeHtml from "~/utils/sanitize";
 import Vote from "./vote";
 import { Placeholder } from "../shared/Styled";
 import { ToolSvgBackground } from "../shared/ToolSvgBackground";
-import { textBits } from "./textbits";
+
+import { useCssVarsStateIsTabletLandscapeAndUpState } from "~/components/state/CssVarsState";
 
 // Function to fetch summary from API
 const getSummary = async (input: string, clientIP: string) => {
@@ -50,32 +48,9 @@ const getSummary = async (input: string, clientIP: string) => {
   }
 };
 
-const Simplifier = () => {
-  // State variables
-  const [strings, setStrings] = useState<
-    | {
-        title: string;
-        subtitle: string;
-        input: string;
-        promptText: string;
-        promptButton: string;
-        placeholderPromt: string;
-        placeholderInput: string;
-        placeholderOutput: string;
-        submit: string;
-        loading: string;
-        error: string;
-        output: string;
-        feedback: string;
-        feedbackText: string;
-        feedbackButton: string;
-        feedbackLoading: string;
-        feedbackSuccess: string;
-        termsTitle: string;
-        terms: string[];
-      }
-    | undefined
-  >();
+const Simplifier = ({ strings }: { strings: any }) => {
+  const isTabletLandscapeAndUp = useCssVarsStateIsTabletLandscapeAndUpState();
+
   const [currentOutput, setCurrentOutput] = useState<string>(
     strings?.placeholderOutput ||
       "Insert the text on the left that you want to be summarised."
@@ -86,36 +61,11 @@ const Simplifier = () => {
   const [clientIP, setClientIP] = useState("");
   const [currentUUID, setCurrentUUID] = useState<string>("");
   const [showVote, setShowVote] = useState<boolean>(false);
-  
-  // State variable for language selection 
-  const [language, setLanguage] = useState<string>("en");
-  const [isInitialLoad, setIsInitialLoad] = useState(true);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const urlParams = new URLSearchParams(window.location.search);
-      console.log("URL params:", urlParams);
-      const urlLang = urlParams.get("lang");
-      if (urlLang) {
-        setLanguage(urlLang);
-      }
-    }
-  }, []);
 
   // update strings variable to the selected language
   useEffect(() => {
-    if (language === "en") {
-      setStrings(textBits.en);
-    } else if (language === "de") {
-      setStrings(textBits.de);
-    }
     strings && setCurrentOutput(strings.placeholderOutput);
-    // update URL param accordingly
-    if (!isInitialLoad) {
-      window.history.replaceState({}, "", `?lang=${language}`);
-    }
-    setIsInitialLoad(false); // After the first update, set to false  
-  }, [language, strings, isInitialLoad]);
+  }, [strings]);
 
   // Effect to update local storage when termsAccepted changes
   useEffect(() => {
@@ -146,7 +96,8 @@ const Simplifier = () => {
         const response = await fetch("/api/get-client-ip");
         const data = await response.json();
         setClientIP(data.ip);
-        console.log("Client IP:", data);
+        if (process.env.NODE_ENV === "development")
+          console.log("Client IP:", data);
       } catch (error) {
         console.error("Error fetching client IP:", error);
       }
@@ -199,6 +150,18 @@ const Simplifier = () => {
           className={termsAccepted ? "" : "disabled"}
           onChange={(event) => setCustomText(event.target.value)}
         />
+        {customText.trim() != "" &&
+          termsAccepted &&
+          !isTabletLandscapeAndUp && (
+            <Button
+              name="generate"
+              onClick={handleCustomTextBlur}
+              disabled={true}
+              // disabled={termsAccepted ? false : true}
+            >
+              {strings?.submit || "Generate summary"}
+            </Button>
+          )}
         {!termsAccepted && (
           <div className="prompt">
             <p>
@@ -226,22 +189,25 @@ const Simplifier = () => {
       ) : (
         <>
           <SafeHtmlDiv html={currentOutput} />
-          {showVote ? (
+
+          {customText.trim() != "" &&
+            termsAccepted &&
+            isTabletLandscapeAndUp && (
+              <Button
+                name="generate"
+                onClick={handleCustomTextBlur}
+                disabled={true}
+                // disabled={termsAccepted ? false : true}
+              >
+                {strings?.submit || "Generate summary"}
+              </Button>
+            )}
+          {showVote && (
             <Vote
               clientIP={clientIP}
               currentUUID={currentUUID}
               strings={strings}
             />
-          ) : (
-            <></>
-            // <Button
-            //   name="generate"
-            //   onClick={handleCustomTextBlur}
-            //   disabled={true}
-            //   // disabled={termsAccepted ? false : true}
-            // >
-            //   {strings?.submit || "Generate summary"}
-            // </Button>
           )}
         </>
       )}
@@ -261,37 +227,22 @@ const Simplifier = () => {
         </p>
       </div>
 
-      {/* Language selection */}
-      <div className="lang">
-        <LanguageButton
-          title="en"
-          onClick={() => setLanguage("en")}
-          active={language === "en"}
-        >
-          EN
-        </LanguageButton>
-        <LanguageButton
-          title="de"
-          onClick={() => setLanguage("de")}
-          active={language === "de"}
-        >
-          DE
-        </LanguageButton>
-      </div>
-
       <div className="input">
         <h3>Input</h3>
         {renderInput()}
       </div>
 
-      <div className={termsAccepted ? "output" : "output disabled"} tabIndex={0}>
+      <div
+        className={termsAccepted ? "output" : "output disabled"}
+        tabIndex={0}
+      >
         {renderOutput()}
       </div>
 
       <div className="terms">
         <h3>{strings?.termsTitle || "Terms"}</h3>
         <ul>
-          {strings?.terms?.map((term, index) => (
+          {strings?.terms?.map((term: string, index: number) => (
             <li key={index}>{term}</li>
           ))}
         </ul>
@@ -387,6 +338,10 @@ const SimplifyWrapper = styled(Box)`
       }
     }
 
+    & > button {
+      margin: var(--size-3) 0 0 auto;
+    }
+
     /* Floating button centered over textarea to accept terms and continue with cursor pointer */
     .prompt {
       position: absolute;
@@ -427,25 +382,5 @@ const SimplifyWrapper = styled(Box)`
 
   .terms {
     grid-area: terms;
-  }
-`;
-
-const LanguageButton = styled(ButtonNormalized)<{ active: boolean }>`
-  background: none;
-  color: inherit;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  // margin: 0;
-  // position: relative;
-  // appearance: none;
-  // user-select: none;
-  font-weight: ${({ theme, active }) => (active ? "bold" : "normal")};
-  // font-size: 1em;
-  transition: all ease 0.2s;
-
-  &:hover {
-    color: ${({ theme }) => theme.color("piai-simba", 1)};
-    font-weight: bold;
   }
 `;

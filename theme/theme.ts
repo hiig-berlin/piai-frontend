@@ -54,7 +54,7 @@ export const themeImgSizes = (
 export const themeSpace = (
   breakpoint: string,
   level: number = 1,
-  adjust: number = 0,
+  adjust: number = 0
 ) => {
   let b = breakpoint.replace("Landscape", "");
 
@@ -173,7 +173,7 @@ export const theme = {
   },
   gutterWidth: themeGetBreakpointValue(3),
 
-  // These values destroy the tool page layouts 
+  // These values destroy the tool page layouts
   // (make the boxes weirly narrow)
 
   bodyCopyMaxWidth: {
@@ -673,6 +673,6 @@ export const theme = {
 export type SCTheme = typeof theme;
 
 if (typeof window !== "undefined" && process.env.NODE_ENV === "development")
-  console.log(theme);
+  if (process.env.NODE_ENV === "development") console.log(theme);
 
 export default theme;
