@@ -36,7 +36,7 @@ const About = ({
         {...{
           tool,
           intro:
-            "<p>The Simba Text Assistant is designed to improve your online reading experience and support you on your language learning journey. It is an extension that runs in your browser and provides summaries and simplifications of the text found on web pages. Our models and code are open source.</p>",
+            "<p>The Simba Text Assistant is designed to improve your online reading experience and support you on your language learning journey. It is a plug-in that runs in your browser and provides summaries and simplifications of the text found on web pages. Our models and code are open source.</p>",
           content: `<h3>What is the Simba Text Assistant?</h3>
 
             <p>The Simba Text Assistant is a browser extension that produces summaries of German-language text on web pages. It is designed to additionally simplify the summaries, by shortening the sentences and providing explanations for words.
@@ -65,7 +65,7 @@ const About = ({
             `,
           contentSimple: `<h3>What is the “Simba Text Assistant”?</h3>
             <p>The “Simba Text Assistant” is a tool that can be used when using the internet. It creates a summary of the web page you are looking at. The tool also simplifies the summary by shortening the sentences and explaining some words. The summary is created automatically and is not checked by a human.
-            You can also have words highlighted that are in the Hurraki dictionary. These words are then explained using the dictionary.
+        
             
             <h3>You can help us make the Simba Text Assistant better!</h3>
             <p>We are still working on the tool and making it better. There is an option on the tool where you can send us your feedback. 
