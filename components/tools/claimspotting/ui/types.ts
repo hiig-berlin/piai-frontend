@@ -64,7 +64,7 @@ export interface FilterStateProps {
   attributes: {
     polarising: boolean;
     sensational: boolean;
-    factual: boolean;
+    // factual: boolean;
     highDiffusion: boolean;
     manyTwins: boolean;
   };

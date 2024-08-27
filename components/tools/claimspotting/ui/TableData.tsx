@@ -23,12 +23,12 @@ const truncateText = (text: string, length: number): string =>
 const renderAttributes = (
   polarising: number,
   sensationalist: number,
-  factual: number
+  // factual: number
 ) => (
   <Icons>
     <Icon type="polarise" active={polarising === 1 ? true : false} />
     <Icon type="bolt" active={sensationalist === 1 ? true : false} />
-    <Icon type="search" active={factual === 1 ? true : false} />
+    {/* <Icon type="search" active={factual === 1 ? true : false} /> */}
   </Icons>
 );
 
@@ -71,13 +71,43 @@ export const DataRow: React.FC<DataRowComponentProps> = ({
     "reach",
   ];
 
-  const renderTopics = (topics: string[]) => (
+  // const renderTopics = (topics: string[]) => (
+  //   <Tags>
+  //     {topics.map((topic, idx) => (
+  //       <CroppedTag
+  //         isActive={false}
+  //         tool="claim"
+  //         key={idx}
+  //         onClick={(e) =>{
+  //           e.stopPropagation();
+  //           setFilterState((prevState) => {
+  //             // Check if the topic is already in the array
+  //             const isTopicInArray = prevState.topics.includes(topic);
+
+  //             // Add or remove the topic from the array
+  //             const updatedTopics = isTopicInArray
+  //               ? prevState.topics.filter((t) => t !== topic) // Remove topic if already present
+  //               : [...prevState.topics, topic]; // Add topic if not present
+
+  //             // Return the new state
+  //             return {
+  //               ...prevState,
+  //               topics: updatedTopics,
+  //             };
+  //           })}
+  //         }
+  //       >
+  //         {topic}
+  //       </CroppedTag>
+  //     ))}
+  //   </Tags>
+  // );
+
+  const renderTopic = (topic: string) => (
     <Tags>
-      {topics.map((topic, idx) => (
-        <CroppedTag
+      <Tag
           isActive={false}
           tool="claim"
-          key={idx}
           onClick={(e) =>{
             e.stopPropagation();
             setFilterState((prevState) => {
@@ -98,8 +128,7 @@ export const DataRow: React.FC<DataRowComponentProps> = ({
           }
         >
           {topic}
-        </CroppedTag>
-      ))}
+        </Tag>
     </Tags>
   );
 
@@ -107,7 +136,7 @@ export const DataRow: React.FC<DataRowComponentProps> = ({
     date: formatDate(row.Publishing_datetime),
     text: truncateText(row.Text, 50),
     channel: row.Channel_Name,
-    topics: renderTopics(row.Topic),
+    topics: renderTopic(row.Topic[0]),
     narrative: truncateText(row.Narratives, 50),
     attributes: renderAttributes(row.Polarising, row.Sensationalist, 0),
     reach: renderReach(row.Forwards, row.Views, row.Siblings.length),
