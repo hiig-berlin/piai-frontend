@@ -54,7 +54,7 @@ const loadDataFromAPI = async (startDate: string, endDate: string, page: number)
     start_date: startDate,
     end_date: endDate,
     factual: "true",
-    pagination: "false",
+    pagination: "true",
     page: page.toString(),
   };
 
