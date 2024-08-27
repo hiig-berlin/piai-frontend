@@ -10,6 +10,7 @@ import {
   useCssVarsStateIsDesktopAndUpState,
   useCssVarsStateIsTabletAndUpState,
 } from "~/components/state/CssVarsState";
+import moment from "moment";
 import ToolHeader from "~/components/tools/shared/Header";
 import Filter from "~/components/tools/claimspotting/Filter";
 import ClaimTable from "~/components/tools/claimspotting/ClaimTable";
@@ -17,6 +18,7 @@ import { FilterStateProps } from "~/components/tools/claimspotting/ui/types";
 import { ClaimspottingWrapper } from "~/components/tools/claimspotting/Styled";
 import axios from "axios"; // Add axios for making HTTP requests
 import { Placeholder } from "~/components/tools/shared/Styled";
+import { filter } from "lodash";
 
 // Function to load data in development
 // const loadLocalData = async () => {
@@ -46,21 +48,23 @@ import { Placeholder } from "~/components/tools/shared/Styled";
 //   }
 // };
 
-const loadDataFromAPI = async () => {
+const loadDataFromAPI = async (startDate: string, endDate: string, page: number) => {
   // Parameters for the GET request
   const params = {
-    start_date: "2024-08-19",
-    end_date: "2024-08-20",
+    start_date: startDate,
+    end_date: endDate,
     factual: "true",
-    pagination: "true",
-    page: "2",
+    pagination: "false",
+    page: page.toString(),
   };
 
   // Convert the parameters object to a query string
   const url = new URL(process.env.NEXT_PUBLIC_CLAIMSPOTTING_API_URL as string);
   const queryString = new URLSearchParams(params).toString();
 
+  console.log("Fetching data from url: ", queryString, "with those params", params);
   try {
+    
     const response = await fetch(`${url}?${queryString}`, {
       method: "GET",
       headers: {
@@ -95,12 +99,14 @@ const Index = ({
 
   const [loading, setLoading] = useState<boolean>(true);
   const [data, setData] = useState<any[]>([]);
+  const [dataLength, setDataLength] = useState<number>(0);
   const [filteredData, setFilteredData] = useState<any[]>([]);
-
+  const [page, setPage] = useState<number>(1);
+  
   // Initialize state with explicit type
   const [filterState, setFilterState] = useState<FilterStateProps>({
-    startDate: "",
-    endDate: "",
+    startDate: moment().subtract(7, "days").format("YYYY-MM-DD"),
+    endDate: moment().format("YYYY-MM-DD"),
     narrative: "",
     topics: [],
     attributes: {
@@ -110,26 +116,28 @@ const Index = ({
       highDiffusion: false,
       manyTwins: false,
     },
-    lastWeek: false,
+    lastWeek: true,
     lastMonth: false,
   });
 
   // Load data asynchronously
   useEffect(() => {
     setLoading(true);
+    
     const loadData = async () => {
-      const rawData = await loadDataFromAPI();
+      const rawData = await loadDataFromAPI(filterState.startDate, filterState.endDate, page);
       console.log("Raw data:", rawData);
 
-      const data = rawData.results;
-      console.log("Flattened data array:", data, data.flat(2));
-      setData(data);
-      setFilteredData(data);
+      const dataArray = rawData.results ? rawData.results : rawData;
+      setDataLength(rawData.count? rawData.count: rawData.length);
+      console.log("Flattened data array:", dataArray, "Total count:", rawData.count);
+      setData(dataArray);
+      setFilteredData(dataArray);
       setLoading(false);
     };
 
     loadData();
-  }, []);
+  }, [filterState.startDate, filterState.endDate, page]);
 
   // Memoize filter change handler
   const handleFilterChange = useCallback((filteredData: any[]) => {
@@ -170,14 +178,14 @@ const Index = ({
         ]}
       />
 
-      {loading ? (
-        <Placeholder>Loading data...</Placeholder>
-      ) : (
+      {loading && <Placeholder>Loading data...</Placeholder>}
+      {data.length === 0 && !loading && <Placeholder>No data available</Placeholder>}
+      {data.length > 0 && (
         <>
           <Filter
             data={data}
             onFilterChange={handleFilterChange}
-            dataLengthTotal={data.length}
+            dataLengthTotal={dataLength}
             dataLengthFiltered={filteredData.length}
             filterState={filterState}
             setFilterState={setFilterState}

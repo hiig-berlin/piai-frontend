@@ -15,7 +15,7 @@ export interface DataRowProps {
   Views: number;
   Forwards: number;
   Text: string;
-  Topic: string[];
+  Topic: string;
   Narratives: string;
   Siblings: string[];
   Polarising: number;

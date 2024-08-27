@@ -105,7 +105,7 @@ export const DataRow: React.FC<DataRowComponentProps> = ({
 
   const renderTopic = (topic: string) => (
     <Tags>
-      <Tag
+      <CroppedTag
           isActive={false}
           tool="claim"
           onClick={(e) =>{
@@ -128,7 +128,7 @@ export const DataRow: React.FC<DataRowComponentProps> = ({
           }
         >
           {topic}
-        </Tag>
+        </CroppedTag>
     </Tags>
   );
 
@@ -136,9 +136,9 @@ export const DataRow: React.FC<DataRowComponentProps> = ({
     date: formatDate(row.Publishing_datetime),
     text: truncateText(row.Text, 50),
     channel: row.Channel_Name,
-    topics: renderTopic(row.Topic[0]),
+    topics: renderTopic(row.Topic),
     narrative: truncateText(row.Narratives, 50),
-    attributes: renderAttributes(row.Polarising, row.Sensationalist, 0),
+    attributes: renderAttributes(row.Polarising, row.Sensationalist),
     reach: renderReach(row.Forwards, row.Views, row.Siblings.length),
   };
 
@@ -239,7 +239,7 @@ const CroppedTag = styled(Tag)<{ isActive: boolean }>`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 4rem;
+  max-width: 6rem;
 
   &:after {
     content: "";

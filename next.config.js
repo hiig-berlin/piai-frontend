@@ -56,6 +56,8 @@ const nextConfig = {
 
     return config;
   },
+  // Testing if fixes fireing twice
+  // reactStrictMode: false,
 };
 
 module.exports = withBundleAnalyzer(nextConfig);

@@ -293,8 +293,8 @@ const FilterWrapper = styled.div`
     grid-template-columns: 
       minmax(150px, 3fr)
       minmax(150px, 4fr)
-      minmax(150px, 4fr)
-      minmax(150px, 4fr);
+      minmax(150px, 5fr)
+      minmax(150px, 3fr);
   }
 
   // h2{
@@ -367,6 +367,6 @@ const AttributeFilter = styled(Box)`
   div {
     font-family: var(--font-family-narrow);
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 `;
