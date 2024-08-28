@@ -43,6 +43,7 @@ const Filter = ({
   filterState: FilterStateProps;
   setFilterState: React.Dispatch<React.SetStateAction<FilterStateProps>>;
 }) => {
+  
   // Generate unique topics and narratives only when data changes
   const uniqueTopics = React.useMemo(
     () => Array.from(new Set(data.flatMap((item: any) => item.Topic))),
@@ -53,15 +54,6 @@ const Filter = ({
     [data]
   );
 
-  // Helper function to calculate dates
-  const getDateRange = (range: "week" | "month") => {
-    const endDate = moment().format("YYYY-MM-DD");
-    const startDate = moment()
-      .subtract(range === "week" ? 7 : 1, range === "week" ? "days" : "months")
-      .format("YYYY-MM-DD");
-    console.log("Date range:", { startDate, endDate }); // Debugging statement
-    return { startDate, endDate };
-  };
 
   // Update state based on user input
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,6 +63,38 @@ const Filter = ({
       [name]: value,
       lastWeek: false,
       lastMonth: false,
+    }));
+  };
+
+    // Helper function to calculate dates
+    const getDateRange = (range: "week" | "month") => {
+      const endDate = moment().format("YYYY-MM-DD");
+      const startDate = moment()
+        .subtract(range === "week" ? 7 : 1, range === "week" ? "days" : "months")
+        .format("YYYY-MM-DD");
+      console.log("Date range:", { startDate, endDate }); // Debugging statement
+      return { startDate, endDate };
+    };
+
+  const handleDatePresetChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, checked } = e.target;
+    const { startDate, endDate } = checked
+      ? getDateRange(name === "lastWeek" ? "week" : "month")
+      : { startDate: "", endDate: "" };
+
+    checked ? setFilterState((prevState) => ({
+      ...prevState,
+      startDate,
+      endDate,
+      [name]: checked,
+      lastWeek: name === "lastWeek" ? checked : prevState.lastWeek,
+      lastMonth: name === "lastMonth" ? checked : prevState.lastMonth,
+    })) :
+    setFilterState((prevState) => ({
+      ...prevState,
+      [name]: checked,
+      lastWeek: name === "lastWeek" ? checked : prevState.lastWeek,
+      lastMonth: name === "lastMonth" ? checked : prevState.lastMonth,
     }));
   };
 
@@ -104,26 +128,10 @@ const Filter = ({
     }));
   };
 
-  const handleDatePresetChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, checked } = e.target;
-    const { startDate, endDate } = checked
-      ? getDateRange(name === "lastWeek" ? "week" : "month")
-      : { startDate: "", endDate: "" };
-
-    setFilterState((prevState) => ({
-      ...prevState,
-      startDate,
-      endDate,
-      [name]: checked,
-      lastWeek: name === "lastWeek" ? checked : prevState.lastWeek,
-      lastMonth: name === "lastMonth" ? checked : prevState.lastMonth,
-    }));
-  };
-
   useEffect(() => {
     // Compute filtered data based on current filter state
     const filteredData = data.filter((item: any) => {
-      const itemDate = new Date(item.Publishing_datetime);
+      const itemDate = new Date(item.Publishing_datetime.slice(0, 10));
       const startDate = filterState.startDate
         ? new Date(filterState.startDate)
         : null;
@@ -134,9 +142,11 @@ const Filter = ({
       const matchesDateRange =
         (!startDate || itemDate >= startDate) &&
         (!endDate || itemDate <= endDate);
+
       const matchesNarrative = filterState.narrative
         ? item.Narratives === filterState.narrative
         : true;
+
       const matchesTopics = filterState.topics.length
         ? filterState.topics.some((topic) => item.Topic.includes(topic))
         : true;
@@ -207,7 +217,7 @@ const Filter = ({
             name="startDate"
             value={filterState.startDate}
             onChange={handleDateChange}
-            disabled={filterState.lastWeek || filterState.lastMonth}
+            // disabled={filterState.lastWeek || filterState.lastMonth}
           />
           <InputText
             className="to"
@@ -215,7 +225,7 @@ const Filter = ({
             name="endDate"
             value={filterState.endDate}
             onChange={handleDateChange}
-            disabled={filterState.lastWeek || filterState.lastMonth}
+            // disabled={filterState.lastWeek || filterState.lastMonth}
           />
         </div>
       </DateFilter>

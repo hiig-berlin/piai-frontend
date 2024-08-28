@@ -1,3 +1,4 @@
+import { String } from "lodash";
 import styled from "styled-components";
 import { ButtonNormalized } from "~/components/styled/Button";
 import { narrow } from "~/components/tools/map/Styled";
@@ -9,29 +10,38 @@ export const HideOnPrint = styled.div`
 `
 
 // Styled component for loading placeholder
-export const Placeholder = styled.p`
-  color: var(--color-piai-simba);
+export const Placeholder = styled.p<{tool?: string; mode?: string;}>`  
+  color: ${({tool, mode}) => mode === "full" ? "white" : tool ? `var(--color-piai-${tool})` : "var(--color-piai-simba" };
   position: relative;
   animation: loading 4s ease-in-out infinite;
   transform-origin: left bottom;
   padding-bottom: 0.3em;
+  max-width: unset;
+
+  padding: ${({ mode }) => mode === "full" ? "var(--size-3)" : "0 0 0.3em"};
+  ${({ mode, tool }) => mode === "full" ? 
+      `background: var(--color-piai-${tool});
+      border-radius: var(--size-2);`
+    : ""};
+
 
   &:after {
     content: "";
-    width: 100%;
-    height: 2px;
+    width: ${({mode}) => mode === "full" ? "calc(100% - 2 * var(--size-3))" : "100%"};
+    height: 3px;
     position: absolute;
     display: block;
-    top: 100%;
+    top: ${({mode}) => mode === "full" ? "70%" : "100%"};
     animation: loadingBar 2s linear infinite alternate;
     background: linear-gradient(
       90deg,
       transparent 25%,
-      var(--color-piai-simba) 50%,
+      ${({tool, mode}) => mode === "full" ? "white" : tool ? `var(--color-piai-${tool})` : "var(--color-piai-simba" } 50%,
       transparent 75%
     );
     background-size: 200% 100%;
     background-position: 0%;
+    border-radius: 3px;
   }
 
   @keyframes loading {
