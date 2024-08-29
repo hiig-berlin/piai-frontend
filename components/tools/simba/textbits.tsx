@@ -4,40 +4,37 @@ import { title } from "process";
 export const textBits = {
   en: {
     header: {
-      title: "Simba Text assistant",
+      title: "Simba: AI-Powered Text Simplification",
       subtitle:
-        "A web-based tool and browser extension that generates summaries of German-language texts. It is designed to improve your reading experience or support you on your language learning journey.",
+        "Our tools assist you in understanding German texts by summarising them in simplified language. They are designed to enhance your reading experience and support you learning the German language.",
     },
 
     index: {
       about: {
-        title: "AI-assisted text simplification",
-        subtitle: `Our tools produce summaries of German-language text. They are designed to additionally simplify the summaries, by shortening the sentences and providing explanations for words.`,
-        description: `Our models and code are open source. The goal of Simba is to reduce the complexity of online texts, therefore making them more accessible to a wide range of target groups. These target groups – non-native language users, adults with disabilities, for example – reflect a very heterogeneous group of people and we believe that it is only through collaboration that the tool can truly create simplifications that work for these different groups of people. Our aim is to grow our community by inviting researchers and professionals from the simplification world as well as dedicated users to collaborate and build upon our base model, and to bring in their expertise.
-      `,
+        title: "Why AI-Assisted Text Simplification?",
+        subtitle: `Simba reduces the complexity of German online texts while retaining the core message. Our two tools replace long words with shorter synonyms, shorten sentences, and add information to clarify context. This is achieved through our web app (Text Simplifier) and browser extension, which utilise an AI model.`,
+        description: `Our goal is to make online texts and information accessible to as many diverse individuals as possible. These target groups — such as non-native speakers or adults with disabilities — are highly varied. We believe that collaboration is key to enhancing our offerings. Therefore, we invite researchers, professionals, and engaged users to work with us. Their expertise will help us refine our base model and create simplifications suitable for different groups. Our AI model and code are open source.
+For more information on how the model works and the data we use, please visit this page.`,
       },
       team: {
-        title: "Learn more about the team",
-        text: `Simba is an ongoing research project from the group “Public Interest AI” at the Humboldt Institute for Internet and Society. To learn more about our work, check out our website.`,
+        title: "Who is the team behind Simba?",
+        text: `Simba is an ongoing research project led by the "Public Interest AI" group at the Humboldt Institute for Internet and Society. Visit our website to learn more about our work.`,
         button: {
           url: "https://www.hiig.de/en/project/public-interest-ai/",
           label: "Project website",
         },
       },
       plugin: {
-        title: "Simba browser extension",
-        subtitle: `Get summaries as you browse`,
-        description: `Simba is available as a browser extension for Chrome and Firefox browsers. The extension runs in the browser and produces summaries of German-language text on web pages. The browser extension also offers the opportunity to submit your feedback on the summary that Simba produces.`,
+        title: "The Browser Extension",
+        description: `The browser extension assists you while browsing the internet. It automatically summarises the content of German webpages for you. You can use the extension with both Chrome and Firefox browsers.`,
         button: {
           url: "simba/extension",
           label: "Learn more about the extension",
         },
       },
       simplifier: {
-        title: "Simba simplifier",
-        subtitle: `Simplify the texts you need`,
-        description: `The Simba Simplifier is a text-box based tool – insert your text on the left to get a summary on the right. The tool shortens and simplifies German text based on an AI model. Simply copy and paste the text you would like to have simplified and our tool will produce an output instantly.
-      .`,
+        title: "The Text Simplifier",
+        description: `This online app assists you by shortening and simplifying a text. Paste your text into the box on the left-hand side, and a simplified summary will appear on the right-hand side.`,
         button: {
           url: "simba/simplifier",
           label: "Go to simplifier",
@@ -45,14 +42,14 @@ export const textBits = {
       },
     },
     simplifier: {
-      title: "Simba simplifier",
-      subtitle: `Insert text on the left to get a summary on the right. The tool shortens and simplifies German text based on an AI model.`,
+      title: "Text Simplifier",
+      subtitle: `Paste a text to receive a summary. Our web application condenses and simplifies the text using an AI model.`,
       input: `Input`,
       promptText: `Simba is a research project on text simplification in German. Please read carefully the terms before submitting your data.`,
       promptButton: `I understood and agree to the terms.`,
       placeholderPromt: `Please accept the terms to continue.`,
-      placeholderInput: `Type or paste text to be summarised.`,
-      placeholderOutput: `Insert the text on the left that you want to be summarised.`,
+      placeholderInput: `Enter the text you would like to summarise and simplify.`,
+      placeholderOutput: `Insert the text that you would like to have summarised in the input box.`,
       submit: `Generate summary`,
       loading: `Generating the summary for your custom text…`,
       error: `An error occurred while generating the summary.`,
@@ -62,24 +59,23 @@ export const textBits = {
       feedbackButton: `Submit`,
       feedbackLoading: `Submitting feedback…`,
       feedbackSuccess: `Thank you for your feedback.`,
-      termsTitle: `Terms`,
+      termsTitle: `Terms of Use`,
       terms: [
-        `Simba is an ongoing research project. All texts will be collected for further research, please do not submit any personal data.`,
-        `Simba is in beta stage and may produce incorrect results, please verify important details.`,
+        `Simba is an ongoing research project. All texts are collected for further research purposes, so please do not submit personal data.`,
+        `As Simba is currently in its beta phase, it may produce incorrect results; please ensure you verify any important details.`,
       ],
     },
     extension: {
       about: {
-        title: "Simba browser extension",
-        subtitle: `Get summaries of German-language text on web pages as you browse`,
-        description: `The Simba Text Assistant is a browser extension that produces summaries of German-language text on web pages. It is designed to additionally simplify the summaries, by shortening the sentences and providing explanations for words.`,
-        subline: `The browser extension, also known as a plugin or add-on, is installed through the browser. An icon in the status bar of the browser will then provide you with additional features. The browser extension also allows you to to give your feedback on the summary that Simba produces.`,
+        title: "Browser Extension",
+        description: `Our free browser extension assists you while browsing the internet. It automatically summarises the content of German websites in simplified language. The extension is available for the Chrome and Firefox browsers.`,
+        subline: `A browser extension is a small programme that you install in your web browser. Once installed, you'll see an icon in the status bar that allows you to access the extension's features. You can also provide feedback on whether you find the summaries helpful or not.`,
       },
       download: [
         {
           slug: "firefox",
           title: "Download for Firefox",
-          blurb: `Download Simba as a browser add-on for Firefox and start summarising webpages as you browse.`,
+          blurb: `Download Simba as a browser add-on for Firefox.`,
           button: {
             url: "https://addons.mozilla.org/en-US/firefox/addon/simba-text-assistant/",
             label: "Install Firefox Add-on",
@@ -88,7 +84,7 @@ export const textBits = {
         {
           slug: "chrome",
           title: "Download for Chrome",
-          blurb: `Download Simba as a browser extension from the Chrome web store and start summarising webpages.`,
+          blurb: `Download Simba as a browser extension from the Chrome Web Store.`,
           button: {
             url: "https://chromewebstore.google.com/detail/simba-text-assistant/lllfbelghpclobblmackbkheabbhfdhf",
             label: "Install Chrome Extension",
@@ -96,21 +92,21 @@ export const textBits = {
         },
       ],
       application: {
-        title: "What to use it for",
+        title: "How can I use the browser extension?",
         subtitle: `The Simba Browser Extension can be used on a variety of webpages
         in both Firefox and Chrome browsers.`,
         fields: {
           learning: {
-            title: "Learning german",
-            text: `Improve your language skills by simplifying online content.`,
+            title: "Learn German",
+            text: `Enhance your language skills by simplifying online content.`,
           },
           accessibility: {
             title: "Creating accessible content",
-            text: `Get suggestions for simplifying your online content.`,
+            text: `Receive suggestions for making your online content more accessible.`,
           },
           overview: {
-            title: "Getting an overview",
-            text: `Read succinct overviews of longer, complex webpages.`,
+            title: "Get an overview",
+            text: `Read concise summaries of longer and more complex web pages.`,
           },
         },
       },
