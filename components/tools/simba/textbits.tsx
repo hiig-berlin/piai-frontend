@@ -118,39 +118,38 @@ export const textBits = {
   },
   de: {
     header: {
-      title: "Simba Text Assistent",
-      subtitle: `Eine Anwendung und ein Erweiterung für den Browser fasst für Sie deutsche Texte zusammen. So wird das Lesen einfacher und Sie lernen die Sprache schneller.`,
+      title: "Simba: KI-unterstützte Textvereinfachung",
+      subtitle: `Unsere Angebote helfen dir, deutsche Texte zu verstehen und in einfacher Sprache zusammenzufassen. Sie wurden entwickelt, um dein Leseerlebnis zu verbessern und dir beim Lernen der deutschen Sprache zu helfen.`,
     },
 
     index: {
       about: {
-        title: "Simba – KI-unterstützte Textvereinfachung",
-        subtitle: `Der Simba Text Assistant ist eine Browsererweiterung und Webseite, die Zusammenfassungen deutscher Texte auf Webseiten erstellt. Die Zusammenfassungen werden zusätzlich vereinfacht, indem die Sätze verkürzt und Erklärungen für Wörter bereitgestellt werden. Der Simba Text Assistant wurde für deutsche Texte entwickelt, funktioniert aber möglicherweise auch für andere Sprachen.
-      .`,
-        description: `Simba wurde von Mitgliedern der Forschungsgruppe „Public Interest AI“ am Humboldt Institut für Internet und Gesellschaft erstellt. Unsere Modelle und unser Code sind Open Source. Ziel von Simba ist es, die Komplexität von Online-Texten zu reduzieren und sie so für eine breite Zielgruppe zugänglicher zu machen. Diese Zielgruppen – nicht muttersprachliche Benutzer, Erwachsene mit Behinderungen, zum Beispiel – sind eine sehr heterogene Gruppe von Menschen und wir glauben, dass es nur durch Zusammenarbeit möglich ist, dass das Tool wirklich Vereinfachungen schafft, die für diese verschiedenen Gruppen von Menschen funktionieren. Unser Ziel ist es, unsere Community zu erweitern, indem wir Forscher und Fachleute aus der Vereinfachungswelt sowie engagierte Benutzer einladen, zusammenzuarbeiten und auf unserem Basismodell aufzubauen und ihre Expertise einzubringen.
+        title: "Warum KI-unterstützte Textvereinfachung?",
+        subtitle: `Simba reduziert die Komplexität von deutschen Online-Texten, während die Kernbotschaft erhalten bleibt.`,
+        description: `Unsere zwei Angebote ersetzen dafür lange Wörter mit kurzen Synonymen, kürzen Sätze und fügen Informationen hinzu, um Zusammenhänge zu erklären. Die Internet-App (Textvereinfacher) und die Browser-Erweiterung machen das mit Hilfe eines KI-Modells.
+Unser Ziel ist es, so vielen unterschiedlichen Menschen wie möglich den Zugang zu Online-Texten und Informationen zu ermöglichen. Diese Zielgruppen – zum Beispiel nicht muttersprachliche Benutzer*innen, oder Erwachsene mit Behinderungen – sind eine sehr heterogene Gruppe von Menschen. Wir sind überzeugt, dass Zusammenarbeit der Schlüssel zur Verbesserung unserer Angebote ist. Deshalb laden wir Forscher*innen, Fachleute und engagierte Benutzer*innen ein, mit uns zu kooperieren. Mit ihrer Expertise können wir unser Basismodell weiterentwickeln und Vereinfachungen schaffen, die für verschiedene Menschengruppen geeignet sind. Unser KI-Modell und der Code sind Open Source.
+Weitere Informationen, wie das Modell funktioniert und welche Daten wir verwendet haben, findest du hier. 
       `,
       },
       team: {
-        title: "Erfahren Sie mehr über das Team",
-        text: `Simba ist ein laufendes Forschungsprojekt der Gruppe „Public Interest AI“ am Humboldt Institut für Internet und Gesellschaft. Besuchen Sie unsere Website, um mehr über unsere Arbeit zu erfahren.`,
+        title: "Wer ist das Team hinter Simba?",
+        text: `Simba ist ein laufendes Forschungsprojekt der Gruppe „Public Interest AI“ am Humboldt Institut für Internet und Gesellschaft. Besuche unsere Website, um mehr über unsere Arbeit zu erfahren.`,
         button: {
           url: "https://www.hiig.de/en/project/public-interest-ai/",
           label: "Projektwebsite",
         },
       },
       plugin: {
-        title: "Simba Browsererweiterung",
-        subtitle: `Erhalten Sie Zusammenfassungen während des Surfens`,
-        description: `Simba ist als Browsererweiterung für Chrome- und Firefox-Browser verfügbar. Die Erweiterung läuft im Browser und erstellt Zusammenfassungen deutscher Texte auf Webseiten. Die Browsererweiterung bietet auch die Möglichkeit, Ihr Feedback zur Zusammenfassung abzugeben, die Simba erstellt.`,
+        title: "Die Browser-Erweiterung",
+        description: `Diese Browser-Erweiterung hilft dir beim Surfen im Internet. Sie fasst den Inhalt deutscher Webseiten automatisch für dich zusammen. Du kannst die Erweiterung in den Browsern von Chrome und Firefox verwenden.`,
         button: {
           url: "simba/extension?lang=de",
           label: "Mehr über die Erweiterung",
         },
       },
       simplifier: {
-        title: "Simba Textvereinfacher",
-        subtitle: `Vereinfachen Sie die Texte, die Sie benötigen`,
-        description: `Der Simba Textvereinfacher ist ein textbasiertes Tool – fügen Sie Ihren Text links ein, um eine Zusammenfassung rechts zu erhalten. Das Tool kürzt und vereinfacht deutschen Text basierend auf einem KI-Modell. Kopieren Sie einfach den Text, den Sie vereinfacht haben möchten, und unser Tool wird sofort ein Ergebnis liefern.`,
+        title: "Der Textvereinfacher",
+        description: `Diese Internet-App hilft dir, einen Text zu kürzen und zu vereinfachen. Füge deinen Text in das linke Feld ein. Dann wird eine einfache Zusammenfassung auf der rechten Seite erscheinen.`,
         button: {
           url: "simba/simplifier?lang=de",
           label: "Zum Vereinfacher",
@@ -159,17 +158,17 @@ export const textBits = {
     },
     simplifier: {
       title: "Simba Textvereinfacher",
-      subtitle: `Fügen Sie einen Text ein, um eine Zusammenfassung zu erhalten. Das Tool kürzt und vereinfacht deutschen Text basierend auf einem KI-Modell.`,
-      input: `Eingabe`,
+      subtitle: `Füge einen Text ein, um eine Zusammenfassung zu erhalten. Unsere Internet-App kürzt und vereinfacht den Text basierend auf einem KI-Modell.`,
+      input: `Eingabetext`,
       promptText: `Simba ist ein Forschungsprojekt zur Textvereinfachung. Bitte lesen Sie die Bedingungen sorgfältig durch, bevor Sie Daten senden.`,
       promptButton: `Ich habe verstanden und stimme den Bedingungen zu.`,
       placeholderPromt: `Bitte akzeptieren Sie die Bedingungen, um fortzufahren.`,
-      placeholderInput: `Geben Sie den zu vereinfachenden Text ein.`,
-      placeholderOutput: `Fügen Sie Text ein, der zusammengefasst werden soll.`,
+      placeholderInput: `Gebe den zu vereinfachenden Text ein.`,
+      placeholderOutput: `Füge links einen Text ein, der zusammengefasst werden soll.`,
       submit: `Zusammenfassung erstellen`,
       loading: `Zusammenfassung wird generiert…`,
       error: `Beim Erstellen der Zusammenfassung ist ein Fehler aufgetreten.`,
-      output: `Ergebnis`,
+      output: `Ausgabetext`,
       feedback: `Geben Sie uns Feedback:`,
       feedbackText: `Bitte nennen Sie uns einen Grund.`,
       feedbackButton: `Senden`,
@@ -184,15 +183,14 @@ export const textBits = {
     extension: {
       about: {
         title: "Simba Browsererweiterung",
-        subtitle: `Erhalten Sie Zusammenfassungen deutscher Texte auf Webseiten, während Sie surfen`,
-        description: `Der Simba Text Assistant ist eine Browsererweiterung, die Zusammenfassungen deutscher Texte auf Webseiten erstellt. Die Zusammenfassungen werden zusätzlich vereinfacht, indem die Sätze verkürzt und Erklärungen für Wörter bereitgestellt werden.`,
-        subline: `Die Browsererweiterung, auch bekannt als Plugin oder Add-on, wird über den Browser installiert. Ein Symbol in der Statusleiste des Browsers bietet Ihnen zusätzliche Funktionen. Die Browsererweiterung bietet auch die Möglichkeit, Ihr Feedback zur Zusammenfassung abzugeben, die Simba erstellt.`,
+        description: `Unsere kostenlose Browser-Erweiterung hilft dir beim Surfen im Internet. Sie fasst den Inhalt deutscher Webseiten für dich automatisch in vereinfachter Sprache zusammen. Die Erweiterung ist für die Internetbrowser Chrome und Firefox verfügbar.`,
+        subline: `Eine Browser-Erweiterung wird auch manchmal als “Add-on” oder Plug-in bezeichnet. Das ist ein kleines Programm, das du in deinem Internet-Browser installierst. Danach siehst du ein Symbol in der Statusleiste, mit dem du die Funktionen der Erweiterung aufrufen kannst. Du kannst ihr auch Feedback geben und sagen, ob du die Zusammenfassungen gut oder schlecht findest.`,
       },
       download: [
         {
           slug: "firefox",
           title: "Download für Firefox",
-          blurb: `Laden Sie Simba als Browser-Add-On für Firefox herunter und beginnen Sie, Webseiten zusammenzufassen, während Sie surfen.`,
+          blurb: `Lade Simba als Browser-Add-On für Firefox herunter.`,
           button: {
             url: "https://addons.mozilla.org/en-US/firefox/addon/simba-text-assistant/",
             label: "Firefox Add-On installieren",
@@ -201,7 +199,7 @@ export const textBits = {
         {
           slug: "chrome",
           title: "Download für Chrome",
-          blurb: `Laden Sie Simba als Browsererweiterung aus dem Chrome Web Store herunter und beginnen Sie, Webseiten zusammenzufassen.`,
+          blurb: `Lade Simba als Browser-Erweiterung aus dem Chrome Web Store herunter.`,
           button: {
             url: "https://chromewebstore.google.com/detail/simba-text-assistant/lllfbelghpclobblmackbkheabbhfdhf",
             label: "Chrome Erweiterung installieren",
@@ -209,20 +207,20 @@ export const textBits = {
         },
       ],
       application: {
-        title: "Wofür Sie es verwenden können",
+        title: "Für was kann ich die Browser-Erweiterung nutzen? ",
         subtitle: `Die Simba Browsererweiterung kann auf einer Vielzahl von Webseiten in Firefox- und Chrome-Browsern verwendet werden.`,
         fields: {
           learning: {
             title: "Deutsch lernen",
-            text: `Verbessern Sie Ihre Sprachkenntnisse, indem Sie Online-Inhalte vereinfachen.`,
+            text: `Verbessere deine Sprachkenntnisse, indem du Online-Inhalte vereinfachst.`,
           },
           accessibility: {
             title: "Barrierefreie Inhalte erstellen",
-            text: `Erhalten Sie Vorschläge zur Vereinfachung Ihrer Online-Inhalte.`,
+            text: `Erhalte Vorschläge zur Vereinfachung deiner Online-Inhalte.`,
           },
           overview: {
             title: "Einen Überblick erhalten",
-            text: `Lesen Sie prägnante Übersichten längerer, komplexer Webseiten.`,
+            text: `Lese prägnante Zusammenfassungen von längerer und komplexen Webseiteninhalten`,
           },
         },
       },
