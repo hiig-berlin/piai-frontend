@@ -43,7 +43,6 @@ const Filter = ({
   filterState: FilterStateProps;
   setFilterState: React.Dispatch<React.SetStateAction<FilterStateProps>>;
 }) => {
-  
   // Generate unique topics and narratives only when data changes
   const uniqueTopics = React.useMemo(
     () => Array.from(new Set(data.flatMap((item: any) => item.Topic))),
@@ -53,7 +52,6 @@ const Filter = ({
     () => Array.from(new Set(data.map((item: any) => item.Narratives))),
     [data]
   );
-
 
   // Update state based on user input
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,36 +64,41 @@ const Filter = ({
     }));
   };
 
-    // Helper function to calculate dates
-    const getDateRange = (range: "week" | "month") => {
-      const endDate = moment().format("YYYY-MM-DD");
-      const startDate = moment()
-        .subtract(range === "week" ? 7 : 1, range === "week" ? "days" : "months")
-        .format("YYYY-MM-DD");
-      console.log("Date range:", { startDate, endDate }); // Debugging statement
-      return { startDate, endDate };
-    };
+  // Helper function to calculate dates
+  const getDateRange = (range: "days" | "week" | "month") => {
+    const endDate = moment().format("YYYY-MM-DD");
+    const startDate = moment()
+      .subtract(range === "week" ? 7 : range === "days" ? 3 : 1, range === "week" || "days" ? "days" : "months")
+      .format("YYYY-MM-DD");
+    console.log("Date range:", { startDate, endDate }); // Debugging statement
+    return { startDate, endDate };
+  };
 
   const handleDatePresetChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target;
     const { startDate, endDate } = checked
-      ? getDateRange(name === "lastWeek" ? "week" : "month")
+      ? getDateRange(
+          name === "lastWeek" ? "week" : name === "lastDays" ? "days" : "month"
+        )
       : { startDate: "", endDate: "" };
 
-    checked ? setFilterState((prevState) => ({
-      ...prevState,
-      startDate,
-      endDate,
-      [name]: checked,
-      lastWeek: name === "lastWeek" ? checked : prevState.lastWeek,
-      lastMonth: name === "lastMonth" ? checked : prevState.lastMonth,
-    })) :
-    setFilterState((prevState) => ({
-      ...prevState,
-      [name]: checked,
-      lastWeek: name === "lastWeek" ? checked : prevState.lastWeek,
-      lastMonth: name === "lastMonth" ? checked : prevState.lastMonth,
-    }));
+    checked
+      ? setFilterState((prevState) => ({
+          ...prevState,
+          startDate,
+          endDate,
+          [name]: checked,
+          lastDays: name === "lastDays" ? checked : prevState.lastDays,
+          lastWeek: name === "lastWeek" ? checked : prevState.lastWeek,
+          lastMonth: name === "lastMonth" ? checked : prevState.lastMonth,
+        }))
+      : setFilterState((prevState) => ({
+          ...prevState,
+          [name]: checked,
+          lastDays: name === "lastDays" ? checked : prevState.lastDays,
+          lastWeek: name === "lastWeek" ? checked : prevState.lastWeek,
+          lastMonth: name === "lastMonth" ? checked : prevState.lastMonth,
+        }));
   };
 
   // Handled by AttributeSelector Component
@@ -172,7 +175,7 @@ const Filter = ({
       );
     });
 
-    console.log("Filtered data:", filteredData); // Debugging statement
+    console.log("Filtered data:", filteredData, "from all data:", data); // Debugging statement
     onFilterChange(filteredData);
   }, [filterState, data, onFilterChange]);
 
@@ -194,13 +197,22 @@ const Filter = ({
           <label>
             <Checkbox
               type="checkbox"
+              name="lastDays"
+              checked={filterState.lastDays}
+              onChange={handleDatePresetChange}
+            />
+            Last 3 days
+          </label>
+          <label>
+            <Checkbox
+              type="checkbox"
               name="lastWeek"
               checked={filterState.lastWeek}
               onChange={handleDatePresetChange}
             />
             Last week
           </label>
-          <label>
+          {/* <label>
             <Checkbox
               type="checkbox"
               name="lastMonth"
@@ -208,7 +220,7 @@ const Filter = ({
               onChange={handleDatePresetChange}
             />
             Last month
-          </label>
+          </label> */}
         </CheckboxList>
         <div className="range">
           <InputText
@@ -238,15 +250,12 @@ const Filter = ({
           options={uniqueTopics} // Simplified to just names
           activeTerms={filterState.topics} // Array of names
           updateState={(name, isChecked) => {
-            console.log("Topic updateState", name, isChecked); // Debugging statement
-
             setFilterState((prevState) => {
               // Toggle topic in the topics array
               const updatedTopics = isChecked
                 ? [...prevState.topics, name] // Add topic
                 : prevState.topics.filter((topic) => topic !== name); // Remove topic
 
-              console.log("Updated topics", updatedTopics); // Debugging statement
               return {
                 ...prevState,
                 topics: updatedTopics,
@@ -300,7 +309,7 @@ const FilterWrapper = styled.div`
   }
 
   ${({ theme }) => theme.breakpoints.desktop} {
-    grid-template-columns: 
+    grid-template-columns:
       minmax(150px, 3fr)
       minmax(150px, 4fr)
       minmax(150px, 5fr)
@@ -339,12 +348,11 @@ const Counter = styled(BoxHighlight)`
     top: 0.2em;
     height: 1.8rem;
 
-    & > span{
+    & > span {
       display: inline-block;
       height: fit-content;
     }
   }
-
 
   .of {
     font-weight: 500;

@@ -20,7 +20,7 @@ const getSummary = async (input: string, clientIP: string) => {
     url: window.location.href,
     meta_ip: clientIP,
   };
-  console.log("data to be sent to API: ", data);
+  // console.log("data to be sent to API: ", data);
 
   try {
     const response = await fetch(

@@ -68,6 +68,7 @@ export interface FilterStateProps {
     highDiffusion: boolean;
     manyTwins: boolean;
   };
+  lastDays: boolean;
   lastWeek: boolean;
   lastMonth: boolean;
 };

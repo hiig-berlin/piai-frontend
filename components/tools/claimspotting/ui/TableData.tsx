@@ -143,7 +143,7 @@ export const DataRow: React.FC<DataRowComponentProps> = ({
   };
 
   const handleRowClick = (row: any) => {
-    console.log("Opening details for row", row);
+    // console.log("Opening details for row", row);
     setShowDetails(!showDetails);
   };
 

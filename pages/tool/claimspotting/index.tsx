@@ -113,6 +113,7 @@ const Index = ({
 
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  // const [isNextpage, setIsNextPage] = useState<boolean>(false);
 
   const [data, setData] = useState<any[]>([]);
   const [dataLength, setDataLength] = useState<number>(0);
@@ -121,7 +122,7 @@ const Index = ({
 
   // Initialize state with explicit type
   const [filterState, setFilterState] = useState<FilterStateProps>({
-    startDate: moment().subtract(7, "days").format("YYYY-MM-DD"),
+    startDate: moment().subtract(1, "days").format("YYYY-MM-DD"),
     endDate: moment().format("YYYY-MM-DD"),
     narrative: "",
     topics: [],
@@ -132,6 +133,7 @@ const Index = ({
       highDiffusion: false,
       manyTwins: false,
     },
+    lastDays: false,
     lastWeek: false,
     lastMonth: false,
   });
@@ -155,21 +157,30 @@ const Index = ({
       const rawData = raw.data;
       console.log("Raw data:", rawData);
 
+      // Fill data and count depending on pagination true/false
       const dataArray = rawData.results ? rawData.results : rawData;
       setDataLength(rawData.count ? rawData.count : rawData.length);
-      console.log(
-        "Flattened data array:",
-        dataArray,
-        "Total count:",
-        rawData.count
-      );
+      // console.log(
+      //   "Flattened data array:",
+      //   dataArray,
+      //   "Total count:",
+      //   rawData.count
+      // );
+      if (page === 1) {
       setData(dataArray);
       setFilteredData(dataArray);
+      }
+      else{
+        setData([...data, ...dataArray]);
+        setFilteredData([...filteredData, ...dataArray]);
+      }
+      rawData.next && setPage(page + 1);
       setLoading(false);
     };
-
     loadData();
   }, [filterState.startDate, filterState.endDate, page]);
+
+
 
   // Memoize filter change handler
   const handleFilterChange = useCallback((filteredData: any[]) => {
@@ -212,7 +223,7 @@ const Index = ({
 
       {loading && (
         <Placeholder mode="full" tool="claim">
-          Loading data...
+          Loading page {page} of the claimlist...
         </Placeholder>
       )}
       {data.length === 0 && !loading && !error &&  (
