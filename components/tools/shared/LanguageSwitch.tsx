@@ -37,6 +37,7 @@ const LanguageWrapper = styled.ul`
   gap: var(--size-2);
   margin-left: auto;
   margin-right: var(--size-3);
+  display: flex;
 
   ${({ theme }) => theme.breakpoints.tablet} {
     margin-left: 0px;

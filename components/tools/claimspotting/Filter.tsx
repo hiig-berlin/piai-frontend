@@ -35,6 +35,7 @@ const Filter = ({
   dataLengthFiltered,
   filterState,
   setFilterState,
+  strings,
 }: {
   data: any[];
   onFilterChange: (filteredData: any[]) => void;
@@ -42,6 +43,7 @@ const Filter = ({
   dataLengthFiltered: number;
   filterState: FilterStateProps;
   setFilterState: React.Dispatch<React.SetStateAction<FilterStateProps>>;
+  strings: any;
 }) => {
   // Generate unique topics and narratives only when data changes
   const uniqueTopics = React.useMemo(
@@ -182,22 +184,22 @@ const Filter = ({
   return (
     <FilterWrapper>
       <Counter>
-        <h2>Claim counter</h2>
+        <h2>{strings?.counter?.title}</h2>
         <p className="numbers">
           <span className="numFiltered">{dataLengthFiltered}</span>
-          <span className="of">of</span>
+          <span className="of">{strings?.counter?.of}</span>
           <span className="numTotal">{dataLengthTotal}</span>
         </p>
-        <small>Posts filtered as potentially checkworthy</small>
+        <small>{strings?.counter?.subtitle}</small>
       </Counter>
 
       <DateFilter>
-        <h2>Select date range</h2>
+        <h2>{strings?.daterange?.title}</h2>
         <CheckboxList>
           <label>
             <Checkbox
               type="checkbox"
-              name="lastDays"
+              name={strings?.daterange?.lastDays}
               checked={filterState.lastDays}
               onChange={handleDatePresetChange}
             />
@@ -206,7 +208,7 @@ const Filter = ({
           <label>
             <Checkbox
               type="checkbox"
-              name="lastWeek"
+              name={strings?.daterange?.lastWeek}
               checked={filterState.lastWeek}
               onChange={handleDatePresetChange}
             />
@@ -215,7 +217,7 @@ const Filter = ({
           {/* <label>
             <Checkbox
               type="checkbox"
-              name="lastMonth"
+              name={strings?.daterange?.lastMonth}
               checked={filterState.lastMonth}
               onChange={handleDatePresetChange}
             />
@@ -243,10 +245,10 @@ const Filter = ({
       </DateFilter>
 
       <Box>
-        <h2>Filter by topics or narrative</h2>
+        <h2>{strings?.topics?.title}</h2>
         <AttributeSelector
-          label="Select topics"
-          labelAllShown="All topics"
+          label={strings?.topics?.selectTopic}
+          labelAllShown={strings?.topics?.allTopics}
           options={uniqueTopics} // Simplified to just names
           activeTerms={filterState.topics} // Array of names
           updateState={(name, isChecked) => {
@@ -268,7 +270,7 @@ const Filter = ({
           value={filterState.narrative}
           onChange={handleNarrativeChange}
         >
-          <option value="">All Narratives</option>
+          <option value="">{strings?.topics?.allNarratives}</option>
           {uniqueNarratives.map((narrative) => (
             <option key={narrative} value={narrative}>
               {narrative}
@@ -278,7 +280,7 @@ const Filter = ({
       </Box>
 
       <AttributeFilter>
-        <h2>Filter by attributes</h2>
+        <h2>{strings?.attributes?.title}</h2>
         <CheckboxList>
           {Object.keys(filterState.attributes).map((attribute) => (
             <label key={attribute}>
@@ -288,7 +290,7 @@ const Filter = ({
                 checked={filterState.attributes[attribute as AttributeKey]}
                 onChange={handleAttributeChange}
               />
-              {attribute}
+              {attributes.find((a) => a.key === attribute)?.label}
             </label>
           ))}
         </CheckboxList>
@@ -310,10 +312,10 @@ const FilterWrapper = styled.div`
 
   ${({ theme }) => theme.breakpoints.desktop} {
     grid-template-columns:
-      minmax(150px, 3fr)
-      minmax(150px, 4fr)
+      minmax(150px, 3.5fr)
+      minmax(150px, 4.5fr)
       minmax(150px, 5fr)
-      minmax(150px, 3fr);
+      minmax(150px, 4.5fr);
   }
 
   // h2{
@@ -383,8 +385,9 @@ const DateFilter = styled(Box)`
 
 const AttributeFilter = styled(Box)`
   div {
-    font-family: var(--font-family-narrow);
+    // font-family: var(--font-family-narrow);
     display: grid;
+    gap: var(--size-3);
     grid-template-columns: repeat(2, 1fr);
   }
 `;

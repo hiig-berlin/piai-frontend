@@ -12,9 +12,11 @@ import { FilterStateProps } from "~/components/tools/claimspotting/ui/types";
 const ClaimTable = ({
   data,
   setFilterState,
+  strings,
 }: {
   data: any;
   setFilterState: React.Dispatch<React.SetStateAction<FilterStateProps>>;
+  strings: any;
 }) => {
   const NUM_ROWS = 50;
   const [rows, setRows] = useState<DataRowProps[]>(data.slice(0, NUM_ROWS));
@@ -49,9 +51,9 @@ const ClaimTable = ({
 
   return (
     <ClaimTableWrapper>
-      <HeaderRow sortData={sortData} sort={sort} />
+      <HeaderRow sortData={sortData} sort={sort} strings={strings} />
       {rows.map((row, index) => (
-        <DataRow key={index} row={row} setFilterState={setFilterState} />
+        <DataRow key={index} row={row} setFilterState={setFilterState} strings={strings} />
       ))}
       {rows.length < data.length && <LoadMore onClick={loadMore}>Load more</LoadMore>}
     </ClaimTableWrapper>

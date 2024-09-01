@@ -58,6 +58,7 @@ const Icon = ({
 export const DataRow: React.FC<DataRowComponentProps> = ({
   row,
   setFilterState,
+  strings
 }) => {
   const [showDetails, setShowDetails] = useState(false);
 
@@ -159,7 +160,7 @@ export const DataRow: React.FC<DataRowComponentProps> = ({
         ))}
       </TableGrid>
       {showDetails && (
-        <Details row={row} handleClose={handleClose} />
+        <Details row={row} handleClose={handleClose} strings={strings.details} />
       )}
     </>
   );

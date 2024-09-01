@@ -37,6 +37,7 @@ export interface SortState {
 export interface HeaderRowProps {
   sortData: (column: string) => void;
   sort: SortState;
+  strings: any;
 }
 
 
@@ -48,6 +49,7 @@ export interface SortArrowProps {
 export interface DataRowComponentProps {
   row: DataRowProps;
   setFilterState: React.Dispatch<React.SetStateAction<FilterStateProps>>;
+  strings: any;
 }
 
 export interface ColumnProps {
@@ -72,3 +74,9 @@ export interface FilterStateProps {
   lastWeek: boolean;
   lastMonth: boolean;
 };
+
+export interface DetailProps {
+  row: DataRowProps;
+  strings: any;
+  handleClose: () => void;
+}

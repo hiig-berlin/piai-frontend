@@ -135,28 +135,23 @@ export const tools: PiAiTool[] = [
     iconLong: "Claim-spotting",
     menu: [
       {
-        name: "Overview",
+        name: "Claim list",
       },
       {
         slug: "about",
         name: "About the tool",
       },
     ],
-    // submenu: [
-    //   {
-    //     name: "Simplifier",
-    //     icon: "simplifier"
-    //   },
-    //   {
-    //     slug: "extension",
-    //     name: "Extension",
-    //     icon: "plugin"
-    //   },
-    //   {
-    //     slug: "about",
-    //     name: "About",
-    //     icon: "info"
-    //   },
-    // ],
+    submenu: [
+      {
+        name: "Claim list",
+        icon: "list",
+      },
+      {
+        slug: "about",
+        name: "About",
+        icon: "info"
+      },
+    ],
   },
 ];

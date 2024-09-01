@@ -1,19 +1,79 @@
+import { error } from "console";
+import { channel } from "diagnostics_channel";
+import { link } from "fs";
+import { last } from "lodash";
 import { title } from "process";
 
 export const textBits = {
   en: {
     header: {
       title: "Claimspotting Misinformation Monitoring",
-      subtitle: "A web-based tool that monitors potential misinformation on Telegram. It is designed to assist fact-checkers.",
+      subtitle:
+        "A web-based tool that monitors potential misinformation on Telegram. It is designed to assist fact-checkers.",
     },
-    index: {},
+    index: {
+      statusMessages: {
+        loadingPre: "Loading page",
+        loadingPost: "of the claim list …",
+        noData: "No data available",
+        error:
+          "Error loading data. Try to refresh the page, the server might be tempoarily at capacity.",
+      },
+      filter: {
+        counter: {
+          title: "Claim counter",
+          of: "of",
+          subtitle: "Posts filtered as potentially checkworthy",
+        },
+        daterange: {
+          title: "Select date range",
+          lastDays: "Last 3 days",
+          lastWeek: "Last week",
+          lastMonth: "Last month",
+        },
+        topics: {
+          title: "Filter by topics or narrative",
+          selectTopic: "Select topic",
+          allTopics: "All topics",
+          allNarratives: "All narratives",
+        },
+        attributes: {
+          title: "Filter by attributes",
+          polarising: "Polarising",
+          sensational: "Sensational",
+          highDiffusion: "High diffusion",
+          manyTwins: "Many siblings",
+        },
+      },
+      table: {
+        columns: {
+          date: "Date",
+          text: "Text",
+          channel: "Channel",
+          topics: "Topic",
+          narrative: "Narrative",
+          attributes: "Attributes",
+          reach: "Reach",
+        },
+        details: {
+          title: "Post details",
+          channel: "Channel",
+          members: "Members",
+          link: "Link to post",
+          topic: "Topic",
+          narrative: "Narrative",
+          twins: "Siblings or copies",
+        },
+      },
+    },
     about: {
-      intro: "A web-based tool that monitors potential misinformation on Telegram. It is designed to assist fact-checkers.",
+      intro:
+        "A web-based tool that monitors potential misinformation on Telegram. It is designed to assist fact-checkers.",
       collaboration: {
         title: "Collaborate with Us",
         text: "The goal of Claimspotting is to support fact-checkers. The design of the application is based on empirical research into their workflows and selection criteria. However, there is still much to learn, and we believe the application can always be improved. If you have any suggestions or encounter any issues, please feel free to contact us. Additionally, if you think we have missed any Telegram channels that should be monitored, do let us know!",
-        url: "/",
-        label: "Collaborate with us",
+        url: "mailto:piai@hiig.de",
+        label: "Write us an email",
       },
       info: {
         basics: {
@@ -67,7 +127,6 @@ export const textBits = {
             text: "Disinformation is usually understood as false information spread with harmful intent. However, with misinformation, these intentions do not matter. The reason we refer to misinformation rather than disinformation is that our AI application cannot predict the intent of the authors based on a text. No software application can do that. Whether the information is spread with harmful intent or simply because the person genuinely believes it is not something software can determine. Therefore, we only refer to misinformation, not disinformation.",
           },
           selection_criteria: {
-   
             title: "Does Claimspotting detect misinformation?",
             text: "No, it does not. Detecting misinformation requires content verification, which is not the application's task, and we do not believe this should be done by software. What Claimspotting does is flag Telegram posts that meet certain criteria. These criteria are known from research and are often associated with misinformation. However, this does not mean that the content is actually misinformation. Therefore, we refer to potential misinformation. The application supports fact-checkers in monitoring such potential misinformation.",
           },
@@ -105,17 +164,72 @@ export const textBits = {
   de: {
     header: {
       title: "Claimspotting Misinformation Monitoring",
-      subtitle: "Ein webbasiertes Tool, das potenzielle Fehlinformationen auf Telegram überwacht. Es ist dazu konzipiert, Faktenchecker:innenn zu helfen.",
+      subtitle:
+        "Ein webbasiertes Tool, das potenzielle Fehlinformationen auf Telegram überwacht. Es ist dazu konzipiert, Faktenchecker:innenn zu helfen.",
     },
-    index: {},
-    about: {
-      intro: {
-        title: "Claimspotting Misinformation Monitoring",
-        text: "Ein webbasiertes Tool, das potenzielle Fehlinformationen auf Telegram überwacht. Es ist dazu konzipiert, Faktenchecker:innenn zu helfen.",
+    index: {
+      statusMessages: {
+        loadingPre: "Lade Seite",
+        loadingPost: "der gesamten Claim-Liste …",
+        noData: "Keine Daten verfügbar",
+        error:
+          "Fehler beim Laden der Daten. Versuche die Seite neu zu laden, der Server könnte temporär überlastet sein.",
       },
+      filter: {
+        counter: {
+          title: "Claim Counter",
+          of: "von",
+          subtitle: "potenziell überprüfenswerten Beiträgen",
+        },
+        daterange: {
+          title: "Zeitraum auswählen",
+          lastDays: "Letzte 3 Tage",
+          lastWeek: "Letzte Woche",
+          lastMonth: "Letzter Monat",
+        },
+        topics: {
+          title: "Nach Themen oder Narrativ filtern",
+          selectTopic: "Thema auswählen",
+          allTopics: "Alle Themen",
+          allNarratives: "Alle Narrative",
+        },
+        attributes: {
+          title: "Nach Attributen filtern",
+          polarising: "Polarisierend",
+          sensational: "Sensationalistisch",
+          highDiffusion: "Hohe Diffusion",
+          manyTwins: "Viele Siblings",
+        },
+      },
+      table: {
+        columns: {
+          date: "Datum",
+          text: "Text",
+          channel: "Kanal",
+          topics: "Thema",
+          narrative: "Narrativ",
+          attributes: "Attribute",
+          reach: "Reichweite",
+        },
+        details: {
+          title: "Details zum Beitrag",
+          channel: "Kanal",
+          members: "Mitglieder",
+          link: "Link zum Beitrag",
+          topic: "Thema",
+          narrative: "Narrativ",
+          twins: "Verwandte Posts oder Kopien",
+        },
+      },
+    },
+    about: {
+      intro:
+        "Ein webbasiertes Tool, das potenzielle Fehlinformationen auf Telegram überwacht. Es ist dazu konzipiert, Faktenchecker:innenn zu helfen.",
       collaboration: {
         title: "Arbeite mit uns zusammen",
         text: "Das Ziel von Claimspotting ist es, Faktenchecker*innen zu unterstützen. Das Design der Anwendung basiert auf empirischer Forschung über deren Arbeitsabläufe und Auswahlkriterien. Es gibt jedoch noch viel zu lernen, und wir glauben, dass die Anwendung immer verbessert werden kann. Wenn Du Vorschläge hast oder auf Fehler stößt, nimm gerne Kontakt mit uns auf. Auch wenn Du denkst, dass wir einige Telegram-Kanäle verpasst haben, die in die Überwachung aufgenommen werden sollten, lass es uns bitte wissen!",
+        url: "mailto:piai@hiig.de",
+        label: "Schreib uns eine Mail",
       },
       info: {
         basics: {

@@ -35,6 +35,7 @@ display: flex;
 flex-direction: column;
 gap: var(--size-3);
 padding: var(--size-3);
+min-width: calc(100vw - var(--size-6));
 
 h1,
 h2,

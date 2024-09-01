@@ -18,34 +18,6 @@ import { Placeholder } from "~/components/tools/shared/Styled";
 import ToolHeader from "~/components/tools/shared/Header";
 import useLanguage from "~/hooks/useLanguage";
 
-// Function to load data in development
-// const loadLocalData = async () => {
-//   const { dummyClaims } = await import(
-//     "~/assets/test-data/claimspotting/LarissaDummyShort"
-//   );
-//   return dummyClaims;
-// };
-
-// Function to load data in production
-// const loadProductionData = async () => {
-//   try {
-//     const response = await axios.get("https://res.cloudinary.com/dcipqnhka/raw/upload/v1723592731/claimspotting/LarissaDummyShort.tsx");
-//     let data = response.data;
-
-//     if (typeof data === "string" && data.startsWith("export const dummyClaims =")) {
-//       // Extract the array from the string using eval
-//       data = eval(data.replace("export const dummyClaims =", ""));
-//     }
-
-//     console.log("Data loaded successfully:", data);
-
-//     return data;
-//   } catch (error) {
-//     console.error("Error loading data:", error);
-//     return [];
-//   }
-// };
-
 const loadDataFromAPI = async (
   startDate: string,
   endDate: string,
@@ -223,17 +195,17 @@ const Index = ({
 
       {loading && (
         <Placeholder mode="full" tool="claim">
-          Loading page {page} of the claimlist...
+          {strings?.index.statusMessages?.loadingPre} {page} {strings?.index.statusMessages?.loadingPost}
         </Placeholder>
       )}
       {data.length === 0 && !loading && !error &&  (
         <Placeholder mode="full" tool="claim">
-          No data available
+          {strings?.index.statusMessages?.noData}
         </Placeholder>
       )}
       {error && (
         <Placeholder mode="full" tool="claim">
-          {error}
+          {error && strings?.index.statusMessages?.error || error}
         </Placeholder>
       )}
 
@@ -246,8 +218,9 @@ const Index = ({
             dataLengthFiltered={filteredData.length}
             filterState={filterState}
             setFilterState={setFilterState}
+            strings={strings?.index.filter}
           />
-          <ClaimTable data={filteredData} setFilterState={setFilterState} />
+          <ClaimTable data={filteredData} setFilterState={setFilterState} strings={strings?.index.table}/>
         </>
       )}
     </ClaimspottingWrapper>
