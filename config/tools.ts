@@ -44,11 +44,29 @@ export const tools: PiAiTool[] = [
       // bounds: [[-90, -90], [number, number]],
       zoom: 3,
       colorText: "#000",
-      colorCluster: '#ff0',
-      colorClusterText: '#000',
-      colorDot: '#fff',
-      urlGeoJson: '/map/geojson'
-    }
+      colorCluster: "#ff0",
+      colorClusterText: "#000",
+      colorDot: "#fff",
+      urlGeoJson: "/map/geojson",
+    },
+  },
+  {
+    slug: "stakeholder",
+    name: "Index of stakeholders around the discussion of AI",
+    description: "Index of organisations involved in the discourse",
+    colorBase: "var(--color-piai-stakeholder)",
+    colorHighlight: "var(--color-piai-stakeholder)",
+    iconShort: "St",
+    iconLong: "Stakeholder Index",
+    menu: [
+      {
+        name: "Overview",
+      },
+      {
+        slug: "about",
+        name: "About the tool",
+      },
+    ],
   },
   // {
   //   slug: "energy",
@@ -68,21 +86,33 @@ export const tools: PiAiTool[] = [
   //     },
   //   ],
   // },
-    {
-    slug: "stakeholder",
-    name: "Index of stakeholders around the discussion of AI",
-    description: "Index of organisations involved in the discourse",
-    colorBase: "var(--color-piai-stakeholder)",
-    colorHighlight: "var(--color-piai-stakeholder)",
-    iconShort: "St",
-    iconLong: "Stakeholder Index",
+  {
+    slug: "claimspotting",
+    name: "Claimspotting",
+    description:
+      "A tool for fact-checkers to identify potentially false claims and trending narratives.",
+    colorBase: "var(--color-piai-claim)",
+    colorHighlight: "var(--color-piai-claim)",
+    iconShort: "Cl",
+    iconLong: "Claim-spotting",
     menu: [
       {
-        name: "Overview",
+        name: "Claim list",
       },
       {
         slug: "about",
         name: "About the tool",
+      },
+    ],
+    submenu: [
+      {
+        name: "Claim list",
+        icon: "list",
+      },
+      {
+        slug: "about",
+        name: "About",
+        icon: "info",
       },
     ],
   },
@@ -111,46 +141,17 @@ export const tools: PiAiTool[] = [
       {
         slug: "simplifier",
         name: "Simplifier",
-        icon: "simplifier"
+        icon: "simplifier",
       },
       {
         slug: "extension",
         name: "Extension",
-        icon: "plugin"
+        icon: "plugin",
       },
       {
         slug: "about",
         name: "About",
-        icon: "info"
-      },
-    ],
-  },
-  {
-    slug: "claimspotting",
-    name: "Claimspotting",
-    description: "A tool for fact-checkers to identify potentially false claims and trending narratives.",
-    colorBase: "var(--color-piai-claim)",
-    colorHighlight: "var(--color-piai-claim)",
-    iconShort: "Cl",
-    iconLong: "Claim-spotting",
-    menu: [
-      {
-        name: "Claim list",
-      },
-      {
-        slug: "about",
-        name: "About the tool",
-      },
-    ],
-    submenu: [
-      {
-        name: "Claim list",
-        icon: "list",
-      },
-      {
-        slug: "about",
-        name: "About",
-        icon: "info"
+        icon: "info",
       },
     ],
   },

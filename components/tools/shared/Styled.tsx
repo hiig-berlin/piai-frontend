@@ -1,4 +1,3 @@
-import { String } from "lodash";
 import styled from "styled-components";
 import { ButtonNormalized } from "~/components/styled/Button";
 import { narrow } from "~/components/tools/map/Styled";

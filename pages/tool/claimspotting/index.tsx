@@ -177,20 +177,6 @@ const Index = ({
         strings={strings?.header}
         language={language}
         setLanguage={setLanguage}
-        // links={[
-        //   {
-        //     type: "info",
-        //     url: "/tool/claimspotting/about",
-        //     ariaLabel: "About this tool",
-        //     label: "About",
-        //   },
-        //   {
-        //     type: "repo",
-        //     url: "https://github.com/hiig-berlin/claimspotting",
-        //     ariaLabel: "Go to GitHub repository",
-        //     label: "GitHub",
-        //   },
-        // ]}
       />
 
       <Filter

@@ -205,7 +205,8 @@ const IconWrapper = styled.div<{ active?: boolean }>`
     min-height: 0.8rem;
     filter: ${({ active }) =>
       active
-        ? "invert(64%) sepia(12%) saturate(3897%) hue-rotate(316deg) brightness(110%) contrast(82%)"
+        ? "brightness(0) saturate(100%) invert(57%) sepia(24%) saturate(1126%) hue-rotate(105deg) brightness(101%) contrast(95%)"
+        //"invert(64%) sepia(12%) saturate(3897%) hue-rotate(316deg) brightness(110%) contrast(82%)"
         : "none"};
   }
 `;
