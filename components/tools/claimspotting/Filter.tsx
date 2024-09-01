@@ -61,6 +61,7 @@ const Filter = ({
     setFilterState((prevState: FilterStateProps) => ({
       ...prevState,
       [name]: value,
+      lastDays: false,
       lastWeek: false,
       lastMonth: false,
     }));
@@ -90,9 +91,9 @@ const Filter = ({
           startDate,
           endDate,
           [name]: checked,
-          lastDays: name === "lastDays" ? checked : prevState.lastDays,
-          lastWeek: name === "lastWeek" ? checked : prevState.lastWeek,
-          lastMonth: name === "lastMonth" ? checked : prevState.lastMonth,
+          lastDays: name === "lastDays" ? checked : !checked,
+          lastWeek: name === "lastWeek" ? checked : !checked,
+          lastMonth: name === "lastMonth" ? checked : !checked,
         }))
       : setFilterState((prevState) => ({
           ...prevState,
@@ -199,29 +200,29 @@ const Filter = ({
           <label>
             <Checkbox
               type="checkbox"
-              name={strings?.daterange?.lastDays}
+              name="lastDays"
               checked={filterState.lastDays}
               onChange={handleDatePresetChange}
             />
-            Last 3 days
+            {strings?.daterange?.lastDays}
           </label>
           <label>
             <Checkbox
               type="checkbox"
-              name={strings?.daterange?.lastWeek}
+              name="lastWeek"
               checked={filterState.lastWeek}
               onChange={handleDatePresetChange}
             />
-            Last week
+            {strings?.daterange?.lastWeek}
           </label>
           {/* <label>
             <Checkbox
               type="checkbox"
-              name={strings?.daterange?.lastMonth}
+              name="lastMonth"
               checked={filterState.lastMonth}
               onChange={handleDatePresetChange}
             />
-            Last month
+            {strings?.daterange?.lastMonth}
           </label> */}
         </CheckboxList>
         <div className="range">

@@ -1,9 +1,3 @@
-import { error } from "console";
-import { channel } from "diagnostics_channel";
-import { link } from "fs";
-import { last } from "lodash";
-import { title } from "process";
-
 export const textBits = {
   en: {
     header: {

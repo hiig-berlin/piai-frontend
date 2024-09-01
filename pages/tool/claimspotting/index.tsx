@@ -138,20 +138,20 @@ const Index = ({
       //   rawData.count
       // );
       if (page === 1) {
-      setData(dataArray);
-      setFilteredData(dataArray);
-      }
-      else{
-        setData(prevData => [...prevData, ...dataArray]);
-        setFilteredData(prevFilteredData => [...prevFilteredData, ...dataArray]);
+        setData(dataArray);
+        setFilteredData(dataArray);
+      } else {
+        setData((prevData) => [...prevData, ...dataArray]);
+        setFilteredData((prevFilteredData) => [
+          ...prevFilteredData,
+          ...dataArray,
+        ]);
       }
       rawData.next && setPage(page + 1);
       setLoading(false);
     };
     loadData();
   }, [filterState.startDate, filterState.endDate, page]);
-
-
 
   // Memoize filter change handler
   const handleFilterChange = useCallback((filteredData: any[]) => {
@@ -193,35 +193,39 @@ const Index = ({
         // ]}
       />
 
+      <Filter
+        data={data}
+        onFilterChange={handleFilterChange}
+        dataLengthTotal={dataLength}
+        dataLengthFiltered={filteredData.length}
+        filterState={filterState}
+        setFilterState={setFilterState}
+        strings={strings?.index.filter}
+      />
+
       {loading && (
         <Placeholder mode="full" tool="claim">
-          {strings?.index.statusMessages?.loadingPre} {page} {strings?.index.statusMessages?.loadingPost}
+          {strings?.index.statusMessages?.loadingPre} {page}{" "}
+          {strings?.index.statusMessages?.loadingPost}
         </Placeholder>
       )}
-      {data.length === 0 && !loading && !error &&  (
+      {data.length === 0 && !loading && !error && (
         <Placeholder mode="full" tool="claim">
           {strings?.index.statusMessages?.noData}
         </Placeholder>
       )}
       {error && (
         <Placeholder mode="full" tool="claim">
-          {error && strings?.index.statusMessages?.error || error}
+          {(error && strings?.index.statusMessages?.error) || error}
         </Placeholder>
       )}
 
       {data.length > 0 && (
-        <>
-          <Filter
-            data={data}
-            onFilterChange={handleFilterChange}
-            dataLengthTotal={dataLength}
-            dataLengthFiltered={filteredData.length}
-            filterState={filterState}
-            setFilterState={setFilterState}
-            strings={strings?.index.filter}
-          />
-          <ClaimTable data={filteredData} setFilterState={setFilterState} strings={strings?.index.table}/>
-        </>
+        <ClaimTable
+          data={filteredData}
+          setFilterState={setFilterState}
+          strings={strings?.index.table}
+        />
       )}
     </ClaimspottingWrapper>
   );

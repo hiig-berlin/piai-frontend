@@ -166,8 +166,6 @@ export const DataRow: React.FC<DataRowComponentProps> = ({
   );
 };
 
-
-
 const DataCell = styled.div`
   display: flex;
   align-items: center;
