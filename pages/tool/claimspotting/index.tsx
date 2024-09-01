@@ -5,21 +5,18 @@ import { appConfig } from "~/config";
 import LayoutTool from "~/components/layouts/LayoutTool";
 import { restApiGetSettings } from "~/utils/restApi";
 import { PiAiTool } from "~/types";
-import styled from "styled-components";
 import {
   useCssVarsStateIsDesktopAndUpState,
   useCssVarsStateIsTabletAndUpState,
 } from "~/components/state/CssVarsState";
 import moment from "moment";
-import ToolHeader from "~/components/tools/shared/Header";
 import Filter from "~/components/tools/claimspotting/Filter";
 import ClaimTable from "~/components/tools/claimspotting/ClaimTable";
 import { FilterStateProps } from "~/components/tools/claimspotting/ui/types";
 import { ClaimspottingWrapper } from "~/components/tools/claimspotting/Styled";
-import axios from "axios"; // Add axios for making HTTP requests
 import { Placeholder } from "~/components/tools/shared/Styled";
-import { filter, set } from "lodash";
-import { error } from "console";
+import ToolHeader from "~/components/tools/shared/Header";
+import useLanguage from "~/hooks/useLanguage";
 
 // Function to load data in development
 // const loadLocalData = async () => {
@@ -120,6 +117,8 @@ const Index = ({
   const [filteredData, setFilteredData] = useState<any[]>([]);
   const [page, setPage] = useState<number>(1);
 
+  const { strings, language, setLanguage } = useLanguage("claimspotting"); // Use language hook
+
   // Initialize state with explicit type
   const [filterState, setFilterState] = useState<FilterStateProps>({
     startDate: moment().subtract(1, "days").format("YYYY-MM-DD"),
@@ -171,8 +170,8 @@ const Index = ({
       setFilteredData(dataArray);
       }
       else{
-        setData([...data, ...dataArray]);
-        setFilteredData([...filteredData, ...dataArray]);
+        setData(prevData => [...prevData, ...dataArray]);
+        setFilteredData(prevFilteredData => [...prevFilteredData, ...dataArray]);
       }
       rawData.next && setPage(page + 1);
       setLoading(false);
@@ -203,22 +202,23 @@ const Index = ({
 
       <ToolHeader
         tool={tool}
-        title="Claimspotting – The spotting tool for fact-checkers"
-        description="Metus vulputate eu scelerisque felis imperdiet. Eget sit amet tellus cras. Urna condimentum mattis pellentesque id."
-        links={[
-          {
-            type: "info",
-            url: "/tool/claimspotting/about",
-            ariaLabel: "About this tool",
-            label: "About",
-          },
-          {
-            type: "repo",
-            url: "https://github.com/hiig-berlin/claimspotting",
-            ariaLabel: "Go to GitHub repository",
-            label: "GitHub",
-          },
-        ]}
+        strings={strings?.header}
+        language={language}
+        setLanguage={setLanguage}
+        // links={[
+        //   {
+        //     type: "info",
+        //     url: "/tool/claimspotting/about",
+        //     ariaLabel: "About this tool",
+        //     label: "About",
+        //   },
+        //   {
+        //     type: "repo",
+        //     url: "https://github.com/hiig-berlin/claimspotting",
+        //     ariaLabel: "Go to GitHub repository",
+        //     label: "GitHub",
+        //   },
+        // ]}
       />
 
       {loading && (

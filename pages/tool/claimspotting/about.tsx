@@ -6,6 +6,8 @@ import { appConfig } from "~/config";
 import LayoutTool from "~/components/layouts/LayoutTool";
 import { restApiGetSettings } from "~/utils/restApi";
 import { AboutPage } from "~/components/tools/shared/AboutPage";
+import useLanguage from "~/hooks/useLanguage";
+import { isObject, isString } from "lodash";
 
 const About = ({
   frontendSettings,
@@ -15,6 +17,21 @@ const About = ({
   tool: PiAiTool;
 }) => {
   const currentTool = appConfig.tools?.find((t) => t.slug === "energy");
+
+  const { strings, language, setLanguage } = useLanguage("claimspotting"); // Use language hook
+
+  let contentString: string = "";
+    for (var key in strings?.about.info) {
+      if (strings?.about.info[key].title) contentString += `<h2>${strings?.about.info[key].title}</h2>`;
+      if (strings?.about.info[key].text) contentString += `<p>${strings?.about.info[key].text}</p>`;
+
+      for (var subkey in strings?.about.info[key]) {
+          if (isObject(strings?.about.info[key][subkey])) {
+            contentString += `<h3>${strings?.about.info[key][subkey].title}</h3><p>${strings?.about.info[key][subkey].text}</p>`;
+          };
+      }
+      console.log(contentString);
+    };
 
   return (
     <>
@@ -37,18 +54,17 @@ const About = ({
       <AboutPage
         {...{
           tool,
-          intro:
-            "<p>Curabitur quis lorem justo. Donec lacinia, metus eu ultricies aliquet, velit neque ornare quam, non hendrerit enim arcu nec turpis. Quisque felis nunc, varius at turpis tristique, tempus dapibus nunc. Vivamus volutpat turpis orci. In posuere sem nulla, eget fringilla turpis egestas at. Vivamus sed facilisis risus. Nullam quis augue feugiat, fermentum sapien vitae, efficitur augue. Nunc vestibulum elit sit amet arcu iaculis dignissim.</p>",
-          content:
-            "<p>Integer eu eros et ligula porttitor rutrum. Phasellus condimentum feugiat sagittis. Suspendisse pretium tellus ac orci luctus, nec maximus risus molestie. Pellentesque blandit lacus ac nulla congue feugiat. Etiam id nisi id arcu ultricies fringilla ut quis ipsum.</p>",
-          contentSimple:
-            "<p>Integer eu eros et ligula porttitor rutrum. Phasellus condimentum feugiat sagittis. Suspendisse pretium tellus ac orci luctus, nec maximus risus molestie. Pellentesque blandit lacus ac nulla congue feugiat. Etiam id nisi id arcu ultricies fringilla ut quis ipsum.</p>",
+          intro: strings?.about.intro,
+          content: contentString,
+          contentSimple: contentString,
           cta: {
-            title: "CTA Title",
-            text: "<p>Aliquam gravida eu leo a pulvinar. Etiam sollicitudin mauris dolor, et luctus enim volutpat sit amet. Curabitur erat risus, tincidunt at turpis in, molestie efficitur tellus.</p>",
-            url: "/",
-            linkTitle: "Go back home",
+            title: strings?.about.collaboration.title,
+            text: strings?.about.collaboration.text,
+            url: strings?.about.collaboration.url,
+            linkTitle: strings?.about.collaboration.label,
           },
+          language: language,
+          setLanguage: setLanguage,
         }}
       />
     </>
@@ -58,7 +74,9 @@ const About = ({
 export const getStaticProps: GetStaticProps = async (context) => {
   // const token = (context?.previewData as any)?.token;
 
-  const tool = appConfig.tools.find((tool: PiAiTool) => tool.slug === "energy");
+  const tool = appConfig.tools.find(
+    (tool: PiAiTool) => tool.slug === "claimspotting"
+  );
   if (!tool)
     return {
       props: {

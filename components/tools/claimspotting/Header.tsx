@@ -9,7 +9,7 @@ import {
 } from "~/components/state/CssVarsState";
 import { ButtonNormalized } from "~/components/styled/Button";
 
-function SimbaHeader({
+function ClaimspottingHeader({
   tool,
   language,
   setLanguage,
@@ -94,7 +94,7 @@ function SimbaHeader({
   );
 }
 
-export default SimbaHeader;
+export default ClaimspottingHeader;
 
 const Header = styled.header`
   display: flex;

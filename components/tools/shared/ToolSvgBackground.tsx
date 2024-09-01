@@ -64,6 +64,8 @@ import Svgpoles from "~/components/svgs/Svgpoles";
 import Svgbold from "~/components/svgs/Svgbold";
 import Svgsort from "~/components/svgs/Svgsort";
 import Svgview from "~/components/svgs/Svgview";
+import SvgGroup from "~/components/svgs/SvgGroup";
+import SvgChannel from "~/components/svgs/SvgChannel";
 
 // use https://jakearchibald.github.io/svgomg/
 // use https://yoksel.github.io/url-encoder/
@@ -328,6 +330,14 @@ export const ToolSvgBackground = ({
     
     case "structure":
       activeSvg = Svgstructure;
+      break;
+
+    case "group":
+      activeSvg = SvgGroup;
+      break;
+
+    case "channel":
+      activeSvg = SvgChannel;
       break;
 
   }

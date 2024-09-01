@@ -12,7 +12,7 @@ import { LinkButtonAnimated } from "~/components/styled/Button";
 import { ToolSvgBackground } from "~/components/tools/shared/ToolSvgBackground";
 
 import { Meta } from "~/components/tools/map/Styled";
-import SimbaHeader from "~/components/tools/simba/header";
+import ToolHeader from "~/components/tools/shared/Header";
 import {
   SimbaWrapper,
   BoxHighlight,
@@ -39,12 +39,12 @@ const Index = ({ tool }: { tool: PiAiTool }) => {
       />
 
       {/* =================== HEADER =================== */}
-      <SimbaHeader
+      <ToolHeader
         tool={tool}
         language={language}
         setLanguage={setLanguage}
         strings={strings?.header}
-      ></SimbaHeader>
+      ></ToolHeader>
 
       {/* =================== GRID =================== */}
       <Grid>

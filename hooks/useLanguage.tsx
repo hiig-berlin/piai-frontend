@@ -11,6 +11,10 @@ const useLanguage = (toolSlug: string) => {
         simplifier?: any;
         extension?: any;
         index?: any;
+        about?: any;
+        list?: any;
+        trends?: any;
+        search?: any;
       }
     | undefined
   >();

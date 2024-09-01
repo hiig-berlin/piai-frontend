@@ -7,7 +7,7 @@ import LayoutTool from "~/components/layouts/LayoutTool";
 import { restApiGetSettings } from "~/utils/restApi";
 import { PiAiTool } from "~/types";
 import Simplifier from "~/components/tools/simba/simplifier";
-import SimbaHeader from "~/components/tools/simba/header";
+import ToolHeader from "~/components/tools/shared/Header";
 import { SimbaWrapper } from "~/components/tools/simba/Styled";
 import useLanguage from "~/hooks/useLanguage";
 
@@ -30,12 +30,12 @@ const SimplifierPage = ({ tool }: { tool: PiAiTool }) => {
       />
 
       {/* =================== HEADER =================== */}
-      <SimbaHeader
+      <ToolHeader
         strings={strings?.header}
         tool={tool}
         language={language}
         setLanguage={setLanguage}
-      ></SimbaHeader>
+      ></ToolHeader>
 
       <Simplifier strings={strings?.simplifier} />
     </SimbaWrapper>

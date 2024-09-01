@@ -8,24 +8,34 @@ import {
   useCssVarsStateIsDesktopAndUpState,
   useCssVarsStateIsTabletAndUpState,
 } from "~/components/state/CssVarsState";
+import LanguageSwitch from "~/components/tools/shared/LanguageSwitch";
 
 const ToolHeader = ({
   tool,
   title,
   description,
   links,
+  language,
+  setLanguage,
+  strings,
 }: {
   tool: {
     iconShort: string | undefined;
     iconLong: string | undefined;
     colorBase: string | undefined;
   };
-  title: string;
-  description: string;
-  links: { type: string; url: string; ariaLabel: string; label: string }[];
+  title?: string;
+  description?: string;
+  links?: { type: string; url: string; ariaLabel: string; label: string }[];
+  language?: string;
+  setLanguage?: (lang: string) => void;
+  strings?: any;
 }) => {
   const isTabletAndUp = useCssVarsStateIsTabletAndUpState();
   const isDesktopAndUp = useCssVarsStateIsDesktopAndUpState();
+
+  const headerTitle = strings?.title || title;
+  const headerSubtitle = strings?.subtitle || description;
 
   return (
     <HeaderWrapper>
@@ -39,10 +49,10 @@ const ToolHeader = ({
         />
       )}
       <div className="toolIntro">
-        <h1>{title}</h1>
-        <p>{description}</p>
+        <h1>{headerTitle}</h1>
+        <p>{headerSubtitle}</p>
       </div>
-      {isDesktopAndUp && (
+      {isDesktopAndUp && links && (
         <ul>
           {links.map((link, index) => (
             <Icon
@@ -57,6 +67,10 @@ const ToolHeader = ({
             </Icon>
           ))}
         </ul>
+      )}
+      {/* Language selection */}
+      {language && setLanguage && (
+        <LanguageSwitch language={language} setLanguage={setLanguage} />
       )}
     </HeaderWrapper>
   );

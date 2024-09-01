@@ -4,7 +4,7 @@ import { ToolSvgBackground } from "../../shared/ToolSvgBackground";
 import type { DataRowComponentProps, DataRowProps } from "./types";
 import { Tag, Tags } from "../../shared/Styled";
 import { TableGrid } from "../Styled";
-import { Icon as LabeldIcon } from "../../shared/ui/Icon";
+import Details from "../Details";
 
 const formatDate = (dateString: string): string => {
   const options: Intl.DateTimeFormatOptions = {
@@ -147,6 +147,10 @@ export const DataRow: React.FC<DataRowComponentProps> = ({
     setShowDetails(!showDetails);
   };
 
+  const handleClose = () => {
+    setShowDetails(false);
+  }
+
   return (
     <>
       <TableGrid onClick={() => handleRowClick(row)}>
@@ -155,79 +159,13 @@ export const DataRow: React.FC<DataRowComponentProps> = ({
         ))}
       </TableGrid>
       {showDetails && (
-        <Details>
-          <h2>Post details</h2>
-          <div className="row">
-            <div className="column">
-              <p>{row.Text}</p>
-              <div className="row">
-                <div className="column">
-                  <h3>Channel</h3>
-                  <LabeldIcon type="globe" url={row.Link}>
-                    {row.Channel_Name}
-                  </LabeldIcon>
-                </div>
-                <div className="column">
-                  <h3>Members</h3>
-                  <LabeldIcon type="globe" url={row.Link}>
-                    {row.Member_count}
-                  </LabeldIcon>
-                </div>
-              </div>
-            </div>
-            <div className="column">
-              <h3>Link to post</h3>
-              <LabeldIcon type="globe" url={row.Link}>
-                {row.Link}
-              </LabeldIcon>
-              {row.Siblings.length > 0 && <h3>Silblings or copies</h3>}
-              {row.Siblings.map((sibling: any, idx: number) => (
-                <LabeldIcon type="copy" url={sibling} key={idx}>
-                  {sibling}
-                </LabeldIcon>
-              ))}
-            </div>
-          </div>
-        </Details>
+        <Details row={row} handleClose={handleClose} />
       )}
     </>
   );
 };
 
-const Details = styled.div`
-  padding: var(--size-3);
-  border-radius: var(--size-2);
-  margin: 0 calc(var(--size-3) * -1 - var(--size-2));
-  border: solid var(--color-bg-tool);
-  border-width: var(--size-2);
-  font-size: 0.9em;
-  line-height: 1.4;
-  color: #fff;
-  display: flex;
-  flex-direction: column;
 
-  p {
-    margin: 0;
-  }
-
-  .row {
-    display: flex;
-    gap: var(--size-6);
-  }
-
-  .column {
-    display: flex;
-    flex-direction: column;
-    gap: var(--size-1);
-
-    h3 {
-      margin-top: var(--size-3);
-      &:first-of-type {
-        margin-top: 0;
-      }
-    }
-  }
-`;
 
 const DataCell = styled.div`
   display: flex;
