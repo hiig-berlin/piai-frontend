@@ -86,13 +86,21 @@ const DetailsWrapper = styled.div`
 
   .row {
     display: flex;
-    gap: var(--size-6);
+    flex-direction: column;
+    gap: var(--size-4);
+
+    ${({ theme }) => theme.breakpoints.tablet} {
+      flex-direction: row;
+      gap: var(--size-6);
+    }
 
     &.title {
       justify-content: space-between;
+      flex-direction: row;
 
       span {
-        min-width: var(--size-3);
+        min-width: var(--size-4);
+        min-height: var(--size-3);
       }
     }
   }

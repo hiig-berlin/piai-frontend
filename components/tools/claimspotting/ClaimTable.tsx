@@ -64,7 +64,10 @@ export default ClaimTable;
 const ClaimTableWrapper = styled(Box)`
   display: flex;
   flex-direction: column;
-  width: calc(100vw - 4 * var(--size-3) - 3rem);
+  width: 100%
+  ${({ theme }) => theme.breakpoints.tablet} {
+    width: calc(100vw - 4 * var(--size-3) - 3rem);
+  }
 `;
 
 const LoadMore = styled(Button)`

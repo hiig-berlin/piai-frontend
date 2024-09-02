@@ -3,8 +3,12 @@ import { Box } from "~/components/tools/shared/ui/Box";
 
 export const TableGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: 1fr 2fr;
   gap: var(--size-1);
+
+  & > div:nth-child(3), & > div:nth-child(4), & > div:nth-child(5){
+    display: none;
+  }
 
   ${({ theme }) => theme.breakpoints.tablet} {
     display: grid;
@@ -19,6 +23,9 @@ export const TableGrid = styled.div`
         // grid-template-columns: 6fr 24fr 9fr 12fr 25fr 7fr 10fr;
     gap: var(--size-1);
     transition: all 0.3s;
+    & > div:nth-child(3), & > div:nth-child(4), & > div:nth-child(5){
+      display: block;
+    }
   }
 
   &:hover{

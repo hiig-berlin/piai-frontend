@@ -76,7 +76,7 @@ export const textBits = {
         },
         goal: {
           title: "How Does Claimspotting Work?",
-          text: "The application automatically searches and monitors around 200 Telegram channels daily (https://github.com/SamiNenno/Claimspotting/tree/main/Tele_Crawler/Utils/Telegram_Channels), which are either known for spreading misinformation or have been identified as problematic by experts. It identifies posts that exhibit characteristics commonly associated with misinformation, according to research. Once such posts are detected, Claimspotting marks and categorises them according to specific criteria. This allows fact-checkers to pinpoint potential misinformation and subsequently verify it.",
+          text: "The application automatically searches and monitors [around 200 Telegram channels daily](https://github.com/SamiNenno/Claimspotting/tree/main/Tele_Crawler/Utils/Telegram_Channels), which are either known for spreading misinformation or have been identified as problematic by experts. It identifies posts that exhibit characteristics commonly associated with misinformation, according to research. Once such posts are detected, Claimspotting marks and categorises them according to specific criteria. This allows fact-checkers to pinpoint potential misinformation and subsequently verify it.",
         },
         applications: {
           title: "What Can I Do with Claimspotting?",
@@ -98,11 +98,11 @@ export const textBits = {
           },
           polarisation: {
             title: "Polarising",
-            text: "Polarising claims are those that create a clear friend-enemy distinction. They refer to specific national, ethnic, or religious groups or portray elites as enemies or perpetrators. We adopted the taxonomy and data from the DeFaktS project (https://defakts.de/).",
+            text: "Polarising claims are those that create a clear friend-enemy distinction. They refer to specific national, ethnic, or religious groups or portray elites as enemies or perpetrators. We adopted the taxonomy and data from the [DeFaktS project](https://defakts.de/).",
           },
           sensationalism: {
             title: "Sensationalism",
-            text: "Sensational claims are statements that are exaggerated to grab the reader's attention. This often occurs through the excessive use of capital letters or exclamation marks. We adopted the taxonomy and data from the DeFaktS project (https://defakts.de/).",
+            text: "Sensational claims are statements that are exaggerated to grab the reader's attention. This often occurs through the excessive use of capital letters or exclamation marks. We adopted the taxonomy and data from the [DeFaktS project](https://defakts.de/).",
           },
           siblings: {
             title: "Siblings",
@@ -126,7 +126,7 @@ export const textBits = {
           },
           channels: {
             title: "Which Telegram channels are monitored?",
-            text: "It is, of course, not possible to monitor all Telegram channels, as there are simply too many. Moreover, this would be of little use since most channels are uninteresting regarding misinformation. Therefore, we specifically monitor channels that have previously undergone fact-checking and are known for spreading misinformation. Additionally, we have asked fact-checkers about channels they monitor. If you have suggestions for other channels that should be included or believe that a channel should be removed, please feel free to contact us. A complete list of monitored channels can be found here (https://github.com/SamiNenno/Claimspotting/tree/main/Tele_Crawler/Utils/Telegram_Channels).",
+            text: "**It is, of course,** not possible to monitor all Telegram channels, as there are simply too many. Moreover, this would be of little use since most channels are uninteresting regarding misinformation. Therefore, we specifically monitor channels that have previously undergone fact-checking and are known for spreading misinformation. Additionally, we have asked fact-checkers about channels they monitor. If you have suggestions for other channels that should be included or believe that a channel should be removed, please feel free to contact us. A complete list of monitored channels can be found [here](https://github.com/SamiNenno/Claimspotting/tree/main/Tele_Crawler/Utils/Telegram_Channels).",
           },
           other_channels: {
             title:
@@ -145,11 +145,11 @@ export const textBits = {
           basemodels: {
             title:
               "On which models are the AI applications of Claimspotting based?",
-            text: "The models used are customised XLM-RoBERTa Large models (https://huggingface.co/FacebookAI/xlm-roberta-large). This model was trained on text files in more than 100 languages. Therefore, the Claimspotting models also work not just for German texts. The embedding models, i.e., the models used to recognise siblings, are based on a different version (https://huggingface.co/intfloat/multilingual-e5-large-instruct) of XLM-RoBERTa and were also customised for the task with our own data.",
+            text: "The models used are customised [XLM-RoBERTa Large models](https://huggingface.co/FacebookAI/xlm-roberta-large). This model was trained on text files in more than 100 languages. Therefore, the Claimspotting models also work not just for German texts. The embedding models, i.e., the models used to recognise siblings, are based on a [different version](https://huggingface.co/intfloat/multilingual-e5-large-instruct) of XLM-RoBERTa and were also customised for the task with our own data.",
           },
           code: {
             title: "I have a specific question about the code or models...",
-            text: "You can find our code repository here (https://github.com/SamiNenno/Claimspotting), and the machine learning models here (https://huggingface.co/Sami92). If your question is not answered, do not hesitate to create an issue in our Claimspotting repository.",
+            text: "You can find our code repository [here](https://github.com/SamiNenno/Claimspotting), and the machine learning models [here](https://huggingface.co/Sami92). If your question is not answered, do not hesitate to create an issue in our Claimspotting repository.",
           },
         },
       },
@@ -159,7 +159,7 @@ export const textBits = {
     header: {
       title: "Claimspotting Misinformation Monitoring",
       subtitle:
-        "Ein webbasiertes Tool, das potenzielle Fehlinformationen auf Telegram überwacht. Es ist dazu konzipiert, Faktenchecker:innenn zu helfen.",
+        "Ein webbasiertes Tool, das potenzielle Fehlinformationen auf Telegram überwacht. Es ist dazu konzipiert, Faktenchecker:innen zu helfen.",
     },
     index: {
       statusMessages: {
@@ -221,18 +221,18 @@ export const textBits = {
         "Ein webbasiertes Tool, das potenzielle Fehlinformationen auf Telegram überwacht. Es ist dazu konzipiert, Faktenchecker:innenn zu helfen.",
       collaboration: {
         title: "Arbeite mit uns zusammen",
-        text: "Das Ziel von Claimspotting ist es, Faktenchecker*innen zu unterstützen. Das Design der Anwendung basiert auf empirischer Forschung über deren Arbeitsabläufe und Auswahlkriterien. Es gibt jedoch noch viel zu lernen, und wir glauben, dass die Anwendung immer verbessert werden kann. Wenn Du Vorschläge hast oder auf Fehler stößt, nimm gerne Kontakt mit uns auf. Auch wenn Du denkst, dass wir einige Telegram-Kanäle verpasst haben, die in die Überwachung aufgenommen werden sollten, lass es uns bitte wissen!",
+        text: "Das Ziel von Claimspotting ist es, Faktenchecker:innen zu unterstützen. Das Design der Anwendung basiert auf empirischer Forschung über deren Arbeitsabläufe und Auswahlkriterien. Es gibt jedoch noch viel zu lernen, und wir glauben, dass die Anwendung immer verbessert werden kann. Wenn Du Vorschläge hast oder auf Fehler stößt, nimm gerne Kontakt mit uns auf. Auch wenn Du denkst, dass wir einige Telegram-Kanäle verpasst haben, die in die Überwachung aufgenommen werden sollten, lass es uns bitte wissen!",
         url: "mailto:piai@hiig.de",
         label: "Schreib uns eine Mail",
       },
       info: {
         basics: {
           title: "Was ist Claimspotting?",
-          text: "Claimspotting ist eine speziell entwickelte Überwachungsanwendung, die Faktenchecker*innen bei der Überprüfung von Online-Inhalten auf der Nachrichtenplattform Telegram unterstützt. Der Begriff „Claimspotting“ setzt sich aus den englischen Wörtern „claim“ (Behauptung) und „spotting“ (Entdecken) zusammen. Im Kontext der Anwendung bedeutet dies das gezielte Erkennen von Behauptungen, die potenziell Fehlinformationen sein könnten. Ziel der KI-Anwendung ist es, die Arbeit von journalistischen Faktenchecker*innen effizienter zu gestalten, indem sie den zeitaufwendigen Prozess der Überwachung von Telegram-Kanälen automatisiert.",
+          text: "Claimspotting ist eine speziell entwickelte Überwachungsanwendung, die Faktenchecker:innen bei der Überprüfung von Online-Inhalten auf der Nachrichtenplattform Telegram unterstützt. Der Begriff „Claimspotting“ setzt sich aus den englischen Wörtern „claim“ (Behauptung) und „spotting“ (Entdecken) zusammen. Im Kontext der Anwendung bedeutet dies das gezielte Erkennen von Behauptungen, die potenziell Fehlinformationen sein könnten. Ziel der KI-Anwendung ist es, die Arbeit von journalistischen Faktenchecker:innen effizienter zu gestalten, indem sie den zeitaufwendigen Prozess der Überwachung von Telegram-Kanälen automatisiert.",
         },
         goal: {
           title: "Wie funktioniert Claimspotting?",
-          text: "Die Anwendung durchsucht und überwacht täglich automatisch um die 200 Telegram-Kanäle (https://github.com/SamiNenno/Claimspotting/tree/main/Tele_Crawler/Utils/Telegram_Channels), die entweder für die Verbreitung von Fehlinformationen bekannt sind oder von Expert*innen als problematisch eingestuft wurden. Es identifiziert Beiträge, die Merkmale aufweisen, die in der Forschung als typisch für Fehlinformationen gelten. Sobald solche Beiträge erkannt werden, markiert und kategorisiert Claimspotting sie nach bestimmten Kriterien. Dadurch können Faktenchecker*innen gezielt potenzielle Fehlinformationen finden und diese anschließend überprüfen.",
+          text: "Die Anwendung durchsucht und überwacht täglich automatisch um die [200 Telegram-Kanäle](https://github.com/SamiNenno/Claimspotting/tree/main/Tele_Crawler/Utils/Telegram_Channels), die entweder für die Verbreitung von Fehlinformationen bekannt sind oder von Expert:innen als problematisch eingestuft wurden. Es identifiziert Beiträge, die Merkmale aufweisen, die in der Forschung als typisch für Fehlinformationen gelten. Sobald solche Beiträge erkannt werden, markiert und kategorisiert Claimspotting sie nach bestimmten Kriterien. Dadurch können Faktenchecker:innen gezielt potenzielle Fehlinformationen finden und diese anschließend überprüfen.",
         },
         applications: {
           title: "Was kann ich mit Claimspotting machen?",
@@ -250,15 +250,15 @@ export const textBits = {
           },
           narratives: {
             title: "Narrative",
-            text: "Mit Narrativen meinen wir typische Fehlinformationsnarrative. Wir haben mehrere Faktenchecker*innen gefragt, welche Arten von übergreifenden Narrativen sie häufig antreffen. Sie haben uns daraufhin eine Liste von etwa 40 Narrativen gegeben. Diese Liste haben wir auf etwa 20 Narrative kondensiert, da maschinelles Lernen mit 40 Klassen zu schwierig war. Zu diesen Narrativen gehören zum Beispiel Aussagen wie “Einwanderer sind krimineller als Deutsche” oder “Elektroautos sind schlechter für die Umwelt als Autos mit Verbrennungsmotor”. Wenn ein Beitrag eines dieser Narrative unterstützt, wird er entsprechend klassifiziert",
+            text: "Mit Narrativen meinen wir typische Fehlinformationsnarrative. Wir haben mehrere Faktenchecker:innen gefragt, welche Arten von übergreifenden Narrativen sie häufig antreffen. Sie haben uns daraufhin eine Liste von etwa 40 Narrativen gegeben. Diese Liste haben wir auf etwa 20 Narrative kondensiert, da maschinelles Lernen mit 40 Klassen zu schwierig war. Zu diesen Narrativen gehören zum Beispiel Aussagen wie “Einwanderer sind krimineller als Deutsche” oder “Elektroautos sind schlechter für die Umwelt als Autos mit Verbrennungsmotor”. Wenn ein Beitrag eines dieser Narrative unterstützt, wird er entsprechend klassifiziert",
           },
           polarisation: {
             title: "Polarisierend",
-            text: "Polarisierende Behauptungen sind solche, die eine klare Freund-Feind-Unterscheidung schaffen. Sie beziehen sich auf bestimmte nationale, ethnische oder religiöse Gruppen oder stellen Eliten als Feinde oder Täter dar. Wir haben die Taxonomie und Daten aus dem DeFaktS-Projekt (https://defakts.de/) übernommen.",
+            text: "Polarisierende Behauptungen sind solche, die eine klare Freund-Feind-Unterscheidung schaffen. Sie beziehen sich auf bestimmte nationale, ethnische oder religiöse Gruppen oder stellen Eliten als Feinde oder Täter dar. Wir haben die Taxonomie und Daten aus dem [DeFaktS-Projekt](https://defakts.de/) übernommen.",
           },
           sensationalism: {
             title: "Sensationalistisch",
-            text: "Sensationelle Behauptungen sind Aussagen, die in übertriebener Weise formuliert sind, um die Aufmerksamkeit der Leser*innen zu erregen. Dies geschieht oft durch den hohen Gebrauch von Großbuchstaben oder Ausrufezeichen. Wir haben die Taxonomie und Daten aus dem DeFaktS-Projekt (https://defakts.de/) übernommen.",
+            text: "Sensationelle Behauptungen sind Aussagen, die in übertriebener Weise formuliert sind, um die Aufmerksamkeit der Leser:innen zu erregen. Dies geschieht oft durch den hohen Gebrauch von Großbuchstaben oder Ausrufezeichen. Wir haben die Taxonomie und Daten aus dem [DeFaktS-Projekt](https://defakts.de/) übernommen.",
           },
           siblings: {
             title: "Siblings",
@@ -274,15 +274,15 @@ export const textBits = {
           misinformation: {
             title:
               "Warum sprechen wir bei der KI-Anwendung von Fehlinformation/Misinformation anstatt von Desinformation?",
-            text: "Desinformation wird in der Regel als falsche Information verstanden, die mit schädlicher Absicht verbreitet wird. Bei Fehlinformationen/Misinformation spielen diese Absichten jedoch keine Rolle. Der Grund, warum wir von Fehlinformationen und nicht von Desinformation sprechen, liegt darin, dass unsere KI-Anwendung die Absicht der Autor*innen basierend auf einem Text nicht vorhersagen kann. Keine Software-Anwendung ist dazu in der Lage. Ob die Information mit schädlicher Absicht verbreitet wird oder einfach, weil die Person wirklich daran glaubt, ist für Software-Anwendungen nicht erkennbar. Deshalb beziehen wir uns nur auf Fehlinformationen und nicht auf Desinformation.",
+            text: "Desinformation wird in der Regel als falsche Information verstanden, die mit schädlicher Absicht verbreitet wird. Bei Fehlinformationen/Misinformation spielen diese Absichten jedoch keine Rolle. Der Grund, warum wir von Fehlinformationen und nicht von Desinformation sprechen, liegt darin, dass unsere KI-Anwendung die Absicht der Autor:innen basierend auf einem Text nicht vorhersagen kann. Keine Software-Anwendung ist dazu in der Lage. Ob die Information mit schädlicher Absicht verbreitet wird oder einfach, weil die Person wirklich daran glaubt, ist für Software-Anwendungen nicht erkennbar. Deshalb beziehen wir uns nur auf Fehlinformationen und nicht auf Desinformation.",
           },
           selection_criteria: {
             title: "Deckt Claimspotting Fehlinformationen auf?",
-            text: "Nein, das tut es nicht. Um Fehlinformationen aufzudecken, muss der Inhalt verifiziert werden. Das ist nicht die Aufgabe der Anwendung, und wir glauben auch nicht, dass dies von einer Software-Anwendung übernommen werden sollte. Was Claimspotting macht, ist, Telegram-Beiträge zu markieren, die bestimmte Kriterien erfüllen. Diese Kriterien sind aus der Forschung bekannt und stehen oft im Zusammenhang mit Fehlinformationen. Das bedeutet jedoch nicht, dass der Inhalt tatsächlich Fehlinformation ist. Daher sprechen wir von potenziellen Fehlinformationen. Die Anwendung unterstützt Faktenchecker*innen dabei, solche potenziellen Fehlinformationen zu überwachen.",
+            text: "Nein, das tut es nicht. Um Fehlinformationen aufzudecken, muss der Inhalt verifiziert werden. Das ist nicht die Aufgabe der Anwendung, und wir glauben auch nicht, dass dies von einer Software-Anwendung übernommen werden sollte. Was Claimspotting macht, ist, Telegram-Beiträge zu markieren, die bestimmte Kriterien erfüllen. Diese Kriterien sind aus der Forschung bekannt und stehen oft im Zusammenhang mit Fehlinformationen. Das bedeutet jedoch nicht, dass der Inhalt tatsächlich Fehlinformation ist. Daher sprechen wir von potenziellen Fehlinformationen. Die Anwendung unterstützt Faktenchecker:innen dabei, solche potenziellen Fehlinformationen zu überwachen.",
           },
           channels: {
             title: "Welche Telegram-Kanäle werden überwacht?",
-            text: "Es ist natürlich nicht möglich, alle Telegram-Kanäle zu überwachen, da es einfach zu viele gibt. Außerdem wäre dies wenig hilfreich, da die meisten Kanäle in Bezug auf Fehlinformationen uninteressant sind. Wir überwachen daher gezielt Kanäle, die bereits zuvor einer Faktenprüfung unterzogen wurden und für die Verbreitung von Fehlinformationen bekannt sind. Zusätzlich haben wir Faktenchecker*innen nach Kanälen gefragt, die sie beobachten. Wenn du Vorschläge für weitere Kanäle hast, die aufgenommen werden sollten, oder der Meinung bist, dass ein Kanal entfernt werden sollte, melde dich gerne bei uns. Eine vollständige Liste der überwachten Kanäle findest du hier (https://github.com/SamiNenno/Claimspotting/tree/main/Tele_Crawler/Utils/Telegram_Channels).",
+            text: "Es ist natürlich nicht möglich, alle Telegram-Kanäle zu überwachen, da es einfach zu viele gibt. Außerdem wäre dies wenig hilfreich, da die meisten Kanäle in Bezug auf Fehlinformationen uninteressant sind. Wir überwachen daher gezielt Kanäle, die bereits zuvor einer Faktenprüfung unterzogen wurden und für die Verbreitung von Fehlinformationen bekannt sind. Zusätzlich haben wir Faktenchecker:innen nach Kanälen gefragt, die sie beobachten. Wenn du Vorschläge für weitere Kanäle hast, die aufgenommen werden sollten, oder der Meinung bist, dass ein Kanal entfernt werden sollte, melde dich gerne bei uns. Eine vollständige Liste der überwachten Kanäle findest du [hier](https://github.com/SamiNenno/Claimspotting/tree/main/Tele_Crawler/Utils/Telegram_Channels).",
           },
           other_channels: {
             title:
@@ -301,12 +301,12 @@ export const textBits = {
           basemodels: {
             title:
               "Auf welchen Modellen basieren die KI-Anwendungen von ClaimSpotting?",
-            text: "Die benutzten Modelle sind von uns angepasste XLM-RoBERTa Large Modelle (https://huggingface.co/FacebookAI/xlm-roberta-large). Dieses Modell wurde auf Textdateien in mehr als 100 Sprachen trainiert. Deswegen funktionieren die Claimspotting Modelle auch nicht nur für deutsche Texte. Die Embedding Modelle, also die Modelle mit denen Siblings erkannt werden, basieren auf einer anderen Version (https://huggingface.co/intfloat/multilingual-e5-large-instruct) von XLM-RoBERTa und wurden auch mit unseren eigenen Daten auf die Aufgabe angepasst.",
+            text: "Die benutzten Modelle sind von uns angepasste [XLM-RoBERTa Large Modelle](https://huggingface.co/FacebookAI/xlm-roberta-large). Dieses Modell wurde auf Textdateien in mehr als 100 Sprachen trainiert. Deswegen funktionieren die Claimspotting Modelle auch nicht nur für deutsche Texte. Die Embedding Modelle, also die Modelle mit denen Siblings erkannt werden, basieren auf einer [anderen Version](https://huggingface.co/intfloat/multilingual-e5-large-instruct) von XLM-RoBERTa und wurden auch mit unseren eigenen Daten auf die Aufgabe angepasst.",
           },
           code: {
             title:
               "Ich habe eine spezifische Frage zum Code oder zu den Modellen…",
-            text: "Unser Code-Repository findest Du hier (https://github.com/SamiNenno/Claimspotting) und die maschinelles Lernen Modelle findest Du hier (https://huggingface.co/Sami92). Wenn Deine Frage nicht beantwortet wird, zöger nicht, ein Issue in unserem Claimspotting-Repository zu erstellen.",
+            text: "Unser Code-Repository findest Du [hier](https://github.com/SamiNenno/Claimspotting) und die maschinelles Lernen Modelle findest Du [hier](https://huggingface.co/Sami92). Wenn Deine Frage nicht beantwortet wird, zöger nicht, ein Issue in unserem Claimspotting-Repository zu erstellen.",
           },
         },
       },

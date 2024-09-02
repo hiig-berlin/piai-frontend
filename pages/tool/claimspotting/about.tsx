@@ -8,6 +8,7 @@ import { restApiGetSettings } from "~/utils/restApi";
 import { AboutPage } from "~/components/tools/shared/AboutPage";
 import useLanguage from "~/hooks/useLanguage";
 import { isObject, isString } from "lodash";
+import showdown from "showdown";
 
 const About = ({
   frontendSettings,
@@ -20,18 +21,27 @@ const About = ({
 
   const { strings, language, setLanguage } = useLanguage("claimspotting"); // Use language hook
 
+  const converter = new showdown.Converter();
   let contentString: string = "";
-    for (var key in strings?.about.info) {
-      if (strings?.about.info[key].title) contentString += `<h2>${strings?.about.info[key].title}</h2>`;
-      if (strings?.about.info[key].text) contentString += `<p>${strings?.about.info[key].text}</p>`;
+  for (var key in strings?.about.info) {
+    if (strings?.about.info[key].title)
+      contentString += `<h2>${strings?.about.info[key].title}</h2>`;
+    if (strings?.about.info[key].text)
+      contentString += `<p>${converter.makeHtml(
+        strings?.about.info[key].text
+      )}</p>`;
 
-      for (var subkey in strings?.about.info[key]) {
-          if (isObject(strings?.about.info[key][subkey])) {
-            contentString += `<h3>${strings?.about.info[key][subkey].title}</h3><p>${strings?.about.info[key][subkey].text}</p>`;
-          };
+    for (var subkey in strings?.about.info[key]) {
+      if (isObject(strings?.about.info[key][subkey])) {
+        contentString += `<h3>${
+          strings?.about.info[key][subkey].title
+        }</h3><p>${converter.makeHtml(
+          strings?.about.info[key][subkey].text
+        )}</p>`;
       }
-      console.log(contentString);
-    };
+    }
+    console.log(contentString);
+  }
 
   return (
     <>
