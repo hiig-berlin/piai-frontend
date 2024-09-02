@@ -1,7 +1,7 @@
 export const textBits = {
   en: {
     header: {
-      title: "Claimspotting Misinformation Monitoring",
+      title: "Claimspotting – Monitoring misinformation Monitoring",
       subtitle:
         "A web-based tool that monitors potential misinformation on Telegram. It is designed to assist fact-checkers.",
     },
@@ -157,7 +157,7 @@ export const textBits = {
   },
   de: {
     header: {
-      title: "Claimspotting Misinformation Monitoring",
+      title: "Claimspotting – Monitoring misinformation Monitoring",
       subtitle:
         "Ein webbasiertes Tool, das potenzielle Fehlinformationen auf Telegram überwacht. Es ist dazu konzipiert, Faktenchecker:innen zu helfen.",
     },

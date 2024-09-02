@@ -20,6 +20,7 @@ const About = ({
   const { strings, language, setLanguage } = useLanguage("claimspotting"); // Use language hook
 
   const converter = new showdown.Converter();
+  
   let contentString: string = "";
   for (var key in strings?.about.info) {
     if (strings?.about.info[key].title)
