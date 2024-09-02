@@ -73,6 +73,10 @@ const Index = ({ tool }: { tool: PiAiTool }) => {
 
           <p className="copy">
           {strings?.extension.about.description} 
+          
+          </p>
+          <p className="note">
+          {strings?.extension.about.note} 
           </p>
           <ToolSvgBackground type="screenshot" className="screenshot" />
           <Meta col={1} className="subline">
@@ -183,6 +187,7 @@ const Grid = styled.div`
     grid-template-areas:
       "title"
       "copy"
+      "note"
       "screenshot"
       "subline";
 
@@ -193,7 +198,8 @@ const Grid = styled.div`
       grid-template-areas:
         "title title"
         "copy screenshot"
-        "subline screenshot";
+        "note screenshot"
+        "subline subline";
     }
 
     ${({ theme }) => theme.breakpoints.desktop} {
@@ -201,7 +207,8 @@ const Grid = styled.div`
       grid-template-areas:
         "title title"
         "copy screenshot"
-        "subline screenshot";
+        "note screenshot"
+        "subline subline";
     }
 
     ${({ theme }) => theme.breakpoints.screen} {
@@ -248,8 +255,12 @@ const Grid = styled.div`
       }
     }
 
-    .copy {
+    .copy{
       grid-area: copy;
+    }
+
+    .note{
+      grid-area: note;
     }
 
     .screenshot {

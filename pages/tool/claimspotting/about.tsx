@@ -7,14 +7,12 @@ import LayoutTool from "~/components/layouts/LayoutTool";
 import { restApiGetSettings } from "~/utils/restApi";
 import { AboutPage } from "~/components/tools/shared/AboutPage";
 import useLanguage from "~/hooks/useLanguage";
-import { isObject, isString } from "lodash";
+import { isObject } from "lodash";
 import showdown from "showdown";
 
 const About = ({
-  frontendSettings,
   tool,
 }: {
-  frontendSettings: any;
   tool: PiAiTool;
 }) => {
   const currentTool = appConfig.tools?.find((t) => t.slug === "energy");
@@ -40,7 +38,6 @@ const About = ({
         )}</p>`;
       }
     }
-    console.log(contentString);
   }
 
   return (
