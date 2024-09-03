@@ -241,10 +241,12 @@ const Grid = styled.div`
 
       h2 {
         grid-row: 1;
+        margin-bottom: 0;
       }
 
       p {
         grid-row: 2;
+        margin-bottom: 0;
       }
     }
 
