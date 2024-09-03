@@ -134,6 +134,10 @@ const Filter = ({
     }));
   };
 
+  attributes.forEach((attribute) => {
+    attribute.label = strings?.attributes[attribute.key];
+  });
+
   useEffect(() => {
     // Compute filtered data based on current filter state
     const filteredData = data.filter((item: any) => {
@@ -327,7 +331,7 @@ const FilterWrapper = styled.div`
 const CheckboxList = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--size-3);
+  gap: var(--size-2);
 
   label {
     display: flex;
