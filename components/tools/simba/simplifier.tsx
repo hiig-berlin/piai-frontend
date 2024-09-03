@@ -167,10 +167,10 @@ const Simplifier = ({ strings }: { strings: any }) => {
             <p>
               {strings?.promptText ||
                 `Simba is a research project on text simplification in German.
-              Please read carefully the terms below before submitting your data.`}
+              Please read the terms carefully before submitting your data.`}
             </p>
             <Button name="terms" onClick={() => setTermsAccepted(true)}>
-              {strings?.promptButton || "I understood and agree to the terms."}
+              {strings?.promptButton || "I understand and agree to the terms."}
             </Button>
           </div>
         )}
