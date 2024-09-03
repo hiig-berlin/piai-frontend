@@ -233,8 +233,10 @@ Weitere Informationen, wie das Modell funktioniert und welche Daten wir verwende
     extension: {
       about: {
         title: "Simba Browsererweiterung",
+        subtitle: "Vereinfachen beim Surfen",
         description: `Unsere kostenlose Browser-Erweiterung hilft dir beim Surfen im Internet. Sie fasst den Inhalt deutscher Webseiten für dich automatisch in vereinfachter Sprache zusammen. Die Erweiterung ist für die Internetbrowser Chrome und Firefox verfügbar.`,
         subline: `Eine Browser-Erweiterung wird auch manchmal als “Add-on” oder Plug-in bezeichnet. Das ist ein kleines Programm, das du in deinem Internet-Browser installierst. Danach siehst du ein Symbol in der Statusleiste, mit dem du die Funktionen der Erweiterung aufrufen kannst. Du kannst ihr auch Feedback geben und sagen, ob du die Zusammenfassungen gut oder schlecht findest.`,
+        note: `Wichtige Information: Unsere Browser-Erweiterung scannt nur die ersten 2600 Wörter auf einer Webseite, um diese vereinfacht zusammenzufassen. Falls du also einen längeren deutschsprachigen Text vereinfachen und zusammenfassen willst, kannst du dafür unsere Internet-App (Textvereinfacher) nutzen. Diese hat kein Wortlimit bei ihrer Analyse von Texten.`,
       },
       download: [
         {

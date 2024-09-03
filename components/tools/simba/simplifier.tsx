@@ -181,7 +181,7 @@ const Simplifier = ({ strings }: { strings: any }) => {
   // Render output based on loading state
   const renderOutput = () => (
     <>
-      <h3>Output</h3>
+      <h3>{strings?.output}</h3>
       {loading ? (
         <Placeholder
           dangerouslySetInnerHTML={{ __html: safeHtml(currentOutput) }}
@@ -228,7 +228,7 @@ const Simplifier = ({ strings }: { strings: any }) => {
       </div>
 
       <div className="input">
-        <h3>Input</h3>
+        <h3>{strings?.input}</h3>
         {renderInput()}
       </div>
 
