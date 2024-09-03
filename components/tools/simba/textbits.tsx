@@ -103,7 +103,7 @@ export const textBits = {
             text: `Enhance your language skills by simplifying online content.`,
           },
           accessibility: {
-            title: "Creating accessible content",
+            title: "Create accessible content",
             text: `Receive suggestions for making your online content more accessible.`,
           },
           overview: {
