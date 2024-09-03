@@ -308,7 +308,7 @@ Weitere Informationen, wie das Modell funktioniert und welche Daten wir verwende
         },
         data:{
           title: "Welche Daten haben wir verwendet?",
-          text: `Wir haben deutschsprachige Zeitungsartikel verwendet, die vereinfacht wurden, um das Foundation-Modell Llama-3-8B-Instruct feinabzustimmen. Wir nutzen Artikel der Austria Presse Agentur, die von professionellen Übersetzer*innen vereinfacht wurden. Sie sind auf die Niveaus B1 und A2 des Gemeinsamen Europäischen Referenzrahmens für Sprachen (GER) vereinfacht. Eine Stichprobe des Datensatzes findest du hier.`,
+          text: `Wir haben deutschsprachige Zeitungsartikel verwendet, die vereinfacht wurden, um das Foundation-Modell Llama-3-8B-Instruct feinabzustimmen. Wir nutzen Artikel der Austria Presse Agentur, die von professionellen Übersetzer*innen vereinfacht wurden. Sie sind auf die Niveaus B1 und A2 des Gemeinsamen Europäischen Referenzrahmens für Sprachen (GER) vereinfacht. Eine Stichprobe des Datensatzes findest du [hier](https://github.com/fhewett/apa-rst/tree/main/original_texts).`,
         },
         limitations:{
           title: "Was wissen wir über die Einschränkungen von Simba?",
