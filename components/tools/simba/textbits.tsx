@@ -68,7 +68,7 @@ export const textBits = {
     extension: {
       about: {
         title: "Browser Extension",
-        subtitle: "Simplify as you browse",
+        subtitle: "Get simplifications as you browse",
         description: `Our free browser extension assists you while browsing the internet. It automatically summarises the content of German websites in simplified language. The extension is available for the Chrome and Firefox browsers.`,
         subline: `A browser extension is a small programme that you install in your web browser. Once installed, you'll see an icon in the status bar that allows you to access the extension's features. You can also provide feedback on whether you find the summaries helpful or not.`,
         note: "Important Information: Our browser extension scans the first 2,600 words on a webpage to provide a simplified summary. If you wish to simplify and summarise a longer German text, please use our online app (Text Simplifier), and split the text up into smaller parts.",
@@ -233,7 +233,7 @@ Weitere Informationen, wie das Modell funktioniert und welche Daten wir verwende
     extension: {
       about: {
         title: "Simba Browsererweiterung",
-        subtitle: "Vereinfachen beim Surfen",
+        subtitle: "Erhalte Zusammenfassungen während des Surfens",
         description: `Unsere kostenlose Browser-Erweiterung hilft dir beim Surfen im Internet. Sie fasst den Inhalt deutscher Webseiten für dich automatisch in vereinfachter Sprache zusammen. Die Erweiterung ist für die Internetbrowser Chrome und Firefox verfügbar.`,
         subline: `Eine Browser-Erweiterung wird auch manchmal als “Add-on” oder Plug-in bezeichnet. Das ist ein kleines Programm, das du in deinem Internet-Browser installierst. Danach siehst du ein Symbol in der Statusleiste, mit dem du die Funktionen der Erweiterung aufrufen kannst. Du kannst ihr auch Feedback geben und sagen, ob du die Zusammenfassungen gut oder schlecht findest.`,
         note: `Wichtige Information: Unsere Browser-Erweiterung scannt nur die ersten 2600 Wörter auf einer Webseite, um diese vereinfacht zusammenzufassen. Falls du also einen längeren deutschsprachigen Text vereinfachen und zusammenfassen willst, kannst du dafür unsere Internet-App (Textvereinfacher) nutzen. Diese hat kein Wortlimit bei ihrer Analyse von Texten.`,

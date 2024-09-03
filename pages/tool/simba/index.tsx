@@ -71,7 +71,7 @@ const Index = ({ tool }: { tool: PiAiTool }) => {
         <Tool className="simplifier">
           <div>
             <h2>{strings?.index.simplifier.title}</h2>
-            <p className="subtitle">{strings?.index.simplifier.subtitle}</p>
+            {/* <p className="subtitle">{strings?.index.simplifier.subtitle}</p> */}
           </div>
           <p className="copy">{strings?.index.simplifier.description}</p>
 
@@ -90,7 +90,7 @@ const Index = ({ tool }: { tool: PiAiTool }) => {
         <Tool className="extension">
           <div>
             <h2>{strings?.index.plugin.title}</h2>
-            <p className="subtitle">{strings?.index.plugin.subtitle}</p>
+            {/* <p className="subtitle">{strings?.index.plugin.subtitle}</p> */}
           </div>
           <p className="copy">{strings?.index.plugin.description}</p>
 
