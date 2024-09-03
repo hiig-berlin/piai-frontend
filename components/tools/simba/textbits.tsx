@@ -103,7 +103,7 @@ export const textBits = {
             text: `Enhance your language skills by simplifying online content.`,
           },
           accessibility: {
-            title: "Creating accessible content",
+            title: "Create accessible content",
             text: `Receive suggestions for making your online content more accessible.`,
           },
           overview: {
@@ -233,8 +233,10 @@ Weitere Informationen, wie das Modell funktioniert und welche Daten wir verwende
     extension: {
       about: {
         title: "Simba Browsererweiterung",
+        subtitle: "Vereinfachen beim Surfen",
         description: `Unsere kostenlose Browser-Erweiterung hilft dir beim Surfen im Internet. Sie fasst den Inhalt deutscher Webseiten für dich automatisch in vereinfachter Sprache zusammen. Die Erweiterung ist für die Internetbrowser Chrome und Firefox verfügbar.`,
         subline: `Eine Browser-Erweiterung wird auch manchmal als “Add-on” oder Plug-in bezeichnet. Das ist ein kleines Programm, das du in deinem Internet-Browser installierst. Danach siehst du ein Symbol in der Statusleiste, mit dem du die Funktionen der Erweiterung aufrufen kannst. Du kannst ihr auch Feedback geben und sagen, ob du die Zusammenfassungen gut oder schlecht findest.`,
+        note: `Wichtige Information: Unsere Browser-Erweiterung scannt nur die ersten 2600 Wörter auf einer Webseite, um diese vereinfacht zusammenzufassen. Falls du also einen längeren deutschsprachigen Text vereinfachen und zusammenfassen willst, kannst du dafür unsere Internet-App (Textvereinfacher) nutzen. Diese hat kein Wortlimit bei ihrer Analyse von Texten.`,
       },
       download: [
         {
@@ -308,7 +310,7 @@ Weitere Informationen, wie das Modell funktioniert und welche Daten wir verwende
         },
         data:{
           title: "Welche Daten haben wir verwendet?",
-          text: `Wir haben deutschsprachige Zeitungsartikel verwendet, die vereinfacht wurden, um das Foundation-Modell Llama-3-8B-Instruct feinabzustimmen. Wir nutzen Artikel der Austria Presse Agentur, die von professionellen Übersetzer*innen vereinfacht wurden. Sie sind auf die Niveaus B1 und A2 des Gemeinsamen Europäischen Referenzrahmens für Sprachen (GER) vereinfacht. Eine Stichprobe des Datensatzes findest du hier.`,
+          text: `Wir haben deutschsprachige Zeitungsartikel verwendet, die vereinfacht wurden, um das Foundation-Modell Llama-3-8B-Instruct feinabzustimmen. Wir nutzen Artikel der Austria Presse Agentur, die von professionellen Übersetzer*innen vereinfacht wurden. Sie sind auf die Niveaus B1 und A2 des Gemeinsamen Europäischen Referenzrahmens für Sprachen (GER) vereinfacht. Eine Stichprobe des Datensatzes findest du [hier](https://github.com/fhewett/apa-rst/tree/main/original_texts).`,
         },
         limitations:{
           title: "Was wissen wir über die Einschränkungen von Simba?",
