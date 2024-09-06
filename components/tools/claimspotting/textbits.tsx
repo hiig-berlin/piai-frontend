@@ -60,6 +60,14 @@ export const textBits = {
         },
       },
     },
+    search: {
+      statusMessages: {
+        loading: "Loading posts that follow the same narrative …",
+        noData: "No posts seem to match the search query. Try searching for something else.",
+        error:
+          "Error loading data. Try to refresh the page, the server might be tempoarily at capacity.",
+      },
+    },
     about: {
       intro:
         "A web-based tool that monitors potential misinformation on Telegram. It is designed to assist fact-checkers.",

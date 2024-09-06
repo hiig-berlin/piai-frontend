@@ -5,10 +5,6 @@ import { appConfig } from "~/config";
 import LayoutTool from "~/components/layouts/LayoutTool";
 import { restApiGetSettings } from "~/utils/restApi";
 import { PiAiTool } from "~/types";
-import {
-  useCssVarsStateIsDesktopAndUpState,
-  useCssVarsStateIsTabletAndUpState,
-} from "~/components/state/CssVarsState";
 import moment from "moment";
 import Filter from "~/components/tools/claimspotting/Filter";
 import ClaimTable from "~/components/tools/claimspotting/ClaimTable";
@@ -78,8 +74,6 @@ const Index = ({
   frontendSettings: any;
   tool: PiAiTool;
 }) => {
-  const isTabletAndUp = useCssVarsStateIsTabletAndUpState();
-  const isDesktopAndUp = useCssVarsStateIsDesktopAndUpState();
   const currentTool = appConfig.tools?.find((t) => t.slug === "claimspotting");
 
   const [loading, setLoading] = useState<boolean>(true);
