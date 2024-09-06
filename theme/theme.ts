@@ -120,6 +120,7 @@ export const theme = {
     piaiMapHighlight: "#FDD491",
     piaiStakeholder: "#1CADAD",
     piaiSimba: "#A1AF00",
+    piaiClaim: "#26BF84",
     piaiEnergy: "#26BF84",
     bg: "#fff",
     bgTool: "#2B2B2B",
@@ -185,6 +186,17 @@ export const theme = {
     desktop: 750,
     screen: 750,
   },
+
+  // reactDatepicker: {
+  //   daySize: [36, 40],
+  //   fontFamily: 'system-ui, -apple-system',
+  //   colors: {
+  //     accessibility: '#080249',
+  //     selectedDay: '#07518b',
+  //     selectedDayHover: '#F75D95',
+  //     primaryColor: '#d8366f',
+  //   },
+  // },
 
   pageMargin: function (breakpoint: string) {
     return (this as any).pageMarginValues?.[breakpoint] ?? 0;
@@ -318,6 +330,7 @@ export const theme = {
     // ${({ theme }) => theme.applyMixin("maxWidth", 1000)}
     // style : "color:#ff0;",
   },
+  
   typography: {
     base: {
       body: {

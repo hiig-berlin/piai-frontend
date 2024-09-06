@@ -42,4 +42,6 @@ yarn-error.log*
 .netlify
 netlify.toml
 _netlify.toml
+
+# Exclude large test data
 assets/test-data/*

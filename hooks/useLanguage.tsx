@@ -11,6 +11,10 @@ const useLanguage = (toolSlug: string) => {
         simplifier?: any;
         extension?: any;
         index?: any;
+        about?: any;
+        list?: any;
+        trends?: any;
+        search?: any;
       }
     | undefined
   >();
@@ -19,9 +23,19 @@ const useLanguage = (toolSlug: string) => {
     if (typeof window !== "undefined") {
       const urlParams = new URLSearchParams(window.location.search);
       const urlLang = urlParams.get("lang");
+
+      let initialLang = "en"; // default language
+
       if (urlLang) {
-        setLanguage(urlLang);
+        initialLang = urlLang;
+      } else {
+        const storedLang = localStorage.getItem("selectedLang");
+        if (storedLang) {
+          initialLang = storedLang;
+        }
       }
+
+      setLanguage(initialLang);
     }
   }, []);
 
@@ -42,6 +56,7 @@ const useLanguage = (toolSlug: string) => {
 
     if (!isInitialLoad) {
       window.history.replaceState({}, "", `?lang=${language}`);
+      localStorage.setItem("selectedLang", language); // Update localStorage when language changes
     }
     setIsInitialLoad(false);
   }, [language, toolSlug, isInitialLoad]);

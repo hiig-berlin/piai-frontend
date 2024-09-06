@@ -1,4 +1,3 @@
-
 import React from "react";
 import styled from "styled-components";
 import Link from "next/link";
@@ -50,7 +49,14 @@ const ToolSubmenu = styled.div`
   }
 `;
 
-export const Submenu = ({ tool, menu }: { tool?: string; slug?: string, menu: any }) => {
+export const Submenu = ({
+  tool,
+  menu,
+}: {
+  tool?: string;
+  slug?: string;
+  menu: any;
+}) => {
   const router = useRouter();
   const isTabletLandscapeAndUp = useCssVarsStateIsTabletLandscapeAndUpState();
   return (
@@ -76,8 +82,7 @@ export const Submenu = ({ tool, menu }: { tool?: string; slug?: string, menu: an
 
           </Link>)
         );
-      }
-      )} 
+      })}
     </ToolSubmenu>
   );
 };

@@ -12,7 +12,7 @@ import { LinkButtonAnimated } from "~/components/styled/Button";
 import { ToolSvgBackground } from "~/components/tools/shared/ToolSvgBackground";
 
 import { Meta } from "~/components/tools/map/Styled";
-import SimbaHeader from "~/components/tools/simba/header";
+import ToolHeader from "~/components/tools/shared/Header";
 import {
   SimbaWrapper,
   BoxHighlight,
@@ -39,12 +39,12 @@ const Index = ({ tool }: { tool: PiAiTool }) => {
       />
 
       {/* =================== HEADER =================== */}
-      <SimbaHeader
+      <ToolHeader
         tool={tool}
         language={language}
         setLanguage={setLanguage}
         strings={strings?.header}
-      ></SimbaHeader>
+      ></ToolHeader>
 
       {/* =================== GRID =================== */}
       <Grid>
@@ -73,6 +73,10 @@ const Index = ({ tool }: { tool: PiAiTool }) => {
 
           <p className="copy">
           {strings?.extension.about.description} 
+          
+          </p>
+          <p className="note">
+          {strings?.extension.about.note} 
           </p>
           <ToolSvgBackground type="screenshot" className="screenshot" />
           <Meta col={1} className="subline">
@@ -183,6 +187,7 @@ const Grid = styled.div`
     grid-template-areas:
       "title"
       "copy"
+      "note"
       "screenshot"
       "subline";
 
@@ -193,7 +198,8 @@ const Grid = styled.div`
       grid-template-areas:
         "title title"
         "copy screenshot"
-        "subline screenshot";
+        "note screenshot"
+        "subline subline";
     }
 
     ${({ theme }) => theme.breakpoints.desktop} {
@@ -201,7 +207,8 @@ const Grid = styled.div`
       grid-template-areas:
         "title title"
         "copy screenshot"
-        "subline screenshot";
+        "note screenshot"
+        "subline subline";
     }
 
     ${({ theme }) => theme.breakpoints.screen} {
@@ -241,15 +248,21 @@ const Grid = styled.div`
 
       h2 {
         grid-row: 1;
+        margin-bottom: 0;
       }
 
       p {
         grid-row: 2;
+        margin-bottom: 0;
       }
     }
 
-    .copy {
+    .copy{
       grid-area: copy;
+    }
+
+    .note{
+      grid-area: note;
     }
 
     .screenshot {

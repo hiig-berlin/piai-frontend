@@ -12,7 +12,7 @@ const SidebarWrapper = styled.nav`
   left: 0;
   top: 0;
   // TODO: Vincent, you know this 100% stuff better
-  // LARISSA: DON'T KNOW WHAT THIS MEANS? 
+  // LARISSA: DON'T KNOW WHAT THIS MEANS?
   height: 100%;
 
   font-size: 1.3em;
@@ -21,7 +21,7 @@ const SidebarWrapper = styled.nav`
   flex-direction: column;
   gap: 1em;
   padding: var(--size-2);
-  
+
   z-index: 100;
 `;
 
@@ -34,7 +34,7 @@ const ToolSubmenu = styled.div`
   flex-direction: column;
   gap: var(--size-3);
 
-  & .subMenuItem{
+  & .subMenuItem {
     ${({ theme }) => theme.applyMixin("uppercase")};
     font-size: 0.5em;
     white-space: break-spaces;
@@ -53,7 +53,7 @@ const ToolSubmenu = styled.div`
 export const ToolSidebar = () => {
   const config = useConfigContext();
   const router = useRouter();
-  
+
   return (
     <SidebarWrapper>
       <Logo

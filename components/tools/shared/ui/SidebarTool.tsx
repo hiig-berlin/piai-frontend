@@ -63,9 +63,7 @@ export const SidebarTool = ({
       window.removeEventListener("resize", onResizeDebounced);
       document.removeEventListener("DOMContentLoaded", triggerOnResize);
 
-      document.documentElement.style.setProperty(
-        `--tool-${tool.slug}-ot`, ""
-      );
+      document.documentElement.style.setProperty(`--tool-${tool.slug}-ot`, "");
     };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

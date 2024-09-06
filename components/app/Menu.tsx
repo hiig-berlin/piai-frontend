@@ -3,7 +3,10 @@ import styled from "styled-components";
 import debounce from "lodash/debounce";
 import dynamic from "next/dynamic";
 
-import { useMainMenuStateIsOpenState, useMainMenuActions } from "~/components/state/MainMenuState";
+import {
+  useMainMenuStateIsOpenState,
+  useMainMenuActions,
+} from "~/components/state/MainMenuState";
 import { MenuFooter } from "./Menus/MenuFooter";
 import { Logo } from "./Logo";
 import { LabElement } from "../ui/LabElement";
@@ -288,7 +291,10 @@ export const Menu = () => {
                 <section>
                   <h1>{menuContent.piai.headline}</h1>
                   <p>{menuContent.piai.description}</p>
-                  <a href={menuContent.piai.linkURL} onClick={() => mainMenuActions.close()}>
+                  <a
+                    href={menuContent.piai.linkURL}
+                    onClick={() => mainMenuActions.close()}
+                  >
                     <Chevron /> {menuContent.piai.linkText}
                   </a>
                 </section>

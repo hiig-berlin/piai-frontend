@@ -20,7 +20,7 @@ const getSummary = async (input: string, clientIP: string) => {
     url: window.location.href,
     meta_ip: clientIP,
   };
-  console.log("data to be sent to API: ", data);
+  // console.log("data to be sent to API: ", data);
 
   try {
     const response = await fetch(
@@ -167,10 +167,10 @@ const Simplifier = ({ strings }: { strings: any }) => {
             <p>
               {strings?.promptText ||
                 `Simba is a research project on text simplification in German.
-              Please read carefully the terms below before submitting your data.`}
+              Please read the terms carefully before submitting your data.`}
             </p>
             <Button name="terms" onClick={() => setTermsAccepted(true)}>
-              {strings?.promptButton || "I understood and agree to the terms."}
+              {strings?.promptButton || "I understand and agree to the terms."}
             </Button>
           </div>
         )}
@@ -181,7 +181,7 @@ const Simplifier = ({ strings }: { strings: any }) => {
   // Render output based on loading state
   const renderOutput = () => (
     <>
-      <h3>Output</h3>
+      <h3>{strings?.output}</h3>
       {loading ? (
         <Placeholder
           dangerouslySetInnerHTML={{ __html: safeHtml(currentOutput) }}
@@ -228,7 +228,7 @@ const Simplifier = ({ strings }: { strings: any }) => {
       </div>
 
       <div className="input">
-        <h3>Input</h3>
+        <h3>{strings?.input}</h3>
         {renderInput()}
       </div>
 
@@ -298,11 +298,13 @@ const SimplifyWrapper = styled(Box)`
 
     h2 {
       grid-row: 1;
+      margin-bottom: 0
     }
 
     p {
       grid-row: 2;
       max-width: unset;
+      margin-bottom: 0
     }
   }
 

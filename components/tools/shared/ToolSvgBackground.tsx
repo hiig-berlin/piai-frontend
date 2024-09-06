@@ -23,6 +23,8 @@ import SvgarrowsCollapse from "~/components/svgs/SvgarrowsCollapse";
 import SvgClose from "~/components/svgs/SvgCloseNeg";
 import Svgclean from "~/components/svgs/Svgclean";
 import Svgstructure from "~/components/svgs/Svgstructure";
+import Svgcopy from "~/components/svgs/Svgcopy";
+
 
 // Energy
 import SvgCPU from "~/components/svgs/SvgCPU";
@@ -54,6 +56,16 @@ import SvgthumbsDown from "~/components/svgs/SvgthumbsDown";
 import Svgsimplifier from "~/components/svgs/Svgsimplifier";
 import Svgplugin from "~/components/svgs/Svgplugin";
 import SvgSimplifierScreenshot from "~/components/svgs/SvgSimplifierScreenshot";
+
+
+// Claimspotting
+import Svgdown from "~/components/svgs/Svgdown";
+import Svgpoles from "~/components/svgs/Svgpoles";
+import Svgbold from "~/components/svgs/Svgbold";
+import Svgsort from "~/components/svgs/Svgsort";
+import Svgview from "~/components/svgs/Svgview";
+import SvgGroup from "~/components/svgs/SvgGroup";
+import SvgChannel from "~/components/svgs/SvgChannel";
 
 // use https://jakearchibald.github.io/svgomg/
 // use https://yoksel.github.io/url-encoder/
@@ -247,7 +259,7 @@ export const ToolSvgBackground = ({
     case "simba":
       activeSvg = SvgsimbaLogo;
       break;
-    
+
     case "lion":
       activeSvg = SvgsimbaSignet;
       break;
@@ -272,6 +284,42 @@ export const ToolSvgBackground = ({
       activeSvg = Svgplugin;
       break;
 
+    case "simplifierScreenshot":
+      activeSvg = SvgSimplifierScreenshot;
+      break;
+
+    case "clean":
+      activeSvg = Svgclean;
+      break;
+
+    case "structure":
+      activeSvg = Svgstructure;
+      break;
+
+    case "down":
+      activeSvg = Svgdown;
+      break;
+
+    case "bolt":
+      activeSvg = Svgbold;
+      break;
+
+    case "sort":
+      activeSvg = Svgsort;
+      break;
+
+    case "polarise":
+      activeSvg = Svgpoles;
+      break;
+
+    case "view":
+      activeSvg = Svgview;
+      break;
+
+    case "copy":
+      activeSvg = Svgcopy;
+      break;
+      
     case "screenshotSimplifier":
       activeSvg = SvgSimplifierScreenshot;
       break;
@@ -282,6 +330,14 @@ export const ToolSvgBackground = ({
     
     case "structure":
       activeSvg = Svgstructure;
+      break;
+
+    case "group":
+      activeSvg = SvgGroup;
+      break;
+
+    case "channel":
+      activeSvg = SvgChannel;
       break;
 
   }

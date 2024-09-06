@@ -4,8 +4,11 @@ import NextHeadSeo from "next-head-seo";
 import styled from "styled-components";
 import { Box } from "~/components/tools/shared/ui/Box";
 import { ButtonNormalized } from "~/components/styled/Button";
-import { useCssVarsStateIsTabletAndUpState, useCssVarsStateIsDesktopAndUpState } from "~/components/state/CssVarsState";
-import { stakeholderList } from "~/components/tools/stakeholder/stakeholderList";
+import {
+  useCssVarsStateIsTabletAndUpState,
+  useCssVarsStateIsDesktopAndUpState,
+} from "~/components/state/CssVarsState";
+import { stakeholderList } from "~/assets/data/stakeholder/stakeholderList";
 import safeHtml from "~/utils/sanitize";
 import { Meta } from "~/components/tools/map/Styled";
 import { narrow } from "~/components/tools/map/Styled";
@@ -13,8 +16,9 @@ import { appConfig } from "~/config";
 import LayoutTool from "~/components/layouts/LayoutTool";
 import { restApiGetSettings } from "~/utils/restApi";
 import { PiAiTool } from "~/types";
-import { LabElement } from "~/components/ui/LabElement";
 import { Icon } from "~/components/tools/shared/ui/Icon";
+import ToolHeader from "~/components/tools/shared/Header";
+import { Tags, Tag } from "~/components/tools/shared/Styled";
 
 // Wrapper + General tool styles
 const StakeholderWrapper = styled.div`
@@ -23,16 +27,6 @@ const StakeholderWrapper = styled.div`
   gap: var(--size-3);
   padding: var(--size-3);
 
-  h1,
-  h2,
-  h3 {
-    ${({ theme }) => theme.applyMixin("uppercase")};
-  }
-
-  h1 {
-    line-height: 1em;
-  }
-
   h2 {
     font-size: var(--text-body-font-size-tool) * 1.1;
     font-weight: bold;
@@ -40,6 +34,7 @@ const StakeholderWrapper = styled.div`
   }
 
   h3 {
+    ${({ theme }) => theme.applyMixin("uppercase")};
     font-size: 12px;
     font-weight: 300;
     line-height: 1em;
@@ -68,43 +63,6 @@ const Label = styled.h3`
 `;
 
 // Individual elements
-const Header = styled.header`
-  display: flex;
-  flex-direction: row;
-  gap: var(--size-3);
-  margin-top: 100px;
-
-  ${({ theme }) => theme.breakpoints.tablet} {
-    margin-top: unset;
-    margin-right: 100px;
-  }
-
-  & .toolIntro {
-    justify-content: center;
-    display: flex;
-    flex-direction: column;
-  }
-
-  h1 {
-    font-weight: bold;
-    margin-bottom: 0;
-    line-height: 1.1em;
-  }
-
-  & p {
-    ${narrow}
-    margin-bottom: 0;
-    margin-top: var(--size-1);
-  }
-
-  button,
-  li {
-    max-height: 1.0em;
-    margin-top: 16px;
-    font-size: calc(var(--text-body-font-size-tool) * 0.85);
-    line-height: 1em;
-  }
-`;
 
 const Entry = styled(Box)<{ isExpanded: boolean }>`
   grid-row: auto;
@@ -114,7 +72,7 @@ const Entry = styled(Box)<{ isExpanded: boolean }>`
       isExpanded ? "auto / span 3" : "auto / span 1"};
   }
 
-  & h1 {
+  & h2 {
     text-transform: none;
     font-size: 18px;
     font-weight: bold;
@@ -130,38 +88,6 @@ const Entry = styled(Box)<{ isExpanded: boolean }>`
   }
 `;
 
-const Tags = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: var(--size-2);
-
-  &.filter {
-    justify-content: end;
-  }
-`;
-
-const Tag = styled(ButtonNormalized)<{ isActive: boolean }>`
-  display: inline-flex;
-  align-items: center;
-  padding: ${({ isActive }) =>
-    isActive ? "3px 3px 3px var(--size-1)" : "3px var(--size-1)"};
-  gap: var(--size-1);
-  max-width: 100%;
-
-  ${narrow}
-
-  background-color: ${({ isActive, theme }) =>
-    isActive ? theme.color("piai-stakeholder", 0.4) : "transparent"};
-  color: var(--color-piai-stakeholder);
-  border: 1px solid var(--color-piai-stakeholder);
-  border-radius: 4px;
-
-  & .svg {
-    filter: invert(58%) sepia(83%) saturate(375%) hue-rotate(131deg)
-      brightness(111%) contrast(101%);
-    max-width: 10px;
-  }
-`;
 
 const ProjectLinks = styled.ul`
   color: var(--color-piai-stakeholder);
@@ -224,48 +150,28 @@ const Index = ({
         }}
       />
 
-      <Header>
-        {isTabletAndUp && (
-          <LabElement
-            shortHandle={tool.iconShort}
-            longText={tool.iconLong}
-            color="white"
-            hoverColor={tool.colorBase}
-            size={2}
-          />
-        )}
-        <div className="toolIntro">
-          <h1>
-            Would you like to get an overview of the stakeholders in the PIAI
-            field?
-          </h1>
-          <p>
-            We have started to identify organisations and institutions that can
-            play an important role in the development of the field or Public
-            Interest AI (PIAI). Are you missing a stakeholder? Let us know and
-            we’ll be happy to add it!
-          </p>
-        </div>
-        {isDesktopAndUp && (
-          <>
-            <Icon
-              type="info"
-              className="textLink"
-              spaceBefore
-              url="/tool/stakeholder/about"
-              aria-label="About this tool"
-            >
-              <span>About</span>
-            </Icon>
-          </>
-        )}
-      </Header>
+      <ToolHeader
+        tool={tool}
+        title="Would you like to get an overview of the stakeholders in the PIAI
+        field?"
+        description="We have started to identify organisations and institutions that can play an important role in the development of the field or Public Interest AI (PIAI). Are you missing a stakeholder? Let us know and we’ll be happy to add it!"
+        links={[
+          {
+            type: "info",
+            url: "/tool/stakeholder/about",
+            ariaLabel: "About this tool",
+            label: "About",
+          },
+        ]}
+      />
+     
 
       <Tags className="filter">
         {allTags.map((tag: any, j: number) => {
           const isActive = currentTag === tag;
           return (
             <Tag
+              tool="stakeholder"
               onClick={() =>
                 isActive ? setCurrentTag("") : setCurrentTag(tag)
               }
@@ -278,18 +184,19 @@ const Index = ({
           );
         })}
       </Tags>
+
       <Grid>
         {filteredList.map((entry: any, i: number) => {
           const isExpanded = selectedEntry == i;
           return (
             <Entry key={`entry-${i}`} isExpanded={isExpanded}>
-              <h1
+              <h2
                 onClick={() =>
                   isExpanded ? setSelectedEntry(undefined) : setSelectedEntry(i)
                 }
               >
                 {entry.name}
-              </h1>
+              </h2>
               <Meta col={1}>
                 <Icon stc type="marker">
                   {entry.location}
@@ -305,6 +212,7 @@ const Index = ({
                       }
                       key={`tag-${j}`}
                       isActive={isActive}
+                      tool="stakeholder"
                     >
                       {tag}
                       {isActive && <Icon type="close" stc inline />}

@@ -104,7 +104,7 @@ export const Header = ({
   const isMounted = useIsMounted();
 
   const isTabletLandscapeAndUp = useCssVarsStateIsTabletLandscapeAndUpState();
-  
+
   const headerState = useHeaderStateStore();
 
   const isLoading = usePageStateIsLoadingState();

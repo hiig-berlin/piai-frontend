@@ -12,7 +12,7 @@ import SafeHtmlSpan from "../../ui/SafeHtmlSpan";
 import { Box } from "./ui/Box";
 import { useCssVarsStateIsTabletLandscapeAndUpState } from "~/components/state/CssVarsState";
 import { Icon } from "./ui/Icon";
-import { emitWarning } from "process";
+import LanguageSwitch from "./LanguageSwitch";
 
 export type ToolAboutPageCTA = {
   title: string;
@@ -125,9 +125,9 @@ const Container = styled(Grid)<{
     }
   }
 
-  p + h2,
-  p + h3,
-  p + h4 {
+  p + h2, div + h2,
+  p + h3, div + h3,
+  p + h4, div + h4 {
     margin-top: var(--size-4);
   }
 
@@ -143,12 +143,16 @@ export const AboutPage = ({
   content,
   contentSimple,
   cta,
+  language,
+  setLanguage
 }: {
   tool: PiAiTool;
   intro: string;
   content: string;
   contentSimple: string;
   cta?: ToolAboutPageCTA;
+  language?: string;
+  setLanguage?: (lang: string) => void;
 }) => {
   // TODO: cta urls should be able to distinguish between internal and external links
   // also add the ability to add a target
@@ -228,8 +232,15 @@ export const AboutPage = ({
                   : "Show simplified language"}
               </span>
             </Icon>
-            <Icon type="share" spaceBefore aria-label="Share this page"></Icon>
-            <Icon aria-label="Print this page" type="print"></Icon>
+
+            {/* <Icon type="share" spaceBefore aria-label="Share this page"></Icon>
+            <Icon aria-label="Print this page" type="print"></Icon> */}
+            {/* Language selection */}
+      {language && setLanguage && (
+        <LanguageSwitch language={language} setLanguage={
+          setLanguage
+        }/>
+      )}
           </Box>
         )}
         <Box>

@@ -12,17 +12,19 @@ import { Box } from "~/components/tools/shared/ui/Box";
 import { LinkButtonAnimated } from "~/components/styled/Button";
 import { ToolSvgBackground } from "~/components/tools/shared/ToolSvgBackground";
 
-import SimbaHeader from "~/components/tools/simba/header";
+import ToolHeader from "~/components/tools/shared/Header";
 import { BoxHighlight, SimbaWrapper } from "~/components/tools/simba/Styled";
 import Examples from "~/components/tools/simba/examples";
 import { narrow } from "~/components/tools/map/Styled";
 import useLanguage from "~/hooks/useLanguage";
+import showdown from "showdown";
+
 
 const Index = ({ tool }: { tool: PiAiTool }) => {
   const currentTool = appConfig.tools?.find((t) => t.slug === "simba");
   const { strings, language, setLanguage } = useLanguage("simba"); // Use language hook
 
-  // const strings?.index = textBits.en.index;
+  const converter = new showdown.Converter();
 
   return (
     <SimbaWrapper>
@@ -38,12 +40,12 @@ const Index = ({ tool }: { tool: PiAiTool }) => {
         }}
       />
       {/* =================== HEADER =================== */}
-      <SimbaHeader
+      <ToolHeader
         strings={strings?.header}
         tool={tool}
         language={language}
         setLanguage={setLanguage}
-      ></SimbaHeader>
+      ></ToolHeader>
       {/* =================== MAIN =================== */}
 
       <Grid>
@@ -51,8 +53,7 @@ const Index = ({ tool }: { tool: PiAiTool }) => {
           <ToolSvgBackground type="lion" />
           <h2 className="title">{strings?.index.about.title}</h2>
           <p className="subtitle">{strings?.index.about.subtitle}</p>
-          <p className="description">{strings?.index.about.description}</p>
-        </About>
+          <div className="description" dangerouslySetInnerHTML={{ __html: converter.makeHtml(strings?.index.about.description) }} />        </About>
 
         <Team>
           <h2 className="title">{strings?.index.team.title}</h2>
@@ -70,7 +71,7 @@ const Index = ({ tool }: { tool: PiAiTool }) => {
         <Tool className="simplifier">
           <div>
             <h2>{strings?.index.simplifier.title}</h2>
-            <p className="subtitle">{strings?.index.simplifier.subtitle}</p>
+            {/* <p className="subtitle">{strings?.index.simplifier.subtitle}</p> */}
           </div>
           <p className="copy">{strings?.index.simplifier.description}</p>
 
@@ -89,7 +90,7 @@ const Index = ({ tool }: { tool: PiAiTool }) => {
         <Tool className="extension">
           <div>
             <h2>{strings?.index.plugin.title}</h2>
-            <p className="subtitle">{strings?.index.plugin.subtitle}</p>
+            {/* <p className="subtitle">{strings?.index.plugin.subtitle}</p> */}
           </div>
           <p className="copy">{strings?.index.plugin.description}</p>
 
@@ -214,13 +215,26 @@ const About = styled(Box)`
     }
 
     // description spans the full width
-    .description{
+    .description, .description p{
       grid-column: 1 / -1;
       grid-row: 3;
       max-width: unset;
       margin-top: var(--size-3);
     }
-
+    
+    p a {
+      text-decoration: underline dotted 0.5px;
+      text-decoration-color: inherit;
+      text-underline-offset: 3px;
+      transition: all ease-out 0.5s;
+  
+      &:hover{
+        text-decoration: underline solid 2px;
+        text-underline-offset: 2px;
+        margin-right: 0;
+        margin-left: 0;
+      }
+    }
   }
 `;
 

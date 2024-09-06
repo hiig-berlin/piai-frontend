@@ -44,11 +44,29 @@ export const tools: PiAiTool[] = [
       // bounds: [[-90, -90], [number, number]],
       zoom: 3,
       colorText: "#000",
-      colorCluster: '#ff0',
-      colorClusterText: '#000',
-      colorDot: '#fff',
-      urlGeoJson: '/map/geojson'
-    }
+      colorCluster: "#ff0",
+      colorClusterText: "#000",
+      colorDot: "#fff",
+      urlGeoJson: "/map/geojson",
+    },
+  },
+  {
+    slug: "stakeholder",
+    name: "Index of stakeholders around the discussion of AI",
+    description: "Index of organisations involved in the discourse",
+    colorBase: "var(--color-piai-stakeholder)",
+    colorHighlight: "var(--color-piai-stakeholder)",
+    iconShort: "St",
+    iconLong: "Stakeholder Index",
+    menu: [
+      {
+        name: "Overview",
+      },
+      {
+        slug: "about",
+        name: "About the tool",
+      },
+    ],
   },
   // {
   //   slug: "energy",
@@ -68,28 +86,40 @@ export const tools: PiAiTool[] = [
   //     },
   //   ],
   // },
-    {
-    slug: "stakeholder",
-    name: "Index of stakeholders around the discussion of AI",
-    description: "Index of organisations involved in the discourse",
-    colorBase: "var(--color-piai-stakeholder)",
-    colorHighlight: "var(--color-piai-stakeholder)",
-    iconShort: "St",
-    iconLong: "Stakeholder Index",
+  {
+    slug: "claimspotting",
+    name: "Claimspotting",
+    description:
+      "Monitor of potential misinformation on Telegram",
+    colorBase: "var(--color-piai-claim)",
+    colorHighlight: "var(--color-piai-claim)",
+    iconShort: "Cl",
+    iconLong: "Claim-spotting",
     menu: [
       {
-        name: "Overview",
+        name: "Claim list",
       },
       {
         slug: "about",
         name: "About the tool",
       },
     ],
+    submenu: [
+      {
+        name: "Claim list",
+        icon: "list",
+      },
+      {
+        slug: "about",
+        name: "About",
+        icon: "info",
+      },
+    ],
   },
   {
     slug: "simba",
     name: "Simba – Text assistant",
-    description: "Browser extension to summarise and simplify online texts",
+    description: "AI-Powered Text Simplification",
     colorBase: "var(--color-piai-simba)",
     colorHighlight: "var(--color-piai-simba)",
     iconShort: "Si",
@@ -111,17 +141,17 @@ export const tools: PiAiTool[] = [
       {
         slug: "simplifier",
         name: "Simplifier",
-        icon: "simplifier"
+        icon: "simplifier",
       },
       {
         slug: "extension",
         name: "Extension",
-        icon: "plugin"
+        icon: "plugin",
       },
       {
         slug: "about",
         name: "About",
-        icon: "info"
+        icon: "info",
       },
     ],
   },
