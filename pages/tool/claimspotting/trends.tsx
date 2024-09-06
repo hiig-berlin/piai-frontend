@@ -20,7 +20,7 @@ import showdown from "showdown";
 import SafeHtmlDiv from "~/components/ui/SafeHtmlDiv";
 import { Box } from "~/components/tools/shared/ui/Box";
 import { start } from "repl";
-import TrendingTopics from "~/components/tools/claimspotting/TrendingTopics";
+import TrendingTopics from "~/components/tools/claimspotting/charts/TrendingTopics";
 
 const loadDataFromAPI = async (
   startDate: string,
@@ -166,7 +166,12 @@ const Trends = ({
         </Placeholder>
       )}
 
-      {data && <TrendingTopics data={data} />}
+      {data && data.length > 0 && 
+      <TrendingTopics 
+        data={data} 
+        threshold={2}
+        exclude={["Other", "Non-thematic"]}
+      />}
     </ClaimspottingWrapper>
   );
 };
