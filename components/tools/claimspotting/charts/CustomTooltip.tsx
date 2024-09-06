@@ -6,6 +6,7 @@ interface CustomTooltipProps extends TooltipProps<any, any> {
   topics: { [key: string]: { color: string; order: number } }; // Map of topics to their colors and order
 }
 
+
 const CustomTooltip: React.FC<CustomTooltipProps> = ({ active, payload, label, topics }) => {
   if (!active || !payload || payload.length === 0) {
     return null; // Return null if there's no active tooltip or payload is empty

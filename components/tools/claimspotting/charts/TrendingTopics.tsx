@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useMemo } from "react";
 import styled from "styled-components";
-
 import {
   AreaChart,
   XAxis,
@@ -12,150 +11,122 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { Box } from "~/components/tools/shared/ui/Box";
-import CustomLegend from "~/components/tools/claimspotting/charts/CustomLegend";
 import CustomTooltip from "~/components/tools/claimspotting/charts/CustomTooltip";
+import { get } from "lodash";
 
-// Define the type for the data object structure
+// Define types
 type DataPoint = {
   Access_datetime: string;
   Channel_Name: string;
   data: {
     Publishing_date: string;
-    Topic: {
-      [key: string]: number;
-    };
+    Topic: { [key: string]: number };
   };
 };
 
-// Props for the component
 interface TrendingTopicsProps {
   data: DataPoint[];
-  threshold?: number; // Add threshold as a prop
-  exclude: string[]; // Add exclude as a prop
+  threshold: number;
+  exclude: string[];
 }
 
-const TrendingTopics: React.FC<TrendingTopicsProps> = ({
-  data,
-  threshold = 0,
-  exclude = [],
-}) => {
-  // Extract and format the data for the AreaChart, normalizing values to percentages
-  const processChartData = () => {
+type TopicData = {
+  date: string;
+  [key: string]: number | string;
+};
+
+// Component
+const TrendingTopics: React.FC<TrendingTopicsProps> = ({ data, threshold, exclude }) => {
+  const rawData = useMemo(() => {
     return data.map((entry) => {
       const {
         Access_datetime,
         data: { Topic },
       } = entry;
-      const total = Object.values(Topic).reduce((sum, value) => sum + value, 0); // Get total count for the date
+      return {
+        date: new Date(Access_datetime).toLocaleDateString("en-GB"),
+        ...Topic,
+      };
+    });
+  }, [data]);
 
-      // Filter out the "Other" topic and calculate raw percentages
-      const filteredTopic = Object.keys(Topic)
-        .filter((key) => !exclude.includes(key))
-        .reduce((obj, key) => {
-          obj[key] = Topic[key];
-          return obj;
-        }, {} as { [key: string]: number });
-
-      const totalFiltered = Object.values(filteredTopic).reduce(
-        (sum, value) => sum + value,
+  const absoluteData = useMemo(() => {
+    return rawData.map((entry) => {
+      const total = Object.values(entry).reduce(
+        (sum, value) => sum + (typeof value === "number" ? value : 0),
         0
       );
-      const rawPercentages = Object.keys(filteredTopic).reduce((acc, key) => {
-        acc[key] = (filteredTopic[key] / totalFiltered) * 100;
+      return {
+        ...entry,
+        total,
+      };
+    });
+  }, [rawData]);
+
+  const percentageData = useMemo(() => {
+    return absoluteData.map((entry) => {
+      const total = entry.total || 1;
+      const percentages = Object.keys(entry).reduce((acc, key) => {
+        const value = entry[key] as number;
+        if (key !== 'date' && key !== 'total' && typeof value === 'number') {
+          acc[key] = (value / total) * 100;
+        }
         return acc;
       }, {} as { [key: string]: number });
 
-      console.log("rawPercentages", rawPercentages, "Totalfiltered: ", totalFiltered, "Total: ", total);
-
-      // Adjust the values so they sum to exactly 100%
-      const totalPercentage = Object.values(rawPercentages).reduce(
-        (sum, value) => sum + value,
-        0
-      );
-      const adjustment = 100 - totalPercentage;
-
-      // Find the topic with the maximum value to adjust it
-      const maxTopicKey = Object.keys(rawPercentages).reduce((maxKey, key) =>
-        rawPercentages[key] > rawPercentages[maxKey] ? key : maxKey
-      );
-
-      rawPercentages[maxTopicKey] += adjustment; // Apply the adjustment to the largest value
-
-      // Format the final data for Recharts
-      const normalizedData = {
-        date: new Date(Access_datetime).toLocaleDateString("en-GB"), // Format date to "dd/mm/yyyy"
-        ...rawPercentages, // Spread the adjusted percentages
+      return {
+        date: entry.date,
+        ...percentages,
       };
-
-      console.log("normalizedData", normalizedData);
-
-      return normalizedData;
     });
-  };
+  }, [absoluteData]);
 
-  // Filter topics that had at least one data point exceeding the threshold and sort them by total percentage
-  const getTopics = () => {
-    const allTopics = data.map((entry) => {
-      const { Topic } = entry.data;
-      const filteredTopic = Object.keys(Topic)
-        .filter((key) => !exclude.includes(key))
-        .reduce((obj, key) => {
-          obj[key] = Topic[key];
-          return obj;
-        }, {} as { [key: string]: number });
-      return filteredTopic;
-    });
-
-    // Compute total percentages for each topic across all data points
-    const topicTotals = Object.keys(allTopics[0]).reduce((acc, topic) => {
-      acc[topic] = allTopics.reduce((total, entry) => {
-        return (
-          total +
-          (entry[topic] / Object.values(entry).reduce((a, b) => a + b, 0)) * 100
-        );
-      }, 0);
+  const getTopicsFromData = (data: typeof rawData) => {
+    const firstEntry = data[0] || {};
+    return Object.keys(firstEntry).reduce((acc, topic) => {
+      if (topic !== 'date') {
+        acc[topic] = 1;
+      }
       return acc;
     }, {} as { [key: string]: number });
-
-    // Sort topics by total percentage and filter by threshold
-    const topicsOverThreshold = Object.keys(topicTotals)
-      .filter((topic) => topicTotals[topic] / data.length >= threshold)
-      .sort((a, b) => topicTotals[b] - topicTotals[a]);
-
-    return topicsOverThreshold;
   };
 
-  // Assign colors based on the provided theme
+  const filteredData = useMemo(() => {
+    const topics = getTopicsFromData(rawData);
+    const filteredTopics = Object.keys(topics).filter(topic => {
+      const count = percentageData[0]?.[topic] as number || 0;
+      return count >= threshold && !exclude.includes(topic);
+    });
+  
+    return percentageData.map(entry => {
+      const filteredEntry: TopicData = { date: entry.date };
+      filteredTopics.forEach(topic => {
+        filteredEntry[topic] = entry[topic] as number || 0;
+      });
+      return filteredEntry;
+    });
+  }, [percentageData, threshold, exclude, rawData]);
+
+  const excludedCategories = useMemo(() => {
+    const allTopics = getTopicsFromData(rawData);
+    return Object.keys(allTopics)
+      .filter((topic) => exclude.includes(topic))
+      .sort();
+  }, [rawData, exclude, getT]);
+
   const colors = [
-    "#BFa226", // yellow
-    "#1F9C6C", // dark green
-    "#2085C2", // blue
-    "#26BF84", // green
-    "#99BF26", // lime
-    "#2E4EC2", // dark blue
-    "#BF7526", // orange
-    "#9D26BF", // pink
-    "#BF264C", // red
-    "#5E4EC2", // purple
-    "#26BFB7", // teal
+    "#BFa226", "#1F9C6C", "#2085C2", "#26BF84", "#99BF26",
+    "#2E4EC2", "#BF7526", "#9D26BF", "#BF264C", "#5E4EC2", "#26BFB7",
   ];
 
-  // Function to format x-axis ticks to show only the beginning of each month
-  const formatXAxis = (tick: number | string) => {
-    const date = new Date(tick);
-    const month = date.toLocaleString("en-GB", { month: "short" });
-    const year = date.getFullYear();
-    return `${month} ${year}`;
-  };
-
-  // Define the topics and their colors in the TrendingTopics component
-  const topics = getTopics().reduce((acc, topic, index) => {
-    acc[topic] = {
-      color: colors[index % colors.length],
-      order: index, // Order based on the index or other logic
-    };
-    return acc;
-  }, {} as { [key: string]: { color: string; order: number } });
+  const sortedTopics = useMemo(() => {
+    return Object.keys(getTopicsFromData(rawData)).filter(topic => !exclude.includes(topic)).sort((a, b) => {
+      return (
+        (filteredData.findIndex((d) => d.hasOwnProperty(a)) || Infinity) -
+        (filteredData.findIndex((d) => d.hasOwnProperty(b)) || Infinity)
+      );
+    });
+  }, [filteredData, exclude, rawData]);
 
   return (
     <TrendingTopicsWrapper>
@@ -163,19 +134,12 @@ const TrendingTopics: React.FC<TrendingTopicsProps> = ({
 
       <ResponsiveContainer width="100%" height={400}>
         <AreaChart
-          data={processChartData()}
-          width={500}
-          height={400}
+          data={filteredData}
           stackOffset="expand"
-          margin={{
-            top: 10,
-            right: 30,
-            left: 0,
-            bottom: 0,
-          }}
+          margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
         >
           <defs>
-            {getTopics().map((topic, index) => (
+            {sortedTopics.map((topic, index) => (
               <linearGradient
                 id={`color${index}`}
                 key={index}
@@ -185,14 +149,9 @@ const TrendingTopics: React.FC<TrendingTopicsProps> = ({
                 y2="1"
               >
                 <stop
-                  offset="10%"
+                  offset="5%"
                   stopColor={colors[index % colors.length]}
-                  stopOpacity={0.9}
-                />
-                <stop
-                  offset="50%"
-                  stopColor={colors[index % colors.length]}
-                  stopOpacity={0.6}
+                  stopOpacity={0.8}
                 />
                 <stop
                   offset="95%"
@@ -202,21 +161,31 @@ const TrendingTopics: React.FC<TrendingTopicsProps> = ({
               </linearGradient>
             ))}
           </defs>
-          <XAxis dataKey="date" />
-          <YAxis tickFormatter={(tick) => `${tick * 100}%`} domain={[0, 1]} />
-          <CartesianGrid strokeDasharray="1 5" />
-          <Tooltip
-            content={<CustomTooltip topics={topics} />}
-            formatter={(value: number) => `${value.toFixed(2)}%`}
+          <XAxis dataKey="date" tickFormatter={(tick) => tick} />
+          <YAxis
+            tickFormatter={(tick) => `${tick.toFixed(2)}%`}
+            domain={[0, 100]}
           />
+          <CartesianGrid strokeDasharray="3 3" />
+          <Tooltip content={<CustomTooltip topics={sortedTopics} />} />
           <Legend
-            content={<CustomLegend />}
             layout="vertical"
             align="right"
             verticalAlign="middle"
-            wrapperStyle={{ paddingLeft: 0 }} // Adjust this style as needed
+            content={({ payload }) => (
+              <div style={{ paddingLeft: "20px" }}>
+                {payload
+                  .slice()
+                  .sort((a, b) => (a.payload.y > b.payload.y ? -1 : 1))
+                  .map((entry, index) => (
+                    <p key={`item-${index}`} style={{ color: entry.color }}>
+                      {entry.value} posts
+                    </p>
+                  ))}
+              </div>
+            )}
           />
-          {getTopics().map((topic, index) => (
+          {sortedTopics.map((topic, index) => (
             <Area
               key={topic}
               type="monotone"
@@ -231,8 +200,7 @@ const TrendingTopics: React.FC<TrendingTopicsProps> = ({
       </ResponsiveContainer>
     </TrendingTopicsWrapper>
   );
-};
-
+}
 export default TrendingTopics;
 
 const TrendingTopicsWrapper = styled(Box)`
