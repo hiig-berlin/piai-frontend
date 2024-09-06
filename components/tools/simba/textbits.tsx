@@ -177,7 +177,7 @@ Please note that we cannot guarantee the model will always provide accurate info
         title: "Warum KI-unterstützte Textvereinfachung?",
         subtitle: `Simba reduziert die Komplexität von deutschen Online-Texten, während die Kernbotschaft erhalten bleibt.`,
         description: `Unsere zwei Angebote ersetzen dafür lange Wörter mit kurzen Synonymen, kürzen Sätze und fügen Informationen hinzu, um Zusammenhänge zu erklären. Die Internet-App (Textvereinfacher) und die Browser-Erweiterung machen das mit Hilfe eines KI-Modells.
-Unser Ziel ist es, so vielen unterschiedlichen Menschen wie möglich den Zugang zu Online-Texten und Informationen zu ermöglichen. Diese Zielgruppen – zum Beispiel nicht muttersprachliche Benutzer:innen, oder Erwachsene mit Behinderungen – sind eine sehr heterogene Gruppe von Menschen. Wir sind überzeugt, dass Zusammenarbeit der Schlüssel zur Verbesserung unserer Angebote ist. Deshalb laden wir Forscher:innen, Fachleute und engagierte Benutzer*innen ein, mit uns zu kooperieren. Mit ihrer Expertise können wir unser Basismodell weiterentwickeln und Vereinfachungen schaffen, die für verschiedene Menschengruppen geeignet sind. Unser KI-Modell und der Code sind Open Source.
+Unser Ziel ist es, so vielen unterschiedlichen Menschen wie möglich den Zugang zu Online-Texten und Informationen zu ermöglichen. Diese Zielgruppen – zum Beispiel nicht muttersprachliche Benutzer:innen, oder Erwachsene mit Behinderungen – sind eine sehr heterogene Gruppe von Menschen. Wir sind überzeugt, dass Zusammenarbeit der Schlüssel zur Verbesserung unserer Angebote ist. Deshalb laden wir Forscher:innen, Fachleute und engagierte Benutzer:innen ein, mit uns zu kooperieren. Mit ihrer Expertise können wir unser Basismodell weiterentwickeln und Vereinfachungen schaffen, die für verschiedene Menschengruppen geeignet sind. Unser KI-Modell und der Code sind Open Source.
 Weitere Informationen, wie das Modell funktioniert und welche Daten wir verwendet haben, findest du [hier](/tool/simba/about?lang=de). 
       `,
       },
@@ -282,7 +282,7 @@ Weitere Informationen, wie das Modell funktioniert und welche Daten wir verwende
         "Unsere Angebote helfen dir, deutsche Texte zu verstehen und in einfacher Sprache zusammenzufassen. Sie wurden entwickelt, um dein Leseerlebnis zu verbessern und dir beim Lernen der deutschen Sprache zu helfen. ",
       cta: {
         title: "Arbeite mit uns zusammen",
-        text: `Wir möchten so vielen unterschiedlichen Menschen wie möglich den Zugang zu Online-Texten und Informationen ermöglichen. Diese Zielgruppen – zum Beispiel nicht muttersprachliche Benutzer*innen, oder Erwachsene mit Behinderungen – sind eine sehr heterogene Gruppe von Menschen. Wir sind überzeugt, dass Zusammenarbeit der Schlüssel zur Verbesserung unserer Angebote ist. Deshalb laden wir Forscher*innen, Fachleute und engagierte Benutzer*innen ein, mit uns zu kooperieren. Mit ihrer Expertise können wir unser Basismodell weiterentwickeln und Vereinfachungen schaffen, die für verschiedene Menschengruppen geeignet sind. Unser KI-Modell und der Code sind Open Source.`,
+        text: `Wir möchten so vielen unterschiedlichen Menschen wie möglich den Zugang zu Online-Texten und Informationen ermöglichen. Diese Zielgruppen – zum Beispiel nicht muttersprachliche Benutzer:innen, oder Erwachsene mit Behinderungen – sind eine sehr heterogene Gruppe von Menschen. Wir sind überzeugt, dass Zusammenarbeit der Schlüssel zur Verbesserung unserer Angebote ist. Deshalb laden wir Forsche:innren, Fachleute und engagierte Benutzer:innen ein, mit uns zu kooperieren. Mit ihrer Expertise können wir unser Basismodell weiterentwickeln und Vereinfachungen schaffen, die für verschiedene Menschengruppen geeignet sind. Unser KI-Modell und der Code sind Open Source.`,
         url: "mailto:piai@hiig.de",
         label: "Schreib uns eine E-Mail",
       },
@@ -310,7 +310,7 @@ Weitere Informationen, wie das Modell funktioniert und welche Daten wir verwende
         },
         data:{
           title: "Welche Daten haben wir verwendet?",
-          text: `Wir haben deutschsprachige Zeitungsartikel verwendet, die vereinfacht wurden, um das Foundation-Modell Llama-3-8B-Instruct feinabzustimmen. Wir nutzen Artikel der Austria Presse Agentur, die von professionellen Übersetzer*innen vereinfacht wurden. Sie sind auf die Niveaus B1 und A2 des Gemeinsamen Europäischen Referenzrahmens für Sprachen (GER) vereinfacht. Eine Stichprobe des Datensatzes findest du [hier](https://github.com/fhewett/apa-rst/tree/main/original_texts).`,
+          text: `Wir haben deutschsprachige Zeitungsartikel verwendet, die vereinfacht wurden, um das Foundation-Modell Llama-3-8B-Instruct feinabzustimmen. Wir nutzen Artikel der Austria Presse Agentur, die von professionellen Übersetzer:innen vereinfacht wurden. Sie sind auf die Niveaus B1 und A2 des Gemeinsamen Europäischen Referenzrahmens für Sprachen (GER) vereinfacht. Eine Stichprobe des Datensatzes findest du [hier](https://github.com/fhewett/apa-rst/tree/main/original_texts).`,
         },
         limitations:{
           title: "Was wissen wir über die Einschränkungen von Simba?",
