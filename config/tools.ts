@@ -100,6 +100,10 @@ export const tools: PiAiTool[] = [
         name: "Claim list",
       },
       {
+        slug: "search",
+        name: "Claim search",
+      },
+      {
         slug: "about",
         name: "About the tool",
       },
@@ -108,6 +112,11 @@ export const tools: PiAiTool[] = [
       {
         name: "Claim list",
         icon: "list",
+      },
+      {
+        slug: "search",
+        name: "Claim search",
+        icon: "search",
       },
       {
         slug: "about",

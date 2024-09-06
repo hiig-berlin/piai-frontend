@@ -9,7 +9,13 @@ import useLanguage from "~/hooks/useLanguage";
 import { Placeholder } from "~/components/tools/shared/Styled";
 import ToolHeader from "~/components/tools/shared/Header";
 import { ClaimspottingWrapper } from "~/components/tools/claimspotting/Styled";
-
+import {
+  NarrativeSearchBar,
+  NarrativeSearchResults,
+  SearchWrapper,
+} from "~/components/tools/claimspotting/NarrativeSearch";
+import { ToolSvgBackground } from "~/components/tools/shared/ToolSvgBackground";
+import { ButtonNormalized } from "~/components/styled/Button";
 
 const loadDataFromAPI = async (queryText: string) => {
   const params = {
@@ -71,12 +77,17 @@ const Search = ({
   // const [isNextpage, setIsNextPage] = useState<boolean>(false);
 
   const [data, setData] = useState<any[]>([]);
-  const [searchQuery, setSearchQuery] = useState<string>("Das rumänische Verteidigungsministerium hat einen Bericht über die Ergebnisse der Ausbildung ukrainischer Piloten auf F-16-Jägern erstellt. von 50 Kadetten sind nur drei bereit, die F-16 zu fliegen");
+  const [searchQuery, setSearchQuery] = useState<string>(
+    "Das rumänische Verteidigungsministerium hat einen Bericht über die Ergebnisse der Ausbildung ukrainischer Piloten auf F-16-Jägern erstellt. von 50 Kadetten sind nur drei bereit, die F-16 zu fliegen"
+  );
 
   const { strings, language, setLanguage } = useLanguage("claimspotting"); // Use language hook
 
   // Load data on page load or filter changes
   useEffect(() => {
+    if (searchQuery === "") {
+      return;
+    }
     setLoading(true);
     setError(null);
 
@@ -130,22 +141,30 @@ const Search = ({
         </Placeholder>
       )}
       {error && (
-        <Placeholder mode="full" tool="claim">
+        <Placeholder mode="full" tool="claim" error={true}>
+          <ToolSvgBackground type="warning" />
           {(error && strings?.search.statusMessages?.error) || error}
+          <ButtonNormalized onClick={() => window.location.reload()}>
+            <ToolSvgBackground type="reload" />
+          </ButtonNormalized>
         </Placeholder>
       )}
 
-      {data.length > 0 && (
-        <div>
-          {data.map((item: any, index: number) => (
-            <div key={index}>
-              <h2>{item.Publishing_datetime}</h2>
-              <p>{item.Channel_Name}</p>
-              <p>{item.Link}</p>
-            </div>
-          ))}
-        </div>
-      )}
+      <SearchWrapper>
+        <NarrativeSearchBar
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          strings={strings?.search?.input}
+        />
+
+        {data.length > 0 && (
+          <NarrativeSearchResults
+            data={data}
+            strings={strings?.search?.results}
+            searchQuery={searchQuery}
+          />
+        )}
+      </SearchWrapper>
     </ClaimspottingWrapper>
   );
 };

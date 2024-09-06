@@ -37,7 +37,8 @@ export interface SortState {
 export interface HeaderRowProps {
   sortData: (column: string) => void;
   sort: SortState;
-  strings: any;
+  columns: ColumnProps[];
+  grid: string;
 }
 
 
@@ -47,9 +48,21 @@ export interface SortArrowProps {
 }
 
 export interface DataRowComponentProps {
-  row: DataRowProps;
-  setFilterState: React.Dispatch<React.SetStateAction<FilterStateProps>>;
-  strings: any;
+  row?: DataRowProps;
+  transformedRow: TransformedRowProps;
+  strings?: any;
+  showDetails?: boolean;
+  grid: string;
+}
+
+export interface TransformedRowProps {
+  date: string;
+  text: string;
+  channel: string;
+  topic: any;
+  narrative: string;
+  attributes: any;
+  reach: any;
 }
 
 export interface ColumnProps {

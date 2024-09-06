@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import moment from "moment";
-import { Box } from "../shared/ui/Box";
-import { Dropdown } from "./ui/FormElements";
-import { BoxHighlight } from "./Styled";
+import { BoxHighlight } from "~/components/tools/claimspotting/Styled";
+import { BoxLight } from "~/components/tools/shared/ui/Box";
+import { Dropdown } from "~/components/tools/claimspotting/ui/FormElements";
 
 import {
   Checkbox,
@@ -249,7 +249,7 @@ const Filter = ({
         </div>
       </DateFilter>
 
-      <Box>
+      <TopicsFilter>
         <h2>{strings?.topics?.title}</h2>
         <AttributeSelector
           label={strings?.topics?.selectTopic}
@@ -282,7 +282,7 @@ const Filter = ({
             </option>
           ))}
         </Dropdown>
-      </Box>
+      </TopicsFilter>
 
       <AttributeFilter>
         <h2>{strings?.attributes?.title}</h2>
@@ -380,7 +380,7 @@ const Counter = styled(BoxHighlight)`
   }
 `;
 
-const DateFilter = styled(Box)`
+const DateFilter = styled(BoxLight)`
   .range {
     display: flex;
     flex-direction: row;
@@ -388,7 +388,11 @@ const DateFilter = styled(Box)`
   }
 `;
 
-const AttributeFilter = styled(Box)`
+const TopicsFilter = styled(BoxLight)`
+
+`;
+
+const AttributeFilter = styled(BoxLight)`
   div {
     // font-family: var(--font-family-narrow);
     display: grid;

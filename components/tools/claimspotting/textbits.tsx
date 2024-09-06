@@ -1,3 +1,6 @@
+import { result } from "lodash";
+import { resourceLimits } from "worker_threads";
+
 export const textBits = {
   en: {
     header: {
@@ -67,6 +70,16 @@ export const textBits = {
         error:
           "Error loading data. Try to refresh the page, the server might be tempoarily at capacity.",
       },
+      input:{
+        placeholder: "Search for a narrative",
+      },
+      results: {
+        columns: {
+          date: "Date",
+          channel: "Channel",
+          link: "Link to post",
+        },
+      }
     },
     about: {
       intro:
