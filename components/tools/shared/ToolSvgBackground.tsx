@@ -66,6 +66,7 @@ import SvgGroup from "~/components/svgs/SvgGroup";
 import SvgChannel from "~/components/svgs/SvgChannel";
 import Svgwarning from "~/components/svgs/Svgwarning";
 import Svgreload from "~/components/svgs/Svgreload";
+import Svgtrend from "~/components/svgs/Svgtrend";
 
 // use https://jakearchibald.github.io/svgomg/
 // use https://yoksel.github.io/url-encoder/
@@ -347,6 +348,11 @@ export const ToolSvgBackground = ({
     case "reload":
       activeSvg = Svgreload;
       break;
+
+    case "trend":
+      activeSvg = Svgtrend;
+      break;
+
   }
   return (
     <span
