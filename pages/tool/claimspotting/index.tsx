@@ -33,21 +33,22 @@ const loadDataFromAPI = async (
   };
 
   // Convert the parameters object to a query string
-  const url = new URL(process.env.NEXT_PUBLIC_CLAIMSPOTTING_API_URL as string);
+  const url = new URL(process.env.NEXT_PUBLIC_CLAIMSPOTTING_API_LIST as string);
   const queryString = new URLSearchParams(params).toString();
 
+  
   console.log(
     "Fetching data from url: ",
     queryString,
     "with those params",
     params
   );
+
   try {
     const response = await fetch(`${url}?${queryString}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_CLAIMSPOTTING_API_KEY}`,
       },
     });
 
