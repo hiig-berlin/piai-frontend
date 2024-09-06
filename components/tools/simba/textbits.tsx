@@ -88,7 +88,7 @@ export const textBits = {
           title: "Download for Chrome",
           blurb: `Download Simba as a browser extension from the Chrome Web Store.`,
           button: {
-            url: "https://chromewebstore.google.com/detail/simba-text-assistant/lllfbelghpclobblmackbkheabbhfdhf",
+            url: "https://chromewebstore.google.com/detail/simba-text-assistant/jkadbcabhoipdejmbjjciphojecgbibc",
             label: "Install Chrome Extension",
           },
         },
@@ -253,7 +253,7 @@ Weitere Informationen, wie das Modell funktioniert und welche Daten wir verwende
           title: "Download für Chrome",
           blurb: `Lade Simba als Browser-Erweiterung aus dem Chrome Web Store herunter.`,
           button: {
-            url: "https://chromewebstore.google.com/detail/simba-text-assistant/lllfbelghpclobblmackbkheabbhfdhf",
+            url: "https://chromewebstore.google.com/detail/simba-text-assistant/jkadbcabhoipdejmbjjciphojecgbibc",
             label: "Chrome Erweiterung installieren",
           },
         },
