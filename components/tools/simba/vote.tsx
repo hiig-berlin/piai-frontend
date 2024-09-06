@@ -47,7 +47,7 @@ const Vote = ({
       if (response.ok) {
         setVoted(true);
         setLoading(false);
-        console.log("Upvoted summary with UUID:", currentUUID);
+        // console.log("Upvoted summary with UUID:", currentUUID);
       } else {
         console.error("API Error:", response.status, response.statusText);
       }

@@ -125,9 +125,9 @@ const Container = styled(Grid)<{
     }
   }
 
-  p + h2,
-  p + h3,
-  p + h4 {
+  p + h2, div + h2,
+  p + h3, div + h3,
+  p + h4, div + h4 {
     margin-top: var(--size-4);
   }
 

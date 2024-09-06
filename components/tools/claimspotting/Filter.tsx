@@ -73,7 +73,7 @@ const Filter = ({
     const startDate = moment()
       .subtract(range === "week" ? 7 : range === "days" ? 3 : 1, range === "week" || "days" ? "days" : "months")
       .format("YYYY-MM-DD");
-    console.log("Date range:", { startDate, endDate }); // Debugging statement
+    // console.log("Date range:", { startDate, endDate }); // Debugging statement
     return { startDate, endDate };
   };
 
@@ -182,7 +182,7 @@ const Filter = ({
       );
     });
 
-    console.log("Filtered data:", filteredData, "from all data:", data); // Debugging statement
+    // console.log("Filtered data:", filteredData, "from all data:", data); // Debugging statement
     onFilterChange(filteredData);
   }, [filterState, data, onFilterChange]);
 

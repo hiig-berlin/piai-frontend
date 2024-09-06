@@ -90,7 +90,7 @@ export const tools: PiAiTool[] = [
     slug: "claimspotting",
     name: "Claimspotting",
     description:
-      "A tool for fact-checkers to identify potentially false claims and trending narratives.",
+      "Monitor of potential misinformation on Telegram",
     colorBase: "var(--color-piai-claim)",
     colorHighlight: "var(--color-piai-claim)",
     iconShort: "Cl",
@@ -119,7 +119,7 @@ export const tools: PiAiTool[] = [
   {
     slug: "simba",
     name: "Simba – Text assistant",
-    description: "Browser extension to summarise and simplify online texts",
+    description: "AI-Powered Text Simplification",
     colorBase: "var(--color-piai-simba)",
     colorHighlight: "var(--color-piai-simba)",
     iconShort: "Si",

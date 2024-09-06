@@ -1,7 +1,7 @@
 export const preGeneratedText = [
   {
     example: "Newspaper article",
-    text: `<p>Am Mittwoch streiken in Berlin viele Beschäftigte des öffentlichen Dienstes. Das bedeutet: Sie arbeiten nicht. Denn sie fordern mehr Lohn. Das sind 10,5 Prozent mehr als bisher.  Die Beschäftigten des öffentlichen Dienstes arbeiten in Schulen, Kitas und Bürgerämtern. Sie arbeiten auch in der Polizei und bei der Feuerwehr.  Die Gewerkschaften haben die Beschäftigten zum Streik aufgerufen. Gewerkschaften sind Organisationen, in denen sich Arbeitnehmer zusammenschließen. Sie vertreten die Interessen der Arbeitnehmer.  Die Gewerkschaften wollen, dass die Beschäftigten mehr Lohn bekommen.</p>
+    text: `<p>In Berlin und Brandenburg war es am Donnerstag sehr heiß. In Cottbus, Brandenburg, wurde die höchste Temperatur des Tages gemessen: 35,5 Grad. In Wusterwitz, Brandenburg, war es 35,3 Grad warm. In Berlin wurden Temperaturen von über 30 Grad erreicht, zum Beispiel 34,7 Grad in Tempelhof. In den nächsten Tagen soll die Hitze ein bisschen nachlassen.</p>
     `,
   },
   {
@@ -17,14 +17,14 @@ export const preGeneratedText = [
 export const input = [
   {
     example: "Newspaper article",
-    text: `   
-    <p><strong>Schulen, Kitas, Bürgerämter: Am Mittwoch dürften viele Berlinerinnen und Berliner Einschränkungen bemerken - wegen eines Warnstreiks der Beschäftigten des öffentlichen Dienstes. Gewerkschaften fordern 10,5 Prozent mehr Lohn.</strong></p>
-    
-    <p>Notbetreuung in Schulen, geschlossene Kitas, eingeschränkte Besetzung der Bürgerämter: Am Mittwoch hat ein Warnstreik der Berliner Beschäftigten, die unter den Tarifvertrag der Länder fallen, begonnen. Es sei mit Unterrichtsausfall an zahlreichen Schulen zu rechnen, sagte ein Sprecher der beteiligten Gewerkschaft Erziehung und Wissenschaft (GEW) am Morgen. Mindestens 100 Kitas blieben geschlossen, sagte ein Verdi-Sprecher dem rbb.</p>
+    text: `<p><strong>Es sollte der heißeste Tag des Jahres in Berlin und Brandenburg werden - und er wurde es offenbar auch. Nirgendwo war es am Donnerstag in Deutschland heißer als in Cottbus. In den kommenden Tagen sollen die Temperaturen leicht sinken.</strong></p>
 
-    <p>Zum Warnstreik aufgerufen sind die Beschäftigten der Senatsverwaltungen und Bezirksämter, die Schulen und Hochschulen, die Polizeidienststellen, die Feuerwehr, die Kitas und die forstwirtschaftlichen Betriebe des Landes Berlin, wie die Gewerkschaften Verdi, Erziehung und Wissenschaft (GEW), der Polizei (GdP) und IG Bau gemeinsam mitteilten.</p>
-    
-    <p>Begleitet wird der Streik in Berlin von einer Demo am Vormittag. Sie beginnt am Wittenbergplatz und zieht dann bis zum Platz des 18. März. Die Organisatoren rechnen eigenen Angaben zufolge mit Tausenden Teilnehmern. Auch in den anderen Stadtstaaten Bremen und Hamburg sind die Beschäftigten des öffentlichen Diensts zu Arbeitsniederlegungen aufgerufen.</p>`,
+<p>Die höchsten Temperaturen des Tages sind am Donnerstag deutschlandweit in Cottbus gemessen worden. Nach vorläufigen Angaben des Deutschen Wetterdienstes (DWD) kletterte das Thermometer dort gegen 15:50 Uhr auf 35,5 Grad.</p>
+
+<p>Auch der zweite Platz in der Rangliste der heißesten Orte des Tages ging an Brandenburg: In Wusterwitz im Landkreis Potsdam-Mittelmark wurden gegen 16:30 Uhr 35,3 Grad gemessen. 35,2 Grad warm wurde es laut Wetterdienst in mehreren Orten, etwa in der brandenburgischen Landeshauptstadt Potsdam und in Jena in Thüringen. Berlin und Brandenburg sei insgesamt ein Hitze-Hotspot gewesen.</p>
+
+<p>In Berlin wurde die 30-Grad-Marke beipsielsweise in Tempelhof mit 34,7 Grad deutlich überschritten, in Berlin-Dahlem und Berlin-Buch wurden 34,1 Grad gemessen.</p>
+`,
   },
   {
     example: "Wikipedia page",
