@@ -36,12 +36,13 @@ const loadDataFromAPI = async (
   const url = new URL(process.env.NEXT_PUBLIC_CLAIMSPOTTING_API_URL as string);
   const queryString = new URLSearchParams(params).toString();
 
-  console.log(
-    "Fetching data from url: ",
-    queryString,
-    "with those params",
-    params
-  );
+  if (process.env.NODE_ENV === "development")
+    console.log(
+      "Fetching data from url: ",
+      queryString,
+      "with those params",
+      params
+    );
   try {
     const response = await fetch(`${url}?${queryString}`, {
       method: "GET",
@@ -55,11 +56,13 @@ const loadDataFromAPI = async (
       throw new Error(`HTTP error! status: ${response.status}`);
     } else {
       const data = await response.json();
-      console.log("Data loaded successfully: ", data);
+      if (process.env.NODE_ENV === "development")
+        console.log("Data loaded successfully: ", data);
       return { error: null, data: data };
     }
   } catch (error) {
-    console.log("Fetch Error:", error);
+    if (process.env.NODE_ENV === "development")
+      console.log("Fetch Error:", error);
     return {
       error:
         "Error loading data. Try to refresh the page, the server might be tempoarily at capacity.",
@@ -126,7 +129,7 @@ const Index = ({
         return;
       }
       const rawData = raw.data;
-      console.log("Raw data:", rawData);
+      // console.log("Raw data:", rawData);
 
       // Fill data and count depending on pagination true/false
       const dataArray = rawData.results ? rawData.results : rawData;

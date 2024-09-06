@@ -40,7 +40,7 @@ const About = ({
       }
     }
   }
-  console.log("contentString", contentString);
+  // console.log("contentString", contentString);
 
   let contentSimpleString: string = "";
   for (var key in strings?.about.contentSimple) {
@@ -61,7 +61,7 @@ const About = ({
       }
     }
   }
-  console.log("contentSimpleString", contentSimpleString);
+  // console.log("contentSimpleString", contentSimpleString);
 
   return (
     <>
