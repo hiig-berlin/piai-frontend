@@ -251,6 +251,38 @@ Always double-check the results before using them for fact-checking purposes.`,
         },
       },
     },
+    search: {
+      statusMessages: {
+        loading: "Lade Beiträge mit dem gleichen Narrativ …",
+        noData:
+          "Es scheint keine Beiträge zu geben, die der Suchanfrage entsprechen. Versuche, nach etwas anderem zu suchen.",
+        error:
+          "Fehler beim Laden der Daten. Versuche die Seite neu zu laden, der Server könnte temporär überlastet sein.",
+      },
+      input: {
+        title: "Suche nach einem Narrativ",
+        placeholder: "Suche nach einem Narrativ",
+      },
+      results: {
+        title: "Beiträge mit passendem Narrativ",
+        columns: {
+          date: "Datum",
+          channel: "Kanal",
+          link: "Link zum Beitrag",
+        },
+        initial:
+          "Bitte gib eine Suchphrase ein, um passende Beiträge zu finden.",
+      },
+      disclaimer: {
+        title: "Bitte beachten",
+        text: `Die Suchergebnisse basieren auf den von der Claimspotting KI identifizierten Narrativen.
+
+Die Suchergebnisse können unvollständig oder ungenau sein, bitte lies unsere [FAQ](tool/claimspotting/about), um mehr über den Algorithmus und die verwendeten Modelle zu erfahren.
+
+Überprüfe die Ergebnisse immer noch einmal, bevor du sie für Faktenchecks verwendest.`,
+      },
+    },
+
     about: {
       intro:
         "Ein webbasiertes Tool, das potenzielle Fehlinformationen auf Telegram überwacht. Es ist dazu konzipiert, Faktenchecker:innenn zu helfen.",
