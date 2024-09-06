@@ -16,6 +16,10 @@ import {
 } from "~/components/tools/claimspotting/NarrativeSearch";
 import { ToolSvgBackground } from "~/components/tools/shared/ToolSvgBackground";
 import { ButtonNormalized } from "~/components/styled/Button";
+import showdown from "showdown";
+import SafeHtmlDiv from "~/components/ui/SafeHtmlDiv";
+import { Box } from "~/components/tools/shared/ui/Box";
+
 
 const loadDataFromAPI = async (queryText: string) => {
   const params = {
@@ -72,16 +76,16 @@ const Search = ({
 }) => {
   const currentTool = appConfig.tools?.find((t) => t.slug === "claimspotting");
 
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   // const [isNextpage, setIsNextPage] = useState<boolean>(false);
 
   const [data, setData] = useState<any[]>([]);
-  const [searchQuery, setSearchQuery] = useState<string>(
-    "Das rumänische Verteidigungsministerium hat einen Bericht über die Ergebnisse der Ausbildung ukrainischer Piloten auf F-16-Jägern erstellt. von 50 Kadetten sind nur drei bereit, die F-16 zu fliegen"
-  );
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   const { strings, language, setLanguage } = useLanguage("claimspotting"); // Use language hook
+  const converter = new showdown.Converter();
+  const disclaimer = converter.makeHtml(strings?.search.disclaimer.text);
 
   // Load data on page load or filter changes
   useEffect(() => {
@@ -135,7 +139,7 @@ const Search = ({
           {strings?.search.statusMessages?.loading}
         </Placeholder>
       )}
-      {data.length === 0 && !loading && !error && (
+      {data.length === 0 && !loading && !error && searchQuery != "" && (
         <Placeholder mode="full" tool="claim">
           {strings?.search.statusMessages?.noData}
         </Placeholder>
@@ -164,6 +168,11 @@ const Search = ({
             searchQuery={searchQuery}
           />
         )}
+
+        <Box className="disclaimer">
+          <h2>{strings?.search?.disclaimer.title}</h2>
+          <SafeHtmlDiv html={disclaimer} />
+        </Box>
       </SearchWrapper>
     </ClaimspottingWrapper>
   );

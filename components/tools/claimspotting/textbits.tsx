@@ -1,4 +1,6 @@
 import { result } from "lodash";
+import { title } from "process";
+import { text } from "stream/consumers";
 import { resourceLimits } from "worker_threads";
 
 export const textBits = {
@@ -66,20 +68,32 @@ export const textBits = {
     search: {
       statusMessages: {
         loading: "Loading posts that follow the same narrative …",
-        noData: "No posts seem to match the search query. Try searching for something else.",
+        noData:
+          "No posts seem to match the search query. Try searching for something else.",
         error:
           "Error loading data. Try to refresh the page, the server might be tempoarily at capacity.",
       },
-      input:{
+      input: {
+        title: "Search for a narrative",
         placeholder: "Search for a narrative",
       },
       results: {
+        title: "Posts with a matching narrative",
         columns: {
           date: "Date",
           channel: "Channel",
           link: "Link to post",
         },
-      }
+        initial: "Please enter a search phrase to find matching posts.",
+      },
+      disclaimer: {
+        title: "Please note",
+        text: `The search results are based on the narratives identified by the Claimspotting AI. 
+        
+The search results may not be complete or accurate, please read our [FAQ](tool/claimspotting/about) to find more about the algorithm and the models used. 
+        
+Always double-check the results before using them for fact-checking purposes.`,
+      },
     },
     about: {
       intro:

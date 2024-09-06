@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-
 import { Box, BoxLight } from "~/components/tools/shared/ui/Box";
 import { SearchForm } from "./ui/FieldSearch";
 import { HeaderRow } from "./ui/TableHeader";
@@ -12,6 +11,7 @@ import {
 import { DataRow } from "./ui/TableData";
 import { formatDate } from "~/components/tools/claimspotting/utils";
 import { Icon } from "~/components/tools/shared/ui/Icon";
+import { Button } from "~/components/styled/Button";
 
 
 export const NarrativeSearchBar = ({
@@ -23,24 +23,19 @@ export const NarrativeSearchBar = ({
   setSearchQuery: (searchQuery: string) => void;
   strings: any;
 }) => {
-
   const [inputValue, setInputValue] = useState(searchQuery);
-  const [typingTimeout, setTypingTimeout] = useState<NodeJS.Timeout | null>(null);
+
 
   // Update searchQuery when user stops typing
   useEffect(() => {
-    if (typingTimeout) {
-      clearTimeout(typingTimeout);
-    }
-
     const timeout = setTimeout(() => {
       setSearchQuery(inputValue);
-    }, 500); // Adjust the delay here (500ms is typical for debounce)
+    }, 500); // Adjust debounce delay (500ms)
 
-    setTypingTimeout(timeout);
-
-    return () => clearTimeout(timeout);
-  }, [inputValue, setSearchQuery, typingTimeout]);
+    return () => {
+      clearTimeout(timeout); // Clear timeout if user is still typing
+    };
+  }, [inputValue, setSearchQuery]);
 
   const handleInputChange = (value: string) => {
     setInputValue(value); // Update input field value as user types
@@ -48,7 +43,7 @@ export const NarrativeSearchBar = ({
 
   return (
     <BoxLight className="searchInput">
-      <h2>Search by narrative</h2>
+      <h2>{strings?.title}</h2>
       <SearchForm
         placeholder={strings?.placeholder}
         onSubmit={(value: string) => setSearchQuery(value)}
@@ -104,12 +99,12 @@ export const NarrativeSearchResults = ({
   const renderLink = (link: string) => (
     <Icon type="globe" url={link}>
       {link}
-  </Icon>
+    </Icon>
   );
 
   const columns: ColumnProps[] = [
     {
-      label: strings.columns.date,
+      label: strings?.columns.date,
       slug: "Publishing_datetime",
       sortable: true,
     },
@@ -124,26 +119,27 @@ export const NarrativeSearchResults = ({
   }));
 
   return (
-    <Box className="searchResults">
-      <h2>Pots with a matching narrative</h2>
-      {searchQuery != "" ? (
-        <>
-          <HeaderRow
-            columns={columns}
-            sortData={sortData}
-            sort={sort}
-            grid="search"
-          ></HeaderRow>
-          {transformedRows.map((item: any, index: number) => (
-
-            <DataRow key={index} transformedRow={item} grid="search"/>
-
-          ))}
-        </>
-      ) : (
-        <p>Please enter a search phrase to find matching posts.</p>
-      )}
-    </Box>
+    <>
+      <Box className="searchResults">
+        <h2>{strings.title}</h2>
+        {searchQuery != "" ? (
+          <>
+            <HeaderRow
+              columns={columns}
+              sortData={sortData}
+              sort={sort}
+              grid="search"
+            ></HeaderRow>
+            {transformedRows.map((item: any, index: number) => (
+              <DataRow key={index} transformedRow={item} grid="search" />
+            ))}
+            {rows.length < data.length && <LoadMore onClick={() => setRows(data.slice(0, rows.length + NUM_ROWS))}>Load more</LoadMore>}
+          </>
+        ) : (
+          <p>{strings.initial}</p>
+        )}
+      </Box>
+    </>
   );
 };
 
@@ -153,8 +149,35 @@ export const SearchWrapper = styled.div`
   grid-template-columns: 1fr;
   gap: var(--size-3);
 
-  ${({ theme }) => theme.breakpoints.tablet} {
+  ${({ theme }) => theme.breakpoints.desktop} {
     grid-template-columns: 1fr 1fr;
+    grid-template-rows: max-content 1fr;
     align-items: start;
+
+    .disclaimer {
+      grid-column: 1 / 2;
+    }
+
+    .searchResults {
+      grid-area: span 2 / 2;
+    }
   }
+
+  .disclaimer a {
+    text-decoration: underline dotted 0.5px;
+    text-decoration-color: inherit;
+    text-underline-offset: 3px;
+    transition: all ease-out 0.5s;
+
+    &:hover{
+      text-decoration: underline solid 2px;
+      text-underline-offset: 2px;
+      margin-right: 0;
+    }
+  
+`;
+
+const LoadMore = styled(Button)`
+  margin-top: 1rem;
+  align-self: center;
 `;

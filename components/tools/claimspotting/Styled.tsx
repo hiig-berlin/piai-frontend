@@ -37,10 +37,23 @@ export const TableGrid = styled.div<{ grid: string }>`
   ${({ grid, theme }) =>
     grid === "search" &&
     `
-      grid-template-columns: 1fr;
+      grid-template-columns: auto 1fr;
+
+      & > div:nth-child(2) {
+        font-weight: bold;
+      }
+
+      & > div:nth-child(3) {
+        grid-column: span 2;
+        margin-bottom: var(--size-3);
+      }
 
       ${theme.breakpoints.tablet} {
         grid-template-columns: 1fr 2fr 3fr;
+
+        & > div:nth-child(3) {
+          grid-column: unset;
+        }
       }
   `}
 
