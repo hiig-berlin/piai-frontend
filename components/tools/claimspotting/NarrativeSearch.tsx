@@ -40,7 +40,7 @@ export const NarrativeSearchBar = ({
     setTypingTimeout(timeout);
 
     return () => clearTimeout(timeout);
-  }, [inputValue, setSearchQuery]);
+  }, [inputValue, setSearchQuery, typingTimeout]);
 
   const handleInputChange = (value: string) => {
     setInputValue(value); // Update input field value as user types
