@@ -13,8 +13,6 @@ import {
 import { Box } from "~/components/tools/shared/ui/Box";
 import CustomTooltip from "~/components/tools/claimspotting/charts/CustomTooltip";
 import CustomLegend from "./CustomLegend";
-import { get } from "lodash";
-import { all } from "axios";
 
 // Define types
 type DataPoint = {
@@ -37,24 +35,12 @@ type TopicData = {
   [key: string]: number | string;
 };
 
-// interface TopicValue {
-//   date: string;
-//   value: number;
-// }
-
-// interface ProcessedData {
-//   date: string;
-//   topics: { [key: string]: number };
-// }
-
-// Component
 const TrendingTopics: React.FC<TrendingTopicsProps> = ({
   data,
   threshold,
   exclude,
 }) => {
-  console.log("data: ", data);
-
+  // Map raw data into a format with topics and dates
   const rawData = useMemo(() => {
     return data.map((entry) => {
       const {
@@ -71,6 +57,7 @@ const TrendingTopics: React.FC<TrendingTopicsProps> = ({
   }, [data]);
   console.log("rawData: ", rawData);
 
+  // Calculate absolute totals for each entry
   const absoluteData = useMemo(() => {
     return rawData.map((entry) => {
       const total = Object.values(entry.topics).reduce(
@@ -86,30 +73,28 @@ const TrendingTopics: React.FC<TrendingTopicsProps> = ({
   }, [rawData]);
   console.log("absoluteData: ", absoluteData);
 
+  // Calculate percentage data
   const percentageData = useMemo(() => {
-    return absoluteData.map((entry, total) => {
+    return absoluteData.map((entry) => {
       const percentages: { [key: string]: number } = {};
-      for (var key in entry.topics) {
+      for (const key in entry.topics) {
         percentages[key] = (entry.topics[key] / entry.total) * 100;
       }
       return {
         date: entry.date,
         topics: percentages,
-        total: entry.total,
       };
     });
   }, [absoluteData]);
   console.log("percentageData: ", percentageData);
 
-  const getTopicsFromData = (data: typeof rawData) => {
-    const firstEntry = data[0] || {};
-    return Object.keys(firstEntry.topics).filter((topic) => topic !== "date");
-  };
-  console.log("getTopicsFromData: ", getTopicsFromData(rawData));
+  // Get all topics from raw data
+  const allTopics: string[] = useMemo(() => {
+    const firstEntry = rawData[0];
+    return firstEntry ? Object.keys(firstEntry.topics) : [];
+  }, [rawData]);
 
-  const allTopics: string[] = getTopicsFromData(rawData);
-  console.log("allTopics: ", allTopics);
-
+  // Filter topics based on threshold and excluded topics
   const filteredTopics = useMemo(() => {
     return allTopics.filter((topic) => {
       const count = percentageData[0]?.topics[topic] || 0;
@@ -118,18 +103,19 @@ const TrendingTopics: React.FC<TrendingTopicsProps> = ({
   }, [percentageData, threshold, exclude, allTopics]);
   console.log("filteredTopics: ", filteredTopics);
 
+  // Prepare filtered data for the chart
   const filteredData = useMemo(() => {
     return percentageData.map(({ date, topics }) => {
       const filteredEntry: TopicData = { date };
-      filteredTopics.forEach((topic: any) => {
-        filteredEntry[topic] = allTopics[topic] || 0;
+      filteredTopics.forEach((topic) => {
+        filteredEntry[topic] = topics[topic] || 0;
       });
-      // console.log("filteredEntry: ", filteredEntry)
       return filteredEntry;
     });
-  }, [percentageData, filteredTopics, allTopics]);
+  }, [percentageData, filteredTopics]);
   console.log("filteredData: ", filteredData);
 
+  // Sort topics
   const sortedTopics = useMemo(() => {
     return filteredTopics.sort((a, b) => {
       return (
@@ -140,6 +126,7 @@ const TrendingTopics: React.FC<TrendingTopicsProps> = ({
   }, [filteredTopics, filteredData]);
   console.log("sortedTopics: ", sortedTopics);
 
+  // Topics that were excluded
   const excludedTopics = useMemo(() => {
     return allTopics.filter((topic) => !filteredTopics.includes(topic));
   }, [allTopics, filteredTopics]);
@@ -194,10 +181,10 @@ const TrendingTopics: React.FC<TrendingTopicsProps> = ({
           <XAxis dataKey="date" tickFormatter={(tick) => tick} />
           <YAxis
             tickFormatter={(tick) => `${tick.toFixed(0)}%`}
-            domain={[0, 100]}
+            domain={[0, 1]}
           />
           <CartesianGrid strokeDasharray="3 3" />
-          <Tooltip />
+          <Tooltip content={<CustomTooltip topics={sortedTopics} />} />
           <Legend
             layout="vertical"
             align="right"
@@ -222,7 +209,7 @@ const TrendingTopics: React.FC<TrendingTopicsProps> = ({
         values over {threshold}% in the respective period.
       </p>
       <p>
-        The following topics never had values that exeeded the threshold:<br />
+        The following topics never had values that exceeded the threshold:<br />
         {excludedTopics.join(", ")}
       </p>
     </TrendingTopicsWrapper>
