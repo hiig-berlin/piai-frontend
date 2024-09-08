@@ -1,45 +1,101 @@
-import React from 'react';
-import { TooltipProps } from 'recharts';
+import React from "react";
+import styled from "styled-components";
+import { TooltipProps } from "recharts";
 
-// Define a type for the custom tooltip
-interface CustomTooltipProps extends TooltipProps<any, any> {
-  topics: { [key: string]: { color: string; order: number } }; // Map of topics to their colors and order
+// Define the types for the topics
+interface CustomTooltipProps extends TooltipProps<any, string> {
+  topics: string[];
+  absoluteData: any[];  // Pass absoluteData
+  percentageData: any[];  // Pass percentageData
+  colors: string[];
+  active?: boolean;
+  payload?: any;
+  label?: string;
 }
 
+// CustomTooltip component
+const CustomTooltip: React.FC<CustomTooltipProps> = ({
+  active,
+  payload,
+  label,
+  topics,
+  absoluteData,
+  percentageData,
+}) => {
+  if (active && payload && payload.length) {
+    // Find the index in absoluteData and percentageData based on the current label (date)
+    const dataIndex = absoluteData.findIndex(
+      (entry) => entry.date === label
+    );
 
-const CustomTooltip: React.FC<CustomTooltipProps> = ({ active, payload, label, topics }) => {
-  if (!active || !payload || payload.length === 0) {
-    return null; // Return null if there's no active tooltip or payload is empty
+    //remove "Other topics" from topics
+    const otherIndex = topics.indexOf("Other topics");
+    if (otherIndex > -1) {
+      topics.splice(otherIndex, 1);
+    }
+
+    if (dataIndex === -1) return null;  // No matching data
+
+    const absoluteEntry = absoluteData[dataIndex];
+    const percentageEntry = percentageData[dataIndex];
+
+    // flip the order of topics
+    const invertedTopics = topics.reverse();
+
+    const formatDate = (dateString: string) => {
+      const date = new Date(dateString);
+      return date.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric'});
+    };
+
+    return (
+      <TooltipWrapper>
+        <h2 className="label">{`Number of posts published on ${formatDate(label)}`}</h2>
+        <ul className="topic-list">
+          {invertedTopics.map((topic, index) => {
+            const absoluteValue = absoluteEntry.topics[topic];
+            const percentageValue = percentageEntry.topics[topic];
+            const color = payload[index].color;  // Reuse colors from the payload
+
+            return (
+              <li key={`item-${index}`} style={{ color }}>
+                <strong>{topic}:</strong> {absoluteValue} ({percentageValue?.toFixed(2)}%)
+              </li>
+            );
+          })}
+        </ul>
+      </TooltipWrapper>
+    );
   }
 
-  // Extract data from payload
-  const data = payload[0]?.payload;
-  const total = payload[0]?.payload.total || 1; // Use a total if available or default to 1 to avoid division by zero
-  
-  if (!data) {
-    return null; // Return null if data is undefined
-  }
-
-  // Sort topics based on their order
-  const sortedKeys = Object.keys(topics).sort((a, b) => topics[a].order - topics[b].order);
-
-  return (
-    <div style={{ backgroundColor: '#fff', border: '1px solid #ccc', padding: '10px', borderRadius: '4px' }}>
-      <p>{label}</p>
-      {sortedKeys.map((key, index) => {
-        const value = data[key];
-        if (value !== undefined) {
-          const percentage = ((value / total) * 100).toFixed(2);
-          return (
-            <p key={index} style={{ margin: '0', color: topics[key].color }}>
-              <strong>{key}:</strong> {value} posts ({percentage}%)
-            </p>
-          );
-        }
-        return null;
-      })}
-    </div>
-  );
+  return null;
 };
-
 export default CustomTooltip;
+
+// Tooltip styling
+const TooltipWrapper = styled.div`
+  background-color: black;
+  color: white;
+  padding: var(--size-3);
+  border-radius: var(--size-2);
+  font-size: 14px;
+
+  .label {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  .topic-list {
+    display: flex;
+    flex-direction: column-reverse;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      margin: 3px 0;
+      list-style: none;
+    }
+  }
+`;
+
+

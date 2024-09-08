@@ -48,7 +48,7 @@ const TrendingTopics: React.FC<TrendingTopicsProps> = ({
         data: { Topic },
       } = entry;
       return {
-        date: new Date(Access_datetime).toLocaleDateString("en-GB"),
+        date: new Date(Access_datetime).toLocaleDateString("en-US"),
         topics: {
           ...Topic,
         },
@@ -103,47 +103,81 @@ const TrendingTopics: React.FC<TrendingTopicsProps> = ({
   }, [percentageData, threshold, exclude, allTopics]);
   console.log("filteredTopics: ", filteredTopics);
 
-  // Prepare filtered data for the chart
-  const filteredData = useMemo(() => {
-    return percentageData.map(({ date, topics }) => {
-      const filteredEntry: TopicData = { date };
-      filteredTopics.forEach((topic) => {
-        filteredEntry[topic] = topics[topic] || 0;
-      });
-      return filteredEntry;
-    });
-  }, [percentageData, filteredTopics]);
-  console.log("filteredData: ", filteredData);
-
-  // Sort topics
-  const sortedTopics = useMemo(() => {
-    return filteredTopics.sort((a, b) => {
-      return (
-        (filteredData.findIndex((d) => d.hasOwnProperty(a)) || Infinity) -
-        (filteredData.findIndex((d) => d.hasOwnProperty(b)) || Infinity)
-      );
-    });
-  }, [filteredTopics, filteredData]);
-  console.log("sortedTopics: ", sortedTopics);
-
   // Topics that were excluded
   const excludedTopics = useMemo(() => {
     return allTopics.filter((topic) => !filteredTopics.includes(topic));
   }, [allTopics, filteredTopics]);
 
+  // Prepare filtered data for the chart
+  const filteredData = useMemo(() => {
+    return percentageData.map(({ date, topics }) => {
+      const filteredEntry: TopicData = { date };
+      let includedTotal = 0;
+
+      // Add filtered topics to the entry and calculate the total
+      filteredTopics.forEach((topic) => {
+        const value = topics[topic] || 0;
+        filteredEntry[topic] = value;
+        includedTotal += value;
+      });
+
+      // Calculate the excluded topics percentage
+      const excludedPercentage = 100 - includedTotal;
+      filteredEntry["Other topics"] = excludedPercentage;
+
+      return filteredEntry;
+    });
+  }, [percentageData, filteredTopics]);
+
+  // Sort topics
+  const sortedTopics = useMemo(() => {
+    // Ensure "Other topics" is included in the sortedTopics
+    const sortedTopicsOverThreshold = filteredTopics.sort((a, b) => {
+      return (
+        filteredData.findIndex((d) => d[a]) -
+        filteredData.findIndex((d) => d[b])
+      );
+    });
+    return ["Other topics", ...sortedTopicsOverThreshold];
+  }, [filteredTopics, filteredData]);
+  console.log("sortedTopics: ", sortedTopics);
+
   const colors = [
-    "#BFa226",
-    "#1F9C6C",
-    "#2085C2",
-    "#26BF84",
-    "#99BF26",
-    "#2E4EC2",
-    "#BF7526",
-    "#9D26BF",
-    "#BF264C",
-    "#5E4EC2",
-    "#26BFB7",
+    "#333", //green,
+    "#1F9C6C", //green,
+    "#2E4EC2", //dark blue,
+    "#BFa226", //yellow,
+    "#2085C2", //blue,
+    "#99BF26", //lime,
+    "#26BFB7", //teal,
+    "#26BF84", //turquoise,
+    "#5E4EC2", //lila,
+
+    "#9D26BF", //purple,
+    "#BF7526", //orange,
+    "#BF264C", //red,
   ];
+
+  // Function to format dates as "01 Jun"
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-GB", { day: "2-digit", month: "short" });
+  };
+
+  // Calculate the height of the actual topics for the legend
+  const lastExcludedValue =
+    filteredData[filteredData.length - 1]["Other topics"];
+  const lastSum =
+    (typeof lastExcludedValue == "number" && 100 - lastExcludedValue) || 80;
+
+  // get dates from filteredData and reduce to 1 and 15 of each month
+  const dates = filteredData.map((entry) => entry.date);
+  const axisDates: any[] = dates.filter((date, index) => {
+    const d = new Date(date);
+    const day = d.getDate();
+    if (day === 1 || day === 15 || index === dates.length - 1) return d;
+  });
+  console.log("displayedDates: ", axisDates);
 
   return (
     <TrendingTopicsWrapper>
@@ -154,6 +188,7 @@ const TrendingTopics: React.FC<TrendingTopicsProps> = ({
           data={filteredData}
           stackOffset="expand"
           margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+          reverseStackOrder={true}
         >
           <defs>
             {sortedTopics.map((topic, index) => (
@@ -168,28 +203,65 @@ const TrendingTopics: React.FC<TrendingTopicsProps> = ({
                 <stop
                   offset="5%"
                   stopColor={colors[index % colors.length]}
-                  stopOpacity={0.8}
+                  stopOpacity={0.9}
+                />
+                <stop
+                  offset="60%"
+                  stopColor={colors[index % colors.length]}
+                  stopOpacity={0.5}
                 />
                 <stop
                   offset="95%"
                   stopColor={colors[index % colors.length]}
-                  stopOpacity={0}
+                  stopOpacity={0.3}
                 />
               </linearGradient>
             ))}
           </defs>
-          <XAxis dataKey="date" tickFormatter={(tick) => tick} />
-          <YAxis
-            tickFormatter={(tick) => `${tick.toFixed(0)}%`}
-            domain={[0, 1]}
+          <XAxis
+            dataKey="date"
+            tickFormatter={(tick) => formatDate(tick)}
+            tickMargin={8}
+            tickLine={false}
+            axisLine={false}
+            ticks={axisDates}
+            interval="preserveStartEnd"
+            color="#333"
+            fontSize={14}
           />
-          <CartesianGrid strokeDasharray="3 3" />
-          <Tooltip content={<CustomTooltip topics={sortedTopics} />} />
+          <YAxis
+            tickFormatter={(tick) => `${tick.toFixed(2) * 100}%`}
+            domain={[0, 1]}
+            hide={false}
+            fontFamily="var(--font-family-monospace)"
+            tickLine={false}
+            axisLine={false}
+            fontSize={10}
+            width={30}
+            ticks={[0.5, 1]}
+          />
+          <CartesianGrid
+            strokeDasharray="1 0"
+            vertical={false}
+            stroke="#333"
+            syncWithTicks={false}
+            horizontalValues={[0, 0.25, 0.5, 0.75, 1]}
+          />
+          <Tooltip
+            content={
+              <CustomTooltip
+                absoluteData={absoluteData}
+                percentageData={percentageData}
+                topics={sortedTopics}
+                colors={colors}
+              />
+            }
+          />
           <Legend
             layout="vertical"
             align="right"
             verticalAlign="middle"
-            content={<CustomLegend />}
+            content={<CustomLegend sum={lastSum} />}
           />
           {sortedTopics.map((topic, index) => (
             <Area
@@ -200,18 +272,19 @@ const TrendingTopics: React.FC<TrendingTopicsProps> = ({
               stroke={colors[index % colors.length]}
               fillOpacity={1}
               fill={`url(#color${index})`}
+              activeDot={{ r: 4, strokeWidth: 3, stroke: "#000" }}
             />
           ))}
         </AreaChart>
       </ResponsiveContainer>
       <p>
-        The above graph shows the trending topics, meaning they have shown
-        values over {threshold}% in the respective period.
+        The above graph shows the prevailing topics, meaning that they have at
+        lease once exceeded the threshold of {threshold}% in the respective
+        period.
       </p>
-      <p>
-        The following topics never had values that exceeded the threshold:<br />
-        {excludedTopics.join(", ")}
-      </p>
+      <h3>Excluded topics:</h3>
+
+      <p> {excludedTopics.join(", ")}</p>
     </TrendingTopicsWrapper>
   );
 };

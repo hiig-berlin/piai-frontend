@@ -2,8 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import { LegendProps } from "recharts";
 
+interface CustomLegendProps extends LegendProps {
+  sum: number;
+}
+
 // CustomLegend component to handle the custom legend
-const CustomLegend: React.FC<LegendProps> = ({ payload, layout }) => {
+const CustomLegend: React.FC<CustomLegendProps> = ({ payload, layout, sum }) => {
   if (!payload) {
     return null; // Handle the case where payload might be undefined
   }
@@ -12,7 +16,7 @@ const CustomLegend: React.FC<LegendProps> = ({ payload, layout }) => {
   const sortedPayload = [...payload].sort((a, b) => a.value - b.value);
 
   return (
-    <LegendWrapper>
+    <LegendWrapper sum={sum}>
       {layout === "vertical" && (
         <ul>
           {sortedPayload.map((entry, index) => (
@@ -36,17 +40,20 @@ const CustomLegend: React.FC<LegendProps> = ({ payload, layout }) => {
 
 export default CustomLegend;
 
-const LegendWrapper = styled.div`
+const LegendWrapper = styled.div<{sum: any}>`
   height: 100%;
+  display: flex;
 
   ul {
         display: flex;
         flex-direction: column-reverse;
         justify-content: space-between;
         height: 100%;
-        align-self: flex-start;
+        align-self: flex-end;
         list-style: none;
-        height: 90%;
+        height: ${({ sum }) => `${sum + 10}%` || "80%"};
+        margin: 0 0 0 30px;
+        padding: 0;
     
         li {
           list-style: none;
