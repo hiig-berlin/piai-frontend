@@ -91,6 +91,9 @@ const Trends = ({
 
   const [data, setData] = useState<any[]>([]);
   const [queryParams, setQueryParams] = useState({
+    // startDate: "2024-06-01",
+    // endDate: "2024-06-01",
+    // channels: "impfen_nein_danke, QAnons_Deutschland, karpfsebastian"
     startDate: "",
     endDate: "",
     channels: "",
@@ -169,7 +172,7 @@ const Trends = ({
       {data && data.length > 0 && 
       <TrendingTopics 
         data={data} 
-        threshold={2}
+        threshold={5}
         exclude={["Other", "Non-thematic"]}
       />}
     </ClaimspottingWrapper>

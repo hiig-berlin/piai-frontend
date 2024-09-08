@@ -97,8 +97,10 @@ const TrendingTopics: React.FC<TrendingTopicsProps> = ({
   // Filter topics based on threshold and excluded topics
   const filteredTopics = useMemo(() => {
     return allTopics.filter((topic) => {
-      const count = percentageData[0]?.topics[topic] || 0;
-      return count >= threshold && !exclude.includes(topic);
+      const isAboveThreshold = percentageData.some(
+        (data) => (data.topics[topic] || 0) >= threshold
+      );
+      return isAboveThreshold && !exclude.includes(topic);
     });
   }, [percentageData, threshold, exclude, allTopics]);
   console.log("filteredTopics: ", filteredTopics);
@@ -145,14 +147,13 @@ const TrendingTopics: React.FC<TrendingTopicsProps> = ({
   const colors = [
     "#333", //green,
     "#1F9C6C", //green,
-    "#2E4EC2", //dark blue,
     "#BFa226", //yellow,
+    "#2E4EC2", //dark blue,
     "#2085C2", //blue,
-    "#99BF26", //lime,
     "#26BFB7", //teal,
+    "#99BF26", //lime,≤
     "#26BF84", //turquoise,
     "#5E4EC2", //lila,
-
     "#9D26BF", //purple,
     "#BF7526", //orange,
     "#BF264C", //red,
@@ -272,7 +273,7 @@ const TrendingTopics: React.FC<TrendingTopicsProps> = ({
               stroke={colors[index % colors.length]}
               fillOpacity={1}
               fill={`url(#color${index})`}
-              activeDot={{ r: 4, strokeWidth: 3, stroke: "#000" }}
+              activeDot={{ r: 4, strokeWidth: 1, stroke: "#333" }}
             />
           ))}
         </AreaChart>
