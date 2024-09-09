@@ -172,7 +172,7 @@ const Trends = ({
       {data && data.length > 0 && 
       <TrendingTopics 
         data={data} 
-        threshold={5}
+        threshold={7}
         exclude={["Other", "Non-thematic"]}
       />}
     </ClaimspottingWrapper>

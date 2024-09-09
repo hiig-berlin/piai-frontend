@@ -57,7 +57,7 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({
           {invertedTopics.map((topic, index) => {
             const absoluteValue = absoluteEntry.topics[topic];
             const percentageValue = percentageEntry.topics[topic];
-            const color = payload[index].color; // Reuse colors from the payload
+            const color = payload[index]?.color; // Reuse colors from the payload
 
             return (
               <li key={`item-${index}`} style={{ color }}>

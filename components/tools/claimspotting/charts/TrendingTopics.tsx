@@ -13,6 +13,7 @@ import {
 import { Box } from "~/components/tools/shared/ui/Box";
 import CustomTooltip from "~/components/tools/claimspotting/charts/CustomTooltip";
 import CustomLegend from "./CustomLegend";
+import {useCssVarsStateIsTabletAndUpState, useCssVarsStateIsDesktopAndUpState} from "~/components/state/CssVarsState";
 
 // Define types
 type DataPoint = {
@@ -145,18 +146,27 @@ const TrendingTopics: React.FC<TrendingTopicsProps> = ({
   console.log("sortedTopics: ", sortedTopics);
 
   const colors = [
-    "#333", //green,
-    "#1F9C6C", //green,
-    "#BFa226", //yellow,
-    "#2E4EC2", //dark blue,
-    "#2085C2", //blue,
-    "#26BFB7", //teal,
-    "#99BF26", //lime,≤
-    "#26BF84", //turquoise,
-    "#5E4EC2", //lila,
-    "#9D26BF", //purple,
-    "#BF7526", //orange,
-    "#BF264C", //red,
+    "#333333", //other
+    "#1F9C6C", //green
+
+    "#dDb471", //sand
+    "#2E4EC2", //dark blue
+    "#2085C2", //blue
+    "#26BFB7", //teal
+    "#99BF26", //lime
+    "#BFa226", //yellow
+    "#26BF84", //turquoise
+    "#5E4EC2", //lila
+    "#9D26BF", //purple
+    "#BF7526", //orange
+    "#BF264C", //red
+    "#6F162C", //dark red
+    "#BFa226", //yellow
+    "#AA936E", //mud
+
+    "#2E4EC2", //dark blue
+    "#99BF26", //lime
+    "#1F9C6C", //green
   ];
 
   // Function to format dates as "01 Jun"
@@ -180,6 +190,10 @@ const TrendingTopics: React.FC<TrendingTopicsProps> = ({
   });
   console.log("displayedDates: ", axisDates);
 
+  const isTabletAndUp = useCssVarsStateIsTabletAndUpState();
+  const isDesktopAndUp = useCssVarsStateIsDesktopAndUpState();
+
+
   return (
     <TrendingTopicsWrapper>
       <h2>Trending Topics</h2>
@@ -201,20 +215,39 @@ const TrendingTopics: React.FC<TrendingTopicsProps> = ({
                 x2="0"
                 y2="1"
               >
-                <stop
+                
+                {index === 0 ? (
+                  <>
+                  <stop
+                  offset="5%"
+                  stopColor={colors[index % colors.length]}
+                  stopOpacity={0.5}
+                />
+                  <stop
+                    offset="50%"
+                    stopColor={colors[index % colors.length]}
+                    stopOpacity={0.3}
+                  />
+                  </>
+                ) : (
+                  <>
+                  <stop
                   offset="5%"
                   stopColor={colors[index % colors.length]}
                   stopOpacity={0.9}
                 />
-                <stop
-                  offset="60%"
-                  stopColor={colors[index % colors.length]}
-                  stopOpacity={0.5}
-                />
+                  <stop
+                    offset="60%"
+                    stopColor={colors[index % colors.length]}
+                    stopOpacity={0.5}
+                  />
+                  </>
+                )}
+
                 <stop
                   offset="95%"
                   stopColor={colors[index % colors.length]}
-                  stopOpacity={0.3}
+                  stopOpacity={0.2}
                 />
               </linearGradient>
             ))}

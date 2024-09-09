@@ -57,6 +57,9 @@ const LegendWrapper = styled.div<{sum: any}>`
     
         li {
           list-style: none;
+          flex: auto 1 1;
+          margin: 0;
+          padding: 0;
 
           svg.recharts-surface {
             display: none !important;
@@ -67,6 +70,7 @@ const LegendWrapper = styled.div<{sum: any}>`
             text-transform: uppercase;
             letter-spacing: 0.02em;
             font-size: 0.8em;
+            line-height: 1em;
           }
         }
       }
