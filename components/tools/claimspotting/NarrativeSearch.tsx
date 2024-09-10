@@ -9,7 +9,7 @@ import {
   DataRowProps,
 } from "~/components/tools/claimspotting/ui/types";
 import { DataRow } from "./ui/TableData";
-import { formatDate } from "~/components/tools/claimspotting/utils";
+import { formatDate } from "~/components/tools/claimspotting/utils/formatInput";
 import { Icon } from "~/components/tools/shared/ui/Icon";
 import { Button } from "~/components/styled/Button";
 

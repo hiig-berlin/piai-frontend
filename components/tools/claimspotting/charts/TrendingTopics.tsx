@@ -13,33 +13,19 @@ import {
 import { Box } from "~/components/tools/shared/ui/Box";
 import CustomTooltip from "~/components/tools/claimspotting/charts/CustomTooltip";
 import CustomLegend from "./CustomLegend";
-import {useCssVarsStateIsTabletAndUpState, useCssVarsStateIsDesktopAndUpState} from "~/components/state/CssVarsState";
+import {
+  useCssVarsStateIsTabletAndUpState,
+  useCssVarsStateIsDesktopAndUpState,
+} from "~/components/state/CssVarsState";
+import { TrendingTopicsProps, TopicData } from "~/components/tools/claimspotting/charts/types";
 
-// Define types
-type DataPoint = {
-  Access_datetime: string;
-  Channel_Name: string;
-  data: {
-    Publishing_date: string;
-    Topic: { [key: string]: number };
-  };
-};
-
-interface TrendingTopicsProps {
-  data: DataPoint[];
-  threshold: number;
-  exclude: string[];
-}
-
-type TopicData = {
-  date: string;
-  [key: string]: number | string;
-};
+const DEBUG: boolean = false;
 
 const TrendingTopics: React.FC<TrendingTopicsProps> = ({
   data,
   threshold,
   exclude,
+  strings,
 }) => {
   // Map raw data into a format with topics and dates
   const rawData = useMemo(() => {
@@ -56,7 +42,7 @@ const TrendingTopics: React.FC<TrendingTopicsProps> = ({
       };
     });
   }, [data]);
-  console.log("rawData: ", rawData);
+  DEBUG && console.log("rawData: ", rawData);
 
   // Calculate absolute totals for each entry
   const absoluteData = useMemo(() => {
@@ -72,7 +58,7 @@ const TrendingTopics: React.FC<TrendingTopicsProps> = ({
       };
     });
   }, [rawData]);
-  console.log("absoluteData: ", absoluteData);
+  DEBUG && console.log("absoluteData: ", absoluteData);
 
   // Calculate percentage data
   const percentageData = useMemo(() => {
@@ -87,7 +73,7 @@ const TrendingTopics: React.FC<TrendingTopicsProps> = ({
       };
     });
   }, [absoluteData]);
-  console.log("percentageData: ", percentageData);
+  DEBUG && console.log("percentageData: ", percentageData);
 
   // Get all topics from raw data
   const allTopics: string[] = useMemo(() => {
@@ -104,7 +90,7 @@ const TrendingTopics: React.FC<TrendingTopicsProps> = ({
       return isAboveThreshold && !exclude.includes(topic);
     });
   }, [percentageData, threshold, exclude, allTopics]);
-  console.log("filteredTopics: ", filteredTopics);
+  DEBUG && console.log("filteredTopics: ", filteredTopics);
 
   // Topics that were excluded
   const excludedTopics = useMemo(() => {
@@ -143,7 +129,7 @@ const TrendingTopics: React.FC<TrendingTopicsProps> = ({
     });
     return ["Other topics", ...sortedTopicsOverThreshold];
   }, [filteredTopics, filteredData]);
-  console.log("sortedTopics: ", sortedTopics);
+  DEBUG && console.log("sortedTopics: ", sortedTopics);
 
   const colors = [
     "#333333", //other
@@ -188,15 +174,13 @@ const TrendingTopics: React.FC<TrendingTopicsProps> = ({
     const day = d.getDate();
     if (day === 1 || day === 15 || index === dates.length - 1) return d;
   });
-  console.log("displayedDates: ", axisDates);
 
   const isTabletAndUp = useCssVarsStateIsTabletAndUpState();
   const isDesktopAndUp = useCssVarsStateIsDesktopAndUpState();
 
-
   return (
     <TrendingTopicsWrapper>
-      <h2>Trending Topics</h2>
+      <h2>{strings.title}</h2>
 
       <ResponsiveContainer width="100%" height={400}>
         <AreaChart
@@ -215,32 +199,31 @@ const TrendingTopics: React.FC<TrendingTopicsProps> = ({
                 x2="0"
                 y2="1"
               >
-                
                 {index === 0 ? (
                   <>
-                  <stop
-                  offset="5%"
-                  stopColor={colors[index % colors.length]}
-                  stopOpacity={0.5}
-                />
-                  <stop
-                    offset="50%"
-                    stopColor={colors[index % colors.length]}
-                    stopOpacity={0.3}
-                  />
+                    <stop
+                      offset="5%"
+                      stopColor={colors[index % colors.length]}
+                      stopOpacity={0.5}
+                    />
+                    <stop
+                      offset="50%"
+                      stopColor={colors[index % colors.length]}
+                      stopOpacity={0.3}
+                    />
                   </>
                 ) : (
                   <>
-                  <stop
-                  offset="5%"
-                  stopColor={colors[index % colors.length]}
-                  stopOpacity={0.9}
-                />
-                  <stop
-                    offset="60%"
-                    stopColor={colors[index % colors.length]}
-                    stopOpacity={0.5}
-                  />
+                    <stop
+                      offset="5%"
+                      stopColor={colors[index % colors.length]}
+                      stopOpacity={0.9}
+                    />
+                    <stop
+                      offset="60%"
+                      stopColor={colors[index % colors.length]}
+                      stopOpacity={0.5}
+                    />
                   </>
                 )}
 
@@ -291,12 +274,21 @@ const TrendingTopics: React.FC<TrendingTopicsProps> = ({
               />
             }
           />
-          <Legend
-            layout="vertical"
-            align="right"
-            verticalAlign="middle"
-            content={<CustomLegend sum={lastSum} />}
-          />
+          {isDesktopAndUp ? (
+            <Legend
+              layout="vertical"
+              align="right"
+              verticalAlign="middle"
+              content={<CustomLegend sum={lastSum} />}
+            />
+          ) : (
+            <Legend
+              layout="horizontal"
+              align="center"
+              verticalAlign="bottom"
+              content={<CustomLegend sum={lastSum} />}
+            />
+          )}
           {sortedTopics.map((topic, index) => (
             <Area
               key={topic}
@@ -312,13 +304,18 @@ const TrendingTopics: React.FC<TrendingTopicsProps> = ({
         </AreaChart>
       </ResponsiveContainer>
       <p>
-        The above graph shows the prevailing topics, meaning that they have at
-        lease once exceeded the threshold of {threshold}% in the respective
-        period.
+        {strings.explanationPre}{threshold}{strings.explanationPost}
       </p>
-      <h3>Excluded topics:</h3>
 
-      <p> {excludedTopics.join(", ")}</p>
+      <div className="excluded">
+        <h3>Excluded topics:</h3>
+        <p> {excludedTopics.join(", ")}</p>
+        {/* <p className="excluded">
+        {excludedTopics.map((topic, index) => (
+          <span key={index}>{topic}</span>
+        ))}
+      </p> */}
+      </div>
     </TrendingTopicsWrapper>
   );
 };
@@ -327,7 +324,26 @@ export default TrendingTopics;
 
 const TrendingTopicsWrapper = styled(Box)`
   .recharts-legend-wrapper {
-    height: 90% !important;
-    top: 10px !important;
+
+    ${({ theme }) => theme.breakpoints.desktop} {
+      height: 90% !important;
+      top: 10px !important;
+    }
+  }
+
+  p {
+    max-width: unset;
+  }
+
+  .excluded {
+    opacity: 0.6;
+
+    p {
+      // text-transform: uppercase;
+      // letter-spacing: 0.02em;
+      // font-size: 0.8em;
+      font-family: var(--font-family-monospace);
+      font-size: 0.8em;
+    }
   }
 `;

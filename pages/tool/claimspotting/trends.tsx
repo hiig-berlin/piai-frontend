@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement, use, useEffect, useState } from "react";
 import type { GetStaticProps } from "next";
 import NextHeadSeo from "next-head-seo";
 import { appConfig } from "~/config";
@@ -21,17 +21,20 @@ import SafeHtmlDiv from "~/components/ui/SafeHtmlDiv";
 import { Box } from "~/components/tools/shared/ui/Box";
 import { start } from "repl";
 import TrendingTopics from "~/components/tools/claimspotting/charts/TrendingTopics";
+import StatsFilter from "~/components/tools/claimspotting/charts/StatsFilter";
+import {FilterStateProps} from "~/components/tools/claimspotting/charts/types";
+
 
 const loadDataFromAPI = async (
   startDate: string,
   endDate: string,
-  channel_names: string
+  channel_names: string[],
 ) => {
   const params: Record<string, string> = {};
 
   if (startDate) params.start_day = startDate;
   if (endDate) params.end_day = endDate;
-  if (channel_names) params.channel_names = channel_names;
+  if (channel_names.length > 0) params.channel_names = channel_names.toString();
 
   // Convert the parameters object to a query string
   const url = new URL(
@@ -89,15 +92,18 @@ const Trends = ({
   const [error, setError] = useState<string | null>(null);
   // const [isNextpage, setIsNextPage] = useState<boolean>(false);
 
-  const [data, setData] = useState<any[]>([]);
-  const [queryParams, setQueryParams] = useState({
-    // startDate: "2024-06-01",
-    // endDate: "2024-06-01",
-    // channels: "impfen_nein_danke, QAnons_Deutschland, karpfsebastian"
+  const [filterState, setFilterState] = useState<FilterStateProps>({
     startDate: "",
     endDate: "",
-    channels: "",
+    lastDays: false,
+    lastWeek: false,
+    lastMonth: false,
+    threshold: 5,
+    channels: [],
   });
+
+  const [data, setData] = useState<any[]>([]);
+
 
   const { strings, language, setLanguage } = useLanguage("claimspotting"); // Use language hook
 
@@ -108,9 +114,9 @@ const Trends = ({
 
     const loadData = async () => {
       const raw = await loadDataFromAPI(
-        queryParams.startDate,
-        queryParams.endDate,
-        queryParams.channels
+        filterState.startDate,
+        filterState.endDate,
+        filterState.channels
       );
       if (raw.error) {
         setError(raw.error);
@@ -126,7 +132,7 @@ const Trends = ({
       setLoading(false);
     };
     loadData();
-  }, [queryParams]);
+  }, [filterState]);
 
   return (
     <ClaimspottingWrapper>
@@ -169,12 +175,20 @@ const Trends = ({
         </Placeholder>
       )}
 
+      <StatsFilter
+        strings={strings?.trends.filter}
+        filterState={filterState}
+        setFilterState={setFilterState}
+      />
+
       {data && data.length > 0 && 
       <TrendingTopics 
         data={data} 
-        threshold={7}
+        threshold={filterState.threshold}
         exclude={["Other", "Non-thematic"]}
+        strings={strings?.trends?.trendingTopics}
       />}
+
     </ClaimspottingWrapper>
   );
 };

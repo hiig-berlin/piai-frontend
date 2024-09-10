@@ -25,6 +25,11 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({
   if (active && payload && payload.length) {
     // Find the index in absoluteData and percentageData based on the current label (date)
     const dataIndex = absoluteData.findIndex((entry) => entry.date === label);
+    const dataIndices = absoluteData.reduce(
+      (acc, entry, index) => (entry.date === label ? acc.concat(index) : acc),
+      []
+    );
+    // console.log("Data index/indices: ", dataIndex, dataIndices);
 
     //remove "Other topics" from topics
     const otherIndex = topics.indexOf("Other topics");
@@ -33,6 +38,19 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({
     }
 
     if (dataIndex === -1) return null; // No matching data
+
+    const absoluteEntries: any[] = [];
+
+    dataIndices.map((index: number) =>
+      absoluteEntries.push(absoluteData[index])
+    );
+    const percentageEntries: any[] = [];
+
+    dataIndices.map((index: number) =>
+      percentageEntries.push(percentageData[index])
+    );
+    // console.log("Absolute entries: ", absoluteEntries);
+    // console.log("Percentage entries: ", percentageEntries);
 
     const absoluteEntry = absoluteData[dataIndex];
     const percentageEntry = percentageData[dataIndex];
@@ -55,8 +73,18 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({
         <h3>{`Number of posts published on ${formatDate(label)}:`}</h3>
         <ul className="topic-list">
           {invertedTopics.map((topic, index) => {
-            const absoluteValue = absoluteEntry.topics[topic];
-            const percentageValue = percentageEntry.topics[topic];
+            // const absoluteValue = absoluteEntry.topics[topic];
+            // const percentageValue = percentageEntry.topics[topic];
+            let absoluteValue = 0;
+            let percentageValue = 0;
+
+            absoluteEntries.map(
+              (entry: any) => (absoluteValue += entry.topics[topic])
+            );
+            percentageEntries.map(
+              (entry: any) => (percentageValue += entry.topics[topic])
+            );
+
             const color = payload[index]?.color; // Reuse colors from the payload
 
             return (

@@ -7,7 +7,11 @@ interface CustomLegendProps extends LegendProps {
 }
 
 // CustomLegend component to handle the custom legend
-const CustomLegend: React.FC<CustomLegendProps> = ({ payload, layout, sum }) => {
+const CustomLegend: React.FC<CustomLegendProps> = ({
+  payload,
+  layout,
+  sum,
+}) => {
   if (!payload) {
     return null; // Handle the case where payload might be undefined
   }
@@ -17,61 +21,68 @@ const CustomLegend: React.FC<CustomLegendProps> = ({ payload, layout, sum }) => 
 
   return (
     <LegendWrapper sum={sum}>
-      {layout === "vertical" && (
-        <ul>
-          {sortedPayload.map((entry, index) => (
-            <li
-              key={`item-${index}`}
+      <ul>
+        {sortedPayload.map((entry, index) => (
+          <li key={`item-${index}`}>
+            <span
+              style={{
+                color: entry.color,
+              }}
             >
-              <span
-                style={{
-                  color: entry.color,
-                }}
-              >
-                {entry.value}
-              </span>
-            </li>
-          ))}
-        </ul>
-      )}
+              {entry.value}
+            </span>
+          </li>
+        ))}
+      </ul>
     </LegendWrapper>
   );
 };
 
 export default CustomLegend;
 
-const LegendWrapper = styled.div<{sum: any}>`
-  height: 100%;
-  display: flex;
+const LegendWrapper = styled.div<{ sum: any }>`
+  ${({ theme }) => theme.breakpoints.desktop} {
+    height: 100%;
+    display: flex;
+  }
 
   ul {
-        display: flex;
-        flex-direction: column-reverse;
-        justify-content: space-between;
-        height: 100%;
-        align-self: flex-end;
-        list-style: none;
-        height: ${({ sum }) => `${sum + 10}%` || "80%"};
-        margin: 0 0 0 30px;
-        padding: 0;
-    
-        li {
-          list-style: none;
-          flex: auto 1 1;
-          margin: 0;
-          padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 20px 0;
+    padding: 0;
+    gap: var(--size-1);
+    justify-content: flex-start;
 
-          svg.recharts-surface {
-            display: none !important;
-          }
-  
-          span {
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 0.02em;
-            font-size: 0.8em;
-            line-height: 1em;
-          }
-        }
+    ${({ theme }) => theme.breakpoints.desktop} {
+      flex-wrap: nowrap;
+      flex-direction: column-reverse;
+      justify-content: space-between;
+      height: 100%;
+      align-self: flex-end;
+      height: ${({ sum }) => `${sum + 10}%` || "80%"};
+      margin: 0 0 0 30px;
+    }
+
+    li {
+      list-style: none;
+      flex: auto 1 1;
+      margin: 0;
+      padding: 0;
+
+      svg.recharts-surface {
+        display: none !important;
       }
+
+      span {
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+        font-size: 0.8em;
+        line-height: 1em;
+      }
+    }
+  }
 `;

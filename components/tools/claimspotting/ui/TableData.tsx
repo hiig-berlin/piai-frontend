@@ -5,7 +5,7 @@ import { Icon, Icons } from "./Icon";
 import {
   formatDate,
   truncateText,
-} from "~/components/tools/claimspotting/utils";
+} from "~/components/tools/claimspotting/utils/formatInput";
 import { Tags, CroppedTag } from "../../shared/Styled";
 import { TableGrid } from "../Styled";
 import type { DataRowComponentProps } from "./types";

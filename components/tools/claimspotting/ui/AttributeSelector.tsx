@@ -179,11 +179,11 @@ export const AttributeSelector = ({
 
       <Reveal
         open={isOpen}
-        id={`${label}-options`}
+        id={`options`}
         role="region"
         position="top"
       >
-        <OptionsContainer>
+        <OptionsContainer className="optionsContainer">
           {singleSelect ? (
             <Dropdown value="{activeTerms || ''}" onChange={handleSelectChange}>
               <option value="">Select an option</option>

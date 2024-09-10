@@ -2,6 +2,8 @@ import { result } from "lodash";
 import { title } from "process";
 import { text } from "stream/consumers";
 import { resourceLimits } from "worker_threads";
+import TrendingTopics from "./charts/TrendingTopics";
+import { all } from "axios";
 
 export const textBits = {
   en: {
@@ -93,6 +95,34 @@ export const textBits = {
 The search results may not be complete or accurate, please read our [FAQ](tool/claimspotting/about) to find more about the algorithm and the models used. 
         
 Always double-check the results before using them for fact-checking purposes.`,
+      },
+    },
+    trends: {
+      filter:{
+        daterange:{
+          title: "Select date range",
+          lastDays: "Last 3 days",
+          lastWeek: "Last week",
+          lastMonth: "Last month",
+        },
+        threshold: {
+          title: "Select threshold",
+          subtitle: "Minimum percentage of posts to be considered trending",
+        },
+        channels: {
+          title: "Select channels",
+          subtitle: "Select channels to include in the trending topics. If nothing is selected, all channels are included.",
+          selectChannels: "Select channels",
+          allChannels: "All channels",
+        },
+      },
+      trendingTopics: {
+        title: "Trending Topics",
+        explanationPre: "The above graph shows the prevailing topics, meaning that they have at least once exceeded the threshold of ",
+        explanationPost: "% in the respective period.",
+        exclude: {
+          title: "Excluded topics",
+        },
       },
     },
     about: {
@@ -282,7 +312,16 @@ Die Suchergebnisse können unvollständig oder ungenau sein, bitte lies unsere [
 Überprüfe die Ergebnisse immer noch einmal, bevor du sie für Faktenchecks verwendest.`,
       },
     },
-
+    trends: {
+      trendingTopics: {
+        title: "Trending Topics",
+        explanationPre: "The above graph shows the prevailing topics, meaning that they have at lease once exceeded the threshold of ",
+        explanationPost: "% in the respective period.",
+        exclude: {
+          title: "Excluded topics",
+        },
+      },
+    },
     about: {
       intro:
         "Ein webbasiertes Tool, das potenzielle Fehlinformationen auf Telegram überwacht. Es ist dazu konzipiert, Faktenchecker:innenn zu helfen.",

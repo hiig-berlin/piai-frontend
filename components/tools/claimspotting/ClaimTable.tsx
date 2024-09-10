@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { DataRow } from "~/components/tools/claimspotting/ui/TableData";
 import { HeaderRow } from "~/components/tools/claimspotting/ui/TableHeader";
-import { formatDate, truncateText } from "~/components/tools/claimspotting/utils";
+import { formatDate, truncateText } from "~/components/tools/claimspotting/utils/formatInput";
 import { Box } from "~/components/tools/shared/ui/Box";
 import { Button } from "~/components/styled/Button";
 import type { DataRowProps, SortState, FilterStateProps, ColumnProps } from "~/components/tools/claimspotting/ui/types";
