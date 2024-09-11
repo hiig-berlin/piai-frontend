@@ -47,11 +47,6 @@ const Filter = ({
   strings: any;
   topicLabels: any;
 }) => {
-  // Generate unique topics and narratives only when data changes
-  // const uniqueTopics = React.useMemo(
-  //   () => Array.from(new Set(data.flatMap((item: any) => item.Topic))),
-  //   [data]
-  // );
 
   const [uniqueTopics, setUniqueTopics] = useState<string[]>([]);
 
