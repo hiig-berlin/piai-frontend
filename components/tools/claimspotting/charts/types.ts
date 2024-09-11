@@ -13,6 +13,7 @@ export interface TrendingTopicsProps {
   threshold: number;
   exclude: string[];
   strings: any;
+  topicLabels: any;
 }
 
 export type rawDataProps = {

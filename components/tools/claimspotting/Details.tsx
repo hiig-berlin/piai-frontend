@@ -43,7 +43,7 @@ const Details: React.FC<DetailProps> = ({
         <h3>{strings?.narrative}</h3>
         <p>{row.Narratives}</p>
 
-        {row.Siblings.length > 0 && <h3>{strings?.twins}</h3>}
+        {row.Siblings.length > 0 && <h3>{row.Siblings.length} {strings?.twins}</h3>}
         {row.Siblings.map((sibling: any, idx: number) => (
           <LabeldIcon type="copy" url={sibling} key={idx}>
             {sibling}

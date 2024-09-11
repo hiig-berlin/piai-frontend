@@ -1,10 +1,3 @@
-import { result } from "lodash";
-import { title } from "process";
-import { text } from "stream/consumers";
-import { resourceLimits } from "worker_threads";
-import TrendingTopics from "./charts/TrendingTopics";
-import { all } from "axios";
-
 export const textBits = {
   en: {
     header: {
@@ -89,17 +82,18 @@ export const textBits = {
         initial: "Please enter a search phrase to find matching posts.",
       },
       disclaimer: {
-        title: "Explanation",
-        text: `The search results are posts that are semantically identical to the query text. The query text is matched against a database of Telegram posts. The matching is based on vector embeddings. This is different from a keyword search in that it does not require exact word matches. The search results can, for example, contain synonyms or paraphrases. 
-
-  **Note, however, that this makes this application sensitive to small changes.** 
+        title: "Please note",
+        text: `**The search results are posts that are semantically identical to the query text. Even minor adjustments in the query text can impact the search results.**
   
-  Even small adjustments in the query text can impact the search results. It is a good idea to start with a query text that uses similar words and sentence structures as what you would expect on Telegram. If this approach does not deliver good results, add small changes to the query text and work your way up.`,
+ It is therefore a good idea to start with a query text that uses similar words and sentence structures as what you would expect on Telegram. If this approach does not deliver good results, alter the query text and work your way up.`,
+
+        subheadline: "Details on the method",
+        explanation: `The query text is matched against a database of Telegram posts. The matching is based on vector embeddings. This is different from a keyword search in that it does not require exact word matches. The search results can, for example, contain synonyms or paraphrases. `,
       },
     },
     trends: {
-      filter:{
-        daterange:{
+      filter: {
+        daterange: {
           title: "Select date range",
           lastDays: "Last 3 days",
           lastWeek: "Last week",
@@ -111,19 +105,51 @@ export const textBits = {
         },
         channels: {
           title: "Select channels",
-          subtitle: "Select channels to include in the trending topics. If nothing is selected, all channels are included.",
+          subtitle:
+            "Select channels to include in the trending topics. If nothing is selected, all channels are included.",
           selectChannels: "Select channels",
           allChannels: "All channels",
         },
       },
       trendingTopics: {
         title: "Trending Topics",
-        explanationPre: "The above graph shows the prevailing topics, meaning that they have at least once exceeded the threshold of ",
+        explanationPre:
+          "The above graph shows the prevailing topics, meaning that they have at least once exceeded the threshold of ",
         explanationPost: "% in the respective period.",
         exclude: {
           title: "Excluded topics",
+          label: "Topics below threshold",
+        },
+        tooltip: {
+          title: "Number of posts published on",
+          total: "Total posts on that date",
         },
       },
+    },
+    topics: {
+      Agriculture: "Agriculture",
+      "Civil Rights": "Civil Right",
+      Culture: "Culture",
+      Defense: "Defense",
+      "Domestic Commerce": "Domestic Commerce",
+      Education: "Education",
+      Energy: "Energy",
+      Environment: "Environment",
+      "European Union": "European Union",
+      "Foreign Trade": "Foreign Trade",
+      "Government Operations": "Government Operations",
+      Health: "Health",
+      Housing: "Housing",
+      Immigration: "Immigration",
+      "International Affairs": "International Affairs",
+      Labor: "Labor",
+      "Law and Crime": "Law and Crime",
+      Macroeconomics: "Macroeconomics",
+      "Non-thematic": "Non-thematic",
+      Other: "Other",
+      "Social Welfare": "Social Welfare",
+      Technology: "Technology",
+      Transportation: "Transportation",
     },
     about: {
       intro:
@@ -304,23 +330,74 @@ export const textBits = {
           "Bitte gib eine Suchphrase ein, um passende Beiträge zu finden.",
       },
       disclaimer: {
-        title: "Bitte beachten",
-        text: `Die Suchergebnisse basieren auf den von der Claimspotting KI identifizierten Narrativen.
+        title: "Erklärung",
+        text: `Die Suchergebnisse sind Beiträge, die semantisch identisch mit dem Suchtext sind. Der Suchtext wird mit einer Datenbank von Telegram-Beiträgen abgeglichen. Das Matching basiert auf Vektoreinbettungen. Dies unterscheidet sich von einer Stichwortsuche, da keine exakten Wortübereinstimmungen erforderlich sind. Die Suchergebnisse können beispielsweise Synonyme oder Paraphrasen enthalten.
+        
+  **Beachte jedoch, dass diese Anwendung empfindlich auf kleine Änderungen reagiert.**
 
-Die Suchergebnisse können unvollständig oder ungenau sein, bitte lies unsere [FAQ](tool/claimspotting/about), um mehr über den Algorithmus und die verwendeten Modelle zu erfahren.
-
-Überprüfe die Ergebnisse immer noch einmal, bevor du sie für Faktenchecks verwendest.`,
+  Selbst kleine Anpassungen im Suchtext können die Suchergebnisse beeinflussen. Es ist ratsam, mit einem Suchtext zu beginnen, der ähnliche Wörter und Satzstrukturen verwendet, wie du sie auf Telegram erwarten würdest. Wenn dieser Ansatz keine guten Ergebnisse liefert, füge kleine Änderungen zum Suchtext hinzu und arbeite dich vor.`,
       },
     },
     trends: {
-      trendingTopics: {
-        title: "Trending Topics",
-        explanationPre: "The above graph shows the prevailing topics, meaning that they have at lease once exceeded the threshold of ",
-        explanationPost: "% in the respective period.",
-        exclude: {
-          title: "Excluded topics",
+      filter: {
+        daterange: {
+          title: "Zeitraum auswählen",
+          lastDays: "Letzte 3 Tage",
+          lastWeek: "Letzte Woche",
+          lastMonth: "Letzter Monat",
+        },
+        threshold: {
+          title: "Schwellenwert auswählen",
+          subtitle:
+            "Mindestprozentsatz an Beiträgen, um als Trending zu gelten",
+        },
+        channels: {
+          title: "Kanäle auswählen",
+          subtitle:
+            "Wähle Kanäle aus, die in den Trending-Themen enthalten sein sollen. Wenn nichts ausgewählt ist, sind alle Kanäle enthalten.",
+          selectChannels: "Kanäle auswählen",
+          allChannels: "Alle Kanäle",
         },
       },
+      trendingTopics: {
+        title: "Bestimmende Themen",
+        explanationPre:
+          "Der obige Graph zeigt die vorherrschenden Themen, d.h. Themen, die mindestens einmal den Schwellenwert von ",
+        explanationPost: "% im jeweiligen Zeitraum überschritten haben.",
+        exclude: {
+          title: "Ausgeblendete Themen",
+          label: "Themen unter Schwellenwert",
+        },
+        tooltip: {
+          title: "Anzahl der veröffentlichten Beiträge am",
+          total: "Gesamtanzahl der Beiträge an diesem Tag",
+        },
+      },
+    },
+    topics: {
+      Agriculture: "Landwirtschaft",
+      "Civil Rights": "Bürgerrechte",
+      Culture: "Kultur",
+      Defense: "Verteidigung",
+      "Domestic Commerce": "Binnenhandel",
+      Education: "Bildung",
+      Energy: "Energie",
+      Environment: "Umwelt",
+      "European Union": "Europäische Union",
+      "Foreign Trade": "Außenhandel",
+      "Government Operations": "Staatsbetrieb",
+      Health: "Gesundheit",
+      Housing: "Wohnungswesen",
+      Immigration: "Migration und Integration",
+      "International Affairs": "Internationale Angelegenheiten",
+      Labor: "Arbeit und Beschäftigung",
+      "Law and Crime": "Recht und Kriminalität",
+      Macroeconomics: "Makroökonomie",
+      "Non-thematic": "Kein Thema",
+      Other: "Sonstiges",
+      "Social Welfare": "Sozialstaat",
+      Technology: "Technologie, Wissenschaft und Kommunikation",
+      Transportation: "Transport",
     },
     about: {
       intro:

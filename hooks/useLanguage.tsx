@@ -14,6 +14,7 @@ const useLanguage = (toolSlug: string) => {
         about?: any;
         list?: any;
         trends?: any;
+        topics?: any;
         search?: any;
       }
     | undefined

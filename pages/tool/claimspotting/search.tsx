@@ -20,7 +20,6 @@ import showdown from "showdown";
 import SafeHtmlDiv from "~/components/ui/SafeHtmlDiv";
 import { Box } from "~/components/tools/shared/ui/Box";
 
-
 const loadDataFromAPI = async (queryText: string) => {
   const params = {
     query_text: queryText,
@@ -172,6 +171,11 @@ const Search = ({
         <Box className="disclaimer">
           <h2>{strings?.search?.disclaimer.title}</h2>
           <SafeHtmlDiv html={disclaimer} />
+          <h3>{strings?.search?.disclaimer.subheadline}</h3>
+          <SafeHtmlDiv
+            html={strings?.search?.disclaimer.explanation}
+            className="explanation"
+          />
         </Box>
       </SearchWrapper>
     </ClaimspottingWrapper>

@@ -26,6 +26,7 @@ const TrendingTopics: React.FC<TrendingTopicsProps> = ({
   threshold,
   exclude,
   strings,
+  topicLabels
 }) => {
   // Map raw data into a format with topics and dates
   // Group and aggregate data by date
@@ -52,8 +53,17 @@ const TrendingTopics: React.FC<TrendingTopicsProps> = ({
       }
     });
 
-    return Object.values(groupedData);
-  }, [data]);
+    const translatedData = Object.values(groupedData).map((entry) => {
+      const topics: { [key: string]: number } = {};
+      Object.keys(entry.topics).forEach((key) => {
+        const label = topicLabels[key] || key;
+        topics[label] = entry.topics[key];
+      });
+      return { date: entry.date, topics };
+    });
+
+    return Object.values(translatedData);
+  }, [data, topicLabels]);
   DEBUG && console.log("rawData: ", rawData);
 
   // Calculate absolute totals for each entry
@@ -108,6 +118,7 @@ const TrendingTopics: React.FC<TrendingTopicsProps> = ({
   const excludedTopics = useMemo(() => {
     return allTopics.filter((topic) => !filteredTopics.includes(topic));
   }, [allTopics, filteredTopics]);
+  
 
   // Prepare filtered data for the chart
   const filteredData = useMemo(() => {
@@ -124,11 +135,11 @@ const TrendingTopics: React.FC<TrendingTopicsProps> = ({
 
       // Calculate the excluded topics percentage
       const excludedPercentage = 100 - includedTotal;
-      filteredEntry["Other topics"] = excludedPercentage;
+      filteredEntry[strings.exclude.label] = excludedPercentage;
 
       return filteredEntry;
     });
-  }, [percentageData, filteredTopics]);
+  }, [percentageData, filteredTopics, strings.exclude.label]);
 
   // Sort topics
   const sortedTopics = useMemo(() => {
@@ -139,34 +150,11 @@ const TrendingTopics: React.FC<TrendingTopicsProps> = ({
         filteredData.findIndex((d) => d[b])
       );
     });
-    return ["Other topics", ...sortedTopicsOverThreshold];
-  }, [filteredTopics, filteredData]);
+    return [strings.exclude.label, ...sortedTopicsOverThreshold];
+  }, [filteredTopics, filteredData, strings.exclude.label]);
   DEBUG && console.log("sortedTopics: ", sortedTopics);
 
-  const colors = [
-    "#333333", //other
-    "#1F9C6C", //green
-
-    "#dDb471", //sand
-    "#2E4EC2", //dark blue
-    "#2085C2", //blue
-    "#26BFB7", //teal
-    "#99BF26", //lime
-    "#BFa226", //yellow
-    "#26BF84", //turquoise
-    "#5E4EC2", //lila
-    "#9D26BF", //purple
-    "#BF7526", //orange
-    "#BF264C", //red
-    "#6F162C", //dark red
-    "#BFa226", //yellow
-    "#AA936E", //mud
-
-    "#2E4EC2", //dark blue
-    "#99BF26", //lime
-    "#1F9C6C", //green
-  ];
-
+  
   // Function to format dates as "01 Jun"
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -175,7 +163,7 @@ const TrendingTopics: React.FC<TrendingTopicsProps> = ({
 
   // Calculate the height of the actual topics for the legend
   const lastExcludedValue =
-    filteredData[filteredData.length - 1]["Other topics"];
+    filteredData[filteredData.length - 1][strings.exclude.label];
   const lastSum =
     (typeof lastExcludedValue == "number" && 100 - lastExcludedValue) || 80;
 
@@ -283,6 +271,7 @@ const TrendingTopics: React.FC<TrendingTopicsProps> = ({
                 percentageData={percentageData}
                 topics={sortedTopics}
                 colors={colors}
+                strings={strings}
               />
             }
           />
@@ -320,7 +309,7 @@ const TrendingTopics: React.FC<TrendingTopicsProps> = ({
       </p>
 
       <div className="excluded">
-        <h3>Excluded topics:</h3>
+        <h3>{strings.exclude.title}</h3>
         <p> {excludedTopics.join(", ")}</p>
         {/* <p className="excluded">
         {excludedTopics.map((topic, index) => (
@@ -359,3 +348,28 @@ const TrendingTopicsWrapper = styled(Box)`
     }
   }
 `;
+
+const colors = [
+  "#333333", //other
+  "#1F9C6C", //green
+
+  "#dDb471", //sand
+  "#2E4EC2", //dark blue
+  "#2085C2", //blue
+  "#26BFB7", //teal
+  "#99BF26", //lime
+  "#BFa226", //yellow
+  "#26BF84", //turquoise
+  "#5E4EC2", //lila
+  "#9D26BF", //purple
+  "#BF7526", //orange
+  "#BF264C", //red
+  "#6F162C", //dark red
+  "#BFa226", //yellow
+  "#AA936E", //mud
+
+  "#2E4EC2", //dark blue
+  "#99BF26", //lime
+  "#1F9C6C", //green
+];
+

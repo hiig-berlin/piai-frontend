@@ -187,6 +187,7 @@ const Trends = ({
         threshold={filterState.threshold}
         exclude={["Other", "Non-thematic"]}
         strings={strings?.trends?.trendingTopics}
+        topicLabels={strings?.topics}
       />}
 
     </ClaimspottingWrapper>

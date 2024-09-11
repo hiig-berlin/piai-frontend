@@ -11,6 +11,7 @@ interface CustomTooltipProps extends TooltipProps<any, string> {
   active?: boolean;
   payload?: any;
   label?: string;
+  strings: any;
 }
 
 // CustomTooltip component
@@ -21,6 +22,7 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({
   topics,
   absoluteData,
   percentageData,
+  strings,
 }) => {
   if (active && payload && payload.length) {
     // Find the index in absoluteData and percentageData based on the current label (date)
@@ -28,7 +30,7 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({
     // console.log("Data index/indices: ", dataIndex, dataIndices);
 
     //remove "Other topics" from topics
-    const otherIndex = topics.indexOf("Other topics");
+    const otherIndex = topics.indexOf(strings?.exclude.label);
     if (otherIndex > -1) {
       topics.splice(otherIndex, 1);
     }
@@ -56,7 +58,7 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({
 
     return (
       <TooltipWrapper>
-        <h3>{`Number of posts published on ${formatDate(label)}:`}</h3>
+        <h3>{strings?.tooltip?.title} {formatDate(label)}</h3>
         <ul className="topic-list">
           {invertedTopics.map((topic, index) => {
             const absoluteValue = absoluteEntry.topics[topic];
@@ -72,7 +74,7 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({
             );
           })}
         </ul>
-        <p className="total">Total posts on that date: {totalEntry}</p>
+        <p className="total">{strings?.tooltip?.total}: {totalEntry}</p>
       </TooltipWrapper>
     );
   }

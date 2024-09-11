@@ -13,7 +13,6 @@ import { formatDate } from "~/components/tools/claimspotting/utils/formatInput";
 import { Icon } from "~/components/tools/shared/ui/Icon";
 import { Button } from "~/components/styled/Button";
 
-
 export const NarrativeSearchBar = ({
   searchQuery,
   setSearchQuery,
@@ -24,7 +23,6 @@ export const NarrativeSearchBar = ({
   strings: any;
 }) => {
   const [inputValue, setInputValue] = useState(searchQuery);
-
 
   // Update searchQuery when user stops typing
   useEffect(() => {
@@ -133,7 +131,13 @@ export const NarrativeSearchResults = ({
             {transformedRows.map((item: any, index: number) => (
               <DataRow key={index} transformedRow={item} grid="search" />
             ))}
-            {rows.length < data.length && <LoadMore onClick={() => setRows(data.slice(0, rows.length + NUM_ROWS))}>Load more</LoadMore>}
+            {rows.length < data.length && (
+              <LoadMore
+                onClick={() => setRows(data.slice(0, rows.length + NUM_ROWS))}
+              >
+                Load more
+              </LoadMore>
+            )}
           </>
         ) : (
           <p>{strings.initial}</p>
@@ -163,18 +167,36 @@ export const SearchWrapper = styled.div`
     }
   }
 
-  .disclaimer a {
-    text-decoration: underline dotted 0.5px;
-    text-decoration-color: inherit;
-    text-underline-offset: 3px;
-    transition: all ease-out 0.5s;
+  .disclaimer {
 
-    &:hover{
-      text-decoration: underline solid 2px;
-      text-underline-offset: 2px;
-      margin-right: 0;
+    font-weight: 300;
+    color: #fffc;
+    
+    strong {
+      font-weight: 600;
+      opacity: 1;
+      color: #fff;
     }
-  
+
+    .explanation, h3 {
+      font-family: var(--font-family-monospace);
+      font-size: var(--text-small-font-size);
+      opacity: 0.6;
+    }
+
+    a {
+      text-decoration: underline dotted 0.5px;
+      text-decoration-color: inherit;
+      text-underline-offset: 3px;
+      transition: all ease-out 0.5s;
+
+      &:hover {
+        text-decoration: underline solid 2px;
+        text-underline-offset: 2px;
+        margin-right: 0;
+      }
+    }
+  }
 `;
 
 const LoadMore = styled(Button)`

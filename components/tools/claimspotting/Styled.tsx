@@ -19,16 +19,15 @@ export const TableGrid = styled.div<{ grid: string }>`
         grid-template-columns: 
           minmax(50px, 1fr)     // Date
           minmax(50px, 5fr)     // Text
-          minmax(50px, 3fr)     // Channel
-          minmax(50px, 1.6fr)     // Topics
+          minmax(50px, 2.5fr)     // Channel
+          minmax(50px, 1.6fr)   // Topics
           minmax(50px, 4fr)     // Narrative
           minmax(50px, 1.1fr)   // Attributes
           minmax(50px, 2fr);    // Reach
-            // grid-template-columns: 6fr 24fr 9fr 12fr 25fr 7fr 10fr;
         gap: var(--size-1);
         transition: all 0.3s;
         & > div:nth-child(3), & > div:nth-child(4), & > div:nth-child(5){
-          display: block;
+          display: inherit;
         }
       }
 
