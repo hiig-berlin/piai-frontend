@@ -15,7 +15,12 @@ export interface TrendingTopicsProps {
   strings: any;
 }
 
-export type TopicData = {
+export type rawDataProps = {
+  date: string;
+  topics: { [key: string]: number };
+};
+
+export type sortedDataProps = {
   date: string;
   [key: string]: number | string;
 };

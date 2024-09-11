@@ -30,6 +30,11 @@ const Label = styled.label`
 const Input = styled(Checkbox)`
   flex-shrink: 0;
   margin-top: 1px;
+  background: inherit;
+
+  &:after {
+    background: inherit;
+  }
 `;
 
 const StyledLabel = styled.span`

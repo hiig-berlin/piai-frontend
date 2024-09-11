@@ -26,6 +26,35 @@ const StatsFilter = ({
   setFilterState: React.Dispatch<React.SetStateAction<FilterStateProps>>;
 }) => {
   const [channels, setChannels] = useState<string[]>([]);
+  const [extendedChannelList, setExtendedChannelList] = useState<any[]>([]);
+
+  // Get the list of channels from memomry or Github api
+  useEffect(() => {
+    const fetchChannels = async () => {
+      try {
+        const channelsInfo = await getChannels("extended");
+        setExtendedChannelList(channelsInfo);
+      } catch (error) {
+        console.error("Failed to fetch channels:", error);
+      }
+    };
+    fetchChannels();
+  }, []);
+
+  // Sort the channels by number of members and fill name array
+  useEffect(() => {
+    // Sort the channels by members.Count, but ensure members is defined
+    const sortedChannels = extendedChannelList.sort((a, b) => {
+      const aCount = a.members?.Count ?? 0; // Use 0 if members or Count is undefined
+      const bCount = b.members?.Count ?? 0;
+      return bCount - aCount;
+    });
+    
+    // Fill channels list
+    const channelNames = extendedChannelList.map((channel) => channel.name);
+    setChannels(channelNames);
+  }, [extendedChannelList]);
+  
 
   // Update state based on user input
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -87,20 +116,6 @@ const StatsFilter = ({
           lastMonth: name === "lastMonth" ? checked : prevState.lastMonth,
         }));
   };
-
-  const [extendedChannelList, setExtendedChannelList] = useState<string[]>([]);
-
-  useEffect (() => {
-    const fetchChannels = async () => {
-      try {
-        const channelsList = await getChannels("basic");
-        setChannels(channelsList);
-      } catch (error) {
-        console.error("Failed to fetch channels:", error);
-      }
-    };
-    fetchChannels();
-  }, []);
 
   return (
     <FilterWrapper>

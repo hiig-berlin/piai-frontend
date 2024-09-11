@@ -17,7 +17,7 @@ import {
   useCssVarsStateIsTabletAndUpState,
   useCssVarsStateIsDesktopAndUpState,
 } from "~/components/state/CssVarsState";
-import { TrendingTopicsProps, TopicData } from "~/components/tools/claimspotting/charts/types";
+import { TrendingTopicsProps, rawDataProps, sortedDataProps } from "~/components/tools/claimspotting/charts/types";
 
 const DEBUG: boolean = false;
 
@@ -28,19 +28,31 @@ const TrendingTopics: React.FC<TrendingTopicsProps> = ({
   strings,
 }) => {
   // Map raw data into a format with topics and dates
+  // Group and aggregate data by date
   const rawData = useMemo(() => {
-    return data.map((entry) => {
+    const groupedData: Record<string, rawDataProps> = {};
+
+    data.forEach((entry) => {
       const {
         Access_datetime,
         data: { Topic },
       } = entry;
-      return {
-        date: new Date(Access_datetime).toLocaleDateString("en-US"),
-        topics: {
-          ...Topic,
-        },
-      };
+      const date = new Date(Access_datetime).toLocaleDateString("en-US");
+
+      if (!groupedData[date]) {
+        groupedData[date] = { date, topics: { ...Topic } };
+      } else {
+        // Aggregate the topic values for the same date
+        Object.keys(Topic).forEach((topic) => {
+          if (typeof Topic[topic] === "number") {
+            groupedData[date].topics[topic] =
+              (groupedData[date].topics[topic] || 0) + Topic[topic];
+          }
+        });
+      }
     });
+
+    return Object.values(groupedData);
   }, [data]);
   DEBUG && console.log("rawData: ", rawData);
 
@@ -100,7 +112,7 @@ const TrendingTopics: React.FC<TrendingTopicsProps> = ({
   // Prepare filtered data for the chart
   const filteredData = useMemo(() => {
     return percentageData.map(({ date, topics }) => {
-      const filteredEntry: TopicData = { date };
+      const filteredEntry: sortedDataProps = { date };
       let includedTotal = 0;
 
       // Add filtered topics to the entry and calculate the total
