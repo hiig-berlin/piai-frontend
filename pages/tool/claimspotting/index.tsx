@@ -14,6 +14,8 @@ import { Placeholder } from "~/components/tools/shared/Styled";
 import ToolHeader from "~/components/tools/shared/Header";
 import useLanguage from "~/hooks/useLanguage";
 
+const DEBUG: boolean = true;
+
 const loadDataFromAPI = async (
   startDate: string,
   endDate: string,
@@ -33,12 +35,13 @@ const loadDataFromAPI = async (
   const queryString = new URLSearchParams(params).toString();
 
   if (process.env.NODE_ENV === "development")
-    console.log(
-      "Fetching data from url: ",
-      queryString,
-      "with those params",
-      params
-    );
+    DEBUG &&
+      console.log(
+        "Fetching data from url: ",
+        queryString,
+        "with those params",
+        params
+      );
   try {
     const response = await fetch(`${url}?${queryString}`, {
       method: "GET",
@@ -67,7 +70,7 @@ const loadDataFromAPI = async (
   }
 };
 
-const Index = ({
+const List = ({
   frontendSettings,
   tool,
 }: {
@@ -127,12 +130,7 @@ const Index = ({
       // Fill data and count depending on pagination true/false
       const dataArray = rawData.results ? rawData.results : rawData;
       setDataLength(rawData.count ? rawData.count : rawData.length);
-      // console.log(
-      //   "Flattened data array:",
-      //   dataArray,
-      //   "Total count:",
-      //   rawData.count
-      // );
+
       if (page === 1) {
         setData(dataArray);
         setFilteredData(dataArray);
@@ -148,6 +146,16 @@ const Index = ({
     };
     loadData();
   }, [filterState.startDate, filterState.endDate, page]);
+
+  // Translate topic labels on data change
+  useEffect(() => {
+    const translatedData = data.map((row: any) => ({
+      ...row,
+      Topic: strings?.topics_DE[row.Topic] || row.Topic,
+    }));
+    setFilteredData(translatedData); // Update state with the translated data
+    DEBUG && console.log("Data array after translation: ", translatedData);
+  }, [data, strings?.topics_DE]);
 
   // Memoize filter change handler
   const handleFilterChange = useCallback((filteredData: any[]) => {
@@ -183,6 +191,7 @@ const Index = ({
         filterState={filterState}
         setFilterState={setFilterState}
         strings={strings?.index.filter}
+        topicLabels={strings?.topics_DE}
       />
 
       {loading && (
@@ -207,6 +216,7 @@ const Index = ({
           data={filteredData}
           setFilterState={setFilterState}
           strings={strings?.index.table}
+          topicLabels={strings?.topics_DE}
         />
       )}
     </ClaimspottingWrapper>
@@ -238,8 +248,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
   };
 };
 
-Index.getLayout = function getLayout(page: ReactElement, props: any) {
+List.getLayout = function getLayout(page: ReactElement, props: any) {
   return <LayoutTool props={props}>{page}</LayoutTool>;
 };
 
-export default Index;
+export default List;

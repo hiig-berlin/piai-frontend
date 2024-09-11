@@ -36,6 +36,7 @@ const Filter = ({
   filterState,
   setFilterState,
   strings,
+  topicLabels,
 }: {
   data: any[];
   onFilterChange: (filteredData: any[]) => void;
@@ -44,12 +45,33 @@ const Filter = ({
   filterState: FilterStateProps;
   setFilterState: React.Dispatch<React.SetStateAction<FilterStateProps>>;
   strings: any;
+  topicLabels: any;
 }) => {
   // Generate unique topics and narratives only when data changes
-  const uniqueTopics = React.useMemo(
-    () => Array.from(new Set(data.flatMap((item: any) => item.Topic))),
-    [data]
-  );
+  // const uniqueTopics = React.useMemo(
+  //   () => Array.from(new Set(data.flatMap((item: any) => item.Topic))),
+  //   [data]
+  // );
+
+  const [uniqueTopics, setUniqueTopics] = useState<string[]>([]);
+
+  useEffect(() => {
+    // Translate topics and store them in a set for uniqueness
+    const topicsSet = Array.from(
+      new Set(data.flatMap((item: any) => topicLabels[item.Topic] ||  item.Topic as string))
+    );
+    console.log("Topics set:", topicsSet); // Debugging statement
+    // setUniqueTopics(topicsSet);
+
+    // Convert set to array and sort alphabetically based on German locale
+    const sortedTopics = Array.from(topicsSet).sort((a, b) =>
+      a.localeCompare(b, "de")
+    );
+    console.log("Sorted topics:", sortedTopics); // Debugging statement
+
+    setUniqueTopics(sortedTopics);
+  }, [data, strings]);
+
   const uniqueNarratives = React.useMemo(
     () => Array.from(new Set(data.map((item: any) => item.Narratives))),
     [data]
@@ -71,7 +93,10 @@ const Filter = ({
   const getDateRange = (range: "days" | "week" | "month") => {
     const endDate = moment().format("YYYY-MM-DD");
     const startDate = moment()
-      .subtract(range === "week" ? 7 : range === "days" ? 3 : 1, range === "week" || "days" ? "days" : "months")
+      .subtract(
+        range === "week" ? 7 : range === "days" ? 3 : 1,
+        range === "week" || "days" ? "days" : "months"
+      )
       .format("YYYY-MM-DD");
     // console.log("Date range:", { startDate, endDate }); // Debugging statement
     return { startDate, endDate };
@@ -388,9 +413,7 @@ const DateFilter = styled(BoxLight)`
   }
 `;
 
-const TopicsFilter = styled(BoxLight)`
-
-`;
+const TopicsFilter = styled(BoxLight)``;
 
 const AttributeFilter = styled(BoxLight)`
   div {

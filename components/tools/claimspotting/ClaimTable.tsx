@@ -15,10 +15,12 @@ const ClaimTable = ({
   data,
   setFilterState,
   strings,
+  topicLabels,
 }: {
   data: any;
   setFilterState: React.Dispatch<React.SetStateAction<FilterStateProps>>;
   strings: any;
+  topicLabels: any;
 }) => {
   const NUM_ROWS = 50;
   const [rows, setRows] = useState<DataRowProps[]>(data.slice(0, NUM_ROWS));
