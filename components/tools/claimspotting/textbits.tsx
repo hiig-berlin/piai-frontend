@@ -69,18 +69,18 @@ export const textBits = {
     },
     search: {
       statusMessages: {
-        loading: "Loading posts that follow the same narrative …",
+        loading: "Loading semantically identical posts …",
         noData:
           "No posts seem to match the search query. Try searching for something else.",
         error:
           "Error loading data. Try to refresh the page, the server might be tempoarily at capacity.",
       },
       input: {
-        title: "Search for a narrative",
-        placeholder: "Search for a narrative",
+        title: "Search for semantically identical texts",
+        placeholder: "Enter query text to match against",
       },
       results: {
-        title: "Posts with a matching narrative",
+        title: "Posts that match the query text",
         columns: {
           date: "Date",
           channel: "Channel",
@@ -89,12 +89,12 @@ export const textBits = {
         initial: "Please enter a search phrase to find matching posts.",
       },
       disclaimer: {
-        title: "Please note",
-        text: `The search results are based on the narratives identified by the Claimspotting AI. 
-        
-The search results may not be complete or accurate, please read our [FAQ](tool/claimspotting/about) to find more about the algorithm and the models used. 
-        
-Always double-check the results before using them for fact-checking purposes.`,
+        title: "Explanation",
+        text: `The search results are posts that are semantically identical to the query text. The query text is matched against a database of Telegram posts. The matching is based on vector embeddings. This is different from a keyword search in that it does not require exact word matches. The search results can, for example, contain synonyms or paraphrases. 
+
+  **Note, however, that this makes this application sensitive to small changes.** 
+  
+  Even small adjustments in the query text can impact the search results. It is a good idea to start with a query text that uses similar words and sentence structures as what you would expect on Telegram. If this approach does not deliver good results, add small changes to the query text and work your way up.`,
       },
     },
     trends: {
