@@ -65,7 +65,7 @@ const Filter = ({
     console.log("Sorted topics:", sortedTopics); // Debugging statement
 
     setUniqueTopics(sortedTopics);
-  }, [data, strings]);
+  }, [data, strings, topicLabels]);
 
   const uniqueNarratives = React.useMemo(
     () => Array.from(new Set(data.map((item: any) => item.Narratives))),

@@ -38,7 +38,7 @@ export const DataRow: React.FC<DataRowComponentProps> = ({
       </TableGrid>
       {detailsVisible && strings && row && (
         <Details
-          row={row}
+          row={row as DataRowProps}
           handleClose={() => setDetailsVisible(false)}
           strings={strings.details}
         />

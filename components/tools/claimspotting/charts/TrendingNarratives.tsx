@@ -35,7 +35,7 @@ import { formatLargeNumber } from "~/components/tools/claimspotting/utils/format
 import { set } from "lodash";
 import { ButtonNormalized } from "~/components/styled/Button";
 
-const DEBUG: boolean = true;
+const DEBUG: boolean = false;
 
 const TrendingNarratives: React.FC<TrendingNarrativesProps> = ({
   data,

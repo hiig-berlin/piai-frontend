@@ -97,7 +97,7 @@ export interface FilterStateProps {
 };
 
 export interface DetailProps {
-  row: DataRowProps | NarrativeRowProps;
+  row: DataRowProps;
   strings: any;
   handleClose: () => void;
 }
