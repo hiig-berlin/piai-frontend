@@ -14,7 +14,7 @@ import { Placeholder } from "~/components/tools/shared/Styled";
 import ToolHeader from "~/components/tools/shared/Header";
 import useLanguage from "~/hooks/useLanguage";
 
-const DEBUG: boolean = true;
+const DEBUG: boolean = false;
 
 const loadDataFromAPI = async (
   startDate: string,

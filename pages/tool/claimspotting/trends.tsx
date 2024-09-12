@@ -133,13 +133,12 @@ const Trends = ({
   }, [filterState]);
 
   // Get translated strings for generic topics/narratives
-  const genericTopics=["Other", "Non-thematic"];
   const translatedGenericTopics = useMemo(() => {
+    const genericTopics=["Other", "Non-thematic"];
     return genericTopics.map((topic) => {
       return strings?.topics[topic];
     });
-  }, [strings]);
-
+  }, [strings], );
 
   return (
     <ClaimspottingWrapper>
