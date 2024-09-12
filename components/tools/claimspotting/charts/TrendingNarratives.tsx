@@ -33,6 +33,7 @@ import {
 import { DataRow } from "~/components/tools/claimspotting/ui/TableData";
 import { formatLargeNumber } from "~/components/tools/claimspotting/utils/formatInput";
 import { set } from "lodash";
+import { ButtonNormalized } from "~/components/styled/Button";
 
 const DEBUG: boolean = true;
 
@@ -47,6 +48,7 @@ const TrendingNarratives: React.FC<TrendingNarrativesProps> = ({
     order: "desc",
   });
   const [rows, setRows] = useState<NarrativeRowProps[]>([]);
+  const [showExcluded, setShowExcluded] = useState(false);
 
   // Map raw data into a format with topics and dates
   // Group and aggregate data by date
@@ -319,20 +321,28 @@ const TrendingNarratives: React.FC<TrendingNarrativesProps> = ({
       })}
 
       <Caption>
-        {strings.explanationPre}
+        {strings?.explanationPre}
         {threshold}
-        {strings.explanationPost}
+        {strings?.explanationPost}
         <br />
-        {strings.explanationNumbers}
+        {strings?.explanationNumbers}
       </Caption>
 
       <div className="excluded">
-        <h3>{strings.exclude.title}</h3>
-        <>
-          {excludedTopics.map((topic, index) => (
-            <p key={index}>{topic}</p>
-          ))}
-        </>
+        <ButtonNormalized onClick={() => setShowExcluded(!showExcluded)}>
+        <span className={`triangle ${showExcluded ? "up" : "down"}`} />
+          {showExcluded
+            ? strings?.exclude.titleHide
+            : strings?.exclude.titleShow}
+          
+        </ButtonNormalized>
+        {showExcluded && (
+          <>
+            {excludedTopics.map((topic, index) => (
+              <p key={index}>{topic}</p>
+            ))}
+          </>
+        )}
       </div>
     </TrendingNarrativesWrapper>
   );
@@ -342,17 +352,42 @@ export default TrendingNarratives;
 
 const TrendingNarrativesWrapper = styled(Box)`
   // width: 50%;
-  .recharts-legend-wrapper {
-    ${({ theme }) => theme.breakpoints.desktop} {
-      height: 90% !important;
-      top: 10px !important;
-    }
-  }
+  
   .excluded {
     opacity: 0.6;
 
-    h3 {
+    button {
+      color: #fff;
       margin-bottom: var(--size-2);
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      display: flex;
+      align-items: center;
+      position: relative;
+      font-family: var(--font-family-sans-serif);
+      font-size: 14px;
+
+      & .triangle {
+        display: inline-block;
+        margin-right: 8px;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-top: 6px solid #fff;
+        transition: transform 0.5s ease-in-out;
+      }
+
+      & .triangle.down {
+        transform: rotate(180deg);
+      }
+
+      &:hover .triangle{
+        border-top-color: var(--color-piai-claim);
+        transform: rotate(180deg);
+      }
+
+      &:hover .triangle.down {
+        transform: rotate(0deg);
+      }
     }
 
     p {

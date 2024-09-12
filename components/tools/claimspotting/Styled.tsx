@@ -59,23 +59,23 @@ export const TableGrid = styled.div<{ grid: string }>`
   ${({ grid, theme }) =>
     grid === "narratives" &&
     `
-      grid-template-columns: auto 1fr;
+      grid-template-columns: 1fr auto auto;
 
-      // & > div:nth-child(2) {
-      //   font-weight: bold;
-      // }
-
-      // & > div:nth-child(3) {
-      //   grid-column: span 2;
-      //   margin-bottom: var(--size-3);
-      // }
+      & > div:nth-child(1) {
+        font-size: 14px;
+        
+        grid-column: span 3;
+        margin-bottom: var(--size-3);
+      }
 
       ${theme.breakpoints.tablet} {
-        grid-template-columns: 6fr 5fr 1fr 1fr;
+        grid-template-columns: 4fr 5fr 1fr 1fr;
 
-        // & > div:nth-child(3) {
-        //   grid-column: unset;
-        // }
+        & > div:nth-child(1) {
+          grid-column: unset;
+          margin-bottom: 0;
+          padding-right: var(--size-3);
+        }
       }
   `}
 

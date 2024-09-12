@@ -1,3 +1,5 @@
+import { title } from "process";
+
 export const textBits = {
   en: {
     header: {
@@ -132,7 +134,8 @@ export const textBits = {
         explanationPost: "% of that days total posts.",
         explanationNumbers: "Total shows the sum of posts over the queried time span. Peak is the highest number of posts on a single day.",
         exclude: {
-          title: "Excluded narratives",
+          titleShow: "Show excluded narratives",
+          titleHide: "Hide excluded narratives",
           label: "Narratives below threshold",
         },
         columns:{
@@ -422,7 +425,8 @@ export const textBits = {
         explanationPost: "% der täglichen Beiträge ausgemacht haben.",
         explanationNumbers: "Insges. zeigt die Summe der Beiträge über den abgefragten Zeitraum. Tages-Max zeigt den Tageshöchstwert über den angefragten Zeitraum.",
         exclude: {
-          title: "Ausgeblendete Narrative",
+          titleShow: "Narrative unter Schwellenwert anzeigen",
+          titleHide: "Narrative unter Schwellenwert ausblenden",
           label: "Narrative unter Schwellenwert",
         },
         columns:{
