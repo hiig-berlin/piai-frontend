@@ -8,7 +8,7 @@ import {
 } from "~/components/tools/claimspotting/utils/formatInput";
 import { Tags, CroppedTag } from "../../shared/Styled";
 import { TableGrid } from "../Styled";
-import type { DataRowComponentProps } from "./types";
+import type { DataRowComponentProps, DataRowProps, NarrativeRowProps, TransformedRowProps } from "./types";
 import Details from "~/components/tools/claimspotting/Details";
 
 export const DataRow: React.FC<DataRowComponentProps> = ({
@@ -20,6 +20,8 @@ export const DataRow: React.FC<DataRowComponentProps> = ({
 }) => {
   const [detailsVisible, setDetailsVisible] = useState(false);
 
+  if (!row) return null;
+  const dataRow: TransformedRowProps | NarrativeRowProps | DataRowProps = (transformedRow == undefined) ? row : transformedRow;
 
   const handleRowClick = () => {
     if (showDetails) {
@@ -30,7 +32,7 @@ export const DataRow: React.FC<DataRowComponentProps> = ({
   return (
     <>
       <TableGrid onClick={handleRowClick} grid={grid}>
-        {Object.values(transformedRow).map((value, index) => (
+        {Object.values(dataRow).map((value, index) => (
           <DataCell key={index}>{value}</DataCell>
         ))}
       </TableGrid>

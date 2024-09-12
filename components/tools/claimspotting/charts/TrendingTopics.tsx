@@ -18,6 +18,7 @@ import {
   useCssVarsStateIsDesktopAndUpState,
 } from "~/components/state/CssVarsState";
 import { TrendingTopicsProps, rawDataProps, sortedDataProps } from "~/components/tools/claimspotting/charts/types";
+import { Caption } from "../Styled";
 
 const DEBUG: boolean = false;
 
@@ -304,9 +305,9 @@ const TrendingTopics: React.FC<TrendingTopicsProps> = ({
           ))}
         </AreaChart>
       </ResponsiveContainer>
-      <p>
+      <Caption>
         {strings.explanationPre}{threshold}{strings.explanationPost}
-      </p>
+      </Caption>
 
       <div className="excluded">
         <h3>{strings.exclude.title}</h3>
@@ -330,10 +331,6 @@ const TrendingTopicsWrapper = styled(Box)`
       height: 90% !important;
       top: 10px !important;
     }
-  }
-
-  p {
-    max-width: unset;
   }
 
   .excluded {

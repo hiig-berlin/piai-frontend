@@ -4,6 +4,7 @@ export type DataPoint = {
   Channel_Name: string;
   data: {
     Publishing_date: string;
+    Narratives: { [key: string]: number };
     Topic: { [key: string]: number };
   };
 };
@@ -15,6 +16,14 @@ export interface TrendingTopicsProps {
   strings: any;
   topicLabels: any;
 }
+
+export interface TrendingNarrativesProps {
+  data: DataPoint[];
+  threshold: number;
+  exclude: string[];
+  strings: any;
+}
+
 
 export type rawDataProps = {
   date: string;
@@ -34,4 +43,8 @@ export type FilterStateProps = {
   lastMonth: boolean;
   threshold: number;
   channels: string[];
+};
+
+export type TopicCountProps = {
+  [key: string]: number;
 };

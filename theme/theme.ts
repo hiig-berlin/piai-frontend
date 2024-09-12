@@ -136,6 +136,7 @@ export const theme = {
     // linkHover: "#666",
     // hl: "#ff0",
     loadingBar: "#BE0042",
+    black: "#000",
   },
   breakpoints: {
     base: `@media screen and (min-width: 1em)`,

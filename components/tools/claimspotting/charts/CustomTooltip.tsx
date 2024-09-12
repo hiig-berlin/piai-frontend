@@ -14,6 +14,28 @@ interface CustomTooltipProps extends TooltipProps<any, string> {
   strings: any;
 }
 
+// Define the types for the topics
+interface NarrativeTooltipProps extends TooltipProps<any, string> {
+  active?: boolean;
+  payload?: any;
+  label?: string;
+}
+
+const formatDate = (dateString: string = "", mode: string = "long") => {
+  const date = new Date(dateString);
+
+  return mode === "short"
+    ? date.toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "short",
+      })
+    : date.toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      });
+};
+
 // CustomTooltip component
 const CustomTooltip: React.FC<CustomTooltipProps> = ({
   active,
@@ -47,18 +69,11 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({
     // flip the order of topics
     const invertedTopics = [...topics].reverse();
 
-    const formatDate = (dateString: string = "") => {
-      const date = new Date(dateString);
-      return date.toLocaleDateString("en-GB", {
-        day: "2-digit",
-        month: "short",
-        year: "numeric",
-      });
-    };
-
     return (
       <TooltipWrapper>
-        <h3>{strings?.tooltip?.title} {formatDate(label)}</h3>
+        <h3>
+          {strings?.tooltip?.title} {formatDate(label)}
+        </h3>
         <ul className="topic-list">
           {invertedTopics.map((topic, index) => {
             const absoluteValue = absoluteEntry.topics[topic];
@@ -74,7 +89,9 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({
             );
           })}
         </ul>
-        <p className="total">{strings?.tooltip?.total}: {totalEntry}</p>
+        <p className="total">
+          {strings?.tooltip?.total}: {totalEntry}
+        </p>
       </TooltipWrapper>
     );
   }
@@ -83,13 +100,36 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({
 };
 export default CustomTooltip;
 
+export const NarrativeTooltip: React.FC<NarrativeTooltipProps> = ({
+  payload,
+  active,
+}) => {
+  if (active && payload && payload.length) {
+    const value = payload[0].value;
+    const data = payload[0].payload;
+    const date = formatDate(data.date, "short");
+    return (
+      <TooltipWrapper opacity={0.7} slim={true}>
+        <label>
+          {date}: <span className="value">{value} posts</span>
+        </label>
+      </TooltipWrapper>
+    );
+  }
+
+  return null;
+};
+
 // Tooltip styling
-const TooltipWrapper = styled.div`
-  background-color: black;
+const TooltipWrapper = styled.div<{ opacity?: number; slim?: boolean }>`
+  background-color: ${({ theme, opacity }) =>
+    opacity ? theme.color("black", opacity) : "black"};
   color: white;
-  padding: var(--size-3);
-  border-radius: var(--size-2);
+  padding: ${({ slim }) => (slim ? "var(--size-1)" : "var(--size-3)")};
+  border-radius: ${({ slim }) => (slim ? "var(--size-1)" : "var(--size-2)")};
   font-size: 14px;
+  position: relative;
+  top: ${({ slim }) => (slim ? "-10px" : "0")};
 
   .topic-list {
     display: flex;
@@ -124,5 +164,12 @@ const TooltipWrapper = styled.div`
     color: #666;
     font-family: var(--font-family-monospace);
     font-size: 0.9em;
+  }
+
+  .value {
+    color: #fff;
+    font-weight: bold;
+    font-family: var(--font-family-monospace);
+    opacity: 0.9;
   }
 `;

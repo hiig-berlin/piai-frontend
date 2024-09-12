@@ -12,3 +12,9 @@ export const formatDate = (dateString: string): string => {
 
 export const truncateText = (text: string, length: number): string =>
   text.length > length ? text.slice(0, length) + "..." : text;
+
+export const formatLargeNumber = (num: number): string => {
+  if (num < 1000) return num.toString();
+  if (num < 1000000) return (num / 1000).toFixed(1) + "k";
+  return (num / 1000000).toFixed(1) + "m";
+}

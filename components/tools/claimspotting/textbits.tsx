@@ -125,6 +125,23 @@ export const textBits = {
           total: "Total posts on that date",
         },
       },
+      trendingNarrratives: {
+        title: "Trending Narratives",
+        explanationPre:
+          "The above table shows the prevailing narratives, meaning that they have at least once made up ",
+        explanationPost: "% of that days total posts.",
+        explanationNumbers: "Total shows the sum of posts over the queried time span. Peak is the highest number of posts on a single day.",
+        exclude: {
+          title: "Excluded narratives",
+          label: "Narratives below threshold",
+        },
+        columns:{
+          narrative: "Narrative",
+          trend: "Trend",
+          total: "Total",
+          peak: "Peak",
+        }
+      },
     },
     topics: {
       Agriculture: "Agriculture",
@@ -397,6 +414,23 @@ export const textBits = {
           title: "Anzahl der veröffentlichten Beiträge am",
           total: "Gesamtanzahl der Beiträge an diesem Tag",
         },
+      },
+      trendingNarrratives: {
+        title: "Bestimmende Narrative",
+        explanationPre:
+          "Der obige Graph zeigt die vorherrschenden Narrative, d.h. Narrative, die mindestens einmal ",
+        explanationPost: "% der täglichen Beiträge ausgemacht haben.",
+        explanationNumbers: "Insges. zeigt die Summe der Beiträge über den abgefragten Zeitraum. Tages-Max zeigt den Tageshöchstwert über den angefragten Zeitraum.",
+        exclude: {
+          title: "Ausgeblendete Narrative",
+          label: "Narrative unter Schwellenwert",
+        },
+        columns:{
+          narrative: "Narrativ",
+          trend: "Zeitliche Entwicklung",
+          total: "Insges.",
+          peak: "Tages-Max",
+        }
       },
     },
     topics: {

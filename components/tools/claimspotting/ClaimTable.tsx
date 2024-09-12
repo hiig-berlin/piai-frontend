@@ -86,7 +86,6 @@ const ClaimTable = ({
     </Tags>);
   };
 
-
   const columns: ColumnProps[] = [
     { label: strings.columns.date, slug: "Publishing_datetime", sortable: true },
     { label: strings.columns.text, slug: "Text", sortable: true },

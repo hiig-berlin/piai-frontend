@@ -1,4 +1,4 @@
-import React, { ReactElement, use, useEffect, useState } from "react";
+import React, { ReactElement, use, useEffect, useMemo, useState } from "react";
 import type { GetStaticProps } from "next";
 import NextHeadSeo from "next-head-seo";
 import { appConfig } from "~/config";
@@ -21,14 +21,14 @@ import SafeHtmlDiv from "~/components/ui/SafeHtmlDiv";
 import { Box } from "~/components/tools/shared/ui/Box";
 import { start } from "repl";
 import TrendingTopics from "~/components/tools/claimspotting/charts/TrendingTopics";
+import TrendingNarratives from "~/components/tools/claimspotting/charts/TrendingNarratives";
 import StatsFilter from "~/components/tools/claimspotting/charts/StatsFilter";
-import {FilterStateProps} from "~/components/tools/claimspotting/charts/types";
-
+import { FilterStateProps } from "~/components/tools/claimspotting/charts/types";
 
 const loadDataFromAPI = async (
   startDate: string,
   endDate: string,
-  channel_names: string[],
+  channel_names: string[]
 ) => {
   const params: Record<string, string> = {};
 
@@ -103,8 +103,6 @@ const Trends = ({
   });
 
   const [data, setData] = useState<any[]>([]);
-
-
   const { strings, language, setLanguage } = useLanguage("claimspotting"); // Use language hook
 
   // Load data on page load or filter changes
@@ -133,6 +131,15 @@ const Trends = ({
     };
     loadData();
   }, [filterState]);
+
+  // Get translated strings for generic topics/narratives
+  const genericTopics=["Other", "Non-thematic"];
+  const translatedGenericTopics = useMemo(() => {
+    return genericTopics.map((topic) => {
+      return strings?.topics[topic];
+    });
+  }, [strings]);
+
 
   return (
     <ClaimspottingWrapper>
@@ -181,15 +188,24 @@ const Trends = ({
         setFilterState={setFilterState}
       />
 
-      {data && data.length > 0 && 
-      <TrendingTopics 
-        data={data} 
-        threshold={filterState.threshold}
-        exclude={["Other", "Non-thematic"]}
-        strings={strings?.trends?.trendingTopics}
-        topicLabels={strings?.topics}
-      />}
+      {data && data.length > 0 && (
+        <TrendingTopics
+          data={data}
+          threshold={filterState.threshold}
+          exclude={translatedGenericTopics}
+          strings={strings?.trends?.trendingTopics}
+          topicLabels={strings?.topics}
+        />
+      )}
 
+      {data && data.length > 0 && (
+        <TrendingNarratives
+          data={data}
+          threshold={filterState.threshold}
+          exclude={["Keins der Narrative trifft zu."]}
+          strings={strings?.trends?.trendingNarrratives}
+        />
+      )}
     </ClaimspottingWrapper>
   );
 };

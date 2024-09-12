@@ -56,6 +56,29 @@ export const TableGrid = styled.div<{ grid: string }>`
       }
   `}
 
+  ${({ grid, theme }) =>
+    grid === "narratives" &&
+    `
+      grid-template-columns: auto 1fr;
+
+      // & > div:nth-child(2) {
+      //   font-weight: bold;
+      // }
+
+      // & > div:nth-child(3) {
+      //   grid-column: span 2;
+      //   margin-bottom: var(--size-3);
+      // }
+
+      ${theme.breakpoints.tablet} {
+        grid-template-columns: 6fr 5fr 1fr 1fr;
+
+        // & > div:nth-child(3) {
+        //   grid-column: unset;
+        // }
+      }
+  `}
+
 
   &:hover {
     background: #fff2;
@@ -100,3 +123,14 @@ export const ClaimspottingWrapper = styled.div`
 export const BoxHighlight = styled(Box)`
   background: ${({ theme }) => theme.colors.piaiClaim} !important;
 `;
+
+export const Caption = styled.caption`
+
+  border-top: 1px solid #333;
+  padding-top: var(--size-3);
+  width: 100%;
+
+  text-align: left;
+  font-family: var(--font-family-monospace);
+  font-size: 0.8em;
+`
