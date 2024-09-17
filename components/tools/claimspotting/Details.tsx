@@ -4,6 +4,8 @@ import { ButtonNormalized } from "~/components/styled/Button";
 import { Icon as LabeldIcon } from "~/components/tools/shared/ui/Icon";
 import { SvgBackground } from "~/components/ui/SvgBackground";
 import { DetailProps } from "~/components/tools/claimspotting/ui/types";
+import CopyPaste from "./ui/CopyPaste";
+import { transformToTSV } from "./utils/formatData";
 
 const Details: React.FC<DetailProps> = ({
   row,
@@ -13,6 +15,7 @@ const Details: React.FC<DetailProps> = ({
   <DetailsWrapper>
     <div className="row title">
       <h2>{strings?.title}</h2>
+      <CopyPaste text={transformToTSV([row])} />
       <ButtonNormalized onClick={handleClose}>
         <SvgBackground type="close" />
       </ButtonNormalized>
@@ -97,6 +100,7 @@ const DetailsWrapper = styled.div`
     &.title {
       justify-content: space-between;
       flex-direction: row;
+      gap: var(--size-3);
 
       span {
         min-width: var(--size-4);

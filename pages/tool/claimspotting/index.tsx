@@ -15,8 +15,7 @@ import ToolHeader from "~/components/tools/shared/Header";
 import useLanguage from "~/hooks/useLanguage";
 import styled from "styled-components";
 import CopyPaste from "~/components/tools/claimspotting/ui/CopyPaste";
-import { Channel } from "diagnostics_channel";
-import Link from "next/link";
+import { transformToTSV } from "~/components/tools/claimspotting/utils/formatData";
 
 const DEBUG: boolean = false;
 
@@ -151,16 +150,17 @@ const List = ({
     loadData();
   }, [filterState.startDate, filterState.endDate, page]);
 
-  // Translate topics if language changes 
+  // Translate topics if language changes
   useEffect(() => {
     const translatedData = filteredData.map((row: any) => ({
       ...row,
       Topic: strings?.topics_DE[row.Topic] || row.Topic,
     }));
-  
+
     // Check if the translated data is different before setting state
-    const isDifferent = JSON.stringify(translatedData) !== JSON.stringify(filteredData);
-  
+    const isDifferent =
+      JSON.stringify(translatedData) !== JSON.stringify(filteredData);
+
     if (isDifferent) {
       setFilteredData(translatedData); // Only set the state if the data is actually different
       DEBUG && console.log("Data array after translation: ", translatedData);
@@ -171,34 +171,6 @@ const List = ({
   const handleFilterChange = useCallback((filteredData: any[]) => {
     setFilteredData(filteredData);
   }, []);
-
-  // Transform json to TSV format where header is json keys and rows are json values
-  const transformToTSV = () => {
-    if (data.length === 0) return "";
-    // cleanedData is data array with the keys Channel_Name, Link,Publishing_datetime,	Views,	Forwards,	Text, Topic,	Narratives,	Factual,	Polarising,	Sensationalist,	Many_Siblings,	High_Diffusion,	Siblings,	Views_standard,	Forwards_standard
-    // Text Topic and Narrative should be wrapped in quotes
-    // Message_ID and Member_count shall not be included
-    // Text needs to transform contained quotes to typographic quotes
-    DEBUG && console.log("Data and filtered data: ", data, filteredData);
-    const cleanedData = filteredData.map((row) => ({
-      Channel_Name: row?.Channel_Name,
-      Text: `"${row.Text ? row.Text.replace(/"/g, "“") : ""}"`,
-      Topic: `"${row.Topic}"`,
-      Narratives: `"${row.Narratives}"`,
-      Factual: row.Factual,
-      Polarising: row.Polarising,
-      Sensationalist: row.Sensationalist,
-      Many_Siblings: row.Many_Siblings,
-      High_Diffusion: row.High_Diffusion,
-      Views: row.Views,
-      Forwards: row.Forwards,
-      Link: row.Link,
-      Siblings: `"${row.Siblings ? row.Siblings.join("\n") : ""}"`,
-    }));
-    const header = Object.keys(cleanedData[0]).join("\t");
-    const rows = cleanedData.map((row) => Object.values(row).join("\t"));
-    return [header, ...rows].join("\n") as string;
-  };
 
   return (
     <ClaimspottingWrapper>
@@ -251,8 +223,7 @@ const List = ({
         )}
         {filteredData.length != 0 && (
           <CopyPaste
-            text={transformToTSV()}
-            successMessage="Copied table data to clipboard"
+            text={transformToTSV(filteredData)}
           />
         )}
       </Statusbar>
@@ -309,13 +280,5 @@ const Statusbar = styled.div`
   p {
     margin: 0;
     flex: 1 0 auto;
-  }
-
-  button {
-    flex: 0 1 auto;
-    align-items: center;
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
-    font-family: var(--font-family-sans-serif);
   }
 `;

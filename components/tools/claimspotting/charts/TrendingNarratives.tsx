@@ -31,7 +31,7 @@ import {
   SortState,
 } from "~/components/tools/claimspotting/ui/types";
 import { DataRow } from "~/components/tools/claimspotting/ui/TableData";
-import { formatLargeNumber } from "~/components/tools/claimspotting/utils/formatInput";
+import { formatLargeNumber } from "~/components/tools/claimspotting/utils/formatData";
 import { set } from "lodash";
 import { ButtonNormalized } from "~/components/styled/Button";
 
