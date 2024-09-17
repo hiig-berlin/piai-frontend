@@ -55,14 +55,14 @@ const Filter = ({
     const topicsSet = Array.from(
       new Set(data.flatMap((item: any) => topicLabels[item.Topic] ||  item.Topic as string))
     );
-    console.log("Topics set:", topicsSet); // Debugging statement
+    // console.log("Topics set:", topicsSet); // Debugging statement
     // setUniqueTopics(topicsSet);
 
     // Convert set to array and sort alphabetically based on German locale
     const sortedTopics = Array.from(topicsSet).sort((a, b) =>
       a.localeCompare(b, "de")
     );
-    console.log("Sorted topics:", sortedTopics); // Debugging statement
+    // console.log("Sorted topics:", sortedTopics); // Debugging statement
 
     setUniqueTopics(sortedTopics);
   }, [data, strings, topicLabels]);
@@ -178,7 +178,7 @@ const Filter = ({
         : true;
 
       const matchesTopics = filterState.topics.length
-        ? filterState.topics.some((topic) => item.Topic.includes(topic))
+        ? filterState.topics.some((topic) => topic === topicLabels[item.Topic])
         : true;
 
       const matchesAttributes = Object.keys(filterState.attributes).every(
@@ -204,7 +204,7 @@ const Filter = ({
 
     // console.log("Filtered data:", filteredData, "from all data:", data); // Debugging statement
     onFilterChange(filteredData);
-  }, [filterState, data, onFilterChange]);
+  }, [filterState, data, onFilterChange, topicLabels]);
 
   return (
     <FilterWrapper>

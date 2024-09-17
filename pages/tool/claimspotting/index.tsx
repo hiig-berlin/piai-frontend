@@ -151,15 +151,21 @@ const List = ({
     loadData();
   }, [filterState.startDate, filterState.endDate, page]);
 
-  // Translate topic labels on data change
+  // Translate topics if language changes 
   useEffect(() => {
-    const translatedData = data.map((row: any) => ({
+    const translatedData = filteredData.map((row: any) => ({
       ...row,
       Topic: strings?.topics_DE[row.Topic] || row.Topic,
     }));
-    setFilteredData(translatedData); // Update state with the translated data
-    DEBUG && console.log("Data array after translation: ", translatedData);
-  }, [data, strings?.topics_DE]);
+  
+    // Check if the translated data is different before setting state
+    const isDifferent = JSON.stringify(translatedData) !== JSON.stringify(filteredData);
+  
+    if (isDifferent) {
+      setFilteredData(translatedData); // Only set the state if the data is actually different
+      DEBUG && console.log("Data array after translation: ", translatedData);
+    }
+  }, [strings?.topics_DE, filteredData]);
 
   // Memoize filter change handler
   const handleFilterChange = useCallback((filteredData: any[]) => {
@@ -169,11 +175,11 @@ const List = ({
   // Transform json to TSV format where header is json keys and rows are json values
   const transformToTSV = () => {
     if (data.length === 0) return "";
-    // cleanedData is data array with the keys Channel_Name, Link,Publishing_datetime,	Views,	Forwards,	Text, Topic,	Narratives,	Factual,	Polarising,	Sensationalist,	Many_Siblings,	High_Diffusion,	Siblings,	Views_standard,	Forwards_standard 
-    // Text Topic and Narrative should be wrapped in quotes 
+    // cleanedData is data array with the keys Channel_Name, Link,Publishing_datetime,	Views,	Forwards,	Text, Topic,	Narratives,	Factual,	Polarising,	Sensationalist,	Many_Siblings,	High_Diffusion,	Siblings,	Views_standard,	Forwards_standard
+    // Text Topic and Narrative should be wrapped in quotes
     // Message_ID and Member_count shall not be included
     // Text needs to transform contained quotes to typographic quotes
-    console.log("Data and filtered data: ", data, filteredData)
+    DEBUG && console.log("Data and filtered data: ", data, filteredData);
     const cleanedData = filteredData.map((row) => ({
       Channel_Name: row?.Channel_Name,
       Text: `"${row.Text ? row.Text.replace(/"/g, "“") : ""}"`,
@@ -228,10 +234,10 @@ const List = ({
 
       <Statusbar>
         {loading && (
-        <Placeholder mode="full" tool="claim">
-          {strings?.index.statusMessages?.loadingPre} {page}{" "}
-          {strings?.index.statusMessages?.loadingPost}
-        </Placeholder>
+          <Placeholder mode="full" tool="claim">
+            {strings?.index.statusMessages?.loadingPre} {page}{" "}
+            {strings?.index.statusMessages?.loadingPost}
+          </Placeholder>
         )}
         {data.length === 0 && !loading && !error && (
           <Placeholder mode="full" tool="claim">
@@ -243,11 +249,12 @@ const List = ({
             {(error && strings?.index.statusMessages?.error) || error}
           </Placeholder>
         )}
-        {filteredData.length != 0 &&
-        <CopyPaste
-          text={transformToTSV()}
-          successMessage="Copied table data to clipboard"
-        />}
+        {filteredData.length != 0 && (
+          <CopyPaste
+            text={transformToTSV()}
+            successMessage="Copied table data to clipboard"
+          />
+        )}
       </Statusbar>
 
       {data.length > 0 && (
