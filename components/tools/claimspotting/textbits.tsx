@@ -14,8 +14,11 @@ export const textBits = {
         noData: "No data available",
         error:
           "Error loading data. Try to refresh the page, the server might be tempoarily at capacity.",
-        copyResults: "Copy results to clipboard",
-        copySuccess: "Copied table data to clipboard",
+      },
+      copyPaste:{
+        copyTable: "Copy results to clipboard",
+        copyRow: "Copy post info",
+        success: "Copied to clipboard as tsv",
       },
       filter: {
         counter: {
@@ -307,7 +310,12 @@ export const textBits = {
         error:
           "Fehler beim Laden der Daten. Versuche die Seite neu zu laden, der Server könnte temporär überlastet sein.",
         copyResults: "Ergebnisse kopieren",
-        copySuccess: "Gefilterte Einträge in die Zwischenablage kopiert",
+        copySuccess: "Daten als tsv in die Zwischenablage kopiert",
+      },
+      copyPaste:{
+        copyTable: "Ergebnisse kopieren",
+        copyRow: "Postdetails kopieren",
+        success: "In die Zwischenablage kopiert als tsv",
       },
       filter: {
         counter: {

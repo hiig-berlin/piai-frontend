@@ -61,6 +61,7 @@ export interface DataRowComponentProps {
   strings?: any;
   showDetails?: boolean;
   grid: string;
+  copyLabels?: any;
 }
 
 export interface TransformedRowProps {
@@ -100,4 +101,5 @@ export interface DetailProps {
   row: DataRowProps;
   strings: any;
   handleClose: () => void;
+  copyLabels: any;
 }

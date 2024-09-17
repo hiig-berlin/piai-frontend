@@ -11,11 +11,12 @@ const Details: React.FC<DetailProps> = ({
   row,
   strings,
   handleClose,
+  copyLabels,
 }) => (
   <DetailsWrapper>
     <div className="row title">
       <h2>{strings?.title}</h2>
-      <CopyPaste text={transformToTSV([row])} />
+      <CopyPaste text={transformToTSV([row])} strings={copyLabels} mode="row" />
       <ButtonNormalized onClick={handleClose}>
         <SvgBackground type="close" />
       </ButtonNormalized>
@@ -102,7 +103,7 @@ const DetailsWrapper = styled.div`
       flex-direction: row;
       gap: var(--size-3);
 
-      span {
+      span.svg {
         min-width: var(--size-4);
         min-height: var(--size-3);
       }

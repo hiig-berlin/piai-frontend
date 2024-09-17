@@ -16,11 +16,13 @@ const ClaimTable = ({
   setFilterState,
   strings,
   topicLabels,
+  copyLabels,
 }: {
   data: any;
   setFilterState: React.Dispatch<React.SetStateAction<FilterStateProps>>;
   strings: any;
   topicLabels: any;
+  copyLabels: any;
 }) => {
   const NUM_ROWS = 50;
   const [rows, setRows] = useState<DataRowProps[]>(data.slice(0, NUM_ROWS));
@@ -117,6 +119,7 @@ const ClaimTable = ({
           strings={strings}
           showDetails={true} // showDetails only needed in ClaimTable
           grid="claimlist"
+          copyLabels={copyLabels}
         />
       ))}
       {rows.length < data.length && <LoadMore onClick={() => setRows(data.slice(0, rows.length + NUM_ROWS))}>Load more</LoadMore>}

@@ -224,6 +224,7 @@ const List = ({
         {filteredData.length != 0 && (
           <CopyPaste
             text={transformToTSV(filteredData)}
+            strings={strings?.index.copyPaste}
           />
         )}
       </Statusbar>
@@ -234,6 +235,7 @@ const List = ({
           setFilterState={setFilterState}
           strings={strings?.index.table}
           topicLabels={strings?.topics_DE}
+          copyLabels={strings?.index.copyPaste}
         />
       )}
     </ClaimspottingWrapper>

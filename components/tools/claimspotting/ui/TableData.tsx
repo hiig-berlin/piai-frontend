@@ -16,7 +16,8 @@ export const DataRow: React.FC<DataRowComponentProps> = ({
   transformedRow,
   strings,
   showDetails = false, // Only used in ClaimTable
-  grid
+  grid,
+  copyLabels,
 }) => {
   const [detailsVisible, setDetailsVisible] = useState(false);
 
@@ -41,6 +42,7 @@ export const DataRow: React.FC<DataRowComponentProps> = ({
           row={row as DataRowProps}
           handleClose={() => setDetailsVisible(false)}
           strings={strings.details}
+          copyLabels={copyLabels}
         />
       )}
     </>
