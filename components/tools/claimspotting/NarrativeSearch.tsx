@@ -28,7 +28,7 @@ export const NarrativeSearchBar = ({
   useEffect(() => {
     const timeout = setTimeout(() => {
       setSearchQuery(inputValue);
-    }, 500); // Adjust debounce delay (500ms)
+    }, 1000); // Adjust debounce delay (500ms)
 
     return () => {
       clearTimeout(timeout); // Clear timeout if user is still typing
@@ -129,7 +129,7 @@ export const NarrativeSearchResults = ({
               grid="search"
             ></HeaderRow>
             {transformedRows.map((item: any, index: number) => (
-              <DataRow key={index} transformedRow={item} grid="search" />
+              <DataRow key={index} transformedRow={item} grid="search" row={item}/>
             ))}
             {rows.length < data.length && (
               <LoadMore
