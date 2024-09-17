@@ -13,6 +13,10 @@ import { ClaimspottingWrapper } from "~/components/tools/claimspotting/Styled";
 import { Placeholder } from "~/components/tools/shared/Styled";
 import ToolHeader from "~/components/tools/shared/Header";
 import useLanguage from "~/hooks/useLanguage";
+import styled from "styled-components";
+import CopyPaste from "~/components/tools/claimspotting/ui/CopyPaste";
+import { Channel } from "diagnostics_channel";
+import Link from "next/link";
 
 const DEBUG: boolean = false;
 
@@ -162,6 +166,34 @@ const List = ({
     setFilteredData(filteredData);
   }, []);
 
+  // Transform json to TSV format where header is json keys and rows are json values
+  const transformToTSV = () => {
+    if (data.length === 0) return "";
+    // cleanedData is data array with the keys Channel_Name, Link,Publishing_datetime,	Views,	Forwards,	Text, Topic,	Narratives,	Factual,	Polarising,	Sensationalist,	Many_Siblings,	High_Diffusion,	Siblings,	Views_standard,	Forwards_standard 
+    // Text Topic and Narrative should be wrapped in quotes 
+    // Message_ID and Member_count shall not be included
+    // Text needs to transform contained quotes to typographic quotes
+    console.log("Data and filtered data: ", data, filteredData)
+    const cleanedData = filteredData.map((row) => ({
+      Channel_Name: row?.Channel_Name,
+      Text: `"${row.Text ? row.Text.replace(/"/g, "“") : ""}"`,
+      Topic: `"${row.Topic}"`,
+      Narratives: `"${row.Narratives}"`,
+      Factual: row.Factual,
+      Polarising: row.Polarising,
+      Sensationalist: row.Sensationalist,
+      Many_Siblings: row.Many_Siblings,
+      High_Diffusion: row.High_Diffusion,
+      Views: row.Views,
+      Forwards: row.Forwards,
+      Link: row.Link,
+      Siblings: `"${row.Siblings ? row.Siblings.join("\n") : ""}"`,
+    }));
+    const header = Object.keys(cleanedData[0]).join("\t");
+    const rows = cleanedData.map((row) => Object.values(row).join("\t"));
+    return [header, ...rows].join("\n") as string;
+  };
+
   return (
     <ClaimspottingWrapper>
       <NextHeadSeo
@@ -194,22 +226,29 @@ const List = ({
         topicLabels={strings?.topics_DE}
       />
 
-      {loading && (
+      <Statusbar>
+        {loading && (
         <Placeholder mode="full" tool="claim">
           {strings?.index.statusMessages?.loadingPre} {page}{" "}
           {strings?.index.statusMessages?.loadingPost}
         </Placeholder>
-      )}
-      {data.length === 0 && !loading && !error && (
-        <Placeholder mode="full" tool="claim">
-          {strings?.index.statusMessages?.noData}
-        </Placeholder>
-      )}
-      {error && (
-        <Placeholder mode="full" tool="claim">
-          {(error && strings?.index.statusMessages?.error) || error}
-        </Placeholder>
-      )}
+        )}
+        {data.length === 0 && !loading && !error && (
+          <Placeholder mode="full" tool="claim">
+            {strings?.index.statusMessages?.noData}
+          </Placeholder>
+        )}
+        {error && (
+          <Placeholder mode="full" tool="claim">
+            {(error && strings?.index.statusMessages?.error) || error}
+          </Placeholder>
+        )}
+        {filteredData.length != 0 &&
+        <CopyPaste
+          text={transformToTSV()}
+          successMessage="Copied table data to clipboard"
+        />}
+      </Statusbar>
 
       {data.length > 0 && (
         <ClaimTable
@@ -253,3 +292,23 @@ List.getLayout = function getLayout(page: ReactElement, props: any) {
 };
 
 export default List;
+
+const Statusbar = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: var(--size-3);
+  justify-content: flex-end;
+
+  p {
+    margin: 0;
+    flex: 1 0 auto;
+  }
+
+  button {
+    flex: 0 1 auto;
+    align-items: center;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    font-family: var(--font-family-sans-serif);
+  }
+`;
