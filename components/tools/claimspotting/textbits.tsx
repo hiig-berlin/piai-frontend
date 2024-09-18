@@ -99,6 +99,12 @@ export const textBits = {
       },
     },
     trends: {
+      statusMessages: {
+        loading: "Loading data…",
+        noData: "No data available",
+        error:
+          "Error loading data. Try to refresh the page, the server might be tempoarily at capacity.",
+      },
       filter: {
         daterange: {
           title: "Select date range",
@@ -396,6 +402,13 @@ export const textBits = {
       },
     },
     trends: {
+      statusMessages: {
+        loading: "Lade Statistiken …",
+        noData:
+          "Es scheint keine Beiträge zu geben, die der Suchanfrage entsprechen.",
+        error:
+          "Fehler beim Laden der Daten. Versuche die Seite neu zu laden, der Server könnte temporär überlastet sein.",
+      },
       filter: {
         daterange: {
           title: "Zeitraum auswählen",

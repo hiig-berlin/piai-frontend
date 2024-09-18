@@ -8,9 +8,7 @@ import {
   InputText,
 } from "~/components/tools/claimspotting/ui/FormElements";
 import { FilterStateProps } from "~/components/tools/claimspotting/charts/types";
-
 import { AttributeSelector } from "~/components/tools/claimspotting/ui/AttributeSelector";
-import { set } from "lodash";
 
 // Create a filter with the following boxes:
 // 1) Date range: start date, end date + Threshold (slider from 3 to 10)

@@ -9,21 +9,13 @@ import useLanguage from "~/hooks/useLanguage";
 import { Placeholder } from "~/components/tools/shared/Styled";
 import ToolHeader from "~/components/tools/shared/Header";
 import { ClaimspottingWrapper } from "~/components/tools/claimspotting/Styled";
-import {
-  NarrativeSearchBar,
-  NarrativeSearchResults,
-  SearchWrapper,
-} from "~/components/tools/claimspotting/NarrativeSearch";
 import { ToolSvgBackground } from "~/components/tools/shared/ToolSvgBackground";
 import { ButtonNormalized } from "~/components/styled/Button";
-import showdown from "showdown";
-import SafeHtmlDiv from "~/components/ui/SafeHtmlDiv";
-import { Box } from "~/components/tools/shared/ui/Box";
-import { start } from "repl";
 import TrendingTopics from "~/components/tools/claimspotting/charts/TrendingTopics";
 import TrendingNarratives from "~/components/tools/claimspotting/charts/TrendingNarratives";
 import StatsFilter from "~/components/tools/claimspotting/charts/StatsFilter";
 import { FilterStateProps } from "~/components/tools/claimspotting/charts/types";
+import ChannelsPerTopic from "~/components/tools/claimspotting/charts/ChannelsPerTopic";
 
 const loadDataFromAPI = async (
   startDate: string,
@@ -134,11 +126,11 @@ const Trends = ({
 
   // Get translated strings for generic topics/narratives
   const translatedGenericTopics = useMemo(() => {
-    const genericTopics=["Other", "Non-thematic"];
+    const genericTopics = ["Other", "Non-thematic"];
     return genericTopics.map((topic) => {
       return strings?.topics[topic];
     });
-  }, [strings], );
+  }, [strings]);
 
   return (
     <ClaimspottingWrapper>
@@ -161,31 +153,31 @@ const Trends = ({
         setLanguage={setLanguage}
       />
 
-      {loading && (
-        <Placeholder mode="full" tool="claim">
-          {strings?.search.statusMessages?.loading}
-        </Placeholder>
-      )}
-      {data.length === 0 && !loading && !error && (
-        <Placeholder mode="full" tool="claim">
-          {strings?.search.statusMessages?.noData}
-        </Placeholder>
-      )}
-      {error && (
-        <Placeholder mode="full" tool="claim" error={true}>
-          <ToolSvgBackground type="warning" />
-          {(error && strings?.search.statusMessages?.error) || error}
-          <ButtonNormalized onClick={() => window.location.reload()}>
-            <ToolSvgBackground type="reload" />
-          </ButtonNormalized>
-        </Placeholder>
-      )}
-
       <StatsFilter
         strings={strings?.trends.filter}
         filterState={filterState}
         setFilterState={setFilterState}
       />
+
+      {loading && (
+        <Placeholder mode="full" tool="claim">
+          {strings?.trends.statusMessages?.loading}
+        </Placeholder>
+      )}
+      {data.length === 0 && !loading && !error && (
+        <Placeholder mode="full" tool="claim">
+          {strings?.trends.statusMessages?.noData}
+        </Placeholder>
+      )}
+      {error && (
+        <Placeholder mode="full" tool="claim" error={true}>
+          <ToolSvgBackground type="warning" />
+          {(error && strings?.trends.statusMessages?.error) || error}
+          <ButtonNormalized onClick={() => window.location.reload()}>
+            <ToolSvgBackground type="reload" />
+          </ButtonNormalized>
+        </Placeholder>
+      )}
 
       {data && data.length > 0 && (
         <TrendingTopics
@@ -205,6 +197,15 @@ const Trends = ({
           strings={strings?.trends?.trendingNarrratives}
         />
       )}
+
+      {/* {data && data.length > 0 && (
+        <ChannelsPerTopic
+          data={data}
+          threshold={filterState.threshold}
+          exclude={["Keins der Narrative trifft zu."]}
+          strings={strings?.trends?.trendingNarrratives}
+        />
+      )} */}
     </ClaimspottingWrapper>
   );
 };
