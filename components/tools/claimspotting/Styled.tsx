@@ -1,9 +1,11 @@
 import styled from "styled-components";
 import { Box } from "~/components/tools/shared/ui/Box";
 
-export const TableGrid = styled.div<{ grid: string }>`
+export const TableGrid = styled.div<{ grid: string, header?: boolean }>`
   display: grid;
   gap: var(--size-1);
+  border-bottom: ${({ header }) => (header ? "1px solid var(--color-light-grey)" : "none")};
+  padding: ${({ header }) => (header ? "0 0 var(--size-1)" : "0")};
 
   ${({ grid, theme }) =>
     grid === "claimlist" &&
@@ -32,6 +34,33 @@ export const TableGrid = styled.div<{ grid: string }>`
       }
 
   `}
+
+  ${({ grid, theme }) =>
+    grid === "littleClaimlist" &&
+    `
+      grid-template-columns: 1fr 2fr;
+      
+      & > div:nth-child(3), & > div:nth-child(4), & > div:nth-child(5){
+        display: none;
+      }
+
+      ${theme.breakpoints.tablet} {
+        display: grid;
+        grid-template-columns: 
+          minmax(50px, 2fr)     // Date
+          minmax(50px, 6fr)     // Text
+          minmax(50px, 2fr)   // Topics
+          minmax(50px, 1.5fr)   // Attributes
+          minmax(50px, 0.5fr);    // Reach
+        gap: var(--size-1);
+        transition: all 0.3s;
+        & > div:nth-child(3), & > div:nth-child(4), & > div:nth-child(5){
+          display: inherit;
+        }
+      }
+
+  `}
+
 
   ${({ grid, theme }) =>
     grid === "search" &&
@@ -79,7 +108,7 @@ export const TableGrid = styled.div<{ grid: string }>`
       }
   `}
 
-
+  ${({ header }) => !header && `
   &:hover {
     background: #fff2;
     padding: var(--size-1);
@@ -87,6 +116,9 @@ export const TableGrid = styled.div<{ grid: string }>`
     cursor: pointer;
     border-radius: var(--size-2);
   }
+  `}
+
+
 `;
 
 export const ClaimspottingWrapper = styled.div`
@@ -121,11 +153,10 @@ export const ClaimspottingWrapper = styled.div`
 `;
 
 export const BoxHighlight = styled(Box)`
-  background: ${({ theme }) => theme.colors.piaiClaim} !important;
+  background: ${({ theme }) => theme.color("piai-claim", 0.6)} !important;
 `;
 
 export const Caption = styled.caption`
-
   border-top: 1px solid #333;
   padding-top: var(--size-3);
   width: 100%;
@@ -133,4 +164,22 @@ export const Caption = styled.caption`
   text-align: left;
   font-family: var(--font-family-monospace);
   font-size: 0.8em;
-`
+`;
+
+export const HeadlineWithButton = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--size-3);
+  justify-content: space-between;
+  margin-bottom: var(--size-3);
+
+  ${({ theme }) => theme.breakpoints.tablet} {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  a{
+    margin: 0;
+  }
+`;

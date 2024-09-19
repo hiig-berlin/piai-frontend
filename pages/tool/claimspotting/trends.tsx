@@ -16,60 +16,8 @@ import TrendingNarratives from "~/components/tools/claimspotting/charts/Trending
 import StatsFilter from "~/components/tools/claimspotting/charts/StatsFilter";
 import { FilterStateProps } from "~/components/tools/claimspotting/charts/types";
 import ChannelsPerTopic from "~/components/tools/claimspotting/charts/ChannelsPerTopic";
+import { loadStatsFromAPI } from "~/components/tools/claimspotting/utils/loadData";
 
-const loadDataFromAPI = async (
-  startDate: string,
-  endDate: string,
-  channel_names: string[]
-) => {
-  const params: Record<string, string> = {};
-
-  if (startDate) params.start_day = startDate;
-  if (endDate) params.end_day = endDate;
-  if (channel_names.length > 0) params.channel_names = channel_names.toString();
-
-  // Convert the parameters object to a query string
-  const url = new URL(
-    process.env.NEXT_PUBLIC_CLAIMSPOTTING_API_STATS as string
-  );
-  const queryString = new URLSearchParams(params).toString();
-  // Only append query string if it's not empty
-  const fullUrl = queryString ? `${url}?${queryString}` : url.toString();
-
-  if (process.env.NODE_ENV === "development")
-    console.log(
-      "Fetching data from url: ",
-      url + queryString,
-      "with those params",
-      params
-    );
-  try {
-    const response = await fetch(fullUrl, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    } else {
-      const data = await response.json();
-      if (process.env.NODE_ENV === "development")
-        console.log("Data loaded successfully: ", data);
-      return { error: null, data: data };
-    }
-  } catch (error) {
-    if (process.env.NODE_ENV === "development")
-      console.log("Fetch Error:", error);
-    return {
-      error:
-        "Error loading data. Try to refresh the page, the server might be tempoarily at capacity.",
-      data: [],
-    };
-    // throw error;
-  }
-};
 
 const Trends = ({
   frontendSettings,
@@ -103,7 +51,7 @@ const Trends = ({
     setError(null);
 
     const loadData = async () => {
-      const raw = await loadDataFromAPI(
+      const raw = await loadStatsFromAPI(
         filterState.startDate,
         filterState.endDate,
         filterState.channels

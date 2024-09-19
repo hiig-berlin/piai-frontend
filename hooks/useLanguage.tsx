@@ -57,7 +57,12 @@ const useLanguage = (toolSlug: string) => {
     loadTextBits();
 
     if (!isInitialLoad) {
-      window.history.replaceState({}, "", `?lang=${language}`);
+      // keep other url params
+      const urlParams = new URLSearchParams(window.location.search);
+      urlParams.set("lang", language);
+      const newUrl = `${window.location.pathname}?${urlParams.toString()}`;
+      window.history.replaceState({}, "", newUrl);
+      // window.history.replaceState({}, "", `?lang=${language}`);
       localStorage.setItem("selectedLang", language); // Update localStorage when language changes
     }
     setIsInitialLoad(false);

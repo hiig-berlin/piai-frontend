@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { getChannels } from "~/components/tools/claimspotting/utils/getChannels";
+import { loadChannelsFromGithub } from "~/components/tools/claimspotting/utils/loadData";
 import moment from "moment";
 import { BoxLight } from "../../shared/ui/Box";
 import {
@@ -30,7 +30,7 @@ const StatsFilter = ({
   useEffect(() => {
     const fetchChannels = async () => {
       try {
-        const channelsInfo = await getChannels("extended");
+        const channelsInfo = await loadChannelsFromGithub("extended");
         setExtendedChannelList(channelsInfo);
       } catch (error) {
         console.error("Failed to fetch channels:", error);

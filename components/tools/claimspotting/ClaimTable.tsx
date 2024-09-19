@@ -5,10 +5,11 @@ import { DataRow } from "~/components/tools/claimspotting/ui/TableData";
 import { HeaderRow } from "~/components/tools/claimspotting/ui/TableHeader";
 import { formatDate, truncateText } from "~/components/tools/claimspotting/utils/formatData";
 import { Box } from "~/components/tools/shared/ui/Box";
-import { Button } from "~/components/styled/Button";
+import { Button, LinkButton } from "~/components/styled/Button";
 import type { DataRowProps, SortState, FilterStateProps, ColumnProps } from "~/components/tools/claimspotting/ui/types";
 import { Icon, Icons } from "~/components/tools/claimspotting/ui/Icon";
 import { Tags, CroppedTag } from "~/components/tools/shared/Styled";
+import { HeadlineWithButton } from "./Styled";
 
 
 const ClaimTable = ({
@@ -128,6 +129,87 @@ const ClaimTable = ({
 };
 
 export default ClaimTable;
+
+export const LittleClaimTable = ({
+  data,
+  strings,
+  topicLabels,
+}: {
+  data: any;
+  strings: any;
+  topicLabels: any;
+}) => {
+  const NUM_ROWS = 10;
+  const [rows, setRows] = useState<DataRowProps[]>(data.slice(0, NUM_ROWS));
+
+  useEffect(() => {
+    setRows(data.slice(0, NUM_ROWS));
+  }, [data]);
+
+  const renderAttributes = (polarising: number, sensationalist: number, highDiffusion: number) => (
+    <Icons>
+      <Icon type="polarise" active={polarising === 1} />
+      <Icon type="bolt" active={sensationalist === 1} />
+      <Icon type="share" active={highDiffusion === 1} />
+    </Icons>
+  );
+
+  const renderReach = (siblings: number) => (
+    <Icons>
+      {siblings > 0 && <Icon type="copy">{siblings}</Icon>}
+    </Icons>
+  );
+
+  const renderTopic = (topic: string) => {
+    // console.log("Topic: ", topic, setFilterState);
+    return(
+    <Tags>
+      <CroppedTag
+        isActive={false}
+        tool="claim"
+      >
+        {topic}
+      </CroppedTag>
+    </Tags>);
+  };
+
+  const columns: ColumnProps[] = [
+    { label: strings.columns.date, slug: "Publishing_datetime", sortable: false },
+    { label: strings.columns.text, slug: "Text", sortable: false },
+    { label: strings.columns.topics, slug: "Topic", sortable: false },
+    { label: strings.columns.attributes, slug: "Polarising", sortable: false },
+    { label: strings.columns.reach, slug: "Forwards", sortable: false },
+  ];
+
+  const transformedRows = rows.map((row) => ({
+    date: formatDate(row.Publishing_datetime),
+    text: truncateText(row.Text, 40),
+    topic: renderTopic(row.Topic),
+    attributes: renderAttributes(row.Polarising, row.Sensationalist, row.High_Diffusion),
+    reach: renderReach(row.Siblings.length),
+  }));
+
+  return (
+    <ClaimTableWrapper>
+      <HeadlineWithButton>
+        <h2>{strings.title}</h2>
+        <LinkButton href={strings.CTA?.url}>{strings.CTA?.label}</LinkButton>
+      </HeadlineWithButton>
+      <HeaderRow columns={columns} grid="littleClaimlist" sortData={() => null} sort={{column: "Publishing_datetime", order: "desc"}}/>
+      {transformedRows.map((transformedRow, index) => (
+        <DataRow
+          key={index}
+          row={rows[index]}
+          transformedRow={transformedRow}
+          strings={strings}
+          showDetails={false} // showDetails only needed in ClaimTable
+          grid="littleClaimlist"
+        />
+      ))}
+    </ClaimTableWrapper>
+  );
+};
+
 
 
 const ClaimTableWrapper = styled(Box)`

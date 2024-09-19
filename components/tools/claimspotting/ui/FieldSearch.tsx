@@ -36,7 +36,7 @@ const Button = styled(ButtonNormalized)`
   width: var(--size-3);
   height: var(--size-3);
 
-  position: absolute;
+  position: absolute !important;
   display: inline-block;
   top: 50%;
   transform: translateY(-50%);

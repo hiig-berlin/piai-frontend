@@ -32,6 +32,7 @@ export interface NarrativeRowProps {
   peak: number | string;
 }
 
+
 export interface ClaimTableProps {
   data: DataRowProps[];
   setFilterState: React.Dispatch<React.SetStateAction<FilterStateProps>>;
@@ -67,9 +68,9 @@ export interface DataRowComponentProps {
 export interface TransformedRowProps {
   date: string;
   text: string;
-  channel: string;
+  channel?: string;
   topic: any;
-  narrative: string;
+  narrative?: string;
   attributes: any;
   reach: any;
 }

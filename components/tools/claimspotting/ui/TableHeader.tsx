@@ -16,7 +16,7 @@ export const HeaderRow: React.FC<HeaderRowProps> = ({
   grid,
 }) => {
   return (
-    <TableGrid grid={grid}>
+    <TableGrid grid={grid} header={true}>
       {columns.map(
         (
           {

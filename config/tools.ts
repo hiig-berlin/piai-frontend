@@ -114,6 +114,7 @@ export const tools: PiAiTool[] = [
     ],
     submenu: [
       {
+        slug: "list",
         name: "Claim list",
         icon: "list",
       },

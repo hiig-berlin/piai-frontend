@@ -1,4 +1,6 @@
+import { table } from "console";
 import { title } from "process";
+import Trends from "~/pages/tool/claimspotting/trends";
 
 export const textBits = {
   en: {
@@ -9,13 +11,62 @@ export const textBits = {
     },
     index: {
       statusMessages: {
+        loading: "Loading data…",
+        noData: "No data available.",
+        error:
+          "Error loading data. Try to refresh the page, the server might be tempoarily at capacity.",
+      },
+      about:{
+        title: "About Claimspotting",
+        description: "Claimspotting is a monitoring application that supports fact-checkers in verifying online content on the Telegram news platform. The term ‘Claimspotting’ combines the English words ‘claim’ and ‘spotting’. It identifies claims that could potentially be misinformation.",
+        CTA: {
+          url: "/tool/claimspotting/about",
+          label: "Learn more",
+        },
+      },
+      search: {
+        title: "Search for matching claims",
+        placeholder: "Insert a statment to match posts against…",
+        searchButton: "Search",
+        description: "Search for posts that are semantically identical to the query text. Even minor adjustments in the query text can impact the search results.",
+      },
+      table: {
+        title: "Recent posts from neuesausrussland",
+        CTA: {
+          url: "/tool/claimspotting/list",
+          label: "Explore all posts",
+        },
+        explanation:
+          "The table below shows the most recent posts that have been flagged as potentially checkworthy.",
+        columns: {
+          date: "Date",
+          text: "Text",
+          topics: "Topic",
+          attributes: "Attributes",
+        },
+      },
+      trends: {
+        title: "Trending topics",
+        CTA: {
+          url: "/tool/claimspotting/trends",
+          label: "Explore all trends",
+        },
+        explanation: "The above graph shows last week’s prevailing topics.",
+        exclude: {
+          title: "Excluded topics",
+          label: "Topics below threshold",
+        },
+      },
+    },
+    list: {
+      statusMessages: {
         loadingPre: "Loading page",
         loadingPost: "of the claim list …",
         noData: "No data available",
         error:
           "Error loading data. Try to refresh the page, the server might be tempoarily at capacity.",
       },
-      copyPaste:{
+      copyPaste: {
         copyTable: "Copy results to clipboard",
         copyRow: "Copy post info",
         success: "Copied to clipboard as tsv",
@@ -143,18 +194,19 @@ export const textBits = {
         explanationPre:
           "The above table shows the prevailing narratives, meaning that they have at least once made up ",
         explanationPost: "% of that days total posts.",
-        explanationNumbers: "Total shows the sum of posts over the queried time span. Peak is the highest number of posts on a single day.",
+        explanationNumbers:
+          "Total shows the sum of posts over the queried time span. Peak is the highest number of posts on a single day.",
         exclude: {
           titleShow: "Show excluded narratives",
           titleHide: "Hide excluded narratives",
           label: "Narratives below threshold",
         },
-        columns:{
+        columns: {
           narrative: "Narrative",
           trend: "Trend",
           total: "Total",
           peak: "Peak",
-        }
+        },
       },
     },
     topics: {
@@ -203,7 +255,7 @@ export const textBits = {
       Makroökonomie: "Macroeconomics",
       "Kein Thema": "Non-thematic",
       Sonstiges: "Other",
-      "Sozialstaat": "Social Welfare",
+      Sozialstaat: "Social Welfare",
       Technologie: "Technology",
       Transport: "Transportation",
     },
@@ -309,25 +361,66 @@ export const textBits = {
         "Ein webbasiertes Tool, das potenzielle Fehlinformationen auf Telegram überwacht. Es ist dazu konzipiert, Faktenchecker:innen zu helfen.",
     },
     index: {
+      about:  {
+        title: "Über Claimspotting",
+        description: "Claimspotting ist eine Überwachungsanwendung, die Faktenchecker:innen bei der Überprüfung von Online-Inhalten auf der Nachrichtenplattform Telegram unterstützt. Der Begriff „Claimspotting“ setzt sich aus den englischen Wörtern „claim“ und „spotting“ zusammen. Er bezieht sich auf das gezielte Erkennen von Behauptungen, die potenziell Fehlinformationen sein könnten.",
+        CTA: {
+          url: "/tool/claimspotting/about",
+          label: "Mehr erfahren",
+        },
+      },
+      search: {
+        title: "Suche nach passenden Behauptungen",
+        placeholder: "Gib eine Behauptung ein, um Beiträge abzugleichen…",
+        searchButton: "Suchen",
+        description: "Suche nach Beiträgen, die semantisch identisch mit dem Suchtext sind. Selbst geringfügige Anpassungen im Suchtext können die Suchergebnisse beeinflussen.",
+      },
+      table: {
+        title: "Neueste Beiträge von neuesausrussland",
+        CTA: {
+          url: "/tool/claimspotting/list",
+          label: "Alle Beiträge erkunden",
+        },
+        explanation:
+          "Die Tabelle unten zeigt die neuesten Beiträge, die als potenziell überprüfenswert markiert wurden.",
+        columns: {
+          date: "Datum",
+          text: "Text",
+          topics: "Thema",
+          attributes: "Attribute",
+        },
+      },
+      trends: {
+        title: "Bestimmende Themen",
+        CTA: {
+          url: "/tool/claimspotting/trends",
+          label: "Alle Trends erkunden",
+        },
+        explanation: "Der obige Graph zeigt die vorherrschenden Themen der letzten Woche.",
+        exclude: {
+          title: "Ausgeblendete Themen",
+          label: "Themen unter Schwellenwert",
+        },
+      },
+    },
+    list: {
       statusMessages: {
         loadingPre: "Lade Seite",
-        loadingPost: "der gesamten Claim-Liste …",
+        loadingPost: "der Beitragsliste …",
         noData: "Keine Daten verfügbar",
         error:
           "Fehler beim Laden der Daten. Versuche die Seite neu zu laden, der Server könnte temporär überlastet sein.",
-        copyResults: "Ergebnisse kopieren",
-        copySuccess: "Daten als tsv in die Zwischenablage kopiert",
       },
-      copyPaste:{
-        copyTable: "Ergebnisse kopieren",
-        copyRow: "Postdetails kopieren",
-        success: "In die Zwischenablage kopiert als tsv",
+      copyPaste: {
+        copyTable: "Ergebnisse in die Zwischenablage kopieren",
+        copyRow: "Beitragsinfo kopieren",
+        success: "Als tsv in die Zwischenablage kopiert",
       },
       filter: {
         counter: {
-          title: "Claim Counter",
+          title: "Behauptungszähler",
           of: "von",
-          subtitle: "potenziell überprüfenswerten Beiträgen",
+          subtitle: "Beiträge, die als potenziell überprüfenswert gefiltert wurden",
         },
         daterange: {
           title: "Zeitraum auswählen",
@@ -345,8 +438,8 @@ export const textBits = {
           title: "Nach Attributen filtern",
           polarising: "Polarisierend",
           sensational: "Sensationalistisch",
-          highDiffusion: "Hohe Diffusion",
-          manyTwins: "Viele Siblings",
+          highDiffusion: "Hohe Verbreitung",
+          manyTwins: "Viele Geschwister",
         },
       },
       table: {
@@ -360,45 +453,14 @@ export const textBits = {
           reach: "Reichweite",
         },
         details: {
-          title: "Details zum Beitrag",
+          title: "Beitragsdetails",
           channel: "Kanal",
           members: "Mitglieder",
           link: "Link zum Beitrag",
           topic: "Thema",
           narrative: "Narrativ",
-          twins: "Verwandte Posts oder Kopien",
+          twins: "Geschwister oder Kopien",
         },
-      },
-    },
-    search: {
-      statusMessages: {
-        loading: "Lade Beiträge mit dem gleichen Narrativ …",
-        noData:
-          "Es scheint keine Beiträge zu geben, die der Suchanfrage entsprechen. Versuche, nach etwas anderem zu suchen.",
-        error:
-          "Fehler beim Laden der Daten. Versuche die Seite neu zu laden, der Server könnte temporär überlastet sein.",
-      },
-      input: {
-        title: "Suche nach einem Narrativ",
-        placeholder: "Suche nach einem Narrativ",
-      },
-      results: {
-        title: "Beiträge mit passendem Narrativ",
-        columns: {
-          date: "Datum",
-          channel: "Kanal",
-          link: "Link zum Beitrag",
-        },
-        initial:
-          "Bitte gib eine Suchphrase ein, um passende Beiträge zu finden.",
-      },
-      disclaimer: {
-        title: "Erklärung",
-        text: `Die Suchergebnisse sind Beiträge, die semantisch identisch mit dem Suchtext sind. Der Suchtext wird mit einer Datenbank von Telegram-Beiträgen abgeglichen. Das Matching basiert auf Vektoreinbettungen. Dies unterscheidet sich von einer Stichwortsuche, da keine exakten Wortübereinstimmungen erforderlich sind. Die Suchergebnisse können beispielsweise Synonyme oder Paraphrasen enthalten.
-        
-  **Beachte jedoch, dass diese Anwendung empfindlich auf kleine Änderungen reagiert.**
-
-  Selbst kleine Anpassungen im Suchtext können die Suchergebnisse beeinflussen. Es ist ratsam, mit einem Suchtext zu beginnen, der ähnliche Wörter und Satzstrukturen verwendet, wie du sie auf Telegram erwarten würdest. Wenn dieser Ansatz keine guten Ergebnisse liefert, füge kleine Änderungen zum Suchtext hinzu und arbeite dich vor.`,
       },
     },
     trends: {
@@ -448,18 +510,19 @@ export const textBits = {
         explanationPre:
           "Der obige Graph zeigt die vorherrschenden Narrative, d.h. Narrative, die mindestens einmal ",
         explanationPost: "% der täglichen Beiträge ausgemacht haben.",
-        explanationNumbers: "Insges. zeigt die Summe der Beiträge über den abgefragten Zeitraum. Tages-Max zeigt den Tageshöchstwert über den angefragten Zeitraum.",
+        explanationNumbers:
+          "Insges. zeigt die Summe der Beiträge über den abgefragten Zeitraum. Tages-Max zeigt den Tageshöchstwert über den angefragten Zeitraum.",
         exclude: {
           titleShow: "Narrative unter Schwellenwert anzeigen",
           titleHide: "Narrative unter Schwellenwert ausblenden",
           label: "Narrative unter Schwellenwert",
         },
-        columns:{
+        columns: {
           narrative: "Narrativ",
           trend: "Zeitliche Entwicklung",
           total: "Insges.",
           peak: "Tages-Max",
-        }
+        },
       },
     },
     topics: {
@@ -508,7 +571,7 @@ export const textBits = {
       Makroökonomie: "Makroökonomie",
       "Kein Thema": "Kein Thema",
       Sonstiges: "Sonstiges",
-      "Sozialstaat": "Sozialstaat",
+      Sozialstaat: "Sozialstaat",
       Technologie: "Technologie, Wissenschaft und Kommunikation",
       Transport: "Transport",
     },

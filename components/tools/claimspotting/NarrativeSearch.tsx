@@ -24,6 +24,11 @@ export const NarrativeSearchBar = ({
 }) => {
   const [inputValue, setInputValue] = useState(searchQuery);
 
+  useEffect(() => {
+    setInputValue(searchQuery);
+  }, [searchQuery]);
+
+
   // Update searchQuery when user stops typing
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -51,6 +56,60 @@ export const NarrativeSearchBar = ({
         query={inputValue}
       />
     </BoxLight>
+  );
+};
+
+export const LittleNarrativeSearchBar = ({
+  searchQuery,
+  setSearchQuery,
+  strings,
+}: {
+  searchQuery: string;
+  setSearchQuery: (searchQuery: string) => void;
+  strings: any;
+}) => {
+  const [inputValue, setInputValue] = useState(searchQuery);
+
+  // Update searchQuery when user stops typing
+  // useEffect(() => {
+  //   const timeout = setTimeout(() => {
+  //     setInputValue(inputValue);
+  //   }, 1000); // Adjust debounce delay (500ms)
+
+  //   return () => {
+  //     clearTimeout(timeout); // Clear timeout if user is still typing
+  //   };
+  // }, [inputValue]);
+
+  const handleInputChange = (value: string) => {
+    setInputValue(value); // Update input field value as user types
+  };
+
+  useEffect(() => {
+    setInputValue(searchQuery);
+  }, [searchQuery]);
+
+  return (
+    <Box className="searchInput">
+      <h2>{strings?.title}</h2>
+      <div className="littleForm">
+        <SearchForm
+          placeholder={strings?.placeholder}
+          onSubmit={(value: string) => setInputValue(value)}
+          onResetClick={() => setInputValue("")}
+          isError={false}
+          query={inputValue}
+          onChange={(value) => handleInputChange(value)}
+        />
+        <Button
+          onClick={() => setSearchQuery(inputValue)}
+          disabled={inputValue === ""}
+        >
+          {strings?.searchButton}
+        </Button>
+      </div>
+      <p>{strings?.description}</p>
+    </Box>
   );
 };
 
@@ -129,7 +188,12 @@ export const NarrativeSearchResults = ({
               grid="search"
             ></HeaderRow>
             {transformedRows.map((item: any, index: number) => (
-              <DataRow key={index} transformedRow={item} grid="search" row={item}/>
+              <DataRow
+                key={index}
+                transformedRow={item}
+                grid="search"
+                row={item}
+              />
             ))}
             {rows.length < data.length && (
               <LoadMore
@@ -168,17 +232,17 @@ export const SearchWrapper = styled.div`
   }
 
   .disclaimer {
-
     font-weight: 300;
     color: #fffc;
-    
+
     strong {
       font-weight: 600;
       opacity: 1;
       color: #fff;
     }
 
-    .explanation, h3 {
+    .explanation,
+    h3 {
       font-family: var(--font-family-monospace);
       font-size: var(--text-small-font-size);
       opacity: 0.6;
