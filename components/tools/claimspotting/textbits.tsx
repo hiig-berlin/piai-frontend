@@ -1,6 +1,7 @@
 import { table } from "console";
 import { title } from "process";
 import Trends from "~/pages/tool/claimspotting/trends";
+import { Search } from "../map/Search";
 
 export const textBits = {
   en: {
@@ -461,6 +462,36 @@ export const textBits = {
           narrative: "Narrativ",
           twins: "Geschwister oder Kopien",
         },
+      },
+    },
+    search: {
+      statusMessages: {
+        loading: "Lade semantisch identische Beiträge …",
+        noData:
+          "Es scheint keine Beiträge zu geben, die der Suchanfrage entsprechen. Versuche es mit einer anderen Suche.",
+        error:
+          "Fehler beim Laden der Daten. Versuche die Seite neu zu laden, der Server könnte temporär überlastet sein.",
+      },
+      input: {
+        title: "Suche nach semantisch identischen Texten",
+        placeholder: "Gib Suchtext ein, um Beiträge abzugleichen",
+      },
+      results: {
+        title: "Beiträge, die dem Suchtext entsprechen",
+        columns: {
+          date: "Datum",
+          channel: "Kanal",
+          link: "Link zum Beitrag",
+        },
+        initial: "Bitte gib eine Suchphrase ein, um passende Beiträge zu finden.",
+      },
+      disclaimer: {
+        title: "Bitte beachten",
+        text: `**Die Suchergebnisse sind Beiträge, die semantisch identisch mit dem Suchtext sind. Selbst geringfügige Anpassungen im Suchtext können die Suchergebnisse beeinflussen.**
+         
+  Es ist daher ratsam, mit einem Suchtext zu beginnen, der ähnliche Wörter und Satzstrukturen verwendet wie auf Telegram zu erwarten sind. Wenn dieser Ansatz keine guten Ergebnisse liefert, ändere den Suchtext und arbeite dich so vor.`,
+        subheadline: "Details zur Methode",
+        explanation: `Der Suchtext wird mit einer Datenbank von Telegram-Beiträgen abgeglichen. Das Matching basiert auf Vektoreinbettungen. Im Gegensatz zu einer Stichwortsuche erfordert dies keine exakten Wortübereinstimmungen. Die Suchergebnisse können beispielsweise Synonyme oder Paraphrasen enthalten.`,
       },
     },
     trends: {

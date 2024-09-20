@@ -106,14 +106,14 @@ export const loadClaimlistFromAPI = async (
   channels: string[],
   pagination: boolean = true
 ) => {
-  const params = {
-    start_date: startDate,
-    end_date: endDate,
-    factual: "true",
-    pagination: pagination.toString(),
-    page: page.toString(),
-    telegram_channels: "",
-  };
+
+  const params: Record<string, string> = {};
+  
+  params.start_date = startDate;
+  params.end_date = endDate;
+  params.factual = "true";
+  params.pagination = pagination.toString();
+  params.page = page.toString();
 
   // Parameters for the GET request
   if (channels.length > 0) params.telegram_channels = channels.toString();
