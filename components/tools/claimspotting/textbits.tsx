@@ -6,9 +6,9 @@ import { Search } from "../map/Search";
 export const textBits = {
   en: {
     header: {
-      title: "Claimspotting – Monitoring misinformation",
+      title: "Claimspotting",
       subtitle:
-        "A web-based tool that monitors potential misinformation on Telegram. It is designed to assist fact-checkers.",
+        "A web-based tool that helps fact-checkers analyse online content on the Telegram news platform.",
     },
     index: {
       statusMessages: {
@@ -19,7 +19,7 @@ export const textBits = {
       },
       about:{
         title: "About Claimspotting",
-        description: "Claimspotting is a monitoring application that supports fact-checkers in verifying online content on the Telegram news platform. The term ‘Claimspotting’ combines the English words ‘claim’ and ‘spotting’. It identifies claims that could potentially be misinformation.",
+        description: "This AI prototype recognises posts that have characteristics often associated with misinformation in research. It flags and categorises the content according to certain criteria. An overview of the categories, the Telegram channel and information on how to use Claimspotting can be found on the "About" page.",
         CTA: {
           url: "/tool/claimspotting/about",
           label: "Learn more",
@@ -265,7 +265,7 @@ export const textBits = {
         "A web-based tool that monitors potential misinformation on Telegram. It is designed to assist fact-checkers.",
       collaboration: {
         title: "Collaborate with Us",
-        text: "The goal of Claimspotting is to support fact-checkers. The design of the application is based on empirical research into their workflows and selection criteria. However, there is still much to learn, and we believe the application can always be improved. If you have any suggestions or encounter any issues, please feel free to contact us. Additionally, if you think we have missed any Telegram channels that should be monitored, do let us know!",
+        text: "The aim of Claimspotting is to support fact checkers. The design of the application is based on empirical research into their workflows and selection criteria. We want to study how our AI prototype is used in practice. We therefore invite Claimspotting users to collaborate with us. Your expertise will help us to improve our basic model and better understand how effectively the application supports fact-checkers in their daily work. If you have any suggestions or find any errors, please do not hesitate to contact us. Also, if you think we are missing some Telegram channels that should be included in the monitoring, please let us know!",
         url: "mailto:piai@hiig.de",
         label: "Write us an email",
       },
@@ -294,7 +294,7 @@ export const textBits = {
           },
           narratives: {
             title: "Narratives",
-            text: "By narratives, we mean typical misinformation narratives. We asked several fact-checkers which types of overarching narratives they frequently encounter. They provided us with a list of about 40 narratives. We condensed this list to about 20 narratives, as machine learning with 40 classes was too challenging. These narratives include statements like 'Immigrants are more criminal than Germans' or 'Electric cars are worse for the environment than combustion engine cars.' If a post supports one of these narratives, it is classified accordingly.",
+            text: "By narratives, we mean typical misinformation narratives. We asked several fact-checkers which types of overarching narratives they frequently encounter. They provided us with a list of about 40 narratives. We condensed this list to about 20 narratives, as machine learning with 40 classes was too challenging. These narratives include statements like 'Immigrants are more criminal than Germans' or 'Electric cars are worse for the environment than combustion engine cars.' If a post supports one of these narratives, it is classified accordingly. The narratives listed in Claimspotting are a snapshot in time. We plan to update them on a regular basis.",
           },
           polarisation: {
             title: "Polarising",
@@ -357,14 +357,14 @@ export const textBits = {
   },
   de: {
     header: {
-      title: "Claimspotting – Monitoring misinformation",
+      title: "Claimspotting",
       subtitle:
-        "Ein webbasiertes Tool, das potenzielle Fehlinformationen auf Telegram überwacht. Es ist dazu konzipiert, Faktenchecker:innen zu helfen.",
+        "Ein webbasiertes Tool das Faktenchecker:innen bei der Analyse von Online-Inhalten auf der Nachrichtenplattform Telegram unterstützt.",
     },
     index: {
       about:  {
         title: "Über Claimspotting",
-        description: "Claimspotting ist eine Überwachungsanwendung, die Faktenchecker:innen bei der Überprüfung von Online-Inhalten auf der Nachrichtenplattform Telegram unterstützt. Der Begriff „Claimspotting“ setzt sich aus den englischen Wörtern „claim“ und „spotting“ zusammen. Er bezieht sich auf das gezielte Erkennen von Behauptungen, die potenziell Fehlinformationen sein könnten.",
+        description: "Dieser KI-Prototyp erkennt Beiträge, die Merkmale aufweisen, die in der Forschung häufig mit Fehlinformationen in Verbindung gebracht werden. Er markiert und ordnet die Inhalte anhand bestimmter Kriterien. Eine Übersicht der Kategorien, der Telegram-Channel sowie Hinweise zur Nutzung von Claim Spotting finden Sie auf der „About“-Seite.",
         CTA: {
           url: "/tool/claimspotting/about",
           label: "Mehr erfahren",
@@ -608,10 +608,10 @@ export const textBits = {
     },
     about: {
       intro:
-        "Ein webbasiertes Tool, das potenzielle Fehlinformationen auf Telegram überwacht. Es ist dazu konzipiert, Faktenchecker:innenn zu helfen.",
+        "Ein webbasiertes Tool das Faktenchecker:innen bei der Analyse von Online-Inhalten auf der Nachrichtenplattform Telegram unterstützt.",
       collaboration: {
         title: "Arbeite mit uns zusammen",
-        text: "Das Ziel von Claimspotting ist es, Faktenchecker:innen zu unterstützen. Das Design der Anwendung basiert auf empirischer Forschung über deren Arbeitsabläufe und Auswahlkriterien. Es gibt jedoch noch viel zu lernen, und wir glauben, dass die Anwendung immer verbessert werden kann. Wenn Du Vorschläge hast oder auf Fehler stößt, nimm gerne Kontakt mit uns auf. Auch wenn Du denkst, dass wir einige Telegram-Kanäle verpasst haben, die in die Überwachung aufgenommen werden sollten, lass es uns bitte wissen!",
+        text: "Das Ziel von Claimspotting ist es, Faktenchecker:innen zu unterstützen. Das Design der Anwendung basiert auf empirischer Forschung über deren Arbeitsabläufe und Auswahlkriterien. Wir möchten untersuchen, wie unser KI-Prototyp in der Praxis eingesetzt wird. Daher laden wir die Nutzer:innen von Claimspotting ein, mit uns zusammenzuarbeiten. Durch eure Expertise können wir unser Basismodell weiter verbessern und besser verstehen, wie effektiv die Anwendung Faktenchecker:innen in ihrem Arbeitsalltag unterstützt. Wenn Du Vorschläge hast oder auf Fehler stößt, nimm gerne Kontakt mit uns auf. Auch wenn Du denkst, dass wir einige Telegram-Kanäle verpasst haben, die in die Überwachung aufgenommen werden sollten, lass es uns bitte wissen!",
         url: "mailto:piai@hiig.de",
         label: "Schreib uns eine Mail",
       },
@@ -640,7 +640,7 @@ export const textBits = {
           },
           narratives: {
             title: "Narrative",
-            text: "Mit Narrativen meinen wir typische Fehlinformationsnarrative. Wir haben mehrere Faktenchecker:innen gefragt, welche Arten von übergreifenden Narrativen sie häufig antreffen. Sie haben uns daraufhin eine Liste von etwa 40 Narrativen gegeben. Diese Liste haben wir auf etwa 20 Narrative kondensiert, da maschinelles Lernen mit 40 Klassen zu schwierig war. Zu diesen Narrativen gehören zum Beispiel Aussagen wie “Einwanderer sind krimineller als Deutsche” oder “Elektroautos sind schlechter für die Umwelt als Autos mit Verbrennungsmotor”. Wenn ein Beitrag eines dieser Narrative unterstützt, wird er entsprechend klassifiziert",
+            text: "Mit Narrativen meinen wir typische Fehlinformationsnarrative. Wir haben mehrere Faktenchecker:innen gefragt, welche Arten von übergreifenden Narrativen sie häufig antreffen. Sie haben uns daraufhin eine Liste von etwa 40 Narrativen gegeben. Diese Liste haben wir auf etwa 20 Narrative kondensiert, da maschinelles Lernen mit 40 Klassen zu schwierig war. Zu diesen Narrativen gehören zum Beispiel Aussagen wie “Einwanderer sind krimineller als Deutsche” oder “Elektroautos sind schlechter für die Umwelt als Autos mit Verbrennungsmotor”. Wenn ein Beitrag eines dieser Narrative unterstützt, wird er entsprechend klassifiziert. Die in Claimspotting aufgeführten Narrative stellen eine Momentaufnahme dar. Wir planen, sie regelmäßig zu aktualisieren.",
           },
           polarisation: {
             title: "Polarisierend",
