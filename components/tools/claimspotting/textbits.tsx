@@ -19,7 +19,7 @@ export const textBits = {
       },
       about:{
         title: "About Claimspotting",
-        description: "This AI prototype recognises posts that have characteristics often associated with misinformation in research. It flags and categorises the content according to certain criteria. An overview of the categories, the Telegram channel and information on how to use Claimspotting can be found on the "About" page.",
+        description: "This AI prototype recognises posts that have characteristics often associated with misinformation in research. It flags and categorises the content according to certain criteria. An overview of the categories, the Telegram channel and information on how to use Claimspotting can be found on the About page.",
         CTA: {
           url: "/tool/claimspotting/about",
           label: "Learn more",
@@ -364,7 +364,7 @@ export const textBits = {
     index: {
       about:  {
         title: "Über Claimspotting",
-        description: "Dieser KI-Prototyp erkennt Beiträge, die Merkmale aufweisen, die in der Forschung häufig mit Fehlinformationen in Verbindung gebracht werden. Er markiert und ordnet die Inhalte anhand bestimmter Kriterien. Eine Übersicht der Kategorien, der Telegram-Channel sowie Hinweise zur Nutzung von Claim Spotting finden Sie auf der „About“-Seite.",
+        description: "Dieser KI-Prototyp erkennt Beiträge, die Merkmale aufweisen, die in der Forschung häufig mit Fehlinformationen in Verbindung gebracht werden. Er markiert und ordnet die Inhalte anhand bestimmter Kriterien. Eine Übersicht der Kategorien, der Telegram-Channel sowie Hinweise zur Nutzung von Claim Spotting finden Sie auf der About-Seite.",
         CTA: {
           url: "/tool/claimspotting/about",
           label: "Mehr erfahren",
