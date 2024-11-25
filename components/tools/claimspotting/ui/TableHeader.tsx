@@ -9,20 +9,14 @@ import { ButtonNormalized } from "~/components/styled/Button";
 import { TableGrid } from "../Styled";
 import { narrow } from "../../map/Styled";
 
-export const HeaderRow: React.FC<HeaderRowProps> = ({ sortData, sort, strings }) => {
-  // give columns the type columnprops
-  const columns: ColumnProps[] = [
-    { label: strings.columns.date, slug: "Publishing_datetime", sortable: true },
-    { label: strings.columns.text, slug: "Text", sortable: true },
-    { label: strings.columns.channel, slug: "Channel_Name", sortable: true },
-    { label: strings.columns.topics, slug: "Topic", sortable: false },
-    { label: strings.columns.narrative, slug: "Narratives", sortable: true },
-    { label: strings.columns.attributes, slug: "Polarising", sortable: false },
-    { label: strings.columns.reach, slug: "Forwards", sortable: true },
-  ];
-
+export const HeaderRow: React.FC<HeaderRowProps> = ({
+  sortData,
+  sort,
+  columns,
+  grid,
+}) => {
   return (
-    <TableGrid>
+    <TableGrid grid={grid} header={true}>
       {columns.map(
         (
           {
@@ -50,10 +44,7 @@ const HeaderCell: React.FC<HeaderCellProps> = ({ column, sortData, sort }) => {
       {column?.sortable && (
         <ButtonNormalized onClick={() => sortData(column.slug)}>
           <h4>{column.label}</h4>
-          <SortArrow
-            active={sort.column === column?.slug}
-            order={sort.order}
-          />
+          <SortArrow active={sort.column === column?.slug} order={sort.order} />
         </ButtonNormalized>
       )}
       {!column?.sortable && <h4>{column?.label}</h4>}

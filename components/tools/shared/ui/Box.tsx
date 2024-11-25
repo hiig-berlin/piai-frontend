@@ -48,3 +48,7 @@ export const Box = ({
     </BoxWrapper>
   );
 };
+
+export const BoxLight = styled(Box)`
+  background: #434343;
+`;

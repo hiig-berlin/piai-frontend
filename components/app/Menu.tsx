@@ -47,7 +47,8 @@ const MenuContainer = styled.div.attrs((props: MenuContainerStyledProps) => ({
   transform: translateX(-105%);
   opacity: 0;
   transition: opacity ${ANIMATION_LENGTH}ms;
-  overflow: hidden;
+  overflow: visible;
+  height: 100%;
 
   & a {
     text-decoration: none;
@@ -195,10 +196,19 @@ const Column = styled.div<{ stretch?: boolean }>`
       flex-direction: column;
       padding: 0;
 
+      ${({ theme }) => theme.breakpoints.tabletLandscape} {
+        max-width: 80%;
+        flex-direction: row;
+        gap: var(--size-3);
+      }
+
       a {
         color: white;
-        font-size: 0.8em;
+        font-size: 0.75em;
         padding: 5px 0;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+        font-weight: bold;
       }
     }
   }
@@ -308,7 +318,6 @@ export const Menu = () => {
                   return (
                     <section key={`tool-${index}`} className="tool">
                       <Link href={`/tool/${tool.slug}`} key={`tool-${index}`}>
-
                         <LabElement
                           shortHandle={tool.iconShort}
                           longText={tool.iconLong}
@@ -317,7 +326,6 @@ export const Menu = () => {
                           size={1.6}
                         />
                         <span>{tool.name}</span>
-
                       </Link>
                       <nav>
                         {tool.menu.map((menuItem: any, i: number) => {
@@ -337,7 +345,8 @@ export const Menu = () => {
                             <Link
                               key={`tool-${index}-menu-${i}`}
                               href={`/tool/${tool.slug}/${menuItem.slug ?? ""}`}
-                              legacyBehavior>
+                              legacyBehavior
+                            >
                               {menuItem.name}
                             </Link>
                           );

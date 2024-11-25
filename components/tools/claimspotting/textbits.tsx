@@ -1,17 +1,76 @@
+import { table } from "console";
+import { title } from "process";
+import Trends from "~/pages/tool/claimspotting/trends";
+import { Search } from "../map/Search";
+
 export const textBits = {
   en: {
     header: {
-      title: "Claimspotting – Monitoring misinformation",
+      title: "Claimspotting",
       subtitle:
-        "A web-based tool that monitors potential misinformation on Telegram. It is designed to assist fact-checkers.",
+        "A web-based tool that helps fact-checkers analyse online content on the Telegram news platform.",
     },
     index: {
+      statusMessages: {
+        loading: "Loading data…",
+        noData: "No data available.",
+        error:
+          "Error loading data. Try to refresh the page, the server might be tempoarily at capacity.",
+      },
+      about:{
+        title: "About Claimspotting",
+        description: "This AI prototype recognises posts that have characteristics often associated with misinformation in research. It flags and categorises the content according to certain criteria. An overview of the categories, the Telegram channel and information on how to use Claimspotting can be found on the About page.",
+        CTA: {
+          url: "/tool/claimspotting/about",
+          label: "Learn more",
+        },
+      },
+      search: {
+        title: "Search for matching claims",
+        placeholder: "Insert a statment to match posts against…",
+        searchButton: "Search",
+        description: "Search for posts that are semantically identical to the query text. Even minor adjustments in the query text can impact the search results.",
+      },
+      table: {
+        title: "Recent posts from neuesausrussland",
+        CTA: {
+          url: "/tool/claimspotting/list",
+          label: "Explore all posts",
+        },
+        explanation:
+          "The table below shows the most recent posts that have been flagged as potentially checkworthy.",
+        columns: {
+          date: "Date",
+          text: "Text",
+          topics: "Topic",
+          attributes: "Attributes",
+        },
+      },
+      trends: {
+        title: "Trending topics",
+        CTA: {
+          url: "/tool/claimspotting/trends",
+          label: "Explore all trends",
+        },
+        explanation: "The above graph shows last week’s prevailing topics.",
+        exclude: {
+          title: "Excluded topics",
+          label: "Topics below threshold",
+        },
+      },
+    },
+    list: {
       statusMessages: {
         loadingPre: "Loading page",
         loadingPost: "of the claim list …",
         noData: "No data available",
         error:
           "Error loading data. Try to refresh the page, the server might be tempoarily at capacity.",
+      },
+      copyPaste: {
+        copyTable: "Copy results to clipboard",
+        copyRow: "Copy post info",
+        success: "Copied to clipboard as tsv",
       },
       filter: {
         counter: {
@@ -60,12 +119,153 @@ export const textBits = {
         },
       },
     },
+    search: {
+      statusMessages: {
+        loading: "Loading semantically identical posts …",
+        noData:
+          "No posts seem to match the search query. Try searching for something else.",
+        error:
+          "Error loading data. Try to refresh the page, the server might be tempoarily at capacity.",
+      },
+      input: {
+        title: "Search for semantically identical texts",
+        placeholder: "Enter query text to match against",
+      },
+      results: {
+        title: "Posts that match the query text",
+        columns: {
+          date: "Date",
+          channel: "Channel",
+          link: "Link to post",
+        },
+        initial: "Please enter a search phrase to find matching posts.",
+      },
+      disclaimer: {
+        title: "Please note",
+        text: `**The search results are posts that are semantically identical to the query text. Even minor adjustments in the query text can impact the search results.**
+  
+ It is therefore a good idea to start with a query text that uses similar words and sentence structures as what you would expect on Telegram. If this approach does not deliver good results, alter the query text and work your way up.`,
+
+        subheadline: "Details on the method",
+        explanation: `The query text is matched against a database of Telegram posts. The matching is based on vector embeddings. This is different from a keyword search in that it does not require exact word matches. The search results can, for example, contain synonyms or paraphrases. `,
+      },
+    },
+    trends: {
+      statusMessages: {
+        loading: "Loading data…",
+        noData: "No data available",
+        error:
+          "Error loading data. Try to refresh the page, the server might be tempoarily at capacity.",
+      },
+      filter: {
+        daterange: {
+          title: "Select date range",
+          lastDays: "Last 3 days",
+          lastWeek: "Last week",
+          lastMonth: "Last month",
+        },
+        threshold: {
+          title: "Select threshold",
+          subtitle: "Minimum percentage of posts to be considered trending",
+        },
+        channels: {
+          title: "Select channels",
+          subtitle:
+            "Select channels to include in the trending topics. If nothing is selected, all channels are included.",
+          selectChannels: "Select channels",
+          allChannels: "All channels",
+        },
+      },
+      trendingTopics: {
+        title: "Trending Topics",
+        explanationPre:
+          "The above graph shows the prevailing topics, meaning that they have at least once exceeded the threshold of ",
+        explanationPost: "% in the respective period.",
+        exclude: {
+          title: "Excluded topics",
+          label: "Topics below threshold",
+        },
+        tooltip: {
+          title: "Number of posts published on",
+          total: "Total posts on that date",
+        },
+      },
+      trendingNarrratives: {
+        title: "Trending Narratives",
+        explanationPre:
+          "The above table shows the prevailing narratives, meaning that they have at least once made up ",
+        explanationPost: "% of that days total posts.",
+        explanationNumbers:
+          "Total shows the sum of posts over the queried time span. Peak is the highest number of posts on a single day.",
+        exclude: {
+          titleShow: "Show excluded narratives",
+          titleHide: "Hide excluded narratives",
+          label: "Narratives below threshold",
+        },
+        columns: {
+          narrative: "Narrative",
+          trend: "Trend",
+          total: "Total",
+          peak: "Peak",
+        },
+      },
+    },
+    topics: {
+      Agriculture: "Agriculture",
+      "Civil Rights": "Civil Right",
+      Culture: "Culture",
+      Defense: "Defense",
+      "Domestic Commerce": "Domestic Commerce",
+      Education: "Education",
+      Energy: "Energy",
+      Environment: "Environment",
+      "European Union": "European Union",
+      "Foreign Trade": "Foreign Trade",
+      "Government Operations": "Government Operations",
+      Health: "Health",
+      Housing: "Housing",
+      Immigration: "Immigration",
+      "International Affairs": "International Affairs",
+      Labor: "Labor",
+      "Law and Crime": "Law and Crime",
+      Macroeconomics: "Macroeconomics",
+      "Non-thematic": "Non-thematic",
+      Other: "Other",
+      "Social Welfare": "Social Welfare",
+      Technology: "Technology",
+      Transportation: "Transportation",
+    },
+    topics_DE: {
+      Landwirtschaft: "Agriculture",
+      Bürgerrechte: "Civil Right",
+      Kultur: "Culture",
+      Verteidigung: "Defense",
+      Binnenhandel: "Domestic Commerce",
+      Bildung: "Education",
+      Energie: "Energy",
+      Umwelt: "Environment",
+      "Europäische Union": "European Union",
+      Außenhandel: "Foreign Trade",
+      Staatsbetrieb: "Government Operations",
+      Gesundheit: "Health",
+      Wohnungswesen: "Housing",
+      "Migration und Integration": "Immigration",
+      "Internationale Angelegenheiten": "International Affairs",
+      "Arbeit und Beschäftigung": "Labor",
+      "Recht und Kriminalität": "Law and Crime",
+      Makroökonomie: "Macroeconomics",
+      "Kein Thema": "Non-thematic",
+      Sonstiges: "Other",
+      Sozialstaat: "Social Welfare",
+      Technologie: "Technology",
+      Transport: "Transportation",
+    },
     about: {
       intro:
         "A web-based tool that monitors potential misinformation on Telegram. It is designed to assist fact-checkers.",
       collaboration: {
         title: "Collaborate with Us",
-        text: "The goal of Claimspotting is to support fact-checkers. The design of the application is based on empirical research into their workflows and selection criteria. However, there is still much to learn, and we believe the application can always be improved. If you have any suggestions or encounter any issues, please feel free to contact us. Additionally, if you think we have missed any Telegram channels that should be monitored, do let us know!",
+        text: "The aim of Claimspotting is to support fact checkers. The design of the application is based on empirical research into their workflows and selection criteria. We want to study how our AI prototype is used in practice. We therefore invite Claimspotting users to collaborate with us. Your expertise will help us to improve our basic model and better understand how effectively the application supports fact-checkers in their daily work. If you have any suggestions or find any errors, please do not hesitate to contact us. Also, if you think we are missing some Telegram channels that should be included in the monitoring, please let us know!",
         url: "mailto:piai@hiig.de",
         label: "Write us an email",
       },
@@ -94,7 +294,7 @@ export const textBits = {
           },
           narratives: {
             title: "Narratives",
-            text: "By narratives, we mean typical misinformation narratives. We asked several fact-checkers which types of overarching narratives they frequently encounter. They provided us with a list of about 40 narratives. We condensed this list to about 20 narratives, as machine learning with 40 classes was too challenging. These narratives include statements like 'Immigrants are more criminal than Germans' or 'Electric cars are worse for the environment than combustion engine cars.' If a post supports one of these narratives, it is classified accordingly.",
+            text: "By narratives, we mean typical misinformation narratives. We asked several fact-checkers which types of overarching narratives they frequently encounter. They provided us with a list of about 40 narratives. We condensed this list to about 20 narratives, as machine learning with 40 classes was too challenging. These narratives include statements like 'Immigrants are more criminal than Germans' or 'Electric cars are worse for the environment than combustion engine cars.' If a post supports one of these narratives, it is classified accordingly. The narratives listed in Claimspotting are a snapshot in time. We plan to update them on a regular basis.",
           },
           polarisation: {
             title: "Polarising",
@@ -157,23 +357,71 @@ export const textBits = {
   },
   de: {
     header: {
-      title: "Claimspotting – Monitoring misinformation",
+      title: "Claimspotting",
       subtitle:
-        "Ein webbasiertes Tool, das potenzielle Fehlinformationen auf Telegram überwacht. Es ist dazu konzipiert, Faktenchecker:innen zu helfen.",
+        "Ein webbasiertes Tool das Faktenchecker:innen bei der Analyse von Online-Inhalten auf der Nachrichtenplattform Telegram unterstützt.",
     },
     index: {
+      about:  {
+        title: "Über Claimspotting",
+        description: "Dieser KI-Prototyp erkennt Beiträge, die Merkmale aufweisen, die in der Forschung häufig mit Fehlinformationen in Verbindung gebracht werden. Er markiert und ordnet die Inhalte anhand bestimmter Kriterien. Eine Übersicht der Kategorien, der Telegram-Channel sowie Hinweise zur Nutzung von Claim Spotting finden Sie auf der About-Seite.",
+        CTA: {
+          url: "/tool/claimspotting/about",
+          label: "Mehr erfahren",
+        },
+      },
+      search: {
+        title: "Suche nach passenden Behauptungen",
+        placeholder: "Gib eine Behauptung ein, um Beiträge abzugleichen…",
+        searchButton: "Suchen",
+        description: "Suche nach Beiträgen, die semantisch identisch mit dem Suchtext sind. Selbst geringfügige Anpassungen im Suchtext können die Suchergebnisse beeinflussen.",
+      },
+      table: {
+        title: "Neueste Beiträge von neuesausrussland",
+        CTA: {
+          url: "/tool/claimspotting/list",
+          label: "Alle Beiträge erkunden",
+        },
+        explanation:
+          "Die Tabelle unten zeigt die neuesten Beiträge, die als potenziell überprüfenswert markiert wurden.",
+        columns: {
+          date: "Datum",
+          text: "Text",
+          topics: "Thema",
+          attributes: "Attribute",
+        },
+      },
+      trends: {
+        title: "Bestimmende Themen",
+        CTA: {
+          url: "/tool/claimspotting/trends",
+          label: "Alle Trends erkunden",
+        },
+        explanation: "Der obige Graph zeigt die vorherrschenden Themen der letzten Woche.",
+        exclude: {
+          title: "Ausgeblendete Themen",
+          label: "Themen unter Schwellenwert",
+        },
+      },
+    },
+    list: {
       statusMessages: {
         loadingPre: "Lade Seite",
-        loadingPost: "der gesamten Claim-Liste …",
+        loadingPost: "der Beitragsliste …",
         noData: "Keine Daten verfügbar",
         error:
           "Fehler beim Laden der Daten. Versuche die Seite neu zu laden, der Server könnte temporär überlastet sein.",
       },
+      copyPaste: {
+        copyTable: "Ergebnisse in die Zwischenablage kopieren",
+        copyRow: "Beitragsinfo kopieren",
+        success: "Als tsv in die Zwischenablage kopiert",
+      },
       filter: {
         counter: {
-          title: "Claim Counter",
+          title: "Behauptungszähler",
           of: "von",
-          subtitle: "potenziell überprüfenswerten Beiträgen",
+          subtitle: "Beiträge, die als potenziell überprüfenswert gefiltert wurden",
         },
         daterange: {
           title: "Zeitraum auswählen",
@@ -191,8 +439,8 @@ export const textBits = {
           title: "Nach Attributen filtern",
           polarising: "Polarisierend",
           sensational: "Sensationalistisch",
-          highDiffusion: "Hohe Diffusion",
-          manyTwins: "Viele Siblings",
+          highDiffusion: "Hohe Verbreitung",
+          manyTwins: "Viele Geschwister",
         },
       },
       table: {
@@ -206,22 +454,164 @@ export const textBits = {
           reach: "Reichweite",
         },
         details: {
-          title: "Details zum Beitrag",
+          title: "Beitragsdetails",
           channel: "Kanal",
           members: "Mitglieder",
           link: "Link zum Beitrag",
           topic: "Thema",
           narrative: "Narrativ",
-          twins: "Verwandte Posts oder Kopien",
+          twins: "Geschwister oder Kopien",
         },
       },
     },
+    search: {
+      statusMessages: {
+        loading: "Lade semantisch identische Beiträge …",
+        noData:
+          "Es scheint keine Beiträge zu geben, die der Suchanfrage entsprechen. Versuche es mit einer anderen Suche.",
+        error:
+          "Fehler beim Laden der Daten. Versuche die Seite neu zu laden, der Server könnte temporär überlastet sein.",
+      },
+      input: {
+        title: "Suche nach semantisch identischen Texten",
+        placeholder: "Gib Suchtext ein, um Beiträge abzugleichen",
+      },
+      results: {
+        title: "Beiträge, die dem Suchtext entsprechen",
+        columns: {
+          date: "Datum",
+          channel: "Kanal",
+          link: "Link zum Beitrag",
+        },
+        initial: "Bitte gib eine Suchphrase ein, um passende Beiträge zu finden.",
+      },
+      disclaimer: {
+        title: "Bitte beachten",
+        text: `**Die Suchergebnisse sind Beiträge, die semantisch identisch mit dem Suchtext sind. Selbst geringfügige Anpassungen im Suchtext können die Suchergebnisse beeinflussen.**
+         
+  Es ist daher ratsam, mit einem Suchtext zu beginnen, der ähnliche Wörter und Satzstrukturen verwendet wie auf Telegram zu erwarten sind. Wenn dieser Ansatz keine guten Ergebnisse liefert, ändere den Suchtext und arbeite dich so vor.`,
+        subheadline: "Details zur Methode",
+        explanation: `Der Suchtext wird mit einer Datenbank von Telegram-Beiträgen abgeglichen. Das Matching basiert auf Vektoreinbettungen. Im Gegensatz zu einer Stichwortsuche erfordert dies keine exakten Wortübereinstimmungen. Die Suchergebnisse können beispielsweise Synonyme oder Paraphrasen enthalten.`,
+      },
+    },
+    trends: {
+      statusMessages: {
+        loading: "Lade Statistiken …",
+        noData:
+          "Es scheint keine Beiträge zu geben, die der Suchanfrage entsprechen.",
+        error:
+          "Fehler beim Laden der Daten. Versuche die Seite neu zu laden, der Server könnte temporär überlastet sein.",
+      },
+      filter: {
+        daterange: {
+          title: "Zeitraum auswählen",
+          lastDays: "Letzte 3 Tage",
+          lastWeek: "Letzte Woche",
+          lastMonth: "Letzter Monat",
+        },
+        threshold: {
+          title: "Schwellenwert auswählen",
+          subtitle:
+            "Mindestprozentsatz an Beiträgen, um als Trending zu gelten",
+        },
+        channels: {
+          title: "Kanäle auswählen",
+          subtitle:
+            "Wähle Kanäle aus, die in den Trending-Themen enthalten sein sollen. Wenn nichts ausgewählt ist, sind alle Kanäle enthalten.",
+          selectChannels: "Kanäle auswählen",
+          allChannels: "Alle Kanäle",
+        },
+      },
+      trendingTopics: {
+        title: "Bestimmende Themen",
+        explanationPre:
+          "Der obige Graph zeigt die vorherrschenden Themen, d.h. Themen, die mindestens einmal den Schwellenwert von ",
+        explanationPost: "% im jeweiligen Zeitraum überschritten haben.",
+        exclude: {
+          title: "Ausgeblendete Themen",
+          label: "Themen unter Schwellenwert",
+        },
+        tooltip: {
+          title: "Anzahl der veröffentlichten Beiträge am",
+          total: "Gesamtanzahl der Beiträge an diesem Tag",
+        },
+      },
+      trendingNarrratives: {
+        title: "Bestimmende Narrative",
+        explanationPre:
+          "Der obige Graph zeigt die vorherrschenden Narrative, d.h. Narrative, die mindestens einmal ",
+        explanationPost: "% der täglichen Beiträge ausgemacht haben.",
+        explanationNumbers:
+          "Insges. zeigt die Summe der Beiträge über den abgefragten Zeitraum. Tages-Max zeigt den Tageshöchstwert über den angefragten Zeitraum.",
+        exclude: {
+          titleShow: "Narrative unter Schwellenwert anzeigen",
+          titleHide: "Narrative unter Schwellenwert ausblenden",
+          label: "Narrative unter Schwellenwert",
+        },
+        columns: {
+          narrative: "Narrativ",
+          trend: "Zeitliche Entwicklung",
+          total: "Insges.",
+          peak: "Tages-Max",
+        },
+      },
+    },
+    topics: {
+      Agriculture: "Landwirtschaft",
+      "Civil Rights": "Bürgerrechte",
+      Culture: "Kultur",
+      Defense: "Verteidigung",
+      "Domestic Commerce": "Binnenhandel",
+      Education: "Bildung",
+      Energy: "Energie",
+      Environment: "Umwelt",
+      "European Union": "Europäische Union",
+      "Foreign Trade": "Außenhandel",
+      "Government Operations": "Staatsbetrieb",
+      Health: "Gesundheit",
+      Housing: "Wohnungswesen",
+      Immigration: "Migration und Integration",
+      "International Affairs": "Internationale Angelegenheiten",
+      Labor: "Arbeit und Beschäftigung",
+      "Law and Crime": "Recht und Kriminalität",
+      Macroeconomics: "Makroökonomie",
+      "Non-thematic": "Kein Thema",
+      Other: "Sonstiges",
+      "Social Welfare": "Sozialstaat",
+      Technology: "Technologie, Wissenschaft und Kommunikation",
+      Transportation: "Transport",
+    },
+    topics_DE: {
+      Landwirtschaft: "Landwirtschaft",
+      Bürgerrechte: "Bürgerrechte",
+      Kultur: "Kultur",
+      Verteidigung: "Verteidigung",
+      Binnenhandel: "Binnenhandel",
+      Bildung: "Bildung",
+      Energie: "Energie",
+      Umwelt: "Umwelt",
+      "Europäische Union": "Europäische Union",
+      Außenhandel: "Außenhandel",
+      Staatsbetrieb: "Staatsbetrieb",
+      Gesundheit: "Gesundheit",
+      Wohnungswesen: "Wohnungswesen",
+      "Migration und Integration": "Migration und Integration",
+      "Internationale Angelegenheiten": "Internationale Angelegenheiten",
+      "Arbeit und Beschäftigung": "Arbeit und Beschäftigung",
+      "Recht und Kriminalität": "Recht und Kriminalität",
+      Makroökonomie: "Makroökonomie",
+      "Kein Thema": "Kein Thema",
+      Sonstiges: "Sonstiges",
+      Sozialstaat: "Sozialstaat",
+      Technologie: "Technologie, Wissenschaft und Kommunikation",
+      Transport: "Transport",
+    },
     about: {
       intro:
-        "Ein webbasiertes Tool, das potenzielle Fehlinformationen auf Telegram überwacht. Es ist dazu konzipiert, Faktenchecker:innenn zu helfen.",
+        "Ein webbasiertes Tool das Faktenchecker:innen bei der Analyse von Online-Inhalten auf der Nachrichtenplattform Telegram unterstützt.",
       collaboration: {
         title: "Arbeite mit uns zusammen",
-        text: "Das Ziel von Claimspotting ist es, Faktenchecker:innen zu unterstützen. Das Design der Anwendung basiert auf empirischer Forschung über deren Arbeitsabläufe und Auswahlkriterien. Es gibt jedoch noch viel zu lernen, und wir glauben, dass die Anwendung immer verbessert werden kann. Wenn Du Vorschläge hast oder auf Fehler stößt, nimm gerne Kontakt mit uns auf. Auch wenn Du denkst, dass wir einige Telegram-Kanäle verpasst haben, die in die Überwachung aufgenommen werden sollten, lass es uns bitte wissen!",
+        text: "Das Ziel von Claimspotting ist es, Faktenchecker:innen zu unterstützen. Das Design der Anwendung basiert auf empirischer Forschung über deren Arbeitsabläufe und Auswahlkriterien. Wir möchten untersuchen, wie unser KI-Prototyp in der Praxis eingesetzt wird. Daher laden wir die Nutzer:innen von Claimspotting ein, mit uns zusammenzuarbeiten. Durch eure Expertise können wir unser Basismodell weiter verbessern und besser verstehen, wie effektiv die Anwendung Faktenchecker:innen in ihrem Arbeitsalltag unterstützt. Wenn Du Vorschläge hast oder auf Fehler stößt, nimm gerne Kontakt mit uns auf. Auch wenn Du denkst, dass wir einige Telegram-Kanäle verpasst haben, die in die Überwachung aufgenommen werden sollten, lass es uns bitte wissen!",
         url: "mailto:piai@hiig.de",
         label: "Schreib uns eine Mail",
       },
@@ -250,7 +640,7 @@ export const textBits = {
           },
           narratives: {
             title: "Narrative",
-            text: "Mit Narrativen meinen wir typische Fehlinformationsnarrative. Wir haben mehrere Faktenchecker:innen gefragt, welche Arten von übergreifenden Narrativen sie häufig antreffen. Sie haben uns daraufhin eine Liste von etwa 40 Narrativen gegeben. Diese Liste haben wir auf etwa 20 Narrative kondensiert, da maschinelles Lernen mit 40 Klassen zu schwierig war. Zu diesen Narrativen gehören zum Beispiel Aussagen wie “Einwanderer sind krimineller als Deutsche” oder “Elektroautos sind schlechter für die Umwelt als Autos mit Verbrennungsmotor”. Wenn ein Beitrag eines dieser Narrative unterstützt, wird er entsprechend klassifiziert",
+            text: "Mit Narrativen meinen wir typische Fehlinformationsnarrative. Wir haben mehrere Faktenchecker:innen gefragt, welche Arten von übergreifenden Narrativen sie häufig antreffen. Sie haben uns daraufhin eine Liste von etwa 40 Narrativen gegeben. Diese Liste haben wir auf etwa 20 Narrative kondensiert, da maschinelles Lernen mit 40 Klassen zu schwierig war. Zu diesen Narrativen gehören zum Beispiel Aussagen wie “Einwanderer sind krimineller als Deutsche” oder “Elektroautos sind schlechter für die Umwelt als Autos mit Verbrennungsmotor”. Wenn ein Beitrag eines dieser Narrative unterstützt, wird er entsprechend klassifiziert. Die in Claimspotting aufgeführten Narrative stellen eine Momentaufnahme dar. Wir planen, sie regelmäßig zu aktualisieren.",
           },
           polarisation: {
             title: "Polarisierend",

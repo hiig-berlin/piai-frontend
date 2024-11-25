@@ -1,3 +1,4 @@
+import { ReactComponentElement } from "react";
 
 
 export interface HeaderCellProps {
@@ -24,6 +25,14 @@ export interface DataRowProps {
   Many_Siblings: number;
 }
 
+export interface NarrativeRowProps {
+  narrative: string;
+  trend: ReactComponentElement<any>;
+  total: number | string;
+  peak: number | string;
+}
+
+
 export interface ClaimTableProps {
   data: DataRowProps[];
   setFilterState: React.Dispatch<React.SetStateAction<FilterStateProps>>;
@@ -37,7 +46,8 @@ export interface SortState {
 export interface HeaderRowProps {
   sortData: (column: string) => void;
   sort: SortState;
-  strings: any;
+  columns: ColumnProps[];
+  grid: string;
 }
 
 
@@ -47,9 +57,22 @@ export interface SortArrowProps {
 }
 
 export interface DataRowComponentProps {
-  row: DataRowProps;
-  setFilterState: React.Dispatch<React.SetStateAction<FilterStateProps>>;
-  strings: any;
+  row?: DataRowProps | NarrativeRowProps;
+  transformedRow?: TransformedRowProps;
+  strings?: any;
+  showDetails?: boolean;
+  grid: string;
+  copyLabels?: any;
+}
+
+export interface TransformedRowProps {
+  date: string;
+  text: string;
+  channel?: string;
+  topic: any;
+  narrative?: string;
+  attributes: any;
+  reach: any;
 }
 
 export interface ColumnProps {
@@ -79,4 +102,5 @@ export interface DetailProps {
   row: DataRowProps;
   strings: any;
   handleClose: () => void;
+  copyLabels: any;
 }

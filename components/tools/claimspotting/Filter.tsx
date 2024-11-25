@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import moment from "moment";
-import { Box } from "../shared/ui/Box";
-import { Dropdown } from "./ui/FormElements";
-import { BoxHighlight } from "./Styled";
+import { BoxHighlight } from "~/components/tools/claimspotting/Styled";
+import { BoxLight } from "~/components/tools/shared/ui/Box";
+import { Dropdown } from "~/components/tools/claimspotting/ui/FormElements";
 
 import {
   Checkbox,
@@ -36,6 +36,7 @@ const Filter = ({
   filterState,
   setFilterState,
   strings,
+  topicLabels,
 }: {
   data: any[];
   onFilterChange: (filteredData: any[]) => void;
@@ -44,12 +45,28 @@ const Filter = ({
   filterState: FilterStateProps;
   setFilterState: React.Dispatch<React.SetStateAction<FilterStateProps>>;
   strings: any;
+  topicLabels: any;
 }) => {
-  // Generate unique topics and narratives only when data changes
-  const uniqueTopics = React.useMemo(
-    () => Array.from(new Set(data.flatMap((item: any) => item.Topic))),
-    [data]
-  );
+
+  const [uniqueTopics, setUniqueTopics] = useState<string[]>([]);
+
+  useEffect(() => {
+    // Translate topics and store them in a set for uniqueness
+    const topicsSet = Array.from(
+      new Set(data.flatMap((item: any) => topicLabels[item.Topic] ||  item.Topic as string))
+    );
+    // console.log("Topics set:", topicsSet); // Debugging statement
+    // setUniqueTopics(topicsSet);
+
+    // Convert set to array and sort alphabetically based on German locale
+    const sortedTopics = Array.from(topicsSet).sort((a, b) =>
+      a.localeCompare(b, "de")
+    );
+    // console.log("Sorted topics:", sortedTopics); // Debugging statement
+
+    setUniqueTopics(sortedTopics);
+  }, [data, strings, topicLabels]);
+
   const uniqueNarratives = React.useMemo(
     () => Array.from(new Set(data.map((item: any) => item.Narratives))),
     [data]
@@ -71,7 +88,10 @@ const Filter = ({
   const getDateRange = (range: "days" | "week" | "month") => {
     const endDate = moment().format("YYYY-MM-DD");
     const startDate = moment()
-      .subtract(range === "week" ? 7 : range === "days" ? 3 : 1, range === "week" || "days" ? "days" : "months")
+      .subtract(
+        range === "week" ? 7 : range === "days" ? 3 : 1,
+        range === "week" || "days" ? "days" : "months"
+      )
       .format("YYYY-MM-DD");
     // console.log("Date range:", { startDate, endDate }); // Debugging statement
     return { startDate, endDate };
@@ -158,7 +178,7 @@ const Filter = ({
         : true;
 
       const matchesTopics = filterState.topics.length
-        ? filterState.topics.some((topic) => item.Topic.includes(topic))
+        ? filterState.topics.some((topic) => topic === topicLabels[item.Topic])
         : true;
 
       const matchesAttributes = Object.keys(filterState.attributes).every(
@@ -184,7 +204,7 @@ const Filter = ({
 
     // console.log("Filtered data:", filteredData, "from all data:", data); // Debugging statement
     onFilterChange(filteredData);
-  }, [filterState, data, onFilterChange]);
+  }, [filterState, data, onFilterChange, topicLabels]);
 
   return (
     <FilterWrapper>
@@ -249,7 +269,7 @@ const Filter = ({
         </div>
       </DateFilter>
 
-      <Box>
+      <TopicsFilter>
         <h2>{strings?.topics?.title}</h2>
         <AttributeSelector
           label={strings?.topics?.selectTopic}
@@ -282,7 +302,7 @@ const Filter = ({
             </option>
           ))}
         </Dropdown>
-      </Box>
+      </TopicsFilter>
 
       <AttributeFilter>
         <h2>{strings?.attributes?.title}</h2>
@@ -380,7 +400,7 @@ const Counter = styled(BoxHighlight)`
   }
 `;
 
-const DateFilter = styled(Box)`
+const DateFilter = styled(BoxLight)`
   .range {
     display: flex;
     flex-direction: row;
@@ -388,7 +408,9 @@ const DateFilter = styled(Box)`
   }
 `;
 
-const AttributeFilter = styled(Box)`
+const TopicsFilter = styled(BoxLight)``;
+
+const AttributeFilter = styled(BoxLight)`
   div {
     // font-family: var(--font-family-narrow);
     display: grid;

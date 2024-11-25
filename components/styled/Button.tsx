@@ -6,10 +6,10 @@ export const ButtonNormalized = styled.button`
   cursor: pointer;
   padding: 0;
   margin: 0;
-  position: relative;
+  // position: relative;
   appearance: none;
   user-select: none;
-  color: #000;
+  // color: #000;
 `;
 
 
@@ -49,9 +49,14 @@ const animated = css`
   }
 `
 
-export const Button = styled(ButtonNormalized)`
+export const Button = styled(ButtonNormalized)<{disabled?: boolean}>`
   ${baseStyling}
   ${animated}
+  
+  ${({ disabled }) => disabled && css`
+    pointer-events: none;
+    opacity: 0.5;
+  `}
 `;
 
 export const LinkButton = styled.a`

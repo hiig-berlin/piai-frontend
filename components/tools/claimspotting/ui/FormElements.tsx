@@ -5,13 +5,13 @@ export const InputText = styled.input`
   border: solid #fff;
   border-width: 0 0 1px 0;
   width: 100%;
-  background: #000;
+  background: inherit;
   color: #fff;
 `;
 
 export const Checkbox = styled.input`
   border: 1px solid #fff;
-  background-color: #000;
+  background-color: inherit;
   appearance: none;
   margin: 0;
   padding: 0;
@@ -33,7 +33,7 @@ export const Checkbox = styled.input`
     height: calc(100% - 2px);
     top: 1px;
     left: 1px;
-    background-color: #000;
+    background-color: inherit;
   }
 
   &:checked {
@@ -47,7 +47,7 @@ export const Dropdown = styled.select`
   width: 100%;
   padding: 0 0 var(--size-1);
   appearance: none;
-  background: #000;
+  background: inherit;
   border: 1px solid #fff;
   border-width: 0 0 1px 0;
   color: #fff;

@@ -25,7 +25,6 @@ import Svgclean from "~/components/svgs/Svgclean";
 import Svgstructure from "~/components/svgs/Svgstructure";
 import Svgcopy from "~/components/svgs/Svgcopy";
 
-
 // Energy
 import SvgCPU from "~/components/svgs/SvgCPU";
 import SvgGPU from "~/components/svgs/SvgGPU";
@@ -57,7 +56,6 @@ import Svgsimplifier from "~/components/svgs/Svgsimplifier";
 import Svgplugin from "~/components/svgs/Svgplugin";
 import SvgSimplifierScreenshot from "~/components/svgs/SvgSimplifierScreenshot";
 
-
 // Claimspotting
 import Svgdown from "~/components/svgs/Svgdown";
 import Svgpoles from "~/components/svgs/Svgpoles";
@@ -66,6 +64,9 @@ import Svgsort from "~/components/svgs/Svgsort";
 import Svgview from "~/components/svgs/Svgview";
 import SvgGroup from "~/components/svgs/SvgGroup";
 import SvgChannel from "~/components/svgs/SvgChannel";
+import Svgwarning from "~/components/svgs/Svgwarning";
+import Svgreload from "~/components/svgs/Svgreload";
+import Svgtrend from "~/components/svgs/Svgtrend";
 
 // use https://jakearchibald.github.io/svgomg/
 // use https://yoksel.github.io/url-encoder/
@@ -246,8 +247,8 @@ export const ToolSvgBackground = ({
       activeSvg = Svgscribble;
       break;
 
-    // Simba 
-    
+    // Simba
+
     case "firefox":
       activeSvg = Svgfirefox;
       break;
@@ -319,7 +320,7 @@ export const ToolSvgBackground = ({
     case "copy":
       activeSvg = Svgcopy;
       break;
-      
+
     case "screenshotSimplifier":
       activeSvg = SvgSimplifierScreenshot;
       break;
@@ -327,7 +328,7 @@ export const ToolSvgBackground = ({
     case "clean":
       activeSvg = Svgclean;
       break;
-    
+
     case "structure":
       activeSvg = Svgstructure;
       break;
@@ -338,6 +339,18 @@ export const ToolSvgBackground = ({
 
     case "channel":
       activeSvg = SvgChannel;
+      break;
+
+    case "warning":
+      activeSvg = Svgwarning;
+      break;
+
+    case "reload":
+      activeSvg = Svgreload;
+      break;
+
+    case "trend":
+      activeSvg = Svgtrend;
       break;
 
   }
