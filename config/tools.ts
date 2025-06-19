@@ -174,4 +174,39 @@ export const tools: PiAiTool[] = [
       },
     ],
   },
+  {
+    slug: "network",
+    name: "PIAI Network",
+    description: "The Public Interest AI Network",
+    colorBase: "var(--color-piai-network)",
+    colorHighlight: "var(--color-piai-network)",
+    iconShort: "Ne",
+    iconLong: "PIAI Network",
+    menu: [
+      {
+        name: "Network",
+      },
+      {
+        slug: "about",
+        name: "About the tool",
+      },
+    ],
+    submenu: [
+      {
+        slug: "simplifier",
+        name: "Simplifier",
+        icon: "simplifier",
+      },
+      {
+        slug: "extension",
+        name: "Extension",
+        icon: "plugin",
+      },
+      {
+        slug: "about",
+        name: "About",
+        icon: "info",
+      },
+    ],
+  },
 ];

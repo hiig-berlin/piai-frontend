@@ -8,7 +8,8 @@ import {
   useCssVarsStateIsTabletAndUpState,
   useCssVarsStateIsDesktopAndUpState,
 } from "~/components/state/CssVarsState";
-import { stakeholderList } from "~/assets/data/tools/stakeholder/stakeholderList";
+import { memberList } from "~/assets/data/tools/network/memberList";
+import { statementList } from "~/assets/data/tools/network/statementList";
 import safeHtml from "~/utils/sanitize";
 import { Meta } from "~/components/tools/map/Styled";
 import { narrow } from "~/components/tools/map/Styled";
@@ -19,87 +20,17 @@ import { PiAiTool } from "~/types";
 import { Icon } from "~/components/tools/shared/ui/Icon";
 import ToolHeader from "~/components/tools/shared/Header";
 import { Tags, Tag } from "~/components/tools/shared/Styled";
-
-// Wrapper + General tool styles
-const StakeholderWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: var(--size-3);
-  padding: var(--size-3);
-
-  h2 {
-    font-size: var(--text-body-font-size-tool) * 1.1;
-    font-weight: bold;
-    margin-top: 0 !important;
-  }
-
-  h3 {
-    ${({ theme }) => theme.applyMixin("uppercase")};
-    font-size: 12px;
-    font-weight: 300;
-    line-height: 1em;
-    margin-bottom: calc(0px - var(--size-2));
-  }
-`;
-
-// Grid and subgrid layouts
-const Grid = styled.div`
-  display: grid;
-  gap: var(--size-3);
-
-  ${({ theme }) => theme.breakpoints.tablet} {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  ${({ theme }) => theme.breakpoints.tabletLandscape} {
-    grid-template-columns: repeat(3, 1fr);
-  }
-`;
-
-const Label = styled.h3`
-  ${({ theme }) => theme.applyMixin("uppercase")};
-  font-weight: 300;
-  font-size: calc(var(--text-body-font-size-tool) * 0.9);
-`;
-
-// Individual elements
-
-const Entry = styled(Box)<{ isExpanded: boolean }>`
-  grid-row: auto;
-
-  ${({ theme }) => theme.breakpoints.tablet} {
-    grid-row: ${({ isExpanded }) =>
-      isExpanded ? "auto / span 3" : "auto / span 1"};
-  }
-
-  & h2 {
-    text-transform: none;
-    font-size: 18px;
-    font-weight: bold;
-  }
-
-  .svg {
-    min-height: 0.8em !important;
-    min-width: 0.8em !important;
-    max-height: 0.8em;
-    max-width: 0.8em;
-    align-self: center;
-    top: 0;
-  }
-`;
-
-
-const ProjectLinks = styled.ul`
-  color: var(--color-piai-stakeholder);
-  padding-left: 1em;
-
-  li::marker {
-    content: "›  ";
-    position: absolute;
-    font-size: 1.2em;
-    font-weight: bold;
-  }
-`;
+import { ToolSvgBackground } from "~/components/tools/shared/ToolSvgBackground";
+import { Button, LinkButton } from "~/components/styled/Button";
+import StatementSlider from "~/components/tools/network/StatementSlider";
+import {
+  BoxHightight,
+  NetworkWrapper,
+  Label,
+} from "~/components/tools/network/Styled";
+import Link from "next/link";
+import { textBits } from "~/assets/data/tools/network/textbits";
+import showdown from "showdown";
 
 const Index = ({
   frontendSettings,
@@ -115,16 +46,19 @@ const Index = ({
   const [selectedEntry, setSelectedEntry] = useState<number>();
 
   const currentTool = appConfig.tools?.find((t) => t.slug === "stakeholder");
+  const strings = textBits.en.index;
+
+  const converter = new showdown.Converter();
 
   let filteredList =
     currentTag === ""
-      ? stakeholderList
-      : stakeholderList.filter((e: any) => {
+      ? memberList
+      : memberList.filter((e: any) => {
           return e.tags.includes(currentTag);
         });
 
   let allTags: any[] = [];
-  stakeholderList.forEach((s) => {
+  memberList.forEach((s) => {
     s.tags.forEach((t) => {
       if (allTags.indexOf(t) === -1) {
         allTags.push(t);
@@ -132,8 +66,9 @@ const Index = ({
     });
   });
 
+ 
   return (
-    <StakeholderWrapper>
+    <NetworkWrapper>
       <NextHeadSeo
         title={`${currentTool?.name ? `${currentTool?.name} - ` : ""} ${
           appConfig.appTitle
@@ -152,19 +87,76 @@ const Index = ({
 
       <ToolHeader
         tool={tool}
-        title="Would you like to get an overview of the stakeholders in the PIAI
-        field?"
-        description="We have started to identify organisations and institutions that can play an important role in the development of the field or Public Interest AI (PIAI). Are you missing a stakeholder? Let us know and we’ll be happy to add it!"
+        title="The Public Interest AI Network"
+        description="An international hub to promote research and exchange on AI in the public interest and for the common good."
         links={[
           {
             type: "info",
-            url: "/tool/stakeholder/about",
-            ariaLabel: "About this tool",
+            url: "/tool/network/about",
+            ariaLabel: "About the network",
             label: "About",
           },
         ]}
       />
-     
+
+      {/* <Tags className="filter">
+        {allTags.map((tag: any, j: number) => {
+          const isActive = currentTag === tag;
+          return (
+            <Tag
+              tool="stakeholder"
+              onClick={() =>
+                isActive ? setCurrentTag("") : setCurrentTag(tag)
+              }
+              key={`tag-filter-${j}`}
+              isActive={isActive}
+            >
+              {tag}
+              {isActive && <Icon type="close" stc inline />}
+            </Tag>
+          );
+        })}
+      </Tags> */}
+
+      <InfoGrid>
+        <Box className="about">
+          <h2>{strings.about.title}</h2>
+          <div className="description" dangerouslySetInnerHTML={{ __html: converter.makeHtml(strings?.about.text) }} />
+
+          <LinkButton href="/tools/network/about">About</LinkButton>
+        </Box>
+        <BoxHightight className="join">
+          <h2>Join the Network</h2>
+          <p>
+            If you are interested in joining the network, please fill out our
+            brief application form.
+          </p>
+          <LinkButton href="/tools/network/join">Join now</LinkButton>
+        </BoxHightight>
+
+        <Box className="goals">
+          <h2>Our Goals</h2>
+          <p>
+            The Public Interest AI Network aims to foster collaboration and
+            knowledge sharing among researchers, practitioners, and policymakers
+            working on AI for the public good.
+          </p>
+          <Grid>
+            <Blurb>
+              <ToolSvgBackground type="hardware" />
+              <h3>Hardware production</h3>
+              <p>
+                Manufacturing the hardware comes with{" "}
+                <em>embodied emissions</em> for mining the materials and
+                producing the final product.
+              </p>
+            </Blurb>
+          </Grid>
+        </Box>
+        <Box className="endorsement">
+          <StatementSlider />
+        </Box>
+      </InfoGrid>
 
       <Tags className="filter">
         {allTags.map((tag: any, j: number) => {
@@ -257,13 +249,13 @@ const Index = ({
           );
         })}
       </Grid>
-    </StakeholderWrapper>
+    </NetworkWrapper>
   );
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const tool = appConfig.tools.find(
-    (tool: PiAiTool) => tool.slug === "stakeholder"
+    (tool: PiAiTool) => tool.slug === "network"
   );
 
   if (!tool)
@@ -291,3 +283,144 @@ Index.getLayout = function getLayout(page: ReactElement, props: any) {
 };
 
 export default Index;
+
+// Grid and subgrid layouts
+const Grid = styled.div`
+  display: grid;
+  gap: var(--size-3);
+
+  ${({ theme }) => theme.breakpoints.tablet} {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  ${({ theme }) => theme.breakpoints.tabletLandscape} {
+    grid-template-columns: repeat(3, 1fr);
+  }
+`;
+
+const InfoGrid = styled.div`
+  display: grid;
+  gap: var(--size-3);
+  grid-template-areas:
+    "about"
+    "join"
+    "goals"
+    "endorsement";
+
+  // equal height per row
+  grid-template-rows: auto auto auto auto;
+  grid-template-columns: 1fr;
+  align-items: start;
+  justify-items: stretch;
+
+  ${({ theme }) => theme.breakpoints.tablet} {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas:
+      "about join"
+      "goals endorsement";
+  }
+
+  ${({ theme }) => theme.breakpoints.desktop} {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-areas:
+      "about about join endorsement"
+      "goals goals goals endorsement";
+  }
+
+  .about {
+    grid-area: about;
+  }
+  .join {
+    grid-area: join;
+  }
+  .goals {
+    grid-area: goals;
+  }
+  .endorsement {
+    grid-area: endorsement;
+  }
+
+  .about,
+  .join,
+  .goals,
+  .endorsement {
+    align-self: flex-start;
+    justify-self: stretch;
+
+    a {
+      margin: 0;
+      align-self: flex-start;
+    }
+  }
+`;
+
+// Individual elements
+
+const Entry = styled(Box)<{ isExpanded: boolean }>`
+  grid-row: auto;
+
+  ${({ theme }) => theme.breakpoints.tablet} {
+    grid-row: ${({ isExpanded }) =>
+      isExpanded ? "auto / span 3" : "auto / span 1"};
+  }
+
+  & h2 {
+    text-transform: none;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .svg {
+    min-height: 0.8em !important;
+    min-width: 0.8em !important;
+    max-height: 0.8em;
+    max-width: 0.8em;
+    align-self: center;
+    top: 0;
+  }
+`;
+
+// Bigger icon with text on the side
+const Blurb = styled.div`
+  display: grid;
+  color: #fff;
+  height: fit-content;
+  align-self: flex-start;
+  justify-content: flex-start;
+
+  ${narrow}
+
+  grid-template-areas:
+    "icon ."
+    "icon .";
+
+  .svg {
+    grid-area: icon;
+    min-height: 3em;
+    min-width: 3em;
+    max-width: 3em;
+    flex: 1em 0 0;
+    margin-right: var(--size-3);
+
+    ${({ theme }) => theme.breakpoints.tablet} {
+      margin-right: var(--size-2);
+    }
+  }
+
+  p,
+  h3 {
+    margin-bottom: 3px;
+  }
+`;
+
+const ProjectLinks = styled.ul`
+  color: var(--color-piai-stakeholder);
+  padding-left: 1em;
+
+  li::marker {
+    content: "›  ";
+    position: absolute;
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+`;

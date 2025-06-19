@@ -122,6 +122,7 @@ export const theme = {
     piaiSimba: "#A1AF00",
     piaiClaim: "#26BF84",
     piaiEnergy: "#26BF84",
+    piaiNetwork: "#D87B65",
     bg: "#fff",
     bgTool: "#2B2B2B",
     text: "#000",

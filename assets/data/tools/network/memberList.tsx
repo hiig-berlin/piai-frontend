@@ -43,7 +43,7 @@ import React from "react";
 //
 // Replace ""(.*?)"" by “$1”
 
-export const stakeholderList = [
+export const memberList = [
   {
     name: "Access Now",
     tags: ["Research", "Think Tank/NGO"],
