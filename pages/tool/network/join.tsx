@@ -1,0 +1,93 @@
+import { ReactElement } from "react";
+import type { GetStaticProps } from "next";
+import NextHeadSeo from "next-head-seo";
+import styled from "styled-components";
+
+import { PiAiTool } from "~/types";
+import { appConfig } from "~/config";
+import Layout from "~/components/layouts/LayoutTool"
+import { restApiGetSettings } from "~/utils/restApi";
+
+const JoinWrapper = styled.div`
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+
+  iframe {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border: 0;
+  }
+`;
+
+const Join = ({
+  frontendSettings,
+  tool,
+}: {
+  frontendSettings: any;
+  tool: PiAiTool;
+}) => {
+  const currentTool = appConfig.tools?.find((t) => t.slug === "network");
+
+  return (
+    <JoinWrapper>
+      <NextHeadSeo
+        title={`Join the network - ${
+          currentTool?.name ? `${currentTool?.name} - ` : ""
+        } ${appConfig.appTitle}`}
+        description={currentTool?.description ?? undefined}
+        og={{
+          title: `Join the network - ${
+            currentTool?.name ? `${currentTool?.name} - ` : ""
+          } ${appConfig.appTitle}`,
+          siteName: appConfig.appTitle,
+        }}
+        twitter={{
+          card: "summary_large_image",
+        }}
+      />
+      {/* Dont' wrap this in further divs, 
+      <main> is set via Layout component "*/}
+      <iframe
+        src="https://tally.so/r/w79g0m?transparentBackground=1"
+        width="100%"
+        height="100%"
+        frameBorder="0"
+        marginHeight={0}
+        marginWidth={0}
+        title="Add your project to the data set"
+      ></iframe>
+    </JoinWrapper>
+  );
+};
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const tool = appConfig.tools.find((tool: PiAiTool) => tool.slug === "network");
+
+  if (!tool)
+    return {
+      props: {
+        frontendSettings: await restApiGetSettings(),
+      },
+      notFound: true,
+      revalidate: 240,
+    };
+
+  return {
+    props: {
+      frontendSettings: await restApiGetSettings(),
+      tool,
+      view: "page",
+      slug: "join",
+    },
+    revalidate: appConfig.revalidateInterval("tool"),
+  };
+};
+
+Join.getLayout = function getLayout(page: ReactElement, props: any) {
+  return <Layout props={props}>{page}</Layout>;
+};
+export default Join;

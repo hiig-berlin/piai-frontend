@@ -32,10 +32,7 @@ export const textBits = {
       ],
     },
     about: {
-      intro: {
-        title: "Network for Public Interest AI",
-        text: "The PIAI network is an international hub to promote research and exchange on AI in the public interest and for the common good. It is initiated by the AI & Society Lab at the  Alexander von Humboldt Institute for Internet and Society  and FARI – AI for the Common Good Institute.",
-      },
+      intro: "The PIAI network is an international hub to promote research and exchange on AI in the public interest and for the common good. It is initiated by the AI & Society Lab at the  Alexander von Humboldt Institute for Internet and Society  and FARI – AI for the Common Good Institute.",
       CTA: {
         title: "Join the Network",
         text: "If you are interested in joining the network, please fill out our brief application form.",
