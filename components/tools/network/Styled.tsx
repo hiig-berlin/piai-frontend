@@ -60,7 +60,10 @@ export const Grid = styled.div`
 
 //extend Grid for GoalGrid
 export const GoalGrid = styled(Grid)`
-  ${({ theme }) => theme.breakpoints.tabletLandscape} {
+${({ theme }) => theme.breakpoints.tablet} {
+  grid-template-columns: repeat(2, 1fr);
+}
+  ${({ theme }) => theme.breakpoints.desktop} {
     grid-template-columns: repeat(4, 1fr);
   }
 `;
@@ -69,9 +72,8 @@ export const GoalGrid = styled(Grid)`
 export const InfoGridWrapper = styled(Grid)`
   grid-template-areas:
     "about"
-    "join"
-    "goals"
-    "endorsement";
+    "endorsement"
+    "goals";
 
   grid-template-columns: 1fr;
   align-items: start;
@@ -80,8 +82,8 @@ export const InfoGridWrapper = styled(Grid)`
   ${({ theme }) => theme.breakpoints.tablet} {
     grid-template-columns: repeat(2, 1fr);
     grid-template-areas:
-      "about join"
-      "goals endorsement";
+      "about endorsement"
+      "goals goals";
   }
 
   ${({ theme }) => theme.breakpoints.desktop} {

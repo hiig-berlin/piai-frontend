@@ -75,11 +75,13 @@ const Slide = styled.div`
 const StatementBox = styled.div`
   display: block;
 
-  @media (min-width: 768px) {
-    display: flex;
+
+    ${({ theme }) => theme.breakpoints.tabletLandscape} {
+      display: flex;
     align-items: center;
     gap: var(--size-4, 1rem);
-  }
+    }
+
 `;
 
 const AuthorImage = styled(Image)`
