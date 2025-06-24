@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { Box } from "~/components/tools/shared/ui/Box";
 
-export const BoxHightight = styled(Box)`
-  background: ${({ theme }) => theme.color("piai-network", 0.6)} !important;
+export const BoxHighlight = styled(Box)`
+  background: ${({ theme }) => theme.color("piai-network", 0.8)} !important;
 `;
 
 // Wrapper  
@@ -13,6 +13,7 @@ export const NetworkWrapper = styled.div`
   padding: var(--size-3);
 
   h2 {
+    ${({ theme }) => theme.applyMixin("uppercase")};
     font-size: var(--text-body-font-size-tool) * 1.1;
     font-weight: bold;
     margin-top: 0 !important;

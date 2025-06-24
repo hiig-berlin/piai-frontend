@@ -9,13 +9,13 @@ export const textBits = {
         title: "About the Network",
         text: "The PIAI network is an international hub is an initiative to bring together research institutions and practitioners from this field to exchange on AI in the public interest and for the common good. It is initiated by the AI & Society Lab at the [Alexander von Humboldt Institute for Internet and Society](https://hiig.de) and [FARI – AI for the Common Good Institute](https://www.fari.brussels/).",
         button: {
-          label: "Learn more",
+          label: "Find out more",
           link: "/tool/network/about",
         },
       },
       join: {
         title: "Join the Network",
-        text: "If you are interested in joining the network, please fill out our brief application form.",
+        text: "We're a growing network and welcome new members. If you are interested in joining the network, please fill out our brief application form.",
         button: {
           label: "Join now",
           link: "/tool/network/join",

@@ -24,13 +24,14 @@ import { ToolSvgBackground } from "~/components/tools/shared/ToolSvgBackground";
 import { Button, LinkButton } from "~/components/styled/Button";
 import StatementSlider from "~/components/tools/network/StatementSlider";
 import {
-  BoxHightight,
+  BoxHighlight,
   NetworkWrapper,
   Label,
 } from "~/components/tools/network/Styled";
 import Link from "next/link";
 import { textBits } from "~/assets/data/tools/network/textbits";
 import showdown from "showdown";
+import {Popup} from "~/components/tools/network/popup";
 
 const Index = ({
   frontendSettings,
@@ -45,7 +46,7 @@ const Index = ({
   const [currentTag, setCurrentTag] = useState("");
   const [selectedEntry, setSelectedEntry] = useState<number>();
 
-  const currentTool = appConfig.tools?.find((t) => t.slug === "stakeholder");
+  const currentTool = appConfig.tools?.find((t) => t.slug === "network");
   const strings = textBits.en.index;
 
   const converter = new showdown.Converter();
@@ -66,7 +67,6 @@ const Index = ({
     });
   });
 
- 
   return (
     <NetworkWrapper>
       <NextHeadSeo
@@ -99,59 +99,46 @@ const Index = ({
         ]}
       />
 
-      {/* <Tags className="filter">
-        {allTags.map((tag: any, j: number) => {
-          const isActive = currentTag === tag;
-          return (
-            <Tag
-              tool="stakeholder"
-              onClick={() =>
-                isActive ? setCurrentTag("") : setCurrentTag(tag)
-              }
-              key={`tag-filter-${j}`}
-              isActive={isActive}
-            >
-              {tag}
-              {isActive && <Icon type="close" stc inline />}
-            </Tag>
-          );
-        })}
-      </Tags> */}
-
       <InfoGrid>
-        <Box className="about">
+        <BoxHighlight className="about">
           <h2>{strings.about.title}</h2>
-          <div className="description" dangerouslySetInnerHTML={{ __html: converter.makeHtml(strings?.about.text) }} />
-
-          <LinkButton href="/tools/network/about">About</LinkButton>
-        </Box>
-        <BoxHightight className="join">
-          <h2>Join the Network</h2>
-          <p>
-            If you are interested in joining the network, please fill out our
-            brief application form.
-          </p>
-          <LinkButton href="/tools/network/join">Join now</LinkButton>
-        </BoxHightight>
+          <div
+            className="description"
+            dangerouslySetInnerHTML={{
+              __html: converter.makeHtml(strings?.about.text),
+            }}
+          />
+          <LinkButton href={strings?.about.button.link}>
+            {strings?.about.button.label}
+          </LinkButton>
+        </BoxHighlight>
+        {/* <Box className="join">
+          <h2>{strings.join.title}</h2>
+          <div
+            className="description"
+            dangerouslySetInnerHTML={{
+              __html: converter.makeHtml(strings?.join.text),
+            }}
+          />
+          <LinkButton href={strings?.join.button.link}>
+            {strings?.join.button.label}
+          </LinkButton>
+        </Box> */}
 
         <Box className="goals">
           <h2>Our Goals</h2>
-          <p>
-            The Public Interest AI Network aims to foster collaboration and
-            knowledge sharing among researchers, practitioners, and policymakers
-            working on AI for the public good.
-          </p>
-          <Grid>
-            <Blurb>
-              <ToolSvgBackground type="hardware" />
-              <h3>Hardware production</h3>
-              <p>
-                Manufacturing the hardware comes with{" "}
-                <em>embodied emissions</em> for mining the materials and
-                producing the final product.
-              </p>
-            </Blurb>
-          </Grid>
+          <GoalGrid>
+            {strings?.goals.map((goal: any, i: number) => (
+              <Blurb key={`goal-${i}`}>
+                <ToolSvgBackground type="goal" />
+                <p
+                  dangerouslySetInnerHTML={{
+                    __html: converter.makeHtml(goal),
+                  }}
+                />
+              </Blurb>
+            ))}
+          </GoalGrid>
         </Box>
         <Box className="endorsement">
           <StatementSlider />
@@ -163,7 +150,7 @@ const Index = ({
           const isActive = currentTag === tag;
           return (
             <Tag
-              tool="stakeholder"
+              tool={currentTool?.slug || ""}
               onClick={() =>
                 isActive ? setCurrentTag("") : setCurrentTag(tag)
               }
@@ -204,7 +191,7 @@ const Index = ({
                       }
                       key={`tag-${j}`}
                       isActive={isActive}
-                      tool="stakeholder"
+                      tool="network"
                     >
                       {tag}
                       {isActive && <Icon type="close" stc inline />}
@@ -214,41 +201,40 @@ const Index = ({
               </Tags>
               {isExpanded && (
                 <>
-                  <Label>Short Description</Label>
-                  <p
-                    dangerouslySetInnerHTML={{
-                      __html: safeHtml(entry.description),
-                    }}
-                  />
                   <Icon className="link" url={entry.link} type="globe" />
-
-                  {entry.fundingFor && (
-                    <>
-                      <Label>Funding for the following projects</Label>
-                      <ProjectLinks>
-                        {entry.fundingFor.map((project: any, ii: number) => {
-                          return (
-                            <li key={ii}>
-                              <a
-                                className="projectLink"
-                                href={project.url}
-                                target="_blank"
-                                rel="noreferrer nofollow"
-                              >
-                                {project.title}
-                              </a>
-                            </li>
-                          );
-                        })}
-                      </ProjectLinks>
-                    </>
-                  )}
+                  <Label>People</Label>
+                  {entry.people.map((person: any, j: number) => {
+                    return (
+                      <Blurb key={`person-blurb-${j}`}>
+                        <ToolSvgBackground type="user" />
+                        <div>
+                        {person.name}
+                        {person.role && `, ${person.role}`}
+                        {person.link && (
+                          <>
+                          <span>, </span>
+                          <Link
+                            href={person.link}
+                            target="_blank"
+                            rel="nofollow noreferrer"
+                            className="link"
+                            aria-label={`Profile of ${person.name}`}
+                          >
+                            Profile website
+                          </Link>
+                          </>
+                        )}
+                        </div>
+                      </Blurb>
+                    );
+                  })}
                 </>
               )}
             </Entry>
           );
         })}
       </Grid>
+      <Popup />
     </NetworkWrapper>
   );
 };
@@ -298,6 +284,13 @@ const Grid = styled.div`
   }
 `;
 
+//extend Grid for GoalGrid
+const GoalGrid = styled(Grid)`
+${({ theme }) => theme.breakpoints.tabletLandscape} {
+  grid-template-columns: repeat(4, 1fr);
+}
+`
+
 const InfoGrid = styled.div`
   display: grid;
   gap: var(--size-3);
@@ -307,7 +300,6 @@ const InfoGrid = styled.div`
     "goals"
     "endorsement";
 
-  // equal height per row
   grid-template-rows: auto auto auto auto;
   grid-template-columns: 1fr;
   align-items: start;
@@ -323,8 +315,8 @@ const InfoGrid = styled.div`
   ${({ theme }) => theme.breakpoints.desktop} {
     grid-template-columns: repeat(4, 1fr);
     grid-template-areas:
-      "about about join endorsement"
-      "goals goals goals endorsement";
+      "about about endorsement endorsement"
+      "goals goals goals goals";
   }
 
   .about {
@@ -414,7 +406,7 @@ const Blurb = styled.div`
 `;
 
 const ProjectLinks = styled.ul`
-  color: var(--color-piai-stakeholder);
+  color: var(--color-piai-network);
   padding-left: 1em;
 
   li::marker {

@@ -68,6 +68,10 @@ import Svgwarning from "~/components/svgs/Svgwarning";
 import Svgreload from "~/components/svgs/Svgreload";
 import Svgtrend from "~/components/svgs/Svgtrend";
 
+// Network
+
+import Svggoal from "~/components/svgs/Svggoal";
+
 // use https://jakearchibald.github.io/svgomg/
 // use https://yoksel.github.io/url-encoder/
 export const ToolSvgBackground = ({
@@ -353,6 +357,11 @@ export const ToolSvgBackground = ({
       activeSvg = Svgtrend;
       break;
 
+    // Network
+
+    case "goal":
+      activeSvg = Svggoal;
+      break;
   }
   return (
     <span
