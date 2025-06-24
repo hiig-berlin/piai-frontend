@@ -55,6 +55,20 @@ export const textBits = {
           text: "Members of the network are researchers and practitioners from different disciplinary backgrounds who belong to institutions with a proclaimed focus on public interest AI or AI for the common good. Their work is directed towards applied outcomes (in applications of AI) or research on real-life applications of AI for the public interest. In general, anyone interested in becoming part of the network can apply to join the network group. To be invited to join the applicant should be able to show their relation to the field of public interest AI research and/or application and an institutional setting supporting this work.",
         },
       },
+      infoSimple: {
+        purpose: {
+          title: "What is the purpose of the network?",
+          text: "The world is being increasingly influenced by the artificial intelligence (AI) technology. AI is a tool that can think similar to a human being. It can also make decisions. AI is used in many areas. But most developers and manufacturers of AI technology are only interested in money. That's why the experts want to use AI for the good of people and the planet. They want to develop AI in such a way that it does not harm people or the planet.",
+        },
+        activities: {
+          title: "What does the network do?",
+          text: "The group meets regularly online to discuss their work. They also meet at conferences and other events. The group wants to find solutions to problems together.",
+        },
+        membership: {
+          title: "Who can become a part of the network?",
+          text: "The group consists of researchers and practitioners from various disciplines. They work in institutions that specialise in the application of artificial intelligence for the common good.",
+        },
+      },
     },
   },
 };

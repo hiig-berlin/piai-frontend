@@ -19,6 +19,7 @@ const About = ({
   const strings = textBits.en.about;
 
   const contentString = strings?.info ? renderInfoSection(strings.info) : "";
+  const contentStringSimple = strings?.infoSimple ? renderInfoSection(strings.infoSimple) : "";
   
 
   return (
@@ -44,7 +45,7 @@ const About = ({
           tool,
           intro: strings?.intro,
           content: contentString,
-          contentSimple: contentString,
+          contentSimple: contentStringSimple,
           cta: {
             title: strings?.CTA.title,
             text: strings?.CTA.text,
