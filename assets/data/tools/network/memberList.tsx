@@ -76,8 +76,8 @@ export const memberList = [
   {
     name: "Do you want to join?",
     tags: ["Member"],
-    link: "/tool/network/join",
-    location: "Fill out out form",
+    link: "https://publicinterest.ai/tool/network/join",
+    location: "Fill out our short application form.",
     people: [
       {
         name: "Your name",

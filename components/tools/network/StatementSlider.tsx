@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { statementList } from "~/assets/data/tools/network/statementList";
+import Image from 'next/image';
 
 const StatementSlider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -21,9 +22,19 @@ const StatementSlider = () => {
       <SliderTrack style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
         {statementList.map((item, index) => (
           <Slide key={index}>
-            <StatementText>{item.statement}</StatementText>
-            <Author>{item.author}</Author>
-            <Affiliation>{item.affiliation}</Affiliation>
+            <StatementBox>
+              <AuthorImage
+                src={item.image}
+                alt={item.author}
+                width={100}
+                height={100}
+              />
+              <TextBlock>
+                <StatementText>{item.statement}</StatementText>
+                <Author>{item.author}</Author>
+                <Affiliation>{item.affiliation}</Affiliation>
+              </TextBlock>
+            </StatementBox>
           </Slide>
         ))}
       </SliderTrack>
@@ -61,8 +72,27 @@ const Slide = styled.div`
   // text-align: center;
 `;
 
+const StatementBox = styled.div`
+  display: block;
+
+  @media (min-width: 768px) {
+    display: flex;
+    align-items: center;
+    gap: var(--size-4, 1rem);
+  }
+`;
+
+const AuthorImage = styled(Image)`
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+`;
+
+const TextBlock = styled.div`
+  max-width: 600px;
+`;
+
 const StatementText = styled.p`
-  // font-size: 1.2rem;
   margin-bottom: 0.5rem;
 `;
 
@@ -76,6 +106,7 @@ const Affiliation = styled.span`
   font-style: italic;
   color: gray;
 `;
+
 
 const DotsContainer = styled.div`
   display: flex;
