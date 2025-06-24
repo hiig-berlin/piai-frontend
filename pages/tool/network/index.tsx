@@ -12,7 +12,7 @@ import { NetworkWrapper } from "~/components/tools/network/Styled";
 import InfoGrid from "~/components/tools/network/InfoGrid";
 import MemberFilter from "~/components/tools/network/MemberFilter";
 import MemberGrid from "~/components/tools/network/MemberGrid";
-import {Popup} from "~/components/tools/network/Popup";
+import Popup from "~/components/tools/network/Popup";
 
 const Index = ({ frontendSettings, tool }: { frontendSettings: any; tool: PiAiTool }) => {
   const [currentTag, setCurrentTag] = useState("");

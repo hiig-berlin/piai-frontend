@@ -21,7 +21,6 @@ const About = ({
   const contentString = strings?.info ? renderInfoSection(strings.info) : "";
   const contentStringSimple = strings?.infoSimple ? renderInfoSection(strings.infoSimple) : "";
   
-
   return (
     <>
       <NextHeadSeo

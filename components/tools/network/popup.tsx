@@ -63,6 +63,8 @@ const PopupWrapper = styled(Box)<{ seen?: boolean }>`
   }
 `;
 
+
+
 // Helper function to access localStorage safely
 const getPopupSeen = () => {
   if (typeof window !== "undefined") {
@@ -73,7 +75,7 @@ const getPopupSeen = () => {
 
 const Strings = textBits.en.index.join;
 
-export const Popup = () => {
+const Popup = () => {
   const [seen, setSeen] = useState(false);
 
   // Load from localStorage on mount
@@ -111,3 +113,5 @@ export const Popup = () => {
     </PopupWrapper>
   );
 };
+
+export default Popup;
