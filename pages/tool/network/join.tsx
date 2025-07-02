@@ -52,7 +52,7 @@ const Join = ({
       {/* Dont' wrap this in further divs, 
       <main> is set via Layout component "*/}
       <iframe
-        src="https://tally.so/r/w79g0m?transparentBackground=1"
+        src="https://tally.so/r/mVApyJ?transparentBackground=1"
         width="100%"
         height="100%"
         frameBorder="0"
