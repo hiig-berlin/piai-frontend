@@ -203,6 +203,10 @@ export const Blurb = styled.div`
     margin-bottom: 3px;
   }
 
+  p {
+    text-size: 1.1em;
+  }
+
   a{
     text-decoration: underline dotted 0.5px;
     text-decoration-color: inherit;
