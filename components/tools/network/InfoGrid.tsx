@@ -5,7 +5,7 @@ import StatementSlider from "./StatementSlider";
 import { ToolSvgBackground } from "../shared/ToolSvgBackground";
 import styled from "styled-components";
 import showdown from "showdown";
-import {GoalGrid, InfoGridWrapper, Blurb} from "./Styled";
+import { GoalGrid, InfoGridWrapper, Blurb } from "./Styled";
 
 const converter = new showdown.Converter();
 
@@ -31,15 +31,14 @@ export default function InfoGrid({ strings }: { strings: any }) {
           {strings?.goals.map((goal: any, i: number) => (
             <Blurb key={`goal-${i}`}>
               <ToolSvgBackground type="goal" />
-              <p dangerouslySetInnerHTML={{ __html: converter.makeHtml(goal) }} />
+              <p
+                dangerouslySetInnerHTML={{ __html: converter.makeHtml(goal) }}
+              />
             </Blurb>
           ))}
         </GoalGrid>
       </Box>
-
-      <Box className="endorsement">
-        <StatementSlider />
-      </Box>
+      <StatementSlider className="endorsement" />
     </InfoGridWrapper>
   );
 }

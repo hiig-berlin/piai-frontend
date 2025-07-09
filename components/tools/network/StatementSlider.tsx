@@ -2,23 +2,24 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { statementList } from "~/assets/data/tools/network/statementList";
 import Image from 'next/image';
+import { Box } from '~/components/tools/shared/ui/Box';
+import { useAutoSlider } from "~/hooks/useAutoSlider"; 
 
-const StatementSlider = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+const StatementSlider = ({ className }: { className: string }) => {
+  const [isHovered, setIsHovered] = useState(false);
 
-  const handleNext = () => {
-    setCurrentIndex((prev) =>
-      prev === statementList.length - 1 ? 0 : prev + 1
-    );
-  };
-
-  useEffect(() => {
-    const interval = setInterval(handleNext, 5000);
-    return () => clearInterval(interval);
-  }, []);
+  const { index: currentIndex, goTo } = useAutoSlider({
+    length: statementList.length,
+    pause: isHovered,
+    duration: 7000,
+  });
 
   return (
-    <SliderContainer>
+    <SliderContainer
+      className={className}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <SliderTrack style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
         {statementList.map((item, index) => (
           <Slide key={index}>
@@ -39,11 +40,11 @@ const StatementSlider = () => {
         ))}
       </SliderTrack>
       <DotsContainer>
-        {statementList.map((_, index) => (
+      {statementList.map((_, idx) => (
           <Dot
-            key={index}
-            active={index === currentIndex}
-            onClick={() => setCurrentIndex(index)}
+            key={idx}
+            active={idx === currentIndex}
+            onClick={() => goTo(idx)}
           />
         ))}
       </DotsContainer>
@@ -53,10 +54,15 @@ const StatementSlider = () => {
 
 export default StatementSlider;
 
-const SliderContainer = styled.div`
+const SliderContainer = styled(Box)`
   width: 100%;
   overflow: hidden;
   position: relative;
+  padding: 0 0 var(--size-4);
+
+  ${({ theme }) => theme.breakpoints.tablet} {
+    padding: 0 0 var(--size-3);
+  }
 `;
 
 const SliderTrack = styled.div`
@@ -67,9 +73,13 @@ const SliderTrack = styled.div`
 
 const Slide = styled.div`
   min-width: 100%;
-  // padding: 20px;
+  padding: var(--size-4) var(--size-4) 0;
   box-sizing: border-box;
   // text-align: center;
+
+  ${({ theme }) => theme.breakpoints.tablet} {
+    padding: var(--size-3) var(--size-3) 0;
+  }
 `;
 
 const StatementBox = styled.div`

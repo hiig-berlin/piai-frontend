@@ -10,7 +10,7 @@ import { textBits } from "~/assets/data/tools/network/textbits";
 
 // Styled wrapper positioned at bottom-right
 const PopupWrapper = styled(Box)<{ seen?: boolean }>`
-  ${({ seen }) => seen && "display: none;"}
+  ${({ seen }) => seen && "display: none; !important"}
 
   position: fixed;
   bottom: var(--size-3);
