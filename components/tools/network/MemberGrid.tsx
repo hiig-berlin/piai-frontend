@@ -29,7 +29,9 @@ export default function MemberGrid({
             <h2 onClick={() => setSelectedEntry(isExpanded ? undefined : i)}>
               {entry.name}
             </h2>
-            <Icon stc type="marker">{entry.location}</Icon>
+            <Icon stc type="marker">
+              {entry.location}
+            </Icon>
             <Tags>
               {entry.tags.map((tag: string, j: number) => {
                 const isActive = currentTag === tag;

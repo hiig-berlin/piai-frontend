@@ -60,9 +60,9 @@ export const Grid = styled.div`
 
 //extend Grid for GoalGrid
 export const GoalGrid = styled(Grid)`
-${({ theme }) => theme.breakpoints.tablet} {
-  grid-template-columns: repeat(2, 1fr);
-}
+  ${({ theme }) => theme.breakpoints.tablet} {
+    grid-template-columns: repeat(2, 1fr);
+  }
   ${({ theme }) => theme.breakpoints.desktop} {
     grid-template-columns: repeat(4, 1fr);
   }
@@ -134,7 +134,6 @@ export const MemberFilterWrapper = styled.div`
     font-weight: bold;
     margin: 0 !important;
   }
-
 `;
 
 // Member List Element
@@ -153,15 +152,15 @@ export const Entry = styled(Box)<{ isExpanded: boolean }>`
   }
 
   .svg {
-    min-height: 0.8em !important;
-    min-width: 0.8em !important;
-    max-height: 0.8em;
-    max-width: 0.8em;
+    // make icon the same size as above on the card
+    //(not small print font size as given by em values)
+    min-height: var(--text-body-font-size) !important;
+    min-width: var(--text-body-font-size) !important;
+    max-height: var(--text-body-font-size);
+    max-width: var(--text-body-font-size) !important;
     align-self: center;
     top: 0;
   }
-
-  
 `;
 
 // Label for Card
@@ -207,7 +206,7 @@ export const Blurb = styled.div`
     text-size: 1.1em;
   }
 
-  a{
+  a {
     text-decoration: underline dotted 0.5px;
     text-decoration-color: inherit;
     text-underline-offset: 3px;
