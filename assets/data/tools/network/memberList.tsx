@@ -65,7 +65,6 @@ export const memberList = [
     people: [
       {
         name: "Karen Boers",
-        link: "https://www.fari.brussels",
       },
       {
         name: "Dr. Carl Mörch",
