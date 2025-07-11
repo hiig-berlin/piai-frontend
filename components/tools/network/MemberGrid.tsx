@@ -20,6 +20,12 @@ export default function MemberGrid({
   selectedEntry: number | undefined;
   setSelectedEntry: (index: number | undefined) => void;
 }) {
+
+  // Remove https:// and trailing / from list entry "link" and create linkBeautified
+  list.forEach((entry) => {
+    entry.linkBeautified = entry.link.replace(/^https?:\/\//, "").replace(/\/$/, "");
+  });
+
   return (
     <Grid>
       {list.map((entry, i) => {
@@ -52,7 +58,16 @@ export default function MemberGrid({
             {isExpanded && (
               <>
                 <Label>Website</Label>
-                <Icon className="link" url={entry.link} type="globe" />
+                <Blurb className="link">
+                  <ToolSvgBackground type="globe" />
+                  <Link
+                    href={entry.link}
+                    target="_blank"
+                    rel="nofollow noreferrer"
+                  >
+                    {entry.linkBeautified}
+                  </Link>
+                </Blurb>
                 <Label>People</Label>
                 {entry.people.map((person: any, j: number) => (
                   <Blurb key={j}>

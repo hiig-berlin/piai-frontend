@@ -19,7 +19,7 @@ import React from "react";
 export const memberList = [
   {
     name: "Alexander von Humboldt Institute for Internet and Society",
-    tags: ["Fouding member"],
+    tags: ["Founding member"],
     link: "https://www.hiig.de/",
     location: "Berlin, Germany",
     people: [
