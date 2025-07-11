@@ -59,7 +59,7 @@ export const memberList = [
   },
   {
     name: "FARI – AI for the Common Good Institute",
-    tags: ["Fouding member"],
+    tags: ["Founding member"],
     link: "https://www.fari.brussels/",
     location: "Brussels, Belgium",
     people: [
