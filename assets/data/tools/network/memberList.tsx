@@ -3,45 +3,18 @@ import React from "react";
 // SYNTAX (array of objects)
 // =========================
 
-// Object structure per stakeholder:
+// Object structure per member:
 //
-// {
-//   name: String,
-//   tags: Array of Strings,
-//   link: String (absolute link),
-//   location: String (City, Country),
-//   description: String
-//   fundingFor?: Array of Objects (title: String, url: String)
-// }
-//
-// ADDING FUNDED PROJECTS
-// ======================
-//
-//   …
-//   description: "Some description",
-//   fundingFor: [
-//     {
-//       title: "Adams and Sons",
-//       url: "/tool/map/project/adams-and-sons"
-//     },{
-//       title: "Bechtelar, Heathcote and Bogan",
-//       url: "/tool/map/project/bechtelar-heathcote-and-bogan"
+// { name: "Name of the member",
+//   tags: ["Tag1", "Tag2"],
+//   link: "https://www.link-to-member.com",
+//   location: "City, Country",
+//   people: [
+//     { name: "Person Name",
+//       role: "Role of the person", // optional
+//       link: "https://www.link-to-person.com" // optional
 //     }
 //   ]
-// }
-//
-// REGEX Patters to transform csv to json
-// ======================================
-//
-// find
-// (.*?),.*?,.*?,.*?,(.*?),(.*?),(.*?),(.*?),(.*?)\n
-//
-// replace
-// {\n  name: "$1",\n  tags: "$2",\n  link: "$3",\n  location: "$4, $5",\n  description: $6\n},\n
-//
-// Add enter after last entry to replace it!
-//
-// Replace ""(.*?)"" by “$1”
 
 export const memberList = [
   {
@@ -65,6 +38,8 @@ export const memberList = [
     people: [
       {
         name: "Karen Boers",
+        role: "XX",
+        link: "https://www.fari.brussels",
       },
       {
         name: "Dr. Carl Mörch",
@@ -86,3 +61,4 @@ export const memberList = [
     ],
   },
 ];
+
