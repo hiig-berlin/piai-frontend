@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/bb2f6722-560d-4deb-8361-4722e922c5cd/deploy-status)](https://app.netlify.com/projects/piai/deploys)
+
 ## Installation
 
 Configure the environment variables (see below) in an `.env.local` file.
