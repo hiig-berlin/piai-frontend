@@ -26,7 +26,7 @@ export const memberList = [
       {
         name: "Dr. Theresa Züger",
         role: "Lead of the AI and Society Lab",
-        link: "https://www.hiig.de/en/team/theresa-zueger/",
+        link: "https://www.hiig.de/en/theresa-zueger/",
       },
     ],
   },
@@ -38,7 +38,7 @@ export const memberList = [
     people: [
       {
         name: "Karen Boers",
-        role: "XX",
+        role: "Managing director of FARI - AI for the Common Good Institute",
         link: "https://www.fari.brussels",
       },
       {
