@@ -9,7 +9,7 @@ export const statementList = [
     author: "Prof. dr. Pieter Ballon",
     affiliation: "Studies in Media, Innovation and Technology at Vrije Universiteit Brussel",
     image: "/img/tools/network/Pieter_Ballon.webp",
-    statement: "I am extremely happy that the Public Interest AI Research Network has been set up, and consists of so many leading research institutes. This is a timely initiative tackling one of the most pressing and promising issues of today."
+    statement: "“I am extremely happy that the Public Interest AI Research Network has been set up, and consists of so many leading research institutes. This is a timely initiative tackling one of the most pressing and promising issues of today.”"
   },
 ];
     
