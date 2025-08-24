@@ -1,8 +1,3 @@
-import { table } from "console";
-import { title } from "process";
-import Trends from "~/pages/tool/claimspotting/trends";
-import { Search } from "../map/Search";
-
 export const textBits = {
   en: {
     header: {

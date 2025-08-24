@@ -33,17 +33,13 @@ const BoxWrapper = styled.div<{ hideOnPrint: boolean }>`
 
   ${({ hideOnPrint }) => (hideOnPrint ? `@media print {display:none;}` : "")}
 `;
-export const Box = ({
+export const Box: React.FC<BoxProps> = ({
   children,
-  hideOnPrint,
-  className,
-}: {
-  children: any;
-  hideOnPrint?: boolean;
-  className?: string;
+  hideOnPrint = false,
+  ...rest
 }) => {
   return (
-    <BoxWrapper hideOnPrint={!!hideOnPrint} className={className}>
+    <BoxWrapper hideOnPrint={hideOnPrint} {...rest}>
       {children}
     </BoxWrapper>
   );
@@ -52,3 +48,7 @@ export const Box = ({
 export const BoxLight = styled(Box)`
   background: #434343;
 `;
+
+type BoxProps = React.HTMLAttributes<HTMLDivElement> & {
+  hideOnPrint?: boolean;
+};

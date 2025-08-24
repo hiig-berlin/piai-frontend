@@ -8,7 +8,7 @@ import {
   useCssVarsStateIsTabletAndUpState,
   useCssVarsStateIsDesktopAndUpState,
 } from "~/components/state/CssVarsState";
-import { stakeholderList } from "~/assets/data/stakeholder/stakeholderList";
+import { stakeholderList } from "~/assets/data/tools/stakeholder/stakeholderList";
 import safeHtml from "~/utils/sanitize";
 import { Meta } from "~/components/tools/map/Styled";
 import { narrow } from "~/components/tools/map/Styled";
