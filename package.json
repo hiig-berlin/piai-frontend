@@ -2,6 +2,10 @@
   "name": "piai-frontend",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=22.0.0",
+    "npm": ">=10.0.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -36,6 +40,7 @@
     "request-ip": "^3.3.0",
     "sass": "^1.52.1",
     "scroll-behavior-polyfill": "^2.0.13",
+    "sharp": "^0.34.3",
     "showdown": "^2.1.0",
     "styled-components": "^5.3.5",
     "swiper": "^8.1.6",
