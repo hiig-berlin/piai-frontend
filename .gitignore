@@ -45,3 +45,6 @@ _netlify.toml
 
 # Exclude large test data
 assets/test-data/*
+
+# Local VSCode settings
+.vscode/*

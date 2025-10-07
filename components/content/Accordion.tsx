@@ -229,7 +229,7 @@ const Headline = styled.div`
 export const Accordion = ({ data }: { data: any }) => {
   const [activeIndex, setActiveIndex] = useState(7);
   const [height, setHeight] = useState(0);
-  const boxesRefs = useRef(new Array());
+  const boxesRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const isTabletAndUp = useCssVarsStateIsTabletAndUpState();
 
@@ -237,11 +237,14 @@ export const Accordion = ({ data }: { data: any }) => {
   // when pillars get (de)selected (i.e. activeIndex changes)
   useEffect(() => {
     if (activeIndex < 6) {
-      setHeight(boxesRefs.current[activeIndex].clientHeight);
-      boxesRefs.current[activeIndex].scrollIntoView({
-        behavior: "smooth",
-        block: isTabletAndUp ? "nearest" : "start",
-      });
+      const currentElement = boxesRefs.current[activeIndex];
+      if (currentElement) {
+        setHeight(currentElement.clientHeight);
+        currentElement.scrollIntoView({
+          behavior: "smooth",
+          block: isTabletAndUp ? "nearest" : "start",
+        });
+      }
     } else setHeight(0);
   }, [activeIndex, isTabletAndUp]);
 
@@ -279,7 +282,9 @@ export const Accordion = ({ data }: { data: any }) => {
                 hidden={activeIndex !== index}
               >
                 {/* This div is needed for height calculation */}
-                <div ref={(element) => (boxesRefs.current[index] = element)}>
+                <div ref={(element) => {
+                  boxesRefs.current[index] = element;
+                }}>
                   {isTabletAndUp ? <Frame /> : <Borders />}
                   <Title>{pillar.title}</Title>
                   <Headline>{pillar.headline}</Headline>

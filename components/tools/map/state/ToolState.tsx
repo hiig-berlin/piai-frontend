@@ -152,11 +152,11 @@ export const defaultToolState: ToolState = {
     genderRatio: [
       {
         id: "lt50",
-        name: "< 50% (female/diverse)",
+        name: "&lt; 50% (female/diverse)",
       },
       {
         id: "gte50",
-        name: ">= 50% (female/diverse)",
+        name: "&ge; 50% (female/diverse)",
       },
     ],
   },
