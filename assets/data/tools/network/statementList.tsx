@@ -6,10 +6,10 @@ export const statementList = [
     statement: "“The Public Interest AI Research Network is a great initiative to exchange global perspectives. Learning from each other and discussing how AI can support public interest goals, is an important alternative to build and demand. We hope the network can also foster synchronized efforts and create a stronger voice for societal perspectives on AI.”"
   },
   {
-    author: "Lorem ipsum dolor sit amet",
-    affiliation: "Lorem ipsum dolor sit amet",
-    image: "/img/tools/network/wolfgang-schulz.jpg",
-    statement: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+    author: "Prof. dr. Pieter Ballon",
+    affiliation: "Studies in Media, Innovation and Technology at Vrije Universiteit Brussel",
+    image: "/img/tools/network/Pieter_Ballon.webp",
+    statement: "“I am extremely happy that the Public Interest AI Research Network has been set up, and consists of so many leading research institutes. This is a timely initiative tackling one of the most pressing and promising issues of today.”"
   },
 ];
     
