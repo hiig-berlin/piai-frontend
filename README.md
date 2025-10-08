@@ -4,10 +4,19 @@ Network branch status [![Netlify Status](https://api.netlify.com/api/v1/badges/b
 
 ## Installation
 
+**Prerequisites:**
+- Node.js 22.x or higher
+- npm 10.x or higher
+
 Configure the environment variables (see below) in an `.env.local` file.
 ```
 npm install
 npm run dev
+```
+
+If you're using nvm, you can use the included `.nvmrc` file:
+```
+nvm use
 ```
 
 ## Environment Variables
