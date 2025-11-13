@@ -123,10 +123,14 @@ export const InfoGridWrapper = styled(Grid)`
 // Member Filter Wrapper
 export const MemberFilterWrapper = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: var(--size-3);
-  justify-content: space-between;
-  align-items: center;
+
+  ${({ theme }) => theme.breakpoints.tablet} {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
 
   h2 {
     ${({ theme }) => theme.applyMixin("uppercase")};
@@ -137,12 +141,18 @@ export const MemberFilterWrapper = styled.div`
 `;
 
 // Member List Element
-export const Entry = styled(Box)<{ isExpanded: boolean }>`
+export const Entry = styled(Box) <{ isExpanded: boolean }>`
   grid-row: auto;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease;
+
+  &:hover {
+    box-shadow: 1px 1px 0.5px var(--color-piai-network);
+  }
 
   ${({ theme }) => theme.breakpoints.tablet} {
     grid-row: ${({ isExpanded }) =>
-      isExpanded ? "auto / span 3" : "auto / span 1"};
+    isExpanded ? "auto / span 2" : "auto / span 1"};
   }
 
   & h2 {
@@ -161,6 +171,12 @@ export const Entry = styled(Box)<{ isExpanded: boolean }>`
     align-self: center;
     top: 0;
   }
+`;
+
+export const EntryDetails = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-3);
 `;
 
 // Label for Card

@@ -104,6 +104,7 @@ export const Tags = styled.div`
   display: flex;
   flex-direction: row;
   gap: var(--size-2);
+  width: fit-content;
 
   &.filter {
     justify-content: start;
@@ -132,8 +133,11 @@ export const Tag = styled(ButtonNormalized)<{
   cursor: ${({ isActive, theme }) => (isActive ? "inherit" : "pointer")};
 
   & .svg {
-    filter: invert(58%) sepia(83%) saturate(375%) hue-rotate(131deg)
-      brightness(111%) contrast(101%);
+    //if tool is network use different filter for better visibility
+    filter: ${({ tool }) =>
+      tool === "network"
+        ? "invert(53%) sepia(75%) saturate(331%) hue-rotate(-38deg) brightness(94%) contrast(101%)"
+        : "invert(58%) sepia(83%) saturate(375%) hue-rotate(131deg) brightness(111%) contrast(101%);"};
     max-width: 10px;
   }
 `;
