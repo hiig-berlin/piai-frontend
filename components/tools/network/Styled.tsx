@@ -152,7 +152,7 @@ export const Entry = styled(Box) <{ isExpanded: boolean }>`
 
   ${({ theme }) => theme.breakpoints.tablet} {
     grid-row: ${({ isExpanded }) =>
-    isExpanded ? "auto / span 3" : "auto / span 1"};
+    isExpanded ? "auto / span 2" : "auto / span 1"};
   }
 
   & h2 {
