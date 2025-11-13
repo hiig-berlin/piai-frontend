@@ -60,7 +60,7 @@ export default function MemberGrid({
             </Tags>
 
             {isExpanded && (
-              <>
+              <div onClick={(e) => e.stopPropagation()}>
                 <Label>Website</Label>
                 <Blurb className="link">
                   <ToolSvgBackground type="globe" />
@@ -94,7 +94,7 @@ export default function MemberGrid({
                     </div>
                   </Blurb>
                 ))}
-              </>
+              </div>
             )}
           </Entry>
         );

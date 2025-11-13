@@ -229,7 +229,7 @@ const Index = ({
                 })}
               </Tags>
               {isExpanded && (
-                <>
+                <div onClick={(e) => e.stopPropagation()}>
                   <Label>Short Description</Label>
                   <p
                     dangerouslySetInnerHTML={{
@@ -259,7 +259,7 @@ const Index = ({
                       </ProjectLinks>
                     </>
                   )}
-                </>
+                </div>
               )}
             </Entry>
           );
