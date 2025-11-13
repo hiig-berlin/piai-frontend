@@ -1,7 +1,5 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/bb2f6722-560d-4deb-8361-4722e922c5cd/deploy-status)](https://app.netlify.com/projects/piai/deploys)
 
-Network branch status [![Netlify Status](https://api.netlify.com/api/v1/badges/bb2f6722-560d-4deb-8361-4722e922c5cd/deploy-status?branch=tool/network)](https://app.netlify.com/projects/piai/deploys)
-
 ## Installation
 
 **Prerequisites:**
@@ -177,7 +175,3 @@ If you've got `cwebp` installed (via `brew install webp`) you can use the follow
 ```
 
 To convert images to the webp format. 
-
-
-
-
