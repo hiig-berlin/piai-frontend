@@ -173,7 +173,6 @@ export const CardDetailsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: var(--size-3);
-  width: max-content;
 `;
 
 // Label for Card
