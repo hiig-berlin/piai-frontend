@@ -5,7 +5,7 @@ import { Tag, Tags } from "../shared/Styled";
 import { Icon } from "../shared/ui/Icon";
 import { ToolSvgBackground } from "../shared/ToolSvgBackground";
 import Link from "next/link";
-import { Grid, Blurb, Entry, Label } from "./Styled";
+import { Grid, Blurb, Entry, Label, CardDetailsWrapper } from "./Styled";
 
 export default function MemberGrid({
   list,
@@ -31,14 +31,18 @@ export default function MemberGrid({
       {list.map((entry, i) => {
         const isExpanded = selectedEntry === i;
         return (
-          <Entry key={i} isExpanded={isExpanded}>
-            <h2 onClick={() => setSelectedEntry(isExpanded ? undefined : i)}>
+          <Entry 
+            key={i} 
+            isExpanded={isExpanded}
+            onClick={() => setSelectedEntry(isExpanded ? undefined : i)}
+          >
+            <h2>
               {entry.name}
             </h2>
             <Icon stc type="marker">
               {entry.location}
             </Icon>
-            <Tags>
+            <Tags onClick={(e) => e.stopPropagation()}>
               {entry.tags.map((tag: string, j: number) => {
                 const isActive = currentTag === tag;
                 return (
@@ -56,7 +60,7 @@ export default function MemberGrid({
             </Tags>
 
             {isExpanded && (
-              <>
+              <CardDetailsWrapper onClick={(e) => e.stopPropagation()}>
                 <Label>Website</Label>
                 <Blurb className="link">
                   <ToolSvgBackground type="globe" />
@@ -90,7 +94,7 @@ export default function MemberGrid({
                     </div>
                   </Blurb>
                 ))}
-              </>
+              </CardDetailsWrapper>
             )}
           </Entry>
         );

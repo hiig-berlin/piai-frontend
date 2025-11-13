@@ -139,6 +139,12 @@ export const MemberFilterWrapper = styled.div`
 // Member List Element
 export const Entry = styled(Box)<{ isExpanded: boolean }>`
   grid-row: auto;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease;
+
+  &:hover {
+    box-shadow: 1px 1px 0.5px var(--color-piai-network);
+  }
 
   ${({ theme }) => theme.breakpoints.tablet} {
     grid-row: ${({ isExpanded }) =>
@@ -161,6 +167,12 @@ export const Entry = styled(Box)<{ isExpanded: boolean }>`
     align-self: center;
     top: 0;
   }
+`;
+
+export const CardDetailsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-3);
 `;
 
 // Label for Card
