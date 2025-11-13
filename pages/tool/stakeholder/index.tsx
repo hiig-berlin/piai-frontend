@@ -94,6 +94,11 @@ const Entry = styled(Box)<{ isExpanded: boolean }>`
   }
 `;
 
+const EntryDetails = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-3);
+`;
 
 const ProjectLinks = styled.ul`
   color: var(--color-piai-stakeholder);
@@ -229,7 +234,7 @@ const Index = ({
                 })}
               </Tags>
               {isExpanded && (
-                <div onClick={(e) => e.stopPropagation()}>
+                <EntryDetails onClick={(e) => e.stopPropagation()}>
                   <Label>Short Description</Label>
                   <p
                     dangerouslySetInnerHTML={{
@@ -259,7 +264,7 @@ const Index = ({
                       </ProjectLinks>
                     </>
                   )}
-                </div>
+                </EntryDetails>
               )}
             </Entry>
           );

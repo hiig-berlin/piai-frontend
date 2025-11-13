@@ -169,7 +169,7 @@ export const Entry = styled(Box)<{ isExpanded: boolean }>`
   }
 `;
 
-export const CardDetailsWrapper = styled.div`
+export const EntryDetails = styled.div`
   display: flex;
   flex-direction: column;
   gap: var(--size-3);
