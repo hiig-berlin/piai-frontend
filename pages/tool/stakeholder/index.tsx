@@ -66,6 +66,12 @@ const Label = styled.h3`
 
 const Entry = styled(Box)<{ isExpanded: boolean }>`
   grid-row: auto;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease;
+
+  &:hover {
+    box-shadow: 1px 1px 0.5px var(--color-piai-stakeholder);
+  }
 
   ${({ theme }) => theme.breakpoints.tablet} {
     grid-row: ${({ isExpanded }) =>
@@ -189,12 +195,14 @@ const Index = ({
         {filteredList.map((entry: any, i: number) => {
           const isExpanded = selectedEntry == i;
           return (
-            <Entry key={`entry-${i}`} isExpanded={isExpanded}>
-              <h2
-                onClick={() =>
-                  isExpanded ? setSelectedEntry(undefined) : setSelectedEntry(i)
-                }
-              >
+            <Entry 
+              key={`entry-${i}`} 
+              isExpanded={isExpanded}
+              onClick={() =>
+                isExpanded ? setSelectedEntry(undefined) : setSelectedEntry(i)
+              }
+            >
+              <h2>
                 {entry.name}
               </h2>
               <Meta col={1}>
@@ -202,7 +210,7 @@ const Index = ({
                   {entry.location}
                 </Icon>
               </Meta>
-              <Tags>
+              <Tags onClick={(e) => e.stopPropagation()}>
                 {entry.tags.map((tag: any, j: number) => {
                   const isActive = currentTag === tag;
                   return (

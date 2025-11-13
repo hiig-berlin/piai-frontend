@@ -31,14 +31,18 @@ export default function MemberGrid({
       {list.map((entry, i) => {
         const isExpanded = selectedEntry === i;
         return (
-          <Entry key={i} isExpanded={isExpanded}>
-            <h2 onClick={() => setSelectedEntry(isExpanded ? undefined : i)}>
+          <Entry 
+            key={i} 
+            isExpanded={isExpanded}
+            onClick={() => setSelectedEntry(isExpanded ? undefined : i)}
+          >
+            <h2>
               {entry.name}
             </h2>
             <Icon stc type="marker">
               {entry.location}
             </Icon>
-            <Tags>
+            <Tags onClick={(e) => e.stopPropagation()}>
               {entry.tags.map((tag: string, j: number) => {
                 const isActive = currentTag === tag;
                 return (
