@@ -169,6 +169,13 @@ export const Entry = styled(Box)<{ isExpanded: boolean }>`
   }
 `;
 
+export const CardDetailsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-3);
+  width: max-content;
+`;
+
 // Label for Card
 export const Label = styled.h3`
   ${({ theme }) => theme.applyMixin("uppercase")};

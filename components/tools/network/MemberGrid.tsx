@@ -5,7 +5,7 @@ import { Tag, Tags } from "../shared/Styled";
 import { Icon } from "../shared/ui/Icon";
 import { ToolSvgBackground } from "../shared/ToolSvgBackground";
 import Link from "next/link";
-import { Grid, Blurb, Entry, Label } from "./Styled";
+import { Grid, Blurb, Entry, Label, CardDetailsWrapper } from "./Styled";
 
 export default function MemberGrid({
   list,
@@ -60,7 +60,7 @@ export default function MemberGrid({
             </Tags>
 
             {isExpanded && (
-              <div onClick={(e) => e.stopPropagation()}>
+              <CardDetailsWrapper onClick={(e) => e.stopPropagation()}>
                 <Label>Website</Label>
                 <Blurb className="link">
                   <ToolSvgBackground type="globe" />
@@ -94,7 +94,7 @@ export default function MemberGrid({
                     </div>
                   </Blurb>
                 ))}
-              </div>
+              </CardDetailsWrapper>
             )}
           </Entry>
         );
