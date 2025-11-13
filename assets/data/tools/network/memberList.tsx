@@ -126,5 +126,18 @@ export const memberList = [
       },
     ],
   },
+  {
+    name: "RIKEN AIP",
+    tags: ["Member"],
+    link: "https://aip.riken.jp/",
+    location: "Tokyo, Japan",
+    people: [
+      {
+        name: "Toshiyasu Ichioka",
+        role: "Director RIKEN Europe Office",
+        link: "https://www.riken.jp/en/europe/",
+      },
+    ],
+  },
 ];
 
