@@ -123,10 +123,14 @@ export const InfoGridWrapper = styled(Grid)`
 // Member Filter Wrapper
 export const MemberFilterWrapper = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: var(--size-3);
-  justify-content: space-between;
-  align-items: center;
+
+  ${({ theme }) => theme.breakpoints.tablet} {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
 
   h2 {
     ${({ theme }) => theme.applyMixin("uppercase")};
@@ -137,7 +141,7 @@ export const MemberFilterWrapper = styled.div`
 `;
 
 // Member List Element
-export const Entry = styled(Box)<{ isExpanded: boolean }>`
+export const Entry = styled(Box) <{ isExpanded: boolean }>`
   grid-row: auto;
   cursor: pointer;
   transition: box-shadow 0.2s ease;
@@ -148,7 +152,7 @@ export const Entry = styled(Box)<{ isExpanded: boolean }>`
 
   ${({ theme }) => theme.breakpoints.tablet} {
     grid-row: ${({ isExpanded }) =>
-      isExpanded ? "auto / span 3" : "auto / span 1"};
+    isExpanded ? "auto / span 3" : "auto / span 1"};
   }
 
   & h2 {

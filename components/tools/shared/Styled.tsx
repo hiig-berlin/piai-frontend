@@ -104,7 +104,7 @@ export const Tags = styled.div`
   display: flex;
   flex-direction: row;
   gap: var(--size-2);
-  width: max-content;
+  width: fit-content;
 
   &.filter {
     justify-content: start;
