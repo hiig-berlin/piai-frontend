@@ -26,6 +26,9 @@ export default function MemberGrid({
     entry.linkBeautified = entry.link.replace(/^https?:\/\//, "").replace(/\/$/, "");
   });
 
+  // Sort list alphabetically by entry name
+  list.sort((a, b) => a.name.localeCompare(b.name));
+
   return (
     <Grid>
       {list.map((entry, i) => {
